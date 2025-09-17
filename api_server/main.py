@@ -66,6 +66,7 @@ def github_put_file(catalog_list: List[Dict]):
         return False, str(e)
 
 def save_torrent_to_github(filename: str, binary_content: bytes) -> str:
+    print(f"[DEBUG] Guardando torrent: {filename}, tamaño={len(binary_content)} bytes")
     path = f"torrents/{filename}"
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
@@ -73,12 +74,13 @@ def save_torrent_to_github(filename: str, binary_content: bytes) -> str:
     body = {"message": f"Add torrent {filename}", "content": content_b64}
     try:
         resp = requests.put(api_url, headers=headers, json=body, timeout=30)
+        print(f"[DEBUG] PUT GitHub status: {resp.status_code}")
         if resp.status_code in (200, 201):
             raw_url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{path}"
             print(f"[DEBUG] Torrent subido: {raw_url}")
             return raw_url
         else:
-            print(f"[DEBUG] Error subiendo torrent {filename}: {resp.status_code} {resp.text}")
+            print(f"[DEBUG] Error subiendo torrent {filename}: {resp.text}")
             return ""
     except Exception as e:
         print(f"[DEBUG] Exception subiendo torrent {filename}: {e}")
