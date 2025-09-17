@@ -7,6 +7,11 @@ import requests
 from typing import Dict, List
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+from api_server.tg_webhook import router as tg_router
+
+app = FastAPI()
+app.include_router(tg_router)
+
 
 # ------------- CONFIG desde variables de entorno -------------
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")       # format owner/repo
