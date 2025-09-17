@@ -4,30 +4,25 @@ from fastapi.responses import JSONResponse
 import requests
 import os
 import json
+import base64
 
-# Configuración
+# Configuración desde variables de entorno
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "owner/repo")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_PATH = os.environ.get("GITHUB_PATH", "catalog.json")
-
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 
 app = FastAPI()
 
-# Función para actualizar catalog.json en GitHub
+# 🔹 Función: actualizar catalog.json en GitHub
 def update_github_catalog(catalog_data):
     url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_PATH}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-    
-    # Obtener sha del archivo si existe
+
     resp = requests.get(url, headers=headers)
-    if resp.status_code == 200:
-        sha = resp.json()["sha"]
-    else:
-        sha = None
+    sha = resp.json()["sha"] if resp.status_code == 200 else None
 
     content = json.dumps(catalog_data, indent=2).encode("utf-8")
-    import base64
     data = {
         "message": "Update catalog",
         "content": base64.b64encode(content).decode("utf-8"),
@@ -38,7 +33,7 @@ def update_github_catalog(catalog_data):
     r = requests.put(url, headers=headers, json=data)
     return r.status_code, r.text
 
-# Webhook para recibir mensajes de Telegram
+# 🔹 Webhook de Telegram
 @app.post("/api/webhook")
 async def webhook(request: Request):
     try:
@@ -46,7 +41,6 @@ async def webhook(request: Request):
     except:
         return JSONResponse({"ok": False, "error": "invalid json"}, status_code=400)
 
-    # Solo procesamos mensajes de canal
     message = data.get("channel_post")
     if not message:
         return JSONResponse({"ok": True, "message": "ignored non-channel message"})
@@ -55,28 +49,22 @@ async def webhook(request: Request):
     document = message.get("document", {})
     catalog = []
 
-    # Procesar magnet o archivo .torrent
     if text.startswith("magnet:"):
         catalog.append({"title": text[:50], "magnet": text})
     elif document.get("file_name", "").endswith(".torrent"):
-        # Generar URL pública del torrent (ej: Dropbox, GitHub raw, etc.)
-        url = f"https://example.com/torrents/{document['file_name']}"
+        url = f"https://example.com/torrents/{document['file_name']}"  # 👈 cámbialo según dónde publiques los .torrent
         catalog.append({"title": document["file_name"], "url": url})
 
-    # Leer catalog.json existente de GitHub
+    # Leer catalog.json existente
     r = requests.get(f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{GITHUB_PATH}")
-    if r.status_code == 200:
-        existing_catalog = r.json()
-    else:
-        existing_catalog = []
+    existing_catalog = r.json() if r.status_code == 200 else []
 
     updated_catalog = existing_catalog + catalog
-    # Actualizar en GitHub
     update_github_catalog(updated_catalog)
 
     return JSONResponse({"ok": True, "added": len(catalog)})
 
-# Endpoint para que Kodi consuma
+# 🔹 Catálogo para Kodi
 @app.get("/api/catalog")
 async def catalog():
     r = requests.get(f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{GITHUB_PATH}")
@@ -84,4 +72,5 @@ async def catalog():
         return JSONResponse(r.json())
     else:
         return JSONResponse([], status_code=200)
+
 
