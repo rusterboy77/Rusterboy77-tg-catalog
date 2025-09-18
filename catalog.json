@@ -143,7 +143,7 @@
     "serie": "10 Libras y Un Sueno",
     "season": 2
   },
-    {
+  {
     "title": "iRehen (2025) [4k 2160p][Esp].torrent",
     "source": "movies/iRehen (2025)/iRehen (2025) [4k 2160p][Esp].torrent",
     "type": "torrent",
@@ -206,5 +206,10 @@
     "category": "movie",
     "movie": "paradise--4KWebrip-temp-1-x-cap-7 24 13512",
     "year": ""
+  },
+  {
+    "title": "Asesinatos en la montana [HDTV 720p][Cap.208].torrent",
+    "source": "https://raw.githubusercontent.com/rusterboy77/Rusterboy77-tg-catalog/main/torrents/Asesinatos en la montana [HDTV 720p][Cap.208].torrent",
+    "type": "torrent"
   }
 ]
