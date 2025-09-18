@@ -1,43 +1,52 @@
-import os
-import re
-import shutil
+import os, re, requests, base64, json
 
-# Carpeta donde se guardan torrents recién recibidos
-INCOMING_DIR = "torrents"
-# Carpeta organizada temporal
-ORGANIZED_DIR = "organized_torrents"
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+TORRENTS_DIR = "torrents"
 
-SERIES_REGEX = re.compile(r"Cap(?:\.|\s*\()?(\d{3})", re.IGNORECASE)
-YEAR_REGEX = re.compile(r"\((\d{4})\)")
+# --- helpers github ---
+def github_list_files(path: str):
+    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
+    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+    r = requests.get(url, headers=headers, timeout=20)
+    if r.status_code == 200:
+        return r.json()
+    print("[ERROR] No se pudo listar carpeta:", r.text)
+    return []
 
-def organize_torrent(filename):
-    # Quita extensiones
-    name = os.path.splitext(filename)[0]
-
-    # Detecta año
-    year_match = YEAR_REGEX.search(name)
-    year = year_match.group(1) if year_match else ""
-
-    # Detecta si es serie o película
-    series_match = SERIES_REGEX.search(name)
-    if series_match:
-        season_num = int(series_match.group(1)[0])
-        target_dir = os.path.join(ORGANIZED_DIR, "series", name.split("Cap")[0].strip(), f"Season {season_num}")
-    else:
-        # Película
-        clean_name = re.sub(r"\[\d{3,4}p.*?\]", "", name).strip()
-        target_dir = os.path.join(ORGANIZED_DIR, "movies", clean_name)
-        if year:
-            target_dir += f" ({year})"
-
-    os.makedirs(target_dir, exist_ok=True)
-    shutil.move(os.path.join(INCOMING_DIR, filename), os.path.join(target_dir, filename))
-    print(f"[A] Movido {filename} → {target_dir}")
+def sanitize_name(name: str) -> str:
+    return re.sub(r"[^a-zA-Z0-9\.\-\[\]\(\) ]+", "_", name)
 
 def main():
-    for f in os.listdir(INCOMING_DIR):
-        if f.lower().endswith(".torrent"):
-            organize_torrent(f)
+    files = github_list_files(TORRENTS_DIR)
+    if not files:
+        print("[WARN] No se encontraron torrents en GitHub.")
+        return
+
+    print(f"[INFO] Procesando {len(files)} torrents desde GitHub...")
+
+    for f in files:
+        if not f["name"].lower().endswith(".torrent"):
+            continue
+        new_name = sanitize_name(f["name"])
+        if new_name != f["name"]:
+            print(f"[RENAME] {f['name']} → {new_name}")
+            # en GitHub API no hay "rename", hay que copiar y borrar
+            url_get = f["download_url"]
+            data = requests.get(url_get).content
+            api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{TORRENTS_DIR}/{new_name}"
+            headers = {"Authorization": f"token {GITHUB_TOKEN}"}
+            body = {
+                "message": f"rename {f['name']} → {new_name}",
+                "content": base64.b64encode(data).decode(),
+            }
+            requests.put(api_url, headers=headers, json=body, timeout=20)
+
+            # borrar viejo
+            del_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{TORRENTS_DIR}/{f['name']}"
+            requests.delete(del_url, headers=headers, json={"message": "remove old", "sha": f["sha"]})
+
+    print("[INFO] rename.py terminado ✅")
 
 if __name__ == "__main__":
     main()
