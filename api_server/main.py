@@ -1,4 +1,4 @@
-import os, re, json, base64, requests
+import os, re, json, base64, requests, subprocess
 from typing import List, Dict
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
@@ -64,6 +64,17 @@ def allowed_chat(message: Dict) -> bool:
     chat_id = str(chat.get("id", ""))
     return chat_id in allowed
 
+def run_scripts():
+    """Ejecuta rename.py y magnet.py en Render"""
+    try:
+        print("[DEBUG] Ejecutando rename.py...")
+        subprocess.run(["python", "rename.py"], check=True)
+        print("[DEBUG] Ejecutando magnet.py...")
+        subprocess.run(["python", "magnet.py"], check=True)
+        print("[DEBUG] Scripts A y B ejecutados correctamente")
+    except Exception as e:
+        print("[ERROR] Fallo ejecutando scripts:", e)
+
 # ---------------- webhook ----------------
 @app.post("/api/webhook")
 async def telegram_webhook(req: Request):
@@ -104,10 +115,14 @@ async def telegram_webhook(req: Request):
     if merged:
         github_put_file(merged)
         print(f"[DEBUG] {len(merged)} items añadidos correctamente a catalog.json")
+
+        # Aquí lanzamos scripts A y B para procesar torrents y actualizar catálogo
+        run_scripts()
+
     return JSONResponse({"ok": True, "added": len(found_items)})
 
 # ---------------- catalog endpoint ----------------
-@app.get("/api/catalog")
+@app.get("/api_server/catalog")
 async def catalog():
     items = get_raw_github_file()
     return JSONResponse(items)
