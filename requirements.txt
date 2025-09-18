@@ -1,5 +1,4 @@
-fastapi==0.95.2
-uvicorn[standard]==0.23.1
-requests==2.31.0
-torrent-parser
-python-dateutil
+fastapi
+uvicorn
+requests
+bencodepy
