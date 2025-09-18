@@ -1,5 +1,4 @@
-import os, re, json, base64, requests, subprocess
-from typing import List, Dict
+import os, json, base64, subprocess, requests
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -9,13 +8,11 @@ GITHUB_PATH = os.environ.get("GITHUB_PATH", "catalog.json")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 
-MAGNET_RE = re.compile(r"(magnet:\?xt=urn:btih:[A-Za-z0-9]+[^\\s]*)", re.IGNORECASE)
 app = FastAPI(title="TG -> Catalog API")
 
 # ---------------- utilidades ----------------
-def get_raw_github_file() -> List[Dict]:
+def get_raw_github_file():
     url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{GITHUB_PATH}"
-    print(f"[DEBUG] Leyendo {url}")
     try:
         r = requests.get(url, timeout=15)
         if r.status_code == 200:
@@ -24,7 +21,7 @@ def get_raw_github_file() -> List[Dict]:
         print("[DEBUG] Error leyendo catalog.json:", e)
     return []
 
-def github_put_file(catalog_list: List[Dict]) -> bool:
+def github_put_file(catalog_list):
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_PATH}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
     sha = None
@@ -36,13 +33,13 @@ def github_put_file(catalog_list: List[Dict]) -> bool:
     if sha:
         body["sha"] = sha
     r_put = requests.put(api_url, headers=headers, json=body, timeout=20)
-    print(f"[DEBUG] PUT GitHub status: {r_put.status_code}")
     if r_put.status_code in (200,201):
+        print("[DEBUG] catalog.json actualizado correctamente")
         return True
     print("[DEBUG] Error subiendo catalog.json:", r_put.text)
     return False
 
-def save_torrent_to_github(filename: str, binary_content: bytes) -> str:
+def save_torrent_to_github(filename, binary_content):
     path = f"torrents/{filename}"
     api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
     headers = {"Authorization": f"token {GITHUB_TOKEN}"}
@@ -56,24 +53,13 @@ def save_torrent_to_github(filename: str, binary_content: bytes) -> str:
     print(f"[DEBUG] Error subiendo torrent {filename}: {r.text}")
     return ""
 
-def allowed_chat(message: Dict) -> bool:
+def allowed_chat(message):
     if not ALLOWED_CHAT_IDS:
         return True
     allowed = [x.strip() for x in ALLOWED_CHAT_IDS.split(",") if x.strip()]
     chat = message.get("chat", {}) or message.get("channel_post", {}).get("chat", {}) or {}
     chat_id = str(chat.get("id", ""))
     return chat_id in allowed
-
-def run_scripts():
-    """Ejecuta rename.py y magnet.py en Render"""
-    try:
-        print("[DEBUG] Ejecutando rename.py...")
-        subprocess.run(["python", "rename.py"], check=True)
-        print("[DEBUG] Ejecutando magnet.py...")
-        subprocess.run(["python", "magnet.py"], check=True)
-        print("[DEBUG] Scripts A y B ejecutados correctamente")
-    except Exception as e:
-        print("[ERROR] Fallo ejecutando scripts:", e)
 
 # ---------------- webhook ----------------
 @app.post("/api/webhook")
@@ -85,11 +71,8 @@ async def telegram_webhook(req: Request):
     if not allowed_chat(payload):
         return JSONResponse({"ok": False, "error": "chat not allowed"}, status_code=403)
 
+    # ---------------- subir torrents a GitHub ----------------
     found_items = []
-    text = msg.get("text") or msg.get("caption") or ""
-    for m in MAGNET_RE.findall(str(text)):
-        found_items.append({"title": text.splitlines()[0][:120] if text else m, "source": m, "type": "magnet"})
-
     doc = msg.get("document")
     if doc and doc.get("file_name","").lower().endswith(".torrent"):
         file_id = doc.get("file_id")
@@ -106,24 +89,31 @@ async def telegram_webhook(req: Request):
                         if raw_url:
                             found_items.append({"title": filename, "source": raw_url, "type": "torrent"})
 
-    # ------------- Merge con catalog.json existente -------------
+    if not found_items:
+        return JSONResponse({"ok": True, "added": 0})
+
+    # ---------------- merge con catalog.json existente ----------------
     existing = get_raw_github_file() or []
     existing_map = {it.get("source"): it for it in existing}
     for it in found_items:
         existing_map[it.get("source")] = it
     merged = list(existing_map.values())
-    if merged:
-        github_put_file(merged)
-        print(f"[DEBUG] {len(merged)} items añadidos correctamente a catalog.json")
 
-        # Aquí lanzamos scripts A y B para procesar torrents y actualizar catálogo
-        run_scripts()
+    # ---------------- ejecutar scripts rename y magnet ----------------
+    try:
+        print("[DEBUG] Ejecutando rename.py...")
+        subprocess.run(["python", "rename.py"], check=True)
+        print("[DEBUG] Ejecutando magnet.py...")
+        subprocess.run(["python", "magnet.py"], check=True)
+        print("[DEBUG] Scripts A y B ejecutados correctamente")
+    except Exception as e:
+        print("[ERROR] Fallo ejecutando scripts:", e)
 
+    github_put_file(merged)
     return JSONResponse({"ok": True, "added": len(found_items)})
 
 # ---------------- catalog endpoint ----------------
-@app.get("/api_server/catalog")
+@app.get("/api/catalog")
 async def catalog():
     items = get_raw_github_file()
     return JSONResponse(items)
-

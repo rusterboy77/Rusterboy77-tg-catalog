@@ -1,51 +1,51 @@
-import os, re, requests, base64, json
+import os, re, json, requests
 
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
+CATALOG_JSON = "catalog.json"
+
 TORRENTS_DIR = "torrents"
 
-# --- helpers github ---
-def github_list_files(path: str):
-    url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{path}"
-    headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-    r = requests.get(url, headers=headers, timeout=20)
+def download_torrent(url, local_path):
+    r = requests.get(url, timeout=30)
     if r.status_code == 200:
-        return r.json()
-    print("[ERROR] No se pudo listar carpeta:", r.text)
-    return []
-
-def sanitize_name(name: str) -> str:
-    return re.sub(r"[^a-zA-Z0-9\.\-\[\]\(\) ]+", "_", name)
+        with open(local_path, "wb") as f:
+            f.write(r.content)
+        return True
+    return False
 
 def main():
-    files = github_list_files(TORRENTS_DIR)
-    if not files:
-        print("[WARN] No se encontraron torrents en GitHub.")
-        return
+    if not os.path.exists(TORRENTS_DIR):
+        os.makedirs(TORRENTS_DIR)
+    # cargar catalog.json
+    catalog = []
+    try:
+        with open(CATALOG_JSON, "r", encoding="utf-8") as f:
+            catalog = json.load(f)
+    except Exception:
+        catalog = []
 
-    print(f"[INFO] Procesando {len(files)} torrents desde GitHub...")
+    for item in catalog:
+        try:
+            url = item.get("source")
+            if not url:
+                continue
+            filename = os.path.basename(url)
+            local_path = os.path.join(TORRENTS_DIR, filename)
+            if not os.path.exists(local_path):
+                download_torrent(url, local_path)
 
-    for f in files:
-        if not f["name"].lower().endswith(".torrent"):
-            continue
-        new_name = sanitize_name(f["name"])
-        if new_name != f["name"]:
-            print(f"[RENAME] {f['name']} → {new_name}")
-            # en GitHub API no hay "rename", hay que copiar y borrar
-            url_get = f["download_url"]
-            data = requests.get(url_get).content
-            api_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{TORRENTS_DIR}/{new_name}"
-            headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-            body = {
-                "message": f"rename {f['name']} → {new_name}",
-                "content": base64.b64encode(data).decode(),
-            }
-            requests.put(api_url, headers=headers, json=body, timeout=20)
+            # Renombrado simple: quitar calidades del nombre de carpeta
+            name = filename
+            name = re.sub(r"\[.*?p.*?\]", "", name)
+            name = re.sub(r"\.torrent$", "", name)
+            item["title"] = name.strip()
 
-            # borrar viejo
-            del_url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{TORRENTS_DIR}/{f['name']}"
-            requests.delete(del_url, headers=headers, json={"message": "remove old", "sha": f["sha"]})
+        except Exception as e:
+            print(f"[ERROR] {filename} no procesado:", e)
 
+    with open(CATALOG_JSON, "w", encoding="utf-8") as f:
+        json.dump(catalog, f, ensure_ascii=False, indent=2)
     print("[INFO] rename.py terminado ✅")
 
 if __name__ == "__main__":
