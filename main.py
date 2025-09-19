@@ -178,8 +178,14 @@ async def telegram_webhook(req: Request):
                     logger.info("Saved torrent to %s", save_path)
                     save_status({"event": "torrent_saved", "file": os.path.basename(save_path), "size": os.path.getsize(save_path)})
                     # Run rename.py and magnet.py on that newly saved file
+                    # Ejecutamos rename.py primero
                     rc1, out1, err1 = run_script_collect("rename.py", [save_path])
-                    rc2, out2, err2 = run_script_collect("magnet.py", [save_path])
+
+                    # Si rename.py generó salida (nuevo path), la usamos
+                    new_path = out1.strip() if out1.strip() else save_path
+
+                    # Ejecutamos magnet.py con el archivo renombrado
+                    rc2, out2, err2 = run_script_collect("magnet.py", [new_path])
                     processed.append({"file": os.path.basename(save_path), "rename_rc": rc1, "magnet_rc": rc2})
                     save_status({"event":"scripts_ran", "file": os.path.basename(save_path), "rename_rc": rc1, "magnet_rc": rc2})
                 else:
