@@ -1,0 +1,22 @@
+# .render.yaml
+services:
+  - type: web
+    name: tg-catalog-bot
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT --workers 1 --timeout-keep-alive 30
+    envVars:
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: GITHUB_REPO
+        fromSecret: GITHUB_REPO
+      - key: GITHUB_TOKEN
+        fromSecret: GITHUB_TOKEN
+      - key: GITHUB_PATH
+        value: catalog.json
+      - key: BOT_TOKEN
+        fromSecret: BOT_TOKEN
+      - key: ALLOWED_CHAT_IDS
+        fromSecret: ALLOWED_CHAT_IDS
+    autoDeploy: true
