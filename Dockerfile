@@ -1,20 +1,13 @@
-# Imagen base ligera de Python
-FROM python:3.12-slim
+# Dockerfile
+FROM alpine:latest
 
-# Evitar buffering de stdout/stderr
-ENV PYTHONUNBUFFERED=1
+RUN apk add --no-cache curl unzip bash
 
-# Directorio de trabajo
-WORKDIR /app
+# Descargar ngrok (v3)
+RUN curl -Lo /ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip \
+    && unzip /ngrok.zip -d / \
+    && rm /ngrok.zip
 
-# Copiar scripts y requirements
-COPY app/ /app/
+# Definir comando
+CMD ["/ngrok", "http", "tg_catalog:8000", "--log=stdout"]
 
-# Instalar dependencias
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Puerto para FastAPI
-EXPOSE 8000
-
-# Comando por defecto
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
