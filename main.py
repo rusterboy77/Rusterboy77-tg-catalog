@@ -1,4 +1,4 @@
-ç# main.py - Versión OPTIMIZADA para Render (512MB)
+# main.py - Versión OPTIMIZADA para Render (512MB)
 import os
 import json
 import logging
