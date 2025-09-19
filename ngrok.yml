@@ -1,3 +1,4 @@
+version: "2"
 authtoken: 32w6cGEsUlhXZgOk5n4cGPEfYDM_6rW519okkZ4jYseb3kuWo
 tunnels:
   tg_catalog:
