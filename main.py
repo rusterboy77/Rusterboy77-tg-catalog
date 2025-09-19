@@ -5,6 +5,7 @@ import logging
 import datetime
 import subprocess
 import requests
+import base64
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -99,29 +100,59 @@ def run_script_collect(script_name: str, args: list, timeout: int = 60):
         return -1, "", str(e)
 
 def load_local_catalog():
-    """Carga el catalog.json local o crea uno nuevo si no existe"""
-    catalog_path = "catalog.json"
-    if os.path.exists(catalog_path):
-        try:
-            with open(catalog_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            logger.error(f"Error loading catalog.json: {e}")
+    """Descarga el catalog.json actual desde GitHub"""
+    try:
+        url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{GITHUB_PATH}"
+        response = requests.get(url, timeout=30)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            logger.warning(f"Catalog not found on GitHub, creating new one. Status: {response.status_code}")
             return {"movies": {}, "series": {}}
-    return {"movies": {}, "series": {}}
+    except Exception as e:
+        logger.error(f"Error downloading catalog from GitHub: {e}")
+        return {"movies": {}, "series": {}}
 
 def save_local_catalog(catalog_data):
-    """Guarda el catalog.json localmente"""
-    catalog_path = "catalog.json"
+    """Sube el catalog.json actualizado a GitHub"""
     try:
-        with open(catalog_path, "w", encoding="utf-8") as f:
-            json.dump(catalog_data, f, ensure_ascii=False, indent=2)
-        logger.info("Catalog.json updated successfully")
-        return True
+        # Primero obtener el SHA del archivo actual (si existe)
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_PATH}"
+        headers = {
+            "Authorization": f"token {GITHUB_TOKEN}",
+            "Accept": "application/vnd.github.v3+json"
+        }
+        
+        # Obtener SHA del archivo actual
+        current_file_response = requests.get(url, headers=headers, timeout=30)
+        sha = None
+        if current_file_response.status_code == 200:
+            sha = current_file_response.json().get("sha")
+        
+        # Preparar contenido para subir
+        content = json.dumps(catalog_data, ensure_ascii=False, indent=2)
+        content_b64 = base64.b64encode(content.encode("utf-8")).decode("utf-8")
+        
+        data = {
+            "message": f"Update catalog - {datetime.datetime.utcnow().isoformat()}",
+            "content": content_b64,
+            "sha": sha  # Necesario para actualizar existente
+        }
+        
+        # Subir a GitHub
+        response = requests.put(url, headers=headers, json=data, timeout=30)
+        
+        if response.status_code in [200, 201]:
+            logger.info("Catalog.json updated successfully on GitHub")
+            return True
+        else:
+            logger.error(f"Failed to update catalog on GitHub: {response.status_code} - {response.text}")
+            return False
+            
     except Exception as e:
-        logger.error(f"Error saving catalog.json: {e}")
+        logger.exception(f"Error uploading catalog to GitHub: {e}")
         return False
-
+    
 def update_catalog_with_torrent(metadata, magnet_data, file_size_bytes):
     """
     Actualiza el catalog.json con el nuevo torrent
