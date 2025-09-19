@@ -1,4 +1,4 @@
-# main.py - Versión OPTIMIZADA para Render (512MB)
+ç# main.py - Versión OPTIMIZADA para Render (512MB)
 import os
 import json
 import logging
@@ -26,6 +26,27 @@ logger.addHandler(sh)
 # --- Para evitar bucles (optimizado) ---
 processed_files = set()
 MAX_PROCESSED_FILES = 100  # Limitar tamaño para ahorrar memoria
+
+# --- FUNCIÓN AÑADIDA ---
+def allowed_chat(payload: dict) -> bool:
+    """
+    Verifica si el chat está permitido basado en ALLOWED_CHAT_IDS
+    Si ALLOWED_CHAT_IDS está vacío, permite todos los chats
+    """
+    if not ALLOWED_CHAT_IDS:
+        return True
+    
+    allowed_ids = [x.strip() for x in ALLOWED_CHAT_IDS.split(",") if x.strip()]
+    
+    # Buscar el ID del chat en el payload
+    chat = (
+        payload.get("message", {}).get("chat") or 
+        payload.get("channel_post", {}).get("chat") or 
+        {}
+    )
+    chat_id = str(chat.get("id", ""))
+    
+    return chat_id in allowed_ids
 
 app = FastAPI(title="TG -> Catalog API")
 
