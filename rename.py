@@ -1,14 +1,21 @@
-import sys, os, re
+import os
+import sys
 
-def clean_name(fname):
-    name = os.path.splitext(fname)[0]
-    name = re.sub(r"\s+", " ", name).strip()
-    name = name.replace(".", " ")
-    return name
+if len(sys.argv) < 2:
+    print("Uso: python rename.py <torrent_path>")
+    sys.exit(1)
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        sys.exit(1)
-    fname = sys.argv[1]
-    new_name = clean_name(fname) + ".torrent"
-    print(new_name)
+torrent_path = sys.argv[1]
+dirname = os.path.dirname(torrent_path)
+fname = os.path.basename(torrent_path)
+
+# Simplificamos nombre (ejemplo: quitamos corchetes raros)
+new_name = fname.replace(".", " ").replace("[", "").replace("]", "")
+new_name = new_name.replace("  ", " ").strip()
+new_name = new_name.replace(" ", ".")  # mantener estilo
+new_path = os.path.join(dirname, new_name)
+
+os.rename(torrent_path, new_path)
+
+# stdout: ruta final
+print(new_path)
