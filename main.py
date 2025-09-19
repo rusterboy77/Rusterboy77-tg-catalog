@@ -1,4 +1,4 @@
-# main_debug.py  (reemplaza / integra con tu main.py existente)
+# main.py - Versión completa y corregida
 import os
 import json
 import logging
@@ -33,7 +33,10 @@ logger.addHandler(sh)
 PAYLOADS_FILE = os.path.join(DEBUG_DIR, "payloads.jsonl")
 STATUS_FILE = os.path.join(DEBUG_DIR, "status.jsonl")
 
-app = FastAPI(title="TG -> Catalog API (debug)")
+# --- Para evitar bucles ---
+processed_files = set()
+
+app = FastAPI(title="TG -> Catalog API")
 
 def save_payload(payload: dict):
     if not DEBUG_SAVE_PAYLOADS:
@@ -278,6 +281,17 @@ async def telegram_webhook(req: Request):
         save_status({"event":"no_message"})
         return JSONResponse({"ok": True, "info": "no message payload"})
 
+    # --- EVITAR BUCLE: Verificar si ya procesamos este file_id ---
+    doc = msg.get("document")
+    if doc and doc.get("file_name","").lower().endswith(".torrent"):
+        file_id = doc.get("file_id")
+        if file_id in processed_files:
+            logger.info(f"File {file_id} already processed, skipping")
+            return JSONResponse({"ok": True, "info": "already processed"})
+        
+        # Marcar como procesado
+        processed_files.add(file_id)
+
     # Debug: log what type of message we received
     logger.debug("Message keys: %s", list(msg.keys()))
     # Search magnets in text/caption
@@ -286,7 +300,6 @@ async def telegram_webhook(req: Request):
         logger.debug("Text received (first 200 chars): %s", text[:200])
 
     # If document .torrent present: download it
-    doc = msg.get("document")
     processed = []
     if doc and doc.get("file_name","").lower().endswith(".torrent"):
         file_id = doc.get("file_id")
@@ -349,4 +362,3 @@ async def telegram_webhook(req: Request):
         logger.debug("No document torrent found in message")
 
     return JSONResponse({"ok": True, "processed": processed})
-
