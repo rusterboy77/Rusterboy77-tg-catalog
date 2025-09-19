@@ -1,4 +1,3 @@
-# main.py - Versión OPTIMIZADA para Render (512MB)
 import os
 import json
 import logging
@@ -6,6 +5,7 @@ import datetime
 import subprocess
 import requests
 import base64
+import tempfile
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -18,52 +18,38 @@ ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 
 # --- Logger optimizado ---
 logger = logging.getLogger("tgcatalog")
-logger.setLevel(logging.INFO)  # Cambiado de DEBUG a INFO
+logger.setLevel(logging.INFO)
 sh = logging.StreamHandler()
 sh.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
 logger.addHandler(sh)
 
 # --- Para evitar bucles (optimizado) ---
 processed_files = set()
-MAX_PROCESSED_FILES = 100  # Limitar tamaño para ahorrar memoria
+MAX_PROCESSED_FILES = 100
 
-# --- FUNCIÓN AÑADIDA ---
 def allowed_chat(payload: dict) -> bool:
-    """
-    Verifica si el chat está permitido basado en ALLOWED_CHAT_IDS
-    Si ALLOWED_CHAT_IDS está vacío, permite todos los chats
-    """
     if not ALLOWED_CHAT_IDS:
         return True
-    
     allowed_ids = [x.strip() for x in ALLOWED_CHAT_IDS.split(",") if x.strip()]
-    
-    # Buscar el ID del chat en el payload
-    chat = (
-        payload.get("message", {}).get("chat") or 
-        payload.get("channel_post", {}).get("chat") or 
-        {}
-    )
+    chat = (payload.get("message", {}).get("chat") or 
+            payload.get("channel_post", {}).get("chat") or {})
     chat_id = str(chat.get("id", ""))
-    
     return chat_id in allowed_ids
 
 app = FastAPI(title="TG -> Catalog API")
 
 def cleanup_processed_files():
-    """Limpiar processed_files si crece demasiado"""
     global processed_files
     if len(processed_files) > MAX_PROCESSED_FILES:
         processed_files = set()
         logger.info("Cleaned up processed_files set")
 
 def run_script_collect(script_name: str, args: list, timeout: int = 30):
-    """Ejecuta scripts de forma optimizada"""
     cmd = ["python", script_name] + args
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
         if proc.stderr:
-            logger.error("stderr (%s): %s", script_name, proc.stderr[:200])  # Limitar log
+            logger.error("stderr (%s): %s", script_name, proc.stderr[:200])
         return proc.returncode, proc.stdout, proc.stderr
     except Exception as e:
         logger.error("Error ejecutando script %s: %s", script_name, str(e))
@@ -97,9 +83,37 @@ def save_local_catalog(catalog_data):
         
         response = requests.put(url, headers=headers, json=data, timeout=15)
         return response.status_code in [200, 201]
-            
     except Exception as e:
         logger.error("Error uploading to GitHub: %s", str(e))
+        return False
+
+def save_torrent_to_github(file_content, filename):
+    """Sube el torrent a GitHub para procesamiento futuro"""
+    try:
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/torrents/{filename}"
+        headers = {"Authorization": f"token {GITHUB_TOKEN}", "Accept": "application/vnd.github.v3+json"}
+        
+        # Verificar si ya existe
+        current_file = requests.get(url, headers=headers, timeout=10)
+        sha = current_file.json().get("sha") if current_file.status_code == 200 else None
+        
+        content_b64 = base64.b64encode(file_content).decode("utf-8")
+        
+        data = {
+            "message": f"Add torrent - {filename}",
+            "content": content_b64,
+            "sha": sha
+        }
+        
+        response = requests.put(url, headers=headers, json=data, timeout=15)
+        if response.status_code in [200, 201]:
+            logger.info("Torrent uploaded to GitHub: %s", filename)
+            return True
+        else:
+            logger.warning("Failed to upload torrent to GitHub: %s", response.text)
+            return False
+    except Exception as e:
+        logger.error("Error uploading torrent to GitHub: %s", str(e))
         return False
     
 def update_catalog_with_torrent(metadata, magnet_data, file_size_bytes):
@@ -136,36 +150,48 @@ def update_catalog_with_torrent(metadata, magnet_data, file_size_bytes):
     existing_hashes = [t.get("infohash") for t in catalog[category][key]["torrents"]]
     if magnet_data["infohash"] not in existing_hashes:
         catalog[category][key]["torrents"].append(new_torrent)
-        logger.info("Added torrent: %s", key)
+        logger.info("Added torrent to catalog: %s", key)
     
     return save_local_catalog(catalog)
 
-async def process_torrent_file(file_path, original_name):
+async def process_torrent_from_content(file_content, original_name):
+    """Procesa el torrent desde el contenido en memoria"""
     try:
-        # rename.py
+        # Crear archivo temporal
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".torrent") as temp_file:
+            temp_file.write(file_content)
+            temp_path = temp_file.name
+        
+        # Ejecutar rename.py con el nombre original
         rc_rename, out_rename, err_rename = run_script_collect("rename.py", [original_name])
         if rc_rename != 0:
             return False
         
         metadata = json.loads(out_rename)
         
-        # magnet.py
-        rc_magnet, out_magnet, err_magnet = run_script_collect("magnet.py", [file_path])
+        # Ejecutar magnet.py con el archivo temporal
+        rc_magnet, out_magnet, err_magnet = run_script_collect("magnet.py", [temp_path])
         if rc_magnet != 0:
             return False
         
         magnet_data = json.loads(out_magnet)
         
-        # Limitar log del magnet (muy grande)
-        short_magnet = magnet_data["magnet"][:100] + "..." if len(magnet_data["magnet"]) > 100 else magnet_data["magnet"]
-        logger.info("Magnet: %s", short_magnet)
+        # Subir torrent a GitHub (opcional, para backup)
+        save_torrent_to_github(file_content, original_name)
         
-        file_size = os.path.getsize(file_path)
+        file_size = len(file_content)
         return update_catalog_with_torrent(metadata, magnet_data, file_size)
             
     except Exception as e:
-        logger.error("Error processing torrent: %s", str(e))
+        logger.error("Error processing torrent from content: %s", str(e))
         return False
+    finally:
+        # Limpiar archivo temporal
+        try:
+            if temp_path and os.path.exists(temp_path):
+                os.unlink(temp_path)
+        except:
+            pass
 
 @app.post("/api/webhook")
 async def telegram_webhook(req: Request):
@@ -174,14 +200,13 @@ async def telegram_webhook(req: Request):
     except Exception:
         return JSONResponse({"ok": False, "error": "invalid json"}, status_code=400)
 
-    # Limpieza periódica
     cleanup_processed_files()
 
     msg = payload.get("channel_post") or payload.get("message")
     if not msg:
         return JSONResponse({"ok": True, "info": "no message"})
 
-    # Verificación antibucle PRIMERO
+    # Verificación antibucle
     doc = msg.get("document")
     if doc and doc.get("file_name","").lower().endswith(".torrent"):
         file_id = doc.get("file_id")
@@ -212,11 +237,8 @@ async def telegram_webhook(req: Request):
             r = requests.get(dl_url, timeout=20)
             
             if r.status_code == 200:
-                save_path = os.path.join("torrents", orig_name)
-                with open(save_path, "wb") as f:
-                    f.write(r.content)
-                
-                success = await process_torrent_file(save_path, orig_name)
+                # Procesar directamente desde el contenido en memoria
+                success = await process_torrent_from_content(r.content, orig_name)
                 processed.append({"file": orig_name, "success": success})
                 
         except Exception as e:
