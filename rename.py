@@ -3,6 +3,8 @@
 # Adaptado para Render, mantiene la lógica local original
 
 import re
+import json
+import os
 
 # Tokens que queremos eliminar
 TOKENS_REMOVE = [
@@ -69,3 +71,69 @@ def canonical_movie_key(title: str, year):
 def canonical_series_key(title: str, season: int):
     t = re.sub(r"[^\w]", " ", (title or "").lower()).strip()
     return f"{t}||S{season}"
+
+def extract_metadata_from_filename(filename):
+    """
+    Extrae metadatos del nombre del archivo
+    Returns: dict con title, year, quality, type (movie/series)
+    """
+    base_name = os.path.splitext(filename)[0]
+    clean_name = remove_tokens(base_name)
+    year, cleaner_name = extract_year_and_clean(clean_name)
+    
+    # Detectar calidad
+    quality = "Unknown"
+    if "4k" in base_name.lower() or "2160" in base_name.lower():
+        quality = "4K"
+    elif "1080" in base_name.lower():
+        quality = "1080p"
+    elif "720" in base_name.lower():
+        quality = "720p"
+    
+    # Detectar si es serie (buscar patrones como S01E01, temporada, capítulo)
+    is_series = False
+    season = None
+    episode = None
+    
+    # Patrones comunes para series
+    series_patterns = [
+        r"[Ss](\d{1,2})[Ee](\d{1,2})",
+        r"temporada\s*(\d+).*capitulo\s*(\d+)",
+        r"season\s*(\d+).*episode\s*(\d+)",
+        r"cap\.?\s*(\d+)"
+    ]
+    
+    for pattern in series_patterns:
+        match = re.search(pattern, base_name, re.IGNORECASE)
+        if match:
+            is_series = True
+            if len(match.groups()) >= 1:
+                season = int(match.group(1))
+            if len(match.groups()) >= 2:
+                episode = int(match.group(2))
+            break
+    
+    # Si no encuentra patrón pero tiene "cap", asumir serie
+    if not is_series and re.search(r"cap\.?\s*\d+", base_name, re.IGNORECASE):
+        is_series = True
+        season = 1  # Default season
+    
+    result = {
+        "title": cleaner_name,
+        "year": year,
+        "quality": quality,
+        "type": "series" if is_series else "movie"
+    }
+    
+    if is_series:
+        result["season"] = season
+        result["episode"] = episode
+    
+    return result
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) > 1:
+        filename = sys.argv[1]
+        metadata = extract_metadata_from_filename(filename)
+        print(json.dumps(metadata, ensure_ascii=False))

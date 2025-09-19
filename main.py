@@ -98,6 +98,123 @@ def run_script_collect(script_name: str, args: list, timeout: int = 60):
         logger.exception("Error ejecutando script %s: %s", script_name, e)
         return -1, "", str(e)
 
+def load_local_catalog():
+    """Carga el catalog.json local o crea uno nuevo si no existe"""
+    catalog_path = "catalog.json"
+    if os.path.exists(catalog_path):
+        try:
+            with open(catalog_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            logger.error(f"Error loading catalog.json: {e}")
+            return {"movies": {}, "series": {}}
+    return {"movies": {}, "series": {}}
+
+def save_local_catalog(catalog_data):
+    """Guarda el catalog.json localmente"""
+    catalog_path = "catalog.json"
+    try:
+        with open(catalog_path, "w", encoding="utf-8") as f:
+            json.dump(catalog_data, f, ensure_ascii=False, indent=2)
+        logger.info("Catalog.json updated successfully")
+        return True
+    except Exception as e:
+        logger.error(f"Error saving catalog.json: {e}")
+        return False
+
+def update_catalog_with_torrent(metadata, magnet_data, file_size_bytes):
+    """
+    Actualiza el catalog.json con el nuevo torrent
+    metadata: from rename.py (dict con title, year, quality, type, etc.)
+    magnet_data: from magnet.py (dict con infohash, magnet, trackers)
+    file_size_bytes: tamaño del archivo en bytes
+    """
+    catalog = load_local_catalog()
+    
+    # Convertir tamaño a formato legible
+    size_gb = round(file_size_bytes / (1024**3), 2)
+    size_str = f"{size_gb} GB"
+    
+    # Determinar categoría
+    category = metadata.get("type", "movie")
+    if category not in catalog:
+        category = "movie"  # Fallback
+    
+    # Crear clave única (como en tu JSON existente)
+    if category == "series":
+        season = metadata.get("season", 1)
+        key = f"{metadata['title']}||S{season}"
+    else:
+        key = f"{metadata['title']}||{metadata.get('year', '')}"
+    
+    # Crear entrada si no existe
+    if key not in catalog[category]:
+        catalog[category][key] = {
+            "title": metadata["title"],
+            "year": str(metadata.get("year", "")),
+            "torrents": []
+        }
+    
+    # Crear objeto torrent
+    new_torrent = {
+        "magnet": magnet_data["magnet"],
+        "infohash": magnet_data["infohash"],
+        "quality": metadata.get("quality", "Unknown"),
+        "size": size_str,
+        "added": datetime.datetime.utcnow().isoformat() + "Z"
+    }
+    
+    # Evitar duplicados por infohash
+    existing_hashes = [t.get("infohash") for t in catalog[category][key]["torrents"]]
+    if magnet_data["infohash"] not in existing_hashes:
+        catalog[category][key]["torrents"].append(new_torrent)
+        logger.info(f"Added new torrent to catalog: {key}")
+    else:
+        logger.info(f"Torrent already exists in catalog: {magnet_data['infohash']}")
+    
+    # Guardar cambios
+    return save_local_catalog(catalog)
+
+async def process_torrent_file(file_path, original_name):
+    """Procesa un archivo torrent completo: rename -> magnet -> catalog"""
+    try:
+        # 1. Ejecutar rename.py para obtener metadatos
+        rc_rename, out_rename, err_rename = run_script_collect("rename.py", [original_name])
+        if rc_rename != 0:
+            logger.error(f"rename.py failed: {err_rename}")
+            return False
+        
+        metadata = json.loads(out_rename)
+        
+        # 2. Ejecutar magnet.py para obtener magnet link
+        rc_magnet, out_magnet, err_magnet = run_script_collect("magnet.py", [file_path])
+        if rc_magnet != 0:
+            logger.error(f"magnet.py failed: {err_magnet}")
+            return False
+        
+        magnet_data = json.loads(out_magnet)
+        
+        # 3. Obtener tamaño del archivo
+        file_size = os.path.getsize(file_path)
+        
+        # 4. Actualizar catalog.json
+        success = update_catalog_with_torrent(metadata, magnet_data, file_size)
+        
+        if success:
+            logger.info(f"Successfully processed and added to catalog: {original_name}")
+            return {
+                "metadata": metadata,
+                "magnet_data": magnet_data,
+                "catalog_updated": True
+            }
+        else:
+            logger.error(f"Failed to update catalog for: {original_name}")
+            return False
+            
+    except Exception as e:
+        logger.exception(f"Error processing torrent {original_name}: {e}")
+        return False
+
 @app.get("/api/health")
 async def health():
     return {"status": "ok", "time": datetime.datetime.utcnow().isoformat()+"Z"}
@@ -177,18 +294,21 @@ async def telegram_webhook(req: Request):
                         f.write(r.content)
                     logger.info("Saved torrent to %s", save_path)
                     save_status({"event": "torrent_saved", "file": os.path.basename(save_path), "size": os.path.getsize(save_path)})
-                    # Run rename.py and magnet.py on that newly saved file
-                    # Ejecutamos rename.py primero
-                    rc1, out1, err1 = run_script_collect("rename.py", [save_path])
-
-                    # Si rename.py generó salida (nuevo path), la usamos
-                    new_path = out1.strip() if out1.strip() else save_path
-
-                    # Ejecutamos magnet.py con el archivo renombrado
-                    rc2, out2, err2 = run_script_collect("magnet.py", [new_path])
-
-                    processed.append({"file": os.path.basename(save_path), "rename_rc": rc1, "magnet_rc": rc2})
-                    save_status({"event":"scripts_ran", "file": os.path.basename(save_path), "rename_rc": rc1, "magnet_rc": rc2})
+                    
+                    # Procesar el torrent completo: rename -> magnet -> catalog
+                    processing_result = await process_torrent_file(save_path, orig_name)
+                    if processing_result:
+                        processed.append({
+                            "file": os.path.basename(save_path),
+                            "success": True,
+                            "title": processing_result["metadata"]["title"]
+                        })
+                    else:
+                        processed.append({
+                            "file": os.path.basename(save_path),
+                            "success": False
+                        })
+                        
                 else:
                     save_status({"event":"download_failed", "status": r.status_code, "file": orig_name})
         except Exception as e:
@@ -197,9 +317,5 @@ async def telegram_webhook(req: Request):
     else:
         logger.debug("No document torrent found in message")
 
-    # magnets in text:
-    # (Not modifying your catalog here; just log found magnets)
-    # Add your existing magnet-add-to-catalog logic where appropriate.
-    # For now, we return what we processed.
     return JSONResponse({"ok": True, "processed": processed})
 
