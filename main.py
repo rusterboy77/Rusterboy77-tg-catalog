@@ -11,11 +11,11 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
 # Configuración
-GITHUB_REPO = os.environ.get("GITHUB_REPO", "rusterboy77/Rusterboy77-tg-catalog")
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "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")
+GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_PATH = os.environ.get("GITHUB_PATH", "catalog.json")
-BOT_TOKEN = os.environ.get("BOT_TOKEN", "7629091414:AAFRskiLwIPfjgIxz9KZB88dyfbKU1LTsu8")
-ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "-4782889661")
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 
 # Logging completo
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s [%(levelname)s] %(message)s")
