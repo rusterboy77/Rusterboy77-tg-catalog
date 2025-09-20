@@ -9,6 +9,7 @@ import tempfile
 import gc
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
+import sys
 
 # Configuración desde variables de entorno
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
@@ -17,8 +18,8 @@ GITHUB_PATH = os.environ.get("GITHUB_PATH", "catalog.json")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 
-# Logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+# Logging a stdout para que se vea en docker logs
+logging.basicConfig(stream=sys.stdout, level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("tgcatalog")
 
 processed_files = set()
@@ -43,11 +44,12 @@ def cleanup_processed_files():
 
 def run_script_collect(script_name: str, args: list, timeout: int = 15):
     cmd = ["python", script_name] + args
+    logger.info("Running script: %s %s", script_name, args)
     try:
         proc = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout, env={**os.environ, "PYTHONUNBUFFERED":"1"})
         if proc.stderr:
             logger.warning("stderr (%s): %s", script_name, proc.stderr.strip())
-        return proc.returncode, proc.stdout, proc.stderr
+        return proc.returncode, proc.stdout.strip(), proc.stderr.strip()
     except subprocess.TimeoutExpired:
         logger.error("Timeout ejecutando %s", script_name)
         return -2, "", "timeout"
@@ -59,7 +61,12 @@ def load_local_catalog():
     try:
         url = f"https://raw.githubusercontent.com/{GITHUB_REPO}/main/{GITHUB_PATH}"
         r = requests.get(url, timeout=10)
-        return r.json() if r.status_code == 200 else {"movies": {}, "series": {}}
+        if r.status_code == 200:
+            logger.info("Catalog loaded successfully from GitHub")
+            return r.json()
+        else:
+            logger.warning("Catalog not found in GitHub, starting empty")
+            return {"movies": {}, "series": {}}
     except Exception as e:
         logger.error("Error downloading catalog: %s", e)
         return {"movies": {}, "series": {}}
@@ -87,34 +94,25 @@ async def process_torrent_from_content(file_content, original_name):
     temp_path = None
     magnet_data = None
     try:
+        logger.info("Processing torrent: %s", original_name)
         if len(file_content) > 15*1024*1024:
             logger.warning("Torrent demasiado grande: %s", original_name)
             return False, None
         with tempfile.NamedTemporaryFile(delete=False, suffix=".torrent") as f:
             f.write(file_content)
             temp_path = f.name
-        
-        # Ejecutar rename.py
-        rc_rename, out_rename, _ = run_script_collect("rename.py", [original_name])
+        rc_rename, out_rename, err_rename = run_script_collect("rename.py", [original_name])
         if rc_rename != 0:
-            logger.error("rename.py falló para %s", original_name)
+            logger.error("rename.py failed: %s", err_rename)
             return False, None
         metadata = json.loads(out_rename)
-        
-        # Ejecutar magnet.py
-        rc_magnet, out_magnet, _ = run_script_collect("magnet.py", [temp_path])
+        rc_magnet, out_magnet, err_magnet = run_script_collect("magnet.py", [temp_path])
         if rc_magnet != 0:
-            logger.error("magnet.py falló para %s", original_name)
+            logger.error("magnet.py failed: %s", err_magnet)
             return False, None
         magnet_data = json.loads(out_magnet)
-        
-        # Guardar en GitHub inmediatamente
-        catalog = load_local_catalog()
-        catalog['movies'][original_name] = magnet_data
-        saved = save_local_catalog(catalog)
-        logger.info("Processed torrent: %s, catalog saved=%s", original_name, saved)
-        
         gc.collect()
+        logger.info("Torrent %s processed successfully", original_name)
         return True, magnet_data
     finally:
         try: os.unlink(temp_path)
@@ -124,30 +122,42 @@ async def process_torrent_from_content(file_content, original_name):
 @app.post("/api/webhook")
 async def telegram_webhook(req: Request):
     payload = await req.json()
+    logger.info("Webhook triggered")
+    logger.info("Payload received: %s", json.dumps(payload))
     cleanup_processed_files()
     msg = payload.get("channel_post") or payload.get("message")
     if not msg: 
+        logger.info("No message in payload")
         return JSONResponse({"ok": True, "info": "no message"})
     
     doc = msg.get("document")
     if doc and doc.get("file_name","").lower().endswith(".torrent"):
         file_id = doc.get("file_id")
         if file_id in processed_files: 
+            logger.info("File %s already processed", doc.get("file_name"))
             return JSONResponse({"ok": True, "info": "already processed"})
         processed_files.add(file_id)
         orig_name = doc.get("file_name").replace("\r","").replace("\n","").strip()
         if not allowed_chat(payload): 
+            logger.warning("Chat not allowed: %s", payload)
             return JSONResponse({"ok": False, "error": "chat not allowed"}, status_code=403)
-        
         r = requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getFile?file_id={file_id}", timeout=10)
         file_path = r.json().get("result",{}).get("file_path")
         if not file_path: 
+            logger.error("No file path returned from Telegram API")
             return JSONResponse({"ok": False, "error": "no file path"})
         dl_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file_path}"
         r2 = requests.get(dl_url, timeout=30, stream=True)
         content = b"".join([chunk for chunk in r2.iter_content(chunk_size=8192) if chunk])
         
         success, magnet_data = await process_torrent_from_content(content, orig_name)
+
+        if success and magnet_data:
+            catalog = load_local_catalog()
+            catalog['movies'][orig_name] = magnet_data
+            saved = save_local_catalog(catalog)
+            logger.info("Processed %s, catalog saved=%s", orig_name, saved)
+
         return JSONResponse({"ok": True, "processed":[{"file": orig_name, "success": success}]})
 
 @app.get("/api/health")
