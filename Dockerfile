@@ -1,15 +1,12 @@
-FROM alpine:latest
+FROM ngrok/ngrok:latest
 
-RUN apk add --no-cache curl unzip bash
+# Instalar jq y curl si no están
+RUN apt-get update && apt-get install -y jq curl
 
-# Descargar ngrok
-RUN curl -Lo /ngrok.tgz https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz \
-    && tar -xvzf /ngrok.tgz -C / \
-    && rm /ngrok.tgz
+# Copiar script de actualización de webhook
+COPY update_webhook.sh /update_webhook.sh
+RUN chmod +x /update_webhook.sh
 
-# Copiar archivo de configuración
-COPY ngrok.yml /root/.ngrok2/ngrok.yml
-
-# Comando por defecto
-CMD ["/ngrok", "start", "--all", "--log=stdout"]
+# Arranque automático: ngrok + actualización webhook
+ENTRYPOINT sh -c "ngrok start --all --config /var/lib/ngrok/ngrok.yml & sleep 5 && /update_webhook.sh && tail -f /dev/null"
 
