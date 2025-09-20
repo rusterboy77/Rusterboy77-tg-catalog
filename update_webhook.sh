@@ -1,11 +1,16 @@
-#!/bin/sh
-# Espera que ngrok esté listo
-sleep 5
+#!/bin/bash
 
-# Obtener URL pública del túnel
-URL=$(curl -s http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+# Nombre del contenedor ngrok
+NGROK_CONTAINER=ngrok
 
-# Actualizar webhook de Telegram
-curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook?url=$URL/tg_catalog"
+# Token del bot de Telegram
+BOT_TOKEN=7629091414:AAFRskiLwIPfjgIxz9KZB88dyfbKU1LTsu8
 
-echo "Webhook actualizado: $URL/tg_catalog"
+# Consulta la URL pública del túnel tg_catalog
+NGROK_URL=$(sudo docker exec $NGROK_CONTAINER curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[] | select(.name=="tg_catalog") | .public_url')
+
+# Actualiza el webhook de Telegram
+curl -s -X POST "https://api.telegram.org/bot$BOT_TOKEN/setWebhook" \
+     -d "url=$NGROK_URL"
+
+echo "Webhook actualizado a $NGROK_URL"
