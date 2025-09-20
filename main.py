@@ -1,13 +1,23 @@
-import os, json, logging, datetime, subprocess, requests, base64, tempfile, gc
+import os
+import json
+import logging
+import datetime
+import subprocess
+import requests
+import base64
+import tempfile
+import gc
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+# Configuración desde variables de entorno
 GITHUB_REPO = os.environ.get("GITHUB_REPO", "")
 GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
 GITHUB_PATH = os.environ.get("GITHUB_PATH", "catalog.json")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 
+# Logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger("tgcatalog")
 
@@ -63,29 +73,36 @@ def save_local_catalog(catalog_data):
         content = base64.b64encode(json.dumps(catalog_data, ensure_ascii=False, separators=(',',':')).encode()).decode()
         data = {"message": f"Update catalog - {datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M')}", "content": content, "sha": sha}
         resp = requests.put(url, headers=headers, json=data, timeout=15)
-        return resp.status_code in [200,201]
+        if resp.status_code in [200,201]:
+            logger.info("Catalog.json updated successfully in GitHub")
+            return True
+        else:
+            logger.error("Failed to update catalog.json in GitHub: %s", resp.text)
+            return False
     except Exception as e:
         logger.error("Error uploading to GitHub: %s", e)
         return False
 
-# Procesamiento de torrents similar a tu versión actual
 async def process_torrent_from_content(file_content, original_name):
     temp_path = None
+    magnet_data = None
     try:
         if len(file_content) > 15*1024*1024:
             logger.warning("Torrent demasiado grande: %s", original_name)
-            return False
+            return False, None
         with tempfile.NamedTemporaryFile(delete=False, suffix=".torrent") as f:
             f.write(file_content)
             temp_path = f.name
         rc_rename, out_rename, _ = run_script_collect("rename.py", [original_name])
-        if rc_rename != 0: return False
+        if rc_rename != 0:
+            return False, None
         metadata = json.loads(out_rename)
         rc_magnet, out_magnet, _ = run_script_collect("magnet.py", [temp_path])
-        if rc_magnet != 0: return False
+        if rc_magnet != 0:
+            return False, None
         magnet_data = json.loads(out_magnet)
         gc.collect()
-        return True  # Solo devolvemos éxito, subir a GitHub opcional
+        return True, magnet_data
     finally:
         try: os.unlink(temp_path)
         except: pass
@@ -96,24 +113,41 @@ async def telegram_webhook(req: Request):
     payload = await req.json()
     cleanup_processed_files()
     msg = payload.get("channel_post") or payload.get("message")
-    if not msg: return JSONResponse({"ok": True, "info": "no message"})
+    if not msg: 
+        return JSONResponse({"ok": True, "info": "no message"})
+    
     doc = msg.get("document")
     if doc and doc.get("file_name","").lower().endswith(".torrent"):
         file_id = doc.get("file_id")
-        if file_id in processed_files: return JSONResponse({"ok": True, "info": "already processed"})
+        if file_id in processed_files: 
+            return JSONResponse({"ok": True, "info": "already processed"})
         processed_files.add(file_id)
         orig_name = doc.get("file_name").replace("\r","").replace("\n","").strip()
-        if not allowed_chat(payload): return JSONResponse({"ok": False, "error": "chat not allowed"}, status_code=403)
+        if not allowed_chat(payload): 
+            return JSONResponse({"ok": False, "error": "chat not allowed"}, status_code=403)
         r = requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getFile?file_id={file_id}", timeout=10)
         file_path = r.json().get("result",{}).get("file_path")
-        if not file_path: return JSONResponse({"ok": False, "error": "no file path"})
+        if not file_path: 
+            return JSONResponse({"ok": False, "error": "no file path"})
         dl_url = f"https://api.telegram.org/file/bot{BOT_TOKEN}/{file_path}"
         r2 = requests.get(dl_url, timeout=30, stream=True)
         content = b"".join([chunk for chunk in r2.iter_content(chunk_size=8192) if chunk])
-        success = await process_torrent_from_content(content, orig_name)
+        
+        success, magnet_data = await process_torrent_from_content(content, orig_name)
+
+        # Actualizar catalog.json si torrent procesado correctamente
+        if success and magnet_data:
+            catalog = load_local_catalog()
+            catalog['movies'][orig_name] = magnet_data
+            saved = save_local_catalog(catalog)
+            logger.info("Processed %s, catalog saved=%s", orig_name, saved)
+
         return JSONResponse({"ok": True, "processed":[{"file": orig_name, "success": success}]})
 
 @app.get("/api/health")
-async def health(): return {"status": "ok", "time": datetime.datetime.utcnow().isoformat()+"Z"}
+async def health(): 
+    return {"status": "ok", "time": datetime.datetime.utcnow().isoformat()+"Z"}
+
 @app.get("/")
-async def root(): return {"message": "TG Catalog API", "status": "running"}
+async def root(): 
+    return {"message": "TG Catalog API", "status": "running"}
