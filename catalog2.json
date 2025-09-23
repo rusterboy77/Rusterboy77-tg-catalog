@@ -334,6 +334,16 @@
           }
         }
       }
+    },
+    "Operacion triunfo": {
+      "2": {
+        "3": {
+          "hdtv": {
+            "infohash": "7c335330b2f8ed7f7f38f4cc93812c22a0982e8d",
+            "magnet": "magnet:?xt=urn:btih:7c335330b2f8ed7f7f38f4cc93812c22a0982e8d"
+          }
+        }
+      }
     }
   }
 }
