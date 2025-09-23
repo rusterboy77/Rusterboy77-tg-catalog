@@ -664,6 +664,12 @@
             "infohash": "4ab03892acb0f3ba4b7b54e964d4c63b8fac5782",
             "magnet": "magnet:?xt=urn:btih:4ab03892acb0f3ba4b7b54e964d4c63b8fac5782"
           }
+        },
+        "3": {
+          "hdtv": {
+            "infohash": "064041d48f95a99e7018831e9dc59f5676461fa4",
+            "magnet": "magnet:?xt=urn:btih:064041d48f95a99e7018831e9dc59f5676461fa4"
+          }
         }
       }
     }
