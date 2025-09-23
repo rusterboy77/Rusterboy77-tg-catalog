@@ -1,5 +1,15 @@
 {
-  "movies": {},
+  "movies": {
+    "Adivina quien muere esta noche": {
+      "year": "2024",
+      "qualities": {
+        "720p": {
+          "infohash": "cbfd4c66b43cee406fa972cc8f8be299996dd723",
+          "magnet": "magnet:?xt=urn:btih:cbfd4c66b43cee406fa972cc8f8be299996dd723"
+        }
+      }
+    }
+  },
   "series": {
     "Alien Earth": {
       "1": {
