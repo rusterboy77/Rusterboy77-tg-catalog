@@ -887,6 +887,16 @@
           }
         }
       }
+    },
+    "Dan da Dan": {
+      "2": {
+        "12": {
+          "1080p": {
+            "infohash": "803ae32ba8e7903a9662c54020a4e7fafb7c424a",
+            "magnet": "magnet:?xt=urn:btih:803ae32ba8e7903a9662c54020a4e7fafb7c424a"
+          }
+        }
+      }
     }
   }
 }
