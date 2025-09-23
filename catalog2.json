@@ -1161,6 +1161,12 @@
             "infohash": "3a13d4672f6910a8575f0ab4c3337b958b584aa5",
             "magnet": "magnet:?xt=urn:btih:3a13d4672f6910a8575f0ab4c3337b958b584aa5"
           }
+        },
+        "1": {
+          "hdtv": {
+            "infohash": "e977a86f2d72e482568df86b578feec005a08e59",
+            "magnet": "magnet:?xt=urn:btih:e977a86f2d72e482568df86b578feec005a08e59"
+          }
         }
       }
     },
