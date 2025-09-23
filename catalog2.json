@@ -730,6 +730,16 @@
           }
         }
       }
+    },
+    "Suits LA": {
+      "1": {
+        "6": {
+          "1080p": {
+            "infohash": "58b1b3721f67a3693b53a5cb88a311d89b1bec0b",
+            "magnet": "magnet:?xt=urn:btih:58b1b3721f67a3693b53a5cb88a311d89b1bec0b"
+          }
+        }
+      }
     }
   }
 }
