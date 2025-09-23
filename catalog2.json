@@ -292,6 +292,16 @@
           }
         }
       }
+    },
+    "Los amos de la ciudad": {
+      "1": {
+        "7": {
+          "hdtv": {
+            "infohash": "735786c1f55ac3112a75abd191f13163f6c57252",
+            "magnet": "magnet:?xt=urn:btih:735786c1f55ac3112a75abd191f13163f6c57252"
+          }
+        }
+      }
     }
   }
 }
