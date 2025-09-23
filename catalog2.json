@@ -978,6 +978,16 @@
           }
         }
       }
+    },
+    "El refugio atamico": {
+      "1": {
+        "1": {
+          "1080p": {
+            "infohash": "35b851fbd868bf6d2204bc65885b601469379dc3",
+            "magnet": "magnet:?xt=urn:btih:35b851fbd868bf6d2204bc65885b601469379dc3"
+          }
+        }
+      }
     }
   }
 }
