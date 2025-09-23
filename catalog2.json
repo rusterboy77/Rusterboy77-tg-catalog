@@ -858,6 +858,10 @@
           "4k": {
             "infohash": "a32aad3dc5469dc8c0b2f392987e7e850aeedfc2",
             "magnet": "magnet:?xt=urn:btih:a32aad3dc5469dc8c0b2f392987e7e850aeedfc2"
+          },
+          "1080p": {
+            "infohash": "63640b492d5133796519eb15e8e2c38629d5e59a",
+            "magnet": "magnet:?xt=urn:btih:63640b492d5133796519eb15e8e2c38629d5e59a"
           }
         }
       }
