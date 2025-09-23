@@ -99,6 +99,15 @@
           "magnet": "magnet:?xt=urn:btih:dba18cbc6610dbae3c3b0ad1e60b90af390fb36a"
         }
       }
+    },
+    "MadS": {
+      "year": "2024",
+      "qualities": {
+        "4k": {
+          "infohash": "1d79bafb1d7e7121267138b963ba2676c3397e2e",
+          "magnet": "magnet:?xt=urn:btih:1d79bafb1d7e7121267138b963ba2676c3397e2e"
+        }
+      }
     }
   },
   "series": {
