@@ -403,6 +403,10 @@
           "4k": {
             "infohash": "185c556e77c53a38f5d311dd38b1c1454e6c71ac",
             "magnet": "magnet:?xt=urn:btih:185c556e77c53a38f5d311dd38b1c1454e6c71ac"
+          },
+          "720p": {
+            "infohash": "00f86e525f1e5c898fe7b6efd4f782402a9389d5",
+            "magnet": "magnet:?xt=urn:btih:00f86e525f1e5c898fe7b6efd4f782402a9389d5"
           }
         }
       }
