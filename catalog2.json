@@ -138,6 +138,15 @@
           "magnet": "magnet:?xt=urn:btih:111a908a9fc82c7c40c670a41bc9c748d00c059a"
         }
       }
+    },
+    "Nadie 2": {
+      "year": "2025",
+      "qualities": {
+        "4k": {
+          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
+          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+        }
+      }
     }
   },
   "series": {
