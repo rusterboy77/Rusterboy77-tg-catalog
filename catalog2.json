@@ -282,6 +282,16 @@
           }
         }
       }
+    },
+    "La promesa": {
+      "16": {
+        "75": {
+          "hdtv": {
+            "infohash": "80a4ba056ba161435f61fdbce36e944f25d9ae28",
+            "magnet": "magnet:?xt=urn:btih:80a4ba056ba161435f61fdbce36e944f25d9ae28"
+          }
+        }
+      }
     }
   }
 }
