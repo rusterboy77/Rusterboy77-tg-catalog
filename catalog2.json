@@ -1489,6 +1489,16 @@
           }
         }
       }
+    },
+    "Sisi": {
+      "4": {
+        "2": {
+          "hdtv": {
+            "infohash": "80adb0e2ebc1a9b851e4d6653c3bd29f498f732f",
+            "magnet": "magnet:?xt=urn:btih:80adb0e2ebc1a9b851e4d6653c3bd29f498f732f"
+          }
+        }
+      }
     }
   }
 }
