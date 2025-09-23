@@ -686,6 +686,16 @@
           }
         }
       }
+    },
+    "Mar afuera": {
+      "1": {
+        "1": {
+          "hdtv": {
+            "infohash": "5bc103714a9315fcd9f13abdc1d18a73bdb36f4a",
+            "magnet": "magnet:?xt=urn:btih:5bc103714a9315fcd9f13abdc1d18a73bdb36f4a"
+          }
+        }
+      }
     }
   }
 }
