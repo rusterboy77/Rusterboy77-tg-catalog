@@ -19,6 +19,10 @@
         "720p": {
           "infohash": "f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f",
           "magnet": "magnet:?xt=urn:btih:f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f"
+        },
+        "bluray": {
+          "infohash": "5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5",
+          "magnet": "magnet:?xt=urn:btih:5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5"
         }
       }
     }
