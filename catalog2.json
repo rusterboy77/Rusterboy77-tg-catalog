@@ -783,6 +783,10 @@
           "720p": {
             "infohash": "14618d073b4c497a89865cbfa514c2a79a1965c0",
             "magnet": "magnet:?xt=urn:btih:14618d073b4c497a89865cbfa514c2a79a1965c0"
+          },
+          "hdtv": {
+            "infohash": "da5e3226612d4b29ec323c739fc805f693ec7653",
+            "magnet": "magnet:?xt=urn:btih:da5e3226612d4b29ec323c739fc805f693ec7653"
           }
         }
       }
