@@ -494,6 +494,10 @@
           "4k": {
             "infohash": "e734b70031624c5a47442c00d1cac1748a300040",
             "magnet": "magnet:?xt=urn:btih:e734b70031624c5a47442c00d1cac1748a300040"
+          },
+          "hdtv": {
+            "infohash": "9acf33ffa796166e6996532094a7bb50df1eef03",
+            "magnet": "magnet:?xt=urn:btih:9acf33ffa796166e6996532094a7bb50df1eef03"
           }
         }
       }
