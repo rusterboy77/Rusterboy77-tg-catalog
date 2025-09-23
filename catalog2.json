@@ -350,6 +350,16 @@
           }
         }
       }
+    },
+    "Platonico": {
+      "2": {
+        "8": {
+          "720p": {
+            "infohash": "c75e9cf376c237ff375bc5f9866a5763528d6f9f",
+            "magnet": "magnet:?xt=urn:btih:c75e9cf376c237ff375bc5f9866a5763528d6f9f"
+          }
+        }
+      }
     }
   }
 }
