@@ -438,6 +438,16 @@
           }
         }
       }
+    },
+    "Valle salvaje": {
+      "12": {
+        "44": {
+          "hdtv": {
+            "infohash": "29a5a5209ba3bcaa86e31122925bab58a151a0ec",
+            "magnet": "magnet:?xt=urn:btih:29a5a5209ba3bcaa86e31122925bab58a151a0ec"
+          }
+        }
+      }
     }
   }
 }
