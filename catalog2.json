@@ -242,6 +242,12 @@
             "infohash": "9577bce703622d0158e566b1ccc4042f4e24ae6f",
             "magnet": "magnet:?xt=urn:btih:9577bce703622d0158e566b1ccc4042f4e24ae6f"
           }
+        },
+        "3": {
+          "720p": {
+            "infohash": "a8530e66dbd4fc03a78cc4423ccf6d0e4107d9e8",
+            "magnet": "magnet:?xt=urn:btih:a8530e66dbd4fc03a78cc4423ccf6d0e4107d9e8"
+          }
         }
       }
     }
