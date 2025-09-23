@@ -1228,6 +1228,10 @@
           "1080p": {
             "infohash": "8a940ac1a4473dca3135dbeb349dc38a91831cc8",
             "magnet": "magnet:?xt=urn:btih:8a940ac1a4473dca3135dbeb349dc38a91831cc8"
+          },
+          "720p": {
+            "infohash": "0df0a673e55575e976578ac22f391579a60683a4",
+            "magnet": "magnet:?xt=urn:btih:0df0a673e55575e976578ac22f391579a60683a4"
           }
         },
         "6": {
