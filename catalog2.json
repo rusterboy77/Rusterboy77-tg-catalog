@@ -448,6 +448,16 @@
           }
         }
       }
+    },
+    "A": {
+      "4": {
+        "10": {
+          "1080p": {
+            "infohash": "4ea7af797341fcdc2335346e8938e316b2b9158f",
+            "magnet": "magnet:?xt=urn:btih:4ea7af797341fcdc2335346e8938e316b2b9158f"
+          }
+        }
+      }
     }
   }
 }
