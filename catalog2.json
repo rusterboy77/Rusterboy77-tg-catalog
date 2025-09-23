@@ -374,6 +374,16 @@
           }
         }
       }
+    },
+    "Shetland": {
+      "8": {
+        "3": {
+          "hdtv": {
+            "infohash": "bf71dcae0873a5620d3c7d0fda2f92c2470ec5e3",
+            "magnet": "magnet:?xt=urn:btih:bf71dcae0873a5620d3c7d0fda2f92c2470ec5e3"
+          }
+        }
+      }
     }
   }
 }
