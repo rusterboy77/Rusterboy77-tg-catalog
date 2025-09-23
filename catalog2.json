@@ -1066,6 +1066,16 @@
           }
         }
       }
+    },
+    "Equipo de investigacion": {
+      "14": {
+        "97": {
+          "hdtv": {
+            "infohash": "4329efa0377c595d2526c8fdededa28c60b6cf57",
+            "magnet": "magnet:?xt=urn:btih:4329efa0377c595d2526c8fdededa28c60b6cf57"
+          }
+        }
+      }
     }
   }
 }
