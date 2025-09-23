@@ -925,6 +925,16 @@
           }
         }
       }
+    },
+    "El Gran guerrro": {
+      "1": {
+        "9": {
+          "720p": {
+            "infohash": "f84119ff55ca1990d9ec605c8502552b39d47d61",
+            "magnet": "magnet:?xt=urn:btih:f84119ff55ca1990d9ec605c8502552b39d47d61"
+          }
+        }
+      }
     }
   }
 }
