@@ -364,6 +364,16 @@
           }
         }
       }
+    },
+    "Renacer": {
+      "2": {
+        "29": {
+          "hdtv": {
+            "infohash": "d6767380df5565e64aee2ef7e4a62f6340add6ab",
+            "magnet": "magnet:?xt=urn:btih:d6767380df5565e64aee2ef7e4a62f6340add6ab"
+          }
+        }
+      }
     }
   }
 }
