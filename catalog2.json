@@ -496,6 +496,12 @@
             "infohash": "22bcfbde7cc5641b014ca8dfe7c891346f8432d9",
             "magnet": "magnet:?xt=urn:btih:22bcfbde7cc5641b014ca8dfe7c891346f8432d9"
           }
+        },
+        "2": {
+          "1080p": {
+            "infohash": "3f00e9a5cf54316871a039ff8e713d6162c38392",
+            "magnet": "magnet:?xt=urn:btih:3f00e9a5cf54316871a039ff8e713d6162c38392"
+          }
         }
       }
     }
