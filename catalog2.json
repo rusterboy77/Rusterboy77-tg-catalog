@@ -1525,6 +1525,16 @@
           }
         }
       }
+    },
+    "Task": {
+      "1": {
+        "2": {
+          "hdtv": {
+            "infohash": "76c7379bcc3f79f7888686f908a48deb0fa5cc80",
+            "magnet": "magnet:?xt=urn:btih:76c7379bcc3f79f7888686f908a48deb0fa5cc80"
+          }
+        }
+      }
     }
   }
 }
