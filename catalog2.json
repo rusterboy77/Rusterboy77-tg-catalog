@@ -222,6 +222,16 @@
           }
         }
       }
+    },
+    "Gen V": {
+      "2": {
+        "2": {
+          "720p": {
+            "infohash": "9577bce703622d0158e566b1ccc4042f4e24ae6f",
+            "magnet": "magnet:?xt=urn:btih:9577bce703622d0158e566b1ccc4042f4e24ae6f"
+          }
+        }
+      }
     }
   }
 }
