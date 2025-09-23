@@ -610,6 +610,16 @@
           }
         }
       }
+    },
+    "La Agencia": {
+      "1": {
+        "1": {
+          "hdtv": {
+            "infohash": "ee5585c92e8ba0ac62e29de7bb7797ee805cc6a6",
+            "magnet": "magnet:?xt=urn:btih:ee5585c92e8ba0ac62e29de7bb7797ee805cc6a6"
+          }
+        }
+      }
     }
   }
 }
