@@ -324,6 +324,16 @@
           }
         }
       }
+    },
+    "MasterChef Celebrity": {
+      "10": {
+        "3": {
+          "hdtv": {
+            "infohash": "4cfa0f3702d5631097f50218ea6024a83ecba5e3",
+            "magnet": "magnet:?xt=urn:btih:4cfa0f3702d5631097f50218ea6024a83ecba5e3"
+          }
+        }
+      }
     }
   }
 }
