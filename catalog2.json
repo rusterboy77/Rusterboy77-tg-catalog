@@ -773,6 +773,10 @@
           "1080p": {
             "infohash": "bde9314672a47b071226fae295bdc4d7e9718391",
             "magnet": "magnet:?xt=urn:btih:bde9314672a47b071226fae295bdc4d7e9718391"
+          },
+          "hdtv": {
+            "infohash": "dbdf0864e59bddc223caec1b376b8e3770f5d7a0",
+            "magnet": "magnet:?xt=urn:btih:dbdf0864e59bddc223caec1b376b8e3770f5d7a0"
           }
         }
       }
