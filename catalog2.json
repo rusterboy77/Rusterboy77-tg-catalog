@@ -482,6 +482,16 @@
           }
         }
       }
+    },
+    "Black Rabbit": {
+      "1": {
+        "1": {
+          "1080p": {
+            "infohash": "febc76fedf91c8379ac07f1d55098a26cf61a542",
+            "magnet": "magnet:?xt=urn:btih:febc76fedf91c8379ac07f1d55098a26cf61a542"
+          }
+        }
+      }
     }
   }
 }
