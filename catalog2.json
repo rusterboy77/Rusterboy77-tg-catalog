@@ -263,6 +263,12 @@
             "infohash": "1aa5b84847d193f3a3c6bc0d64297ec606996663",
             "magnet": "magnet:?xt=urn:btih:1aa5b84847d193f3a3c6bc0d64297ec606996663"
           }
+        },
+        "6": {
+          "1080p": {
+            "infohash": "10bb08c66538a183228fb4aaed59000f8bfeeb77",
+            "magnet": "magnet:?xt=urn:btih:10bb08c66538a183228fb4aaed59000f8bfeeb77"
+          }
         }
       }
     },
