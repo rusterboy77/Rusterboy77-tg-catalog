@@ -56,6 +56,33 @@
         }
       }
     },
+    "Las cuatro fantasticas The Fabulous Four 1080pEsp": {
+      "year": "2024",
+      "qualities": {
+        "1080p": {
+          "infohash": "b94b5e141d430498ae4cbd8b9562205423285bd7",
+          "magnet": "magnet:?xt=urn:btih:b94b5e141d430498ae4cbd8b9562205423285bd7"
+        }
+      }
+    },
+    "Las cuatro fantasticas The Fabulous Four 720pEsp": {
+      "year": "2024",
+      "qualities": {
+        "720p": {
+          "infohash": "0ad5fe075fbac6862bafac931755727453204615",
+          "magnet": "magnet:?xt=urn:btih:0ad5fe075fbac6862bafac931755727453204615"
+        }
+      }
+    },
+    "Las cuatro fantasticas The Fabulous Four": {
+      "year": "2024",
+      "qualities": {
+        "bluray": {
+          "infohash": "8a2764686ee32efe7d13c81ff0fd2001e958b320",
+          "magnet": "magnet:?xt=urn:btih:8a2764686ee32efe7d13c81ff0fd2001e958b320"
+        }
+      }
+    },
     "Los sudarios": {
       "year": "2024",
       "qualities": {
@@ -169,6 +196,15 @@
         "bluray": {
           "infohash": "7c32de9a6f3bada6f028ed0130c16a5c685a8602",
           "magnet": "magnet:?xt=urn:btih:7c32de9a6f3bada6f028ed0130c16a5c685a8602"
+        }
+      }
+    },
+    "Los 4 Fantasticos Primeros pasos 1080pEsp": {
+      "year": "2025",
+      "qualities": {
+        "1080p": {
+          "infohash": "01e7c663cb891354438bd7022217ed88067ccd6d",
+          "magnet": "magnet:?xt=urn:btih:01e7c663cb891354438bd7022217ed88067ccd6d"
         }
       }
     }
