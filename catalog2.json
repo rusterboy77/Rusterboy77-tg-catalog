@@ -10,6 +10,10 @@
         "1080p": {
           "infohash": "01e7c663cb891354438bd7022217ed88067ccd6d",
           "magnet": "magnet:?xt=urn:btih:01e7c663cb891354438bd7022217ed88067ccd6d"
+        },
+        "bluray": {
+          "infohash": "3809d3337bfb82ccec4889dd50d883d8fbb20f5d",
+          "magnet": "magnet:?xt=urn:btih:3809d3337bfb82ccec4889dd50d883d8fbb20f5d"
         }
       }
     }
