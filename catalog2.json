@@ -6,6 +6,10 @@
         "4k": {
           "infohash": "1d09c404d77b57c706386a981439efb6d845da34",
           "magnet": "magnet:?xt=urn:btih:1d09c404d77b57c706386a981439efb6d845da34"
+        },
+        "bluray": {
+          "infohash": "c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1",
+          "magnet": "magnet:?xt=urn:btih:c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1"
         }
       }
     },
