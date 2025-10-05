@@ -26,6 +26,16 @@
           }
         }
       }
+    },
+    "La encrucijada": {
+      "1": {
+        "29": {
+          "hdtv": {
+            "infohash": "52759e95340a6896831fd30df331b9e91d44af8c",
+            "magnet": "magnet:?xt=urn:btih:52759e95340a6896831fd30df331b9e91d44af8c"
+          }
+        }
+      }
     }
   }
 }
