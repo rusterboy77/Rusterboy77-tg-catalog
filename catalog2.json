@@ -1,34 +1,12 @@
 {
-  "movies": {
-    "Los 4 Fantasticos Primeros pasos": {
-      "year": "2025",
-      "qualities": {
-        "720p": {
-          "infohash": "2f39feedfc6d7cd7bdd61d98cb6e0d64e8f07e77",
-          "magnet": "magnet:?xt=urn:btih:2f39feedfc6d7cd7bdd61d98cb6e0d64e8f07e77"
-        },
-        "1080p": {
-          "infohash": "01e7c663cb891354438bd7022217ed88067ccd6d",
-          "magnet": "magnet:?xt=urn:btih:01e7c663cb891354438bd7022217ed88067ccd6d"
-        },
-        "bluray": {
-          "infohash": "3809d3337bfb82ccec4889dd50d883d8fbb20f5d",
-          "magnet": "magnet:?xt=urn:btih:3809d3337bfb82ccec4889dd50d883d8fbb20f5d"
-        }
-      }
-    }
-  },
+  "movies": {},
   "series": {
-    "Alien Planeta Tierra": {
-      "1": {
-        "8": {
-          "4k": {
-            "infohash": "ee63b1bf55041513cb982ef81ab4354c6ce6743b",
-            "magnet": "magnet:?xt=urn:btih:ee63b1bf55041513cb982ef81ab4354c6ce6743b"
-          },
-          "720p": {
-            "infohash": "f1e8b3399f2404cad44c5afa94a1be32181bfba8",
-            "magnet": "magnet:?xt=urn:btih:f1e8b3399f2404cad44c5afa94a1be32181bfba8"
+    "Fantasmas": {
+      "4": {
+        "6": {
+          "1080p": {
+            "infohash": "10bb08c66538a183228fb4aaed59000f8bfeeb77",
+            "magnet": "magnet:?xt=urn:btih:10bb08c66538a183228fb4aaed59000f8bfeeb77"
           }
         }
       }
