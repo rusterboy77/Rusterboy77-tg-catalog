@@ -1,5 +1,15 @@
 {
-  "movies": {},
+  "movies": {
+    "Erase una vez mi madre": {
+      "year": "2025",
+      "qualities": {
+        "4k": {
+          "infohash": "1d09c404d77b57c706386a981439efb6d845da34",
+          "magnet": "magnet:?xt=urn:btih:1d09c404d77b57c706386a981439efb6d845da34"
+        }
+      }
+    }
+  },
   "series": {
     "Fantasmas": {
       "4": {
