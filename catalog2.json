@@ -76,6 +76,16 @@
           }
         }
       }
+    },
+    "Sisi": {
+      "4": {
+        "2": {
+          "720p": {
+            "infohash": "545a733ca5dbbfe21eb706ae6edb108f263e5469",
+            "magnet": "magnet:?xt=urn:btih:545a733ca5dbbfe21eb706ae6edb108f263e5469"
+          }
+        }
+      }
     }
   }
 }
