@@ -104,6 +104,16 @@
           }
         }
       }
+    },
+    "Suits LA": {
+      "1": {
+        "5": {
+          "hdtv": {
+            "infohash": "1b1cadc215b3dc6e005c4423a04be214def46360",
+            "magnet": "magnet:?xt=urn:btih:1b1cadc215b3dc6e005c4423a04be214def46360"
+          }
+        }
+      }
     }
   }
 }
