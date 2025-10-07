@@ -206118,13 +206118,13 @@
       "tmdb_top": null
     },
     {
-      "file": "Beauty in Black [HDTV][Cap.206].torrent",
+      "file": "Beauty in Black [HDTV][Cap.205].torrent",
       "parsed": {
-        "title": "Beauty in Black [HDTV][Cap.206].torrent",
+        "title": "Beauty in Black [HDTV][Cap.205].torrent",
         "type": "series",
         "series": "Beauty in Black",
         "season": 2,
-        "episode": 6,
+        "episode": 5,
         "quality": "hdtv"
       },
       "matched": false,
@@ -206132,8 +206132,8 @@
       "torrents": [
         {
           "quality": "hdtv",
-          "magnet": "magnet:?xt=urn:btih:afca5e819a6abe1da1c05d2c0cd9e7b79573f7d2",
-          "infohash": "afca5e819a6abe1da1c05d2c0cd9e7b79573f7d2"
+          "magnet": "magnet:?xt=urn:btih:116d44b0576ead7346023a650cce32660d755e53",
+          "infohash": "116d44b0576ead7346023a650cce32660d755e53"
         }
       ]
     }
