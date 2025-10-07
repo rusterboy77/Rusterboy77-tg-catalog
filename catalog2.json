@@ -1,22 +1,189 @@
 {
   "movies": {
-    "Los 4 Fantasticos Primeros pasos": {
+    "Erase una vez mi madre": {
+      "year": "2025",
+      "qualities": {
+        "4k": {
+          "infohash": "1d09c404d77b57c706386a981439efb6d845da34",
+          "magnet": "magnet:?xt=urn:btih:1d09c404d77b57c706386a981439efb6d845da34"
+        },
+        "bluray": {
+          "infohash": "c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1",
+          "magnet": "magnet:?xt=urn:btih:c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1"
+        },
+        "720p": {
+          "infohash": "d82ecfabac3f209e9d5b9414ce2cb2bcd0e16a85",
+          "magnet": "magnet:?xt=urn:btih:d82ecfabac3f209e9d5b9414ce2cb2bcd0e16a85"
+        }
+      }
+    },
+    "Agarralo como puedas": {
       "year": "2025",
       "qualities": {
         "720p": {
-          "infohash": "2f39feedfc6d7cd7bdd61d98cb6e0d64e8f07e77",
-          "magnet": "magnet:?xt=urn:btih:2f39feedfc6d7cd7bdd61d98cb6e0d64e8f07e77"
-        },
-        "1080p": {
-          "infohash": "01e7c663cb891354438bd7022217ed88067ccd6d",
-          "magnet": "magnet:?xt=urn:btih:01e7c663cb891354438bd7022217ed88067ccd6d"
+          "infohash": "f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f",
+          "magnet": "magnet:?xt=urn:btih:f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f"
         },
         "bluray": {
-          "infohash": "3809d3337bfb82ccec4889dd50d883d8fbb20f5d",
-          "magnet": "magnet:?xt=urn:btih:3809d3337bfb82ccec4889dd50d883d8fbb20f5d"
+          "infohash": "5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5",
+          "magnet": "magnet:?xt=urn:btih:5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5"
+        }
+      }
+    },
+    "El Mismo Dia Contigo": {
+      "year": "2024",
+      "qualities": {
+        "720p": {
+          "infohash": "601c76f0c3b7ae7e44ea9d9f5c2ae667f1f20606",
+          "magnet": "magnet:?xt=urn:btih:601c76f0c3b7ae7e44ea9d9f5c2ae667f1f20606"
+        },
+        "bluray": {
+          "infohash": "5ec8f1c367e9003eda5f8bfdf85a8abcdbf846ec",
+          "magnet": "magnet:?xt=urn:btih:5ec8f1c367e9003eda5f8bfdf85a8abcdbf846ec"
         }
       }
     }
   },
-  "series": {}
+  "series": {
+    "Fantasmas": {
+      "4": {
+        "6": {
+          "1080p": {
+            "infohash": "10bb08c66538a183228fb4aaed59000f8bfeeb77",
+            "magnet": "magnet:?xt=urn:btih:10bb08c66538a183228fb4aaed59000f8bfeeb77"
+          }
+        },
+        "3": {
+          "hdtv": {
+            "infohash": "6dfa2aa84a4deef72d5dc22ec93bae2369b49eb0",
+            "magnet": "magnet:?xt=urn:btih:6dfa2aa84a4deef72d5dc22ec93bae2369b49eb0"
+          }
+        }
+      }
+    },
+    "La encrucijada": {
+      "1": {
+        "29": {
+          "hdtv": {
+            "infohash": "52759e95340a6896831fd30df331b9e91d44af8c",
+            "magnet": "magnet:?xt=urn:btih:52759e95340a6896831fd30df331b9e91d44af8c"
+          }
+        }
+      }
+    },
+    "Shetland": {
+      "8": {
+        "5": {
+          "hdtv": {
+            "infohash": "d61c2ccbdaf72593eca3edc524404383d021b137",
+            "magnet": "magnet:?xt=urn:btih:d61c2ccbdaf72593eca3edc524404383d021b137"
+          }
+        }
+      }
+    },
+    "Solo asesinatos en el edificio": {
+      "5": {
+        "4": {
+          "1080p": {
+            "infohash": "ae94fc9ee809f1b57d551499bf8bd62c00f740be",
+            "magnet": "magnet:?xt=urn:btih:ae94fc9ee809f1b57d551499bf8bd62c00f740be"
+          },
+          "4k": {
+            "infohash": "185c556e77c53a38f5d311dd38b1c1454e6c71ac",
+            "magnet": "magnet:?xt=urn:btih:185c556e77c53a38f5d311dd38b1c1454e6c71ac"
+          },
+          "720p": {
+            "infohash": "00f86e525f1e5c898fe7b6efd4f782402a9389d5",
+            "magnet": "magnet:?xt=urn:btih:00f86e525f1e5c898fe7b6efd4f782402a9389d5"
+          }
+        },
+        "2": {
+          "hdtv": {
+            "infohash": "6a32e55dbe0d46aad12ce0940a6b24407e4e16a5",
+            "magnet": "magnet:?xt=urn:btih:6a32e55dbe0d46aad12ce0940a6b24407e4e16a5"
+          }
+        },
+        "3": {
+          "hdtv": {
+            "infohash": "4f9aae82fd7c6280974afd449007c49e24c1cfc6",
+            "magnet": "magnet:?xt=urn:btih:4f9aae82fd7c6280974afd449007c49e24c1cfc6"
+          }
+        }
+      }
+    },
+    "Star Trek Strange New Worlds": {
+      "3": {
+        "8": {
+          "4k": {
+            "infohash": "37811a3be489aea0a0f8bd76cabdcede54374f93",
+            "magnet": "magnet:?xt=urn:btih:37811a3be489aea0a0f8bd76cabdcede54374f93"
+          }
+        }
+      }
+    },
+    "Sisi": {
+      "4": {
+        "2": {
+          "720p": {
+            "infohash": "545a733ca5dbbfe21eb706ae6edb108f263e5469",
+            "magnet": "magnet:?xt=urn:btih:545a733ca5dbbfe21eb706ae6edb108f263e5469"
+          },
+          "1080p": {
+            "infohash": "c422932d911c1ea7f6ae49a145c66ea0aeded886",
+            "magnet": "magnet:?xt=urn:btih:c422932d911c1ea7f6ae49a145c66ea0aeded886"
+          }
+        }
+      }
+    },
+    "Suenos de libertad": {
+      "13": {
+        "98": {
+          "hdtv": {
+            "infohash": "c4ab699b4e1a26485d2ef11bc50be09244740e4c",
+            "magnet": "magnet:?xt=urn:btih:c4ab699b4e1a26485d2ef11bc50be09244740e4c"
+          }
+        }
+      }
+    },
+    "Suits LA": {
+      "1": {
+        "5": {
+          "hdtv": {
+            "infohash": "1b1cadc215b3dc6e005c4423a04be214def46360",
+            "magnet": "magnet:?xt=urn:btih:1b1cadc215b3dc6e005c4423a04be214def46360"
+          }
+        }
+      }
+    },
+    "Diario de una chica experta en desastres de amor": {
+      "1": {
+        "5": {
+          "hdtv": {
+            "infohash": "98d7372b311f85f0bb999d0e08833f7d8dc46a91",
+            "magnet": "magnet:?xt=urn:btih:98d7372b311f85f0bb999d0e08833f7d8dc46a91"
+          }
+        },
+        "4": {
+          "hdtv": {
+            "infohash": "08bcfcc69bf64c0ff07424fdff82478046b4d002",
+            "magnet": "magnet:?xt=urn:btih:08bcfcc69bf64c0ff07424fdff82478046b4d002"
+          }
+        }
+      }
+    },
+    "El verano en que me enamore": {
+      "3": {
+        "11": {
+          "1080p": {
+            "infohash": "6bc0622576968004068e37ba033906f739dbf2cc",
+            "magnet": "magnet:?xt=urn:btih:6bc0622576968004068e37ba033906f739dbf2cc"
+          },
+          "720p": {
+            "infohash": "14618d073b4c497a89865cbfa514c2a79a1965c0",
+            "magnet": "magnet:?xt=urn:btih:14618d073b4c497a89865cbfa514c2a79a1965c0"
+          }
+        }
+      }
+    }
+  }
 }
