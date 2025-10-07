@@ -73,6 +73,26 @@
           "infohash": "4dbb716f3e085498a8878fe38d772ab6a3c61dca"
         }
       ]
+    },
+    {
+      "file": "Dexter Resurrection [4k 2160p][Cap.102].torrent",
+      "parsed": {
+        "title": "Dexter Resurrection [4k 2160p][Cap.102].torrent",
+        "type": "series",
+        "series": "Dexter Resurrection",
+        "season": 1,
+        "episode": 2,
+        "quality": "4k"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:02fe3d4cc7a03edb81c7b01150f8a49b4b32eb08",
+          "infohash": "02fe3d4cc7a03edb81c7b01150f8a49b4b32eb08"
+        }
+      ]
     }
   ]
 }
