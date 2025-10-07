@@ -49,6 +49,10 @@
         "bluray": {
           "infohash": "c6c9870f2a720baa4b9224f7be5b097bf0ef5997",
           "magnet": "magnet:?xt=urn:btih:c6c9870f2a720baa4b9224f7be5b097bf0ef5997"
+        },
+        "4k": {
+          "infohash": "3b36b5cfac8048f4c134bf7d34556c7106392b42",
+          "magnet": "magnet:?xt=urn:btih:3b36b5cfac8048f4c134bf7d34556c7106392b42"
         }
       }
     }
