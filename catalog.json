@@ -206138,13 +206138,13 @@
       ]
     },
     {
-      "file": "Black Rabbit [Bluray 1080p][Cap.102].torrent",
+      "file": "Black Rabbit [Bluray 1080p][Cap.101].torrent",
       "parsed": {
-        "title": "Black Rabbit [Bluray 1080p][Cap.102].torrent",
+        "title": "Black Rabbit [Bluray 1080p][Cap.101].torrent",
         "type": "series",
         "series": "Black Rabbit",
         "season": 1,
-        "episode": 2,
+        "episode": 1,
         "quality": "1080p"
       },
       "matched": false,
@@ -206152,8 +206152,8 @@
       "torrents": [
         {
           "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:3f00e9a5cf54316871a039ff8e713d6162c38392",
-          "infohash": "3f00e9a5cf54316871a039ff8e713d6162c38392"
+          "magnet": "magnet:?xt=urn:btih:febc76fedf91c8379ac07f1d55098a26cf61a542",
+          "infohash": "febc76fedf91c8379ac07f1d55098a26cf61a542"
         }
       ]
     }
