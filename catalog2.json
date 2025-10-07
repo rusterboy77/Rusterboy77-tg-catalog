@@ -68,6 +68,15 @@
           "magnet": "magnet:?xt=urn:btih:90f7c39a13023342b4d249d8dd90b9426dc37803"
         }
       }
+    },
+    "La chica francesa": {
+      "year": "2024",
+      "qualities": {
+        "bluray": {
+          "infohash": "3efb0fc432c34df729c47b158139ecf3949d93d0",
+          "magnet": "magnet:?xt=urn:btih:3efb0fc432c34df729c47b158139ecf3949d93d0"
+        }
+      }
     }
   },
   "series": {
