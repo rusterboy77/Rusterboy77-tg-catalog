@@ -206118,13 +206118,13 @@
       "tmdb_top": null
     },
     {
-      "file": "Asesinatos en la montana [HDTV][Cap.107].torrent",
+      "file": "Beauty in Black [HDTV][Cap.206].torrent",
       "parsed": {
-        "title": "Asesinatos en la montana [HDTV][Cap.107].torrent",
+        "title": "Beauty in Black [HDTV][Cap.206].torrent",
         "type": "series",
-        "series": "Asesinatos en la montana",
-        "season": 1,
-        "episode": 7,
+        "series": "Beauty in Black",
+        "season": 2,
+        "episode": 6,
         "quality": "hdtv"
       },
       "matched": false,
@@ -206132,8 +206132,8 @@
       "torrents": [
         {
           "quality": "hdtv",
-          "magnet": "magnet:?xt=urn:btih:b83de4420399c3e78edfa3e36702e133beb169f5",
-          "infohash": "b83de4420399c3e78edfa3e36702e133beb169f5"
+          "magnet": "magnet:?xt=urn:btih:afca5e819a6abe1da1c05d2c0cd9e7b79573f7d2",
+          "infohash": "afca5e819a6abe1da1c05d2c0cd9e7b79573f7d2"
         }
       ]
     }
