@@ -17,6 +17,24 @@
           "infohash": "3b36b5cfac8048f4c134bf7d34556c7106392b42"
         }
       ]
+    },
+    {
+      "file": "Humane (2024) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "title": "Humane",
+        "type": "movie",
+        "year": "2024",
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:cca3ae9ec6efc2c75f90b9057dbf24bbf90aebcf",
+          "infohash": "cca3ae9ec6efc2c75f90b9057dbf24bbf90aebcf"
+        }
+      ]
     }
   ]
 }
