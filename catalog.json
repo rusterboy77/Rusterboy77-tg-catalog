@@ -206116,6 +206116,26 @@
       },
       "matched": false,
       "tmdb_top": null
+    },
+    {
+      "file": "Asesinatos en la montana [HDTV][Cap.107].torrent",
+      "parsed": {
+        "title": "Asesinatos en la montana [HDTV][Cap.107].torrent",
+        "type": "series",
+        "series": "Asesinatos en la montana",
+        "season": 1,
+        "episode": 7,
+        "quality": "hdtv"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "hdtv",
+          "magnet": "magnet:?xt=urn:btih:b83de4420399c3e78edfa3e36702e133beb169f5",
+          "infohash": "b83de4420399c3e78edfa3e36702e133beb169f5"
+        }
+      ]
     }
   ]
 }
