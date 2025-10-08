@@ -206116,46 +206116,6 @@
       },
       "matched": false,
       "tmdb_top": null
-    },
-    {
-      "file": "Beauty in Black [HDTV][Cap.205].torrent",
-      "parsed": {
-        "title": "Beauty in Black [HDTV][Cap.205].torrent",
-        "type": "series",
-        "series": "Beauty in Black",
-        "season": 2,
-        "episode": 5,
-        "quality": "hdtv"
-      },
-      "matched": false,
-      "tmdb_top": {},
-      "torrents": [
-        {
-          "quality": "hdtv",
-          "magnet": "magnet:?xt=urn:btih:116d44b0576ead7346023a650cce32660d755e53",
-          "infohash": "116d44b0576ead7346023a650cce32660d755e53"
-        }
-      ]
-    },
-    {
-      "file": "Black Rabbit [Bluray 1080p][Cap.101].torrent",
-      "parsed": {
-        "title": "Black Rabbit [Bluray 1080p][Cap.101].torrent",
-        "type": "series",
-        "series": "Black Rabbit",
-        "season": 1,
-        "episode": 1,
-        "quality": "1080p"
-      },
-      "matched": false,
-      "tmdb_top": {},
-      "torrents": [
-        {
-          "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:febc76fedf91c8379ac07f1d55098a26cf61a542",
-          "infohash": "febc76fedf91c8379ac07f1d55098a26cf61a542"
-        }
-      ]
     }
   ]
 }
