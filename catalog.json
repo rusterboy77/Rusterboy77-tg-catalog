@@ -206116,6 +206116,55 @@
       },
       "matched": false,
       "tmdb_top": null
+    },
+    {
+      "file": "Agarralo como puedas (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "title": "Agarralo como puedas",
+        "type": "movie",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1035259,
+        "title": "Agárralo como puedas",
+        "original_title": "The Naked Gun",
+        "overview": "El torpe teniente Frank Drebin Jr. intenta resolver un asesinato vinculado a un magnate tecnológico. Mientras investiga, su unidad policial corre peligro de ser cerrada. Con la ayuda de una escritora de crímenes, Frank se verá envuelto en situaciones tan absurdas como explosivas. Película reboot basada en la popular franquicia de comedia \"Agárralo como puedas\" y la serie de televisión \"Police Squad!\".",
+        "poster_path": "/Mu73AnUmBpSI8W0bNCgaCVwzOa.jpg",
+        "backdrop_path": "/kzeBfhXMRWiykBsqoL3UbfaM0S.jpg",
+        "genre_ids": [
+          35,
+          28,
+          80
+        ],
+        "cast": [
+          "Liam Neeson",
+          "Pamela Anderson",
+          "Paul Walter Hauser",
+          "Danny Huston",
+          "CCH Pounder",
+          "Kevin Durand",
+          "Liza Koshy",
+          "Eddie Yu",
+          "Michael Beasley",
+          "Moses Jones"
+        ],
+        "genres": [
+          "Comedia",
+          "Acción",
+          "Crimen"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/Mu73AnUmBpSI8W0bNCgaCVwzOa.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kzeBfhXMRWiykBsqoL3UbfaM0S.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f",
+          "infohash": "f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f"
+        }
+      ]
     }
   ]
 }
