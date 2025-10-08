@@ -206116,6 +206116,26 @@
       },
       "matched": false,
       "tmdb_top": null
+    },
+    {
+      "file": "Acapulco [HDTV 1080p][Cap.410].torrent",
+      "parsed": {
+        "title": "Acapulco [HDTV 1080p][Cap.410].torrent",
+        "type": "series",
+        "series": "A",
+        "season": 4,
+        "episode": 10,
+        "quality": "1080p"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:4ea7af797341fcdc2335346e8938e316b2b9158f",
+          "infohash": "4ea7af797341fcdc2335346e8938e316b2b9158f"
+        }
+      ]
     }
   ]
 }
