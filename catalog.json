@@ -206118,12 +206118,12 @@
       "tmdb_top": null
     },
     {
-      "file": "Agarralo como puedas (2025) [Bluray 720p][Esp].torrent",
+      "file": "Agarralo como puedas (2025) [Bluray][Esp].torrent",
       "parsed": {
         "title": "Agarralo como puedas",
         "type": "movie",
         "year": "2025",
-        "quality": "720p"
+        "quality": "bluray"
       },
       "matched": false,
       "tmdb_top": {
@@ -206160,9 +206160,9 @@
       },
       "torrents": [
         {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f",
-          "infohash": "f9bb73c7b6cd1dc1ae1724a12675b8a35eb34d4f"
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5",
+          "infohash": "5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5"
         }
       ]
     }
