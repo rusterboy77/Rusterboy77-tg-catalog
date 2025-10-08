@@ -206116,26 +206116,6 @@
       },
       "matched": false,
       "tmdb_top": null
-    },
-    {
-      "file": "Acapulco [HDTV 720p][Cap.410].torrent",
-      "parsed": {
-        "title": "Acapulco [HDTV 720p][Cap.410].torrent",
-        "type": "series",
-        "series": "A",
-        "season": 4,
-        "episode": 10,
-        "quality": "720p"
-      },
-      "matched": false,
-      "tmdb_top": {},
-      "torrents": [
-        {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:96c770d3f4eeb1a5cf4d059a3bd2d43dc0f6fdd6",
-          "infohash": "96c770d3f4eeb1a5cf4d059a3bd2d43dc0f6fdd6"
-        }
-      ]
     }
   ]
 }
