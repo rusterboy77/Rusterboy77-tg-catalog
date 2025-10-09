@@ -206212,6 +206212,53 @@
           "infohash": "c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1"
         }
       ]
+    },
+    {
+      "file": "Erase una vez mi madre (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "title": "Erase una vez mi madre",
+        "type": "movie",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1107215,
+        "title": "Érase una vez mi madre",
+        "original_title": "Ma mère, Dieu et Sylvie Vartan",
+        "overview": "París, 1963. Roland, el menor de una familia de seis hermanos, sufre una malformación en un pie. Según los médicos nunca podrá caminar, pero su testaruda madre, Esther, simplemente se niega a aceptarlo. Mediante una combinación de fe inquebrantable y negación excepcional, la mujer está decidida a desafiar cualquier adversidad  para conseguir que su hijo sea feliz.",
+        "poster_path": "/s56FTmqeOsGK6fcF1HBglp6yYro.jpg",
+        "backdrop_path": "/qMYb0pTEnsYsYPVD1uJIpOMumYB.jpg",
+        "genre_ids": [
+          18,
+          35
+        ],
+        "cast": [
+          "Leïla Bekhti",
+          "Jonathan Cohen",
+          "Joséphine Japy",
+          "Sylvie Vartan",
+          "Jeanne Balibar",
+          "Lionel Dray",
+          "Anne Le Ny",
+          "Milo Machado-Graner",
+          "Naïm Naji",
+          "Iliana Belkhadra"
+        ],
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/s56FTmqeOsGK6fcF1HBglp6yYro.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qMYb0pTEnsYsYPVD1uJIpOMumYB.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:d82ecfabac3f209e9d5b9414ce2cb2bcd0e16a85",
+          "infohash": "d82ecfabac3f209e9d5b9414ce2cb2bcd0e16a85"
+        }
+      ]
     }
   ]
 }
