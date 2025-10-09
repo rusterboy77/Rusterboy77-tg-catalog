@@ -233751,16 +233751,6 @@
           "quality": "1080p",
           "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
           "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
-        },
-        {
-          "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:c668fb5865d2af5c8436fbd7353a8ac7af99cd89",
-          "infohash": "c668fb5865d2af5c8436fbd7353a8ac7af99cd89"
-        },
-        {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
-          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
         }
       ],
       "tmdb_episode": {
@@ -233967,6 +233957,11 @@
           "quality": "bluray",
           "magnet": "magnet:?xt=urn:btih:c987128fb2aea00606dd0b1b0acea98b6a257f3b",
           "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
+          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
         }
       ]
     },
