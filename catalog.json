@@ -206165,6 +206165,53 @@
           "infohash": "5d266c5b5a4d01780dc1ac2d1f1c102e372c81b5"
         }
       ]
+    },
+    {
+      "file": "Erase una vez mi madre (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "title": "Erase una vez mi madre",
+        "type": "movie",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1107215,
+        "title": "Érase una vez mi madre",
+        "original_title": "Ma mère, Dieu et Sylvie Vartan",
+        "overview": "París, 1963. Roland, el menor de una familia de seis hermanos, sufre una malformación en un pie. Según los médicos nunca podrá caminar, pero su testaruda madre, Esther, simplemente se niega a aceptarlo. Mediante una combinación de fe inquebrantable y negación excepcional, la mujer está decidida a desafiar cualquier adversidad  para conseguir que su hijo sea feliz.",
+        "poster_path": "/s56FTmqeOsGK6fcF1HBglp6yYro.jpg",
+        "backdrop_path": "/qMYb0pTEnsYsYPVD1uJIpOMumYB.jpg",
+        "genre_ids": [
+          18,
+          35
+        ],
+        "cast": [
+          "Leïla Bekhti",
+          "Jonathan Cohen",
+          "Joséphine Japy",
+          "Sylvie Vartan",
+          "Jeanne Balibar",
+          "Lionel Dray",
+          "Anne Le Ny",
+          "Milo Machado-Graner",
+          "Naïm Naji",
+          "Iliana Belkhadra"
+        ],
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/s56FTmqeOsGK6fcF1HBglp6yYro.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qMYb0pTEnsYsYPVD1uJIpOMumYB.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:1d09c404d77b57c706386a981439efb6d845da34",
+          "infohash": "1d09c404d77b57c706386a981439efb6d845da34"
+        }
+      ]
     }
   ]
 }
