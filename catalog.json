@@ -206167,12 +206167,12 @@
       ]
     },
     {
-      "file": "Erase una vez mi madre (2025) [4k 2160p][Esp].torrent",
+      "file": "Erase una vez mi madre (2025) [Bluray][Esp].torrent",
       "parsed": {
         "title": "Erase una vez mi madre",
         "type": "movie",
         "year": "2025",
-        "quality": "4k"
+        "quality": "bluray"
       },
       "matched": false,
       "tmdb_top": {
@@ -206207,9 +206207,9 @@
       },
       "torrents": [
         {
-          "quality": "4k",
-          "magnet": "magnet:?xt=urn:btih:1d09c404d77b57c706386a981439efb6d845da34",
-          "infohash": "1d09c404d77b57c706386a981439efb6d845da34"
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1",
+          "infohash": "c4a30d621a4a83e6aebe01a99d49c1b9596f4ae1"
         }
       ]
     }
