@@ -233842,6 +233842,76 @@
       "episode_title": "Divide y vencerás",
       "episode_overview": "Con la desaparición de Koistinen, Börje está desesperado, y las pesadillas de Linda no hacen más que empeorar. Su peculiar equipo de renovación comienza a trabajar en un edificio parroquial.",
       "still_path": "https://image.tmdb.org/t/p/w500/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg"
+    },
+    {
+      "file": "La puta ama [HDTV 720p][Cap.103].torrent",
+      "parsed": {
+        "title": "La puta ama [HDTV 720p][Cap.103].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 3,
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 280860,
+        "title": "La puta ama",
+        "original_title": "Queen of Fucking Everything",
+        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
+        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
+        "genre_ids": [
+          80,
+          18,
+          35
+        ],
+        "cast": [
+          "Laura Malmivaara",
+          "Katja Küttner",
+          "Kristo Salminen",
+          "Joonas Heikkinen",
+          "Miro Lopperi",
+          "Minna Haapkylä",
+          "Kari Heiskanen",
+          "Juho Milonoff",
+          "Marja Packalén",
+          "Janne Reinikainen"
+        ],
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:d141cb44ee789ef3117e4d1e3e5d44174ba13ccd",
+          "infohash": "d141cb44ee789ef3117e4d1e3e5d44174ba13ccd"
+        }
+      ],
+      "tmdb_episode": {
+        "air_date": "2025-01-19",
+        "crew": [],
+        "episode_number": 3,
+        "episode_type": "standard",
+        "guest_stars": [],
+        "name": "Reina de los hogares",
+        "overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
+        "id": 5872090,
+        "production_code": "",
+        "runtime": 54,
+        "season_number": 1,
+        "still_path": "/5azO8HUQybk9mURpmriJVbemj78.jpg",
+        "vote_average": 0.0,
+        "vote_count": 0
+      },
+      "episode_title": "Reina de los hogares",
+      "episode_overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
+      "still_path": "https://image.tmdb.org/t/p/w500/5azO8HUQybk9mURpmriJVbemj78.jpg"
     }
   ]
 }
