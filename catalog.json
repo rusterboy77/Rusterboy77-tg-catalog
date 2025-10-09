@@ -233633,13 +233633,13 @@
       "overview": "Un hombre armado atraca una tienda Apple en el centro de Ámsterdam y a la policía le toca resolver una situación delicada."
     },
     {
-      "file": "La puta ama [HDTV 1080p][Cap.102].torrent",
+      "file": "La puta ama [HDTV 1080p][Cap.103].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 1080p][Cap.102].torrent",
+        "title": "La puta ama [HDTV 1080p][Cap.103].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 2,
+        "episode": 3,
         "quality": "1080p"
       },
       "matched": false,
@@ -233647,8 +233647,8 @@
       "torrents": [
         {
           "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
-          "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
+          "magnet": "magnet:?xt=urn:btih:89a84bc8f86d4e7cb726467289a444deb33fa4c6",
+          "infohash": "89a84bc8f86d4e7cb726467289a444deb33fa4c6"
         }
       ]
     }
