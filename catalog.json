@@ -233649,6 +233649,24 @@
           "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
         }
       ]
+    },
+    {
+      "file": "New Life (2023) [Bluray 1080p][Esp].torrent",
+      "parsed": {
+        "title": "New Life",
+        "type": "movie",
+        "year": "2023",
+        "quality": "1080p"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:565fc013e61c2e45b981bde08f30b5d5aa33a6e9",
+          "infohash": "565fc013e61c2e45b981bde08f30b5d5aa33a6e9"
+        }
+      ]
     }
   ]
 }
