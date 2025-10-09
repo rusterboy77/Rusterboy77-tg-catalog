@@ -233653,22 +233653,49 @@
       ]
     },
     {
-      "file": "La puta ama [HDTV 720p][Cap.106].torrent",
+      "file": "Nadie 2 (Nobody 2) (2025) [Bluray 720p][Esp].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 720p][Cap.106].torrent",
-        "type": "series",
-        "series": "La puta ama",
-        "season": 1,
-        "episode": 6,
+        "title": "Nadie 2",
+        "type": "movie",
+        "year": "2025",
         "quality": "720p"
       },
       "matched": false,
-      "tmdb_top": {},
+      "tmdb_top": {
+        "id": 1007734,
+        "title": "Nadie 2",
+        "original_title": "Nobody 2",
+        "overview": "Cuatro años después de enfrentarse involuntariamente a la mafia rusa, Hutch Mansell sigue intentando saldar una deuda de 30 millones de dólares con golpes a criminales internacionales. Agotado y distanciado de su familia, organiza unas vacaciones con su esposa e hijos en Plummerville, el lugar donde solía ir con su hermano de niño. Pero un pequeño altercado los convierte en el objetivo de un peligroso mafioso local y de su corrupto sheriff, poniendo en riesgo toda la familia.",
+        "poster_path": "/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_path": "/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg",
+        "genre_ids": [
+          28,
+          53
+        ],
+        "cast": [
+          "Bob Odenkirk",
+          "Connie Nielsen",
+          "John Ortiz",
+          "Colin Hanks",
+          "RZA",
+          "Colin Salmon",
+          "Christopher Lloyd",
+          "Sharon Stone",
+          "Daniel Bernhardt",
+          "Paisley Cadorath"
+        ],
+        "genres": [
+          "Acción",
+          "Suspense"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg"
+      },
       "torrents": [
         {
           "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
-          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
+          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
+          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
         }
       ]
     }
