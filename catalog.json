@@ -233751,11 +233751,6 @@
           "quality": "1080p",
           "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
           "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
-        },
-        {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:ac1c97afc5167048f18a2373b4a6d8c8806f9851",
-          "infohash": "ac1c97afc5167048f18a2373b4a6d8c8806f9851"
         }
       ],
       "tmdb_episode": {
@@ -233777,6 +233772,76 @@
       "episode_title": "Oferta desastrosa",
       "episode_overview": "Los problemas se abren paso en el trabajo de Linda cuando Koistinen, el socio corrupto de Spora y novio de Marke, aparece repentinamente.",
       "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
+    },
+    {
+      "file": "La puta ama [HDTV 720p][Cap.104].torrent",
+      "parsed": {
+        "title": "La puta ama [HDTV 720p][Cap.104].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 4,
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 280860,
+        "title": "La puta ama",
+        "original_title": "Queen of Fucking Everything",
+        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
+        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
+        "genre_ids": [
+          80,
+          18,
+          35
+        ],
+        "cast": [
+          "Laura Malmivaara",
+          "Katja Küttner",
+          "Kristo Salminen",
+          "Joonas Heikkinen",
+          "Miro Lopperi",
+          "Minna Haapkylä",
+          "Kari Heiskanen",
+          "Juho Milonoff",
+          "Marja Packalén",
+          "Janne Reinikainen"
+        ],
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:fce79d8adf443fadec0060b187fb18265dadf548",
+          "infohash": "fce79d8adf443fadec0060b187fb18265dadf548"
+        }
+      ],
+      "tmdb_episode": {
+        "air_date": "2025-01-26",
+        "crew": [],
+        "episode_number": 4,
+        "episode_type": "standard",
+        "guest_stars": [],
+        "name": "Divide y vencerás",
+        "overview": "Con la desaparición de Koistinen, Börje está desesperado, y las pesadillas de Linda no hacen más que empeorar. Su peculiar equipo de renovación comienza a trabajar en un edificio parroquial.",
+        "id": 5872091,
+        "production_code": "",
+        "runtime": 52,
+        "season_number": 1,
+        "still_path": "/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg",
+        "vote_average": 0.0,
+        "vote_count": 0
+      },
+      "episode_title": "Divide y vencerás",
+      "episode_overview": "Con la desaparición de Koistinen, Börje está desesperado, y las pesadillas de Linda no hacen más que empeorar. Su peculiar equipo de renovación comienza a trabajar en un edificio parroquial.",
+      "still_path": "https://image.tmdb.org/t/p/w500/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg"
     }
   ]
 }
