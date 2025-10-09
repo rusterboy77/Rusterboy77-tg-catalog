@@ -233700,6 +233700,11 @@
           "quality": "bluray",
           "magnet": "magnet:?xt=urn:btih:49e5355d1e03819fa45c2e0da6eb72ad48677e16",
           "infohash": "49e5355d1e03819fa45c2e0da6eb72ad48677e16"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:565fc013e61c2e45b981bde08f30b5d5aa33a6e9",
+          "infohash": "565fc013e61c2e45b981bde08f30b5d5aa33a6e9"
         }
       ]
     },
@@ -234022,22 +234027,22 @@
       ]
     },
     {
-      "file": "La puta ama [HDTV 720p][Cap.106].torrent",
+      "file": "La puta ama [HDTV 1080p][Cap.101].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 720p][Cap.106].torrent",
+        "title": "La puta ama [HDTV 1080p][Cap.101].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 6,
-        "quality": "720p"
+        "episode": 1,
+        "quality": "1080p"
       },
       "matched": false,
       "tmdb_top": {},
       "torrents": [
         {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
-          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
+          "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
         }
       ]
     }
