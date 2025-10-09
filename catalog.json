@@ -233774,13 +233774,13 @@
       "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
     },
     {
-      "file": "La puta ama [HDTV 1080p][Cap.103].torrent",
+      "file": "La puta ama [HDTV 1080p][Cap.104].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 1080p][Cap.103].torrent",
+        "title": "La puta ama [HDTV 1080p][Cap.104].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 3,
+        "episode": 4,
         "quality": "1080p"
       },
       "matched": false,
@@ -233819,29 +233819,29 @@
       "torrents": [
         {
           "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:89a84bc8f86d4e7cb726467289a444deb33fa4c6",
-          "infohash": "89a84bc8f86d4e7cb726467289a444deb33fa4c6"
+          "magnet": "magnet:?xt=urn:btih:aef3145ef717521c36e570c3f09d11bef4c4368a",
+          "infohash": "aef3145ef717521c36e570c3f09d11bef4c4368a"
         }
       ],
       "tmdb_episode": {
-        "air_date": "2025-01-19",
+        "air_date": "2025-01-26",
         "crew": [],
-        "episode_number": 3,
+        "episode_number": 4,
         "episode_type": "standard",
         "guest_stars": [],
-        "name": "Reina de los hogares",
-        "overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
-        "id": 5872090,
+        "name": "Divide y vencerás",
+        "overview": "Con la desaparición de Koistinen, Börje está desesperado, y las pesadillas de Linda no hacen más que empeorar. Su peculiar equipo de renovación comienza a trabajar en un edificio parroquial.",
+        "id": 5872091,
         "production_code": "",
-        "runtime": 54,
+        "runtime": 52,
         "season_number": 1,
-        "still_path": "/5azO8HUQybk9mURpmriJVbemj78.jpg",
+        "still_path": "/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg",
         "vote_average": 0.0,
         "vote_count": 0
       },
-      "episode_title": "Reina de los hogares",
-      "episode_overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
-      "still_path": "https://image.tmdb.org/t/p/w500/5azO8HUQybk9mURpmriJVbemj78.jpg"
+      "episode_title": "Divide y vencerás",
+      "episode_overview": "Con la desaparición de Koistinen, Börje está desesperado, y las pesadillas de Linda no hacen más que empeorar. Su peculiar equipo de renovación comienza a trabajar en un edificio parroquial.",
+      "still_path": "https://image.tmdb.org/t/p/w500/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg"
     }
   ]
 }
