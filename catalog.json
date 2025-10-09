@@ -233891,6 +233891,11 @@
           "quality": "720p",
           "magnet": "magnet:?xt=urn:btih:d141cb44ee789ef3117e4d1e3e5d44174ba13ccd",
           "infohash": "d141cb44ee789ef3117e4d1e3e5d44174ba13ccd"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:89a84bc8f86d4e7cb726467289a444deb33fa4c6",
+          "infohash": "89a84bc8f86d4e7cb726467289a444deb33fa4c6"
         }
       ],
       "tmdb_episode": {
