@@ -233774,13 +233774,13 @@
       "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
     },
     {
-      "file": "La puta ama [HDTV 1080p][Cap.106].torrent",
+      "file": "La puta ama [HDTV 1080p][Cap.107].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 1080p][Cap.106].torrent",
+        "title": "La puta ama [HDTV 1080p][Cap.107].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 6,
+        "episode": 7,
         "quality": "1080p"
       },
       "matched": false,
@@ -233819,29 +233819,10 @@
       "torrents": [
         {
           "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:1c6a01869c808cbd70e66c4d0755359d53544d28",
-          "infohash": "1c6a01869c808cbd70e66c4d0755359d53544d28"
+          "magnet": "magnet:?xt=urn:btih:c668fb5865d2af5c8436fbd7353a8ac7af99cd89",
+          "infohash": "c668fb5865d2af5c8436fbd7353a8ac7af99cd89"
         }
-      ],
-      "tmdb_episode": {
-        "air_date": "2025-02-09",
-        "crew": [],
-        "episode_number": 6,
-        "episode_type": "finale",
-        "guest_stars": [],
-        "name": "La ley del karma",
-        "overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
-        "id": 5872093,
-        "production_code": "",
-        "runtime": 52,
-        "season_number": 1,
-        "still_path": "/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg",
-        "vote_average": 0.0,
-        "vote_count": 0
-      },
-      "episode_title": "La ley del karma",
-      "episode_overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
-      "still_path": "https://image.tmdb.org/t/p/w500/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg"
+      ]
     }
   ]
 }
