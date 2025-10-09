@@ -233643,48 +233643,12 @@
         "quality": "720p"
       },
       "matched": false,
-      "tmdb_top": {
-        "id": 280860,
-        "title": "La puta ama",
-        "original_title": "Queen of Fucking Everything",
-        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
-        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
-        "genre_ids": [
-          80,
-          18,
-          35
-        ],
-        "cast": [
-          "Laura Malmivaara",
-          "Katja Küttner",
-          "Kristo Salminen",
-          "Joonas Heikkinen",
-          "Miro Lopperi",
-          "Minna Haapkylä",
-          "Kari Heiskanen",
-          "Juho Milonoff",
-          "Marja Packalén",
-          "Janne Reinikainen"
-        ],
-        "genres": [
-          "Crimen",
-          "Drama",
-          "Comedia"
-        ],
-        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
-      },
+      "tmdb_top": {},
       "torrents": [
         {
           "quality": "720p",
           "magnet": "magnet:?xt=urn:btih:0df0a673e55575e976578ac22f391579a60683a4",
           "infohash": "0df0a673e55575e976578ac22f391579a60683a4"
-        },
-        {
-          "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:8a940ac1a4473dca3135dbeb349dc38a91831cc8",
-          "infohash": "8a940ac1a4473dca3135dbeb349dc38a91831cc8"
         }
       ]
     },
@@ -233787,6 +233751,11 @@
           "quality": "1080p",
           "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
           "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:c668fb5865d2af5c8436fbd7353a8ac7af99cd89",
+          "infohash": "c668fb5865d2af5c8436fbd7353a8ac7af99cd89"
         }
       ],
       "tmdb_episode": {
