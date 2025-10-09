@@ -233649,6 +233649,24 @@
           "infohash": "f34ebcc4a87e69f64c30c346e440292a41b79d80"
         }
       ]
+    },
+    {
+      "file": "Nadie 2 (Nobody 2) (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "title": "Nadie 2",
+        "type": "movie",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
+          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+        }
+      ]
     }
   ]
 }
