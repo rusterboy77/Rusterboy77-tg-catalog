@@ -233704,13 +233704,13 @@
       ]
     },
     {
-      "file": "La puta ama [HDTV 1080p][Cap.101].torrent",
+      "file": "La puta ama [HDTV 1080p][Cap.102].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 1080p][Cap.101].torrent",
+        "title": "La puta ama [HDTV 1080p][Cap.102].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 1,
+        "episode": 2,
         "quality": "1080p"
       },
       "matched": false,
@@ -233749,29 +233749,29 @@
       "torrents": [
         {
           "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
-          "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
+          "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
+          "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
         }
       ],
       "tmdb_episode": {
-        "air_date": "2025-01-05",
+        "air_date": "2025-01-12",
         "crew": [],
-        "episode_number": 1,
+        "episode_number": 2,
         "episode_type": "standard",
         "guest_stars": [],
-        "name": "Incumplimiento de pago",
-        "overview": "Linda, una agente inmobiliaria de lujo, se enfrenta a una dura realidad cuando su esposo desaparece, dejándola con millones en deudas.",
-        "id": 5871998,
+        "name": "Oferta desastrosa",
+        "overview": "Los problemas se abren paso en el trabajo de Linda cuando Koistinen, el socio corrupto de Spora y novio de Marke, aparece repentinamente.",
+        "id": 5872089,
         "production_code": "",
-        "runtime": 55,
+        "runtime": 53,
         "season_number": 1,
-        "still_path": "/pqLh8uVWSWMH3hhyOZQRKaaUnJz.jpg",
+        "still_path": "/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg",
         "vote_average": 7.0,
         "vote_count": 1
       },
-      "episode_title": "Incumplimiento de pago",
-      "episode_overview": "Linda, una agente inmobiliaria de lujo, se enfrenta a una dura realidad cuando su esposo desaparece, dejándola con millones en deudas.",
-      "still_path": "https://image.tmdb.org/t/p/w500/pqLh8uVWSWMH3hhyOZQRKaaUnJz.jpg"
+      "episode_title": "Oferta desastrosa",
+      "episode_overview": "Los problemas se abren paso en el trabajo de Linda cuando Koistinen, el socio corrupto de Spora y novio de Marke, aparece repentinamente.",
+      "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
     }
   ]
 }
