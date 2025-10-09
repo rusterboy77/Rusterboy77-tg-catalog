@@ -233700,22 +233700,53 @@
       ]
     },
     {
-      "file": "La puta ama [HDTV 720p][Cap.107].torrent",
+      "file": "New Life (2023) [Bluray 1080p][Esp].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 720p][Cap.107].torrent",
-        "type": "series",
-        "series": "La puta ama",
-        "season": 1,
-        "episode": 7,
-        "quality": "720p"
+        "title": "New Life",
+        "type": "movie",
+        "year": "2023",
+        "quality": "1080p"
       },
       "matched": false,
-      "tmdb_top": {},
+      "tmdb_top": {
+        "id": 1148027,
+        "title": "New Life",
+        "original_title": "New Life",
+        "overview": "Una misteriosa mujer a la fuga y un ingenioso agente encargado de atraparla. Sus dos historias únicas se entrelazan inextricablemente, a medida que lo que está en juego en la persecución adquiere proporciones apocalípticas.",
+        "poster_path": "/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_path": "/ly1jzyYU93NHF968i9M1tKkVAf9.jpg",
+        "genre_ids": [
+          27,
+          53,
+          9648,
+          878
+        ],
+        "cast": [
+          "Sonya Walger",
+          "Hayley Erin",
+          "Tony Amendola",
+          "Ayanna Berkshire",
+          "Jeb Berrier",
+          "Blaine Palmer",
+          "Betty Moyer",
+          "David Loftus",
+          "Nick George",
+          "Cyndi Rhoads"
+        ],
+        "genres": [
+          "Terror",
+          "Suspense",
+          "Misterio",
+          "Ciencia ficción"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ly1jzyYU93NHF968i9M1tKkVAf9.jpg"
+      },
       "torrents": [
         {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
-          "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:565fc013e61c2e45b981bde08f30b5d5aa33a6e9",
+          "infohash": "565fc013e61c2e45b981bde08f30b5d5aa33a6e9"
         }
       ]
     }
