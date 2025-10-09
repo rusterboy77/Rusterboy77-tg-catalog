@@ -233700,53 +233700,22 @@
       ]
     },
     {
-      "file": "New Life (2023) [Bluray 720p][Esp].torrent",
+      "file": "La puta ama [HDTV 720p][Cap.107].torrent",
       "parsed": {
-        "title": "New Life",
-        "type": "movie",
-        "year": "2023",
+        "title": "La puta ama [HDTV 720p][Cap.107].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 7,
         "quality": "720p"
       },
       "matched": false,
-      "tmdb_top": {
-        "id": 1148027,
-        "title": "New Life",
-        "original_title": "New Life",
-        "overview": "Una misteriosa mujer a la fuga y un ingenioso agente encargado de atraparla. Sus dos historias únicas se entrelazan inextricablemente, a medida que lo que está en juego en la persecución adquiere proporciones apocalípticas.",
-        "poster_path": "/x42j045m9NfxI164KOQKg9BbleD.jpg",
-        "backdrop_path": "/ly1jzyYU93NHF968i9M1tKkVAf9.jpg",
-        "genre_ids": [
-          27,
-          53,
-          9648,
-          878
-        ],
-        "cast": [
-          "Sonya Walger",
-          "Hayley Erin",
-          "Tony Amendola",
-          "Ayanna Berkshire",
-          "Jeb Berrier",
-          "Blaine Palmer",
-          "Betty Moyer",
-          "David Loftus",
-          "Nick George",
-          "Cyndi Rhoads"
-        ],
-        "genres": [
-          "Terror",
-          "Suspense",
-          "Misterio",
-          "Ciencia ficción"
-        ],
-        "poster_url": "https://image.tmdb.org/t/p/w500/x42j045m9NfxI164KOQKg9BbleD.jpg",
-        "backdrop_url": "https://image.tmdb.org/t/p/original/ly1jzyYU93NHF968i9M1tKkVAf9.jpg"
-      },
+      "tmdb_top": {},
       "torrents": [
         {
           "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:f34ebcc4a87e69f64c30c346e440292a41b79d80",
-          "infohash": "f34ebcc4a87e69f64c30c346e440292a41b79d80"
+          "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
+          "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
         }
       ]
     }
