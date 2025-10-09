@@ -233959,6 +233959,57 @@
           "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
         }
       ]
+    },
+    {
+      "file": "La puta ama [HDTV 720p][Cap.107].torrent",
+      "parsed": {
+        "title": "La puta ama [HDTV 720p][Cap.107].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 7,
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 280860,
+        "title": "La puta ama",
+        "original_title": "Queen of Fucking Everything",
+        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
+        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
+        "genre_ids": [
+          80,
+          18,
+          35
+        ],
+        "cast": [
+          "Laura Malmivaara",
+          "Katja Küttner",
+          "Kristo Salminen",
+          "Joonas Heikkinen",
+          "Miro Lopperi",
+          "Minna Haapkylä",
+          "Kari Heiskanen",
+          "Juho Milonoff",
+          "Marja Packalén",
+          "Janne Reinikainen"
+        ],
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
+          "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
+        }
+      ]
     }
   ]
 }
