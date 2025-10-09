@@ -233651,6 +233651,26 @@
           "infohash": "0df0a673e55575e976578ac22f391579a60683a4"
         }
       ]
+    },
+    {
+      "file": "La puta ama [HDTV 720p][Cap.106].torrent",
+      "parsed": {
+        "title": "La puta ama [HDTV 720p][Cap.106].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 6,
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
+          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
+        }
+      ]
     }
   ]
 }
