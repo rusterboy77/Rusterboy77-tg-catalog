@@ -233633,12 +233633,12 @@
       "overview": "Un hombre armado atraca una tienda Apple en el centro de Ámsterdam y a la policía le toca resolver una situación delicada."
     },
     {
-      "file": "Nadie 2 (Nobody 2) (2025) [4k 2160p][Esp].torrent",
+      "file": "Nadie 2 (Nobody 2) (2025) [Bluray 720p][Esp].torrent",
       "parsed": {
         "title": "Nadie 2",
         "type": "movie",
         "year": "2025",
-        "quality": "4k"
+        "quality": "720p"
       },
       "matched": false,
       "tmdb_top": {
@@ -233673,9 +233673,9 @@
       },
       "torrents": [
         {
-          "quality": "4k",
-          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
-          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
+          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
         }
       ]
     }
