@@ -233656,12 +233656,12 @@
       ]
     },
     {
-      "file": "Nadie 2 (Nobody 2) (2025) [Bluray 720p][Esp].torrent",
+      "file": "Nadie 2 (Nobody 2) (2025) [Bluray][Esp].torrent",
       "parsed": {
         "title": "Nadie 2",
         "type": "movie",
         "year": "2025",
-        "quality": "720p"
+        "quality": "bluray"
       },
       "matched": false,
       "tmdb_top": {
@@ -233696,14 +233696,9 @@
       },
       "torrents": [
         {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
-          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
-        },
-        {
-          "quality": "4k",
-          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
-          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c987128fb2aea00606dd0b1b0acea98b6a257f3b",
+          "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
         }
       ]
     }
