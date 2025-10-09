@@ -233844,13 +233844,13 @@
       "still_path": "https://image.tmdb.org/t/p/w500/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg"
     },
     {
-      "file": "La puta ama [HDTV 720p][Cap.103].torrent",
+      "file": "La puta ama [HDTV 720p][Cap.106].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 720p][Cap.103].torrent",
+        "title": "La puta ama [HDTV 720p][Cap.106].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 3,
+        "episode": 6,
         "quality": "720p"
       },
       "matched": false,
@@ -233889,29 +233889,29 @@
       "torrents": [
         {
           "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:d141cb44ee789ef3117e4d1e3e5d44174ba13ccd",
-          "infohash": "d141cb44ee789ef3117e4d1e3e5d44174ba13ccd"
+          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
+          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
         }
       ],
       "tmdb_episode": {
-        "air_date": "2025-01-19",
+        "air_date": "2025-02-09",
         "crew": [],
-        "episode_number": 3,
-        "episode_type": "standard",
+        "episode_number": 6,
+        "episode_type": "finale",
         "guest_stars": [],
-        "name": "Reina de los hogares",
-        "overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
-        "id": 5872090,
+        "name": "La ley del karma",
+        "overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
+        "id": 5872093,
         "production_code": "",
-        "runtime": 54,
+        "runtime": 52,
         "season_number": 1,
-        "still_path": "/5azO8HUQybk9mURpmriJVbemj78.jpg",
+        "still_path": "/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg",
         "vote_average": 0.0,
         "vote_count": 0
       },
-      "episode_title": "Reina de los hogares",
-      "episode_overview": "Linda y Marke viajan a España, donde Marke descubre el verdadero motivo del viaje. Marke asciende a director general de la empresa de reformas de Linda, Queen of Homes.",
-      "still_path": "https://image.tmdb.org/t/p/w500/5azO8HUQybk9mURpmriJVbemj78.jpg"
+      "episode_title": "La ley del karma",
+      "episode_overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
+      "still_path": "https://image.tmdb.org/t/p/w500/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg"
     }
   ]
 }
