@@ -233844,74 +233844,51 @@
       "still_path": "https://image.tmdb.org/t/p/w500/v9vPG0EMh4LGj6ifpGfq7rcka5p.jpg"
     },
     {
-      "file": "La puta ama [HDTV 720p][Cap.106].torrent",
+      "file": "Nadie 2 (Nobody 2) (2025) [4k 2160p][Esp].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 720p][Cap.106].torrent",
-        "type": "series",
-        "series": "La puta ama",
-        "season": 1,
-        "episode": 6,
-        "quality": "720p"
+        "title": "Nadie 2",
+        "type": "movie",
+        "year": "2025",
+        "quality": "4k"
       },
       "matched": false,
       "tmdb_top": {
-        "id": 280860,
-        "title": "La puta ama",
-        "original_title": "Queen of Fucking Everything",
-        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
-        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
+        "id": 1007734,
+        "title": "Nadie 2",
+        "original_title": "Nobody 2",
+        "overview": "Cuatro años después de enfrentarse involuntariamente a la mafia rusa, Hutch Mansell sigue intentando saldar una deuda de 30 millones de dólares con golpes a criminales internacionales. Agotado y distanciado de su familia, organiza unas vacaciones con su esposa e hijos en Plummerville, el lugar donde solía ir con su hermano de niño. Pero un pequeño altercado los convierte en el objetivo de un peligroso mafioso local y de su corrupto sheriff, poniendo en riesgo toda la familia.",
+        "poster_path": "/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_path": "/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg",
         "genre_ids": [
-          80,
-          18,
-          35
+          28,
+          53
         ],
         "cast": [
-          "Laura Malmivaara",
-          "Katja Küttner",
-          "Kristo Salminen",
-          "Joonas Heikkinen",
-          "Miro Lopperi",
-          "Minna Haapkylä",
-          "Kari Heiskanen",
-          "Juho Milonoff",
-          "Marja Packalén",
-          "Janne Reinikainen"
+          "Bob Odenkirk",
+          "Connie Nielsen",
+          "John Ortiz",
+          "Colin Hanks",
+          "RZA",
+          "Colin Salmon",
+          "Christopher Lloyd",
+          "Sharon Stone",
+          "Daniel Bernhardt",
+          "Paisley Cadorath"
         ],
         "genres": [
-          "Crimen",
-          "Drama",
-          "Comedia"
+          "Acción",
+          "Suspense"
         ],
-        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
+        "poster_url": "https://image.tmdb.org/t/p/w500/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg"
       },
       "torrents": [
         {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:2dec6985955118215c6043e33a111649bd83b9f7",
-          "infohash": "2dec6985955118215c6043e33a111649bd83b9f7"
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
+          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
         }
-      ],
-      "tmdb_episode": {
-        "air_date": "2025-02-09",
-        "crew": [],
-        "episode_number": 6,
-        "episode_type": "finale",
-        "guest_stars": [],
-        "name": "La ley del karma",
-        "overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
-        "id": 5872093,
-        "production_code": "",
-        "runtime": 52,
-        "season_number": 1,
-        "still_path": "/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg",
-        "vote_average": 0.0,
-        "vote_count": 0
-      },
-      "episode_title": "La ley del karma",
-      "episode_overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
-      "still_path": "https://image.tmdb.org/t/p/w500/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg"
+      ]
     }
   ]
 }
