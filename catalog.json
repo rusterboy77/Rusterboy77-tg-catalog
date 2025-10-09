@@ -233699,6 +233699,11 @@
           "quality": "720p",
           "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
           "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
+        },
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
+          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
         }
       ]
     }
