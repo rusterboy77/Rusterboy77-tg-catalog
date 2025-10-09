@@ -233774,14 +233774,14 @@
       "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
     },
     {
-      "file": "La puta ama [HDTV 1080p][Cap.107].torrent",
+      "file": "La puta ama [HDTV 720p][Cap.101].torrent",
       "parsed": {
-        "title": "La puta ama [HDTV 1080p][Cap.107].torrent",
+        "title": "La puta ama [HDTV 720p][Cap.101].torrent",
         "type": "series",
         "series": "La puta ama",
         "season": 1,
-        "episode": 7,
-        "quality": "1080p"
+        "episode": 1,
+        "quality": "720p"
       },
       "matched": false,
       "tmdb_top": {
@@ -233818,11 +233818,30 @@
       },
       "torrents": [
         {
-          "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:c668fb5865d2af5c8436fbd7353a8ac7af99cd89",
-          "infohash": "c668fb5865d2af5c8436fbd7353a8ac7af99cd89"
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d",
+          "infohash": "a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d"
         }
-      ]
+      ],
+      "tmdb_episode": {
+        "air_date": "2025-01-05",
+        "crew": [],
+        "episode_number": 1,
+        "episode_type": "standard",
+        "guest_stars": [],
+        "name": "Incumplimiento de pago",
+        "overview": "Linda, una agente inmobiliaria de lujo, se enfrenta a una dura realidad cuando su esposo desaparece, dejándola con millones en deudas.",
+        "id": 5871998,
+        "production_code": "",
+        "runtime": 55,
+        "season_number": 1,
+        "still_path": "/pqLh8uVWSWMH3hhyOZQRKaaUnJz.jpg",
+        "vote_average": 7.0,
+        "vote_count": 1
+      },
+      "episode_title": "Incumplimiento de pago",
+      "episode_overview": "Linda, una agente inmobiliaria de lujo, se enfrenta a una dura realidad cuando su esposo desaparece, dejándola con millones en deudas.",
+      "still_path": "https://image.tmdb.org/t/p/w500/pqLh8uVWSWMH3hhyOZQRKaaUnJz.jpg"
     }
   ]
 }
