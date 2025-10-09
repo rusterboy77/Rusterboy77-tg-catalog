@@ -233643,48 +233643,12 @@
         "quality": "720p"
       },
       "matched": false,
-      "tmdb_top": {
-        "id": 280860,
-        "title": "La puta ama",
-        "original_title": "Queen of Fucking Everything",
-        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
-        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
-        "genre_ids": [
-          80,
-          18,
-          35
-        ],
-        "cast": [
-          "Laura Malmivaara",
-          "Katja Küttner",
-          "Kristo Salminen",
-          "Joonas Heikkinen",
-          "Miro Lopperi",
-          "Minna Haapkylä",
-          "Kari Heiskanen",
-          "Juho Milonoff",
-          "Marja Packalén",
-          "Janne Reinikainen"
-        ],
-        "genres": [
-          "Crimen",
-          "Drama",
-          "Comedia"
-        ],
-        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
-        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
-      },
+      "tmdb_top": {},
       "torrents": [
         {
           "quality": "720p",
           "magnet": "magnet:?xt=urn:btih:0df0a673e55575e976578ac22f391579a60683a4",
           "infohash": "0df0a673e55575e976578ac22f391579a60683a4"
-        },
-        {
-          "quality": "1080p",
-          "magnet": "magnet:?xt=urn:btih:8a940ac1a4473dca3135dbeb349dc38a91831cc8",
-          "infohash": "8a940ac1a4473dca3135dbeb349dc38a91831cc8"
         }
       ]
     },
@@ -233808,6 +233772,76 @@
       "episode_title": "Oferta desastrosa",
       "episode_overview": "Los problemas se abren paso en el trabajo de Linda cuando Koistinen, el socio corrupto de Spora y novio de Marke, aparece repentinamente.",
       "still_path": "https://image.tmdb.org/t/p/w500/khiCN3v4zUesNZYGkb8GlNxjVsy.jpg"
+    },
+    {
+      "file": "La puta ama [HDTV 1080p][Cap.106].torrent",
+      "parsed": {
+        "title": "La puta ama [HDTV 1080p][Cap.106].torrent",
+        "type": "series",
+        "series": "La puta ama",
+        "season": 1,
+        "episode": 6,
+        "quality": "1080p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 280860,
+        "title": "La puta ama",
+        "original_title": "Queen of Fucking Everything",
+        "overview": "Linda, una exitosa agente inmobiliaria, descubre que su marido la ha dejado con millones en deudas. Decidida a mantener su estilo de vida, se adentra en el submundo criminal de Helsinki mientras intenta seguir vendiendo propiedades de lujo. Entre fraudes, blanqueo y dilemas morales, su ambición la llevará a reinventarse por completo.",
+        "poster_path": "/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_path": "/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg",
+        "genre_ids": [
+          80,
+          18,
+          35
+        ],
+        "cast": [
+          "Laura Malmivaara",
+          "Katja Küttner",
+          "Kristo Salminen",
+          "Joonas Heikkinen",
+          "Miro Lopperi",
+          "Minna Haapkylä",
+          "Kari Heiskanen",
+          "Juho Milonoff",
+          "Marja Packalén",
+          "Janne Reinikainen"
+        ],
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Comedia"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/4MOA7bPSJNWahuyz42AGspBvtsI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/57Ir1oQAEnugCo5Hw3RPDVbHzue.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:1c6a01869c808cbd70e66c4d0755359d53544d28",
+          "infohash": "1c6a01869c808cbd70e66c4d0755359d53544d28"
+        }
+      ],
+      "tmdb_episode": {
+        "air_date": "2025-02-09",
+        "crew": [],
+        "episode_number": 6,
+        "episode_type": "finale",
+        "guest_stars": [],
+        "name": "La ley del karma",
+        "overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
+        "id": 5872093,
+        "production_code": "",
+        "runtime": 52,
+        "season_number": 1,
+        "still_path": "/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg",
+        "vote_average": 0.0,
+        "vote_count": 0
+      },
+      "episode_title": "La ley del karma",
+      "episode_overview": "Linda le confiesa todo a Marke. Una empresa internacional amenaza con rescindir el acuerdo que Linda intenta cerrar con ellos; necesita acelerar el proceso.",
+      "still_path": "https://image.tmdb.org/t/p/w500/2c9AFJkMmfLO9wLo82NSGDM1JQT.jpg"
     }
   ]
 }
