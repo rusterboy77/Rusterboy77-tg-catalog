@@ -233633,11 +233633,11 @@
       "overview": "Un hombre armado atraca una tienda Apple en el centro de Ámsterdam y a la policía le toca resolver una situación delicada."
     },
     {
-      "file": "Nadie 2 (Nobody 2) (2025) [Bluray][Esp].torrent",
+      "file": "New Life (2023) [Bluray][Esp].torrent",
       "parsed": {
-        "title": "Nadie 2",
+        "title": "New Life",
         "type": "movie",
-        "year": "2025",
+        "year": "2023",
         "quality": "bluray"
       },
       "matched": false,
@@ -233645,8 +233645,8 @@
       "torrents": [
         {
           "quality": "bluray",
-          "magnet": "magnet:?xt=urn:btih:c987128fb2aea00606dd0b1b0acea98b6a257f3b",
-          "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
+          "magnet": "magnet:?xt=urn:btih:49e5355d1e03819fa45c2e0da6eb72ad48677e16",
+          "infohash": "49e5355d1e03819fa45c2e0da6eb72ad48677e16"
         }
       ]
     }
