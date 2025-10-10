@@ -233631,6 +233631,29 @@
         }
       ],
       "overview": "Un hombre armado atraca una tienda Apple en el centro de Ámsterdam y a la policía le toca resolver una situación delicada."
+    },
+    {
+      "file": "La puta ama",
+      "parsed": {
+        "type": "series",
+        "series": "La puta ama"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
+              "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
