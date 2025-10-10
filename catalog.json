@@ -233713,6 +233713,11 @@
           "quality": "1080p",
           "magnet": "magnet:?xt=urn:btih:aef3145ef717521c36e570c3f09d11bef4c4368a",
           "infohash": "aef3145ef717521c36e570c3f09d11bef4c4368a"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:89a84bc8f86d4e7cb726467289a444deb33fa4c6",
+          "infohash": "89a84bc8f86d4e7cb726467289a444deb33fa4c6"
         }
       ]
     }
