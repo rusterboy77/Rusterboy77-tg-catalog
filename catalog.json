@@ -233708,11 +233708,6 @@
           "quality": "bluray",
           "magnet": "magnet:?xt=urn:btih:49e5355d1e03819fa45c2e0da6eb72ad48677e16",
           "infohash": "49e5355d1e03819fa45c2e0da6eb72ad48677e16"
-        },
-        {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:f34ebcc4a87e69f64c30c346e440292a41b79d80",
-          "infohash": "f34ebcc4a87e69f64c30c346e440292a41b79d80"
         }
       ]
     },
