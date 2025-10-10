@@ -233738,13 +233738,13 @@
       "episodes": [
         {
           "season": 1,
-          "episode": 1,
+          "episode": 2,
           "overview": null,
           "torrents": [
             {
               "quality": "1080p",
-              "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
-              "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
+              "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
+              "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
             }
           ]
         }
