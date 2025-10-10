@@ -233655,13 +233655,13 @@
         },
         {
           "season": 1,
-          "episode": 5,
+          "episode": 6,
           "overview": null,
           "torrents": [
             {
               "quality": "1080p",
-              "magnet": "magnet:?xt=urn:btih:8a940ac1a4473dca3135dbeb349dc38a91831cc8",
-              "infohash": "8a940ac1a4473dca3135dbeb349dc38a91831cc8"
+              "magnet": "magnet:?xt=urn:btih:1c6a01869c808cbd70e66c4d0755359d53544d28",
+              "infohash": "1c6a01869c808cbd70e66c4d0755359d53544d28"
             }
           ]
         }
