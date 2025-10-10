@@ -233650,18 +233650,11 @@
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
               "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 7,
-          "overview": null,
-          "torrents": [
+            },
             {
-              "quality": "1080p",
-              "magnet": "magnet:?xt=urn:btih:c668fb5865d2af5c8436fbd7353a8ac7af99cd89",
-              "infohash": "c668fb5865d2af5c8436fbd7353a8ac7af99cd89"
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d",
+              "infohash": "a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d"
             }
           ]
         }
