@@ -233650,11 +233650,18 @@
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
               "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
-            },
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
             {
               "quality": "720p",
-              "magnet": "magnet:?xt=urn:btih:a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d",
-              "infohash": "a382a267f4d8273fb7e9ac7bf4adfce2eb04bf5d"
+              "magnet": "magnet:?xt=urn:btih:ac1c97afc5167048f18a2373b4a6d8c8806f9851",
+              "infohash": "ac1c97afc5167048f18a2373b4a6d8c8806f9851"
             }
           ]
         }
