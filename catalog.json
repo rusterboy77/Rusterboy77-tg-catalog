@@ -233734,6 +233734,20 @@
           "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
           "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
         }
+      ],
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
+              "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
+            }
+          ]
+        }
       ]
     }
   ]
