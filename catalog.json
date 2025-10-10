@@ -233698,6 +233698,11 @@
           "quality": "1080p",
           "magnet": "magnet:?xt=urn:btih:565fc013e61c2e45b981bde08f30b5d5aa33a6e9",
           "infohash": "565fc013e61c2e45b981bde08f30b5d5aa33a6e9"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:49e5355d1e03819fa45c2e0da6eb72ad48677e16",
+          "infohash": "49e5355d1e03819fa45c2e0da6eb72ad48677e16"
         }
       ]
     }
