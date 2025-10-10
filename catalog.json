@@ -233677,7 +233677,22 @@
         "quality": "1080p"
       },
       "matched": false,
-      "tmdb_top": {},
+      "tmdb_top": {
+        "id": 1148027,
+        "title": "New Life",
+        "original_title": "New Life",
+        "overview": "Una misteriosa mujer a la fuga y un ingenioso agente encargado de atraparla. Sus dos historias únicas se entrelazan inextricablemente, a medida que lo que está en juego en la persecución adquiere proporciones apocalípticas.",
+        "poster_path": "/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_path": "/ly1jzyYU93NHF968i9M1tKkVAf9.jpg",
+        "genres": [
+          "Terror",
+          "Suspense",
+          "Misterio",
+          "Ciencia ficción"
+        ],
+        "poster_url": "https://image.tmdb.org/t/p/w500/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ly1jzyYU93NHF968i9M1tKkVAf9.jpg"
+      },
       "torrents": [
         {
           "quality": "1080p",
