@@ -233643,13 +233643,25 @@
       "episodes": [
         {
           "season": 1,
-          "episode": 3,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
+              "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
           "overview": null,
           "torrents": [
             {
               "quality": "720p",
-              "magnet": "magnet:?xt=urn:btih:d141cb44ee789ef3117e4d1e3e5d44174ba13ccd",
-              "infohash": "d141cb44ee789ef3117e4d1e3e5d44174ba13ccd"
+              "magnet": "magnet:?xt=urn:btih:fce79d8adf443fadec0060b187fb18265dadf548",
+              "infohash": "fce79d8adf443fadec0060b187fb18265dadf548"
             }
           ]
         }
