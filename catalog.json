@@ -233633,35 +233633,12 @@
       "overview": "Un hombre armado atraca una tienda Apple en el centro de Ámsterdam y a la policía le toca resolver una situación delicada."
     },
     {
-      "file": "La puta ama",
-      "parsed": {
-        "type": "series",
-        "series": "La puta ama"
-      },
-      "matched": false,
-      "tmdb_top": {},
-      "episodes": [
-        {
-          "season": 1,
-          "episode": 1,
-          "overview": null,
-          "torrents": [
-            {
-              "quality": "1080p",
-              "magnet": "magnet:?xt=urn:btih:0fef2b16903e053de6e8a747da9ce39559e85459",
-              "infohash": "0fef2b16903e053de6e8a747da9ce39559e85459"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "file": "Nadie 2 (Nobody 2) (2025) [4k 2160p][Esp].torrent",
+      "file": "Nadie 2 (Nobody 2) (2025) [Bluray 720p][Esp].torrent",
       "parsed": {
         "title": "Nadie 2",
         "type": "movie",
         "year": "2025",
-        "quality": "4k"
+        "quality": "720p"
       },
       "matched": false,
       "tmdb_top": {
@@ -233680,9 +233657,9 @@
       },
       "torrents": [
         {
-          "quality": "4k",
-          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
-          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
+          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
         }
       ],
       "overview": "Cuatro años después de enfrentarse involuntariamente a la mafia rusa, Hutch Mansell sigue intentando saldar una deuda de 30 millones de dólares con golpes a criminales internacionales. Agotado y distanciado de su familia, organiza unas vacaciones con su esposa e hijos en Plummerville, el lugar donde solía ir con su hermano de niño. Pero un pequeño altercado los convierte en el objetivo de un peligroso mafioso local y de su corrupto sheriff, poniendo en riesgo toda la familia."
