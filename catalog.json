@@ -233734,32 +233734,6 @@
           "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
           "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
         }
-      ],
-      "episodes": [
-        {
-          "season": 1,
-          "episode": 2,
-          "overview": null,
-          "torrents": [
-            {
-              "quality": "1080p",
-              "magnet": "magnet:?xt=urn:btih:5b470576eca90ad76f94637d505bbfa364a7dddc",
-              "infohash": "5b470576eca90ad76f94637d505bbfa364a7dddc"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 7,
-          "overview": null,
-          "torrents": [
-            {
-              "quality": "720p",
-              "magnet": "magnet:?xt=urn:btih:4c8daaa87e0f797efcaa07b5d5f188252a2de04a",
-              "infohash": "4c8daaa87e0f797efcaa07b5d5f188252a2de04a"
-            }
-          ]
-        }
       ]
     }
   ]
