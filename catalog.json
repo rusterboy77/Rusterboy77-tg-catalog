@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "file": "Nadie 2 (Nobody 2) (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "title": "Nadie 2",
+        "type": "movie",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1007734,
+        "title": "Nadie 2",
+        "original_title": "Nobody 2",
+        "overview": "Cuatro años después de enfrentarse involuntariamente a la mafia rusa, Hutch Mansell sigue intentando saldar una deuda de 30 millones de dólares con golpes a criminales internacionales. Agotado y distanciado de su familia, organiza unas vacaciones con su esposa e hijos en Plummerville, el lugar donde solía ir con su hermano de niño. Pero un pequeño altercado los convierte en el objetivo de un peligroso mafioso local y de su corrupto sheriff, poniendo en riesgo toda la familia.",
+        "poster_path": "/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_path": "/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qwdBh0102NX5fslXv3L9MSlXqKc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mEW9XMgYDO6U0MJcIRqRuSwjzN5.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1",
+          "infohash": "7b0d2b6fdd78ee2ac6a7de86f41e0754ae9f93e1"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ab4837547dff3486d0791a0d05d707f41e34ef56",
+          "infohash": "ab4837547dff3486d0791a0d05d707f41e34ef56"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c987128fb2aea00606dd0b1b0acea98b6a257f3b",
+          "infohash": "c987128fb2aea00606dd0b1b0acea98b6a257f3b"
+        }
+      ],
+      "overview": "Cuatro años después de enfrentarse involuntariamente a la mafia rusa, Hutch Mansell sigue intentando saldar una deuda de 30 millones de dólares con golpes a criminales internacionales. Agotado y distanciado de su familia, organiza unas vacaciones con su esposa e hijos en Plummerville, el lugar donde solía ir con su hermano de niño. Pero un pequeño altercado los convierte en el objetivo de un peligroso mafioso local y de su corrupto sheriff, poniendo en riesgo toda la familia.",
+      "genres": [
+        "Acción",
+        "Suspense"
+      ],
+      "cast": [
+        "Bob Odenkirk",
+        "Connie Nielsen",
+        "John Ortiz",
+        "Colin Hanks",
+        "RZA",
+        "Colin Salmon",
+        "Christopher Lloyd",
+        "Sharon Stone",
+        "Daniel Bernhardt",
+        "Paisley Cadorath"
+      ]
+    },
+    {
+      "file": "New Life (2023) [Bluray 1080p][Esp].torrent",
+      "parsed": {
+        "title": "New Life",
+        "type": "movie",
+        "year": "2023",
+        "quality": "1080p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1148027,
+        "title": "New Life",
+        "original_title": "New Life",
+        "overview": "Una misteriosa mujer a la fuga y un ingenioso agente encargado de atraparla. Sus dos historias únicas se entrelazan inextricablemente, a medida que lo que está en juego en la persecución adquiere proporciones apocalípticas.",
+        "poster_path": "/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_path": "/ly1jzyYU93NHF968i9M1tKkVAf9.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/x42j045m9NfxI164KOQKg9BbleD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ly1jzyYU93NHF968i9M1tKkVAf9.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:565fc013e61c2e45b981bde08f30b5d5aa33a6e9",
+          "infohash": "565fc013e61c2e45b981bde08f30b5d5aa33a6e9"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:f34ebcc4a87e69f64c30c346e440292a41b79d80",
+          "infohash": "f34ebcc4a87e69f64c30c346e440292a41b79d80"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:49e5355d1e03819fa45c2e0da6eb72ad48677e16",
+          "infohash": "49e5355d1e03819fa45c2e0da6eb72ad48677e16"
+        }
+      ],
+      "overview": "Una misteriosa mujer a la fuga y un ingenioso agente encargado de atraparla. Sus dos historias únicas se entrelazan inextricablemente, a medida que lo que está en juego en la persecución adquiere proporciones apocalípticas.",
+      "genres": [
+        "Terror",
+        "Suspense",
+        "Misterio",
+        "Ciencia ficción"
+      ],
+      "cast": [
+        "Sonya Walger",
+        "Hayley Erin",
+        "Tony Amendola",
+        "Ayanna Berkshire",
+        "Jeb Berrier",
+        "Blaine Palmer",
+        "Betty Moyer",
+        "David Loftus",
+        "Nick George",
+        "Cyndi Rhoads"
+      ]
+    }
+  ]
+}
