@@ -234964,6 +234964,17 @@
               "magnet": "magnet:?xt=urn:btih:c48b7c97da9e28b3097145f9151497df6eba5635"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Un joven de 18 años se enfrenta a su llegada a la Universidad tras haber vivido una tragedia personal.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:295f1eb4228c9258b5d570e176495f312849dbcd"
+            }
+          ]
         }
       ]
     }
