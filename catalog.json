@@ -234523,6 +234523,44 @@
         }
       ],
       "overview": "Un adolescente va a ver a su camello para probar una nueva droga antes de irse de fiesta. De camino a casa, recoge a una mujer herida y la noche da un giro surrealista."
+    },
+    {
+      "file": "Match La reina de las apps de citas (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Match La reina de las apps de citas",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1265344",
+        "poster_url": "https://image.tmdb.org/t/p/w500/3Fyouhu5GY9okg794Qy0qa03p3d.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/wFBtKkAH39fI4KurkxqIVDwZj1H.jpg",
+        "genres": [
+          "Historia",
+          "Drama"
+        ],
+        "cast": [
+          "Lily James",
+          "Ben Schnetzer",
+          "Myha'la",
+          "Jackson White",
+          "Dan Stevens",
+          "Ian Colletti",
+          "Mary Neely",
+          "Ana Yi Puig",
+          "Aidan Laprete",
+          "Pedro Correa"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:111a908a9fc82c7c40c670a41bc9c748d00c059a"
+        }
+      ],
+      "overview": "Inspirada en la historia real de Whitney Wolfe, fundadora de la plataforma de citas Bumble, donde nos muestra su ingenio y perseverancia para abrirse camino en la industria tecnológica, dominada por hombres."
     }
   ]
 }
