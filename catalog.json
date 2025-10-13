@@ -234446,6 +234446,45 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Los sudarios (The Shrouds) (2024) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Los sudarios",
+        "type": "movie",
+        "year": "2024",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "970947",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9Y5clHO1bk5Fmkpff7ZYmkzKJaN.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/wMgT2Q0WcNLYrS46q9WCHImBCEc.jpg",
+        "genres": [
+          "Misterio",
+          "Ciencia ficción",
+          "Suspense"
+        ],
+        "cast": [
+          "Vincent Cassel",
+          "Diane Kruger",
+          "Guy Pearce",
+          "Sandrine Holt",
+          "Elizabeth Saunders",
+          "Jennifer Dale",
+          "Eric Weinthal",
+          "Jeff Yung",
+          "Ingvar E. Sigurðsson",
+          "Vieslav Krystyan"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:dba18cbc6610dbae3c3b0ad1e60b90af390fb36a"
+        }
+      ],
+      "overview": "Karsh, de 50 años, es un importante hombre de negocios. Inconsolable desde la muerte de su esposa, inventa GraveTech, una tecnología revolucionaria y controvertida que permite a los vivos vigilar a sus seres queridos difuntos en sus mortajas. Una noche, varias tumbas, incluida la de la esposa de Karsh, son profanadas. Karsh se propone localizar a los autores."
     }
   ]
 }
