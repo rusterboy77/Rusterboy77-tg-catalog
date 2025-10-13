@@ -234922,6 +234922,50 @@
         }
       ],
       "overview": "Tres amigas de toda la vida viajan a Key West, Florida, para ser damas de honor en la boda sorpresa de su novia de la universidad Marilyn. Una vez allí, las hermandades se reavivan, el pasado se levanta de nuevo en todo su esplendor y hay suficientes chispas, bebidas y romance para cambiar todas sus vidas de una manera que nunca esperaron."
+    },
+    {
+      "file": "Zoomers",
+      "parsed": {
+        "type": "series",
+        "series": "Zoomers"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 284821,
+        "title": "Zoomers",
+        "original_title": "Zoomers",
+        "overview": "Un joven de 18 años se enfrenta a su llegada a la Universidad tras haber vivido una tragedia personal.",
+        "poster_path": "/waFEdFOfIjcb0xLhzQk0WJTp8U1.jpg",
+        "backdrop_path": "/7gxZsvWr8OCzF6smDkus2HF3AMZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/waFEdFOfIjcb0xLhzQk0WJTp8U1.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/7gxZsvWr8OCzF6smDkus2HF3AMZ.jpg",
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Biel Rossell",
+          "Azul Guaita",
+          "Berta Castañé",
+          "Adrián Luque",
+          "Cosmo González Muñoz"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/7gxZsvWr8OCzF6smDkus2HF3AMZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/waFEdFOfIjcb0xLhzQk0WJTp8U1.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Un joven de 18 años se enfrenta a su llegada a la Universidad tras haber vivido una tragedia personal.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c48b7c97da9e28b3097145f9151497df6eba5635"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
