@@ -234561,6 +234561,44 @@
         }
       ],
       "overview": "Inspirada en la historia real de Whitney Wolfe, fundadora de la plataforma de citas Bumble, donde nos muestra su ingenio y perseverancia para abrirse camino en la industria tecnológica, dominada por hombres."
+    },
+    {
+      "file": "Sirat Trance En El Desierto (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Sirat Trance En El Desierto",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1151272",
+        "poster_url": "https://image.tmdb.org/t/p/w500/101C1zLIMvH5b33U5VwBsn8ztsC.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kOUV5WbisWMg56d8eB45ZHEVxYq.jpg",
+        "genres": [
+          "Drama",
+          "Suspense"
+        ],
+        "cast": [
+          "Sergi López",
+          "Bruno Núñez",
+          "Stefania Gadda",
+          "Joshua Liam Henderson",
+          "Richard Bellamy",
+          "Tonin Janvier",
+          "Jade Oukid",
+          "Ahmed Abbou",
+          "Abdellilah Madrari",
+          "Mohamed Madrari"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:d383e92d19efa1e2a44744c3846efbd5e61314ac"
+        }
+      ],
+      "overview": "Un padre y su hijo emprenden un viaje por el desierto para encontrar a la hermana desaparecida del niño tras una rave. En su camino se cruzan con un grupo de jóvenes rumbo a una última fiesta, donde el paisaje árido y la música se convierten en parte esencial de una historia que oscila entre el paraíso y el infierno."
     }
   ]
 }
