@@ -234485,6 +234485,52 @@
         }
       ],
       "overview": "Karsh, de 50 años, es un importante hombre de negocios. Inconsolable desde la muerte de su esposa, inventa GraveTech, una tecnología revolucionaria y controvertida que permite a los vivos vigilar a sus seres queridos difuntos en sus mortajas. Una noche, varias tumbas, incluida la de la esposa de Karsh, son profanadas. Karsh se propone localizar a los autores."
+    },
+    {
+      "file": "MadS (2024) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "MadS",
+        "type": "movie",
+        "year": "2024",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1262983,
+        "title": "MadS",
+        "original_title": "MadS",
+        "overview": "Un adolescente va a ver a su camello para probar una nueva droga antes de irse de fiesta. De camino a casa, recoge a una mujer herida y la noche da un giro surrealista.",
+        "poster_path": "/ey2jHopfqDLkmUpavAkUKIi1QsX.jpg",
+        "backdrop_path": "/8lL13GCrlOii2KvMaSom2rC16Zr.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ey2jHopfqDLkmUpavAkUKIi1QsX.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8lL13GCrlOii2KvMaSom2rC16Zr.jpg",
+        "genres": [
+          "Terror",
+          "Suspense"
+        ],
+        "cast": [
+          "Lucille Guillaume",
+          "Laurie Pavy",
+          "Milton Riche",
+          "Yovel Lewkowski",
+          "Sasha Rudakova",
+          "Vincent Pasdermadjian",
+          "Jeremiah Bourgeois",
+          "Najim Zeghoudi",
+          "Valentine Goujon",
+          "Lyam Stiti"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/8lL13GCrlOii2KvMaSom2rC16Zr.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/ey2jHopfqDLkmUpavAkUKIi1QsX.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c6ab4bab0bb4e83d4d42fd1a7cf3e39dc587dc12"
+        }
+      ],
+      "overview": "Un adolescente va a ver a su camello para probar una nueva droga antes de irse de fiesta. De camino a casa, recoge a una mujer herida y la noche da un giro surrealista."
     }
   ]
 }
