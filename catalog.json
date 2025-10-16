@@ -235044,6 +235044,54 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Twisted Metal",
+      "parsed": {
+        "type": "series",
+        "series": "Twisted Metal"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 133748,
+        "title": "Twisted Metal",
+        "original_title": "Twisted Metal",
+        "overview": "A un forastero bocazas que no recuerda su pasado se le ofrece la oportunidad de una vida mejor, pero solo si puede entregar con éxito un paquete misterioso a través de un páramo postapocalíptico. Con la ayuda de un ladrón de coches que empuña un hacha, se enfrentará a merodeadores salvajes que conducen vehículos de destrucción y otros peligros de la carretera, incluido un payaso trastornado que conduce un camión de helados demasiado familiar.",
+        "poster_path": "/3Zr9qJXqHQwi9IyPBDwukgg1jcZ.jpg",
+        "backdrop_path": "/6wLJiFwmuZNvTiE9aqFqx4dDcWh.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/3Zr9qJXqHQwi9IyPBDwukgg1jcZ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6wLJiFwmuZNvTiE9aqFqx4dDcWh.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Comedia"
+        ],
+        "cast": [
+          "Anthony Mackie",
+          "Stephanie Beatriz",
+          "Nuufolau Joel Seanoa",
+          "Will Arnett",
+          "Anthony Carrigan"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/czyDRDQeByHz00XN0UmkhFkZs41.png",
+        "banner": "https://image.tmdb.org/t/p/original/6wLJiFwmuZNvTiE9aqFqx4dDcWh.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/3Zr9qJXqHQwi9IyPBDwukgg1jcZ.jpg",
+        "episode_title": "MKAW1SH",
+        "episode_overview": "John y Quiet lo arriesgan todo por un aliado. Además, Sweet Tooth se enfrenta a una figura peligrosa de su pasado.",
+        "still_path": "https://image.tmdb.org/t/p/original/lKnWz1aYucWVQSPYeCpp9b5C20d.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "A un forastero bocazas que no recuerda su pasado se le ofrece la oportunidad de una vida mejor, pero solo si puede entregar con éxito un paquete misterioso a través de un páramo postapocalíptico. Con la ayuda de un ladrón de coches que empuña un hacha, se enfrentará a merodeadores salvajes que conducen vehículos de destrucción y otros peligros de la carretera, incluido un payaso trastornado que conduce un camión de helados demasiado familiar.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:060cb731a781443af38ef31ce489c7d973de7a24"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
