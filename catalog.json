@@ -234992,23 +234992,6 @@
           ]
         }
       ]
-    },
-    {
-      "file": "poquita-fe--HDTV-720p-AC3-5-1-temp-2-x-cap-1_20_11073.torrent",
-      "parsed": {
-        "title": "poquita-fe-- - - -5-1-temp-2-x-cap-1 20 11073",
-        "type": "movie",
-        "year": "",
-        "quality": "720p"
-      },
-      "matched": false,
-      "tmdb_top": {},
-      "torrents": [
-        {
-          "quality": "720p",
-          "magnet": "magnet:?xt=urn:btih:ee9c1dd79c4b78e208c77636169e09f81492d815"
-        }
-      ]
     }
   ]
 }
