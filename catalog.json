@@ -234992,6 +234992,58 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Poquita Fe",
+      "parsed": {
+        "type": "series",
+        "series": "Poquita Fe"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 226469,
+        "title": "Poquita fe",
+        "original_title": "Poquita fe",
+        "overview": "La serie se centra en un año de las vidas de Berta y José Ramón, quienes viven sus vidas lo mejor que pueden a pesar de que sus emociones, esperanzas y pasiones están atenuadas por el constante ruido de su día a día.",
+        "poster_path": "/xyvNM8I96XtQwvaFWWUrlQa82IF.jpg",
+        "backdrop_path": "/nUczCNrNUi4uxOddutrk6CkR6EA.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xyvNM8I96XtQwvaFWWUrlQa82IF.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/nUczCNrNUi4uxOddutrk6CkR6EA.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Raúl Cimas",
+          "Esperanza Pedreño",
+          "Chani Martín",
+          "Julia de Castro",
+          "María Jesús Hoyos",
+          "Juan Lombardero",
+          "Marta Fernández Muro",
+          "Pilar Gómez",
+          "Enrique Martínez",
+          "Eduardo Antuña"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ve1OApCauXaYZiG35a4qyKi8IDz.png",
+        "banner": "https://image.tmdb.org/t/p/original/cK5qZL949zJGirYd7ixtv60LzWV.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/xyvNM8I96XtQwvaFWWUrlQa82IF.jpg",
+        "episode_title": "Teñido",
+        "episode_overview": "No es fácil mantener a salvo la intimidad viviendo en casa ajena. Más difícil aún es adivinar de dónde va a venir la solución.",
+        "still_path": "https://image.tmdb.org/t/p/original/1FeOW5qSbM3YcAA8St52Da1U10e.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "La serie se centra en un año de las vidas de Berta y José Ramón, quienes viven sus vidas lo mejor que pueden a pesar de que sus emociones, esperanzas y pasiones están atenuadas por el constante ruido de su día a día.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0122d5f4bf1d9351f063d364ef475c33d065dad4"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
