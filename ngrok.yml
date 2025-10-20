@@ -1,8 +1,0 @@
-version: "2"
-authtoken: 32w6cGEsUlhXZgOk5n4cGPEfYDM_6rW519okkZ4jYseb3kuWo
-web_addr: 0.0.0.0:4040
-tunnels:
-  tg_catalog:
-    proto: http
-    addr: tg_catalog:8000
-
