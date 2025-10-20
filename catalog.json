@@ -6058,7 +6058,20 @@
           "filename": "Aguas turbias [HDTV 1080p][[Cap.101].torrent"
         }
       ],
-      "overview": "En la anárquica Joseon, el río Gyeonggang se ha convertido en aguas turbias. Siyul esconde un pasado problemático, Choi Eun sueña con convertirse en la mayor comerciante del país, y Jung Chun aspira a ser un oficial recto. Sus destinos se entrelazan al luchar para dar forma a su mundo."
+      "overview": "En la anárquica Joseon, el río Gyeonggang se ha convertido en aguas turbias. Siyul esconde un pasado problemático, Choi Eun sueña con convertirse en la mayor comerciante del país, y Jung Chun aspira a ser un oficial recto. Sus destinos se entrelazan al luchar para dar forma a su mundo.",
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "En la anárquica Joseon, el río Gyeonggang se ha convertido en aguas turbias. Siyul esconde un pasado problemático, Choi Eun sueña con convertirse en la mayor comerciante del país, y Jung Chun aspira a ser un oficial recto. Sus destinos se entrelazan al luchar para dar forma a su mundo.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9a6b7666b019d2e481795e2ce9cf8f444b8189b4"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Aguas turbias [HDTV 1080p][[Cap.102].torrent",
