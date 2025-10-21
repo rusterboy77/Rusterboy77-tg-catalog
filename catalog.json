@@ -235127,6 +235127,44 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Vicious (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Vicious",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1251717",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qYCA7XkLRUNS1DC7c8ehtj6W4XM.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/da1mXvCrQrFcw6BxovCavBFbIvz.jpg",
+        "genres": [
+          "Terror",
+          "Suspense"
+        ],
+        "cast": [
+          "Dakota Fanning",
+          "Kathryn Hunter",
+          "Mary McCormack",
+          "Rachel Blanchard",
+          "Devyn Nekoda",
+          "Klea Scott",
+          "Emily Mitchell",
+          "Karen Cliche",
+          "Bauston Camilleri",
+          "Drew Moore"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:4f226c64d86631326a186bde91076eaf2aac6020"
+        }
+      ],
+      "overview": "Cuando Polly recibe una misteriosa caja de una inesperada visitante nocturna, viene con la simple instrucción de colocar tres cosas dentro: algo que necesites, algo que odies y algo que ames. Lo que comienza como un extraño ritual se convierte rápidamente en una pesadilla. Atrapada en un mundo aterrador donde la realidad se tuerce y la memoria la traiciona, Polly debe tomar una serie de decisiones imposibles. A medida que el tiempo se escapa, se ve obligada a enfrentarse a la oscuridad no sólo a su alrededor, sino también en su interior, antes de que consuma todo y a todos los que ha conocido."
     }
   ]
 }
