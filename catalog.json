@@ -235214,6 +235214,43 @@
         }
       ],
       "overview": "Una madre que huye de su marido, relacionado con la mafia, encuentra refugio en casa de un vagabundo llamado Jake, pero cuando los hombres de su marido se acercan, Jake resulta ser más peligroso que cualquiera de los que ella huye."
+    },
+    {
+      "file": "Ya se vera (E poi si vede) (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Ya se vera",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1256208",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qlhukyCnDmaWICbfaDE4S5J4duc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/4NhEuYwcXWddHmyElmX1cANW3pK.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Fabrizio Sansone",
+          "Federico Sansone",
+          "Donatella Finocchiaro",
+          "Paola Minaccioni",
+          "Ester Pantano",
+          "Paride Benassai",
+          "Domenico Centamore",
+          "Maurizio Bologna",
+          "Gabriele Cicirello",
+          "Sergio Vespertino"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:330b961b52a644ed098e24a70d3aaf6ca4dd777d"
+        }
+      ],
+      "overview": "Tres jóvenes compiten por un puesto de letrado en el Ayuntamiento. Federico confía en su padre concejal, Fabrizio busca otra oportunidad y el privilegiado Luca se une a la carrera. Sólo uno puede ganar, hasta que se desencadenan acontecimientos inesperados."
     }
   ]
 }
