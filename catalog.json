@@ -235251,6 +235251,54 @@
         }
       ],
       "overview": "Tres jóvenes compiten por un puesto de letrado en el Ayuntamiento. Federico confía en su padre concejal, Fabrizio busca otra oportunidad y el privilegiado Luca se une a la carrera. Sólo uno puede ganar, hasta que se desencadenan acontecimientos inesperados."
+    },
+    {
+      "file": "Vampirina Un insti de Miedo",
+      "parsed": {
+        "type": "series",
+        "series": "Vampirina Un insti de Miedo"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 275722,
+        "title": "Vampirina: Un insti de miedo",
+        "original_title": "Vampirina: Teenage Vampire",
+        "overview": "Una vampiresa adolescente asiste a una escuela de artes escénicas ocultando su identidad. Un padre sobreprotector le asigna un guardián fantasmal para que la vigile mientras persigue su pasión por la música.",
+        "poster_path": "/7iwJ62wkZnAssbMPo7fBI53ILll.jpg",
+        "backdrop_path": "/m54fpF9Enq74G3liicywY1CzY2x.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/7iwJ62wkZnAssbMPo7fBI53ILll.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/m54fpF9Enq74G3liicywY1CzY2x.jpg",
+        "genres": [
+          "Sci-Fi & Fantasy",
+          "Comedia"
+        ],
+        "cast": [
+          "Kenzie Richardson",
+          "Jiwon Lee",
+          "Faith Hedley",
+          "Shaun Dixon",
+          "Milo Maharlika"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/92RKbutj4HEK0QUB0KSRRszXnO0.png",
+        "banner": "https://image.tmdb.org/t/p/original/m54fpF9Enq74G3liicywY1CzY2x.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/7iwJ62wkZnAssbMPo7fBI53ILll.jpg",
+        "episode_title": "El primer día de clase",
+        "episode_overview": "El primer día de Vampi en Wilson Hall... podría ser el último.",
+        "still_path": "https://image.tmdb.org/t/p/original/nXI5S7VmGgXFoXJXIzKb4OjGSpJ.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Una vampiresa adolescente asiste a una escuela de artes escénicas ocultando su identidad. Un padre sobreprotector le asigna un guardián fantasmal para que la vigile mientras persigue su pasión por la música.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7ad38417d22e839cc282e39b1c38e90bae54fb52"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
