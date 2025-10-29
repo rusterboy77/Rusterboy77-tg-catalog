@@ -235297,6 +235297,17 @@
               "magnet": "magnet:?xt=urn:btih:7ad38417d22e839cc282e39b1c38e90bae54fb52"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Una vampiresa adolescente asiste a una escuela de artes escénicas ocultando su identidad. Un padre sobreprotector le asigna un guardián fantasmal para que la vigile mientras persigue su pasión por la música.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:62968e76749c98925ffb47a22079902a74fed96f"
+            }
+          ]
         }
       ]
     }
