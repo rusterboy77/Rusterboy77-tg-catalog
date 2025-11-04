@@ -235328,6 +235328,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6b91453e7a047d54da1d9fa3d50ab57847047fe0"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e8c0d0de6462cff5ffd1246e1f15a81bfe056944"
             }
           ]
         }
