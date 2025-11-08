@@ -235347,6 +235347,53 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Yakarta",
+      "parsed": {
+        "type": "series",
+        "series": "Yakarta"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 287358,
+        "title": "Yakarta",
+        "original_title": "Yakarta",
+        "overview": "Un ex jugador olímpico de bádminton descubre a una joven competidora a la que podría convertir en la gran estrella mundial de su deporte… si consigue llevarla a Yakarta, Indonesia, donde el bádminton es el deporte rey y los ex jugadores son tratados como celebridades.",
+        "poster_path": "/jOhP6FrBPUJ40ZMg2jf5fDt3Pnn.jpg",
+        "backdrop_path": "/nY5XxjlPFptYyULAXQvLSQFEXTD.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jOhP6FrBPUJ40ZMg2jf5fDt3Pnn.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/nY5XxjlPFptYyULAXQvLSQFEXTD.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Javier Cámara",
+          "Carla Quílez",
+          "Pilar Gómez",
+          "David Lorente",
+          "Marina Guerola",
+          "Anna Alarcón"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/nY5XxjlPFptYyULAXQvLSQFEXTD.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/jOhP6FrBPUJ40ZMg2jf5fDt3Pnn.jpg",
+        "episode_title": "Yakarta",
+        "episode_overview": "Ha llegado el momento de que Mar juegue el campeonato de España, pero es Joserra el que se enfrenta al partido más importante de su vida. Entre pabellones vacíos y jaulas abiertas, Joserra busca un nuevo comienzo, pero tal vez la llave que abre esa puerta no esté en el campeonato de España.",
+        "still_path": "https://image.tmdb.org/t/p/original/ndNDALjsUBidb1CvE3FQKya0yxB.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Un ex jugador olímpico de bádminton descubre a una joven competidora a la que podría convertir en la gran estrella mundial de su deporte… si consigue llevarla a Yakarta, Indonesia, donde el bádminton es el deporte rey y los ex jugadores son tratados como celebridades.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:92fdf3d744971e331ac83e61158140d3773d01d8"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
