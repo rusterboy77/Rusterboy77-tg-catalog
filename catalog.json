@@ -235390,6 +235390,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:92fdf3d744971e331ac83e61158140d3773d01d8"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:e110494c21a461ef4fb30c425d0b97500b7502d5"
             }
           ]
         }
