@@ -235420,6 +235420,44 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Young Hearts (2024) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Young Hearts",
+        "type": "movie",
+        "year": "2024",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1232449",
+        "poster_url": "https://image.tmdb.org/t/p/w500/nS0eznZA0eVMyOrqaGmdJwn3gz4.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/A7KwHKB5faRRRRveVQC5TPI35kV.jpg",
+        "genres": [
+          "Drama",
+          "Romance"
+        ],
+        "cast": [
+          "Lou Goossens",
+          "Marius De Saeger",
+          "Geert Van Rampelberg",
+          "Emilie De Roo",
+          "Dirk van Dijck",
+          "Jul Goossens",
+          "Ezra van Dongen",
+          "Olivier Englebert",
+          "Olga De Saeger",
+          "Wim Opbrouck"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:4915b287f24571d37cfe00a18e480409e03006b6"
+        }
+      ],
+      "overview": "Young Hearts, ópera prima de Anthony Schatteman, es una historia de amor adolescente tierna y luminosa, inspirada en su propia infancia. Elías, de 14 años, se enamora de su nuevo vecino, Alexander, y descubre por primera vez lo que significa amar de verdad. Sus relaciones con amigos y familia solo le generan más dudas. Una delicada película de crecimiento que aporta una mirada fresca y emotiva al cine familiar, con una maravillosa historia de amor queer. (Endimaris)"
     }
   ]
 }
