@@ -235405,6 +235405,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:e110494c21a461ef4fb30c425d0b97500b7502d5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:94700908376faacc332d55aed40fd3c16067913c"
             }
           ]
         },
