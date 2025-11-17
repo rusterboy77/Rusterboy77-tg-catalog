@@ -235473,6 +235473,45 @@
         }
       ],
       "overview": "Young Hearts, ópera prima de Anthony Schatteman, es una historia de amor adolescente tierna y luminosa, inspirada en su propia infancia. Elías, de 14 años, se enamora de su nuevo vecino, Alexander, y descubre por primera vez lo que significa amar de verdad. Sus relaciones con amigos y familia solo le generan más dudas. Una delicada película de crecimiento que aporta una mirada fresca y emotiva al cine familiar, con una maravillosa historia de amor queer. (Endimaris)"
+    },
+    {
+      "file": "Juego de niños (Playdate) (2025) [4k 2160p[Esp].torrent",
+      "parsed": {
+        "title": "Juego de niños",
+        "type": "movie",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1248226",
+        "poster_url": "https://image.tmdb.org/t/p/w500/sWhglhFoGA0T7n5U6Yi0t8LBGjA.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/5lQ4euO30sDin5nCifvi0vURFNd.jpg",
+        "genres": [
+          "Acción",
+          "Comedia",
+          "Familia"
+        ],
+        "cast": [
+          "Kevin James",
+          "Alan Ritchson",
+          "Sarah Chalke",
+          "Isla Fisher",
+          "Alan Tudyk",
+          "Stephen Root",
+          "Benjamin Pajak",
+          "Banks Pierce",
+          "Jason William Day",
+          "Hiro Kanagawa"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:f7e64eae7cc5ac2fee9d37916b8e7744d70a27ed"
+        }
+      ],
+      "overview": "Brian acaba de ser despedido de su trabajo, y se convierte en un padre que se queda en casa. Acepta una invitación para jugar de otro padre, que resulta ser un bala perdida."
     }
   ]
 }
