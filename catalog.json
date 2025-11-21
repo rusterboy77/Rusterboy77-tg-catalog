@@ -235523,6 +235523,23 @@
         }
       ],
       "overview": "Brian acaba de ser despedido de su trabajo, y se convierte en un padre que se queda en casa. Acepta una invitación para jugar de otro padre, que resulta ser un bala perdida."
+    },
+    {
+      "file": "Una nueva vida temp 2 episodio 27.torrent",
+      "parsed": {
+        "title": "Una nueva vida temp 2 episodio 27",
+        "type": "movie",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "desconocida",
+          "magnet": "magnet:?xt=urn:btih:1091bcada49e59bf918800bee2c368bea4ff68f3"
+        }
+      ]
     }
   ]
 }
