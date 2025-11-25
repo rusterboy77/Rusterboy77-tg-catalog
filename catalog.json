@@ -231039,7 +231039,20 @@
           "infohash": "03834728619bd3ec3e23a726edf012fcad159307"
         }
       ],
-      "overview": "Un año después de la muerte de su amigo y compañero Sherlock Holmes, el Dr. John Watson retoma su carrera médica en una clínica dedicada al tratamiento de enfermedades raras. Pronto descubre que su antigua vida aún no ha terminado con él."
+      "overview": "Un año después de la muerte de su amigo y compañero Sherlock Holmes, el Dr. John Watson retoma su carrera médica en una clínica dedicada al tratamiento de enfermedades raras. Pronto descubre que su antigua vida aún no ha terminado con él.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "Un año después de la muerte de su amigo y compañero Sherlock Holmes, el Dr. John Watson retoma su carrera médica en una clínica dedicada al tratamiento de enfermedades raras. Pronto descubre que su antigua vida aún no ha terminado con él.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:49019bae8ab689ae25113cac877f41118860a012"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Watson [HDTV 720p][Cap.101].torrent",
