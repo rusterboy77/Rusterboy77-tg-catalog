@@ -235561,6 +235561,57 @@
           "magnet": "magnet:?xt=urn:btih:1091bcada49e59bf918800bee2c368bea4ff68f3"
         }
       ]
+    },
+    {
+      "file": "Verdades ocultas",
+      "parsed": {
+        "type": "series",
+        "series": "Verdades ocultas"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 79250,
+        "title": "Verdades ocultas",
+        "original_title": "Verdades ocultas",
+        "overview": "Laura Flores (Marcela Medel) es una mujer de buen corazón, la cual tiene dos hijas: Rocío de siete años y Rosita (Carmen Luz Zabala) de tres años. Lamentablemente, debido a su situación de extrema pobreza, Laura no tiene otra opción que vender a su hija menor Rosita a Rodolfo Mackenna (Osvaldo Silva), un exitoso empresario de clase alta dueño de una cadena de restaurantes. Rodolfo va a buscar a la niña mientras ambas estaban solas en la casa, haciéndole creer a Rocío que Rosita fue robada por este, para que así nunca sepa la verdad. Esto provocará que desde ese instante Rocío cargue con el dolor de haber perdido a Rosita y la culpa por no poder haber hecho nada por su hermana mientras veía como se la llevaban. En el caso de Laura, ésta vivirá con un enorme arrepentimiento y dolor por haber vendido a su hija.",
+        "poster_path": "/bp7tyY5mAKJ9VSmLv3tX0RaYeig.jpg",
+        "backdrop_path": "/9b6oND8sUhJT9WESAHg4kufvUry.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/bp7tyY5mAKJ9VSmLv3tX0RaYeig.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/9b6oND8sUhJT9WESAHg4kufvUry.jpg",
+        "genres": [
+          "Soap",
+          "Misterio",
+          "Drama"
+        ],
+        "cast": [
+          "Solange Lackington",
+          "Catalina Guerra",
+          "Cristián Campos",
+          "Alejandra Fosalba",
+          "Felipe Castro",
+          "Maricarmen Arrigorriaga",
+          "Cecilia Cucurella",
+          "Remigio Remedy",
+          "Camila Hirane",
+          "Matías Oviedo"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/9b6oND8sUhJT9WESAHg4kufvUry.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/bp7tyY5mAKJ9VSmLv3tX0RaYeig.jpg",
+        "episode_title": "Episodio 7"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Laura Flores (Marcela Medel) es una mujer de buen corazón, la cual tiene dos hijas: Rocío de siete años y Rosita (Carmen Luz Zabala) de tres años. Lamentablemente, debido a su situación de extrema pobreza, Laura no tiene otra opción que vender a su hija menor Rosita a Rodolfo Mackenna (Osvaldo Silva), un exitoso empresario de clase alta dueño de una cadena de restaurantes. Rodolfo va a buscar a la niña mientras ambas estaban solas en la casa, haciéndole creer a Rocío que Rosita fue robada por este, para que así nunca sepa la verdad. Esto provocará que desde ese instante Rocío cargue con el dolor de haber perdido a Rosita y la culpa por no poder haber hecho nada por su hermana mientras veía como se la llevaban. En el caso de Laura, ésta vivirá con un enorme arrepentimiento y dolor por haber vendido a su hija.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1b984faef8b680aee7b8a55679c8bac07d63019c"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
