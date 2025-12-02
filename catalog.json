@@ -235612,6 +235612,50 @@
           ]
         }
       ]
+    },
+    {
+      "file": "WondLa",
+      "parsed": {
+        "type": "series",
+        "series": "WondLa"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 237853,
+        "title": "WondLa",
+        "original_title": "WondLa",
+        "overview": "Obligada a salir de su santuario subterráneo a la superficie terrestre, Eva descubre un mundo que no se parece en nada a lo que esperaba. Mientras viaja por terrenos peligrosos y civilizaciones desconocidas, Eva busca la respuesta a la pregunta más crucial de todas... ¿Es ella la última humana?",
+        "poster_path": "/4AvnnGriNFwGYEwsJcTEu4Ardpu.jpg",
+        "backdrop_path": "/aPX7aR83rT0HRLoaINo5LWR7FAJ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4AvnnGriNFwGYEwsJcTEu4Ardpu.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/aPX7aR83rT0HRLoaINo5LWR7FAJ.jpg",
+        "genres": [
+          "Sci-Fi & Fantasy",
+          "Animación",
+          "Familia"
+        ],
+        "cast": [
+          "Jeanine Mason"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/aPX7aR83rT0HRLoaINo5LWR7FAJ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4AvnnGriNFwGYEwsJcTEu4Ardpu.jpg",
+        "episode_title": "WondLa",
+        "episode_overview": "El destino del planeta está en juego y Eva lucha para introducir el Corazón en el conducto térmico.",
+        "still_path": "https://image.tmdb.org/t/p/original/nWvuHV6XOcArZJxLed7OwAfCw4o.jpg"
+      },
+      "episodes": [
+        {
+          "season": 3,
+          "episode": 6,
+          "overview": "Obligada a salir de su santuario subterráneo a la superficie terrestre, Eva descubre un mundo que no se parece en nada a lo que esperaba. Mientras viaja por terrenos peligrosos y civilizaciones desconocidas, Eva busca la respuesta a la pregunta más crucial de todas... ¿Es ella la última humana?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e9b2806df6fc9232126eb0a0ddbebcadfcbb5b25"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
