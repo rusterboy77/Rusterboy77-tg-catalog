@@ -235656,6 +235656,43 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Vaya Navidad (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Vaya Navidad",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1261825",
+        "poster_url": "https://image.tmdb.org/t/p/w500/uNmyZChmLKqxROmbsylj5sbzGUR.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/haAekI7zBtffqILr90DkviTe9fk.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Michelle Pfeiffer",
+          "Denis Leary",
+          "Felicity Jones",
+          "Chloë Grace Moretz",
+          "Dominic Sessa",
+          "Jason Schwartzman",
+          "Rafaella Karnaby",
+          "Drake Shehan",
+          "Devery Jacobs",
+          "Joan Chen"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:3636ff95535de5513ed8708e0d21f65aad558a1b"
+        }
+      ],
+      "overview": "Claire Clauster es el nexo que mantiene unida a su caótica, aunque encantadora familia durante las vacaciones. Pero este año, tras planear una salida especial con ellos, cometen un error y la abandonan sola en casa. Harta y menospreciada, Claire emprende una aventura por su cuenta. Mientras su familia la busca, Claire descubre la magia de una Navidad atípica."
     }
   ]
 }
