@@ -235693,6 +235693,54 @@
         }
       ],
       "overview": "Claire Clauster es el nexo que mantiene unida a su caótica, aunque encantadora familia durante las vacaciones. Pero este año, tras planear una salida especial con ellos, cometen un error y la abandonan sola en casa. Harta y menospreciada, Claire emprende una aventura por su cuenta. Mientras su familia la busca, Claire descubre la magia de una Navidad atípica."
+    },
+    {
+      "file": "Todas las criaturas grandes y pequenas",
+      "parsed": {
+        "type": "series",
+        "series": "Todas las criaturas grandes y pequenas"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 7406,
+        "title": "Todas las criaturas grandes y pequeñas",
+        "original_title": "All Creatures Great and Small",
+        "overview": "Aventuras y desventuras de los trabajadores de una oficina veterinaria en la década de los años 40 en Yorkshire.",
+        "poster_path": "/inl6wqdRPoLEDXttC33x9PBoMbN.jpg",
+        "backdrop_path": "/kqpOg91jYda1G3RU7MpjdHllAGy.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/inl6wqdRPoLEDXttC33x9PBoMbN.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kqpOg91jYda1G3RU7MpjdHllAGy.jpg",
+        "genres": [
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Lynda Bellingham",
+          "Robert Hardy",
+          "Christopher Timothy",
+          "Carol Drinkwater",
+          "Peter Davison",
+          "Jean Heywood"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/bCcEe5OY1iNDvrldgcCNAo2BaGX.png",
+        "banner": "https://image.tmdb.org/t/p/original/kqpOg91jYda1G3RU7MpjdHllAGy.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/inl6wqdRPoLEDXttC33x9PBoMbN.jpg",
+        "episode_title": "Episodio 2",
+        "still_path": "https://image.tmdb.org/t/p/original/uqtocXDBbeAwWDyd8d4ZJZcsECp.jpg"
+      },
+      "episodes": [
+        {
+          "season": 6,
+          "episode": 2,
+          "overview": "Aventuras y desventuras de los trabajadores de una oficina veterinaria en la década de los años 40 en Yorkshire.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:79294d7fb3f4508fdc5a250cf1839994e1c2bac5"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
