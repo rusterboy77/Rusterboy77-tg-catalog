@@ -235745,6 +235745,56 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Todas Las De La Ley",
+      "parsed": {
+        "type": "series",
+        "series": "Todas Las De La Ley"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 258742,
+        "title": "Todas las de la ley",
+        "original_title": "All's Fair",
+        "overview": "Un grupo de abogadas especialistas en divorcios abandona un bufete dominado por hombres para abrir su propio y exitoso despacho. Brillantes, feroces y emocionalmente complejas, lidian con rupturas de alto riesgo, escándalos y lealtades cambiantes, tanto en los tribunales como en su círculo íntimo. En un mundo donde el dinero manda y el amor es un campo de batalla, estas mujeres no solo juegan, sino que cambian las reglas.",
+        "poster_path": "/cknig3ABB0NMVRjAnFrX6LUjw9M.jpg",
+        "backdrop_path": "/xhqklQEaJ7xqsqnwCJZu7hTmTIK.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/cknig3ABB0NMVRjAnFrX6LUjw9M.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xhqklQEaJ7xqsqnwCJZu7hTmTIK.jpg",
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Kim Kardashian",
+          "Naomi Watts",
+          "Niecy Nash-Betts",
+          "Teyana Taylor",
+          "Matthew Noszka",
+          "Sarah Paulson",
+          "Glenn Close"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/zXiAigNpR4k44RVGry7kOh9SMya.png",
+        "banner": "https://image.tmdb.org/t/p/original/xhqklQEaJ7xqsqnwCJZu7hTmTIK.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/cknig3ABB0NMVRjAnFrX6LUjw9M.jpg",
+        "episode_title": "El interior del bufete",
+        "episode_overview": "Carr hace una lista de asuntos pendientes. Liberty descubre que el matrimonio puede ser más complicado que el divorcio.",
+        "still_path": "https://image.tmdb.org/t/p/original/gitx2CdFr7VX2dEtGJxZqUO3By7.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Un grupo de abogadas especialistas en divorcios abandona un bufete dominado por hombres para abrir su propio y exitoso despacho. Brillantes, feroces y emocionalmente complejas, lidian con rupturas de alto riesgo, escándalos y lealtades cambiantes, tanto en los tribunales como en su círculo íntimo. En un mundo donde el dinero manda y el amor es un campo de batalla, estas mujeres no solo juegan, sino que cambian las reglas.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:439a17682ccaa2e42c59caa72df3d704510e0f59"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
