@@ -235895,46 +235895,41 @@
       "overview": "Un perro leal se muda a una casa rural con su dueño Todd. Allí descubre fuerzas sobrenaturales que acechan en las sombras. Mientras oscuras entidades amenazan a su compañero humano, el valiente cachorro debe luchar para proteger a quien más quiere."
     },
     {
-      "file": "Hudson y Rex",
+      "file": "Its Florida Man",
       "parsed": {
         "type": "series",
-        "series": "Hudson y Rex"
+        "series": "Its Florida Man"
       },
       "matched": false,
       "tmdb_top": {
-        "id": 87940,
-        "title": "Hudson & Rex",
-        "original_title": "Hudson & Rex",
-        "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
-        "poster_path": "/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
-        "backdrop_path": "/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
-        "poster_url": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
-        "backdrop_url": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "id": 273801,
+        "title": "Así es Florida, tío",
+        "original_title": "It's Florida, Man.",
+        "overview": "Esta serie de comedia nocturna destaca las historias más impactantes del Estado del Sol, recreadas por algunos de los favoritos de Hollywood.",
+        "poster_path": "/9iqnF9VuG9FNDJPpQ9Mfo9a7gr0.jpg",
+        "backdrop_path": "/hbWqmgF9NYU2ATBWqvhLnOCeW2V.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9iqnF9VuG9FNDJPpQ9Mfo9a7gr0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/hbWqmgF9NYU2ATBWqvhLnOCeW2V.jpg",
         "genres": [
-          "Drama",
-          "Crimen"
+          "Comedia"
         ],
         "cast": [
-          "John Reardon",
-          "Mayko Nguyen",
-          "Kevin Hanchard",
-          "Justin Kelly",
-          "Luke Roberts"
+          "Stephen Root"
         ],
-        "banner": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
-        "clearart": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
-        "episode_title": "Episodio 5",
-        "still_path": "https://image.tmdb.org/t/p/original/qkfdTJBVmvTKL8YEjg8SIBJR3bf.jpg"
+        "banner": "https://image.tmdb.org/t/p/original/hbWqmgF9NYU2ATBWqvhLnOCeW2V.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9iqnF9VuG9FNDJPpQ9Mfo9a7gr0.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/wrS3IyCY47ObP2XoY3vD4GUB1SU.jpg"
       },
       "episodes": [
         {
-          "season": 7,
-          "episode": 5,
-          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "season": 2,
+          "episode": 1,
+          "overview": "Esta serie de comedia nocturna destaca las historias más impactantes del Estado del Sol, recreadas por algunos de los favoritos de Hollywood.",
           "torrents": [
             {
-              "quality": "720p",
-              "magnet": "magnet:?xt=urn:btih:6915cace14d2e4d0cef9f7b5da470c1ab29051bf"
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2844a6e62df455c303d11a4fe381d42bea4ddd76"
             }
           ]
         }
