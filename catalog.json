@@ -142477,19 +142477,6 @@
           "magnet": "magnet:?xt=urn:btih:6e8464404f38c73a104d210d5f0cbf23a231e838",
           "infohash": "6e8464404f38c73a104d210d5f0cbf23a231e838"
         }
-      ],
-      "episodes": [
-        {
-          "season": 2,
-          "episode": 2,
-          "overview": null,
-          "torrents": [
-            {
-              "quality": "hdtv",
-              "magnet": "magnet:?xt=urn:btih:3187e889fd9d627fe371378be05e34b46fdb1e75"
-            }
-          ]
-        }
       ]
     },
     {
@@ -235994,6 +235981,23 @@
         }
       ],
       "overview": "Rubble está deseando que llegue la Navidad, con la esperanza de que Papá Noel le traiga un taladro láser, pero cuando Papá Noel cae enfermo por un resfriado, la Navidad ¡corre peligro de cancelarse!"
+    },
+    {
+      "file": "Mayor of Kingstown [4k 2160p][Cap.107].torrent",
+      "parsed": {
+        "title": "Mayor of Kingstown [4k 2160p][Cap.107].torrent",
+        "type": "movie",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "desconocida",
+          "magnet": "magnet:?xt=urn:btih:6017eb12c4a3031c7346231028dcaf0991ea2a56"
+        }
+      ]
     }
   ]
 }
