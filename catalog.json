@@ -236047,6 +236047,50 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Veronika",
+      "parsed": {
+        "type": "series",
+        "series": "Veronika"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 245441,
+        "title": "Veronika",
+        "original_title": "Veronika",
+        "overview": "La policía Veronika Gren (Alexandra Rapaport), madre de dos hijos, lucha con su complicada vida familiar y una adicción oculta. Cuando empiezan a suceder cosas extrañas y un niño fallecido (Sam Herrgård) aparece frente a ella, Veronika cree que ha perdido la cabeza. De mala gana, Veronika se ve obligada a aceptar que el niño puede no ser una ilusión.",
+        "poster_path": "/958c86lW6I3DGD6288H9qVm4LhD.jpg",
+        "backdrop_path": "/1D2M17ysUaUOtahd9ItdIVw5CEI.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/958c86lW6I3DGD6288H9qVm4LhD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/1D2M17ysUaUOtahd9ItdIVw5CEI.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Alexandra Rapaport",
+          "Tobias Santelmann",
+          "Arvin Kananian",
+          "Sam Herrgård"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/1D2M17ysUaUOtahd9ItdIVw5CEI.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/958c86lW6I3DGD6288H9qVm4LhD.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/zV5mEFQoVy9b6sPtjAlijVxnrX.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "La policía Veronika Gren (Alexandra Rapaport), madre de dos hijos, lucha con su complicada vida familiar y una adicción oculta. Cuando empiezan a suceder cosas extrañas y un niño fallecido (Sam Herrgård) aparece frente a ella, Veronika cree que ha perdido la cabeza. De mala gana, Veronika se ve obligada a aceptar que el niño puede no ser una ilusión.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:05f3d32a4cd969df9f1f32dbf63decfd1bbfac97"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
