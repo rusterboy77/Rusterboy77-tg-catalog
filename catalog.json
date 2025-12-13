@@ -235857,6 +235857,42 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Good Boy (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "title": "Good Boy",
+        "type": "movie",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "1422096",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6rZOKB5EhGcTLaSPoyX8La44ZDT.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mPtPJzBkwksUoMEKpkZqxBrlKpZ.jpg",
+        "genres": [
+          "Terror",
+          "Suspense"
+        ],
+        "cast": [
+          "Shane Jensen",
+          "Larry Fessenden",
+          "Arielle Friedman",
+          "Stuart Rudin",
+          "Anya Krawcheck",
+          "Max",
+          "Hunter Goetz",
+          "Noah Manzoor"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:5ad5e4ba63570df305457eb9b8e10cff0822a808"
+        }
+      ],
+      "overview": "Un perro leal se muda a una casa rural con su dueño Todd. Allí descubre fuerzas sobrenaturales que acechan en las sombras. Mientras oscuras entidades amenazan a su compañero humano, el valiente cachorro debe luchar para proteger a quien más quiere."
     }
   ]
 }
