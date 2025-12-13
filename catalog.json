@@ -235934,6 +235934,53 @@
           ]
         }
       ]
+    },
+    {
+      "file": "La Patrulla Canina en Navidad (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "title": "La Patrulla Canina en Navidad",
+        "type": "movie",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1507275,
+        "title": "La Patrulla Canina: En Navidad",
+        "original_title": "A Paw Patrol Christmas",
+        "overview": "Rubble está deseando que llegue la Navidad, con la esperanza de que Papá Noel le traiga un taladro láser, pero cuando Papá Noel cae enfermo por un resfriado, la Navidad ¡corre peligro de cancelarse!",
+        "poster_path": "/22jKJhRDxGBE2FBKWD1XPvFYaG5.jpg",
+        "backdrop_path": "/32mjpsITLwEQcvqKuMBGyajN18h.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/22jKJhRDxGBE2FBKWD1XPvFYaG5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/32mjpsITLwEQcvqKuMBGyajN18h.jpg",
+        "genres": [
+          "Animación",
+          "Familia",
+          "Aventura"
+        ],
+        "cast": [
+          "Luke Dietz",
+          "Lilly Bartlam",
+          "Lucien Duncan-Reid",
+          "Jesse Gervasi",
+          "Courtney Gilmour",
+          "Kai Harris",
+          "Jordan Mazeral",
+          "Ron Pardo",
+          "Kim Roberts",
+          "David Dixon"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/59K64wc1y4Rm7QDvk66VT6mP35k.png",
+        "banner": "https://image.tmdb.org/t/p/original/32mjpsITLwEQcvqKuMBGyajN18h.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/22jKJhRDxGBE2FBKWD1XPvFYaG5.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:86be208731f6cbca881e3f1348359e27af0a3fb8"
+        }
+      ],
+      "overview": "Rubble está deseando que llegue la Navidad, con la esperanza de que Papá Noel le traiga un taladro láser, pero cuando Papá Noel cae enfermo por un resfriado, la Navidad ¡corre peligro de cancelarse!"
     }
   ]
 }
