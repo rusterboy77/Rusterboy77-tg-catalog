@@ -235808,6 +235808,55 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Death valley",
+      "parsed": {
+        "type": "series",
+        "series": "Death valley"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 40245,
+        "title": "Death valley",
+        "original_title": "Death Valley",
+        "overview": "Death Valley sigue la siguiente premisa: un día, surgen como plaga los zombies (comedores de seres humanos vivos), vampiros y hombres lobos. Entonces, se crea una división del Departamento de Policía de Los Ángeles que se especializa en erradicar zombis, arrestar o ejecutar a vampiros que se pasan de listos; y hombres lobos que no cumplen con el toque de queda lunar.",
+        "poster_path": "/fPKQ4dWFMfjLOBQsHyebaWkfWyh.jpg",
+        "backdrop_path": "/zdjB4jiF6ECxI8O1IaPcKAFwzh1.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fPKQ4dWFMfjLOBQsHyebaWkfWyh.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zdjB4jiF6ECxI8O1IaPcKAFwzh1.jpg",
+        "genres": [
+          "Comedia",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Tania Raymonde",
+          "Texas Battle",
+          "Bryce Johnson",
+          "Charlie Sanders",
+          "Caity Lotz",
+          "Bryan Callen",
+          "Jason Varge"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/21glBwEHsH24gYINc5omFHYKUa.png",
+        "banner": "https://image.tmdb.org/t/p/original/zdjB4jiF6ECxI8O1IaPcKAFwzh1.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/fPKQ4dWFMfjLOBQsHyebaWkfWyh.jpg",
+        "episode_title": "Episodio 5",
+        "still_path": "https://image.tmdb.org/t/p/original/4XnOTDNR3jkscbIifH1LMU6fgh4.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Death Valley sigue la siguiente premisa: un día, surgen como plaga los zombies (comedores de seres humanos vivos), vampiros y hombres lobos. Entonces, se crea una división del Departamento de Policía de Los Ángeles que se especializa en erradicar zombis, arrestar o ejecutar a vampiros que se pasan de listos; y hombres lobos que no cumplen con el toque de queda lunar.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3b2c95e95f0e5bf471550714301dcdcd5b1d7f10"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
