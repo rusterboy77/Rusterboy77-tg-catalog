@@ -142477,6 +142477,19 @@
           "magnet": "magnet:?xt=urn:btih:6e8464404f38c73a104d210d5f0cbf23a231e838",
           "infohash": "6e8464404f38c73a104d210d5f0cbf23a231e838"
         }
+      ],
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3187e889fd9d627fe371378be05e34b46fdb1e75"
+            }
+          ]
+        }
       ]
     },
     {
@@ -235983,19 +235996,55 @@
       "overview": "Rubble está deseando que llegue la Navidad, con la esperanza de que Papá Noel le traiga un taladro láser, pero cuando Papá Noel cae enfermo por un resfriado, la Navidad ¡corre peligro de cancelarse!"
     },
     {
-      "file": "Mayor of Kingstown [4k 2160p][Cap.107].torrent",
+      "file": "Mayor of Kingstown",
       "parsed": {
-        "title": "Mayor of Kingstown [4k 2160p][Cap.107].torrent",
-        "type": "movie",
-        "year": "",
-        "quality": "desconocida"
+        "type": "series",
+        "series": "Mayor of Kingstown"
       },
       "matched": false,
-      "tmdb_top": {},
-      "torrents": [
+      "tmdb_top": {
+        "id": 97951,
+        "title": "Mayor of Kingstown",
+        "original_title": "Mayor of Kingstown",
+        "overview": "Ambientada en una pequeña ciudad de Michigan donde la única industria que queda son las cárceles federales, estatales y privadas, la historia sigue a la familia McClusky, los intermediarios del poder entre la policía, los delincuentes, los presos, los guardias de prisiones y los políticos, en una ciudad completamente dependiente de las prisiones.  y los prisioneros que contienen.",
+        "poster_path": "/qpVTJe7hGResA6dgu58AxN7X7wv.jpg",
+        "backdrop_path": "/39bifj2FNytJ2m1cqOBcWMTKgmV.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qpVTJe7hGResA6dgu58AxN7X7wv.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/39bifj2FNytJ2m1cqOBcWMTKgmV.jpg",
+        "genres": [
+          "Drama",
+          "Crimen"
+        ],
+        "cast": [
+          "Jeremy Renner",
+          "Hugh Dillon",
+          "Tobi Bamtefa",
+          "Taylor Handley",
+          "Derek Webster",
+          "Hamish Allan-Headley",
+          "Edie Falco",
+          "Lennie James",
+          "Laura Benanti",
+          "Necar Zadegan"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/f4fu7SLlCrSKcvIlEHYjkF2u5YY.png",
+        "banner": "https://image.tmdb.org/t/p/original/39bifj2FNytJ2m1cqOBcWMTKgmV.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/qpVTJe7hGResA6dgu58AxN7X7wv.jpg",
+        "episode_title": "A mi manera",
+        "episode_overview": "Mike trama un plan para conceder la libertad a Kyle y le encarga a Ian una difícil tarea.",
+        "still_path": "https://image.tmdb.org/t/p/original/1Av4fOeUmAczb31N3jbFpXrWfAE.jpg"
+      },
+      "episodes": [
         {
-          "quality": "desconocida",
-          "magnet": "magnet:?xt=urn:btih:6017eb12c4a3031c7346231028dcaf0991ea2a56"
+          "season": 4,
+          "episode": 7,
+          "overview": "Ambientada en una pequeña ciudad de Michigan donde la única industria que queda son las cárceles federales, estatales y privadas, la historia sigue a la familia McClusky, los intermediarios del poder entre la policía, los delincuentes, los presos, los guardias de prisiones y los políticos, en una ciudad completamente dependiente de las prisiones.  y los prisioneros que contienen.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8f921618c0cf50d31e71892d74c182142222aa74"
+            }
+          ]
         }
       ]
     }
