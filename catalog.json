@@ -142477,6 +142477,19 @@
           "magnet": "magnet:?xt=urn:btih:6e8464404f38c73a104d210d5f0cbf23a231e838",
           "infohash": "6e8464404f38c73a104d210d5f0cbf23a231e838"
         }
+      ],
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3187e889fd9d627fe371378be05e34b46fdb1e75"
+            }
+          ]
+        }
       ]
     },
     {
