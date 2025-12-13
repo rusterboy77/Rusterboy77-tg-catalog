@@ -235893,6 +235893,52 @@
         }
       ],
       "overview": "Un perro leal se muda a una casa rural con su dueño Todd. Allí descubre fuerzas sobrenaturales que acechan en las sombras. Mientras oscuras entidades amenazan a su compañero humano, el valiente cachorro debe luchar para proteger a quien más quiere."
+    },
+    {
+      "file": "Hudson y Rex",
+      "parsed": {
+        "type": "series",
+        "series": "Hudson y Rex"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 87940,
+        "title": "Hudson & Rex",
+        "original_title": "Hudson & Rex",
+        "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+        "poster_path": "/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "backdrop_path": "/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "genres": [
+          "Drama",
+          "Crimen"
+        ],
+        "cast": [
+          "John Reardon",
+          "Mayko Nguyen",
+          "Kevin Hanchard",
+          "Justin Kelly",
+          "Luke Roberts"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "episode_title": "Episodio 5",
+        "still_path": "https://image.tmdb.org/t/p/original/qkfdTJBVmvTKL8YEjg8SIBJR3bf.jpg"
+      },
+      "episodes": [
+        {
+          "season": 7,
+          "episode": 5,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6915cace14d2e4d0cef9f7b5da470c1ab29051bf"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
