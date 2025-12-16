@@ -236102,6 +236102,37 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Una casa en el pueblo (2025) [HDTV 1080p][Esp].torrent",
+      "parsed": {
+        "title": "Una casa en el pueblo",
+        "type": "movie",
+        "year": "2025",
+        "quality": "1080p"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1597293,
+        "title": "Una casa en el pueblo",
+        "original_title": "Una casa en el pueblo",
+        "overview": "En esta casa pasaste todos los veranos de tu infancia. Sobre el suelo de esa habitación nació tu madre. Alrededor de ese fuego, tus abuelos sobrevivieron a la miseria de la Posguerra y a los duros inviernos del pueblo. Al fondo del patio, detrás de esa puerta, dicen que nació un santo.",
+        "poster_path": "/rnlNTUf2CMWrvdJaYbxFdYVgOu7.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/rnlNTUf2CMWrvdJaYbxFdYVgOu7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearart": "https://image.tmdb.org/t/p/w500/rnlNTUf2CMWrvdJaYbxFdYVgOu7.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:ee7339748f5d403d323bad6446d33d0b29caf518"
+        }
+      ],
+      "overview": "En esta casa pasaste todos los veranos de tu infancia. Sobre el suelo de esa habitación nació tu madre. Alrededor de ese fuego, tus abuelos sobrevivieron a la miseria de la Posguerra y a los duros inviernos del pueblo. Al fondo del patio, detrás de esa puerta, dicen que nació un santo."
     }
   ]
 }
