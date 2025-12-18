@@ -231089,6 +231089,17 @@
               "magnet": "magnet:?xt=urn:btih:beeb595c9f1d2eeba027f08fc7515f63242f80e2"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "Un año después de la muerte de su amigo y compañero Sherlock Holmes, el Dr. John Watson retoma su carrera médica en una clínica dedicada al tratamiento de enfermedades raras. Pronto descubre que su antigua vida aún no ha terminado con él.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:599838cd321f707e8aeac4b3a9871314044ad433"
+            }
+          ]
         }
       ]
     },
