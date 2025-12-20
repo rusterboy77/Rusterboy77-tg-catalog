@@ -236181,6 +236181,51 @@
         }
       ],
       "overview": "La vida tranquila de Rocío da un giro inesperado cuando su hermano David aparece después de diez años. Tras haber estado en prisión, él le sugiere que escapen juntos a Puerto Plata."
+    },
+    {
+      "file": "Una Navidad diferente (Tinsel Town) (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Una Navidad diferente",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1430593,
+        "title": "Una Navidad diferente",
+        "original_title": "Tinsel Town",
+        "overview": "Comedia navideña en la que un actor de acción de Hollywood en horas bajas cree haber encontrado su camino de vuelta al estrellato en el Reino Unido... aunque quizá termine encontrando algo más importante.",
+        "poster_path": "/poJ0o5cRlBKqR2X6ZLoBzrQN89E.jpg",
+        "backdrop_path": "/psAGX272PFGdpKmSJI4x8sGPciZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/poJ0o5cRlBKqR2X6ZLoBzrQN89E.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/psAGX272PFGdpKmSJI4x8sGPciZ.jpg",
+        "genres": [
+          "Comedia",
+          "Romance"
+        ],
+        "cast": [
+          "Kiefer Sutherland",
+          "Rebel Wilson",
+          "Derek Jacobi",
+          "Danny Dyer",
+          "Mawaan Rizwan",
+          "Lucien Laviscount",
+          "Savannah Lee Smith",
+          "Matilda Firth",
+          "Alice Eve",
+          "James Lance"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/psAGX272PFGdpKmSJI4x8sGPciZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/poJ0o5cRlBKqR2X6ZLoBzrQN89E.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:1e889208912ad861df0ba5bf6d30b9f546b43e58"
+        }
+      ],
+      "overview": "Comedia navideña en la que un actor de acción de Hollywood en horas bajas cree haber encontrado su camino de vuelta al estrellato en el Reino Unido... aunque quizá termine encontrando algo más importante."
     }
   ]
 }
