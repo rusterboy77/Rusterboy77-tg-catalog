@@ -236241,6 +236241,44 @@
         }
       ],
       "overview": "Comedia navideña en la que un actor de acción de Hollywood en horas bajas cree haber encontrado su camino de vuelta al estrellato en el Reino Unido... aunque quizá termine encontrando algo más importante."
+    },
+    {
+      "file": "Un Gran Equipo (2023) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Un Gran Equipo",
+        "type": "movie",
+        "year": "2023",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": "888768",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jNmfChriw2weB2ZRWU2cIEAfojk.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ceEx9V0sUiyL2rPc6G7rZXnVtd1.jpg",
+        "genres": [
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Florian David Fitz",
+          "Aylin Tezel",
+          "Cecilio Andresen",
+          "Joachim Król",
+          "Petra-Maria Cammin",
+          "Leslie Malton",
+          "Milena Dreißig",
+          "Nela Bartsch",
+          "Ilknur Boyraz",
+          "Markus Hoffmann"
+        ]
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:e7ad62988b19f388c0fee042a9ecd93f7971e9e4"
+        }
+      ],
+      "overview": "Jason, un niño diagnosticado con autismo desde pequeño, lucha por mantener su rigidez en un entorno caótico como el colegio. Ante la amenaza de ser enviado a un centro de educación especial, su padre hace un pacto: si Jason controla su ira, lo llevará a partidos de cada equipo profesional de Alemania hasta que encuentre su favorito."
     }
   ]
 }
