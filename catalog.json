@@ -236290,6 +236290,28 @@
         }
       ],
       "overview": "Jason, un niño diagnosticado con autismo desde pequeño, lucha por mantener su rigidez en un entorno caótico como el colegio. Ante la amenaza de ser enviado a un centro de educación especial, su padre hace un pacto: si Jason controla su ira, lo llevará a partidos de cada equipo profesional de Alemania hasta que encuentre su favorito."
+    },
+    {
+      "file": "66th N0rth Precinct",
+      "parsed": {
+        "type": "series",
+        "series": "66th N0rth Precinct"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0a4171239f21baf160376cb9c10a97ac0c3e1a73"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
