@@ -214477,7 +214477,20 @@
           "infohash": "ed16d3435b2fec597a7bfd9a103b88c68c499c7d"
         }
       ],
-      "overview": "Colter Shaw recorre el país en su vieja autocaravana para ayudar a la policía y a ciudadanos particulares a resolver crímenes y localizar a personas desaparecidas, hasta que su último caso lo cambia todo."
+      "overview": "Colter Shaw recorre el país en su vieja autocaravana para ayudar a la policía y a ciudadanos particulares a resolver crímenes y localizar a personas desaparecidas, hasta que su último caso lo cambia todo.",
+      "episodes": [
+        {
+          "season": 3,
+          "episode": 7,
+          "overview": "Colter Shaw recorre el país en su vieja autocaravana para ayudar a la policía y a ciudadanos particulares a resolver crímenes y localizar a personas desaparecidas, hasta que su último caso lo cambia todo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1f271da9cea0f243a74162acf5e71a541e644583"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Tracker [HDTV 720p][Cap 209].torrent",
