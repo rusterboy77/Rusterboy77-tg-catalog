@@ -236380,6 +236380,51 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Zorro",
+      "parsed": {
+        "type": "series",
+        "series": "Zorro"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 4681,
+        "title": "El Zorro",
+        "original_title": "Zorro",
+        "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+        "poster_path": "/1i4HdLMCRfEXLeA6JGTsQj6WU3k.jpg",
+        "backdrop_path": "/sMk5YZQIjlfhrLOAgW4igI9xqin.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1i4HdLMCRfEXLeA6JGTsQj6WU3k.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/sMk5YZQIjlfhrLOAgW4igI9xqin.jpg",
+        "genres": [
+          "Western",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Guy Williams",
+          "Gene Sheldon",
+          "Henry Calvin"
+        ],
+        "banner": "https://image.tmdb.org/t/p/original/sMk5YZQIjlfhrLOAgW4igI9xqin.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/1i4HdLMCRfEXLeA6JGTsQj6WU3k.jpg",
+        "episode_title": "El pasadizo secreto del Zorro",
+        "episode_overview": "Es una mañana tranquila en la California española, y el sargento Dimetrio López García está colocando carteles, con otro soldado, que piden dinero de recompensa para Don Ignacio Torres y el ahora famoso Zorro. Después de colocar todos los carteles, García informa al Capitán Monastario y le dice que todos los carteles han sido colocados. Aunque el Sargento sugiere que esperen a que alguien capture al Zorro y reclame la recompensa, el Capitán tiene otras ideas. Dice que los militares encontrarán al Zorro ellos mismos, así que inicia una campaña para buscar por todo el pueblo. Mientras tanto, de regreso en la hacienda, Bernardo se sorprende al encontrar a Diego en su habitación, cuando durmió afuera de su puerta toda la noche. Diego explica que, al regresar de su primer viaje como Zorro, recordó un pasaje secreto que solía explorar cuando era niño, y se lleva al asustado Bernardo dentro de él.",
+        "still_path": "https://image.tmdb.org/t/p/original/fI2ukYDaRjJMvVF8xbmw6ARP3Xt.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:24c11f963c58d9a612a0a01555d6899cb3a118ab"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
