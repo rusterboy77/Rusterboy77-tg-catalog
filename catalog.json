@@ -236425,6 +236425,53 @@
           ]
         }
       ]
+    },
+    {
+      "file": "Un juego de tres (The Threesome) (2025) [Bluray][Esp].torrent",
+      "parsed": {
+        "title": "Un juego de tres",
+        "type": "movie",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 993708,
+        "title": "Un juego de tres",
+        "original_title": "The Threesome",
+        "overview": "El eterno enamoramiento de un joven le lleva a un trío inesperado, cree que es su última fantasía hecha realidad. Cuando la fantasía termina, los tres se ven obligados a asumir la responsabilidad de sus actos.",
+        "poster_path": "/4Ptyvpmnk9RcxxdK610VtXpHf1w.jpg",
+        "backdrop_path": "/vXYRqIySwaa56quJGRKxXfSaTh0.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4Ptyvpmnk9RcxxdK610VtXpHf1w.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/vXYRqIySwaa56quJGRKxXfSaTh0.jpg",
+        "genres": [
+          "Comedia",
+          "Romance",
+          "Drama"
+        ],
+        "cast": [
+          "Zoey Deutch",
+          "Jonah Hauer-King",
+          "Ruby Cruz",
+          "Jaboukie Young-White",
+          "Josh Segarra",
+          "Robert Longstreet",
+          "Arden Myrin",
+          "Kristin Slaysman",
+          "Allan McLeod",
+          "Julia Sweeney"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/jOhlnR5KHvpFnDF6vkISjjAWdBj.png",
+        "banner": "https://image.tmdb.org/t/p/original/vXYRqIySwaa56quJGRKxXfSaTh0.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4Ptyvpmnk9RcxxdK610VtXpHf1w.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:51946f1989a59d1bbcf835237b54901015af1a48"
+        }
+      ],
+      "overview": "El eterno enamoramiento de un joven le lleva a un trío inesperado, cree que es su última fantasía hecha realidad. Cuando la fantasía termina, los tres se ven obligados a asumir la responsabilidad de sus actos."
     }
   ]
 }
