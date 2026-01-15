@@ -236421,6 +236421,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:24c11f963c58d9a612a0a01555d6899cb3a118ab"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:91d3639933cf3220fff429ca1542961b9a5cb316"
             }
           ]
         },
