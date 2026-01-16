@@ -236487,6 +236487,51 @@
         }
       ],
       "overview": "El eterno enamoramiento de un joven le lleva a un trío inesperado, cree que es su última fantasía hecha realidad. Cuando la fantasía termina, los tres se ven obligados a asumir la responsabilidad de sus actos."
+    },
+    {
+      "file": "Una_ultima_aventura_Detrás_de_cámaras_de_Stranger_Things_5_2026.torrent",
+      "parsed": {
+        "title": "Una ultima aventura Detrás de cámaras de Stranger Things 5",
+        "type": "movie",
+        "year": "2026",
+        "quality": "desconocida"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1610413,
+        "title": "Una última aventura: Así se hizo 'Stranger Things 5'",
+        "original_title": "One Last Adventure: The Making of Stranger Things 5",
+        "overview": "Un vistazo exclusivo a todos los años de trabajo artesanal invertidos para crear la última entrega de la serie de los hermanos Duffer que ha marcado a toda una generación.",
+        "poster_path": "/xGnbK8g0ikMIW2pa84ZdMiWMhQ5.jpg",
+        "backdrop_path": "/edGuDPKY6qHBg9hYvmnvLjcFoy4.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xGnbK8g0ikMIW2pa84ZdMiWMhQ5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/edGuDPKY6qHBg9hYvmnvLjcFoy4.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [
+          "Ross Duffer",
+          "Matt Duffer",
+          "Paul Dichter",
+          "Kate Trefry",
+          "Caitlin Schneiderhan",
+          "Shawn Levy",
+          "Lampton Enochs",
+          "Chris Trujillo",
+          "Jess Royal",
+          "Amy Parris"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/rUxd8Qklb5qWDkGVTlJx4KolNuh.png",
+        "banner": "https://image.tmdb.org/t/p/original/edGuDPKY6qHBg9hYvmnvLjcFoy4.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/xGnbK8g0ikMIW2pa84ZdMiWMhQ5.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "desconocida",
+          "magnet": "magnet:?xt=urn:btih:b03686c4e8f07ebccb29a5f3df614630a95c54f8"
+        }
+      ],
+      "overview": "Un vistazo exclusivo a todos los años de trabajo artesanal invertidos para crear la última entrega de la serie de los hermanos Duffer que ha marcado a toda una generación."
     }
   ]
 }
