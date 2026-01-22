@@ -236580,6 +236580,70 @@
         }
       ],
       "overview": "Un vistazo exclusivo a todos los años de trabajo artesanal invertidos para crear la última entrega de la serie de los hermanos Duffer que ha marcado a toda una generación."
+    },
+    {
+      "file": "Gaua_(2025)_BLuRayRip_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Gaua_(2025)_BLuRayRip_SPANISH.torrent",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:e039473076d069bd6c40255d216612831f2ed7f1"
+        }
+      ]
+    },
+    {
+      "file": "Gaua_(2025)_BluRay_720p_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Gaua_(2025)_BluRay_720p_SPANISH.torrent",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:bfdb08620ceb3510805f44410e064ab66c51ed0e"
+        }
+      ]
+    },
+    {
+      "file": "De_Las_Cenizas_Bajo_Tierra_(2026)_BLuRayRip_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "De_Las_Cenizas_Bajo_Tierra_(2026)_BLuRayRip_SPANISH.torrent",
+        "year": "2026",
+        "quality": "bluray"
+      },
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c28afc38cf1ecb1b000e00bb791873468a9bb7db"
+        }
+      ]
+    },
+    {
+      "file": "De_Las_Cenizas_Bajo_Tierra_(2026)_BluRay_720p_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "De_Las_Cenizas_Bajo_Tierra_(2026)_BluRay_720p_SPANISH.torrent",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:4b7f0803bd8b07bc494df4d4040639c693021cc0"
+        }
+      ]
     }
   ]
 }
