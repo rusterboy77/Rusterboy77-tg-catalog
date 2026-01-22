@@ -42,4 +42,4 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v4
       with:
         commit_message: "Auto-update catalog and cache [skip ci]"
-        file_pattern: "app/catalog.json app/cache.db"
+        file_pattern: "catalog.json cache.db"

@@ -11,8 +11,8 @@ ALLOWED_CHAT_IDS = os.environ.get("ALLOWED_CHAT_IDS", "")
 # Directorios relativos al script (asumiendo ejecución desde raíz del repo)
 BASE_DIR = os.getcwd()
 APP_DIR = os.path.join(BASE_DIR, "app")
-CATALOG_PATH = os.path.join(APP_DIR, "catalog.json")
-CACHE_DB_PATH = os.path.join(APP_DIR, "cache.db")
+CATALOG_PATH = os.path.join(BASE_DIR, "catalog.json")
+CACHE_DB_PATH = os.path.join(BASE_DIR, "cache.db")
 
 # Logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
@@ -132,6 +132,10 @@ def process_telegram_updates():
     # Importar lógica de main para reutilizar funciones complejas de merge/upsert
     sys.path.append(APP_DIR)
     import main as logic
+    # Forzar que la lógica importada use las rutas de la raíz
+    logic.CATALOG_PATH = CATALOG_PATH
+    logic.CACHE_DB_PATH = CACHE_DB_PATH
+    logic.TMDB_API_KEY = TMDB_API_KEY # Asegurar que la key pase
 
     # Forzar recarga de catálogo local en memoria
     if os.path.exists(CATALOG_PATH):
