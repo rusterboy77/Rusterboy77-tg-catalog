@@ -7,7 +7,8 @@ TOKENS_REMOVE = [
     "720p", "1080p", "2160p", "4k",
     "hdtv", "webrip", "web-dl", "webdl", "bluray", "br", "remux",
     "x264", "x265", "hevc", "aac", "dts", "ac3",
-    "esp", "eng", "subesp", "lat", "latam", "multi"
+    "esp", "eng", "subesp", "lat", "latam", "multi",
+    "spanish", "castellano", "rip", "blurayrip", "bdrip", "dvdrip", "hdrip"
 ]
 
 escaped = [re.escape(t) for t in TOKENS_REMOVE]

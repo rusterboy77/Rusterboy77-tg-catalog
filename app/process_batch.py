@@ -206,6 +206,11 @@ def process_telegram_updates():
                     new_result["parsed"] = {"type": "movie", "title": meta.get("title") or meta.get("movie"), "year": meta.get("year"), "quality": meta.get("quality")}
                     new_result["torrents"] = [{"quality": meta.get("quality"), "magnet": magnet_data.get("magnet")}]
 
+                parsed = new_result.get("parsed") or {}
+                parsed_title = parsed.get("title") or parsed.get("series") or parsed.get("movie") or ""
+                title_norm = _norm_title(parsed_title); year = str(parsed.get("year") or "")
+                logger.info(f"Buscando en TMDB: title='{parsed_title}' year='{year}' type='{parsed.get('type')}'")
+
                 # Enriquecer
                 enriched = logic.enrich_with_tmdb_if_needed(new_result["parsed"], None)
                 if enriched:
