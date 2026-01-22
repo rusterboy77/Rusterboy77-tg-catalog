@@ -34176,7 +34176,20 @@
           "infohash": "ae18ac786c2ec996940d3df777a1bc2d89a8d9c9"
         }
       ],
-      "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25."
+      "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25.",
+      "episodes": [
+        {
+          "season": 13,
+          "episode": 16,
+          "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:aa43103691324da6b6165f5bd6fa9fab330e333e"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Chicago Med [HDTV 720p][Cap (1).806].torrent",
