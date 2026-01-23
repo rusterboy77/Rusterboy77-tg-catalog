@@ -51,9 +51,23 @@ def copy_assets(addon_id, source_path, xml_root):
             if child.text: paths_to_copy.append(child.text)
     
     # 2. Si no hay assets definidos, buscar los estándar en la raíz
+    fallback_assets = []
     if not paths_to_copy:
-        if os.path.exists(os.path.join(source_path, "icon.png")): paths_to_copy.append("icon.png")
-        if os.path.exists(os.path.join(source_path, "fanart.jpg")): paths_to_copy.append("fanart.jpg")
+        if os.path.exists(os.path.join(source_path, "icon.png")): fallback_assets.append("icon.png")
+        if os.path.exists(os.path.join(source_path, "fanart.jpg")): fallback_assets.append("fanart.jpg")
+
+    if fallback_assets:
+        paths_to_copy.extend(fallback_assets)
+        # Inyectar en el XML para que aparezcan en addons.xml generado
+        metadata = xml_root.find(".//extension[@point='xbmc.addon.metadata']")
+        if metadata is not None:
+            assets_elem = metadata.find("assets")
+            if assets_elem is None:
+                assets_elem = ET.SubElement(metadata, "assets")
+            for asset in fallback_assets:
+                tag = "icon" if "icon" in asset else "fanart"
+                el = ET.SubElement(assets_elem, tag)
+                el.text = asset
 
     for rel_path in paths_to_copy:
         src = os.path.join(source_path, rel_path)
