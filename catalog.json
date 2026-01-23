@@ -236644,6 +236644,132 @@
           "magnet": "magnet:?xt=urn:btih:4b7f0803bd8b07bc494df4d4040639c693021cc0"
         }
       ]
+    },
+    {
+      "file": "Gaua_(2025)_BLuRayRip_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Gaua",
+        "year": "2025",
+        "quality": "bluray"
+      },
+      "tmdb_top": {
+        "id": 1367125,
+        "title": "Gaua",
+        "original_title": "Gaua",
+        "overview": "España, País Vasco, siglo XVII. De noche y a través de las montañas, Kattalin escapa de su caserío y, mientras deambula por el profundo bosque, percibe una presencia que la acecha.",
+        "poster_path": "/A5Rjt5W7IuvSg5C8d3bI6PKugLj.jpg",
+        "backdrop_path": "/3WqvZGInmMhX7AvmY5BRbyNtCqK.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/A5Rjt5W7IuvSg5C8d3bI6PKugLj.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3WqvZGInmMhX7AvmY5BRbyNtCqK.jpg",
+        "genres": [
+          "Drama",
+          "Terror",
+          "Fantasía"
+        ],
+        "cast": [
+          "Yune Nogueiras",
+          "Ane Gabarain",
+          "Elena Irureta",
+          "Iñake Irastorza",
+          "Xabi «Jabato» López",
+          "Erika Olaizola",
+          "Elena Uriz",
+          "Manex Fuchs",
+          "Elías García",
+          "Laura Iturregi"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/hi7jUHT4ps6BUDMuZ6Nqq3EzFUH.png",
+        "banner": "https://image.tmdb.org/t/p/original/3WqvZGInmMhX7AvmY5BRbyNtCqK.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/A5Rjt5W7IuvSg5C8d3bI6PKugLj.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:e039473076d069bd6c40255d216612831f2ed7f1"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:bfdb08620ceb3510805f44410e064ab66c51ed0e"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/A5Rjt5W7IuvSg5C8d3bI6PKugLj.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/3WqvZGInmMhX7AvmY5BRbyNtCqK.jpg",
+      "overview": "España, País Vasco, siglo XVII. De noche y a través de las montañas, Kattalin escapa de su caserío y, mientras deambula por el profundo bosque, percibe una presencia que la acecha.",
+      "genres": [
+        "Drama",
+        "Terror",
+        "Fantasía"
+      ],
+      "cast": [
+        "Yune Nogueiras",
+        "Ane Gabarain",
+        "Elena Irureta",
+        "Iñake Irastorza",
+        "Xabi «Jabato» López",
+        "Erika Olaizola",
+        "Elena Uriz",
+        "Manex Fuchs",
+        "Elías García",
+        "Laura Iturregi"
+      ]
+    },
+    {
+      "file": "De_Las_Cenizas_Bajo_Tierra_(2026)_BLuRayRip_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "De Las Cenizas Bajo Tierra",
+        "year": "2026",
+        "quality": "bluray"
+      },
+      "tmdb_top": {
+        "id": 1608982,
+        "title": "De las cenizas: Bajo tierra",
+        "original_title": "جرس إنذار: الحفرة",
+        "overview": "Tras quedar atrapadas en un foso durante una tormenta, tres estudiantes de una escuela para chicas deben enfrentar sus conflictos personales mientras luchan por sobrevivir.",
+        "poster_path": "/3OBRXbnlhZxMPpfLMLzQwF29IMC.jpg",
+        "backdrop_path": "/uiSaYXR0jLLWma0EPA1tcBhX6wT.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/3OBRXbnlhZxMPpfLMLzQwF29IMC.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/uiSaYXR0jLLWma0EPA1tcBhX6wT.jpg",
+        "genres": [
+          "Suspense",
+          "Drama"
+        ],
+        "cast": [
+          "Adwaa Fahad",
+          "Darin AlBayed",
+          "Aseel Morya",
+          "Aisha Al Rifaie",
+          "Aseel Seraj"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/43G24cbm9JCRgOlrgtGwxhR7gue.png",
+        "banner": "https://image.tmdb.org/t/p/original/uiSaYXR0jLLWma0EPA1tcBhX6wT.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/3OBRXbnlhZxMPpfLMLzQwF29IMC.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c28afc38cf1ecb1b000e00bb791873468a9bb7db"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:4b7f0803bd8b07bc494df4d4040639c693021cc0"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/3OBRXbnlhZxMPpfLMLzQwF29IMC.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/uiSaYXR0jLLWma0EPA1tcBhX6wT.jpg",
+      "overview": "Tras quedar atrapadas en un foso durante una tormenta, tres estudiantes de una escuela para chicas deben enfrentar sus conflictos personales mientras luchan por sobrevivir.",
+      "genres": [
+        "Suspense",
+        "Drama"
+      ],
+      "cast": [
+        "Adwaa Fahad",
+        "Darin AlBayed",
+        "Aseel Morya",
+        "Aisha Al Rifaie",
+        "Aseel Seraj"
+      ]
     }
   ]
 }
