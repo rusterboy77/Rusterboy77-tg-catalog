@@ -2,8 +2,8 @@ name: Update Catalog from Telegram
 
 on:
   schedule:
-    # Ejecutar cada hora (minuto 0)
-    - cron: '0 * * * *'
+    # Ejecutar cada 30 minutos (minuto 0 y minuto 30)
+    - cron: '0,30 * * * *'
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
