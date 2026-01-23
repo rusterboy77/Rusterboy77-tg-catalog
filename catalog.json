@@ -236839,6 +236839,28 @@
         "Tijmen Govaerts",
         "Sofie Decleir"
       ]
+    },
+    {
+      "file": "Construyendo Un Caballero",
+      "parsed": {
+        "type": "series",
+        "series": "Construyendo Un Caballero"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3c01984c92e9b0a89e9a8c9e1444a0d7d4cd56cb"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
