@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons><addon id="plugin.video.rusterwolf77" version="0.1.0" name="RusterWolf 77" provider-name="rusterboy77">
+    <requires>
+        <import addon="xbmc.python" version="3.0.0" />
+    </requires>
+    <extension point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="es">Catálogo de torrents con reproducción en Elementum</summary>
+        <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.</description>
+        <platform>all</platform>
+        <assets>
+            <icon>resources/media/icon.png</icon>
+            <fanart>resources/media/fanart.jpeg</fanart>
+        </assets>
+    </extension>
+</addon><addon id="repository.rusterboy" name="Rusterboy77 Repository" version="1.0.0" provider-name="Rusterboy77">
+    <extension point="xbmc.addon.repository" name="Rusterboy Repository">
+        <dir>
+            <info compressed="false">https://rusterboy77.github.io/Rusterboy77-tg-catalog/zips/addons.xml</info>
+            <checksum>https://rusterboy77.github.io/Rusterboy77-tg-catalog/zips/addons.xml.md5</checksum>
+            <datadir zip="true">https://rusterboy77.github.io/Rusterboy77-tg-catalog/zips/</datadir>
+        </dir>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary>Repositorio de Rusterboy</summary>
+        <description>Instala y actualiza mis addons automáticamente</description>
+        <platform>all</platform>
+    </extension>
+</addon></addons>

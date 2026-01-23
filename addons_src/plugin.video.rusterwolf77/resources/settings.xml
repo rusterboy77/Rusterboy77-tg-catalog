@@ -1,0 +1,12 @@
+<settings>
+    <category label="General">
+        <setting id="background_workers" type="number" label="Background workers (max)" default="6" minimum="1" maximum="20" />
+        <setting id="unenriched_batch" type="number" label="Batch size para enriquecer" default="200" minimum="10" maximum="2000" />
+    <!-- prioritize_visible removed: prioritization features disabled -->
+    <setting id="items_per_page" type="number" label="Items por página (paginación)" default="24" minimum="6" maximum="200" />
+    <setting id="debug_logging" type="bool" label="Activar logs debug (muestra logs detallados)" default="false" />
+    <!-- Configurable remote sources -->
+        <setting id="catalog_urls" type="text" label="URLs de catalog.json (una por línea)" default="https://raw.githubusercontent.com/rusterboy77/Rusterboy77-tg-catalog/refs/heads/main/catalog.json" />
+        <setting id="remote_db_urls" type="text" label="URLs de cache.db (una por línea)" default="https://github.com/rusterboy77/Rusterboy77-tg-catalog/raw/refs/heads/main/cache.db" />
+    </category>
+</settings>
