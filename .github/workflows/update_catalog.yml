@@ -1,9 +1,14 @@
 name: Update Catalog from Telegram
 
 on:
+  # Añadimos trigger 'push' para asegurar que se registra y para debug
+  push:
+    branches:
+      - main
+      - master
   schedule:
-    # Ejecutar cada 30 minutos (minuto 5 y minuto 35) para evitar colas de GitHub
-    - cron: '5,35 * * * *'
+    # Cambiamos a cada 30 minutos estándar para refrescar el cron
+    - cron: '*/30 * * * *'
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
