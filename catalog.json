@@ -236770,6 +236770,91 @@
         "Aisha Al Rifaie",
         "Aseel Seraj"
       ]
+    },
+    {
+      "file": "Construyendo_Un_Caballero_S01E01_HDTV_1080p_AC3_5_1_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Construyendo Un Caballero S01E01 5 1",
+        "year": "",
+        "quality": "1080p"
+      },
+      "tmdb_top": {},
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:3c01984c92e9b0a89e9a8c9e1444a0d7d4cd56cb"
+        }
+      ]
+    },
+    {
+      "file": "El_silencio_de_Julie_(2026)_BLuRayRip_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "El silencio de Julie",
+        "year": "2026",
+        "quality": "bluray"
+      },
+      "tmdb_top": {
+        "id": 1187308,
+        "title": "El silencio de Julie",
+        "original_title": "Julie zwijgt",
+        "overview": "Como jugadora estrella de una academia de tenis de élite, la vida de Julie gira en torno al deporte que ama. Cuando su entrenador es investigado y suspendido repentinamente, todos los jugadores del club se animan a hablar. Pero Julie decide guardar silencio.",
+        "poster_path": "/1RXhAuPlj8qoQApjg16UOHHEQgK.jpg",
+        "backdrop_path": "/yXwJzc6beR82pg6R3BMaurH4lwq.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1RXhAuPlj8qoQApjg16UOHHEQgK.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/yXwJzc6beR82pg6R3BMaurH4lwq.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Tessa Van den Broeck",
+          "Grace Biot",
+          "Alyssa Lorette",
+          "Ruth Becquart",
+          "Koen De Bouw",
+          "Pierre Gervais",
+          "Claire Bodson",
+          "Laurent Caron",
+          "Tijmen Govaerts",
+          "Sofie Decleir"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/yXwJzc6beR82pg6R3BMaurH4lwq.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/1RXhAuPlj8qoQApjg16UOHHEQgK.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:eee2ec10036fb2132161b2d83b568920ea71ede1"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:d9c25f5d829718892485a93c2d40d9f18df943e6"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:84664f3226656f2b861db92e18270fb869f7170b"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/1RXhAuPlj8qoQApjg16UOHHEQgK.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/yXwJzc6beR82pg6R3BMaurH4lwq.jpg",
+      "overview": "Como jugadora estrella de una academia de tenis de élite, la vida de Julie gira en torno al deporte que ama. Cuando su entrenador es investigado y suspendido repentinamente, todos los jugadores del club se animan a hablar. Pero Julie decide guardar silencio.",
+      "genres": [
+        "Drama"
+      ],
+      "cast": [
+        "Tessa Van den Broeck",
+        "Grace Biot",
+        "Alyssa Lorette",
+        "Ruth Becquart",
+        "Koen De Bouw",
+        "Pierre Gervais",
+        "Claire Bodson",
+        "Laurent Caron",
+        "Tijmen Govaerts",
+        "Sofie Decleir"
+      ]
     }
   ]
 }
