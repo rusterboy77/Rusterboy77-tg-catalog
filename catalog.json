@@ -20469,7 +20469,20 @@
           "infohash": "df6bbc5560fbbb59be9dbb20f2f680667d88ede1"
         }
       ],
-      "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!"
+      "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:05dc820af24522b32798d3b80f9e0f5c492069bf"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Beast Games [HDTV 1080p][Cap.103].torrent",
@@ -76071,6 +76084,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:980cc6f0118d331ef0480fa8fe41c9e67357a766"
+            }
+          ]
+        },
+        {
+          "season": 5,
+          "episode": 8,
+          "overview": "Julio Torres cuenta la historia de cuando perdió una ostra dorada. Las personas que encuentra mientras la busca y las reflexiones que tiene se convierten en puntos de partida para pequeñas películas a lo largo del camino, mientras Torres navega entrando y saliendo de estas historias cómicas introspectivas, a menudo espeluznantes.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dbcce12b9028128b23ca9d254a4c57c5f5970db9"
             }
           ]
         }
@@ -236857,6 +236881,304 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:3c01984c92e9b0a89e9a8c9e1444a0d7d4cd56cb"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chicago PD",
+      "parsed": {
+        "type": "series",
+        "series": "Chicago PD"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 58841,
+        "title": "Chicago P.D.",
+        "original_title": "Chicago P.D.",
+        "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+        "poster_path": "/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "backdrop_path": "/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Jason Beghe",
+          "Marina Squerciati",
+          "Patrick John Flueger",
+          "LaRoyce Hawkins",
+          "Benjamin Levy Aguilar",
+          "Arienne Mandi",
+          "Amy Morton"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "episode_title": "Canaryville",
+        "episode_overview": "Un asesinato cerca del vecindario de Burgess y Ruzek lleva al equipo a investigar relaciones complejas en su comunidad.",
+        "still_path": "https://image.tmdb.org/t/p/original/18KyslWNg5t0x39CwbGsDFdBLSf.jpg"
+      },
+      "episodes": [
+        {
+          "season": 13,
+          "episode": 3,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:62f5b4d2c226e618e3e8694c8605b42ba35c6199"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Bailando sobre hielo",
+      "parsed": {
+        "type": "series",
+        "series": "Bailando sobre hielo"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 281401,
+        "title": "Bailando sobre hielo",
+        "original_title": "Finding Her Edge",
+        "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+        "poster_path": "/rundKWddXHke82ee8Sv9KJmuGhn.jpg",
+        "backdrop_path": "/3aeYYriPQN7886in9bIGKnbC5eQ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/rundKWddXHke82ee8Sv9KJmuGhn.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3aeYYriPQN7886in9bIGKnbC5eQ.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Madelyn Keys",
+          "Alice Malakhov",
+          "Alexandra Beaton",
+          "Harmon Walsh",
+          "Cale Ambrozic",
+          "Olly Atkins",
+          "Meredith Forlenza",
+          "Niko Ceci",
+          "Millie Davis"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ohoPwJsSxmbotGEfkLo8CuBcs4N.png",
+        "banner": "https://image.tmdb.org/t/p/original/3aeYYriPQN7886in9bIGKnbC5eQ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/rundKWddXHke82ee8Sv9KJmuGhn.jpg",
+        "episode_title": "A por la medalla",
+        "episode_overview": "El Mundial arranca en la Ciudad del Amor, y Adriana tiene el corazón destrozado. Siente algo por Brayden y Freddie... pero ¿cuál de los dos sentimientos es real?",
+        "still_path": "https://image.tmdb.org/t/p/original/1AMLJt0TlapSbLeHDFWpZJBrbKS.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bed454585d180e8a8fb0ddff735e3e06b5bdda4e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6efa05183a5d529088d0eadb2658654cb17d29d3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ecf0ba5ad58f334c0bce171d795b2c78571edb41"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:de854f6cdb62c21ada97c329ea420d7842a57c4f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d907c7a2bdb07efb5b7a367876921396ca5fd0fc"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bbf3e973ea0482ca94307580d01f42271dd90f05"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:99ecd699ca4d0f07718f10f22be64e7978e073da"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Una exbailarina sobre hielo vuelve a la pista con un nuevo y emocionante compañero mientras aún siente algo por su antigua pareja: su primer amor.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c0d7c733b32739f6438a58e7ff624b9ab84fbcff"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Hudson y Rex",
+      "parsed": {
+        "type": "series",
+        "series": "Hudson y Rex"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 87940,
+        "title": "Hudson & Rex",
+        "original_title": "Hudson & Rex",
+        "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+        "poster_path": "/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "backdrop_path": "/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "genres": [
+          "Drama",
+          "Crimen"
+        ],
+        "cast": [
+          "John Reardon",
+          "Mayko Nguyen",
+          "Kevin Hanchard",
+          "Justin Kelly",
+          "Luke Roberts"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/eEOx2lpnWm4lVF5jfqtKsWlyuJX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/l5N985pVvDC41QwEprORSoGz3Q5.jpg",
+        "episode_title": "Episodio 8",
+        "still_path": "https://image.tmdb.org/t/p/original/c8zbDL3e0RULKBPBSHlHPZTEzwH.jpg"
+      },
+      "episodes": [
+        {
+          "season": 7,
+          "episode": 8,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:60f5cb6e907a8d5d0c6a94b151f39966d30751d0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Erase una vez en el espacio",
+      "parsed": {
+        "type": "series",
+        "series": "Erase una vez en el espacio"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 246148,
+        "title": "Érase una vez en el espacio",
+        "original_title": "Once Upon a Time in Space",
+        "overview": "Han pasado 63 años desde que Yuri Gagarin se convirtió en el primer ser humano en ir al espacio. Desde entonces, solo 676 personas lo han seguido. Pero esa cifra está a punto de cambiar. Nuestra visión del espacio y nuestra relación con él están cambiando, y esos cambios nos impactarán a todos. Esta serie documental cuenta la historia de la humanidad en el espacio.",
+        "poster_path": "/qGjq6Jjd4fEYRmq5rdUNGX0uVqf.jpg",
+        "backdrop_path": "/akm2eRFP4xQhnfk3btKWeSNLNvk.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qGjq6Jjd4fEYRmq5rdUNGX0uVqf.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/akm2eRFP4xQhnfk3btKWeSNLNvk.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/akm2eRFP4xQhnfk3btKWeSNLNvk.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/qGjq6Jjd4fEYRmq5rdUNGX0uVqf.jpg",
+        "episode_title": "Episodio 4",
+        "still_path": "https://image.tmdb.org/t/p/original/jnJf8ZAQtlu4BASsxtf3SUCbD9f.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Han pasado 63 años desde que Yuri Gagarin se convirtió en el primer ser humano en ir al espacio. Desde entonces, solo 676 personas lo han seguido. Pero esa cifra está a punto de cambiar. Nuestra visión del espacio y nuestra relación con él están cambiando, y esos cambios nos impactarán a todos. Esta serie documental cuenta la historia de la humanidad en el espacio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d4c01c724e12cf9b331a5fdea59e49ac2bb57ab4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Han pasado 63 años desde que Yuri Gagarin se convirtió en el primer ser humano en ir al espacio. Desde entonces, solo 676 personas lo han seguido. Pero esa cifra está a punto de cambiar. Nuestra visión del espacio y nuestra relación con él están cambiando, y esos cambios nos impactarán a todos. Esta serie documental cuenta la historia de la humanidad en el espacio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:62453f88b8979b5ef0b23984b67e659e376da11a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Han pasado 63 años desde que Yuri Gagarin se convirtió en el primer ser humano en ir al espacio. Desde entonces, solo 676 personas lo han seguido. Pero esa cifra está a punto de cambiar. Nuestra visión del espacio y nuestra relación con él están cambiando, y esos cambios nos impactarán a todos. Esta serie documental cuenta la historia de la humanidad en el espacio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4a9026d32cd958218fd0923ed2871535c20ab326"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Han pasado 63 años desde que Yuri Gagarin se convirtió en el primer ser humano en ir al espacio. Desde entonces, solo 676 personas lo han seguido. Pero esa cifra está a punto de cambiar. Nuestra visión del espacio y nuestra relación con él están cambiando, y esos cambios nos impactarán a todos. Esta serie documental cuenta la historia de la humanidad en el espacio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d0266db5d94abee04cf950429df329cf1e56a273"
             }
           ]
         }
