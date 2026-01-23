@@ -20,6 +20,7 @@ CAP_WORD_RE = re.compile(r"cap(?=[\s\._\-\(\d])", re.IGNORECASE)
 DIGITS_RE = re.compile(r"(\d{2,4})")
 MULTI_SPACES_RE = re.compile(r"\s{2,}")
 TRAILING_RE = re.compile(r"^[\s\-\._\[]+|[\s\-\._\]]+$")
+SEASON_EPISODE_RE = re.compile(r"(?i)\bS(\d{1,2})E(\d{1,3})\b")
 
 RESOLUTION_RE = re.compile(r"(2160p|1080p|720p|4k)", re.IGNORECASE)
 SOURCE_RE = re.compile(r"(bluray|hdtv|webrip|web-dl|webdl|remux)", re.IGNORECASE)
@@ -74,12 +75,28 @@ def main():
     base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)
     base = MULTI_SPACES_RE.sub(" ", base).strip()
 
-    cap_num = detect_cap_number(base)
-    is_series = (cap_num is not None and cap_num >= 100)
+    # Intentar detectar formato S01E01 primero
+    se_match = SEASON_EPISODE_RE.search(base)
+    
+    cap_num = None
+    if not se_match:
+        cap_num = detect_cap_number(base)
+
+    is_series_se = (se_match is not None)
+    is_series_cap = (cap_num is not None and cap_num >= 100)
 
     result = {"title": fname}
 
-    if is_series:
+    if is_series_se:
+        season = int(se_match.group(1))
+        episode = int(se_match.group(2))
+        # El título es todo lo que hay antes del SxxExx
+        span = se_match.span()
+        title_part = base[:span[0]]
+        title_clean = normalize_title(remove_tokens(title_part))
+        _, title_clean = extract_year_and_clean(title_clean)
+        result.update({"type": "series", "series": title_clean, "season": season, "episode": episode})
+    elif is_series_cap:
         season = cap_num // 100
         episode = cap_num % 100
         title_part = base[:base.lower().find("cap")] if "cap" in base.lower() else base
