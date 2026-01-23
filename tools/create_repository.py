@@ -53,8 +53,13 @@ def copy_assets(addon_id, source_path, xml_root):
     # 2. Si no hay assets definidos, buscar los estándar en la raíz
     fallback_assets = []
     if not paths_to_copy:
+        # Icono
         if os.path.exists(os.path.join(source_path, "icon.png")): fallback_assets.append("icon.png")
+        elif os.path.exists(os.path.join(source_path, "icon.jpg")): fallback_assets.append("icon.jpg")
+        
+        # Fanart (soporte para .jpg y .jpeg)
         if os.path.exists(os.path.join(source_path, "fanart.jpg")): fallback_assets.append("fanart.jpg")
+        elif os.path.exists(os.path.join(source_path, "fanart.jpeg")): fallback_assets.append("fanart.jpeg")
 
     if fallback_assets:
         paths_to_copy.extend(fallback_assets)
@@ -68,6 +73,9 @@ def copy_assets(addon_id, source_path, xml_root):
                 tag = "icon" if "icon" in asset else "fanart"
                 el = ET.SubElement(assets_elem, tag)
                 el.text = asset
+    
+    if not paths_to_copy:
+        print(f"  [AVISO] No se encontraron iconos para {addon_id}. Asegúrate de tener icon.png y fanart.jpg en la raíz.")
 
     for rel_path in paths_to_copy:
         src = os.path.join(source_path, rel_path)

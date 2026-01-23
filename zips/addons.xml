@@ -27,5 +27,5 @@
         <summary>Repositorio de Rusterboy</summary>
         <description>Instala y actualiza mis addons automáticamente</description>
         <platform>all</platform>
-    <assets><icon>icon.png</icon></assets></extension>
+    <assets><icon>icon.png</icon><fanart>fanart.jpg</fanart></assets></extension>
 </addon></addons>
