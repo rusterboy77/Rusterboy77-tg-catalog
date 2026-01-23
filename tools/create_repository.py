@@ -8,6 +8,7 @@ Script para generar la estructura de un Repositorio Kodi automáticamente.
 """
 import os
 import zipfile
+import shutil
 import hashlib
 import xml.etree.ElementTree as ET
 
@@ -36,6 +37,31 @@ def make_zip(addon_id, version, source_path):
                 abs_path = os.path.join(root, file)
                 rel_path = os.path.relpath(abs_path, os.path.dirname(source_path))
                 zf.write(abs_path, rel_path)
+
+def copy_assets(addon_id, source_path, xml_root):
+    """Copia los iconos/fanart fuera del zip para que el repositorio los muestre."""
+    dest_folder = os.path.join(ZIPS_DIR, addon_id)
+    os.makedirs(dest_folder, exist_ok=True)
+    
+    paths_to_copy = []
+    # 1. Buscar en la definición de assets del XML
+    assets = xml_root.find(".//extension[@point='xbmc.addon.metadata']/assets")
+    if assets is not None:
+        for child in assets:
+            if child.text: paths_to_copy.append(child.text)
+    
+    # 2. Si no hay assets definidos, buscar los estándar en la raíz
+    if not paths_to_copy:
+        if os.path.exists(os.path.join(source_path, "icon.png")): paths_to_copy.append("icon.png")
+        if os.path.exists(os.path.join(source_path, "fanart.jpg")): paths_to_copy.append("fanart.jpg")
+
+    for rel_path in paths_to_copy:
+        src = os.path.join(source_path, rel_path)
+        if os.path.exists(src):
+            dest = os.path.join(dest_folder, rel_path)
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            shutil.copy2(src, dest)
+            print(f"  [ASSET] Copiado {rel_path}")
 
 def generate():
     if not os.path.exists(ADDONS_SRC):
@@ -66,6 +92,9 @@ def generate():
             
             # Crear el zip
             make_zip(addon_id, version, addon_path)
+            
+            # Copiar assets (iconos)
+            copy_assets(addon_id, addon_path, root)
             count += 1
         except Exception as e:
             print(f"Error en {addon_id}: {e}")
