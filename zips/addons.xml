@@ -49,7 +49,7 @@
         
 
     </addon>
-    <addon id="repository.rusterboy" name="Rusterboy77 Repository" version="1.0.0" provider-name="Rusterboy77">
+    <addon id="repository.rusterboy77" name="Rusterboy77 Repository" version="1.0.1" provider-name="Rusterboy77">
         
     
         <extension point="xbmc.addon.repository" name="Rusterboy Repository">
@@ -84,11 +84,19 @@
         
             <platform>all</platform>
             
-    
+        
             <assets>
+                
+            
                 <icon>icon.png</icon>
+                
+            
                 <fanart>fanart.jpg</fanart>
+                
+        
             </assets>
+            
+    
         </extension>
         
 

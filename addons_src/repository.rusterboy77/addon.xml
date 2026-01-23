@@ -1,5 +1,5 @@
-<?xml version="1.0.1" encoding="UTF-8" standalone="yes"?>
-<addon id="repository.rusterboy" name="Rusterboy77 Repository" version="1.0.0" provider-name="Rusterboy77">
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.rusterboy77" name="Rusterboy77 Repository" version="1.0.1" provider-name="Rusterboy77">
     <extension point="xbmc.addon.repository" name="Rusterboy Repository">
         <dir>
             <info compressed="false">https://rusterboy77.github.io/Rusterboy77-tg-catalog/zips/addons.xml</info>
@@ -11,5 +11,9 @@
         <summary>Repositorio de Rusterboy</summary>
         <description>Instala y actualiza mis addons automáticamente</description>
         <platform>all</platform>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
     </extension>
 </addon>
