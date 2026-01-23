@@ -76097,6 +76097,17 @@
               "magnet": "magnet:?xt=urn:btih:dbcce12b9028128b23ca9d254a4c57c5f5970db9"
             }
           ]
+        },
+        {
+          "season": 5,
+          "episode": 2,
+          "overview": "Julio Torres cuenta la historia de cuando perdió una ostra dorada. Las personas que encuentra mientras la busca y las reflexiones que tiene se convierten en puntos de partida para pequeñas películas a lo largo del camino, mientras Torres navega entrando y saliendo de estas historias cómicas introspectivas, a menudo espeluznantes.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d1f336fecba9b61859616e4e6df30e14e04fb624"
+            }
+          ]
         }
       ]
     },
@@ -121575,7 +121586,20 @@
           "infohash": "96993d3a985d897ba243f9290919494f4ebae19e"
         }
       ],
-      "overview": "Ambientada en las prósperas ciudades en auge del oeste de Texas, matones y multimillonarios buscan fortuna en las plataformas petrolíferas."
+      "overview": "Ambientada en las prósperas ciudades en auge del oeste de Texas, matones y multimillonarios buscan fortuna en las plataformas petrolíferas.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "overview": "Ambientada en las proverbiales ciudades en auge del oeste de Texas, se trata de un drama sobre la búsqueda de la fortuna en el mundo de las plataformas petrolíferas basada en el podcast 'Boomtown', una historia de clases, con matones y multimillonarios salvajes que impulsan un boom tan grande que está cambiando nuestro clima, nuestra economía y nuestra geopolítica.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:5abc3c3ceed2b28559c406a4f1ceab5df3d6c108"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Landman [4k 2160p][Cap.109].torrent",
@@ -236510,6 +236534,21 @@
               "magnet": "magnet:?xt=urn:btih:6569c10c5be71a5be654199801ce486040a350a1"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:92dccefe892e65dd7c237fe274f28cb92d9628e2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c1205b206d40a3e521922d79aef1ede7bbeaeb1e"
+            }
+          ]
         }
       ]
     },
@@ -237179,6 +237218,983 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:d0266db5d94abee04cf950429df329cf1e56a273"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Amadeus",
+      "parsed": {
+        "type": "series",
+        "series": "Amadeus"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 246864,
+        "title": "Amadeus",
+        "original_title": "Amadeus",
+        "overview": "Wolfgang Amadeus Mozart llega a Viena a los 25 años sin trabajo tras la muerte de su padre. Se alía con la cantante Constanze Weber, que le ayuda a entrar en la órbita del compositor de la corte Salieri, lo que desencadena una rivalidad que define sus legados.",
+        "poster_path": "/sS8Q0Qf5GzTI1OcswDN5Vvvmm97.jpg",
+        "backdrop_path": "/r1DUI1JmjfiuOmYvE5LnHX6atGN.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/sS8Q0Qf5GzTI1OcswDN5Vvvmm97.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/r1DUI1JmjfiuOmYvE5LnHX6atGN.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Will Sharpe",
+          "Paul Bettany",
+          "Olivia-Mai Barrett",
+          "Gabrielle Creevy",
+          "Krisztián Cser",
+          "Orsolya Heletya",
+          "Jonathan Aris",
+          "Jessica Alexander",
+          "Felix Uff",
+          "Sidhant Anand"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/r1DUI1JmjfiuOmYvE5LnHX6atGN.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/sS8Q0Qf5GzTI1OcswDN5Vvvmm97.jpg",
+        "episode_title": "Episodio 4",
+        "episode_overview": "Después de que Constanze abandona a Mozart por su amante, Salieri se propone perjudicar a Mozart.",
+        "still_path": "https://image.tmdb.org/t/p/original/oodkqKEyCTtQ2RVe8NcKneNnvMn.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Wolfgang Amadeus Mozart llega a Viena a los 25 años sin trabajo tras la muerte de su padre. Se alía con la cantante Constanze Weber, que le ayuda a entrar en la órbita del compositor de la corte Salieri, lo que desencadena una rivalidad que define sus legados.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8c5fd61bef621b829f91348dc7b944f44fcc1386"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Belleza Perfecta",
+      "parsed": {
+        "type": "series",
+        "series": "Belleza Perfecta"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 273160,
+        "title": "Belleza perfecta",
+        "original_title": "The Beauty",
+        "overview": "Los socios Drew y Kara investigan la enfermedad de transmisión sexual \"la belleza\", que causa efectos estéticos, pero que resulta letal.",
+        "poster_path": "/52OoN8hj5jSllNxZRACxIVIenuG.jpg",
+        "backdrop_path": "/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/52OoN8hj5jSllNxZRACxIVIenuG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "genres": [
+          "Drama",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Evan Peters",
+          "Rebecca Hall",
+          "Jeremy Pope",
+          "Anthony Ramos",
+          "Ashton Kutcher"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/lcv3jf6YMbcZGcN8ynvVcSprgnw.png",
+        "banner": "https://image.tmdb.org/t/p/original/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/52OoN8hj5jSllNxZRACxIVIenuG.jpg",
+        "episode_title": "El bello piloto",
+        "episode_overview": "Los agentes del FBI Cooper Madsen y Jordan Bennet investigan un incidente en un desfile en París.",
+        "still_path": "https://image.tmdb.org/t/p/original/dQmY61WL1ql6Ecq8bzexkZTP8kR.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Los socios Drew y Kara investigan la enfermedad de transmisión sexual \"la belleza\", que causa efectos estéticos, pero que resulta letal.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bc0b176af2e3e5807576c2cfed4de831b63c09d1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:50934a0514eac6cb3757877e09d1cca36b7e934a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Los socios Drew y Kara investigan la enfermedad de transmisión sexual \"la belleza\", que causa efectos estéticos, pero que resulta letal.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:467d1648d455ba35709c78da9e7ee449d7cae26e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4388256a3b7bd577372f7de878d838d87f011dd4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Los socios Drew y Kara investigan la enfermedad de transmisión sexual \"la belleza\", que causa efectos estéticos, pero que resulta letal.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f3a3cdf9009fa662a3131a4777f5b99c9f9667e7"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3b78ad3e87bdc9562e0bd31b521003677d4fcf6c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Casados a primera vista",
+      "parsed": {
+        "type": "series",
+        "series": "Casados a primera vista"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 62705,
+        "title": "Casados a primera vista Australia",
+        "original_title": "Married at First Sight",
+        "overview": "",
+        "poster_path": "/2F0ADv2beVB4tRG0qx7YlWMvnDN.jpg",
+        "backdrop_path": "/pLa2pcYnKA9xxWiWh1C08TXcDTY.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/2F0ADv2beVB4tRG0qx7YlWMvnDN.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/pLa2pcYnKA9xxWiWh1C08TXcDTY.jpg",
+        "genres": [
+          "Reality"
+        ],
+        "cast": [
+          "John Aiken",
+          "Mel Schilling",
+          "Alessandra Rampolla"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/pLa2pcYnKA9xxWiWh1C08TXcDTY.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/2F0ADv2beVB4tRG0qx7YlWMvnDN.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/yi36rRsPS2jZNQxCe6fbCQPNDxD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a6261a970754c00d70bc20977816f4d518d4b47e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Chicago P.D",
+      "parsed": {
+        "type": "series",
+        "series": "Chicago P.D"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 58841,
+        "title": "Chicago P.D.",
+        "original_title": "Chicago P.D.",
+        "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+        "poster_path": "/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "backdrop_path": "/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Jason Beghe",
+          "Marina Squerciati",
+          "Patrick John Flueger",
+          "LaRoyce Hawkins",
+          "Benjamin Levy Aguilar",
+          "Arienne Mandi",
+          "Amy Morton"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/rhp8vYG1sIFtqH3ETmHJuI5Z3Cb.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/bez40PgT36RUu4gstD2A6GSM0tP.jpg",
+        "episode_title": "Heridas abiertas",
+        "episode_overview": "La Unidad de Inteligencia corre contra el tiempo cuando un hombre del barrio de Torres es secuestrado violentamente.",
+        "still_path": "https://image.tmdb.org/t/p/original/gQ57qsN0M7oHT6T0vYloNfcLT7A.jpg"
+      },
+      "episodes": [
+        {
+          "season": 13,
+          "episode": 2,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ea9abb2c8dedb1c3b5776eb34bf8fcc9798663ae"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El magnate",
+      "parsed": {
+        "type": "series",
+        "series": "El magnate"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 205052,
+        "title": "El magnate",
+        "original_title": "El magnate",
+        "overview": "",
+        "poster_path": null,
+        "backdrop_path": "/52GOF5TaoTj8u7qiePyWFjSyjJn.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/52GOF5TaoTj8u7qiePyWFjSyjJn.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Ruddy Rodriguez",
+          "Andrés García",
+          "Salvador Pineda",
+          "Griselda Nogueras",
+          "Zully Montero",
+          "Oswaldo Calvo",
+          "Teresa Maria Rojas"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/52GOF5TaoTj8u7qiePyWFjSyjJn.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9b16cde2699b65de1683d08ce76f12e20e8629f8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El Turco",
+      "parsed": {
+        "type": "series",
+        "series": "El Turco"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 220377,
+        "title": "El Turco",
+        "original_title": "El Turco",
+        "overview": "Balaban Aga es un soldado turco que resulta gravemente herido durante el segundo asedio de Viena en 1683. Tras ser traicionado por quien él considera su hermano, Marco, es condenado a muerte. Pero logra escapar y es curado por Gloria, una joven del pintoresco pueblo italiano de Moena, un idílico lugar en los Alpes que está a punto de ser sometido por su nuevo señor, el mismísimo Marco. A medida que se recupera, Balaban, al que apodan 'El Turco', se convierte en protector del pueblo. Con la ayuda de un pequeño grupo de fieles amigos jenízaros, liderará la resistencia y deberá enfrentarse a su peor enemigo para salvar a los que más ama.",
+        "poster_path": "/xXc32nIY6IEEqhyZG20Z1mka0qc.jpg",
+        "backdrop_path": "/cyfyZvzxnnqRp8UjPSIwlHv6pWe.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xXc32nIY6IEEqhyZG20Z1mka0qc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cyfyZvzxnnqRp8UjPSIwlHv6pWe.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Drama"
+        ],
+        "cast": [
+          "Can Yaman",
+          "Greta Ferro",
+          "Will Kemp",
+          "Magnus Samuelsson",
+          "Slavko Sobin",
+          "Haluk Piyes",
+          "Madalena Aragão",
+          "David Streames"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/cyfyZvzxnnqRp8UjPSIwlHv6pWe.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/xXc32nIY6IEEqhyZG20Z1mka0qc.jpg",
+        "episode_title": "Episodio 3",
+        "still_path": "https://image.tmdb.org/t/p/original/eywEJ0zQLFDPdi1qpixYamJj8I.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Balaban Aga es un soldado turco que resulta gravemente herido durante el segundo asedio de Viena en 1683. Tras ser traicionado por quien él considera su hermano, Marco, es condenado a muerte. Pero logra escapar y es curado por Gloria, una joven del pintoresco pueblo italiano de Moena, un idílico lugar en los Alpes que está a punto de ser sometido por su nuevo señor, el mismísimo Marco. A medida que se recupera, Balaban, al que apodan 'El Turco', se convierte en protector del pueblo. Con la ayuda de un pequeño grupo de fieles amigos jenízaros, liderará la resistencia y deberá enfrentarse a su peor enemigo para salvar a los que más ama.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:364800e490cbc5ced89d888779a013f3225cf36f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Free Bert",
+      "parsed": {
+        "type": "series",
+        "series": "Free Bert"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 307534,
+        "title": "Free Bert",
+        "original_title": "Free Bert",
+        "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+        "poster_path": "/18jsL1sUIDL3ice67KoNkq22K6m.jpg",
+        "backdrop_path": "/utwGNSLV2mjicTPmYPwOCFfdxs1.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/18jsL1sUIDL3ice67KoNkq22K6m.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/utwGNSLV2mjicTPmYPwOCFfdxs1.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Bert Kreischer",
+          "Arden Myrin",
+          "Ava Ryan",
+          "Lilou Lang"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/utwGNSLV2mjicTPmYPwOCFfdxs1.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/18jsL1sUIDL3ice67KoNkq22K6m.jpg",
+        "episode_title": "El favorito del público",
+        "episode_overview": "Tras una crisis existencial en una velada con famosos, Bert quiere implicarse más en la vida de sus hijas... y el resultado es previsiblemente desastroso.",
+        "still_path": "https://image.tmdb.org/t/p/original/ftHiFLaZXOUkWg9HcMuVMJNKR1D.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:470a3334bd206a1051bb4961131e08c3c79e90a0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e2e3e68469fa2c3d12fde5807854433be5a22233"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8a19727d73aa322f521291f724f2794232d80df1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:de4ad0a61595ae8b24db7aa9b294979a19571d24"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:33e5dc34194cd6a2dae2b8b1e1b6eb86b81824f1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:cf69508704180fd6192a71a573973703994e60f4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:401d5e9de947f8a29ea3b67d91eddabc2ddd1a37"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6f0e71ed01c029e3e8839d8c08bf5d11db97e41c"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ec1121487193c849f1c1eaa119a19687885d458b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:fac66fc763a681d4b461b8da5b65c5b656f860f5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Un padre que es un desastre con patas y su familia, que tampoco tiene filtro, siembran el caos al tratar de encajar con los esnobs del colegio elitista de sus hijas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:178dbcf02032cdb02653ba229ac882caebe1f88d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:79c6fa051c0e76a663f5dfbefc262c1c2fe100ba"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Heaven",
+      "parsed": {
+        "type": "series",
+        "series": "Heaven"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 79481,
+        "title": "Battle Through the Heavens",
+        "original_title": "斗破苍穹",
+        "overview": "En una tierra donde no hay magia presente. Una tierra donde los fuertes hacen las reglas y los débiles tienen que obedecer. Una tierra llena de atractivos tesoros y belleza, pero también llena de peligro imprevisto. Hace tres años, Xiao Yan, que había mostrado talentos que ninguno había visto en décadas, de repente lo perdió todo. Sus poderes, su reputación y la promesa a su madre. ¿Qué le ha hecho perder todos sus poderes? ¿Y por qué ha aparecido de repente su prometida?",
+        "poster_path": "/lT9pZfrFk8PgdzsQ7QzpCdiCfFF.jpg",
+        "backdrop_path": "/3Wi5mEdCsvApYQZh34gMOHiOjvH.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/lT9pZfrFk8PgdzsQ7QzpCdiCfFF.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3Wi5mEdCsvApYQZh34gMOHiOjvH.jpg",
+        "genres": [
+          "Animación",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Liu Sanmu",
+          "Liu Yuxuan",
+          "Wan Suwan",
+          "Zhu Jun",
+          "Chen Yiwen",
+          "Yang Menglu",
+          "Meme Yan",
+          "Xia Lei",
+          "Tao Dian",
+          "Zhang Wei"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/3Wi5mEdCsvApYQZh34gMOHiOjvH.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/lT9pZfrFk8PgdzsQ7QzpCdiCfFF.jpg",
+        "episode_title": "Episodio 4",
+        "still_path": "https://image.tmdb.org/t/p/original/iflcPAnPAkbJZDLGqAlHNFHT0M7.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "En una tierra donde no hay magia presente. Una tierra donde los fuertes hacen las reglas y los débiles tienen que obedecer. Una tierra llena de atractivos tesoros y belleza, pero también llena de peligro imprevisto. Hace tres años, Xiao Yan, que había mostrado talentos que ninguno había visto en décadas, de repente lo perdió todo. Sus poderes, su reputación y la promesa a su madre. ¿Qué le ha hecho perder todos sus poderes? ¿Y por qué ha aparecido de repente su prometida?",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d2aea60d72c7d6a3af2157bfb8b27620ac48f4d5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Hell Motel",
+      "parsed": {
+        "type": "series",
+        "series": "Hell Motel"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 290511,
+        "title": "Hell Motel",
+        "original_title": "Hell Motel",
+        "overview": "En Hell Motel, un grupo de 10 obsesos de los crímenes reales son invitados al fin de semana de apertura del recientemente renovado Cold River Motel, el lugar donde se cometió un asesinato en masa satánico sin resolver hace 30 años. La historia se repite cuando los huéspedes se quedan tirados y empiezan a ser asesinados uno a uno durante una ola de asesinatos que crece exponencialmente más horripilante que el original con cada muerte.",
+        "poster_path": "/gRfT9XffHqBxvkrW4izh3gd7L4S.jpg",
+        "backdrop_path": "/qYIIJ6yAQZwFLslyrQF2QOQTBbF.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/gRfT9XffHqBxvkrW4izh3gd7L4S.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qYIIJ6yAQZwFLslyrQF2QOQTBbF.jpg",
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Eric McCormack",
+          "Paula Brancati",
+          "Shaun Benson",
+          "Atticus Mitchell",
+          "Genevieve DeGraves",
+          "Emmanuel Kabongo",
+          "Jim Watson",
+          "Yanna McIntosh",
+          "Gray Powell",
+          "Brynn Godenir"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/qYIIJ6yAQZwFLslyrQF2QOQTBbF.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/gRfT9XffHqBxvkrW4izh3gd7L4S.jpg",
+        "episode_title": "Episodio 5",
+        "still_path": "https://image.tmdb.org/t/p/original/zqLYYaU02h91XXjoy9HCYbKSXIY.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "En Hell Motel, un grupo de 10 obsesos de los crímenes reales son invitados al fin de semana de apertura del recientemente renovado Cold River Motel, el lugar donde se cometió un asesinato en masa satánico sin resolver hace 30 años. La historia se repite cuando los huéspedes se quedan tirados y empiezan a ser asesinados uno a uno durante una ola de asesinatos que crece exponencialmente más horripilante que el original con cada muerte.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0c9df4b2682476308f1772a8fc443fd9481804e4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Hijack",
+      "parsed": {
+        "type": "series",
+        "series": "Hijack"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 198102,
+        "title": "Hijack",
+        "original_title": "Hijack",
+        "overview": "El negociador Sam Nelson va a vivir el viaje de su vida cuando un grupo de secuestradores toma el control. Sam agotará sus tácticas, pero la situación es límite.",
+        "poster_path": "/vAo3QL02oOI9Xz90FILQN5vxMsQ.jpg",
+        "backdrop_path": "/t5OhMJHdgzXxiwZ8iNXMMLSglUK.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vAo3QL02oOI9Xz90FILQN5vxMsQ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/t5OhMJHdgzXxiwZ8iNXMMLSglUK.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Idris Elba",
+          "Christine Adams",
+          "Albrecht Schuch",
+          "Christian Näthe",
+          "Clare-Hope Ashitey",
+          "Lisa Vicari",
+          "Dejan Bućin",
+          "Karima McAdams",
+          "Jasmine Bayes",
+          "Toby Jones"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/fsiRe9lERP1GbkhuEZdVUKFHyxf.png",
+        "banner": "https://image.tmdb.org/t/p/original/t5OhMJHdgzXxiwZ8iNXMMLSglUK.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/vAo3QL02oOI9Xz90FILQN5vxMsQ.jpg",
+        "episode_title": "3 grados",
+        "episode_overview": "Sam detecta una oportunidad y ejecuta un plan para hacer llegar un mensaje encubierto a tierra.",
+        "still_path": "https://image.tmdb.org/t/p/original/7o0b41bEX3kq6jvXkf8V8ZiqtGe.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "El negociador Sam Nelson va a vivir el viaje de su vida cuando un grupo de secuestradores toma el control. Sam agotará sus tácticas, pero la situación es límite.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:92352fb5104ae23ed23d796f07be14cc66aa6ab7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Las Gotas de dios",
+      "parsed": {
+        "type": "series",
+        "series": "Las Gotas de dios"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 218961,
+        "title": "Las gotas de Dios",
+        "original_title": "Les Gouttes de Dieu",
+        "overview": "Mientras el mundo del vino llora la muerte de Alexandre Léger, su hija Camille, muy distanciada de él, descubre la extraordinaria colección que puede ser suya. Pero, para reclamar su herencia, Camille debe superar a Issei, el protegido de Alexandre, en una prueba para sus sentidos.",
+        "poster_path": "/zmMul2w1bFGMQOZv1vITJUcuZs9.jpg",
+        "backdrop_path": "/n1S7wjXldg351ajDMWSgMpfmfyW.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/zmMul2w1bFGMQOZv1vITJUcuZs9.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/n1S7wjXldg351ajDMWSgMpfmfyW.jpg",
+        "genres": [
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Fleur Geffrier",
+          "Tomohisa Yamashita"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/6ZDWLpDRttXbtH2bXjythgDYZpj.png",
+        "banner": "https://image.tmdb.org/t/p/original/d8mCs5m6trb8Nos808P4X9poevd.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/zmMul2w1bFGMQOZv1vITJUcuZs9.jpg",
+        "episode_title": "El presente",
+        "episode_overview": "Issei y Camille se reúnen en la finca Chassangre, donde reciben un misterioso regalo y una serie de instrucciones que pondrán a prueba su vínculo.",
+        "still_path": "https://image.tmdb.org/t/p/original/vjwyFCKev69KTzywzQyp6YOfSqg.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "Mientras el mundo del vino llora la muerte de Alexandre Léger, su hija Camille, muy distanciada de él, descubre la extraordinaria colección que puede ser suya. Pero, para reclamar su herencia, Camille debe superar a Issei, el protegido de Alexandre, en una prueba para sus sentidos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:036a2c8c343125ddefb4dec06226cf318c8c58d8"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:90f8fb267e10a4bac0a63c825047ebe88d4fdbfc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Las Siete Esferas",
+      "parsed": {
+        "type": "series",
+        "series": "Las Siete Esferas"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 250505,
+        "title": "Agatha Christie: Las siete esferas",
+        "original_title": "Agatha Christie's Seven Dials",
+        "overview": "En esta adaptación de la novela de Agatha Christie, una joven aristócrata se vuelca en resolver el misterioso asesinato que remata una fiesta de lujo en su casa de campo.",
+        "poster_path": "/aG0jRHUoyZ2bwsnjfoyXx6mpHoB.jpg",
+        "backdrop_path": "/eVEbRtSOrczWlYnVmwM195AnX86.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aG0jRHUoyZ2bwsnjfoyXx6mpHoB.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eVEbRtSOrczWlYnVmwM195AnX86.jpg",
+        "genres": [
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Mia McKenna-Bruce",
+          "Helena Bonham Carter",
+          "Martin Freeman",
+          "Corey Mylchreest",
+          "Edward Bluemel",
+          "Nabhaan Rizwan"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/40PO3iHK6ri8JFggKiA3JeraQvZ.png",
+        "banner": "https://image.tmdb.org/t/p/original/eVEbRtSOrczWlYnVmwM195AnX86.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/aG0jRHUoyZ2bwsnjfoyXx6mpHoB.jpg",
+        "episode_title": "Battle entra en juego",
+        "episode_overview": "La desesperada indagación de Bundle en busca del asesino la lleva de los bajos fondos de Londres a una reunión en una casa de campo que podría cambiar el curso de la historia.",
+        "still_path": "https://image.tmdb.org/t/p/original/fd4GEqZByB9zX1ZPT5GDuMYxRjD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "En esta adaptación de la novela de Agatha Christie, una joven aristócrata se vuelca en resolver el misterioso asesinato que remata una fiesta de lujo en su casa de campo.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:81f4202f2f7c89c6f9cca45e4c414d7a0e47b324"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Los nuevos casos de Grantchester",
+      "parsed": {
+        "type": "series",
+        "series": "Los nuevos casos de Grantchester"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 310696,
+        "title": "Los nuevos casos de Grantchester",
+        "original_title": "Los nuevos casos de Grantchester",
+        "overview": "El dúo más singular de la televisión británica está de vuelta. Detective y clérigo de Grantchester vuelven para enfrentarse a los casos que marcarán la vida de los demás... y la suya propia.",
+        "poster_path": "/ybp9S1rQGrF4XviGD6ktTbq0fK8.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/ybp9S1rQGrF4XviGD6ktTbq0fK8.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/ybp9S1rQGrF4XviGD6ktTbq0fK8.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "El dúo más singular de la televisión británica está de vuelta. Detective y clérigo de Grantchester vuelven para enfrentarse a los casos que marcarán la vida de los demás... y la suya propia.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b4e69a69433e213c7fd79a006a22d2e1711f8c7b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Marbella",
+      "parsed": {
+        "type": "series",
+        "series": "Marbella"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 242008,
+        "title": "Marbella",
+        "original_title": "Marbella",
+        "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+        "poster_path": "/u2w6pfPNaK6OxICsrtS6MVLOjpV.jpg",
+        "backdrop_path": "/frKXX8EFIJBgAMYG6l4QDqc6UOZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/u2w6pfPNaK6OxICsrtS6MVLOjpV.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/frKXX8EFIJBgAMYG6l4QDqc6UOZ.jpg",
+        "genres": [
+          "Drama",
+          "Crimen"
+        ],
+        "cast": [
+          "Hugo Silva",
+          "Ana Isabelle",
+          "Fernando Cayo",
+          "Manuela Calle",
+          "Ignacio Mateos",
+          "Elvira Mínguez",
+          "Natalia de Molina",
+          "Agustín Domínguez",
+          "Juanlu González",
+          "Cristalino"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/1CH6CDi0yGx6X7QFXJJYtsIMtly.png",
+        "banner": "https://image.tmdb.org/t/p/original/frKXX8EFIJBgAMYG6l4QDqc6UOZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/u2w6pfPNaK6OxICsrtS6MVLOjpV.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Tras la absolución de unos narcos, la fiscal Carmen Leal debe acabar con la impunidad en la Costa del Sol. Su objetivo: los tres abogados que blindan el crimen. Carmen iniciará una peligrosa caza para lograr incriminarlos.",
+        "still_path": "https://image.tmdb.org/t/p/original/pcY8BaMCMzinleUK6LNDCzSRrCF.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2cabd3c784d81809e6a22673e1ac3dcb086d0c90"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4dec507007bc15defc58e2fc5443f4f8c9750811"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bb0cfb4cde0cf1377403ae768bfd2e68a2ec560f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3fe4244b58b4fe9c979799542ab0f39b12d7508b"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4c29eb7d58504d791627819d48a51242128d5279"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f6cf9a42e7fe6eb3be328658a67f5c575242ae0d"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2b6b48b078d724a0a61810f71f4f224c1ae0eed0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:19a61dfe642cc0f08dcf05035f9e545cef3359b6"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:64e1f3e18384e19f15f995795c27547937b74500"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2955d4a0e718407ebe9cc0fee9ffcfeda59f324f"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "César es un abogado de éxito afincado en Marbella, la capital mundial de la mafia. Guapo, rico, hedonista, egoísta, ambicioso, obsesionado con las redes sociales… sabe que para mantener su estatus tiene que ser el mejor en los tribunales y el hombre que todos conozcan en las salvajes fiestas marbellíes, donde hacen negocios los numerosos grupos criminales que operan en la Costa del Sol. César tiene muy claro que, para no tener problemas en la vida, hay que ser amigos de todos y no cruzar nunca ciertas líneas. Pero cuando menos se lo espera, descubre que está en ojo del huracán y quién necesita a un abogado que le salve es precisamente él.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9df5947354fc12fece67b6cea2ee58384a24cdf7"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dcbdfa6d464b610b188204229f5b74024dd9c967"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Tal vez manana",
+      "parsed": {
+        "type": "series",
+        "series": "Tal vez manana"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 281005,
+        "title": "Tal vez mañana",
+        "original_title": "경도를 기다리며",
+        "overview": "Con veinte años, Lee Kyeong-do y Seo Ji-woo se separan tras dos apasionados romances. Una década más tarde, se reencuentran como periodista que cubre un escándalo de adulterio y la mujer del protagonista de dicho escándalo. Al volver a verse, ya en la treintena, su amor sigue vivo a pesar de que han pasado los años. Ahora, Kyeong-do se esfuerza por demostrarle a ella y a sí mismo que aún la ama.",
+        "poster_path": "/jVNNZFiC4FwNOfV8O6SMWff2Bb.jpg",
+        "backdrop_path": "/2sthhg2okBF91wlwxvFaM4eXiTg.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jVNNZFiC4FwNOfV8O6SMWff2Bb.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/2sthhg2okBF91wlwxvFaM4eXiTg.jpg",
+        "genres": [
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Park Seo-jun",
+          "Won Ji-an",
+          "Lee El",
+          "Lee Zoo-young",
+          "Kang Ki-doong",
+          "Cho Min-guk",
+          "Kang Mal-geum",
+          "Han Eun-seong",
+          "Lee Joong-hyun",
+          "Kim Mi-kyeong"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/gGLv9GngXlqdSHxGBQl7N0JuX2F.png",
+        "banner": "https://image.tmdb.org/t/p/original/2sthhg2okBF91wlwxvFaM4eXiTg.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/jVNNZFiC4FwNOfV8O6SMWff2Bb.jpg",
+        "episode_title": "Episodio 11",
+        "episode_overview": "¿Un divorcio simulado? Surge otro escándalo acerca de Kyeong-do y Ji-woo. Ahora Kyeong-do debe escribir el artículo más descorazonador de su carrera para desmentirlo.",
+        "still_path": "https://image.tmdb.org/t/p/original/vVbU2szSG3HE7IMvW1WTAjVjtyM.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 11,
+          "overview": "Con veinte años, Lee Kyeong-do y Seo Ji-woo se separan tras dos apasionados romances. Una década más tarde, se reencuentran como periodista que cubre un escándalo de adulterio y la mujer del protagonista de dicho escándalo. Al volver a verse, ya en la treintena, su amor sigue vivo a pesar de que han pasado los años. Ahora, Kyeong-do se esfuerza por demostrarle a ella y a sí mismo que aún la ama.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4f4c073a50aee5ff8862f180646d5c5964f930e8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "The Darwin Incident",
+      "parsed": {
+        "type": "series",
+        "series": "The Darwin Incident"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 255064,
+        "title": "El incidente Darwin",
+        "original_title": "ダーウィン事変",
+        "overview": "Charlie es único: un humancé, híbrido de humano y chimpancé. Su intelecto y habilidades físicas son excepcionales. Por eso, el grupo terrorista Alianza de Liberación Animal lo persigue y, para ello, tomarán medidas muy radicales. Sin embargo, Charlie está dispuesto a contraatacar por sus seres queridos.",
+        "poster_path": "/5CtiUIEWnJQPORkOQR0LSBYUYpS.jpg",
+        "backdrop_path": "/3pxPbuDzuZaWRdheGptiDTM9jFz.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/5CtiUIEWnJQPORkOQR0LSBYUYpS.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3pxPbuDzuZaWRdheGptiDTM9jFz.jpg",
+        "genres": [
+          "Animación",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Atsumi Tanezaki",
+          "Mitsuho Kambe",
+          "Akio Otsuka",
+          "Toshiyuki Morikawa",
+          "Rina Sato",
+          "Yoji Ueda",
+          "Kaito Ishikawa",
+          "Hiroya Egashira"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/s7amrmFtySHOSJHlE14j3QfQOv7.png",
+        "banner": "https://image.tmdb.org/t/p/original/3pxPbuDzuZaWRdheGptiDTM9jFz.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/5CtiUIEWnJQPORkOQR0LSBYUYpS.jpg",
+        "episode_title": "Heterosis",
+        "episode_overview": "Lucy visita a Eva, la chimpancé que dio a luz a Charlie, en el Instituto de Investigación de Primates Kornberg. Allí conoce a Fowler, que le cuenta varios secretos sobre el nacimiento de Charlie. Más tarde cena con la familia de Charlie y Hannah celebra que este haya hecho su primera amiga, pero no saben que la ALA está al acecho.",
+        "still_path": "https://image.tmdb.org/t/p/original/rAgU3pVt9aDeNLrJPeRmnUBXq5y.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Charlie es único: un humancé, híbrido de humano y chimpancé. Su intelecto y habilidades físicas son excepcionales. Por eso, el grupo terrorista Alianza de Liberación Animal lo persigue y, para ello, tomarán medidas muy radicales. Sin embargo, Charlie está dispuesto a contraatacar por sus seres queridos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:09f2c50551d05c4d8206d1a2ca1d1784dcc758f6"
             }
           ]
         }
