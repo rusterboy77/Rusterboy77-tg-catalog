@@ -39,46 +39,6 @@ def run_script_collect(script_name, args, timeout=30):
         logger.error(f"Error ejecutando {script_name}: {e}")
         return -1, "", str(e)
 
-# --- Lógica de Base de Datos (Simplificada para batch) ---
-def ensure_db():
-    if not os.path.exists(CACHE_DB_PATH):
-        logger.info("Creando cache.db nueva...")
-        conn = sqlite3.connect(CACHE_DB_PATH)
-        c = conn.cursor()
-        c.executescript("""
-            CREATE TABLE IF NOT EXISTS items (
-              "key" TEXT PRIMARY KEY, title TEXT, type TEXT, year TEXT, season TEXT, episode TEXT,
-              tmdb_id TEXT, poster TEXT, fanart TEXT, clearlogo TEXT, banner TEXT, clearart TEXT,
-              overview TEXT, episode_title TEXT, episode_overview TEXT, still_path TEXT,
-              genres TEXT, "cast" TEXT, torrents TEXT, date_added TEXT, enriched INTEGER DEFAULT 0
-            );
-        """)
-        conn.commit(); conn.close()
-
-def db_upsert(key, item):
-    try:
-        conn = sqlite3.connect(CACHE_DB_PATH, timeout=30)
-        c = conn.cursor()
-        # Campos JSON
-        genres = json.dumps(item.get("genres") or [])
-        cast = json.dumps(item.get("cast") or [])
-        torrents = json.dumps(item.get("torrents") or [])
-        now = item.get("date_added") or datetime.datetime.utcnow().isoformat()
-        
-        c.execute("""INSERT OR REPLACE INTO items 
-            ("key", title, type, year, season, episode, tmdb_id, poster, fanart, clearlogo, banner, clearart, 
-             overview, episode_title, episode_overview, still_path, genres, "cast", torrents, date_added, enriched)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            (key, item.get("title"), item.get("type"), item.get("year"), item.get("season"), item.get("episode"),
-             item.get("tmdb_id"), item.get("poster"), item.get("fanart"), item.get("clearlogo"), item.get("banner"), item.get("clearart"),
-             item.get("overview"), item.get("episode_title"), item.get("episode_overview"), item.get("still_path"),
-             genres, cast, torrents, now, int(bool(item.get("enriched")))))
-        conn.commit(); conn.close()
-        return True
-    except Exception as e:
-        logger.error(f"Error DB upsert {key}: {e}")
-        return False
-
 # --- Lógica TMDB (Simplificada) ---
 def enrich_tmdb(parsed):
     if not TMDB_API_KEY: return {}
@@ -127,8 +87,6 @@ def process_telegram_updates():
 
     logger.info(f"Procesando {len(updates)} mensajes...")
     
-    # Cargar catálogo actual
-    ensure_db()
     # Importar lógica de main para reutilizar funciones complejas de merge/upsert
     sys.path.append(APP_DIR)
     import main as logic
@@ -136,6 +94,9 @@ def process_telegram_updates():
     logic.CATALOG_PATH = CATALOG_PATH
     logic.CACHE_DB_PATH = CACHE_DB_PATH
     logic.TMDB_API_KEY = TMDB_API_KEY # Asegurar que la key pase
+
+    # Asegurar esquema de DB usando la lógica oficial de main.py
+    logic.ensure_cache_db_exists_and_schema()
 
     # Forzar recarga de catálogo local en memoria
     if os.path.exists(CATALOG_PATH):
@@ -203,7 +164,7 @@ def process_telegram_updates():
                     new_result["parsed"] = {"type": "series", "series": meta.get("series"), "season": meta.get("season"), "episode": meta.get("episode"), "quality": meta.get("quality")}
                     new_result["torrents"] = [{"season": meta.get("season"), "episode": meta.get("episode"), "torrents": [{"quality": meta.get("quality"), "magnet": magnet_data.get("magnet")}]}]
                 else:
-                    new_result["parsed"] = {"type": "movie", "title": meta.get("title") or meta.get("movie"), "year": meta.get("year"), "quality": meta.get("quality")}
+                    new_result["parsed"] = {"type": "movie", "title": meta.get("movie") or meta.get("title"), "year": meta.get("year"), "quality": meta.get("quality")}
                     new_result["torrents"] = [{"quality": meta.get("quality"), "magnet": magnet_data.get("magnet")}]
 
                 parsed = new_result.get("parsed") or {}
@@ -217,8 +178,10 @@ def process_telegram_updates():
                     # Fusionar datos enriquecidos
                     tm = new_result.setdefault("tmdb_top", {})
                     if enriched.get("tmdb_top"): tm.update(enriched["tmdb_top"])
-                    for k in ["overview", "poster_url", "backdrop_url", "genres", "cast"]:
-                        if enriched.get(k): new_result[k] = enriched[k] # Helper simple
+                    # Copiar TODOS los campos enriquecidos (incluyendo episode_title, still_path, etc.)
+                    for k, v in enriched.items():
+                        if k != "tmdb_top" and v:
+                            new_result[k] = v
 
                 # Merge en catálogo
                 catalog = logic.merge_new_result_into_remote(catalog, new_result)
