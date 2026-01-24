@@ -1,0 +1,9 @@
+name: Debug Cron
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "El sistema de cron funciona correctamente"
