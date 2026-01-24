@@ -12,6 +12,11 @@ on:
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
+# Evitar que se acumulen ejecuciones si una tarda mucho
+concurrency:
+  group: catalog-sync
+  cancel-in-progress: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
