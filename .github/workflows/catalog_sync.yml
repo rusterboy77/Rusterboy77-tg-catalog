@@ -7,8 +7,8 @@ on:
       - main
       - master
   schedule:
-    # Ejecutar cada 5 minutos
-    - cron: '*/5 * * * *'
+    # Ejecutar en minutos 20 y 50 (seguro y fiable)
+    - cron: '20,50 * * * *'
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
