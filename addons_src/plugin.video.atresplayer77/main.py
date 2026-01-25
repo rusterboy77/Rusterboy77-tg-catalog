@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.12...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.13...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -187,7 +187,12 @@ def open_item(href):
             if rows:
                 xbmc.log(f"ATRES_DEBUG_ROWS_SEASON: {list(rows[0].keys())}", xbmc.LOGWARNING)
                 for row in rows:
-                    nodes.extend(row.get("items") or row.get("nodes") or [])
+                    # Si la fila tiene items dentro, los sacamos
+                    if "items" in row or "nodes" in row:
+                        nodes.extend(row.get("items") or row.get("nodes") or [])
+                    # Si la fila es un enlace (ej: "Episodios"), la añadimos como carpeta
+                    elif "href" in row:
+                        nodes.append(row)
 
         # ESTRATEGIA 4: Temporadas (Detectado en logs recientes)
         if not nodes and "seasons" in data:
