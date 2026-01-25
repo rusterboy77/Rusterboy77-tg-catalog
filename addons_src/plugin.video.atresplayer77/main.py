@@ -2,15 +2,17 @@ import sys
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
+import xbmcvfs
 import xbmc
 import base64
 import re
 import requests
 import json
+import http.cookiejar
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.13...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.15...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -28,6 +30,29 @@ CATEGORIES = {
     "Actualidad": "5a6a215e986b281d18a512bc",
     "Cine": "5b5f2f777ed1a86860102144"
 }
+
+# Gestión de Cookies y Sesión
+PROFILE_DIR = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
+COOKIE_FILE = os.path.join(PROFILE_DIR, 'cookies.jar')
+
+def get_session():
+    """Crea una sesión persistente con cookies"""
+    s = requests.Session()
+    if os.path.exists(COOKIE_FILE):
+        try:
+            cj = http.cookiejar.LWPCookieJar(COOKIE_FILE)
+            cj.load(ignore_discard=True, ignore_expires=True)
+            s.cookies = cj
+        except Exception: pass
+    return s
+
+def save_cookies(s):
+    """Guarda las cookies en disco"""
+    if not os.path.exists(PROFILE_DIR):
+        os.makedirs(PROFILE_DIR)
+    cj = http.cookiejar.LWPCookieJar(COOKIE_FILE)
+    for c in s.cookies: cj.set_cookie(c)
+    cj.save(ignore_discard=True, ignore_expires=True)
 
 def get_url(**kwargs):
     """Ayuda para crear URLs internas del addon"""
@@ -105,8 +130,9 @@ def list_section(category_id):
         "page": 0
     }
     
+    s = get_session()
     try:
-        r = requests.get(url, params=params, timeout=10)
+        r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
         
@@ -149,8 +175,9 @@ def open_item(href):
     
     xbmc.log(f"ATRES_OPEN: Consultando {url}", xbmc.LOGWARNING)
     
+    s = get_session()
     try:
-        r = requests.get(url, timeout=10)
+        r = s.get(url, timeout=10)
         r.raise_for_status()
         data = r.json()
         
@@ -221,6 +248,10 @@ def open_item(href):
         # ESTRATEGIA 6: Episodio suelto (Detectado en logs recientes)
         if not nodes and "episode" in data:
             nodes.append(data["episode"])
+            
+        # ESTRATEGIA 7: Lista de items (Search rows / Episodios)
+        if not nodes and "itemRows" in data:
+            nodes = data["itemRows"]
         
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
@@ -248,12 +279,16 @@ def open_item(href):
             # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
             sub_link = node.get("link") or {}
             sub_href = node.get("href") or sub_link.get("href")
-            if sub_href:
+            
+            # Detectar si es un episodio para reproducir directamente
+            node_type = node.get("type")
+            if sub_href and node_type not in ['EPISODE', 'VIDEO']:
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
                 # Es un video final (capítulo)
-                url = get_url(action='play', href=href) # Placeholder
+                target_href = sub_href if sub_href else href
+                url = get_url(action='play', href=target_href)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
 
@@ -272,7 +307,61 @@ def do_login():
         xbmcgui.Dialog().ok("Atresplayer", "Por favor, introduce tu usuario y contraseña en los ajustes del addon.")
         open_settings()
         return
-    xbmcgui.Dialog().ok("Atresplayer", f"Preparado para conectar como: {username}\n(Lógica de login en construcción)")
+    
+    url = f"{API_BASE}/client/v1/login"
+    payload = {"email": username, "password": password}
+    s = get_session()
+    
+    try:
+        r = s.post(url, json=payload, timeout=15)
+        r.raise_for_status()
+        # Si llegamos aquí, el login es correcto
+        save_cookies(s)
+        xbmcgui.Dialog().notification("Atresplayer", "Login Correcto")
+    except Exception as e:
+        xbmcgui.Dialog().notification("Error Login", str(e))
+        xbmc.log(f"ATRES_LOGIN_ERR: {e}", xbmc.LOGERROR)
+
+def play(href):
+    """Resuelve la URL del vídeo y lo reproduce"""
+    if href.startswith("http"): url = href
+    else: url = f"{API_BASE}/client/v1/items{href}"
+    
+    s = get_session()
+    try:
+        r = s.get(url, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        
+        # Buscar la URL del vídeo (DASH o MP4)
+        video_url = data.get("urlVideo")
+        if not video_url and "sources" in data:
+            # Preferimos DASH (.mpd)
+            for src in data["sources"]:
+                if src.get("type") == "application/dash+xml":
+                    video_url = src.get("src")
+                    break
+            # Si no hay DASH, cogemos el primero que haya
+            if not video_url and data["sources"]:
+                video_url = data["sources"][0].get("src")
+        
+        if not video_url:
+             xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
+             return
+
+        # Crear el item de reproducción
+        li = xbmcgui.ListItem(path=video_url)
+        # Configurar InputStream Adaptive (necesario para DASH/HLS)
+        if ".mpd" in video_url or ".m3u8" in video_url:
+            li.setProperty('inputstream', 'inputstream.adaptive')
+            li.setProperty('inputstream.adaptive.manifest_type', 'mpd' if '.mpd' in video_url else 'hls')
+            li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+            
+        xbmcplugin.setResolvedUrl(_handle, True, li)
+
+    except Exception as e:
+        xbmcgui.Dialog().notification("Error Reproducción", str(e))
+        xbmc.log(f"ATRES_PLAY_ERR: {e}", xbmc.LOGERROR)
 
 def router(paramstring):
     params = dict(parse_qsl(paramstring))
@@ -292,7 +381,7 @@ def router(paramstring):
     elif action == 'login':
         do_login()
     elif action == 'play':
-        xbmcgui.Dialog().ok("Atresplayer", f"Reproducción en construcción para: {params.get('href')}")
+        play(params.get('href'))
     elif action == 'bridge_palantir':
         search_palantir_bridge(params.get('q'))
 
