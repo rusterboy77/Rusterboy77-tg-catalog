@@ -10,12 +10,12 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.3...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.4...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
 
-# --- CONSTANTES API (Extraídas de ingeniería inversa) ---
+# --- CONSTANTES API ---
 API_BASE = "https://api.atresplayer.com"
 MAIN_CHANNEL_ID = "5a6b32667ed1a834493ec03b"
 
@@ -46,11 +46,16 @@ def list_categories():
     for label, cat_id in CATEGORIES.items():
         list_item = xbmcgui.ListItem(label=label)
         list_item.setArt({'icon': 'DefaultFolder.png'})
-        # Llamamos a la acción 'list_section' pasando el ID
         url = get_url(action='list_section', category_id=cat_id)
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
-    # 2. Extras
+    # 2. Login / Cuenta
+    list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
+    list_item.setArt({'icon': 'DefaultUser.png'})
+    url = get_url(action='login')
+    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+
+    # 3. Configuración
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Configuración[/COLOR]')
     list_item.setArt({'icon': 'DefaultAddonService.png'})
     url = get_url(action='settings')
@@ -63,24 +68,18 @@ def open_settings():
 
 # --- PUENTE DE BÚSQUEDA PALANTIR 3 ---
 def _p3_b64encode(value):
-    """Codificación específica de Palantir 3 (Extraída de ingeniería inversa)"""
     if not isinstance(value, bytes):
         value = str(value).encode()
     value = base64.b64encode(value)
     length = len(value)
     part = int(length / 4)
     value = re.sub(b'=', b'', value)
-    # Palantir reversible encoding: reverse 1/4 and 3/4
     encoded = value[:part][::-1] + value[part:][::-1]
     return urllib.parse.quote(encoded.decode())
 
 def search_palantir_bridge(query):
-    """Recibe texto plano, lo codifica y llama a Palantir 3"""
     if not query: return
-    
-    # Palantir espera un string que representa un diccionario de Python
     item_dict = {"action": "buscar3", "sql": f"rebuscar {query}", "label": query}
-    
     encoded_item = _p3_b64encode(str(item_dict))
     plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
     xbmc.executebuiltin(f"Container.Update({plugin_url})")
@@ -88,7 +87,6 @@ def search_palantir_bridge(query):
 # --- LÓGICA ATRESPLAYER ---
 def list_section(category_id):
     """Conecta a la API y lista el contenido de una categoría"""
-    # Endpoint descubierto en EspaDaily
     url = f"{API_BASE}/client/v1/row/search"
     params = {
         "entityType": "ATPFormat",
@@ -108,7 +106,6 @@ def list_section(category_id):
         items = data.get("itemRows", [])
         for item in items:
             title = item.get("title", "Sin título")
-            # Extraer imagen
             img_data = item.get("image", {})
             raw_thumb = img_data.get("pathHorizontal") or img_data.get("pathVertical")
             thumb = _fix_img(raw_thumb)
@@ -117,7 +114,6 @@ def list_section(category_id):
             list_item.setArt({'thumb': thumb, 'icon': thumb})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
-            # Por ahora no entramos, solo mostramos (Próximo paso: listar temporadas)
             url = get_url(action='show_info', title=title)
             xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
             
@@ -126,11 +122,19 @@ def list_section(category_id):
         
     xbmcplugin.endOfDirectory(_handle)
 
+def do_login():
+    """Placeholder para el login"""
+    username = addon.getSetting('username')
+    password = addon.getSetting('password')
+    if not username or not password:
+        xbmcgui.Dialog().ok("Atresplayer", "Por favor, introduce tu usuario y contraseña en los ajustes del addon.")
+        open_settings()
+        return
+    xbmcgui.Dialog().ok("Atresplayer", f"Preparado para conectar como: {username}\n(Lógica de login en construcción)")
+
 def router(paramstring):
-    """Enrutador: Decide qué función ejecutar según la URL"""
     params = dict(parse_qsl(paramstring))
     
-    # Si no hay acción, vamos al menú principal
     if not params:
         list_categories()
         return
@@ -141,9 +145,10 @@ def router(paramstring):
         open_settings()
     elif action == 'list_section':
         list_section(params.get('category_id'))
-    elif action == 'show_info':
-        # Placeholder para cuando hagas click en una serie
-        xbmcgui.Dialog().ok("Atresplayer", f"Has seleccionado: {params.get('title')}\n\n(El listado de capítulos se implementará en el siguiente paso)")
+    elif action == 'login':
+        do_login()
     elif action == 'bridge_palantir':
-        # Acción llamada desde skins externos
         search_palantir_bridge(params.get('q'))
+
+if __name__ == '__main__':
+    router(sys.argv[2][1:])
