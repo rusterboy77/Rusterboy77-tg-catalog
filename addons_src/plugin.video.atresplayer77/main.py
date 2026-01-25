@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.5...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.6...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -106,10 +106,6 @@ def list_section(category_id):
         
         items = data.get("itemRows", [])
         
-        # DEBUG: Imprimir el primer item para ver dónde están las fotos
-        if items:
-            xbmc.log(f"ATRES_DEBUG_ITEM: {json.dumps(items[0])}", xbmc.LOGWARNING)
-
         for item in items:
             title = item.get("title", "Sin título")
             # Intentamos varios sitios donde suelen poner las imagenes
@@ -121,8 +117,9 @@ def list_section(category_id):
             list_item.setArt({'thumb': thumb, 'icon': thumb})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
-            # Usamos el HREF para navegar dentro
-            href = item.get("href")
+            # CORRECCIÓN: El href suele venir dentro de un objeto 'link'
+            link_data = item.get("link") or {}
+            href = item.get("href") or link_data.get("href")
             if href:
                 url = get_url(action='open_item', href=href)
                 xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
@@ -135,7 +132,11 @@ def list_section(category_id):
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
     # La API para detalles es /client/v1/items + el href del item
-    url = f"{API_BASE}/client/v1/items{href}"
+    # CORRECCIÓN: Si el href ya es una URL completa (empieza por http), la usamos tal cual
+    if href.startswith("http"):
+        url = href
+    else:
+        url = f"{API_BASE}/client/v1/items{href}"
     
     try:
         r = requests.get(url, timeout=10)
@@ -163,7 +164,8 @@ def open_item(href):
             list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
             
             # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
-            sub_href = node.get("href")
+            sub_link = node.get("link") or {}
+            sub_href = node.get("href") or sub_link.get("href")
             if sub_href:
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
