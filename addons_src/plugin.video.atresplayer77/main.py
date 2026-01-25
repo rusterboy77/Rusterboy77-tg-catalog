@@ -1,4 +1,5 @@
 import sys
+import os
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
@@ -12,7 +13,7 @@ import http.cookiejar
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.15...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.16...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
