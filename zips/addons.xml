@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <addons>
+    <addon id="plugin.video.atresplayer77" name="Atresplayer Premium" version="0.0.1" provider-name="Rusterboy77">
+        
+    
+        <requires>
+            
+        
+            <import addon="xbmc.python" version="3.0.0"/>
+            
+        
+            <import addon="script.module.requests"/>
+            
+        
+            <import addon="inputstream.adaptive"/>
+            
+    
+        </requires>
+        
+    
+        <extension point="xbmc.python.pluginsource" library="main.py">
+            
+        
+            <provides>video</provides>
+            
+    
+        </extension>
+        
+    
+        <extension point="xbmc.addon.metadata">
+            
+        
+            <summary lang="en">Atresplayer Client</summary>
+            
+        
+            <description lang="en">Addon para ver contenido de Atresplayer usando cuenta oficial.</description>
+            
+        
+            <platform>all</platform>
+            
+        
+            <license>MIT</license>
+            
+        
+            <assets>
+                
+            
+                <icon>resources/icon.png</icon>
+                
+            
+                <fanart>resources/fanart.jpg</fanart>
+                
+        
+            </assets>
+            
+    
+        </extension>
+        
+
+    </addon>
     <addon id="plugin.video.rusterwolf77" version="0.1.0" name="RusterWolf 77" provider-name="rusterboy77">
         
     

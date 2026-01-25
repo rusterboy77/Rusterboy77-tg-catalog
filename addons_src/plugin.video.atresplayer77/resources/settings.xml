@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="Cuenta">
+        <setting id="username" label="Usuario (Email)" type="text" default=""/>
+        <setting id="password" label="Contraseña" type="text" option="hidden" default=""/>
+    </category>
+    <category label="General">
+        <setting id="debug" label="Modo Debug" type="boolean" default="false"/>
+    </category>
+</settings>
