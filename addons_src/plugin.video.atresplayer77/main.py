@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.8...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.9...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -33,7 +33,7 @@ def get_url(**kwargs):
     """Ayuda para crear URLs internas del addon"""
     return '{0}?{1}'.format(_url, urlencode(kwargs))
 
-def _fix_img(url):
+def _fix_img(url, type='vertical'):
     """Arregla las URLs de imágenes de Atresplayer"""
     if not url: return ""
     # A veces vienen sin esquema
@@ -41,7 +41,10 @@ def _fix_img(url):
     if url.startswith("/"): return "https://www.atresplayer.com" + url
     # CORRECCIÓN: Si la URL es un directorio, añadir un tamaño de imagen estándar.
     if url.endswith('/'):
-        return url + '390x219.jpg'
+        if type == 'horizontal':
+            return url + '1280x720.jpg' # Fanart HD
+        else:
+            return url + '390x219.jpg' # Poster vertical
     return url
 
 def list_categories():
@@ -113,8 +116,8 @@ def list_section(category_id):
             title = item.get("title", "Sin título")
             # Intentamos varios sitios donde suelen poner las imagenes
             img_data = item.get("image") or item.get("images") or {}
-            poster = _fix_img(img_data.get("pathVertical"))
-            fanart = _fix_img(img_data.get("pathHorizontal"))
+            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
             # Fallbacks
             if not poster: poster = fanart
             if not fanart: fanart = poster
@@ -144,30 +147,38 @@ def open_item(href):
     else:
         url = f"{API_BASE}/client/v1/items{href}"
     
+    xbmc.log(f"ATRES_OPEN: Consultando {url}", xbmc.LOGWARNING)
+    
     try:
         r = requests.get(url, timeout=10)
         r.raise_for_status()
         data = r.json()
         
-        # Atresplayer organiza el contenido en 'nodes' (nodos)
-        # CORRECCIÓN: A veces los nodos no están en la raíz, sino en un sub-objeto.
-        nodes = data.get("nodes")
-        if not nodes:
-            for value in data.values():
-                if isinstance(value, dict):
-                    nodes = value.get("nodes")
-                    if nodes:
-                        break
+        # DEBUG: Ver qué claves tiene la respuesta para saber dónde buscar
+        xbmc.log(f"ATRES_KEYS: {list(data.keys())}", xbmc.LOGWARNING)
+        if "components" in data:
+            comps = [c.get("type", "Unknown") for c in data["components"]]
+            xbmc.log(f"ATRES_COMPONENTS: {comps}", xbmc.LOGWARNING)
+
+        nodes = []
         
-        # CORRECCIÓN 2: Si sigue sin haber nodos, buscar en 'sections' (común en series)
-        if not nodes:
-            sections = data.get("sections") or []
-            if sections:
-                nodes = []
-                for sec in sections:
-                    # Las secciones pueden contener 'items' o 'nodes'
-                    sub_items = sec.get("items") or sec.get("nodes") or []
-                    nodes.extend(sub_items)
+        # ESTRATEGIA 1: Nodos directos (Programas simples)
+        if "nodes" in data:
+            nodes = data["nodes"]
+            
+        # ESTRATEGIA 2: Secciones (Series antiguas)
+        elif "sections" in data:
+            for sec in data["sections"]:
+                nodes.extend(sec.get("items") or sec.get("nodes") or [])
+                
+        # ESTRATEGIA 3: Componentes (Series nuevas / Formato página)
+        elif "components" in data:
+            for comp in data["components"]:
+                # Buscamos componentes que parezcan listas
+                if "items" in comp:
+                    nodes.extend(comp["items"])
+                elif "rows" in comp:
+                    nodes.extend(comp["rows"])
         
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
@@ -180,8 +191,8 @@ def open_item(href):
             
             # Imagen
             img_data = node.get("image") or node.get("images") or {}
-            poster = _fix_img(img_data.get("pathVertical"))
-            fanart = _fix_img(img_data.get("pathHorizontal"))
+            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
             if not poster: poster = fanart
             if not fanart: fanart = poster
 
