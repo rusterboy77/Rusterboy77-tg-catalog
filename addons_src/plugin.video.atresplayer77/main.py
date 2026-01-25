@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.4...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.5...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -36,6 +36,7 @@ def get_url(**kwargs):
 def _fix_img(url):
     """Arregla las URLs de imágenes de Atresplayer"""
     if not url: return ""
+    # A veces vienen sin esquema
     if url.startswith("//"): return "https:" + url
     if url.startswith("/"): return "https://www.atresplayer.com" + url
     return url
@@ -104,9 +105,15 @@ def list_section(category_id):
         data = r.json()
         
         items = data.get("itemRows", [])
+        
+        # DEBUG: Imprimir el primer item para ver dónde están las fotos
+        if items:
+            xbmc.log(f"ATRES_DEBUG_ITEM: {json.dumps(items[0])}", xbmc.LOGWARNING)
+
         for item in items:
             title = item.get("title", "Sin título")
-            img_data = item.get("image", {})
+            # Intentamos varios sitios donde suelen poner las imagenes
+            img_data = item.get("image") or item.get("images") or {}
             raw_thumb = img_data.get("pathHorizontal") or img_data.get("pathVertical")
             thumb = _fix_img(raw_thumb)
             
@@ -114,12 +121,63 @@ def list_section(category_id):
             list_item.setArt({'thumb': thumb, 'icon': thumb})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
-            url = get_url(action='show_info', title=title)
-            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+            # Usamos el HREF para navegar dentro
+            href = item.get("href")
+            if href:
+                url = get_url(action='open_item', href=href)
+                xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
             
     except Exception as e:
         xbmcgui.Dialog().notification("Error API", str(e))
         
+    xbmcplugin.endOfDirectory(_handle)
+
+def open_item(href):
+    """Navega dentro de una serie, temporada o programa"""
+    # La API para detalles es /client/v1/items + el href del item
+    url = f"{API_BASE}/client/v1/items{href}"
+    
+    try:
+        r = requests.get(url, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        
+        # Atresplayer organiza el contenido en 'nodes' (nodos)
+        nodes = data.get("nodes", [])
+        
+        if not nodes:
+            # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
+            xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso será reproducirlo)")
+            return
+
+        for node in nodes:
+            title = node.get("title") or node.get("name") or "Sin título"
+            
+            # Imagen
+            img_data = node.get("image") or node.get("images") or {}
+            raw_thumb = img_data.get("pathHorizontal") or img_data.get("pathVertical")
+            thumb = _fix_img(raw_thumb)
+
+            list_item = xbmcgui.ListItem(label=title)
+            list_item.setArt({'thumb': thumb, 'icon': thumb})
+            list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
+            
+            # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
+            sub_href = node.get("href")
+            if sub_href:
+                url = get_url(action='open_item', href=sub_href)
+                is_folder = True
+            else:
+                # Es un video final (capítulo)
+                url = get_url(action='play', href=href) # Placeholder
+                is_folder = False
+                list_item.setProperty('IsPlayable', 'true')
+
+            xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
+
+    except Exception as e:
+        xbmcgui.Dialog().notification("Error Navegación", str(e))
+    
     xbmcplugin.endOfDirectory(_handle)
 
 def do_login():
@@ -145,6 +203,8 @@ def router(paramstring):
         open_settings()
     elif action == 'list_section':
         list_section(params.get('category_id'))
+    elif action == 'open_item':
+        open_item(params.get('href'))
     elif action == 'login':
         do_login()
     elif action == 'bridge_palantir':
