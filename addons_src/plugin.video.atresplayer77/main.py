@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.9...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.10...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -154,11 +154,10 @@ def open_item(href):
         r.raise_for_status()
         data = r.json()
         
-        # DEBUG: Ver qué claves tiene la respuesta para saber dónde buscar
-        xbmc.log(f"ATRES_KEYS: {list(data.keys())}", xbmc.LOGWARNING)
-        if "components" in data:
-            comps = [c.get("type", "Unknown") for c in data["components"]]
-            xbmc.log(f"ATRES_COMPONENTS: {comps}", xbmc.LOGWARNING)
+        # Imagen de cabecera (Serie/Programa padre) para fallback
+        parent_img = data.get("image") or data.get("images") or {}
+        parent_poster = _fix_img(parent_img.get("pathVertical"), 'vertical')
+        parent_fanart = _fix_img(parent_img.get("pathHorizontal"), 'horizontal')
 
         nodes = []
         
@@ -167,18 +166,31 @@ def open_item(href):
             nodes = data["nodes"]
             
         # ESTRATEGIA 2: Secciones (Series antiguas)
-        elif "sections" in data:
+        if not nodes and "sections" in data:
             for sec in data["sections"]:
                 nodes.extend(sec.get("items") or sec.get("nodes") or [])
                 
         # ESTRATEGIA 3: Componentes (Series nuevas / Formato página)
-        elif "components" in data:
+        if not nodes and "components" in data:
             for comp in data["components"]:
-                # Buscamos componentes que parezcan listas
                 if "items" in comp:
                     nodes.extend(comp["items"])
                 elif "rows" in comp:
                     nodes.extend(comp["rows"])
+
+        # ESTRATEGIA 4: Temporadas (Detectado en logs recientes)
+        if not nodes and "seasons" in data:
+            for season in data["seasons"]:
+                nodes.extend(season.get("items") or season.get("nodes") or season.get("episodes") or [])
+
+        # ESTRATEGIA 5: Filas (Detectado en logs recientes)
+        if not nodes and "rows" in data:
+            for row in data["rows"]:
+                nodes.extend(row.get("items") or row.get("nodes") or [])
+
+        # ESTRATEGIA 6: Episodio suelto (Detectado en logs recientes)
+        if not nodes and "episode" in data:
+            nodes.append(data["episode"])
         
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
@@ -193,6 +205,9 @@ def open_item(href):
             img_data = node.get("image") or node.get("images") or {}
             poster = _fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            # Fallbacks con imagen padre
+            if not poster: poster = parent_poster
+            if not fanart: fanart = parent_fanart
             if not poster: poster = fanart
             if not fanart: fanart = poster
 
