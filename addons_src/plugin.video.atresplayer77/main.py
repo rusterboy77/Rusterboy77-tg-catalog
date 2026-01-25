@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.10...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.11...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -180,13 +180,27 @@ def open_item(href):
 
         # ESTRATEGIA 4: Temporadas (Detectado en logs recientes)
         if not nodes and "seasons" in data:
-            for season in data["seasons"]:
-                nodes.extend(season.get("items") or season.get("nodes") or season.get("episodes") or [])
+            seasons = data["seasons"]
+            if seasons:
+                xbmc.log(f"ATRES_DEBUG_SEASON_0: {list(seasons[0].keys())}", xbmc.LOGWARNING)
+                # Intento 1: Extraer episodios de dentro
+                for season in seasons:
+                    nodes.extend(season.get("items") or season.get("nodes") or season.get("episodes") or [])
+                # Intento 2: Si no hay episodios, las temporadas son las carpetas
+                if not nodes:
+                    nodes = seasons
 
         # ESTRATEGIA 5: Filas (Detectado en logs recientes)
         if not nodes and "rows" in data:
-            for row in data["rows"]:
-                nodes.extend(row.get("items") or row.get("nodes") or [])
+            rows = data["rows"]
+            if rows:
+                xbmc.log(f"ATRES_DEBUG_ROWS_0: {list(rows[0].keys())}", xbmc.LOGWARNING)
+                # Intento 1: Extraer items de dentro
+                for row in rows:
+                    nodes.extend(row.get("items") or row.get("nodes") or [])
+                # Intento 2: Si no hay items, las filas son las carpetas
+                if not nodes:
+                    nodes = rows
 
         # ESTRATEGIA 6: Episodio suelto (Detectado en logs recientes)
         if not nodes and "episode" in data:
