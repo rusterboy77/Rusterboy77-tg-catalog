@@ -13,7 +13,7 @@ import http.cookiejar
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.16...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.17...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -283,7 +283,11 @@ def open_item(href):
             
             # Detectar si es un episodio para reproducir directamente
             node_type = node.get("type")
-            if sub_href and node_type not in ['EPISODE', 'VIDEO']:
+            
+            # CORRECCIÓN: Si el enlace contiene '/row/' o 'search', es una lista (carpeta), no un vídeo
+            is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
+            
+            if sub_href and (node_type not in ['EPISODE', 'VIDEO'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
