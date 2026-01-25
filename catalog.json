@@ -76108,6 +76108,28 @@
               "magnet": "magnet:?xt=urn:btih:d1f336fecba9b61859616e4e6df30e14e04fb624"
             }
           ]
+        },
+        {
+          "season": 5,
+          "episode": 10,
+          "overview": "Julio Torres cuenta la historia de cuando perdió una ostra dorada. Las personas que encuentra mientras la busca y las reflexiones que tiene se convierten en puntos de partida para pequeñas películas a lo largo del camino, mientras Torres navega entrando y saliendo de estas historias cómicas introspectivas, a menudo espeluznantes.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ffa142d4e51ff5812920abc46ff109884f4dc44d"
+            }
+          ]
+        },
+        {
+          "season": 5,
+          "episode": 9,
+          "overview": "Julio Torres cuenta la historia de cuando perdió una ostra dorada. Las personas que encuentra mientras la busca y las reflexiones que tiene se convierten en puntos de partida para pequeñas películas a lo largo del camino, mientras Torres navega entrando y saliendo de estas historias cómicas introspectivas, a menudo espeluznantes.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:001ec8ceb85d9ca2f3f85a8a9adffa6575a7d853"
+            }
+          ]
         }
       ]
     },
@@ -238195,6 +238217,186 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:09f2c50551d05c4d8206d1a2ca1d1784dcc758f6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "La_princesa_Kaguya_del_cosmos_(2026)_BluRay_720p_SPANISH.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La princesa Kaguya del cosmos",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1575337,
+        "title": "La princesa Kaguya del cosmos",
+        "original_title": "超かぐや姫！",
+        "overview": "La vida de Iroha se sale de control cuando Kaguya, una despreocupada fugitiva de la Luna, se muda con ella y la convence para actuar juntas en un mundo virtual.",
+        "poster_path": "/9YrbOSKoreS4oIjuwx9YjkAU8KP.jpg",
+        "backdrop_path": "/tRQZUR3oTHSsSmZHDX77bbDxNxT.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9YrbOSKoreS4oIjuwx9YjkAU8KP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tRQZUR3oTHSsSmZHDX77bbDxNxT.jpg",
+        "genres": [
+          "Animación",
+          "Música",
+          "Fantasía",
+          "Ciencia ficción"
+        ],
+        "cast": [
+          "Yuko Natsuyoshi",
+          "Anna Nagase",
+          "Saori Hayami",
+          "Miyu Irino",
+          "Yuma Uchida",
+          "Yoshitsugu Matsuoka",
+          "Yoshino Aoyama",
+          "Konomi Kohara",
+          "Rie Kugimiya",
+          "Natsuki Hanae"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/edik9PiOlEXguPImJwjhB6TxMb0.png",
+        "banner": "https://image.tmdb.org/t/p/original/tRQZUR3oTHSsSmZHDX77bbDxNxT.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9YrbOSKoreS4oIjuwx9YjkAU8KP.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:4c2f514ea3b70d8aab380479575f01cbc58b8d1c"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/9YrbOSKoreS4oIjuwx9YjkAU8KP.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/tRQZUR3oTHSsSmZHDX77bbDxNxT.jpg",
+      "overview": "La vida de Iroha se sale de control cuando Kaguya, una despreocupada fugitiva de la Luna, se muda con ella y la convence para actuar juntas en un mundo virtual.",
+      "genres": [
+        "Animación",
+        "Música",
+        "Fantasía",
+        "Ciencia ficción"
+      ],
+      "cast": [
+        "Yuko Natsuyoshi",
+        "Anna Nagase",
+        "Saori Hayami",
+        "Miyu Irino",
+        "Yuma Uchida",
+        "Yoshitsugu Matsuoka",
+        "Yoshino Aoyama",
+        "Konomi Kohara",
+        "Rie Kugimiya",
+        "Natsuki Hanae"
+      ]
+    },
+    {
+      "file": "El dia menos pensado",
+      "parsed": {
+        "type": "series",
+        "series": "El dia menos pensado"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 99312,
+        "title": "El día menos pensado",
+        "original_title": "El día menos pensado",
+        "overview": "",
+        "poster_path": "/yVBckwbbL9K5DtiiozsZA1XSwRY.jpg",
+        "backdrop_path": "/9H07Viv0LZDDtpKpG3fHx8oMeWH.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/yVBckwbbL9K5DtiiozsZA1XSwRY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/9H07Viv0LZDDtpKpG3fHx8oMeWH.jpg",
+        "genres": [
+          "Misterio",
+          "Sci-Fi & Fantasy",
+          "Drama"
+        ],
+        "cast": [
+          "Carlos Pinto"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/9H07Viv0LZDDtpKpG3fHx8oMeWH.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/yVBckwbbL9K5DtiiozsZA1XSwRY.jpg",
+        "episode_title": "Episodio 3"
+      },
+      "episodes": [
+        {
+          "season": 5,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:409922a8b233cf189177171732713d3c473b70e2"
+            }
+          ]
+        },
+        {
+          "season": 5,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c710dd16e3c2389312be503de818c11a656a71e2"
+            }
+          ]
+        },
+        {
+          "season": 5,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2368cb6013c26218784f33e699c6975a4afd46b3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Como se traduce este amor",
+      "parsed": {
+        "type": "series",
+        "series": "Como se traduce este amor"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 229891,
+        "title": "¿Cómo se traduce este amor?",
+        "original_title": "이 사랑 통역 되나요?",
+        "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+        "poster_path": "/ePz0D6B6wbxoLHsUtcaqfGx7E41.jpg",
+        "backdrop_path": "/60Hm8JC1Ps8DsrstAt4PTQuBdIB.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ePz0D6B6wbxoLHsUtcaqfGx7E41.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/60Hm8JC1Ps8DsrstAt4PTQuBdIB.jpg",
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Kim Seon-ho",
+          "Go Youn-jung",
+          "Sota Fukushi",
+          "Lee E-dam",
+          "Choi Woo-sung"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/myyJ5871XfTpX7qlprZjm00pjsU.png",
+        "banner": "https://image.tmdb.org/t/p/original/60Hm8JC1Ps8DsrstAt4PTQuBdIB.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/ePz0D6B6wbxoLHsUtcaqfGx7E41.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Cha Mu-hee y Joo Ho-jin quieren olvidarse del pasado. Tras conocerse en un restaurante de Tokio, Mu-hee le pide a Ho-jin que traduzca sus sentimientos.",
+        "still_path": "https://image.tmdb.org/t/p/original/yljDfz7SW7DjyPy2b7OfoD8KEMe.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:44ce2c07680067978b06a622e08646ac08d9e217"
             }
           ]
         }
