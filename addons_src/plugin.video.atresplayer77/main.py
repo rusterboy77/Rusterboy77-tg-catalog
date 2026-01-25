@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.11...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.12...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -154,6 +154,9 @@ def open_item(href):
         r.raise_for_status()
         data = r.json()
         
+        # Detectar si estamos navegando dentro de una temporada específica
+        is_season_view = "seasonId=" in url
+        
         # Imagen de cabecera (Serie/Programa padre) para fallback
         parent_img = data.get("image") or data.get("images") or {}
         parent_poster = _fix_img(parent_img.get("pathVertical"), 'vertical')
@@ -178,6 +181,14 @@ def open_item(href):
                 elif "rows" in comp:
                     nodes.extend(comp["rows"])
 
+        # ESTRATEGIA PRIORITARIA: Si estamos en una temporada, buscar episodios en 'rows'
+        if not nodes and is_season_view and "rows" in data:
+            rows = data["rows"]
+            if rows:
+                xbmc.log(f"ATRES_DEBUG_ROWS_SEASON: {list(rows[0].keys())}", xbmc.LOGWARNING)
+                for row in rows:
+                    nodes.extend(row.get("items") or row.get("nodes") or [])
+
         # ESTRATEGIA 4: Temporadas (Detectado en logs recientes)
         if not nodes and "seasons" in data:
             seasons = data["seasons"]
@@ -190,7 +201,7 @@ def open_item(href):
                 if not nodes:
                     nodes = seasons
 
-        # ESTRATEGIA 5: Filas (Detectado en logs recientes)
+        # ESTRATEGIA 5: Filas (Fallback para vistas generales)
         if not nodes and "rows" in data:
             rows = data["rows"]
             if rows:
