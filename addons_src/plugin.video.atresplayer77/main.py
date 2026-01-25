@@ -1,3 +1,7 @@
+import sys
+import xbmcgui
+import xbmcplugin
+import xbmcaddon
 import xbmc
 import base64
 import re
@@ -6,6 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
+_url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
 
@@ -52,6 +57,30 @@ def list_categories():
 
     xbmcplugin.endOfDirectory(_handle)
 
+def open_settings():
+    addon.openSettings()
+
+# --- PUENTE DE BÚSQUEDA PALANTIR 3 ---
+def _p3_b64encode(value):
+    """Codificación específica de Palantir 3 (Extraída de ingeniería inversa)"""
+    if not isinstance(value, bytes):
+        value = str(value).encode()
+    value = base64.b64encode(value)
+    length = len(value)
+    part = int(length / 4)
+    value = re.sub(b'=', b'', value)
+    # Palantir reversible encoding: reverse 1/4 and 3/4
+    encoded = value[:part][::-1] + value[part:][::-1]
+    return urllib.parse.quote(encoded.decode())
+
+def search_palantir_bridge(query):
+    """Recibe texto plano, lo codifica y llama a Palantir 3"""
+    if not query: return
+    
+    # Palantir espera un string que representa un diccionario de Python
+    item_dict = {"action": "buscar3", "sql": f"rebuscar {query}", "label": query}
+    
+    encoded_item = _p3_b64encode(str(item_dict))
     plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
     xbmc.executebuiltin(f"Container.Update({plugin_url})")
 
@@ -99,6 +128,13 @@ def list_section(category_id):
 def router(paramstring):
     """Enrutador: Decide qué función ejecutar según la URL"""
     params = dict(parse_qsl(paramstring))
+    
+    # Si no hay acción, vamos al menú principal
+    if not params:
+        list_categories()
+        return
+
+    action = params.get('action')
 
     if action == 'settings':
         open_settings()
