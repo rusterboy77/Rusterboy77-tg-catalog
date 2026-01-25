@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.6...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.7...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -39,6 +39,9 @@ def _fix_img(url):
     # A veces vienen sin esquema
     if url.startswith("//"): return "https:" + url
     if url.startswith("/"): return "https://www.atresplayer.com" + url
+    # CORRECCIÓN: Si la URL es un directorio, añadir un tamaño de imagen estándar.
+    if url.endswith('/'):
+        return url + '390x219.jpg'
     return url
 
 def list_categories():
@@ -144,11 +147,18 @@ def open_item(href):
         data = r.json()
         
         # Atresplayer organiza el contenido en 'nodes' (nodos)
-        nodes = data.get("nodes", [])
+        # CORRECCIÓN: A veces los nodos no están en la raíz, sino en un sub-objeto.
+        nodes = data.get("nodes")
+        if not nodes:
+            for value in data.values():
+                if isinstance(value, dict):
+                    nodes = value.get("nodes")
+                    if nodes:
+                        break
         
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
-            xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso será reproducirlo)")
+            xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso es implementar la reproducción)")
             return
 
         for node in nodes:
@@ -209,6 +219,8 @@ def router(paramstring):
         open_item(params.get('href'))
     elif action == 'login':
         do_login()
+    elif action == 'play':
+        xbmcgui.Dialog().ok("Atresplayer", f"Reproducción en construcción para: {params.get('href')}")
     elif action == 'bridge_palantir':
         search_palantir_bridge(params.get('q'))
 
