@@ -1,0 +1,54 @@
+name: Catalog Auto-Update
+
+on:
+  # Añadimos trigger 'push' para asegurar que se registra y para debug
+  push:
+    branches:
+      - main
+  schedule:
+    # Ejecutar cada hora en el minuto 15 (para evitar colas y asegurar arranque)
+    - cron: '15 * * * *'
+  # Permitir ejecución manual desde la web de GitHub
+  workflow_dispatch:
+
+# Evitar que se acumulen ejecuciones si una tarda mucho
+concurrency:
+  group: catalog-sync
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Permiso para hacer commit y push
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Instalar dependencias necesarias
+        pip install requests bencodepy fastapi uvicorn
+
+    - name: Run update script
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+        ALLOWED_CHAT_IDS: ${{ secrets.ALLOWED_CHAT_IDS }}
+        # Variables opcionales
+        PYTHONUNBUFFERED: 1
+      run: |
+        python app/process_batch.py
+
+    - name: Commit and Push changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "Auto-update catalog and cache [skip ci]"
+        file_pattern: "catalog.json cache.db"
