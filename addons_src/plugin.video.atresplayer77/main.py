@@ -10,7 +10,7 @@ import json
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.7...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.8...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -113,11 +113,14 @@ def list_section(category_id):
             title = item.get("title", "Sin título")
             # Intentamos varios sitios donde suelen poner las imagenes
             img_data = item.get("image") or item.get("images") or {}
-            raw_thumb = img_data.get("pathHorizontal") or img_data.get("pathVertical")
-            thumb = _fix_img(raw_thumb)
+            poster = _fix_img(img_data.get("pathVertical"))
+            fanart = _fix_img(img_data.get("pathHorizontal"))
+            # Fallbacks
+            if not poster: poster = fanart
+            if not fanart: fanart = poster
             
             list_item = xbmcgui.ListItem(label=title)
-            list_item.setArt({'thumb': thumb, 'icon': thumb})
+            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
             # CORRECCIÓN: El href suele venir dentro de un objeto 'link'
@@ -156,9 +159,20 @@ def open_item(href):
                     if nodes:
                         break
         
+        # CORRECCIÓN 2: Si sigue sin haber nodos, buscar en 'sections' (común en series)
+        if not nodes:
+            sections = data.get("sections") or []
+            if sections:
+                nodes = []
+                for sec in sections:
+                    # Las secciones pueden contener 'items' o 'nodes'
+                    sub_items = sec.get("items") or sec.get("nodes") or []
+                    nodes.extend(sub_items)
+        
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
             xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso es implementar la reproducción)")
+            xbmcplugin.endOfDirectory(_handle) # Importante cerrar directorio para evitar error en log
             return
 
         for node in nodes:
@@ -166,11 +180,13 @@ def open_item(href):
             
             # Imagen
             img_data = node.get("image") or node.get("images") or {}
-            raw_thumb = img_data.get("pathHorizontal") or img_data.get("pathVertical")
-            thumb = _fix_img(raw_thumb)
+            poster = _fix_img(img_data.get("pathVertical"))
+            fanart = _fix_img(img_data.get("pathHorizontal"))
+            if not poster: poster = fanart
+            if not fanart: fanart = poster
 
             list_item = xbmcgui.ListItem(label=title)
-            list_item.setArt({'thumb': thumb, 'icon': thumb})
+            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
             list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
             
             # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
