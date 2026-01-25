@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <addons>
-    <addon id="plugin.video.atresplayer77" name="Atresplayer Premium" version="0.0.1" provider-name="Rusterboy77">
+    <addon id="plugin.video.atresplayer.custom" name="Atresplayer Premium" version="0.0.2" provider-name="Rusterboy77">
         
     
         <requires>
@@ -45,10 +45,10 @@
             <assets>
                 
             
-                <icon>resources/icon.png</icon>
+                <icon>icon.png</icon>
                 
             
-                <fanart>resources/fanart.jpg</fanart>
+                <fanart>fanart.jpg</fanart>
                 
         
             </assets>
