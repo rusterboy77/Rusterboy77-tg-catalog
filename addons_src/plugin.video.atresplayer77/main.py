@@ -123,6 +123,8 @@ def search_palantir_bridge(query):
     encoded_item = _p3_b64encode(str(item_dict))
     plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
     xbmc.executebuiltin(f"Container.Update({plugin_url})")
+    # Finalizar directorio para evitar error en Kodi si el redirect tarda o falla
+    xbmcplugin.endOfDirectory(_handle)
 
 # --- LÓGICA ATRESPLAYER ---
 def list_section(category_id, category_name=None):

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
-import unicodedata, re, os, threading, base64
+import unicodedata, re, os, threading
 from resources.lib.catalog import fetch_catalogs, sort_by_newest, enrich_items_by_keys, enqueue_enrich
 from resources.lib.player import is_elementum_installed, play_with_elementum
 from resources.lib.db import load_all_items, load_items_by_keys
@@ -1917,25 +1917,6 @@ def show_info(key=None):
     dlg = xbmcgui.Dialog()
     dlg.textviewer(title, '\n'.join(lines))
 
-# --- PUENTE DE BÚSQUEDA PALANTIR 3 ---
-def _p3_b64encode(value):
-    """Codificación específica de Palantir 3"""
-    if not isinstance(value, bytes):
-        value = str(value).encode()
-    value = base64.b64encode(value)
-    length = len(value)
-    part = int(length / 4)
-    value = re.sub(b'=', b'', value)
-    encoded = value[:part][::-1] + value[part:][::-1]
-    return urllib.parse.quote(encoded.decode())
-
-def search_palantir_bridge(query):
-    if not query: return
-    item_dict = {"action": "buscar3", "sql": f"rebuscar {query}", "label": query}
-    encoded_item = _p3_b64encode(str(item_dict))
-    plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
-    xbmc.executebuiltin(f"Container.Update({plugin_url})")
-
 def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
 
@@ -2118,8 +2099,6 @@ def router(params):
         list_episodes(params.get('series'), params.get('season'))
     elif action == 'settings':
         open_settings()
-    elif action == 'bridge_palantir':
-        search_palantir_bridge(params.get('q'))
     elif action == 'show_info':
         show_info(params.get('key'))
     else:
