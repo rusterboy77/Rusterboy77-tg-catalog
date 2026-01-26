@@ -13,7 +13,7 @@ import http.cookiejar
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.17...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.18...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -77,9 +77,15 @@ def list_categories():
     """Menú Principal"""
     # 1. Listar Categorías de la API
     for label, cat_id in CATEGORIES.items():
+        # Buscar icono personalizado en resources/media/nombre_categoria.png
+        icon_name = label.lower().replace(' ', '_') + ".png" # series.png, cine.png, etc.
+        icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
+        if not os.path.exists(icon_path):
+            icon_path = 'DefaultFolder.png'
+            
         list_item = xbmcgui.ListItem(label=label)
-        list_item.setArt({'icon': 'DefaultFolder.png'})
-        url = get_url(action='list_section', category_id=cat_id)
+        list_item.setArt({'icon': icon_path, 'thumb': icon_path})
+        url = get_url(action='list_section', category_id=cat_id, category_name=label)
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     # 2. Login / Cuenta
@@ -118,8 +124,17 @@ def search_palantir_bridge(query):
     xbmc.executebuiltin(f"Container.Update({plugin_url})")
 
 # --- LÓGICA ATRESPLAYER ---
-def list_section(category_id):
+def list_section(category_id, category_name=None):
     """Conecta a la API y lista el contenido de una categoría"""
+    
+    # Establecer el tipo de contenido para que la skin active las vistas (Poster, Fanart, etc.)
+    if category_name == "Series":
+        xbmcplugin.setContent(_handle, 'tvshows')
+    elif category_name == "Cine":
+        xbmcplugin.setContent(_handle, 'movies')
+    else:
+        xbmcplugin.setContent(_handle, 'videos')
+
     url = f"{API_BASE}/client/v1/row/search"
     params = {
         "entityType": "ATPFormat",
@@ -254,6 +269,14 @@ def open_item(href):
         if not nodes and "itemRows" in data:
             nodes = data["itemRows"]
         
+        # Establecer tipo de contenido para las vistas
+        if is_season_view or "itemRows" in data:
+            xbmcplugin.setContent(_handle, 'episodes')
+        elif "seasons" in data:
+            xbmcplugin.setContent(_handle, 'seasons') # O 'tvshows' si prefieres vista de serie
+        else:
+            xbmcplugin.setContent(_handle, 'videos')
+
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
             xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso es implementar la reproducción)")
@@ -380,7 +403,7 @@ def router(paramstring):
     if action == 'settings':
         open_settings()
     elif action == 'list_section':
-        list_section(params.get('category_id'))
+        list_section(params.get('category_id'), params.get('category_name'))
     elif action == 'open_item':
         open_item(params.get('href'))
     elif action == 'login':
