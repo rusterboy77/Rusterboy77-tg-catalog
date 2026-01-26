@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
-import unicodedata, re, os, threading
+import unicodedata, re, os, threading, base64
 from resources.lib.catalog import fetch_catalogs, sort_by_newest, enrich_items_by_keys, enqueue_enrich
 from resources.lib.player import is_elementum_installed, play_with_elementum
 from resources.lib.db import load_all_items, load_items_by_keys
@@ -262,7 +262,7 @@ def list_root():
     import xbmc
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    default_icon = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
     # CAMBIO: Establecer el tipo de contenido para que Kodi muestre el fanart
     xbmcplugin.setContent(HANDLE, 'files')
@@ -276,8 +276,16 @@ def list_root():
         except Exception:
             pass
         
+        # Lógica de iconos personalizados
+        # Normalizar etiqueta: minúsculas, sin acentos, espacios a guiones bajos
+        safe_label = ''.join(c for c in unicodedata.normalize('NFD', label) if unicodedata.category(c) != 'Mn')
+        safe_label = safe_label.lower().replace('...', '').strip().replace(' ', '_')
+        icon_name = f"{safe_label}.png"
+        custom_icon_path = os.path.join(addon_path, 'resources', 'media', icon_name)
+        icon_to_use = custom_icon_path if os.path.exists(custom_icon_path) else default_icon
+
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt({'fanart': addon_fanart, 'icon': icon_to_use, 'thumb': icon_to_use})
         except Exception:
             pass
         
@@ -1909,6 +1917,25 @@ def show_info(key=None):
     dlg = xbmcgui.Dialog()
     dlg.textviewer(title, '\n'.join(lines))
 
+# --- PUENTE DE BÚSQUEDA PALANTIR 3 ---
+def _p3_b64encode(value):
+    """Codificación específica de Palantir 3"""
+    if not isinstance(value, bytes):
+        value = str(value).encode()
+    value = base64.b64encode(value)
+    length = len(value)
+    part = int(length / 4)
+    value = re.sub(b'=', b'', value)
+    encoded = value[:part][::-1] + value[part:][::-1]
+    return urllib.parse.quote(encoded.decode())
+
+def search_palantir_bridge(query):
+    if not query: return
+    item_dict = {"action": "buscar3", "sql": f"rebuscar {query}", "label": query}
+    encoded_item = _p3_b64encode(str(item_dict))
+    plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
+    xbmc.executebuiltin(f"Container.Update({plugin_url})")
+
 def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
 
@@ -2091,6 +2118,8 @@ def router(params):
         list_episodes(params.get('series'), params.get('season'))
     elif action == 'settings':
         open_settings()
+    elif action == 'bridge_palantir':
+        search_palantir_bridge(params.get('q'))
     elif action == 'show_info':
         show_info(params.get('key'))
     else:
