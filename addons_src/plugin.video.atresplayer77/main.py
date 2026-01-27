@@ -405,8 +405,17 @@ def play(href):
         r.raise_for_status()
         data = r.json()
         
-        # Buscar la URL del vídeo (DASH o MP4)
+        # 1. Obtener URL del Player o Sources directos
         video_url = data.get("urlVideo")
+        
+        # Si es una URL de API de player (ej: https://api.atresplayer.com/player/v1/...), hay que consultarla
+        if video_url and "/player/" in video_url:
+            xbmc.log(f"ATRES_PLAY: Resolviendo endpoint de player: {video_url}", xbmc.LOGWARNING)
+            r_player = s.get(video_url, timeout=10)
+            r_player.raise_for_status()
+            data = r_player.json() # Sobrescribimos data con la respuesta del player (que trae 'sources')
+            video_url = None # Reseteamos para buscar en sources
+
         if not video_url and "sources" in data:
             # Preferimos DASH (.mpd)
             for src in data["sources"]:
@@ -431,7 +440,12 @@ def play(href):
             li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
             
             # IMPORTANTE: Pasar las cookies y headers a InputStream Adaptive
-            headers = "User-Agent=" + urllib.parse.quote(s.headers['User-Agent'])
+            headers_dict = {'User-Agent': s.headers['User-Agent']}
+            # Añadir cookies si existen
+            cookie_str = "; ".join([f"{c.name}={c.value}" for c in s.cookies])
+            if cookie_str:
+                headers_dict['Cookie'] = cookie_str
+            headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
             li.setProperty('inputstream.adaptive.stream_headers', headers)
 
         xbmcplugin.setResolvedUrl(_handle, True, li)

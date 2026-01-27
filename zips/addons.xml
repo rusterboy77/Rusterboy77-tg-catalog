@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <addons>
-    <addon id="plugin.video.atresplayer77" name="Atresplayer 77" version="0.0.33" provider-name="Rusterboy77">
+    <addon id="plugin.video.atresplayer77" name="Atresplayer 77" version="0.0.34" provider-name="Rusterboy77">
         
     
         <requires>
