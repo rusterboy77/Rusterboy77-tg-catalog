@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.32...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.33...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -41,9 +41,15 @@ def get_session():
     """Crea una sesión persistente con cookies"""
     s = requests.Session()
     s.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0',
+        'Accept': '*/*',
+        'Accept-Language': 'es-ES,es;q=0.9,en-US;q=0.8,en;q=0.7',
         'Origin': 'https://www.atresplayer.com',
-        'Referer': 'https://www.atresplayer.com/'
+        'Referer': 'https://www.atresplayer.com/',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-site',
+        'Connection': 'keep-alive'
     })
     if os.path.exists(COOKIE_FILE):
         try:
@@ -346,18 +352,8 @@ def do_login():
     
     # Usar una sesión limpia para el login (evitar cookies viejas corruptas)
     s = requests.Session()
-    # Headers exactos copiados del cURL del navegador
-    s.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0',
-        'Accept': '*/*',
-        'Accept-Language': 'es-ES,es;q=0.9,en-US;q=0.8,en;q=0.7',
-        'Origin': 'https://www.atresplayer.com',
-        'Referer': 'https://www.atresplayer.com/',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-site',
-        'Connection': 'keep-alive'
-    })
+    # Usar las mismas cabeceras que get_session para consistencia
+    s.headers.update(get_session().headers)
 
     # Paso 1: Obtener cookies iniciales (CSRF, etc.) visitando la web de login
     try:
@@ -402,6 +398,8 @@ def play(href):
     else: url = f"{API_BASE}/client/v1/items{href}"
     
     s = get_session()
+    xbmc.log(f"ATRES_PLAY: Solicitando vídeo {url}", xbmc.LOGWARNING)
+    
     try:
         r = s.get(url, timeout=10)
         r.raise_for_status()
@@ -420,6 +418,7 @@ def play(href):
                 video_url = data["sources"][0].get("src")
         
         if not video_url:
+             xbmc.log(f"ATRES_PLAY_FAIL: No sources found in {data}", xbmc.LOGERROR)
              xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
              return
 
@@ -431,6 +430,10 @@ def play(href):
             li.setProperty('inputstream.adaptive.manifest_type', 'mpd' if '.mpd' in video_url else 'hls')
             li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
             
+            # IMPORTANTE: Pasar las cookies y headers a InputStream Adaptive
+            headers = "User-Agent=" + urllib.parse.quote(s.headers['User-Agent'])
+            li.setProperty('inputstream.adaptive.stream_headers', headers)
+
         xbmcplugin.setResolvedUrl(_handle, True, li)
 
     except Exception as e:
