@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.31...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.32...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -346,16 +346,23 @@ def do_login():
     
     # Usar una sesión limpia para el login (evitar cookies viejas corruptas)
     s = requests.Session()
+    # Headers exactos copiados del cURL del navegador
     s.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Origin': 'https://account.atresplayer.com',
-        'Referer': 'https://account.atresplayer.com/login'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0',
+        'Accept': '*/*',
+        'Accept-Language': 'es-ES,es;q=0.9,en-US;q=0.8,en;q=0.7',
+        'Origin': 'https://www.atresplayer.com',
+        'Referer': 'https://www.atresplayer.com/',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-site',
+        'Connection': 'keep-alive'
     })
 
     # Paso 1: Obtener cookies iniciales (CSRF, etc.) visitando la web de login
     try:
-        xbmc.log("ATRES_LOGIN: Visitando página de login para obtener cookies...", xbmc.LOGWARNING)
-        s.get("https://account.atresplayer.com/login", timeout=10)
+        xbmc.log("ATRES_LOGIN: Visitando home para obtener cookies...", xbmc.LOGWARNING)
+        s.get("https://www.atresplayer.com/", timeout=10)
     except Exception as e:
         xbmc.log(f"ATRES_LOGIN_WARN: Fallo en GET inicial: {e}", xbmc.LOGWARNING)
 
@@ -366,15 +373,15 @@ def do_login():
     try:
         # DEBUG: Imprimir el comando cURL equivalente para comparar con el navegador
         req_headers = dict(s.headers)
-        req_headers['Content-Type'] = 'application/json'
+        req_headers['Content-Type'] = 'application/x-www-form-urlencoded'
         curl_cmd = f"curl -X POST '{url}'"
         for k, v in req_headers.items():
             curl_cmd += f" -H '{k}: {v}'"
-        curl_cmd += f" -d '{json.dumps(payload)}'"
+        curl_cmd += f" --data '{urlencode(payload)}'"
         xbmc.log(f"ATRES_CURL_DEBUG: {curl_cmd}", xbmc.LOGWARNING)
 
-        # Enviar como JSON (según lo confirmado por el usuario)
-        r = s.post(url, json=payload, timeout=15)
+        # Enviar como FORMULARIO (data=payload) según cURL
+        r = s.post(url, data=payload, timeout=15)
         
         if r.status_code == 200:
             save_cookies(s)
