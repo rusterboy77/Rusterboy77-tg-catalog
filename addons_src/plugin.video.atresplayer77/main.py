@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.33...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.36...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -100,6 +100,12 @@ def list_categories():
         url = get_url(action='list_section', category_id=cat_id, category_name=label)
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
+    # NUEVO: Canales en Directo
+    list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
+    list_item.setArt({'icon': 'DefaultAddonPVRClient.png'})
+    url = get_url(action='list_live')
+    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+
     # 2. Login / Cuenta
     list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
     list_item.setArt({'icon': 'DefaultUser.png'})
@@ -138,6 +144,34 @@ def search_palantir_bridge(query):
     xbmcplugin.endOfDirectory(_handle)
 
 # --- LÓGICA ATRESPLAYER ---
+def list_live():
+    """Lista los canales en directo"""
+    xbmcplugin.setContent(_handle, 'videos')
+    url = f"{API_BASE}/client/v1/live/channels"
+    s = get_session()
+    try:
+        r = s.get(url, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        
+        for item in data:
+            title = item.get("name") or item.get("channel") or "Canal"
+            img_data = item.get("image") or item.get("images") or {}
+            thumb = _fix_img(img_data.get("pathHorizontal") or img_data.get("pathVertical"))
+            
+            list_item = xbmcgui.ListItem(label=title)
+            list_item.setArt({'icon': thumb, 'thumb': thumb})
+            
+            # Los canales suelen tener un href directo al player o un ID
+            href = item.get("href")
+            if href:
+                url = get_url(action='play', href=href)
+                list_item.setProperty('IsPlayable', 'true')
+                xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+    except Exception as e:
+        xbmcgui.Dialog().notification("Error Live", str(e))
+    xbmcplugin.endOfDirectory(_handle)
+
 def list_section(category_id, category_name=None):
     """Conecta a la API y lista el contenido de una categoría"""
     
@@ -221,6 +255,10 @@ def open_item(href):
 
         nodes = []
         
+        # ESTRATEGIA 0: El propio objeto es reproducible (Peliculas/Directos que vienen completos)
+        if data.get("urlVideo") or data.get("sources"):
+             nodes.append(data)
+
         # ESTRATEGIA 1: Nodos directos (Programas simples)
         if "nodes" in data:
             nodes = data["nodes"]
@@ -324,7 +362,8 @@ def open_item(href):
             # CORRECCIÓN: Si el enlace contiene '/row/' o 'search', es una lista (carpeta), no un vídeo
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             
-            if sub_href and (node_type not in ['EPISODE', 'VIDEO'] or is_row_container):
+            # AÑADIDO: 'MOVIE' y 'LIVE' a la lista de tipos reproducibles
+            if sub_href and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
@@ -439,6 +478,9 @@ def play(href):
             li.setProperty('inputstream.adaptive.manifest_type', 'mpd' if '.mpd' in video_url else 'hls')
             li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
             
+            # MEJORA: Forzar inicio con ancho de banda alto (evita 720p inicial)
+            li.setProperty('inputstream.adaptive.min_bandwidth', '10000000') # 10 Mbps
+
             # IMPORTANTE: Pasar las cookies y headers a InputStream Adaptive
             headers_dict = {
                 'User-Agent': s.headers.get('User-Agent', ''),
@@ -478,6 +520,8 @@ def router(paramstring):
         open_item(params.get('href'))
     elif action == 'login':
         do_login()
+    elif action == 'list_live':
+        list_live()
     elif action == 'play':
         play(params.get('href'))
     elif action == 'bridge_palantir':
