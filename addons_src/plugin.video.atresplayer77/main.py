@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.24...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.25...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -348,14 +348,12 @@ def do_login():
     
     # Lista de endpoints posibles para probar automáticamente
     endpoints = [
-        # Opción 1: Endpoint estándar (v1)
-        {"url": f"{API_BASE}/client/v1/login", "payload": {"email": username, "password": password}},
-        # Opción 1b: Endpoint Auth (v1)
-        {"url": f"{API_BASE}/client/v1/auth/login", "payload": {"email": username, "password": password}},
-        # Opción 2: Endpoint alternativo (legacy)
-        {"url": f"{API_BASE}/login/login", "payload": {"username": username, "password": password}},
-        # Opción 3: Endpoint Web (Auth moderno)
-        {"url": "https://account.atresplayer.com/api/login", "payload": {"email": username, "password": password}},
+        # Intento 1: /users/login (Plural, muy común)
+        {"url": f"{API_BASE}/client/v1/users/login", "payload": {"email": username, "password": password}},
+        # Intento 2: API Web (Subdominio distinto)
+        {"url": "https://api-web.atresplayer.com/client/v1/login", "payload": {"email": username, "password": password}},
+        # Intento 3: Account directo (sin /api)
+        {"url": "https://account.atresplayer.com/login", "payload": {"email": username, "password": password}},
     ]
 
     for i, ep in enumerate(endpoints):
