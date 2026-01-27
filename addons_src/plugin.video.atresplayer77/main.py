@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.19...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.21...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -339,8 +339,8 @@ def do_login():
         open_settings()
         return
     
-    url = f"{API_BASE}/client/v1/login"
-    payload = {"email": username, "password": password}
+    url = f"{API_BASE}/login/login"
+    payload = {"username": username, "password": password}
     s = get_session()
     
     try:
