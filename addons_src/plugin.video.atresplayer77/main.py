@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.22...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.23...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -344,19 +344,39 @@ def do_login():
         open_settings()
         return
     
-    url = f"{API_BASE}/client/v1/login"
-    payload = {"email": username, "password": password}
     s = get_session()
     
-    try:
-        r = s.post(url, json=payload, timeout=15)
-        r.raise_for_status()
-        # Si llegamos aquí, el login es correcto
-        save_cookies(s)
-        xbmcgui.Dialog().notification("Atresplayer", "Login Correcto")
-    except Exception as e:
-        xbmcgui.Dialog().notification("Error Login", str(e))
-        xbmc.log(f"ATRES_LOGIN_ERR: {e}", xbmc.LOGERROR)
+    # Lista de endpoints posibles para probar automáticamente
+    endpoints = [
+        # Opción 1: Endpoint estándar (v1)
+        {"url": f"{API_BASE}/client/v1/login", "payload": {"email": username, "password": password}},
+        # Opción 2: Endpoint alternativo (legacy)
+        {"url": f"{API_BASE}/login/login", "payload": {"username": username, "password": password}},
+        # Opción 3: Endpoint Web (Auth moderno)
+        {"url": "https://account.atresplayer.com/api/login", "payload": {"email": username, "password": password}},
+    ]
+
+    for i, ep in enumerate(endpoints):
+        url = ep["url"]
+        payload = ep["payload"]
+        xbmc.log(f"ATRES_LOGIN: Intento {i+1} con {url}", xbmc.LOGWARNING)
+        
+        try:
+            r = s.post(url, json=payload, timeout=15)
+            
+            if r.status_code == 200:
+                save_cookies(s)
+                xbmcgui.Dialog().notification("Atresplayer", "Login Correcto")
+                xbmc.log(f"ATRES_LOGIN_SUCCESS: Conectado usando {url}", xbmc.LOGWARNING)
+                return
+            elif r.status_code in (401, 403):
+                xbmcgui.Dialog().notification("Error Login", "Usuario o contraseña incorrectos")
+                return
+            # Si es 404 u otro error, el bucle continúa con el siguiente endpoint
+        except Exception as e:
+            xbmc.log(f"ATRES_LOGIN_EXC: {e}", xbmc.LOGERROR)
+
+    xbmcgui.Dialog().ok("Error Login", "No se pudo conectar con ningún servidor de login conocido.")
 
 def play(href):
     """Resuelve la URL del vídeo y lo reproduce"""
