@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.30...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.31...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -364,6 +364,15 @@ def do_login():
     payload = {"username": username, "password": password}
     
     try:
+        # DEBUG: Imprimir el comando cURL equivalente para comparar con el navegador
+        req_headers = dict(s.headers)
+        req_headers['Content-Type'] = 'application/json'
+        curl_cmd = f"curl -X POST '{url}'"
+        for k, v in req_headers.items():
+            curl_cmd += f" -H '{k}: {v}'"
+        curl_cmd += f" -d '{json.dumps(payload)}'"
+        xbmc.log(f"ATRES_CURL_DEBUG: {curl_cmd}", xbmc.LOGWARNING)
+
         # Enviar como JSON (según lo confirmado por el usuario)
         r = s.post(url, json=payload, timeout=15)
         
