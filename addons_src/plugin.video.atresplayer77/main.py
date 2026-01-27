@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.23...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.24...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -350,6 +350,8 @@ def do_login():
     endpoints = [
         # Opción 1: Endpoint estándar (v1)
         {"url": f"{API_BASE}/client/v1/login", "payload": {"email": username, "password": password}},
+        # Opción 1b: Endpoint Auth (v1)
+        {"url": f"{API_BASE}/client/v1/auth/login", "payload": {"email": username, "password": password}},
         # Opción 2: Endpoint alternativo (legacy)
         {"url": f"{API_BASE}/login/login", "payload": {"username": username, "password": password}},
         # Opción 3: Endpoint Web (Auth moderno)
@@ -372,6 +374,9 @@ def do_login():
             elif r.status_code in (401, 403):
                 xbmcgui.Dialog().notification("Error Login", "Usuario o contraseña incorrectos")
                 return
+            else:
+                # Loguear la respuesta del servidor para saber por qué falla (404, 400, 500...)
+                xbmc.log(f"ATRES_LOGIN_FAIL: {r.status_code} en {url} -> {r.text[:200]}", xbmc.LOGWARNING)
             # Si es 404 u otro error, el bucle continúa con el siguiente endpoint
         except Exception as e:
             xbmc.log(f"ATRES_LOGIN_EXC: {e}", xbmc.LOGERROR)
