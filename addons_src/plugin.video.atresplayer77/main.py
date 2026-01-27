@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.21...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.22...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -40,6 +40,11 @@ COOKIE_FILE = os.path.join(PROFILE_DIR, 'cookies.jar')
 def get_session():
     """Crea una sesión persistente con cookies"""
     s = requests.Session()
+    s.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Origin': 'https://www.atresplayer.com',
+        'Referer': 'https://www.atresplayer.com/'
+    })
     if os.path.exists(COOKIE_FILE):
         try:
             cj = http.cookiejar.LWPCookieJar(COOKIE_FILE)
@@ -339,8 +344,8 @@ def do_login():
         open_settings()
         return
     
-    url = f"{API_BASE}/login/login"
-    payload = {"username": username, "password": password}
+    url = f"{API_BASE}/client/v1/login"
+    payload = {"email": username, "password": password}
     s = get_session()
     
     try:
