@@ -440,13 +440,20 @@ def play(href):
             li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
             
             # IMPORTANTE: Pasar las cookies y headers a InputStream Adaptive
-            headers_dict = {'User-Agent': s.headers['User-Agent']}
+            headers_dict = {
+                'User-Agent': s.headers.get('User-Agent', ''),
+                'Origin': s.headers.get('Origin', 'https://www.atresplayer.com'),
+                'Referer': s.headers.get('Referer', 'https://www.atresplayer.com/')
+            }
             # Añadir cookies si existen
             cookie_str = "; ".join([f"{c.name}={c.value}" for c in s.cookies])
             if cookie_str:
                 headers_dict['Cookie'] = cookie_str
             headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
+            
             li.setProperty('inputstream.adaptive.stream_headers', headers)
+            li.setProperty('inputstream.adaptive.manifest_headers', headers)
+            li.setProperty('inputstream.adaptive.license_headers', headers)
 
         xbmcplugin.setResolvedUrl(_handle, True, li)
 
