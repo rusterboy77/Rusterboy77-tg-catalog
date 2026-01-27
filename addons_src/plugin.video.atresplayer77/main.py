@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.29...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.30...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -344,43 +344,41 @@ def do_login():
         open_settings()
         return
     
-    s = get_session()
-    # Ajustar cabeceras para el dominio de autenticación (evita error 400 invalid_request)
+    # Usar una sesión limpia para el login (evitar cookies viejas corruptas)
+    s = requests.Session()
     s.headers.update({
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
         'Origin': 'https://account.atresplayer.com',
-        'Referer': 'https://account.atresplayer.com/'
+        'Referer': 'https://account.atresplayer.com/login'
     })
+
+    # Paso 1: Obtener cookies iniciales (CSRF, etc.) visitando la web de login
+    try:
+        xbmc.log("ATRES_LOGIN: Visitando página de login para obtener cookies...", xbmc.LOGWARNING)
+        s.get("https://account.atresplayer.com/login", timeout=10)
+    except Exception as e:
+        xbmc.log(f"ATRES_LOGIN_WARN: Fallo en GET inicial: {e}", xbmc.LOGWARNING)
+
+    # Paso 2: Realizar el POST de login
+    url = "https://account.atresplayer.com/auth/v1/login"
+    payload = {"username": username, "password": password}
     
-    # Lista de endpoints posibles para probar automáticamente
-    endpoints = [
-        # URL Confirmada por usuario (F12) con payload correcto (username)
-        {"url": "https://account.atresplayer.com/auth/v1/login", "payload": {"username": username, "password": password}},
-    ]
-
-    for i, ep in enumerate(endpoints):
-        url = ep["url"]
-        payload = ep["payload"]
-        xbmc.log(f"ATRES_LOGIN: Intento {i+1} con {url}", xbmc.LOGWARNING)
+    try:
+        # Enviar como JSON (según lo confirmado por el usuario)
+        r = s.post(url, json=payload, timeout=15)
         
-        try:
-            r = s.post(url, json=payload, timeout=15)
-            
-            if r.status_code == 200:
-                save_cookies(s)
-                xbmcgui.Dialog().notification("Atresplayer", "Login Correcto")
-                xbmc.log(f"ATRES_LOGIN_SUCCESS: Conectado usando {url}", xbmc.LOGWARNING)
-                return
-            elif r.status_code in (401, 403):
-                xbmcgui.Dialog().notification("Error Login", "Usuario o contraseña incorrectos")
-                return
-            else:
-                # Loguear la respuesta del servidor para saber por qué falla (404, 400, 500...)
-                xbmc.log(f"ATRES_LOGIN_FAIL: {r.status_code} en {url} -> {r.text[:200]}", xbmc.LOGWARNING)
-            # Si es 404 u otro error, el bucle continúa con el siguiente endpoint
-        except Exception as e:
-            xbmc.log(f"ATRES_LOGIN_EXC: {e}", xbmc.LOGERROR)
-
-    xbmcgui.Dialog().ok("Error Login", "No se pudo conectar con ningún servidor de login conocido.")
+        if r.status_code == 200:
+            save_cookies(s)
+            xbmcgui.Dialog().notification("Atresplayer", "Login Correcto")
+            xbmc.log(f"ATRES_LOGIN_SUCCESS: Conectado usando {url}", xbmc.LOGWARNING)
+        elif r.status_code in (401, 403):
+            xbmcgui.Dialog().notification("Error Login", "Usuario o contraseña incorrectos")
+        else:
+            xbmc.log(f"ATRES_LOGIN_FAIL: {r.status_code} en {url} -> {r.text[:200]}", xbmc.LOGWARNING)
+            xbmcgui.Dialog().notification("Error Login", f"Error {r.status_code}")
+    except Exception as e:
+        xbmc.log(f"ATRES_LOGIN_EXC: {e}", xbmc.LOGERROR)
+        xbmcgui.Dialog().notification("Error Login", str(e))
 
 def play(href):
     """Resuelve la URL del vídeo y lo reproduce"""
