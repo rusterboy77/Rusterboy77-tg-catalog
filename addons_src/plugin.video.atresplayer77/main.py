@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.28...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.29...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -345,6 +345,11 @@ def do_login():
         return
     
     s = get_session()
+    # Ajustar cabeceras para el dominio de autenticación (evita error 400 invalid_request)
+    s.headers.update({
+        'Origin': 'https://account.atresplayer.com',
+        'Referer': 'https://account.atresplayer.com/'
+    })
     
     # Lista de endpoints posibles para probar automáticamente
     endpoints = [
