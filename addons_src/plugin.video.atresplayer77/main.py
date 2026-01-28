@@ -12,11 +12,9 @@ import json
 import http.cookiejar
 import urllib.parse
 from urllib.parse import parse_qsl, urlencode
-import sqlite3
-import glob
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.61...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.63...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -108,11 +106,6 @@ def list_categories():
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
     list_item.setArt({'icon': 'DefaultAddonSearch.png'})
     url = get_url(action='search')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
-
-    list_item = xbmcgui.ListItem(label='[COLOR green]Seguir Viendo[/COLOR]')
-    list_item.setArt({'icon': 'DefaultVideo.png'})
-    url = get_url(action='continue_watching')
     xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     if dynamic_items:
@@ -282,7 +275,7 @@ def list_section(category_id, category_name=None, page=0):
             href = item.get("href") or link_data.get("href")
             if href:
                 if category_name == "Cine":
-                    url = get_url(action='play', href=href, title=title)
+                    url = get_url(action='play', href=href)
                     list_item.setProperty('IsPlayable', 'true')
                     xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
                 else:
@@ -697,7 +690,7 @@ def open_item(href):
             else:
                 # Es un video final (capítulo)
                 target_href = sub_href if sub_href else href
-                url = get_url(action='play', href=target_href, title=title)
+                url = get_url(action='play', href=target_href)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
 
@@ -996,52 +989,6 @@ def play(href):
         xbmcgui.Dialog().notification("Error Reproducción", str(e))
         xbmc.log(f"ATRES_PLAY_ERR: {e}", xbmc.LOGERROR)
 
-def list_continue_watching():
-    """Lista videos a medio ver desde la base de datos de Kodi"""
-    xbmcplugin.setContent(_handle, 'videos')
-    
-    # Localizar DB
-    try:
-        db_dir = xbmcvfs.translatePath('special://profile/Database')
-        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
-        if not db_candidates:
-            return
-        db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
-    except Exception:
-        return
-
-    try:
-        conn = sqlite3.connect(db_path)
-        cur = conn.cursor()
-        # Buscar bookmarks de este addon
-        query = "SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.atresplayer77/%' ORDER BY b.lastPlayed DESC"
-        cur.execute(query)
-        rows = cur.fetchall()
-        conn.close()
-        
-        for filename, time_sec, total_sec in rows:
-            # Parsear URL para sacar título y href
-            if "?" in filename:
-                params = dict(parse_qsl(filename.split("?")[1]))
-                title = params.get("title", "Video sin título")
-                # Si no hay título en params, intentar deducirlo del href
-                if title == "Video sin título" and params.get("href"):
-                     slug = params["href"].strip("/").split("/")[-1]
-                     title = slug.replace("-", " ").capitalize()
-                
-                # Crear item
-                li = xbmcgui.ListItem(label=f"{title}")
-                li.setInfo('video', {'title': title})
-                li.setProperty('IsPlayable', 'true')
-                
-                # Añadir al menú
-                xbmcplugin.addDirectoryItem(_handle, filename, li, False)
-                
-    except Exception as e:
-        xbmc.log(f"ATRES_CW_ERR: {e}", xbmc.LOGERROR)
-    
-    xbmcplugin.endOfDirectory(_handle)
-
 def do_search():
     """Buscador global"""
     kb = xbmc.Keyboard('', 'Buscar en Atresplayer')
@@ -1051,12 +998,16 @@ def do_search():
     if not query: return
     
     # Endpoint de búsqueda
-    q_enc = urllib.parse.quote(query)
+    # Usar safe='' para codificar caracteres como / que romperían la URL
+    q_enc = urllib.parse.quote(query, safe='')
     url = f"{API_BASE}/client/v1/search/all/{q_enc}"
     
     s = get_session()
     try:
-        r = s.get(url, timeout=10)
+        # Añadir mainChannelId por si acaso y log de debug
+        params = {"mainChannelId": MAIN_CHANNEL_ID}
+        xbmc.log(f"ATRES_SEARCH: Consultando {url}", xbmc.LOGWARNING)
+        r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
         
@@ -1086,7 +1037,7 @@ def do_search():
                 # Determinar si es playable o carpeta
                 type_ = str(item.get("type")).upper()
                 if type_ in ['VIDEO', 'EPISODE', 'MOVIE', 'LIVE']:
-                     url_item = get_url(action='play', href=href, title=title)
+                     url_item = get_url(action='play', href=href)
                      is_folder = False
                      li.setProperty('IsPlayable', 'true')
                 else:
@@ -1097,6 +1048,7 @@ def do_search():
                 
     except Exception as e:
         xbmcgui.Dialog().notification("Error Búsqueda", str(e))
+        xbmc.log(f"ATRES_SEARCH_ERR: {e}", xbmc.LOGERROR)
     
     xbmcplugin.endOfDirectory(_handle)
 
@@ -1123,8 +1075,6 @@ def router(paramstring):
         play(params.get('href'))
     elif action == 'bridge_palantir':
         search_palantir_bridge(params.get('q'))
-    elif action == 'continue_watching':
-        list_continue_watching()
     elif action == 'search':
         do_search()
 
