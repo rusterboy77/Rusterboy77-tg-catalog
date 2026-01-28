@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.55...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.56...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -247,8 +247,13 @@ def list_section(category_id, category_name=None):
             link_data = item.get("link") or {}
             href = item.get("href") or link_data.get("href")
             if href:
-                url = get_url(action='open_item', href=href)
-                xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+                if category_name == "Cine":
+                    url = get_url(action='play', href=href)
+                    list_item.setProperty('IsPlayable', 'true')
+                    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+                else:
+                    url = get_url(action='open_item', href=href)
+                    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
             
     except Exception as e:
         xbmcgui.Dialog().notification("Error API", str(e))
