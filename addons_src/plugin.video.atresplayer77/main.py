@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.50...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.51...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -644,11 +644,15 @@ def play(href):
     
     try:
         r = s.get(url, params=params, timeout=10)
+        
+        # DEBUG: Imprimir respuesta ANTES de validar status (por si da 403/404)
+        try:
+            xbmc.log(f"ATRES_PLAY_DUMP: {json.dumps(r.json())}", xbmc.LOGWARNING)
+        except Exception:
+            xbmc.log(f"ATRES_PLAY_RAW: {r.text[:2000]}", xbmc.LOGWARNING)
+
         r.raise_for_status()
         data = r.json()
-        
-        # DEBUG: Ver qué recibimos en play para diagnosticar fallos
-        xbmc.log(f"ATRES_PLAY_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
         
         # --- DETECCIÓN DE REDIRECCIÓN EN PLAYER ---
         # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
