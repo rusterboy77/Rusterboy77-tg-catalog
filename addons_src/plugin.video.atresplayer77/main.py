@@ -277,7 +277,7 @@ def open_item(href):
         data = r.json()
         
         # DEBUG: Descomenta esto si quieres ver la estructura al entrar en una ficha
-        # xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
+        xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
         
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
         # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
@@ -345,15 +345,20 @@ def open_item(href):
              }
 
         # A.2 Episode (Campo directo en Formatos de Cine detectado en logs)
-        if not main_video_node and "episode" in data and isinstance(data["episode"], str):
-             target = data["episode"]
-             main_video_node = {
-                 "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
-                 "type": "VIDEO",
-                 "href": target,
-                 "image": data.get("image"),
-                 "description": data.get("description")
-             }
+        if not main_video_node and "episode" in data:
+             ep_val = data["episode"]
+             ep_target = None
+             if isinstance(ep_val, str): ep_target = ep_val
+             elif isinstance(ep_val, dict): ep_target = ep_val.get("href")
+
+             if ep_target:
+                 main_video_node = {
+                     "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
+                     "type": "VIDEO",
+                     "href": ep_target,
+                     "image": data.get("image"),
+                     "description": data.get("description")
+                 }
 
         # B. Hero Action (Botón en la cabecera) - Si no tenemos firstEpisode
         if not main_video_node:
@@ -684,10 +689,12 @@ def play(href):
                  return play(target)
 
         # NUEVO: Detectar campo 'episode' (Cine)
-        if "episode" in data and isinstance(data["episode"], str):
-             target = data["episode"]
-             xbmc.log(f"ATRES_PLAY_REDIRECT: Usando campo episode: {target}", xbmc.LOGWARNING)
-             return play(target)
+        if "episode" in data:
+             ep_val = data["episode"]
+             target = ep_val if isinstance(ep_val, str) else ep_val.get("href") if isinstance(ep_val, dict) else None
+             if target:
+                 xbmc.log(f"ATRES_PLAY_REDIRECT: Usando campo episode: {target}", xbmc.LOGWARNING)
+                 return play(target)
 
         if data.get("redirect") or (data.get("url") and "urlVideo" not in data and "sources" not in data):
              target = data.get("url") or data.get("href")
