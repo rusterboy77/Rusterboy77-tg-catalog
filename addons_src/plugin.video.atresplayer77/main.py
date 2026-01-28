@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.37...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.38...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -172,6 +172,28 @@ def search_palantir_bridge(query):
     xbmcplugin.endOfDirectory(_handle)
 
 # --- LÓGICA ATRESPLAYER ---
+def _recursive_find_playable(data, results):
+    """Busca recursivamente cualquier objeto que parezca un enlace de reproducción"""
+    if isinstance(data, dict):
+        href = data.get("href")
+        type_ = data.get("type")
+        label = str(data.get("label", "")).lower()
+        
+        # Criterios: Botón PLAY, enlace a /t/ (target), enlace a /player/
+        is_play_btn = type_ == "PLAY" or "reproducir" in label or "ver ahora" in label or "ver la película" in label or label == "ver"
+        is_video_link = href and ("/t/" in href or "/player/" in href)
+        
+        if href and (is_play_btn or is_video_link):
+             # Evitar duplicados
+             if not any(r.get("href") == href for r in results):
+                results.append(data)
+        
+        for v in data.values():
+            _recursive_find_playable(v, results)
+    elif isinstance(data, list):
+        for item in data:
+            _recursive_find_playable(item, results)
+
 def list_live():
     """Lista los canales en directo"""
     # Ahora usamos el endpoint genérico apuntando a la ruta de directos
@@ -246,7 +268,7 @@ def open_item(href):
         # Fallback para IDs antiguos si los hubiera
         url = f"{API_BASE}/client/v1/items{href}"
     
-    xbmc.log(f"ATRES_OPEN: Consultando {url}", xbmc.LOGWARNING)
+    xbmc.log(f"ATRES_OPEN: Consultando {url} | params={params}", xbmc.LOGWARNING)
     
     s = get_session()
     try:
@@ -254,6 +276,13 @@ def open_item(href):
         r.raise_for_status()
         data = r.json()
         
+        # --- DEBUG DIAGNÓSTICO ---
+        # Esto imprimirá en el log la estructura exacta que recibimos
+        # xbmc.log(f"ATRES_DEBUG_ROOT_KEYS: {list(data.keys())}", xbmc.LOGWARNING)
+        if "components" in data:
+            comps = [c.get("component") or c.get("type") for c in data["components"]]
+            xbmc.log(f"ATRES_DEBUG_COMPONENTS_LIST: {comps}", xbmc.LOGWARNING)
+
         # Detectar si estamos navegando dentro de una temporada específica
         is_season_view = "seasonId=" in url
         
@@ -264,94 +293,56 @@ def open_item(href):
 
         nodes = []
         
-        # DEBUG: Imprimir componentes para entender la estructura de la página
-        if "components" in data:
-            comps = [c.get("component") or c.get("type") for c in data["components"]]
-            xbmc.log(f"ATRES_DEBUG_COMPONENTS: {comps}", xbmc.LOGWARNING)
-        
         # ESTRATEGIA 0: El propio objeto es reproducible (Peliculas/Directos que vienen completos)
         if data.get("urlVideo") or data.get("sources"):
              nodes.append(data)
 
-        # NUEVA ESTRATEGIA: Hero Actions (Peliculas / Eventos)
-        hero = data.get("hero") or {}
-        if not hero and "components" in data:
-            for c in data["components"]:
-                if c.get("component") == "Hero" or c.get("type") == "HERO":
-                    hero = c
-                    break
-        if hero:
-            xbmc.log(f"ATRES_DEBUG_HERO_KEYS: {list(hero.keys())}", xbmc.LOGWARNING)
-            actions = hero.get("actions") or hero.get("buttons") or hero.get("links") or []
-            for action in actions:
-                label = (action.get("label") or "").lower()
-                act_type = action.get("type")
-                # xbmc.log(f"ATRES_DEBUG_ACTION: label='{label}' type='{act_type}' href='{action.get('href')}'", xbmc.LOGWARNING)
-                if action.get("href") and (act_type == "PLAY" or "reproducir" in label or "ver " in label or "ahora" in label):
-                    video_node = {"title": data.get("title", "Reproducir"), "type": "VIDEO", "href": action.get("href"), "image": data.get("image"), "description": data.get("description")}
-                    nodes.append(video_node)
-
-        # ESTRATEGIA 1: Nodos directos (Programas simples)
-        if "nodes" in data:
-            nodes = data["nodes"]
+        # ESTRATEGIA 1: Búsqueda Recursiva de Botones de Reproducción (La "Red de Seguridad")
+        # En lugar de buscar solo en 'hero', buscamos en TODO el JSON cualquier cosa que parezca un botón de Play
+        play_candidates = []
+        _recursive_find_playable(data, play_candidates)
+        
+        for action in play_candidates:
+            label = action.get("label") or action.get("title") or "Reproducir"
+            href_act = action.get("href")
+            xbmc.log(f"ATRES_ACTION: Encontrado candidato '{label}' -> {href_act}", xbmc.LOGWARNING)
             
-        # ESTRATEGIA 2: Secciones (Series antiguas)
-        if not nodes and "sections" in data:
-            for sec in data["sections"]:
-                nodes.extend(sec.get("items") or sec.get("nodes") or [])
-                
-        # ESTRATEGIA 3: Componentes (Series nuevas / Formato página)
-        if not nodes and "components" in data:
-            for comp in data["components"]:
-                if "items" in comp:
-                    nodes.extend(comp["items"])
-                elif "rows" in comp:
-                    nodes.extend(comp["rows"])
+            video_node = {
+                "title": f"[COLOR green]▶ {label}[/COLOR]", 
+                "type": "VIDEO",
+                "href": href_act,
+                "image": data.get("image"),
+                "description": data.get("description", "")
+            }
+            nodes.append(video_node)
 
-        # ESTRATEGIA PRIORITARIA: Si estamos en una temporada, buscar episodios en 'rows'
-        if not nodes and is_season_view and "rows" in data:
-            rows = data["rows"]
-            if rows:
-                xbmc.log(f"ATRES_DEBUG_ROWS_SEASON: {list(rows[0].keys())}", xbmc.LOGWARNING)
-                for row in rows:
-                    # Si la fila tiene items dentro, los sacamos
-                    if "items" in row or "nodes" in row:
-                        nodes.extend(row.get("items") or row.get("nodes") or [])
-                    # Si la fila es un enlace (ej: "Episodios"), la añadimos como carpeta
-                    elif "href" in row:
-                        nodes.append(row)
+        # 2. Bloques de CONTENIDO (Grids, Carousels, Rows)
+        # Buscamos listas de items dentro de los componentes o en la raíz
+        containers = []
+        if "components" in data: containers.extend(data["components"])
+        if "rows" in data: containers.extend(data["rows"]) # Estructura antigua/mix
+        if "seasons" in data: containers.extend(data["seasons"]) # Estructura series
+        
+        for container in containers:
+            # Extraer items directos
+            if "items" in container:
+                nodes.extend(container["items"])
+            # Extraer items dentro de filas internas
+            elif "rows" in container:
+                for row in container["rows"]:
+                    nodes.extend(row.get("items") or [])
+            # Extraer episodios (estructura seasons)
+            elif "episodes" in container:
+                nodes.extend(container["episodes"])
+            # Estructura de nodos simple
+            elif "nodes" in container:
+                nodes.extend(container["nodes"])
 
-        # ESTRATEGIA 4: Temporadas (Detectado en logs recientes)
-        if not nodes and "seasons" in data:
-            seasons = data["seasons"]
-            if seasons:
-                xbmc.log(f"ATRES_DEBUG_SEASON_0: {list(seasons[0].keys())}", xbmc.LOGWARNING)
-                # Intento 1: Extraer episodios de dentro
-                for season in seasons:
-                    nodes.extend(season.get("items") or season.get("nodes") or season.get("episodes") or [])
-                # Intento 2: Si no hay episodios, las temporadas son las carpetas
-                if not nodes:
-                    nodes = seasons
-
-        # ESTRATEGIA 5: Filas (Fallback para vistas generales)
-        if not nodes and "rows" in data:
-            rows = data["rows"]
-            if rows:
-                xbmc.log(f"ATRES_DEBUG_ROWS_0: {list(rows[0].keys())}", xbmc.LOGWARNING)
-                # Intento 1: Extraer items de dentro
-                for row in rows:
-                    nodes.extend(row.get("items") or row.get("nodes") or [])
-                # Intento 2: Si no hay items, las filas son las carpetas
-                if not nodes:
-                    nodes = rows
-
-        # ESTRATEGIA 6: Episodio suelto (Detectado en logs recientes)
-        if not nodes and "episode" in data:
-            nodes.append(data["episode"])
-            
-        # ESTRATEGIA 7: Lista de items (Search rows / Episodios)
-        if not nodes and "itemRows" in data:
-            nodes = data["itemRows"]
+        # 3. Fallback: Si no hay componentes, mirar listas raíz
+        if not nodes:
+             if "nodes" in data: nodes.extend(data["nodes"])
+             if "itemRows" in data: nodes.extend(data["itemRows"])
+             if "episode" in data: nodes.append(data["episode"])
         
         # Establecer tipo de contenido para las vistas
         if is_season_view or "itemRows" in data:
@@ -363,7 +354,8 @@ def open_item(href):
 
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
-            xbmcgui.Dialog().ok("Atresplayer", f"Contenido final: {data.get('title')}\n(El siguiente paso es implementar la reproducción)")
+            xbmc.log(f"ATRES_DEBUG_NO_NODES: Keys={list(data.keys())}", xbmc.LOGERROR)
+            xbmcgui.Dialog().notification("Atresplayer", "No se encontraron enlaces reproducibles")
             xbmcplugin.endOfDirectory(_handle) # Importante cerrar directorio para evitar error en log
             return
 
@@ -485,6 +477,20 @@ def play(href):
         # 1. Obtener URL del Player o Sources directos
         video_url = data.get("urlVideo")
         
+        # Si no hay video_url ni sources, es posible que estemos en una ficha (Format)
+        # Intentamos buscar el enlace de reproducción dentro de la estructura
+        if not video_url and not data.get("sources"):
+            xbmc.log("ATRES_PLAY: No se encontró urlVideo/sources, buscando candidatos...", xbmc.LOGWARNING)
+            candidates = []
+            _recursive_find_playable(data, candidates)
+            if candidates:
+                # Priorizar enlaces que contengan /player/
+                best = next((c for c in candidates if "/player/" in c.get("href", "")), candidates[0])
+                new_href = best.get("href")
+                if new_href and new_href != href:
+                    xbmc.log(f"ATRES_PLAY: Redirigiendo a {new_href}", xbmc.LOGWARNING)
+                    return play(new_href)
+
         # Si es una URL de API de player (ej: https://api.atresplayer.com/player/v1/...), hay que consultarla
         if video_url and "/player/" in video_url:
             xbmc.log(f"ATRES_PLAY: Resolviendo endpoint de player: {video_url}", xbmc.LOGWARNING)
