@@ -12,9 +12,11 @@ import json
 import http.cookiejar
 import urllib.parse
 from urllib.parse import parse_qsl, urlencode
+import sqlite3
+import glob
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.59...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.61...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -101,6 +103,17 @@ def list_categories():
                     dynamic_items.append(item)
     except Exception:
         pass
+
+    # 0. Buscador y Seguir Viendo (Arriba para acceso rápido)
+    list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
+    list_item.setArt({'icon': 'DefaultAddonSearch.png'})
+    url = get_url(action='search')
+    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+
+    list_item = xbmcgui.ListItem(label='[COLOR green]Seguir Viendo[/COLOR]')
+    list_item.setArt({'icon': 'DefaultVideo.png'})
+    url = get_url(action='continue_watching')
+    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     if dynamic_items:
         for item in dynamic_items:
@@ -269,7 +282,7 @@ def list_section(category_id, category_name=None, page=0):
             href = item.get("href") or link_data.get("href")
             if href:
                 if category_name == "Cine":
-                    url = get_url(action='play', href=href)
+                    url = get_url(action='play', href=href, title=title)
                     list_item.setProperty('IsPlayable', 'true')
                     xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
                 else:
@@ -649,7 +662,20 @@ def open_item(href):
 
             list_item = xbmcgui.ListItem(label=title)
             list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
-            list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
+            
+            info = {'title': title, 'plot': node.get('description', '')}
+            
+            # Intentar obtener número de episodio para ordenación correcta
+            if "episode" in node:
+                try: info['episode'] = int(node["episode"])
+                except: pass
+            
+            # Fix: Forzar que el botón de "Siguiente Página" aparezca al final
+            if "Página Siguiente" in title:
+                info['episode'] = 99999
+                list_item.setProperty('SpecialSort', 'bottom')
+
+            list_item.setInfo('video', info)
             
             # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
             sub_link = node.get("link") or {}
@@ -671,7 +697,7 @@ def open_item(href):
             else:
                 # Es un video final (capítulo)
                 target_href = sub_href if sub_href else href
-                url = get_url(action='play', href=target_href)
+                url = get_url(action='play', href=target_href, title=title)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
 
@@ -970,6 +996,110 @@ def play(href):
         xbmcgui.Dialog().notification("Error Reproducción", str(e))
         xbmc.log(f"ATRES_PLAY_ERR: {e}", xbmc.LOGERROR)
 
+def list_continue_watching():
+    """Lista videos a medio ver desde la base de datos de Kodi"""
+    xbmcplugin.setContent(_handle, 'videos')
+    
+    # Localizar DB
+    try:
+        db_dir = xbmcvfs.translatePath('special://profile/Database')
+        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
+        if not db_candidates:
+            return
+        db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
+    except Exception:
+        return
+
+    try:
+        conn = sqlite3.connect(db_path)
+        cur = conn.cursor()
+        # Buscar bookmarks de este addon
+        query = "SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.atresplayer77/%' ORDER BY b.lastPlayed DESC"
+        cur.execute(query)
+        rows = cur.fetchall()
+        conn.close()
+        
+        for filename, time_sec, total_sec in rows:
+            # Parsear URL para sacar título y href
+            if "?" in filename:
+                params = dict(parse_qsl(filename.split("?")[1]))
+                title = params.get("title", "Video sin título")
+                # Si no hay título en params, intentar deducirlo del href
+                if title == "Video sin título" and params.get("href"):
+                     slug = params["href"].strip("/").split("/")[-1]
+                     title = slug.replace("-", " ").capitalize()
+                
+                # Crear item
+                li = xbmcgui.ListItem(label=f"{title}")
+                li.setInfo('video', {'title': title})
+                li.setProperty('IsPlayable', 'true')
+                
+                # Añadir al menú
+                xbmcplugin.addDirectoryItem(_handle, filename, li, False)
+                
+    except Exception as e:
+        xbmc.log(f"ATRES_CW_ERR: {e}", xbmc.LOGERROR)
+    
+    xbmcplugin.endOfDirectory(_handle)
+
+def do_search():
+    """Buscador global"""
+    kb = xbmc.Keyboard('', 'Buscar en Atresplayer')
+    kb.doModal()
+    if not kb.isConfirmed(): return
+    query = kb.getText()
+    if not query: return
+    
+    # Endpoint de búsqueda
+    q_enc = urllib.parse.quote(query)
+    url = f"{API_BASE}/client/v1/search/all/{q_enc}"
+    
+    s = get_session()
+    try:
+        r = s.get(url, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        
+        results = []
+        if "items" in data: results.extend(data["items"])
+        if "rows" in data: 
+             for row in data["rows"]:
+                 if "items" in row: results.extend(row["items"])
+        
+        if not results:
+            xbmcgui.Dialog().notification("Atresplayer", "No se encontraron resultados")
+            return
+
+        for item in results:
+            title = item.get("title") or item.get("name")
+            if not title: continue
+            
+            img_data = item.get("image") or item.get("images") or {}
+            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
+            
+            li = xbmcgui.ListItem(label=title)
+            li.setArt({'poster': poster, 'icon': poster})
+            li.setInfo('video', {'title': title, 'plot': item.get('description', '')})
+            
+            href = item.get("href") or (item.get("link") or {}).get("href")
+            if href:
+                # Determinar si es playable o carpeta
+                type_ = str(item.get("type")).upper()
+                if type_ in ['VIDEO', 'EPISODE', 'MOVIE', 'LIVE']:
+                     url_item = get_url(action='play', href=href, title=title)
+                     is_folder = False
+                     li.setProperty('IsPlayable', 'true')
+                else:
+                     url_item = get_url(action='open_item', href=href)
+                     is_folder = True
+                
+                xbmcplugin.addDirectoryItem(_handle, url_item, li, is_folder)
+                
+    except Exception as e:
+        xbmcgui.Dialog().notification("Error Búsqueda", str(e))
+    
+    xbmcplugin.endOfDirectory(_handle)
+
 def router(paramstring):
     params = dict(parse_qsl(paramstring))
     
@@ -993,6 +1123,10 @@ def router(paramstring):
         play(params.get('href'))
     elif action == 'bridge_palantir':
         search_palantir_bridge(params.get('q'))
+    elif action == 'continue_watching':
+        list_continue_watching()
+    elif action == 'search':
+        do_search()
 
 if __name__ == '__main__':
     router(sys.argv[2][1:])
