@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.42...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.43...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -384,6 +384,8 @@ def open_item(href):
                 nodes.extend(container["nodes"])
             # Fallback para contenedores navegables (ej: enlaces a secciones)
             elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
+                 # LIMPIEZA: Si es una película (tiene firstEpisode), no mostrar pestañas extra como Clips/Extras
+                 if "firstEpisode" in data: continue
                  nodes.append(container)
 
         # 3. Fallback: Listas raíz
@@ -588,16 +590,30 @@ def play(href):
             data = r_player.json() # Sobrescribimos data con la respuesta del player (que trae 'sources')
             video_url = None # Reseteamos para buscar en sources
 
-        if not video_url and "sources" in data:
-            # Preferimos DASH (.mpd)
-            for src in data["sources"]:
-                if src.get("type") == "application/dash+xml":
-                    video_url = src.get("src")
-                    break
-            # Si no hay DASH, cogemos el primero que haya
-            if not video_url and data["sources"]:
-                video_url = data["sources"][0].get("src")
+        # LÓGICA DE SELECCIÓN DE FUENTE (Soporte Live y VOD)
+        def _get_best_source(sources):
+            if not sources: return None
+            # 1. DASH
+            for src in sources:
+                if src.get("type") == "application/dash+xml" and src.get("src"):
+                    return src.get("src")
+            # 2. HLS
+            for src in sources:
+                if "mpegurl" in str(src.get("type")) and src.get("src"):
+                    return src.get("src")
+            # 3. Cualquiera con src
+            for src in sources:
+                if src.get("src"): return src.get("src")
+            return None
+
+        if not video_url:
+            # Intentar fuentes de directo (sourcesLive)
+            video_url = _get_best_source(data.get("sourcesLive"))
         
+        if not video_url:
+            # Intentar fuentes estándar (sources)
+            video_url = _get_best_source(data.get("sources"))
+
         if not video_url:
              xbmc.log(f"ATRES_PLAY_FAIL: No sources found in {data}", xbmc.LOGERROR)
              xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
