@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.58...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.59...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -513,7 +513,16 @@ def open_item(href):
             # la cargamos explícitamente para mostrar los episodios inline.
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
-                     r_eps = s.get(container["href"], timeout=5)
+                     # MODIFICACIÓN: Forzar size=30 y gestionar paginación
+                     eps_href = container["href"]
+                     if "size=" in eps_href:
+                         eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
+                     elif "?" in eps_href:
+                         eps_href += "&size=30"
+                     else:
+                         eps_href += "?size=30"
+
+                     r_eps = s.get(eps_href, timeout=5)
                      if r_eps.ok:
                          d_eps = r_eps.json()
                          if "items" in d_eps: content_nodes.extend(d_eps["items"])
@@ -521,6 +530,27 @@ def open_item(href):
                          elif "rows" in d_eps:
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
+                         
+                         # Añadir botón de siguiente página si es necesario
+                         if "pageInfo" in d_eps:
+                             pi = d_eps["pageInfo"]
+                             if pi.get("pageNumber", 0) < pi.get("totalPages", 0) - 1:
+                                 next_p = pi.get("pageNumber", 0) + 1
+                                 total_p = pi.get("totalPages", 0)
+                                 
+                                 if "page=" in eps_href:
+                                     next_href = re.sub(r'page=\d+', f'page={next_p}', eps_href)
+                                 elif "?" in eps_href:
+                                     next_href = eps_href + f"&page={next_p}"
+                                 else:
+                                     next_href = eps_href + f"?page={next_p}"
+                                 
+                                 content_nodes.append({
+                                     "title": f"[COLOR yellow]>> Página Siguiente ({next_p + 1}/{total_p})[/COLOR]",
+                                     "type": "LINK",
+                                     "href": next_href,
+                                     "image": {"pathVertical": "DefaultFolder.png"}
+                                 })
                  except Exception: pass
                  continue
 
