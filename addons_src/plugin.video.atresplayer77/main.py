@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.39...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.40...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -181,7 +181,7 @@ def _recursive_find_playable(data, results):
         
         # Criterios: Botón PLAY, enlace a /t/ (target), enlace a /player/
         is_play_btn = type_ == "PLAY" or "reproducir" in label or "ver ahora" in label or "ver la película" in label or label == "ver"
-        is_video_link = href and ("/t/" in href or "/player/" in href)
+        is_video_link = href and ("/t/" in href or "/player/" in href or "/page/episode/" in href or "/episode/" in href)
         
         if href and (is_play_btn or is_video_link):
              # Evitar duplicados
@@ -196,8 +196,46 @@ def _recursive_find_playable(data, results):
 
 def list_live():
     """Lista los canales en directo"""
-    # Ahora usamos el endpoint genérico apuntando a la ruta de directos
-    open_item('/directos/')
+    xbmcplugin.setContent(_handle, 'videos')
+    # Volvemos a la API específica de canales que es más fiable que el wrapper web
+    url = f"{API_BASE}/client/v1/live/channels"
+    params = {"mainChannelId": MAIN_CHANNEL_ID}
+    
+    s = get_session()
+    try:
+        r = s.get(url, params=params, timeout=10)
+        r.raise_for_status()
+        data = r.json()
+        
+        # La API devuelve una lista de canales directamente o dentro de items
+        items = data if isinstance(data, list) else data.get("items", [])
+        
+        for item in items:
+            title = item.get("name") or item.get("channel") or item.get("title") or "Canal"
+            
+            img_data = item.get("image") or item.get("images") or {}
+            thumb = _fix_img(img_data.get("pathHorizontal") or img_data.get("pathVertical"), 'horizontal')
+            
+            list_item = xbmcgui.ListItem(label=title)
+            list_item.setArt({'icon': thumb, 'thumb': thumb, 'fanart': thumb})
+            list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
+            
+            # El href para reproducir
+            href = item.get("href")
+            # A veces el href no viene, construimos uno con el ID del canal
+            if not href and item.get("id"):
+                 href = f"/directos/{item.get('id')}"
+            
+            if href:
+                url = get_url(action='play', href=href)
+                list_item.setProperty('IsPlayable', 'true')
+                xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+                
+    except Exception as e:
+        xbmc.log(f"ATRES_LIVE_ERROR: {e}", xbmc.LOGERROR)
+        xbmcgui.Dialog().notification("Error Live", str(e))
+        
+    xbmcplugin.endOfDirectory(_handle)
 
 def list_section(category_id, category_name=None):
     """Conecta a la API y lista el contenido de una categoría"""
@@ -279,11 +317,24 @@ def open_item(href):
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
         # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
         if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
+            # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
+            if data.get("href") and "api.atresplayer.com" in data["href"]:
+                target = data["href"]
+                if target != href:
+                    xbmc.log(f"ATRES_REDIRECT: Usando API Href: {target}", xbmc.LOGWARNING)
+                    return open_item(target)
+
             target = data.get("url") or data.get("href")
-            if target and target != href:
-                xbmc.log(f"ATRES_REDIRECT: API indica redirección a {target}", xbmc.LOGWARNING)
-                # Llamada recursiva a la nueva dirección
-                return open_item(target)
+            if target:
+                # Si nos dan una URL completa de atresplayer, la convertimos a relativa para usar la API
+                if "atresplayer.com" in target:
+                    parsed = urllib.parse.urlparse(target)
+                    target = parsed.path
+                    if parsed.query: target += "?" + parsed.query
+                
+                if target != href and target != href + "/":
+                    xbmc.log(f"ATRES_REDIRECT: API indica redirección a {target}", xbmc.LOGWARNING)
+                    return open_item(target)
 
         # --- DEBUG DIAGNÓSTICO ---
         # Esto imprimirá en el log la estructura exacta que recibimos
@@ -305,6 +356,18 @@ def open_item(href):
         # ESTRATEGIA 0: El propio objeto es reproducible (Peliculas/Directos que vienen completos)
         if data.get("urlVideo") or data.get("sources"):
              nodes.append(data)
+
+        # NUEVO: Detectar firstEpisode (Estructura de Películas confirmada por log)
+        if "firstEpisode" in data and data["firstEpisode"].get("href"):
+             ep = data["firstEpisode"]
+             video_node = {
+                 "title": data.get("title", "Reproducir Película"),
+                 "type": "VIDEO",
+                 "href": ep.get("href"),
+                 "image": data.get("image"),
+                 "description": data.get("description")
+             }
+             nodes.append(video_node)
 
         # ESTRATEGIA 1: Búsqueda Recursiva de Botones de Reproducción (La "Red de Seguridad")
         # En lugar de buscar solo en 'hero', buscamos en TODO el JSON cualquier cosa que parezca un botón de Play
@@ -484,11 +547,29 @@ def play(href):
         data = r.json()
         
         # --- DETECCIÓN DE REDIRECCIÓN EN PLAYER ---
+        # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
+        if data.get("href") and "api.atresplayer.com" in data["href"] and "urlVideo" not in data and "sources" not in data:
+             target = data["href"]
+             if target != href:
+                 xbmc.log(f"ATRES_PLAY_REDIRECT: Usando API Href: {target}", xbmc.LOGWARNING)
+                 return play(target)
+
+        # NUEVO: Detectar firstEpisode en Player (por si llegamos aquí directamente)
+        if "firstEpisode" in data and data["firstEpisode"].get("href"):
+             target = data["firstEpisode"]["href"]
+             if target != href:
+                 xbmc.log(f"ATRES_PLAY_REDIRECT: Usando firstEpisode: {target}", xbmc.LOGWARNING)
+                 return play(target)
+
         if data.get("redirect") or (data.get("url") and "urlVideo" not in data and "sources" not in data):
              target = data.get("url") or data.get("href")
-             if target and target != href:
-                 xbmc.log(f"ATRES_PLAY_REDIRECT: Redirigiendo a {target}", xbmc.LOGWARNING)
-                 return play(target)
+             if target:
+                 if "atresplayer.com" in target:
+                    parsed = urllib.parse.urlparse(target)
+                    target = parsed.path
+                 if target != href:
+                     xbmc.log(f"ATRES_PLAY_REDIRECT: Redirigiendo a {target}", xbmc.LOGWARNING)
+                     return play(target)
 
         # 1. Obtener URL del Player o Sources directos
         video_url = data.get("urlVideo")
