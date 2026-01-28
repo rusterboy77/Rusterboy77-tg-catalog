@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.57...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.58...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -315,7 +315,7 @@ def open_item(href):
         # Fallback para IDs antiguos si los hubiera
         url = f"{API_BASE}/client/v1/items{href}"
     
-    xbmc.log(f"ATRES_OPEN: Consultando {url} | params={params}", xbmc.LOGWARNING)
+    # xbmc.log(f"ATRES_OPEN: Consultando {url} | params={params}", xbmc.LOGWARNING)
     
     s = get_session()
     try:
@@ -324,7 +324,7 @@ def open_item(href):
         data = r.json()
         
         # DEBUG: Descomenta esto si quieres ver la estructura al entrar en una ficha
-        xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
+        # xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
         
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
         # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
@@ -360,10 +360,10 @@ def open_item(href):
         # xbmc.log(f"ATRES_DEBUG_ROOT_KEYS: {list(data.keys())}", xbmc.LOGWARNING)
         if "components" in data:
             comps = [c.get("component") or c.get("type") for c in data["components"]]
-            xbmc.log(f"ATRES_DEBUG_COMPONENTS_LIST: {comps}", xbmc.LOGWARNING)
+            # xbmc.log(f"ATRES_DEBUG_COMPONENTS_LIST: {comps}", xbmc.LOGWARNING)
 
         # Detectar si estamos navegando dentro de una temporada específica
-        is_season_view = "seasonId=" in url
+        is_season_view = "seasonId=" in url or "seasonId=" in href
         
         # Imagen de cabecera (Serie/Programa padre) para fallback
         parent_img = data.get("image") or data.get("images") or {}
@@ -399,7 +399,7 @@ def open_item(href):
              elif isinstance(ep_val, dict): ep_target = ep_val.get("href")
 
              if ep_target:
-                 xbmc.log(f"ATRES_OPEN: Detectado campo 'episode' para Cine: {ep_target}", xbmc.LOGWARNING)
+                 # xbmc.log(f"ATRES_OPEN: Detectado campo 'episode' para Cine: {ep_target}", xbmc.LOGWARNING)
                  main_video_node = {
                      "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                      "type": "VIDEO",
@@ -435,11 +435,11 @@ def open_item(href):
              try:
                  fmt_id = data["id"]
                  url_prog = f"{API_BASE}/client/v1/inProgressFormat/watch/{fmt_id}"
-                 xbmc.log(f"ATRES_FALLBACK: Probando inProgressFormat {url_prog}", xbmc.LOGWARNING)
+                 # xbmc.log(f"ATRES_FALLBACK: Probando inProgressFormat {url_prog}", xbmc.LOGWARNING)
                  r_prog = s.get(url_prog, timeout=5)
                  if r_prog.ok:
                      d_prog = r_prog.json()
-                     xbmc.log(f"ATRES_FALLBACK_RESP: {str(d_prog)[:200]}", xbmc.LOGWARNING)
+                     # xbmc.log(f"ATRES_FALLBACK_RESP: {str(d_prog)[:200]}", xbmc.LOGWARNING)
                      
                      ep_id = None
                      if "firstEpisode" in d_prog:
@@ -484,7 +484,7 @@ def open_item(href):
         # NUEVO: Si hay episodios en la raíz (vista de Temporada), usarlos directamente y evitar duplicar temporadas
         if "episodes" in data and data["episodes"]:
              content_nodes.extend(data["episodes"])
-        elif "seasons" in data:
+        elif "seasons" in data and not is_season_view:
             for season in data["seasons"]:
                 found_eps = False
                 if "episodes" in season:
@@ -508,6 +508,22 @@ def open_item(href):
         for container in other_containers:
             # 1. Filtrar por título del contenedor
             c_title = (container.get("title") or "").lower()
+            
+            # NUEVO: Si estamos en una temporada y hay una fila de "Capítulos" (que suele estar filtrada),
+            # la cargamos explícitamente para mostrar los episodios inline.
+            if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
+                 try:
+                     r_eps = s.get(container["href"], timeout=5)
+                     if r_eps.ok:
+                         d_eps = r_eps.json()
+                         if "items" in d_eps: content_nodes.extend(d_eps["items"])
+                         elif "itemRows" in d_eps: content_nodes.extend(d_eps["itemRows"])
+                         elif "rows" in d_eps:
+                             for r in d_eps["rows"]:
+                                 if "items" in r: content_nodes.extend(r["items"])
+                 except Exception: pass
+                 continue
+
             if any(bad in c_title for bad in BAD_TITLES): continue
             
             # 2. Filtrar por tipo de contenido en el enlace (href)
@@ -583,7 +599,7 @@ def open_item(href):
 
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
-            xbmc.log(f"ATRES_DEBUG_NO_NODES: Keys={list(data.keys())}", xbmc.LOGERROR)
+            # xbmc.log(f"ATRES_DEBUG_NO_NODES: Keys={list(data.keys())}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron enlaces reproducibles")
             xbmcplugin.endOfDirectory(_handle) # Importante cerrar directorio para evitar error en log
             return
@@ -719,16 +735,16 @@ def play(href):
         url = f"{API_BASE}/client/v1/items{href}"
     
     s = get_session()
-    xbmc.log(f"ATRES_PLAY: Solicitando vídeo {url}", xbmc.LOGWARNING)
+    # xbmc.log(f"ATRES_PLAY: Solicitando vídeo {url}", xbmc.LOGWARNING)
     
     try:
         r = s.get(url, params=params, timeout=10)
         
         # DEBUG: Imprimir respuesta ANTES de validar status (por si da 403/404)
         try:
-            xbmc.log(f"ATRES_PLAY_DUMP: {json.dumps(r.json())}", xbmc.LOGWARNING)
+            pass # xbmc.log(f"ATRES_PLAY_DUMP: {json.dumps(r.json())}", xbmc.LOGWARNING)
         except Exception:
-            xbmc.log(f"ATRES_PLAY_RAW: {r.text[:2000]}", xbmc.LOGWARNING)
+            pass # xbmc.log(f"ATRES_PLAY_RAW: {r.text[:2000]}", xbmc.LOGWARNING)
 
         r.raise_for_status()
         data = r.json()
@@ -886,8 +902,8 @@ def play(href):
 
         if not video_url:
              # DEBUG CRÍTICO: Imprimir estructura completa si falla para comparar con la web
-             xbmc.log(f"ATRES_PLAY_FAIL_DUMP: {json.dumps(data)}", xbmc.LOGERROR)
-             xbmc.log(f"ATRES_PLAY_FAIL: No sources found in {data}", xbmc.LOGERROR)
+             # xbmc.log(f"ATRES_PLAY_FAIL_DUMP: {json.dumps(data)}", xbmc.LOGERROR)
+             xbmc.log(f"ATRES_PLAY_FAIL: No sources found", xbmc.LOGERROR)
              xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
              return
 
