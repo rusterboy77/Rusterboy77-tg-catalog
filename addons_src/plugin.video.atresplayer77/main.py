@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.52...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.53...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -719,7 +719,6 @@ def play(href):
         
         def _find_key(d, k):
              if isinstance(d, dict):
-                 if k in d: return d[k]
                  if k in d and d[k]: return d[k]
                  for v in d.values():
                      res = _find_key(v, k)
