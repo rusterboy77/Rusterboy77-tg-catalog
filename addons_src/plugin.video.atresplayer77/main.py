@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.38...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.39...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -276,6 +276,15 @@ def open_item(href):
         r.raise_for_status()
         data = r.json()
         
+        # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
+        # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
+        if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
+            target = data.get("url") or data.get("href")
+            if target and target != href:
+                xbmc.log(f"ATRES_REDIRECT: API indica redirección a {target}", xbmc.LOGWARNING)
+                # Llamada recursiva a la nueva dirección
+                return open_item(target)
+
         # --- DEBUG DIAGNÓSTICO ---
         # Esto imprimirá en el log la estructura exacta que recibimos
         # xbmc.log(f"ATRES_DEBUG_ROOT_KEYS: {list(data.keys())}", xbmc.LOGWARNING)
@@ -474,6 +483,13 @@ def play(href):
         r.raise_for_status()
         data = r.json()
         
+        # --- DETECCIÓN DE REDIRECCIÓN EN PLAYER ---
+        if data.get("redirect") or (data.get("url") and "urlVideo" not in data and "sources" not in data):
+             target = data.get("url") or data.get("href")
+             if target and target != href:
+                 xbmc.log(f"ATRES_PLAY_REDIRECT: Redirigiendo a {target}", xbmc.LOGWARNING)
+                 return play(target)
+
         # 1. Obtener URL del Player o Sources directos
         video_url = data.get("urlVideo")
         
