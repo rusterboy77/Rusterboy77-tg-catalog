@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.43...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.44...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -372,11 +372,28 @@ def open_item(href):
         if "components" in data: other_containers.extend(data["components"])
         if "rows" in data: other_containers.extend(data["rows"])
         
+        # FILTRO: Palabras clave para eliminar secciones basura (Clips, Extras, etc.)
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes"]
+        
         for container in other_containers:
+            # 1. Filtrar por título del contenedor
+            c_title = (container.get("title") or "").lower()
+            if any(bad in c_title for bad in BAD_TITLES):
+                continue
+            
+            # 2. Filtrar por tipo de contenido en el enlace (href)
+            c_href = container.get("href") or ""
+            if "entityType=ATPClip" in c_href or "entityType=ATPExtra" in c_href or "entityType=ATPSection" in c_href:
+                continue
+
             if "items" in container:
                 nodes.extend(container["items"])
             elif "rows" in container:
                 for row in container["rows"]:
+                    # 3. Filtrar filas internas
+                    r_title = (row.get("title") or "").lower()
+                    if any(bad in r_title for bad in BAD_TITLES):
+                        continue
                     nodes.extend(row.get("items") or [])
             elif "episodes" in container:
                 nodes.extend(container["episodes"])
