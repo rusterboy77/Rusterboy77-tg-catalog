@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.45...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.47...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -279,6 +279,13 @@ def open_item(href):
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
         # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
         if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
+            # NUEVO: Manejo de respuesta inProgressFormat (solo ID de episodio)
+            if "firstEpisode" in data and isinstance(data["firstEpisode"], str):
+                 ep_id = data["firstEpisode"]
+                 target = f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
+                 xbmc.log(f"ATRES_REDIRECT: inProgressFormat ID -> {target}", xbmc.LOGWARNING)
+                 return open_item(target)
+
             # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
             if data.get("href") and "api.atresplayer.com" in data["href"]:
                 target = data["href"]
@@ -319,114 +326,168 @@ def open_item(href):
         if data.get("urlVideo") or data.get("sources"):
              nodes.append(data)
 
-        # NUEVO: Detectar Película (tiene firstEpisode y NO tiene temporadas)
+        # --- FASE 1: BUSCAR VIDEO PRINCIPAL (PLAY) ---
+        main_video_node = None
         has_seasons = "seasons" in data and data["seasons"]
-        is_movie = "firstEpisode" in data and data["firstEpisode"].get("href") and not has_seasons
-
-        if is_movie:
+        
+        # A. firstEpisode (Estructura típica de películas/eventos)
+        if "firstEpisode" in data and data["firstEpisode"].get("href"):
              ep = data["firstEpisode"]
-             video_node = {
-                 "title": data.get("title", "Reproducir Película"),
+             main_video_node = {
+                 "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                  "type": "VIDEO",
                  "href": ep.get("href"),
                  "image": data.get("image"),
                  "description": data.get("description")
              }
-             nodes.append(video_node)
 
-        # Si es película, NO procesamos nada más para evitar basura (Clips, Extras, etc.)
-        if not is_movie:
-            # ESTRATEGIA 1: Botón de Play en Cabecera (Hero)
+        # B. Hero Action (Botón en la cabecera) - Si no tenemos firstEpisode
+        if not main_video_node:
             hero = data.get('hero')
             if not hero and 'components' in data:
                 for c in data['components']:
-                    if c.get('component') in ['Hero', 'HERO', 'Showcase', 'Header']:
+                    # Ampliamos la lista de componentes posibles donde puede estar el botón
+                    if c.get('component') in ['Hero', 'HERO', 'Showcase', 'Header', 'Poster', 'Banner']:
                         hero = c; break
             if hero:
                 actions = hero.get("actions") or hero.get("buttons") or hero.get("links") or []
                 for action in actions:
-                    if action.get("type") == "PLAY" or "reproducir" in str(action.get("label")).lower():
-                        nodes.append({
-                            "title": f"[COLOR green]▶ {data.get('title', 'Reproducir')}[/COLOR]",
+                    label = str(action.get("label", "")).lower()
+                    if action.get("type") == "PLAY" or "reproducir" in label or "ver " in label or "ahora" in label:
+                        main_video_node = {
+                            "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                             "type": "VIDEO",
                             "href": action.get("href"),
                             "image": data.get("image"),
                             "description": data.get("description")
-                        })
-            
-            # 2. Bloques de CONTENIDO
-            
-            # A. Seasons (Series) - Prioridad
-            if "seasons" in data:
-                for season in data["seasons"]:
-                    found_eps = False
-                    if "episodes" in season:
-                        nodes.extend(season["episodes"])
-                        found_eps = True
-                    elif "items" in season:
-                        nodes.extend(season["items"])
-                        found_eps = True
-                    
-                    # Si no hay episodios inline, añadir la temporada como carpeta
-                    if not found_eps:
-                        nodes.append(season)
+                        }
+                        break
+        
+        # C. Fallback: Intentar inProgressFormat si es una ficha de formato sin video
+        if not main_video_node and not has_seasons and data.get("id"):
+             try:
+                 fmt_id = data["id"]
+                 url_prog = f"{API_BASE}/client/v1/inProgressFormat/watch/{fmt_id}"
+                 xbmc.log(f"ATRES_FALLBACK: Probando inProgressFormat {url_prog}", xbmc.LOGWARNING)
+                 r_prog = s.get(url_prog, timeout=5)
+                 if r_prog.ok:
+                     d_prog = r_prog.json()
+                     if "firstEpisode" in d_prog and isinstance(d_prog["firstEpisode"], str):
+                         ep_id = d_prog["firstEpisode"]
+                         main_video_node = {
+                             "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
+                             "type": "VIDEO",
+                             "href": f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}",
+                             "image": data.get("image"),
+                             "description": data.get("description")
+                         }
+             except Exception as e:
+                 xbmc.log(f"ATRES_FALLBACK_ERR: {e}", xbmc.LOGERROR)
 
-            # B. Components y Rows
-            other_containers = []
-            if "components" in data: other_containers.extend(data["components"])
-            if "rows" in data: other_containers.extend(data["rows"])
-            
-            # FILTRO: Palabras clave para eliminar secciones basura (Clips, Extras, etc.)
-            BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo"]
-            
-            for container in other_containers:
-                # 1. Filtrar por título del contenedor
-                c_title = (container.get("title") or "").lower()
-                if any(bad in c_title for bad in BAD_TITLES):
-                    continue
-                
-                # 2. Filtrar por tipo de contenido en el enlace (href)
-                c_href = container.get("href") or ""
-                if "entityType=ATPClip" in c_href or "entityType=ATPExtra" in c_href or "entityType=ATPSection" in c_href:
-                    continue
-
-                if "items" in container:
-                    nodes.extend(container["items"])
-                elif "rows" in container:
-                    for row in container["rows"]:
-                        # 3. Filtrar filas internas
-                        r_title = (row.get("title") or "").lower()
-                        if any(bad in r_title for bad in BAD_TITLES):
-                            continue
-                        nodes.extend(row.get("items") or [])
-                elif "episodes" in container:
-                    nodes.extend(container["episodes"])
-                elif "nodes" in container:
-                    nodes.extend(container["nodes"])
-                # Fallback para contenedores navegables (ej: enlaces a secciones)
-                elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
-                     nodes.append(container)
-
-            # 3. Fallback: Listas raíz
-            if "nodes" in data: nodes.extend(data["nodes"])
-            if "itemRows" in data: nodes.extend(data["itemRows"])
-            if "episode" in data: nodes.append(data["episode"])
-
-            # 4. ESTRATEGIA FINAL: Búsqueda Recursiva (Solo si no hemos encontrado NADA)
-            if not nodes:
-                play_candidates = []
-                _recursive_find_playable(data, play_candidates)
-                for action in play_candidates:
-                    label = action.get("label") or action.get("title") or "Reproducir"
-                    href_act = action.get("href")
-                    video_node = {
-                        "title": f"[COLOR green]▶ {label}[/COLOR]", 
+        # D. Búsqueda Recursiva (Último recurso si no hay temporadas y no hemos encontrado botón)
+        if not main_video_node and not has_seasons:
+             candidates = []
+             _recursive_find_playable(data, candidates)
+             for c in candidates:
+                 h = c.get('href', '')
+                 # Priorizar enlaces a player o episodios
+                 if '/episode/' in h or '/player/' in h:
+                     main_video_node = {
+                        "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                         "type": "VIDEO",
-                        "href": href_act,
+                        "href": h,
                         "image": data.get("image"),
-                        "description": data.get("description", "")
-                    }
-                    nodes.append(video_node)
+                        "description": data.get("description")
+                     }
+                     break
+
+        # --- FASE 2: PROCESAR CONTENIDO ADICIONAL (Temporadas, Filas) ---
+        content_nodes = []
+        
+        # A. Seasons (Series)
+        if "seasons" in data:
+            for season in data["seasons"]:
+                found_eps = False
+                if "episodes" in season:
+                    content_nodes.extend(season["episodes"])
+                    found_eps = True
+                elif "items" in season:
+                    content_nodes.extend(season["items"])
+                    found_eps = True
+                # Si no hay episodios inline, añadir la temporada como carpeta
+                if not found_eps:
+                    content_nodes.append(season)
+
+        # B. Components y Rows
+        other_containers = []
+        if "components" in data: other_containers.extend(data["components"])
+        if "rows" in data: other_containers.extend(data["rows"])
+        
+        # FILTRO: Palabras clave para eliminar secciones basura
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
+        
+        for container in other_containers:
+            # 1. Filtrar por título del contenedor
+            c_title = (container.get("title") or "").lower()
+            if any(bad in c_title for bad in BAD_TITLES): continue
+            
+            # 2. Filtrar por tipo de contenido en el enlace (href)
+            c_href = container.get("href") or ""
+            if "entityType=ATPClip" in c_href or "entityType=ATPExtra" in c_href or "entityType=ATPSection" in c_href: continue
+
+            if "items" in container:
+                content_nodes.extend(container["items"])
+            elif "rows" in container:
+                for row in container["rows"]:
+                    # 3. Filtrar filas internas
+                    r_title = (row.get("title") or "").lower()
+                    if any(bad in r_title for bad in BAD_TITLES): continue
+                    content_nodes.extend(row.get("items") or [])
+            elif "episodes" in container:
+                content_nodes.extend(container["episodes"])
+            elif "nodes" in container:
+                content_nodes.extend(container["nodes"])
+            # Fallback para contenedores navegables (ej: enlaces a secciones)
+            elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
+                 content_nodes.append(container)
+
+        # 3. Fallback: Listas raíz
+        if "nodes" in data: content_nodes.extend(data["nodes"])
+        if "itemRows" in data: content_nodes.extend(data["itemRows"])
+        if "episode" in data: content_nodes.append(data["episode"])
+
+        # --- FASE 3: CONSTRUIR LISTA FINAL ---
+        if main_video_node:
+            nodes.append(main_video_node)
+            
+        # LÓGICA DE LIMPIEZA FINAL:
+        # Si tenemos un video principal y NO hay temporadas, asumimos que es una Película/Evento.
+        # En ese caso, ocultamos las filas adicionales (que suelen ser basura como Clips)
+        # a menos que parezcan episodios reales (Programas).
+        is_movie_mode = main_video_node and not has_seasons
+        
+        if is_movie_mode:
+            # Solo añadir contenido si parece ser un episodio o video completo, no clips
+            for n in content_nodes:
+                ntype = str(n.get("type", "")).upper()
+                if ntype in ["EPISODE", "VIDEO"] or "season" in str(n).lower():
+                    nodes.append(n)
+        else:
+            # Si es serie o no hay video principal, mostramos todo lo procesado
+            nodes.extend(content_nodes)
+
+        # Fallback final si no hay nada
+        if not nodes and not main_video_node:
+             # Intento desesperado de encontrar algo reproducible
+             candidates = []
+             _recursive_find_playable(data, candidates)
+             for c in candidates:
+                 nodes.append({
+                    "title": f"[COLOR green]▶ {c.get('label') or 'Reproducir'}[/COLOR]", 
+                    "type": "VIDEO",
+                    "href": c.get('href'),
+                    "image": data.get("image")
+                 })
         
         # Establecer tipo de contenido para las vistas
         if is_season_view or "itemRows" in data:
@@ -565,6 +626,13 @@ def play(href):
              if target != href:
                  xbmc.log(f"ATRES_PLAY_REDIRECT: Usando API Href: {target}", xbmc.LOGWARNING)
                  return play(target)
+
+        # NUEVO: Detectar firstEpisode como string (inProgressFormat)
+        if "firstEpisode" in data and isinstance(data["firstEpisode"], str):
+             ep_id = data["firstEpisode"]
+             target = f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
+             xbmc.log(f"ATRES_PLAY_REDIRECT: Usando inProgressFormat ID: {target}", xbmc.LOGWARNING)
+             return play(target)
 
         # NUEVO: Detectar firstEpisode en Player (por si llegamos aquí directamente)
         if "firstEpisode" in data and data["firstEpisode"].get("href"):
