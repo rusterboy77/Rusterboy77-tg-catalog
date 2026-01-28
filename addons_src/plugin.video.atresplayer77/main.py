@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.40...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.41...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -388,27 +388,41 @@ def open_item(href):
             }
             nodes.append(video_node)
 
-        # 2. Bloques de CONTENIDO (Grids, Carousels, Rows)
-        # Buscamos listas de items dentro de los componentes o en la raíz
-        containers = []
-        if "components" in data: containers.extend(data["components"])
-        if "rows" in data: containers.extend(data["rows"]) # Estructura antigua/mix
-        if "seasons" in data: containers.extend(data["seasons"]) # Estructura series
+        # 2. Bloques de CONTENIDO
         
-        for container in containers:
-            # Extraer items directos
+        # A. Seasons (Series) - Prioridad
+        if "seasons" in data:
+            for season in data["seasons"]:
+                found_eps = False
+                if "episodes" in season:
+                    nodes.extend(season["episodes"])
+                    found_eps = True
+                elif "items" in season:
+                    nodes.extend(season["items"])
+                    found_eps = True
+                
+                # Si no hay episodios inline, añadir la temporada como carpeta
+                if not found_eps:
+                    nodes.append(season)
+
+        # B. Components y Rows
+        other_containers = []
+        if "components" in data: other_containers.extend(data["components"])
+        if "rows" in data: other_containers.extend(data["rows"])
+        
+        for container in other_containers:
             if "items" in container:
                 nodes.extend(container["items"])
-            # Extraer items dentro de filas internas
             elif "rows" in container:
                 for row in container["rows"]:
                     nodes.extend(row.get("items") or [])
-            # Extraer episodios (estructura seasons)
             elif "episodes" in container:
                 nodes.extend(container["episodes"])
-            # Estructura de nodos simple
             elif "nodes" in container:
                 nodes.extend(container["nodes"])
+            # Fallback para contenedores navegables (ej: enlaces a secciones)
+            elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
+                 nodes.append(container)
 
         # 3. Fallback: Si no hay componentes, mirar listas raíz
         if not nodes:
