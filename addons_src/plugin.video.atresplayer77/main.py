@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.53...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.54...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -655,6 +655,22 @@ def play(href):
         r.raise_for_status()
         data = r.json()
         
+        # Helper para búsquedas recursivas (Definido al inicio para evitar errores)
+        def _find_key(d, k):
+             if isinstance(d, dict):
+                 if k in d and d[k]: return d[k]
+                 for v in d.values():
+                     res = _find_key(v, k)
+                     if res: return res
+             elif isinstance(d, list):
+                 for i in d:
+                     res = _find_key(i, k)
+                     if res: return res
+             return None
+
+        # Inicializar video_url al principio
+        video_url = data.get("urlVideo")
+
         # --- DETECCIÓN DE REDIRECCIÓN EN PLAYER ---
         # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
         if data.get("href") and "api.atresplayer.com" in data["href"] and "urlVideo" not in data and "sources" not in data:
@@ -713,21 +729,6 @@ def play(href):
                  if target != href:
                      xbmc.log(f"ATRES_PLAY_REDIRECT: Redirigiendo a {target}", xbmc.LOGWARNING)
                      return play(target)
-
-        # 1. Obtener URL del Player o Sources directos
-        video_url = data.get("urlVideo")
-        
-        def _find_key(d, k):
-             if isinstance(d, dict):
-                 if k in d and d[k]: return d[k]
-                 for v in d.values():
-                     res = _find_key(v, k)
-                     if res: return res
-             elif isinstance(d, list):
-                 for i in d:
-                     res = _find_key(i, k)
-                     if res: return res
-             return None
 
         # NUEVO: Buscar urlVideo recursivamente si no está en la raíz (para estructuras anidadas)
         if not video_url:
