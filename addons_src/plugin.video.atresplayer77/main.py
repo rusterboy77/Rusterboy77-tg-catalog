@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.51...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.52...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -716,22 +716,30 @@ def play(href):
         # 1. Obtener URL del Player o Sources directos
         video_url = data.get("urlVideo")
         
+        def _find_key(d, k):
+             if isinstance(d, dict):
+                 if k in d: return d[k]
+                 for v in d.values():
+                     res = _find_key(v, k)
+                     if res: return res
+             elif isinstance(d, list):
+                 for i in d:
+                     res = _find_key(i, k)
+                     if res: return res
+             return None
+
         # NUEVO: Buscar urlVideo recursivamente si no está en la raíz (para estructuras anidadas)
         if not video_url:
-             def _find_key(d, k):
-                 if isinstance(d, dict):
-                     if k in d: return d[k]
-                     for v in d.values():
-                         res = _find_key(v, k)
-                         if res: return res
-                 elif isinstance(d, list):
-                     for i in d:
-                         res = _find_key(i, k)
-                         if res: return res
-                 return None
              video_url = _find_key(data, "urlVideo")
              if video_url:
                  xbmc.log(f"ATRES_PLAY: urlVideo encontrado recursivamente: {video_url}", xbmc.LOGWARNING)
+
+        # NUEVO: Buscar sources recursivamente si no están en la raíz
+        if not video_url and not data.get("sources"):
+             sources_found = _find_key(data, "sources")
+             if sources_found:
+                 xbmc.log(f"ATRES_PLAY: sources encontrado recursivamente", xbmc.LOGWARNING)
+                 data["sources"] = sources_found
         
         # Si no hay video_url ni sources, es posible que estemos en una ficha (Format)
         # Intentamos buscar el enlace de reproducción dentro de la estructura
