@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.54...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.55...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -743,6 +743,23 @@ def play(href):
                  xbmc.log(f"ATRES_PLAY: sources encontrado recursivamente", xbmc.LOGWARNING)
                  data["sources"] = sources_found
         
+        # NUEVO: Si no hay video, buscar botones de acción (Hero) igual que en los menús
+        # Esto soluciona CINE cuando la URL del episodio es una ficha de presentación
+        if not video_url and not data.get("sources"):
+            hero = data.get('hero')
+            if not hero and 'components' in data:
+                for c in data['components']:
+                    if c.get('component') in ['Hero', 'HERO', 'Showcase', 'Header', 'Poster', 'Banner']:
+                        hero = c; break
+            if hero:
+                actions = hero.get("actions") or hero.get("buttons") or hero.get("links") or []
+                for action in actions:
+                    if action.get("type") == "PLAY" or "reproducir" in str(action.get("label", "")).lower():
+                        target = action.get("href")
+                        if target and target != href:
+                             xbmc.log(f"ATRES_PLAY: Botón Hero encontrado, redirigiendo: {target}", xbmc.LOGWARNING)
+                             return play(target)
+
         # Si no hay video_url ni sources, es posible que estemos en una ficha (Format)
         # Intentamos buscar el enlace de reproducción dentro de la estructura
         if not video_url and not data.get("sources"):
