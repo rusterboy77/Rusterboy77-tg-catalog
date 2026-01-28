@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.56...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.57...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -30,7 +30,8 @@ CATEGORIES = {
     "Documentales": "5b067bf3986b28b0a27c2f42",
     "Infantil": "5a6a24b1986b281d18a512c0",
     "Actualidad": "5a6a215e986b281d18a512bc",
-    "Cine": "5b5f2f777ed1a86860102144"
+    "Cine": "5b5f2f777ed1a86860102144",
+    "Premium": "605b306f7ed1a86f42397281"
 }
 
 # Gestión de Cookies y Sesión
@@ -117,6 +118,20 @@ def list_categories():
             else:
                 url = get_url(action='open_item', href=href)
             xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        
+        # Añadir manualmente secciones que el filtro LINK suele ocultar
+        # Premium
+        list_item = xbmcgui.ListItem(label='Premium')
+        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        url = get_url(action='list_section', category_id="605b306f7ed1a86f42397281", category_name="Premium")
+        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+
+        # Últimos 7 Días (7UD)
+        list_item = xbmcgui.ListItem(label='Últimos 7 Días')
+        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        url = get_url(action='open_item', href='/u7d/')
+        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+
     else:
         # Fallback a categorías hardcoded
         for label, cat_id in CATEGORIES.items():
@@ -127,6 +142,12 @@ def list_categories():
             list_item.setArt({'icon': icon_path, 'thumb': icon_path})
             url = get_url(action='list_section', category_id=cat_id, category_name=label)
             xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        
+        # Añadir 7UD al fallback también
+        list_item = xbmcgui.ListItem(label='Últimos 7 Días')
+        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        url = get_url(action='open_item', href='/u7d/')
+        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     # Siempre añadir acceso directo a Live por si acaso
     list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
@@ -199,7 +220,7 @@ def list_live():
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
     open_item('/directos/')
 
-def list_section(category_id, category_name=None):
+def list_section(category_id, category_name=None, page=0):
     """Conecta a la API y lista el contenido de una categoría"""
     
     # Establecer el tipo de contenido para que la skin active las vistas (Poster, Fanart, etc.)
@@ -217,8 +238,8 @@ def list_section(category_id, category_name=None):
         "mainChannelId": MAIN_CHANNEL_ID,
         "categoryId": category_id,
         "sortType": "THE_MOST",
-        "size": 50,
-        "page": 0
+        "size": 30,
+        "page": page
     }
     
     s = get_session()
@@ -254,6 +275,18 @@ def list_section(category_id, category_name=None):
                 else:
                     url = get_url(action='open_item', href=href)
                     xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        
+        # Paginación
+        page_info = data.get("pageInfo", {})
+        total_pages = page_info.get("totalPages", 0)
+        current_page = page_info.get("pageNumber", page)
+        
+        if current_page < total_pages - 1:
+            next_page = current_page + 1
+            url = get_url(action='list_section', category_id=category_id, category_name=category_name, page=next_page)
+            list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_page + 1}/{total_pages})[/COLOR]")
+            list_item.setArt({'icon': 'DefaultFolder.png'})
+            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
             
     except Exception as e:
         xbmcgui.Dialog().notification("Error API", str(e))
@@ -262,6 +295,15 @@ def list_section(category_id, category_name=None):
 
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
+    # Forzar tamaño de página a 30 para listas (evita sobrecarga y habilita paginación)
+    if "/row/search" in href:
+        if "size=" in href:
+            href = re.sub(r'size=\d+', 'size=30', href)
+        elif "?" in href:
+            href += "&size=30"
+        else:
+            href += "?size=30"
+
     # CAMBIO IMPORTANTE: Usar /client/v1/url para resolver rutas, igual que la web
     params = {}
     if href.startswith("http"):
@@ -439,7 +481,10 @@ def open_item(href):
         content_nodes = []
         
         # A. Seasons (Series)
-        if "seasons" in data:
+        # NUEVO: Si hay episodios en la raíz (vista de Temporada), usarlos directamente y evitar duplicar temporadas
+        if "episodes" in data and data["episodes"]:
+             content_nodes.extend(data["episodes"])
+        elif "seasons" in data:
             for season in data["seasons"]:
                 found_eps = False
                 if "episodes" in season:
@@ -458,7 +503,7 @@ def open_item(href):
         if "rows" in data: other_containers.extend(data["rows"])
         
         # FILTRO: Palabras clave para eliminar secciones basura
-        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos"]
         
         for container in other_containers:
             # 1. Filtrar por título del contenedor
@@ -491,26 +536,31 @@ def open_item(href):
         if "episode" in data: content_nodes.append(data["episode"])
 
         # --- FASE 3: CONSTRUIR LISTA FINAL ---
-        if main_video_node:
-            nodes.append(main_video_node)
-            
-        # LÓGICA DE LIMPIEZA FINAL:
-        # Si tenemos un video principal y NO hay temporadas, asumimos que es una Película/Evento.
-        # En ese caso, ocultamos las filas adicionales (que suelen ser basura como Clips)
-        # a menos que parezcan episodios reales (Programas).
         is_movie_mode = main_video_node and not has_seasons
         
+        # 1. Filtrar contenido válido (Episodios/Temporadas) y descartar clips basura
+        valid_content = []
         if is_movie_mode:
-            # Solo añadir contenido si parece ser un episodio o video completo, no clips
+            # En modo "película/programa suelto", filtramos clips y extras agresivamente
             for n in content_nodes:
                 ntype = str(n.get("type", "")).upper()
+                # Si encontramos episodios sueltos (ej: Programas que no usan temporadas), son contenido válido
                 if ntype in ["EPISODE", "VIDEO"] or "season" in str(n).lower():
-                    nodes.append(n)
+                    valid_content.append(n)
         else:
-            # Si es serie o no hay video principal, mostramos todo lo procesado
-            nodes.extend(content_nodes)
+            # Si es serie con temporadas explícitas, todo el contenido recopilado es válido
+            valid_content.extend(content_nodes)
 
-        # Fallback final si no hay nada
+        # 2. Decidir si mostramos el botón "Reproducir" (Hero)
+        # Solo lo mostramos si NO hay contenido válido (es decir, es una película sola o un directo)
+        # Esto evita que en Series/Programas salga el botón "Reproducir" duplicado arriba.
+        if main_video_node and not valid_content:
+            nodes.append(main_video_node)
+
+        # 3. Añadir el contenido válido (Episodios, Temporadas)
+        nodes.extend(valid_content)
+
+        # Fallback final de emergencia si no hay nada de nada
         if not nodes and not main_video_node:
              # Intento desesperado de encontrar algo reproducible
              candidates = []
@@ -565,8 +615,11 @@ def open_item(href):
             # CORRECCIÓN: Si el enlace contiene '/row/' o 'search', es una lista (carpeta), no un vídeo
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             
+            # HEURÍSTICA: Si el href parece un episodio o player, forzar playable (evita abrir carpeta con botón reproducir)
+            looks_like_video = sub_href and ("/episode/" in sub_href or "/player/" in sub_href)
+            
             # AÑADIDO: 'MOVIE', 'LIVE', 'CHANNEL' a la lista de tipos reproducibles
-            if sub_href and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL'] or is_row_container):
+            if sub_href and not looks_like_video and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
@@ -577,6 +630,26 @@ def open_item(href):
                 list_item.setProperty('IsPlayable', 'true')
 
             xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
+
+        # Paginación para listas dinámicas (open_item)
+        if "pageInfo" in data:
+            page_info = data["pageInfo"]
+            total_pages = page_info.get("totalPages", 0)
+            current_page = page_info.get("pageNumber", 0)
+            
+            if current_page < total_pages - 1:
+                next_page = current_page + 1
+                if "page=" in href:
+                    next_href = re.sub(r'page=\d+', f'page={next_page}', href)
+                elif "?" in href:
+                    next_href = href + f"&page={next_page}"
+                else:
+                    next_href = href + f"?page={next_page}"
+                
+                url = get_url(action='open_item', href=next_href)
+                list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_page + 1}/{total_pages})[/COLOR]")
+                list_item.setArt({'icon': 'DefaultFolder.png'})
+                xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     except Exception as e:
         xbmcgui.Dialog().notification("Error Navegación", str(e))
@@ -863,7 +936,7 @@ def router(paramstring):
     if action == 'settings':
         open_settings()
     elif action == 'list_section':
-        list_section(params.get('category_id'), params.get('category_name'))
+        list_section(params.get('category_id'), params.get('category_name'), int(params.get('page', 0)))
     elif action == 'open_item':
         open_item(params.get('href'))
     elif action == 'login':
