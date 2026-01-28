@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.47...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.48...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -276,6 +276,9 @@ def open_item(href):
         r.raise_for_status()
         data = r.json()
         
+        # DEBUG: Descomenta esto si quieres ver la estructura al entrar en una ficha
+        # xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
+        
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
         # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
         if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
@@ -331,12 +334,23 @@ def open_item(href):
         has_seasons = "seasons" in data and data["seasons"]
         
         # A. firstEpisode (Estructura típica de películas/eventos)
-        if "firstEpisode" in data and data["firstEpisode"].get("href"):
+        if "firstEpisode" in data and isinstance(data["firstEpisode"], dict) and data["firstEpisode"].get("href"):
              ep = data["firstEpisode"]
              main_video_node = {
                  "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                  "type": "VIDEO",
                  "href": ep.get("href"),
+                 "image": data.get("image"),
+                 "description": data.get("description")
+             }
+
+        # A.2 Episode (Campo directo en Formatos de Cine detectado en logs)
+        if not main_video_node and "episode" in data and isinstance(data["episode"], str):
+             target = data["episode"]
+             main_video_node = {
+                 "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
+                 "type": "VIDEO",
+                 "href": target,
                  "image": data.get("image"),
                  "description": data.get("description")
              }
@@ -372,12 +386,21 @@ def open_item(href):
                  r_prog = s.get(url_prog, timeout=5)
                  if r_prog.ok:
                      d_prog = r_prog.json()
-                     if "firstEpisode" in d_prog and isinstance(d_prog["firstEpisode"], str):
-                         ep_id = d_prog["firstEpisode"]
+                     xbmc.log(f"ATRES_FALLBACK_RESP: {str(d_prog)[:200]}", xbmc.LOGWARNING)
+                     
+                     ep_id = None
+                     if "firstEpisode" in d_prog:
+                         val = d_prog["firstEpisode"]
+                         if isinstance(val, str): ep_id = val
+                         elif isinstance(val, dict): ep_id = val.get("id") or val.get("href")
+
+                     if ep_id:
+                         # Si es un ID simple, construimos la URL. Si es una URL completa, la usamos.
+                         target = ep_id if (str(ep_id).startswith("http") or str(ep_id).startswith("/")) else f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
                          main_video_node = {
                              "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                              "type": "VIDEO",
-                             "href": f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}",
+                             "href": target,
                              "image": data.get("image"),
                              "description": data.get("description")
                          }
@@ -634,12 +657,37 @@ def play(href):
              xbmc.log(f"ATRES_PLAY_REDIRECT: Usando inProgressFormat ID: {target}", xbmc.LOGWARNING)
              return play(target)
 
+        # NUEVO: Fallback inProgressFormat dentro de PLAY (por si open_item falló o usamos botón forzado)
+        if not video_url and not data.get("sources") and data.get("id"):
+             try:
+                 fmt_id = data["id"]
+                 url_prog = f"{API_BASE}/client/v1/inProgressFormat/watch/{fmt_id}"
+                 xbmc.log(f"ATRES_PLAY_FALLBACK: Probando inProgressFormat {url_prog}", xbmc.LOGWARNING)
+                 r_prog = s.get(url_prog, timeout=5)
+                 if r_prog.ok:
+                     d_prog = r_prog.json()
+                     ep_id = None
+                     if "firstEpisode" in d_prog:
+                         val = d_prog["firstEpisode"]
+                         if isinstance(val, str): ep_id = val
+                         elif isinstance(val, dict): ep_id = val.get("id")
+                     if ep_id:
+                         target = f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
+                         return play(target)
+             except Exception: pass
+
         # NUEVO: Detectar firstEpisode en Player (por si llegamos aquí directamente)
-        if "firstEpisode" in data and data["firstEpisode"].get("href"):
+        if "firstEpisode" in data and isinstance(data["firstEpisode"], dict) and data["firstEpisode"].get("href"):
              target = data["firstEpisode"]["href"]
              if target != href:
                  xbmc.log(f"ATRES_PLAY_REDIRECT: Usando firstEpisode: {target}", xbmc.LOGWARNING)
                  return play(target)
+
+        # NUEVO: Detectar campo 'episode' (Cine)
+        if "episode" in data and isinstance(data["episode"], str):
+             target = data["episode"]
+             xbmc.log(f"ATRES_PLAY_REDIRECT: Usando campo episode: {target}", xbmc.LOGWARNING)
+             return play(target)
 
         if data.get("redirect") or (data.get("url") and "urlVideo" not in data and "sources" not in data):
              target = data.get("url") or data.get("href")
@@ -701,6 +749,8 @@ def play(href):
             video_url = _get_best_source(data.get("sources"))
 
         if not video_url:
+             # DEBUG CRÍTICO: Imprimir estructura completa si falla para comparar con la web
+             xbmc.log(f"ATRES_PLAY_FAIL_DUMP: {json.dumps(data)}", xbmc.LOGERROR)
              xbmc.log(f"ATRES_PLAY_FAIL: No sources found in {data}", xbmc.LOGERROR)
              xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
              return
