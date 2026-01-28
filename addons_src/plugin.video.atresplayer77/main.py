@@ -352,6 +352,7 @@ def open_item(href):
              elif isinstance(ep_val, dict): ep_target = ep_val.get("href")
 
              if ep_target:
+                 xbmc.log(f"ATRES_OPEN: Detectado campo 'episode' para Cine: {ep_target}", xbmc.LOGWARNING)
                  main_video_node = {
                      "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                      "type": "VIDEO",
@@ -719,6 +720,7 @@ def play(href):
         def _find_key(d, k):
              if isinstance(d, dict):
                  if k in d: return d[k]
+                 if k in d and d[k]: return d[k]
                  for v in d.values():
                      res = _find_key(v, k)
                      if res: return res
