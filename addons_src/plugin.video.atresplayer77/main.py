@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.36...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.37...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -87,20 +87,48 @@ def _fix_img(url, type='vertical'):
 
 def list_categories():
     """Menú Principal"""
-    # 1. Listar Categorías de la API
-    for label, cat_id in CATEGORIES.items():
-        # Buscar icono personalizado en resources/media/nombre_categoria.png
-        icon_name = label.lower().replace(' ', '_') + ".png" # series.png, cine.png, etc.
-        icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
-        if not os.path.exists(icon_path):
-            icon_path = 'DefaultFolder.png'
-            
-        list_item = xbmcgui.ListItem(label=label)
-        list_item.setArt({'icon': icon_path, 'thumb': icon_path})
-        url = get_url(action='list_section', category_id=cat_id, category_name=label)
-        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+    # 1. Intentar cargar menú dinámico de la Web
+    s = get_session()
+    dynamic_items = []
+    try:
+        r = s.get(f"{API_BASE}/client/v1/menus/web", timeout=5)
+        if r.ok:
+            menu = r.json()
+            xbmc.log(f"ATRES_MENU_DEBUG: Encontrados {len(menu.get('items', []))} items en menú web", xbmc.LOGWARNING)
+            for item in menu.get("items", []):
+                if item.get("type") == "LINK" and item.get("href"):
+                    dynamic_items.append(item)
+    except Exception:
+        pass
 
-    # NUEVO: Canales en Directo
+    if dynamic_items:
+        for item in dynamic_items:
+            label = item.get("title", "Sin título")
+            href = item.get("href")
+            icon_name = label.lower().replace(' ', '_') + ".png"
+            icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
+            if not os.path.exists(icon_path): icon_path = 'DefaultFolder.png'
+            
+            list_item = xbmcgui.ListItem(label=label)
+            list_item.setArt({'icon': icon_path, 'thumb': icon_path})
+            
+            if "directos" in href or "guia-tv" in href:
+                url = get_url(action='list_live')
+            else:
+                url = get_url(action='open_item', href=href)
+            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+    else:
+        # Fallback a categorías hardcoded
+        for label, cat_id in CATEGORIES.items():
+            icon_name = label.lower().replace(' ', '_') + ".png"
+            icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
+            if not os.path.exists(icon_path): icon_path = 'DefaultFolder.png'
+            list_item = xbmcgui.ListItem(label=label)
+            list_item.setArt({'icon': icon_path, 'thumb': icon_path})
+            url = get_url(action='list_section', category_id=cat_id, category_name=label)
+            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+
+    # Siempre añadir acceso directo a Live por si acaso
     list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
     list_item.setArt({'icon': 'DefaultAddonPVRClient.png'})
     url = get_url(action='list_live')
@@ -146,31 +174,8 @@ def search_palantir_bridge(query):
 # --- LÓGICA ATRESPLAYER ---
 def list_live():
     """Lista los canales en directo"""
-    xbmcplugin.setContent(_handle, 'videos')
-    url = f"{API_BASE}/client/v1/live/channels"
-    s = get_session()
-    try:
-        r = s.get(url, timeout=10)
-        r.raise_for_status()
-        data = r.json()
-        
-        for item in data:
-            title = item.get("name") or item.get("channel") or "Canal"
-            img_data = item.get("image") or item.get("images") or {}
-            thumb = _fix_img(img_data.get("pathHorizontal") or img_data.get("pathVertical"))
-            
-            list_item = xbmcgui.ListItem(label=title)
-            list_item.setArt({'icon': thumb, 'thumb': thumb})
-            
-            # Los canales suelen tener un href directo al player o un ID
-            href = item.get("href")
-            if href:
-                url = get_url(action='play', href=href)
-                list_item.setProperty('IsPlayable', 'true')
-                xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
-    except Exception as e:
-        xbmcgui.Dialog().notification("Error Live", str(e))
-    xbmcplugin.endOfDirectory(_handle)
+    # Ahora usamos el endpoint genérico apuntando a la ruta de directos
+    open_item('/directos/')
 
 def list_section(category_id, category_name=None):
     """Conecta a la API y lista el contenido de una categoría"""
@@ -230,18 +235,22 @@ def list_section(category_id, category_name=None):
 
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
-    # La API para detalles es /client/v1/items + el href del item
-    # CORRECCIÓN: Si el href ya es una URL completa (empieza por http), la usamos tal cual
+    # CAMBIO IMPORTANTE: Usar /client/v1/url para resolver rutas, igual que la web
+    params = {}
     if href.startswith("http"):
         url = href
+    elif href.startswith("/"):
+        url = f"{API_BASE}/client/v1/url"
+        params = {"href": href}
     else:
+        # Fallback para IDs antiguos si los hubiera
         url = f"{API_BASE}/client/v1/items{href}"
     
     xbmc.log(f"ATRES_OPEN: Consultando {url}", xbmc.LOGWARNING)
     
     s = get_session()
     try:
-        r = s.get(url, timeout=10)
+        r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
         
@@ -255,9 +264,32 @@ def open_item(href):
 
         nodes = []
         
+        # DEBUG: Imprimir componentes para entender la estructura de la página
+        if "components" in data:
+            comps = [c.get("component") or c.get("type") for c in data["components"]]
+            xbmc.log(f"ATRES_DEBUG_COMPONENTS: {comps}", xbmc.LOGWARNING)
+        
         # ESTRATEGIA 0: El propio objeto es reproducible (Peliculas/Directos que vienen completos)
         if data.get("urlVideo") or data.get("sources"):
              nodes.append(data)
+
+        # NUEVA ESTRATEGIA: Hero Actions (Peliculas / Eventos)
+        hero = data.get("hero") or {}
+        if not hero and "components" in data:
+            for c in data["components"]:
+                if c.get("component") == "Hero" or c.get("type") == "HERO":
+                    hero = c
+                    break
+        if hero:
+            xbmc.log(f"ATRES_DEBUG_HERO_KEYS: {list(hero.keys())}", xbmc.LOGWARNING)
+            actions = hero.get("actions") or hero.get("buttons") or hero.get("links") or []
+            for action in actions:
+                label = (action.get("label") or "").lower()
+                act_type = action.get("type")
+                # xbmc.log(f"ATRES_DEBUG_ACTION: label='{label}' type='{act_type}' href='{action.get('href')}'", xbmc.LOGWARNING)
+                if action.get("href") and (act_type == "PLAY" or "reproducir" in label or "ver " in label or "ahora" in label):
+                    video_node = {"title": data.get("title", "Reproducir"), "type": "VIDEO", "href": action.get("href"), "image": data.get("image"), "description": data.get("description")}
+                    nodes.append(video_node)
 
         # ESTRATEGIA 1: Nodos directos (Programas simples)
         if "nodes" in data:
@@ -362,8 +394,8 @@ def open_item(href):
             # CORRECCIÓN: Si el enlace contiene '/row/' o 'search', es una lista (carpeta), no un vídeo
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             
-            # AÑADIDO: 'MOVIE' y 'LIVE' a la lista de tipos reproducibles
-            if sub_href and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE'] or is_row_container):
+            # AÑADIDO: 'MOVIE', 'LIVE', 'CHANNEL' a la lista de tipos reproducibles
+            if sub_href and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
@@ -433,14 +465,20 @@ def do_login():
 
 def play(href):
     """Resuelve la URL del vídeo y lo reproduce"""
-    if href.startswith("http"): url = href
-    else: url = f"{API_BASE}/client/v1/items{href}"
+    params = {}
+    if href.startswith("http"): 
+        url = href
+    elif href.startswith("/"):
+        url = f"{API_BASE}/client/v1/url"
+        params = {"href": href}
+    else: 
+        url = f"{API_BASE}/client/v1/items{href}"
     
     s = get_session()
     xbmc.log(f"ATRES_PLAY: Solicitando vídeo {url}", xbmc.LOGWARNING)
     
     try:
-        r = s.get(url, timeout=10)
+        r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
         
