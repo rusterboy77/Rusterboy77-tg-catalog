@@ -40518,7 +40518,39 @@
           "infohash": "d9e1025f8d4a76ea37ecd060215cd5e0faccb8d0"
         }
       ],
-      "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador."
+      "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+      "episodes": [
+        {
+          "season": 7,
+          "episode": 1,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:485166e22ce870a8af2f9e89e9c0f6b1a0671626"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:33436e6e14f65129993e03cbbff03c911efcabb5"
+            }
+          ]
+        },
+        {
+          "season": 7,
+          "episode": 2,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:44cedf51cfd642339be09149daeee07fea954ad0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3866334d542c26b8a51a1a9c591e499e55b0f10c"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Crimen en el tropico [HDTV 720p][Cap.602].torrent",
@@ -41418,7 +41450,20 @@
           "infohash": "41fca8188fe44227da58220c3b9401e19cf59319"
         }
       ],
-      "overview": "Cuarto Milenio trata sobre cualquier tema relacionado con el mundo del misterio y lo desconocido, entre los que destacan: conspiración, ocultismo, criminología, astronomía, ufología, psicología, parapsicología, demonología, arqueología, historia, zoología o física. El programa cuenta habitualmente con la participación de científicos y expertos en diversas materias como psiquiatras, físicos, historiadores, antropólogos, criminólogos, astrónomos, naturalistas, escritores o periodistas. Dirigido y presentado por los periodistas Iker Jiménez y Carmen Porter."
+      "overview": "Cuarto Milenio trata sobre cualquier tema relacionado con el mundo del misterio y lo desconocido, entre los que destacan: conspiración, ocultismo, criminología, astronomía, ufología, psicología, parapsicología, demonología, arqueología, historia, zoología o física. El programa cuenta habitualmente con la participación de científicos y expertos en diversas materias como psiquiatras, físicos, historiadores, antropólogos, criminólogos, astrónomos, naturalistas, escritores o periodistas. Dirigido y presentado por los periodistas Iker Jiménez y Carmen Porter.",
+      "episodes": [
+        {
+          "season": 21,
+          "episode": 20,
+          "overview": "Cuarto Milenio trata sobre cualquier tema relacionado con el mundo del misterio y lo desconocido, entre los que destacan: conspiración, ocultismo, criminología, astronomía, ufología, psicología, parapsicología, demonología, arqueología, historia, zoología o física. El programa cuenta habitualmente con la participación de científicos y expertos en diversas materias como psiquiatras, físicos, historiadores, antropólogos, criminólogos, astrónomos, naturalistas, escritores o periodistas. Dirigido y presentado por los periodistas Iker Jiménez y Carmen Porter.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1174e6ae43d6e8c1a3a122a015881361d36d5782"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Cuarto Milenio [HDTV][Cap.2016].torrent",
@@ -76128,6 +76173,17 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:001ec8ceb85d9ca2f3f85a8a9adffa6575a7d853"
+            }
+          ]
+        },
+        {
+          "season": 5,
+          "episode": 7,
+          "overview": "Julio Torres cuenta la historia de cuando perdió una ostra dorada. Las personas que encuentra mientras la busca y las reflexiones que tiene se convierten en puntos de partida para pequeñas películas a lo largo del camino, mientras Torres navega entrando y saliendo de estas historias cómicas introspectivas, a menudo espeluznantes.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9d156c90c4b2517b23ac4160d4f842a7a3517b84"
             }
           ]
         }
@@ -236485,6 +236541,21 @@
               "magnet": "magnet:?xt=urn:btih:17e7011c331d5550e699f851ea19b061b1cf7079"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Marissa Irvine llega para recoger a su pequeño hijo Milo de su primera cita de juegos, pero la mujer que le abre la puerta no es una madre que ella reconozca. No tiene a Milo y nunca ha oído hablar de él... A medida que la peor pesadilla de todo padre comienza a revelarse, nuevas preguntas conducen a profundos secretos, revelando grietas en el mundo aparentemente perfecto de Irvine hasta que todo queda hecho añicos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:353bf3f9456ec20e60b759a36b4cd243cc03fa2c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:33e29c3cc84a2f2af1fd07f71c24b4acac0b2504"
+            }
+          ]
         }
       ]
     },
@@ -236992,6 +237063,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:62f5b4d2c226e618e3e8694c8605b42ba35c6199"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:dfca91cf89a27ca6588524d78e66f37104d561a4"
             }
           ]
         }
@@ -237120,6 +237195,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:c0d7c733b32739f6438a58e7ff624b9ab84fbcff"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:de4578ce31364c94eec39d5c60dd1afeac91c785"
             }
           ]
         }
@@ -237344,6 +237423,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:50934a0514eac6cb3757877e09d1cca36b7e934a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d279390b5a49ce37b0e5860f22465e8a3b4fb962"
             }
           ]
         },
@@ -237614,6 +237697,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e2e3e68469fa2c3d12fde5807854433be5a22233"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8f3d818bf814d644c69806d9797300d1d52695af"
             }
           ]
         },
@@ -237849,6 +237936,17 @@
               "magnet": "magnet:?xt=urn:btih:92352fb5104ae23ed23d796f07be14cc66aa6ab7"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "El negociador Sam Nelson va a vivir el viaje de su vida cuando un grupo de secuestradores toma el control. Sam agotará sus tácticas, pero la situación es límite.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:45dd6e146befadc22256a5259a365fe9abe81d47"
+            }
+          ]
         }
       ]
     },
@@ -238038,6 +238136,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4dec507007bc15defc58e2fc5443f4f8c9750811"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2272364ddb012af108d88100a72832baf7d63196"
             }
           ]
         },
@@ -238399,7 +238501,731 @@
               "magnet": "magnet:?xt=urn:btih:44ce2c07680067978b06a622e08646ac08d9e217"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:15b652c26bb342fb081608f0d03af0e8a41ab7e9"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a9f368846cc3c13a4f82298ce4e02d827b6ffc84"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bafaabfbea2cc5126602ef5a08376c3946940aca"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:73d2f699a7fb2a6d7651fb75b9393521a0a08272"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ae01d2424a948a1681e3760d5bae15bebadcbb49"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:eb8a113e0ef03831853dcd5863aad06e72b2d8d3"
+            }
+          ]
         }
+      ]
+    },
+    {
+      "file": "El caballero de los siete reinos",
+      "parsed": {
+        "type": "series",
+        "series": "El caballero de los siete reinos"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 224372,
+        "title": "El caballero de los Siete Reinos",
+        "original_title": "A Knight of the Seven Kingdoms",
+        "overview": "Un siglo antes de los acontecimientos de \"Juego de Tronos\", dos héroes improbables vagaban por Poniente: un joven e ingenuo, pero valiente caballero, Ser Duncan el Alto, y su pequeño escudero, Egg. Ambientada en una época en la que el linaje Targaryen aún ostenta el Trono de Hierro y el recuerdo del último dragón aún no ha desaparecido de la memoria viva, grandes destinos, poderosos enemigos y peligrosas hazañas aguardan a estos improbables e incomparables amigos.",
+        "poster_path": "/pKWuCnx1DAjLFamTdYVRfK0cck6.jpg",
+        "backdrop_path": "/7mkUu1F2hVUNgz24xO8HPx0D6mK.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/pKWuCnx1DAjLFamTdYVRfK0cck6.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/7mkUu1F2hVUNgz24xO8HPx0D6mK.jpg",
+        "genres": [
+          "Drama",
+          "Sci-Fi & Fantasy",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Peter Claffey",
+          "Dexter Sol Ansell",
+          "Daniel Ings",
+          "Henry Ashton",
+          "Edward Ashley",
+          "Shaun Thomas"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ax3rWzexUcPWc34FaO8n85OKTtz.png",
+        "banner": "https://image.tmdb.org/t/p/original/7mkUu1F2hVUNgz24xO8HPx0D6mK.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/pKWuCnx1DAjLFamTdYVRfK0cck6.jpg",
+        "episode_title": "Carne salada",
+        "episode_overview": "Tras dirigirse a los distintos señores reunidos en Ashford, Dunk aprovecha la ocasión para presentar su propuesta a Baelor Targaryen.",
+        "still_path": "https://image.tmdb.org/t/p/original/xIGDeFRQWNBYqGxzjLg1I8c22Ne.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Un siglo antes de los acontecimientos de \"Juego de Tronos\", dos héroes improbables vagaban por Poniente: un joven e ingenuo, pero valiente caballero, Ser Duncan el Alto, y su pequeño escudero, Egg. Ambientada en una época en la que el linaje Targaryen aún ostenta el Trono de Hierro y el recuerdo del último dragón aún no ha desaparecido de la memoria viva, grandes destinos, poderosos enemigos y peligrosas hazañas aguardan a estos improbables e incomparables amigos.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:337b31275a5f9e93c54c3cbc77c25e6a9b3f9fee"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:db6e31a490ddde4891b3204c0556b4d158ea7547"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dee4d58f93a76d35252be15ba45188b058622d9a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Un siglo antes de los acontecimientos de \"Juego de Tronos\", dos héroes improbables vagaban por Poniente: un joven e ingenuo, pero valiente caballero, Ser Duncan el Alto, y su pequeño escudero, Egg. Ambientada en una época en la que el linaje Targaryen aún ostenta el Trono de Hierro y el recuerdo del último dragón aún no ha desaparecido de la memoria viva, grandes destinos, poderosos enemigos y peligrosas hazañas aguardan a estos improbables e incomparables amigos.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ad0e7fdff93be86d6aab6a1ab7c42dc4feb87d58"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El infiltrado",
+      "parsed": {
+        "type": "series",
+        "series": "El infiltrado"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 61859,
+        "title": "El infiltrado",
+        "original_title": "The Night Manager",
+        "overview": "El exsoldado británico Jonathan Pine es reclutado por la agente Burr, de los servicios de inteligencia, para infiltrarse en la red de un traficante de armas internacional liderada por Richard Onslow Roper.",
+        "poster_path": "/z0o9Z9NSIiprddf17s1ScskIk47.jpg",
+        "backdrop_path": "/lJoaiZcYMc8RkmPLROcdS2WQxn9.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/z0o9Z9NSIiprddf17s1ScskIk47.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lJoaiZcYMc8RkmPLROcdS2WQxn9.jpg",
+        "genres": [
+          "Drama",
+          "Misterio",
+          "Crimen"
+        ],
+        "cast": [
+          "Tom Hiddleston",
+          "Hugh Laurie",
+          "Diego Calva",
+          "Camila Morrone",
+          "Paul Chahidi",
+          "Hayley Squires",
+          "Indira Varma",
+          "Unax Ugalde",
+          "Alberto Ammann",
+          "Diego Santos"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/bbrwN2nik4tyvyoJinglYkRUf9S.png",
+        "banner": "https://image.tmdb.org/t/p/original/lJoaiZcYMc8RkmPLROcdS2WQxn9.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/z0o9Z9NSIiprddf17s1ScskIk47.jpg",
+        "episode_title": "Episodio 5",
+        "episode_overview": "Han desenmascarado a Matthew Ellis, y Pine no puede seguir huyendo. Conoce al peligroso Gilberto Hanson y le ofrece un acuerdo. En secreto, Pine convence a Teddy y juntos traman desmantelar la operación colombiana desde dentro. Mientras tanto, Roxana tiene que tomar una decisión.",
+        "still_path": "https://image.tmdb.org/t/p/original/5IQiSqUIrzLWZxGYWI1ytAZ1CY9.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 5,
+          "overview": "El exsoldado británico Jonathan Pine es reclutado por la agente Burr, de los servicios de inteligencia, para infiltrarse en la red de un traficante de armas internacional liderada por Richard Onslow Roper.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:389dd0bd950e8abef59e2dce70346942630305e9"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8e81bfa775f37ee4bccfc9cc517d3757994e4e5a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:fc6c79b617c7d627155ef97e08e3790cc792fc5d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El Robo",
+      "parsed": {
+        "type": "series",
+        "series": "El Robo"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 254071,
+        "title": "El robo",
+        "original_title": "Steal",
+        "overview": "Un día normal en Lochmill Capital se ve alterado cuando unos ladrones irrumpen y obligan a punta de pistola a Zara y a su mejor amigo Luke a cumplir sus exigencias. El detective Rhys se enfrenta a una carrera contrarreloj para descubrir quién ha robado los 4000 millones de libras y por qué.",
+        "poster_path": "/txcrTTjG5hCo7oYl4J8hsIyBFxu.jpg",
+        "backdrop_path": "/tSFndbpoEctuYviiSRJHjyC31V9.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/txcrTTjG5hCo7oYl4J8hsIyBFxu.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tSFndbpoEctuYviiSRJHjyC31V9.jpg",
+        "genres": [
+          "Drama",
+          "Crimen",
+          "Misterio"
+        ],
+        "cast": [
+          "Sophie Turner",
+          "Archie Madekwe",
+          "Jacob Fortune-Lloyd",
+          "Andrew Howard",
+          "Jonathan Slinger",
+          "Ellie James",
+          "Sarah Belcher",
+          "Thomas Larkin",
+          "Tara Summers"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/s8VraiD5rQYNT51Dv4suqnA67Hi.png",
+        "banner": "https://image.tmdb.org/t/p/original/tSFndbpoEctuYviiSRJHjyC31V9.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/txcrTTjG5hCo7oYl4J8hsIyBFxu.jpg",
+        "episode_title": "Valor nominal",
+        "episode_overview": "Tras el atraco, Luke se viene abajo y Zara se ve sometida a una gran presión. El inspector jefe Rhys se encuentra con una resistencia inesperada.",
+        "still_path": "https://image.tmdb.org/t/p/original/bsk9AZ08TPU1ZPVqwEZC9s7nfAB.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Un día normal en Lochmill Capital se ve alterado cuando unos ladrones irrumpen y obligan a punta de pistola a Zara y a su mejor amigo Luke a cumplir sus exigencias. El detective Rhys se enfrenta a una carrera contrarreloj para descubrir quién ha robado los 4000 millones de libras y por qué.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9d54738430bf3e11abae107a1c66f6309494fa3d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Fallout",
+      "parsed": {
+        "type": "series",
+        "series": "Fallout"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 106379,
+        "title": "Fallout",
+        "original_title": "Fallout",
+        "overview": "Basado en una de las sagas de videojuegos más importantes de todos los tiempos, Fallout es la historia de los que tienen y de los que no tienen en un mundo en el que prácticamente no queda nada para tener. 200 años después del apocalipsis, los apacibles habitantes de los refugios de lujo se ven obligados a regresar al infierno irradiado que dejaron sus antepasados - y se sorprenden al descubrir que les espera un universo increíblemente complejo, alegremente extraño y muy violento. De los productores ejecutivos Jonathan Nolan y Lisa Joy, los creadores de Westworld, protagonizada por Ella Purnell, Aaron Moten, Walton Goggins y más.",
+        "poster_path": "/uNctKf62RRL8RKPTrdyFrcttwT2.jpg",
+        "backdrop_path": "/cIgHBLTMbcIkS0yvIrUUVVKLdOz.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/uNctKf62RRL8RKPTrdyFrcttwT2.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cIgHBLTMbcIkS0yvIrUUVVKLdOz.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Ella Purnell",
+          "Aaron Moten",
+          "Moisés Arias",
+          "Frances Turner",
+          "Kyle MacLachlan",
+          "Walton Goggins"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/cIgHBLTMbcIkS0yvIrUUVVKLdOz.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/uNctKf62RRL8RKPTrdyFrcttwT2.jpg",
+        "episode_title": "El otro jugador",
+        "episode_overview": "Allí había buena gente.",
+        "still_path": "https://image.tmdb.org/t/p/original/25YSpb8IUk7iEZ1q3nqcblorx0u.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "Basado en una de las sagas de videojuegos más importantes de todos los tiempos, Fallout es la historia de los que tienen y de los que no tienen en un mundo en el que prácticamente no queda nada para tener. 200 años después del apocalipsis, los apacibles habitantes de los refugios de lujo se ven obligados a regresar al infierno irradiado que dejaron sus antepasados - y se sorprenden al descubrir que les espera un universo increíblemente complejo, alegremente extraño y muy violento. De los productores ejecutivos Jonathan Nolan y Lisa Joy, los creadores de Westworld, protagonizada por Ella Purnell, Aaron Moten, Walton Goggins y más.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cfe98adec1a3283ff5db63672862da2786c5206e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Fiebre de primavera",
+      "parsed": {
+        "type": "series",
+        "series": "Fiebre de primavera"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 280948,
+        "title": "Fiebre de primavera",
+        "original_title": "스프링 피버",
+        "overview": "Yun Bom, después de sufrir un desengaño sentimental en Seúl, se traslada a la pequeña ciudad de Sinsu para empezar de nuevo como profesora. Aunque al principio se muestra distante y fría, poco a poco vuelve a descubrir la alegría tras conocer a Sun Jae-gyu.",
+        "poster_path": "/jTJgfbSQ4UczxMOgscHPsoVuL5X.jpg",
+        "backdrop_path": "/nRxbtO6OchyepUL2Zr4dpMZsdsX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jTJgfbSQ4UczxMOgscHPsoVuL5X.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/nRxbtO6OchyepUL2Zr4dpMZsdsX.jpg",
+        "genres": [
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Ahn Bo-hyun",
+          "Lee Ju-bin",
+          "Cha Seo-won",
+          "Cho Jun-young",
+          "Lee Jae-in",
+          "Na Young-hee",
+          "Cho Seung-yeon",
+          "Im Su-hyung",
+          "Jin Kyung",
+          "Bae Jung-nam"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/rJhX84hAR3srvSucEvesJJNqZic.png",
+        "banner": "https://image.tmdb.org/t/p/original/nRxbtO6OchyepUL2Zr4dpMZsdsX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/jTJgfbSQ4UczxMOgscHPsoVuL5X.jpg",
+        "episode_title": "¿Tu tío no... participa?",
+        "episode_overview": "El Día del Deporte revoluciona el Instituto Shinsu, pero el Equipo Blanco lucha sin Jae-gyu. Las palabras de Bom agitan su corazón inquieto.",
+        "still_path": "https://image.tmdb.org/t/p/original/x6SI8udlwJd5ahptS8ugmJeGRDo.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Yun Bom, después de sufrir un desengaño sentimental en Seúl, se traslada a la pequeña ciudad de Sinsu para empezar de nuevo como profesora. Aunque al principio se muestra distante y fría, poco a poco vuelve a descubrir la alegría tras conocer a Sun Jae-gyu.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f088ac83a0825a9f4e14d2fe914e46140898f0b1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Industry",
+      "parsed": {
+        "type": "series",
+        "series": "Industry"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 90812,
+        "title": "Industry",
+        "original_title": "Industry",
+        "overview": "Un grupo de jóvenes graduados compiten por un conjunto limitado de puestos permanentes en un banco de inversión de primer nivel en Londres, pero los límites entre colega, amigo, amante y enemigo pronto se desdibujan a medida que se sumergen en una cultura empresarial definida tanto por sexo, drogas y ego como por acuerdos y dividendos.",
+        "poster_path": "/mZ7YFEOxAKfjXJKWm0sYFXQ8n8A.jpg",
+        "backdrop_path": "/qcV7ebwtZcoRxBufUmXQl0KKdht.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/mZ7YFEOxAKfjXJKWm0sYFXQ8n8A.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qcV7ebwtZcoRxBufUmXQl0KKdht.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Myha'la",
+          "Marisa Abela",
+          "Ken Leung",
+          "Sagar Radia",
+          "Irfan Shamji",
+          "Kit Harington",
+          "Miriam Petche",
+          "Max Minghella",
+          "Toheeb Jimoh",
+          "Amy James-Kelly"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/qcV7ebwtZcoRxBufUmXQl0KKdht.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/mZ7YFEOxAKfjXJKWm0sYFXQ8n8A.jpg",
+        "episode_title": "Pertenencias",
+        "episode_overview": "Cuando Harper y Eric comienzan una nueva colaboración, Yasmin y Henry empiezan a notar cómo se difuminan las líneas entre el negocio y el placer",
+        "still_path": "https://image.tmdb.org/t/p/original/qfr0NdCRDLp02w1UDoZ8xOxxZj9.jpg"
+      },
+      "episodes": [
+        {
+          "season": 4,
+          "episode": 3,
+          "overview": "Un grupo de jóvenes graduados compiten por un conjunto limitado de puestos permanentes en un banco de inversión de primer nivel en Londres, pero los límites entre colega, amigo, amante y enemigo pronto se desdibujan a medida que se sumergen en una cultura empresarial definida tanto por sexo, drogas y ego como por acuerdos y dividendos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d0eaebe61340ea2bfdf4fbac666df9c293a2f347"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9c39f620a2d125824251cdbebe3d73a60b4c57f1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "La resistencia invisible (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La resistencia invisible",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1419826,
+        "title": "La resistencia invisible",
+        "original_title": "The World Will Tremble",
+        "overview": "La impactante historia real de Michał Podchlebnik y Solomon Weiner, dos prisioneros que se convirtieron en los primeros en escapar del campo de exterminio de Chełmno en enero de 1942, y que valientemente dieron testimonio de los horrores perpetrados por el régimen alemán. De los más de 320.000 judíos enviados a Chełmno, solo sobrevivieron cuatro: dos de ellos fueron Weiner y Podchlebnik, que lo arriesgaron todo para sacar a la luz la verdad. Situado cerca de Łódź, Chełmno fue uno de los seis campos de exterminio creados exclusivamente para el asesinato en masa durante la Segunda Guerra Mundial.",
+        "poster_path": "/79UAwZXaUyvz7cBuwipboj5BTBz.jpg",
+        "backdrop_path": "/6RnV2BIPzB6qZStmFyUnWuDkEp6.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/79UAwZXaUyvz7cBuwipboj5BTBz.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6RnV2BIPzB6qZStmFyUnWuDkEp6.jpg",
+        "genres": [
+          "Drama",
+          "Bélica",
+          "Historia"
+        ],
+        "cast": [
+          "Oliver Jackson-Cohen",
+          "Charlie MacGechan",
+          "David Kross",
+          "Jeremy Neumark Jones",
+          "Michael Epp",
+          "Tim Bergmann",
+          "Ulrich Brandhoff",
+          "Gilles Ben-David",
+          "JR Esposito",
+          "Michael Fox"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/9Uo9Cf2VJ76mw8D1v856dcIxHjt.png",
+        "banner": "https://image.tmdb.org/t/p/original/6RnV2BIPzB6qZStmFyUnWuDkEp6.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/79UAwZXaUyvz7cBuwipboj5BTBz.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:0c360667af445ce487ebaa17fde3387929b6bf55"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:4b732cf16758d565a668cae737492e57f6fa61d3"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/79UAwZXaUyvz7cBuwipboj5BTBz.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/6RnV2BIPzB6qZStmFyUnWuDkEp6.jpg",
+      "overview": "La impactante historia real de Michał Podchlebnik y Solomon Weiner, dos prisioneros que se convirtieron en los primeros en escapar del campo de exterminio de Chełmno en enero de 1942, y que valientemente dieron testimonio de los horrores perpetrados por el régimen alemán. De los más de 320.000 judíos enviados a Chełmno, solo sobrevivieron cuatro: dos de ellos fueron Weiner y Podchlebnik, que lo arriesgaron todo para sacar a la luz la verdad. Situado cerca de Łódź, Chełmno fue uno de los seis campos de exterminio creados exclusivamente para el asesinato en masa durante la Segunda Guerra Mundial.",
+      "genres": [
+        "Drama",
+        "Bélica",
+        "Historia"
+      ],
+      "cast": [
+        "Oliver Jackson-Cohen",
+        "Charlie MacGechan",
+        "David Kross",
+        "Jeremy Neumark Jones",
+        "Michael Epp",
+        "Tim Bergmann",
+        "Ulrich Brandhoff",
+        "Gilles Ben-David",
+        "JR Esposito",
+        "Michael Fox"
+      ]
+    },
+    {
+      "file": "Mi amiga Eva (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Mi amiga Eva",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1297953,
+        "title": "Mi amiga Eva",
+        "original_title": "Mi amiga Eva",
+        "overview": "Eva acaba de cumplir 50 años. Lleva casada más de 20  y tiene dos hijos adolescentes. Hasta ahora, nada destacable. Pero en un viaje de negocios a Roma, ocurre algo que le da un vuelco a su vida. Conoce a Álex, un guionista que pasa unos días en la ciudad italiana. La atracción instantánea que siente por él, las mariposas en el estómago, la seductora insinuación de una posibilidad... Después de tanto tiempo, recuerda lo que se siente al enamorarse y eso revoluciona su interior. Reaviva una llama que llevaba tiempo extinguida.",
+        "poster_path": "/dolwe6cReEg3zRnIAIPr7C17vqx.jpg",
+        "backdrop_path": "/xxU0ttSVJ3iHpMzZNfN1yb09MZt.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/dolwe6cReEg3zRnIAIPr7C17vqx.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xxU0ttSVJ3iHpMzZNfN1yb09MZt.jpg",
+        "genres": [
+          "Romance",
+          "Comedia"
+        ],
+        "cast": [
+          "Nora Navas",
+          "Rodrigo de la Serna",
+          "Juan Diego Botto",
+          "Àgata Roca",
+          "Fernanda Orazi",
+          "Francesco Carril",
+          "Marian Álvarez",
+          "Miki Esparbé",
+          "Mariona Pagès",
+          "Lluís Xavier Villanueva"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/9juKxJHrufWZ4Pd7ZsvY0Xaw6O3.png",
+        "banner": "https://image.tmdb.org/t/p/original/xxU0ttSVJ3iHpMzZNfN1yb09MZt.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/dolwe6cReEg3zRnIAIPr7C17vqx.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:50033375231ef32ddd93a45d6623c29264b70b97"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:5335c4469f79ac03e042fa53b05ebf05fae19595"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/dolwe6cReEg3zRnIAIPr7C17vqx.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/xxU0ttSVJ3iHpMzZNfN1yb09MZt.jpg",
+      "overview": "Eva acaba de cumplir 50 años. Lleva casada más de 20  y tiene dos hijos adolescentes. Hasta ahora, nada destacable. Pero en un viaje de negocios a Roma, ocurre algo que le da un vuelco a su vida. Conoce a Álex, un guionista que pasa unos días en la ciudad italiana. La atracción instantánea que siente por él, las mariposas en el estómago, la seductora insinuación de una posibilidad... Después de tanto tiempo, recuerda lo que se siente al enamorarse y eso revoluciona su interior. Reaviva una llama que llevaba tiempo extinguida.",
+      "genres": [
+        "Romance",
+        "Comedia"
+      ],
+      "cast": [
+        "Nora Navas",
+        "Rodrigo de la Serna",
+        "Juan Diego Botto",
+        "Àgata Roca",
+        "Fernanda Orazi",
+        "Francesco Carril",
+        "Marian Álvarez",
+        "Miki Esparbé",
+        "Mariona Pagès",
+        "Lluís Xavier Villanueva"
+      ]
+    },
+    {
+      "file": "Padre no hay mas que uno",
+      "parsed": {
+        "type": "series",
+        "series": "Padre no hay mas que uno"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 301058,
+        "title": "Padre no hay más que uno, la serie",
+        "original_title": "Padre no hay más que uno, la serie",
+        "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+        "poster_path": "/piAxn5H2jfJfsncXr0yyx58us8x.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/piAxn5H2jfJfsncXr0yyx58us8x.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [
+          "Comedia",
+          "Familia"
+        ],
+        "cast": [
+          "Daniel Pérez Prada",
+          "Mariam Hernández",
+          "Claudio Gallego",
+          "Amanda Cárdenas",
+          "Alberto Salvador",
+          "Naia de las Heras",
+          "Olivia Guerrero",
+          "Miriam Díaz-Aroca",
+          "Rosario Pardo"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/wlLZvi53CmaAfb69Dpj1x7Prhb5.png",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/piAxn5H2jfJfsncXr0yyx58us8x.jpg",
+        "episode_title": "La mudanza",
+        "episode_overview": "Los hermanos de la familia Vicho no se soportan y viven en guerra constante, pero cuando sus padres anuncian que quieren mudarse a otra ciudad, se ven obligados a aliarse. Juntos planean una huelga infantil para boicotear la mudanza y salirse con la suya, sin imaginar que Helena y Mateo están mucho mejor preparados de lo que ellos creen para neutralizar el plan.",
+        "still_path": "https://image.tmdb.org/t/p/original/vRnwouUOW7Z4pq0QKMWjehwvPaD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:6a81a81178341a6dca571b38fe7e366c138d053e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0c3e16f893fa376c501bb2a00820110687f37e29"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "The Beauty",
+      "parsed": {
+        "type": "series",
+        "series": "The Beauty"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 273160,
+        "title": "The Beauty",
+        "original_title": "The Beauty",
+        "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+        "poster_path": "/aW0WC6DUuxBLAfzmqrX9CZdmR0R.jpg",
+        "backdrop_path": "/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aW0WC6DUuxBLAfzmqrX9CZdmR0R.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "genres": [
+          "Drama",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Evan Peters",
+          "Rebecca Hall",
+          "Jeremy Pope",
+          "Anthony Ramos",
+          "Ashton Kutcher"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/lcv3jf6YMbcZGcN8ynvVcSprgnw.png",
+        "banner": "https://image.tmdb.org/t/p/original/cX6dzeKsBTTXHoG3uQUuhQbqyvq.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/aW0WC6DUuxBLAfzmqrX9CZdmR0R.jpg",
+        "episode_title": "El bello piloto",
+        "episode_overview": "Los agentes del FBI Cooper Madsen y Jordan Bennet investigan un incidente en un desfile en París.",
+        "still_path": "https://image.tmdb.org/t/p/original/dQmY61WL1ql6Ecq8bzexkZTP8kR.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:d2cee27484d623ddac8b3ea8d1f449c6ea46d197"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:6f0a283b1fd4723e65c08d546d84a86c7dc4e71f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:c0edbab4c8ac6c5f34407adced96f6df437f305c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Together (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Together",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1242011,
+        "title": "Together",
+        "original_title": "Together",
+        "overview": "Una pareja con problemas en su relación se muda al campo, donde descubren una cueva con una fuerza sobrenatural. Al beber agua de la cueva, comienzan a experimentar transformaciones físicas y emocionales que reflejan su codependencia.",
+        "poster_path": "/pp2ho64ah9W9jCCIHavXUCuqISr.jpg",
+        "backdrop_path": "/uBB1aMga5ngZxsUQL5k36zeW3pB.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/pp2ho64ah9W9jCCIHavXUCuqISr.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/uBB1aMga5ngZxsUQL5k36zeW3pB.jpg",
+        "genres": [
+          "Terror",
+          "Romance"
+        ],
+        "cast": [
+          "Dave Franco",
+          "Alison Brie",
+          "Damon Herriman",
+          "Mia Morrissey",
+          "Karl Richmond",
+          "Jack Kenny",
+          "Francesca Waters",
+          "Aljin Abella",
+          "Sarah Lang",
+          "Rob Brown"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/zDXmq6slMYEVFN5k8XnD0je10yq.png",
+        "banner": "https://image.tmdb.org/t/p/original/uBB1aMga5ngZxsUQL5k36zeW3pB.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/pp2ho64ah9W9jCCIHavXUCuqISr.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:e2351bb637dcbbee377f0584bd6d9dc247223769"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:590d26dfed886fb56e83b8b2f0d15566268fa39b"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:434d786215f5652c302b7d83c001299ab8bdd4af"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:680c5903b312e69f68a1d56c7d50aca6b32afa1a"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/pp2ho64ah9W9jCCIHavXUCuqISr.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/uBB1aMga5ngZxsUQL5k36zeW3pB.jpg",
+      "overview": "Una pareja con problemas en su relación se muda al campo, donde descubren una cueva con una fuerza sobrenatural. Al beber agua de la cueva, comienzan a experimentar transformaciones físicas y emocionales que reflejan su codependencia.",
+      "genres": [
+        "Terror",
+        "Romance"
+      ],
+      "cast": [
+        "Dave Franco",
+        "Alison Brie",
+        "Damon Herriman",
+        "Mia Morrissey",
+        "Karl Richmond",
+        "Jack Kenny",
+        "Francesca Waters",
+        "Aljin Abella",
+        "Sarah Lang",
+        "Rob Brown"
       ]
     }
   ]
