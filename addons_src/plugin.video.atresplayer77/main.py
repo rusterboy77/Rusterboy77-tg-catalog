@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.41...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.42...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -196,46 +196,8 @@ def _recursive_find_playable(data, results):
 
 def list_live():
     """Lista los canales en directo"""
-    xbmcplugin.setContent(_handle, 'videos')
-    # Volvemos a la API específica de canales que es más fiable que el wrapper web
-    url = f"{API_BASE}/client/v1/live/channels"
-    params = {"mainChannelId": MAIN_CHANNEL_ID}
-    
-    s = get_session()
-    try:
-        r = s.get(url, params=params, timeout=10)
-        r.raise_for_status()
-        data = r.json()
-        
-        # La API devuelve una lista de canales directamente o dentro de items
-        items = data if isinstance(data, list) else data.get("items", [])
-        
-        for item in items:
-            title = item.get("name") or item.get("channel") or item.get("title") or "Canal"
-            
-            img_data = item.get("image") or item.get("images") or {}
-            thumb = _fix_img(img_data.get("pathHorizontal") or img_data.get("pathVertical"), 'horizontal')
-            
-            list_item = xbmcgui.ListItem(label=title)
-            list_item.setArt({'icon': thumb, 'thumb': thumb, 'fanart': thumb})
-            list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
-            
-            # El href para reproducir
-            href = item.get("href")
-            # A veces el href no viene, construimos uno con el ID del canal
-            if not href and item.get("id"):
-                 href = f"/directos/{item.get('id')}"
-            
-            if href:
-                url = get_url(action='play', href=href)
-                list_item.setProperty('IsPlayable', 'true')
-                xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
-                
-    except Exception as e:
-        xbmc.log(f"ATRES_LIVE_ERROR: {e}", xbmc.LOGERROR)
-        xbmcgui.Dialog().notification("Error Live", str(e))
-        
-    xbmcplugin.endOfDirectory(_handle)
+    # Usar la ruta web oficial, ya que la API directa /live/channels da 404
+    open_item('/directos/')
 
 def list_section(category_id, category_name=None):
     """Conecta a la API y lista el contenido de una categoría"""
@@ -369,25 +331,25 @@ def open_item(href):
              }
              nodes.append(video_node)
 
-        # ESTRATEGIA 1: Búsqueda Recursiva de Botones de Reproducción (La "Red de Seguridad")
-        # En lugar de buscar solo en 'hero', buscamos en TODO el JSON cualquier cosa que parezca un botón de Play
-        play_candidates = []
-        _recursive_find_playable(data, play_candidates)
+        # ESTRATEGIA 1: Botón de Play en Cabecera (Hero)
+        # Solo buscamos en el componente Hero para no ensuciar la lista con botones duplicados
+        hero = data.get('hero')
+        if not hero and 'components' in data:
+            for c in data['components']:
+                if c.get('component') in ['Hero', 'HERO', 'Showcase', 'Header']:
+                    hero = c; break
+        if hero:
+            actions = hero.get("actions") or hero.get("buttons") or hero.get("links") or []
+            for action in actions:
+                if action.get("type") == "PLAY" or "reproducir" in str(action.get("label")).lower():
+                    nodes.append({
+                        "title": f"[COLOR green]▶ {data.get('title', 'Reproducir')}[/COLOR]",
+                        "type": "VIDEO",
+                        "href": action.get("href"),
+                        "image": data.get("image"),
+                        "description": data.get("description")
+                    })
         
-        for action in play_candidates:
-            label = action.get("label") or action.get("title") or "Reproducir"
-            href_act = action.get("href")
-            xbmc.log(f"ATRES_ACTION: Encontrado candidato '{label}' -> {href_act}", xbmc.LOGWARNING)
-            
-            video_node = {
-                "title": f"[COLOR green]▶ {label}[/COLOR]", 
-                "type": "VIDEO",
-                "href": href_act,
-                "image": data.get("image"),
-                "description": data.get("description", "")
-            }
-            nodes.append(video_node)
-
         # 2. Bloques de CONTENIDO
         
         # A. Seasons (Series) - Prioridad
@@ -424,11 +386,27 @@ def open_item(href):
             elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
                  nodes.append(container)
 
-        # 3. Fallback: Si no hay componentes, mirar listas raíz
+        # 3. Fallback: Listas raíz
+        if "nodes" in data: nodes.extend(data["nodes"])
+        if "itemRows" in data: nodes.extend(data["itemRows"])
+        if "episode" in data: nodes.append(data["episode"])
+
+        # 4. ESTRATEGIA FINAL: Búsqueda Recursiva (Solo si no hemos encontrado NADA)
+        # Esto evita que salgan botones "Reproducir" sueltos si ya tenemos la lista de capítulos bien montada
         if not nodes:
-             if "nodes" in data: nodes.extend(data["nodes"])
-             if "itemRows" in data: nodes.extend(data["itemRows"])
-             if "episode" in data: nodes.append(data["episode"])
+            play_candidates = []
+            _recursive_find_playable(data, play_candidates)
+            for action in play_candidates:
+                label = action.get("label") or action.get("title") or "Reproducir"
+                href_act = action.get("href")
+                video_node = {
+                    "title": f"[COLOR green]▶ {label}[/COLOR]", 
+                    "type": "VIDEO",
+                    "href": href_act,
+                    "image": data.get("image"),
+                    "description": data.get("description", "")
+                }
+                nodes.append(video_node)
         
         # Establecer tipo de contenido para las vistas
         if is_season_view or "itemRows" in data:
