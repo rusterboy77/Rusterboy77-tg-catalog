@@ -201,6 +201,10 @@ def play(href):
                 if widevine_data and isinstance(widevine_data, dict):
                     drm_url = widevine_data.get("url", "")
             
+            # DIAGNÓSTICO: Si no encontramos DRM, volcamos la respuesta al log para ver qué estructura tiene
+            if not drm_url and (".mpd" in video_url or ".m3u8" in video_url):
+                xbmc.log(f"ATRES_DRM_FAIL: No se encontró clave DRM. Respuesta API: {json.dumps(data)}", xbmc.LOGWARNING)
+
             if drm_url:
                 li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
                 li.setProperty('inputstream.adaptive.license_key', drm_url)

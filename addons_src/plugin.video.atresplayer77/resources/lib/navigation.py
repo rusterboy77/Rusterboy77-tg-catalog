@@ -116,16 +116,16 @@ def list_live():
                         channels.extend(items)
                         break
                 
-                # Si es un enlace a la parrilla (Lazy Load)
-                elif c.get("href"):
-                    title = str(c.get("title", "")).lower()
-                    if "canales" in title or "parrilla" in title:
-                        r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": c["href"]}, timeout=10)
-                        if r2.ok:
-                            d2 = r2.json()
-                            if "items" in d2: channels.extend(d2["items"])
-                            elif "rows" in d2: channels.extend(d2["rows"])
-                        break
+                # Si es un enlace (Lazy Load) y aún no tenemos canales, probamos a entrar
+                elif c.get("href") and not channels:
+                    # Eliminamos el filtro por título para ser más agresivos buscando la lista
+                    r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": c["href"]}, timeout=10)
+                    if r2.ok:
+                        d2 = r2.json()
+                        found = d2.get("items") or d2.get("rows") or []
+                        if found:
+                            channels.extend(found)
+                            break
             
             if channels:
                 # Renderizar canales directamente para evitar redundancia
