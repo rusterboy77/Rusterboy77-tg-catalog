@@ -195,6 +195,12 @@ def play(href):
             if "drm" in data and isinstance(data["drm"], dict):
                 drm_url = data["drm"].get("widevine", {}).get("url", "")
             
+            # Búsqueda recursiva si no se encuentra en la raíz (para estructuras anidadas)
+            if not drm_url:
+                widevine_data = _find_key(data, "widevine")
+                if widevine_data and isinstance(widevine_data, dict):
+                    drm_url = widevine_data.get("url", "")
+            
             if drm_url:
                 li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
                 li.setProperty('inputstream.adaptive.license_key', drm_url)

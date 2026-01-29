@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.67...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.1.6...", xbmc.LOGWARNING)
 try:
     PLUGIN_URL = sys.argv[0]
     HANDLE = int(sys.argv[1])

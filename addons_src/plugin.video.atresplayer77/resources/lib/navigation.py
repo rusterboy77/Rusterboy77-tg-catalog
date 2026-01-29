@@ -96,27 +96,69 @@ def list_categories():
 def list_live():
     """Lista los canales en directo"""
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
-    
-    # Intentar saltar el menú intermedio de /directos/ buscando el contenedor de canales
     try:
         s = get_session()
-        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=8)
+        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=10)
         if r.ok:
             data = r.json()
             candidates = []
             if "components" in data: candidates.extend(data["components"])
             if "rows" in data: candidates.extend(data["rows"])
             
+            channels = []
             for c in candidates:
-                # Buscamos componente con enlace pero sin contenido inline (lazy load)
-                if c.get("href") and not c.get("items") and not c.get("rows"):
+                # Si el componente ya tiene items y parecen canales
+                items = c.get("items") or c.get("rows") or []
+                if items:
+                    # Verificar si el primer item parece un canal
+                    first = items[0]
+                    if first.get("channelId") or first.get("type") == "CHANNEL" or "/directos/" in str(first.get("href")):
+                        channels.extend(items)
+                        break
+                
+                # Si es un enlace a la parrilla (Lazy Load)
+                elif c.get("href"):
                     title = str(c.get("title", "")).lower()
-                    # Si el título suena a lista de canales, entramos directamente
-                    if "canales" in title or "directo" in title or "parrilla" in title:
-                        open_item(c["href"])
-                        return
-    except Exception:
-        pass
+                    if "canales" in title or "parrilla" in title:
+                        r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": c["href"]}, timeout=10)
+                        if r2.ok:
+                            d2 = r2.json()
+                            if "items" in d2: channels.extend(d2["items"])
+                            elif "rows" in d2: channels.extend(d2["rows"])
+                        break
+            
+            if channels:
+                # Renderizar canales directamente para evitar redundancia
+                for node in channels:
+                    title = node.get("title") or node.get("name") or "Sin título"
+                    img_data = node.get("image") or node.get("images") or {}
+                    poster = fix_img(img_data.get("pathVertical"), 'vertical')
+                    fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
+                    
+                    # Fallback local images
+                    if not poster:
+                        safe_name = title.lower().strip().replace(' ', '_')
+                        media_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media')
+                        for ext in ['.png', '.jpg', '.jpeg']:
+                            local_img = os.path.join(media_path, safe_name + ext)
+                            if os.path.exists(local_img):
+                                poster = local_img; fanart = local_img; break
+
+                    list_item = xbmcgui.ListItem(label=title)
+                    list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
+                    list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
+                    
+                    href = node.get("href")
+                    if href:
+                        url = get_url(action='play', href=href)
+                        list_item.setProperty('IsPlayable', 'true')
+                        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
+                
+                xbmcplugin.endOfDirectory(HANDLE)
+                return
+
+    except Exception as e:
+        xbmc.log(f"ATRES_LIVE_ERR: {e}", xbmc.LOGERROR)
 
     open_item('/directos/')
 
