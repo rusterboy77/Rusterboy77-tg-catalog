@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.65...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.66...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -88,6 +88,12 @@ def _fix_img(url, type='vertical'):
 
 def list_categories():
     """Menú Principal"""
+    # Helper local para buscar iconos personalizados o usar fallback
+    def _get_icon(name, default='DefaultFolder.png'):
+        icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', name)
+        if os.path.exists(icon_path): return icon_path
+        return default
+
     # 1. Intentar cargar menú dinámico de la Web
     s = get_session()
     dynamic_items = []
@@ -104,7 +110,7 @@ def list_categories():
 
     # 0. Buscador y Seguir Viendo (Arriba para acceso rápido)
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
-    list_item.setArt({'icon': 'DefaultAddonSearch.png'})
+    list_item.setArt({'icon': _get_icon('buscador.png', 'DefaultAddonSearch.png')})
     url = get_url(action='search')
     xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
@@ -113,8 +119,7 @@ def list_categories():
             label = item.get("title", "Sin título")
             href = item.get("href")
             icon_name = label.lower().replace(' ', '_') + ".png"
-            icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
-            if not os.path.exists(icon_path): icon_path = 'DefaultFolder.png'
+            icon_path = _get_icon(icon_name, 'DefaultFolder.png')
             
             list_item = xbmcgui.ListItem(label=label)
             list_item.setArt({'icon': icon_path, 'thumb': icon_path})
@@ -128,13 +133,13 @@ def list_categories():
         # Añadir manualmente secciones que el filtro LINK suele ocultar
         # Premium
         list_item = xbmcgui.ListItem(label='Premium')
-        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        list_item.setArt({'icon': _get_icon('premium.png'), 'thumb': _get_icon('premium.png')})
         url = get_url(action='list_section', category_id="605b306f7ed1a86f42397281", category_name="Premium")
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
         # Últimos 7 Días (7UD)
         list_item = xbmcgui.ListItem(label='Últimos 7 Días')
-        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
         url = get_url(action='open_item', href='/u7d/')
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
@@ -142,8 +147,7 @@ def list_categories():
         # Fallback a categorías hardcoded
         for label, cat_id in CATEGORIES.items():
             icon_name = label.lower().replace(' ', '_') + ".png"
-            icon_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media', icon_name)
-            if not os.path.exists(icon_path): icon_path = 'DefaultFolder.png'
+            icon_path = _get_icon(icon_name, 'DefaultFolder.png')
             list_item = xbmcgui.ListItem(label=label)
             list_item.setArt({'icon': icon_path, 'thumb': icon_path})
             url = get_url(action='list_section', category_id=cat_id, category_name=label)
@@ -151,25 +155,25 @@ def list_categories():
         
         # Añadir 7UD al fallback también
         list_item = xbmcgui.ListItem(label='Últimos 7 Días')
-        list_item.setArt({'icon': 'DefaultFolder.png', 'thumb': 'DefaultFolder.png'})
+        list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
         url = get_url(action='open_item', href='/u7d/')
         xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     # Siempre añadir acceso directo a Live por si acaso
     list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
-    list_item.setArt({'icon': 'DefaultAddonPVRClient.png'})
+    list_item.setArt({'icon': _get_icon('directo.png', 'DefaultAddonPVRClient.png')})
     url = get_url(action='list_live')
     xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     # 2. Login / Cuenta
     list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
-    list_item.setArt({'icon': 'DefaultUser.png'})
+    list_item.setArt({'icon': _get_icon('cuenta.png', 'DefaultUser.png')})
     url = get_url(action='login')
     xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
 
     # 3. Configuración
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Configuración[/COLOR]')
-    list_item.setArt({'icon': 'DefaultAddonService.png'})
+    list_item.setArt({'icon': _get_icon('configuracion.png', 'DefaultAddonService.png')})
     url = get_url(action='settings')
     xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
 
