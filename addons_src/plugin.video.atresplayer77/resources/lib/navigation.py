@@ -233,6 +233,9 @@ def open_item(href):
             elif "rows" in container:
                 for row in container["rows"]:
                     if not any(bad in (row.get("title") or "").lower() for bad in BAD_TITLES): content_nodes.extend(row.get("items") or [])
+                    # FIX: Añadir filas lazy (con href pero sin items) como nodos navegables
+                    if "href" in row and "items" not in row:
+                        content_nodes.append(row)
             elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]: content_nodes.append(container)
 
         if "nodes" in data: content_nodes.extend(data["nodes"])
@@ -278,6 +281,23 @@ def open_item(href):
                 url = get_url(action='play', href=sub_href or href)
                 list_item.setProperty('IsPlayable', 'true')
                 xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+        
+        # FIX: Restaurar bloque de paginación
+        if "pageInfo" in data:
+            page_info = data["pageInfo"]
+            total_pages = page_info.get("totalPages", 0)
+            current_page = page_info.get("pageNumber", 0)
+            
+            if current_page < total_pages - 1:
+                next_page = current_page + 1
+                if "page=" in href: next_href = re.sub(r'page=\d+', f'page={next_page}', href)
+                elif "?" in href: next_href = href + f"&page={next_page}"
+                else: next_href = href + f"?page={next_page}"
+                
+                url = get_url(action='open_item', href=next_href)
+                list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_page + 1}/{total_pages})[/COLOR]")
+                list_item.setArt({'icon': 'DefaultFolder.png'})
+                xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
 
     except Exception as e: xbmcgui.Dialog().notification("Error Navegación", str(e))
     xbmcplugin.endOfDirectory(_handle)

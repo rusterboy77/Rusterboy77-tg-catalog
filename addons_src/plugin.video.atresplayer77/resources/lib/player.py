@@ -109,6 +109,21 @@ def play(href):
             li.setProperty('inputstream', 'inputstream.adaptive')
             li.setProperty('inputstream.adaptive.manifest_type', 'mpd' if '.mpd' in video_url else 'hls')
             li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+            
+            # Restaurar headers y cookies para que funcione la reproducción
+            headers_dict = {
+                'User-Agent': s.headers.get('User-Agent', ''),
+                'Origin': s.headers.get('Origin', 'https://www.atresplayer.com'),
+                'Referer': s.headers.get('Referer', 'https://www.atresplayer.com/')
+            }
+            cookie_str = "; ".join([f"{c.name}={c.value}" for c in s.cookies])
+            if cookie_str: headers_dict['Cookie'] = cookie_str
+            
+            headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
+            li.setProperty('inputstream.adaptive.stream_headers', headers)
+            li.setProperty('inputstream.adaptive.manifest_headers', headers)
+            li.setProperty('inputstream.adaptive.license_headers', headers)
+            
         xbmcplugin.setResolvedUrl(_handle, True, li)
 
     except Exception as e: xbmcgui.Dialog().notification("Error Reproducción", str(e))
