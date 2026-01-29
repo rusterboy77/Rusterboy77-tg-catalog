@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.63...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.64...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -1000,7 +1000,7 @@ def do_search():
     # Endpoint de búsqueda
     # Usar safe='' para codificar caracteres como / que romperían la URL
     q_enc = urllib.parse.quote(query, safe='')
-    url = f"{API_BASE}/client/v1/search/all/{q_enc}"
+    url = f"{API_BASE}/client/v1/search/web/all/{q_enc}"
     
     s = get_session()
     try:
@@ -1016,6 +1016,7 @@ def do_search():
         if "rows" in data: 
              for row in data["rows"]:
                  if "items" in row: results.extend(row["items"])
+                 if "itemRows" in row: results.extend(row["itemRows"])
         
         if not results:
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron resultados")
