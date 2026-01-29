@@ -136,7 +136,7 @@ def play(href):
         if not video_url and not data.get("sources"):
             xbmc.log("ATRES_PLAY: No se encontró urlVideo/sources, buscando candidatos...", xbmc.LOGWARNING)
             candidates = []
-            _recursive_find_playable(data, candidates)
+            recursive_find_playable(data, candidates)
             if candidates:
                 # Priorizar enlaces que contengan /player/
                 best = next((c for c in candidates if "/player/" in c.get("href", "")), candidates[0])
@@ -181,7 +181,7 @@ def play(href):
              # DEBUG CRÍTICO: Imprimir estructura completa si falla para comparar con la web
              # xbmc.log(f"ATRES_PLAY_FAIL_DUMP: {json.dumps(data)}", xbmc.LOGERROR)
              xbmc.log(f"ATRES_PLAY_FAIL: No sources found", xbmc.LOGERROR)
-             xbmcgui.Dialog().notification("Atresplayer", "No se encontró URL de video")
+             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron fuentes de video")
              return
 
         # Crear el item de reproducción
@@ -211,7 +211,7 @@ def play(href):
             li.setProperty('inputstream.adaptive.manifest_headers', headers)
             li.setProperty('inputstream.adaptive.license_headers', headers)
 
-        xbmcplugin.setResolvedUrl(_handle, True, li)
+        xbmcplugin.setResolvedUrl(HANDLE, True, li)
 
     except Exception as e:
         xbmcgui.Dialog().notification("Error Reproducción", str(e))

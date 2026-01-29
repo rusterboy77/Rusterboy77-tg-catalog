@@ -18,7 +18,7 @@ def search_palantir_bridge(query):
     plugin_url = f"plugin://plugin.video.palantir3/?{encoded_item}"
     xbmc.executebuiltin(f"Container.Update({plugin_url})")
     # Finalizar directorio para evitar error en Kodi si el redirect tarda o falla
-    xbmcplugin.endOfDirectory(_handle)
+    xbmcplugin.endOfDirectory(HANDLE)
 
 def do_search(query=None):
     """Buscador global"""
@@ -37,7 +37,7 @@ def do_search(query=None):
 
     # Parte 2: Realizar la búsqueda con la query
     # Establecer tipo de contenido para vista de posters (soluciona vista de iconos)
-    xbmcplugin.setContent(_handle, 'tvshows')
+    xbmcplugin.setContent(HANDLE, 'tvshows')
     
     # Endpoint de búsqueda actualizado (v1/row/search)
     # Usar quote para garantizar %20 en lugar de + (requests usa + por defecto)
@@ -69,7 +69,7 @@ def do_search(query=None):
         
         if not results:
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron resultados")
-            xbmcplugin.endOfDirectory(_handle)
+            xbmcplugin.endOfDirectory(HANDLE)
             return
 
         for item in results:
@@ -77,8 +77,8 @@ def do_search(query=None):
             if not title: continue
             
             img_data = item.get("image") or item.get("images") or {}
-            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
-            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            poster = fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             
             li = xbmcgui.ListItem(label=title)
             li.setArt({'poster': poster, 'icon': poster, 'thumb': poster, 'fanart': fanart})
@@ -96,10 +96,10 @@ def do_search(query=None):
                      url_item = get_url(action='open_item', href=href)
                      is_folder = True
                 
-                xbmcplugin.addDirectoryItem(_handle, url_item, li, is_folder)
+                xbmcplugin.addDirectoryItem(HANDLE, url_item, li, is_folder)
                 
     except Exception as e:
         xbmcgui.Dialog().notification("Error Búsqueda", str(e))
         xbmc.log(f"ATRES_SEARCH_ERR: {e}", xbmc.LOGERROR)
     
-    xbmcplugin.endOfDirectory(_handle)
+    xbmcplugin.endOfDirectory(HANDLE)

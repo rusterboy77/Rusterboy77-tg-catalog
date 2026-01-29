@@ -16,11 +16,11 @@ from urllib.parse import parse_qsl, urlencode
 # Configuración inicial
 xbmc.log("ATRESPLAYER77: Iniciando script v0.0.67...", xbmc.LOGWARNING)
 try:
-    _url = sys.argv[0]
-    _handle = int(sys.argv[1])
+    PLUGIN_URL = sys.argv[0]
+    HANDLE = int(sys.argv[1])
 except:
-    _url = ""
-    _handle = 0
+    PLUGIN_URL = ""
+    HANDLE = 0
 
 addon = xbmcaddon.Addon()
 
@@ -75,9 +75,9 @@ def save_cookies(s):
 
 def get_url(**kwargs):
     """Ayuda para crear URLs internas del addon"""
-    return '{0}?{1}'.format(_url, urlencode(kwargs))
+    return '{0}?{1}'.format(PLUGIN_URL, urlencode(kwargs))
 
-def _fix_img(url, type='vertical'):
+def fix_img(url, type='vertical'):
     """Arregla las URLs de imágenes de Atresplayer"""
     if not url: return ""
     # A veces vienen sin esquema
@@ -94,7 +94,7 @@ def _fix_img(url, type='vertical'):
 def open_settings():
     addon.openSettings()
 
-def _recursive_find_playable(data, results):
+def recursive_find_playable(data, results):
     """Busca recursivamente cualquier objeto que parezca un enlace de reproducción"""
     if isinstance(data, dict):
         href = data.get("href")
@@ -111,7 +111,7 @@ def _recursive_find_playable(data, results):
                 results.append(data)
         
         for v in data.values():
-            _recursive_find_playable(v, results)
+            recursive_find_playable(v, results)
     elif isinstance(data, list):
         for item in data:
-            _recursive_find_playable(item, results)
+            recursive_find_playable(item, results)

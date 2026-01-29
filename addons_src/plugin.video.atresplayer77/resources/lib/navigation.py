@@ -26,7 +26,7 @@ def list_categories():
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
     list_item.setArt({'icon': _get_icon('buscador.png', 'DefaultAddonSearch.png')})
     url = get_url(action='search')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
     if dynamic_items:
         for item in dynamic_items:
@@ -42,20 +42,20 @@ def list_categories():
                 url = get_url(action='list_live')
             else:
                 url = get_url(action='open_item', href=href)
-            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
         
         # Añadir manualmente secciones que el filtro LINK suele ocultar
         # Premium
         list_item = xbmcgui.ListItem(label='Premium')
         list_item.setArt({'icon': _get_icon('premium.png'), 'thumb': _get_icon('premium.png')})
         url = get_url(action='list_section', category_id="605b306f7ed1a86f42397281", category_name="Premium")
-        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
         # Últimos 7 Días (7UD)
         list_item = xbmcgui.ListItem(label='Últimos 7 Días')
         list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
         url = get_url(action='open_item', href='/u7d/')
-        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     else:
         # Fallback a categorías hardcoded
@@ -65,33 +65,33 @@ def list_categories():
             list_item = xbmcgui.ListItem(label=label)
             list_item.setArt({'icon': icon_path, 'thumb': icon_path})
             url = get_url(action='list_section', category_id=cat_id, category_name=label)
-            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
         
         # Añadir 7UD al fallback también
         list_item = xbmcgui.ListItem(label='Últimos 7 Días')
         list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
         url = get_url(action='open_item', href='/u7d/')
-        xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     # Siempre añadir acceso directo a Live por si acaso
     list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
     list_item.setArt({'icon': _get_icon('directo.png', 'DefaultAddonPVRClient.png')})
     url = get_url(action='list_live')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     # 2. Login / Cuenta
     list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
     list_item.setArt({'icon': _get_icon('cuenta.png', 'DefaultUser.png')})
     url = get_url(action='login')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
     # 3. Configuración
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Configuración[/COLOR]')
     list_item.setArt({'icon': _get_icon('configuracion.png', 'DefaultAddonService.png')})
     url = get_url(action='settings')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
-    xbmcplugin.endOfDirectory(_handle)
+    xbmcplugin.endOfDirectory(HANDLE)
 
 def list_live():
     """Lista los canales en directo"""
@@ -103,11 +103,11 @@ def list_section(category_id, category_name=None, page=0):
     
     # Establecer el tipo de contenido para que la skin active las vistas (Poster, Fanart, etc.)
     if category_name == "Series":
-        xbmcplugin.setContent(_handle, 'tvshows')
+        xbmcplugin.setContent(HANDLE, 'tvshows')
     elif category_name == "Cine":
-        xbmcplugin.setContent(_handle, 'movies')
+        xbmcplugin.setContent(HANDLE, 'movies')
     else:
-        xbmcplugin.setContent(_handle, 'videos')
+        xbmcplugin.setContent(HANDLE, 'videos')
 
     url = f"{API_BASE}/client/v1/row/search"
     params = {
@@ -132,8 +132,8 @@ def list_section(category_id, category_name=None, page=0):
             title = item.get("title", "Sin título")
             # Intentamos varios sitios donde suelen poner las imagenes
             img_data = item.get("image") or item.get("images") or {}
-            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
-            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            poster = fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             # Fallbacks
             if not poster: poster = fanart
             if not fanart: fanart = poster
@@ -149,10 +149,10 @@ def list_section(category_id, category_name=None, page=0):
                 if category_name == "Cine":
                     url = get_url(action='play', href=href)
                     list_item.setProperty('IsPlayable', 'true')
-                    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
+                    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
                 else:
                     url = get_url(action='open_item', href=href)
-                    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+                    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
         
         # Paginación
         page_info = data.get("pageInfo", {})
@@ -164,12 +164,12 @@ def list_section(category_id, category_name=None, page=0):
             url = get_url(action='list_section', category_id=category_id, category_name=category_name, page=next_page)
             list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_page + 1}/{total_pages})[/COLOR]")
             list_item.setArt({'icon': 'DefaultFolder.png'})
-            xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
             
     except Exception as e:
         xbmcgui.Dialog().notification("Error API", str(e))
         
-    xbmcplugin.endOfDirectory(_handle)
+    xbmcplugin.endOfDirectory(HANDLE)
 
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
@@ -245,8 +245,8 @@ def open_item(href):
         
         # Imagen de cabecera (Serie/Programa padre) para fallback
         parent_img = data.get("image") or data.get("images") or {}
-        parent_poster = _fix_img(parent_img.get("pathVertical"), 'vertical')
-        parent_fanart = _fix_img(parent_img.get("pathHorizontal"), 'horizontal')
+        parent_poster = fix_img(parent_img.get("pathVertical"), 'vertical')
+        parent_fanart = fix_img(parent_img.get("pathHorizontal"), 'horizontal')
 
         nodes = []
         
@@ -341,7 +341,7 @@ def open_item(href):
         # D. Búsqueda Recursiva (Último recurso si no hay temporadas y no hemos encontrado botón)
         if not main_video_node and not has_seasons:
              candidates = []
-             _recursive_find_playable(data, candidates)
+             recursive_find_playable(data, candidates)
              for c in candidates:
                  h = c.get('href', '')
                  # Priorizar enlaces a player o episodios
@@ -488,7 +488,7 @@ def open_item(href):
         if not nodes and not main_video_node:
              # Intento desesperado de encontrar algo reproducible
              candidates = []
-             _recursive_find_playable(data, candidates)
+             recursive_find_playable(data, candidates)
              for c in candidates:
                  nodes.append({
                     "title": f"[COLOR green]▶ {c.get('label') or 'Reproducir'}[/COLOR]", 
@@ -499,17 +499,17 @@ def open_item(href):
         
         # Establecer tipo de contenido para las vistas
         if is_season_view or "itemRows" in data:
-            xbmcplugin.setContent(_handle, 'episodes')
+            xbmcplugin.setContent(HANDLE, 'episodes')
         elif "seasons" in data:
-            xbmcplugin.setContent(_handle, 'seasons') # O 'tvshows' si prefieres vista de serie
+            xbmcplugin.setContent(HANDLE, 'seasons') # O 'tvshows' si prefieres vista de serie
         else:
-            xbmcplugin.setContent(_handle, 'videos')
+            xbmcplugin.setContent(HANDLE, 'videos')
 
         if not nodes:
             # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
             # xbmc.log(f"ATRES_DEBUG_NO_NODES: Keys={list(data.keys())}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron enlaces reproducibles")
-            xbmcplugin.endOfDirectory(_handle) # Importante cerrar directorio para evitar error en log
+            xbmcplugin.endOfDirectory(HANDLE) # Importante cerrar directorio para evitar error en log
             return
 
         for node in nodes:
@@ -517,8 +517,8 @@ def open_item(href):
             
             # Imagen
             img_data = node.get("image") or node.get("images") or {}
-            poster = _fix_img(img_data.get("pathVertical"), 'vertical')
-            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            poster = fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             # Fallbacks con imagen padre
             if not poster: poster = parent_poster
             if not fanart: fanart = parent_fanart
@@ -566,7 +566,7 @@ def open_item(href):
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
 
-            xbmcplugin.addDirectoryItem(_handle, url, list_item, is_folder)
+            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, is_folder)
 
         # Paginación para listas dinámicas (open_item)
         if "pageInfo" in data:
@@ -586,9 +586,9 @@ def open_item(href):
                 url = get_url(action='open_item', href=next_href)
                 list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_page + 1}/{total_pages})[/COLOR]")
                 list_item.setArt({'icon': 'DefaultFolder.png'})
-                xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+                xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     except Exception as e:
         xbmcgui.Dialog().notification("Error Navegación", str(e))
     
-    xbmcplugin.endOfDirectory(_handle)
+    xbmcplugin.endOfDirectory(HANDLE)
