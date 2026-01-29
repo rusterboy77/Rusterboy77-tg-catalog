@@ -198,8 +198,11 @@ def play(href):
             # Búsqueda recursiva si no se encuentra en la raíz (para estructuras anidadas)
             if not drm_url:
                 widevine_data = _find_key(data, "widevine")
-                if widevine_data and isinstance(widevine_data, dict):
-                    drm_url = widevine_data.get("url", "")
+                if widevine_data:
+                    if isinstance(widevine_data, dict):
+                        drm_url = widevine_data.get("url", "")
+                    elif isinstance(widevine_data, str):
+                        drm_url = widevine_data
             
             # DIAGNÓSTICO: Si no encontramos DRM, volcamos la respuesta al log para ver qué estructura tiene
             if not drm_url and (".mpd" in video_url or ".m3u8" in video_url):
