@@ -108,7 +108,7 @@ def list_live():
                 # Búsqueda recursiva real
                 if isinstance(d, dict):
                     # AÑADIDO: type == "LIVE" para los items de /row/live
-                    if d.get("channelId") or d.get("type") in ["CHANNEL", "LIVE"] or "/directos/" in str(d.get("href", "")):
+                    if d.get("channelId") or str(d.get("type")).upper() in ["CHANNEL", "LIVE"] or "/directos/" in str(d.get("href", "")):
                         found.append(d)
                     for k, v in d.items():
                         found.extend(_extract_channels(v))
@@ -116,7 +116,7 @@ def list_live():
                     for i in d:
                         found.extend(_extract_channels(i))
                 
-                return [i for i in found if i.get("channelId") or i.get("type") in ["CHANNEL", "LIVE"] or "/directos/" in str(i.get("href", ""))]
+                return [i for i in found if i.get("channelId") or str(i.get("type")).upper() in ["CHANNEL", "LIVE"] or "/directos/" in str(i.get("href", ""))]
 
             channels = _extract_channels(data)
 
@@ -642,8 +642,12 @@ def open_item(href):
             sub_link = node.get("link") or {}
             sub_href = node.get("href") or sub_link.get("href")
             
+            # FIX: Generar href desde contentId si falta (crucial para items LIVE en listas mixtas)
+            if not sub_href and node.get("contentId"):
+                 sub_href = f"/player/v1/episode/{node['contentId']}"
+
             # Detectar si es un episodio para reproducir directamente
-            node_type = node.get("type")
+            node_type = str(node.get("type", "")).upper()
             
             # CORRECCIÓN: Si el enlace contiene '/row/' o 'search', es una lista (carpeta), no un vídeo
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
@@ -658,6 +662,11 @@ def open_item(href):
             else:
                 # Es un video final (capítulo)
                 target_href = sub_href if sub_href else href
+                
+                # FIX: Evitar enlace circular si no hay sub_href (evita error ATRES_PLAY_FAIL)
+                if not sub_href and target_href == href:
+                    continue
+
                 url = get_url(action='play', href=target_href)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
