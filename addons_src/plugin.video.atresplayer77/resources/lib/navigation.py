@@ -174,7 +174,7 @@ def open_item(href):
                 if "atresplayer.com" in target: target = urllib.parse.urlparse(target).path
                 if target != href and target != href + "/": return open_item(target)
 
-        is_season_view = "seasonId=" in url or "seasonId=" in href
+        is_season_view = "seasonId=" in url or "seasonId=" in href or data.get("type") == "SEASON" or data.get("pageType") == "SEASON"
         parent_img = data.get("image") or data.get("images") or {}
         parent_poster = fix_img(parent_img.get("pathVertical"), 'vertical')
         parent_fanart = fix_img(parent_img.get("pathHorizontal"), 'horizontal')
@@ -214,18 +214,40 @@ def open_item(href):
                 else: content_nodes.append(season)
 
         other_containers = (data.get("components") or []) + (data.get("rows") or [])
-        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos"]
+        BAD_TITLES = ["clips", "extras", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
-                     eps_href = container["href"] + ("&size=30" if "?" in container["href"] else "?size=30")
+                     eps_href = container["href"]
+                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
+                     elif "?" in eps_href: eps_href += "&size=30"
+                     else: eps_href += "?size=30"
+
                      r_eps = s.get(eps_href, timeout=5)
                      if r_eps.ok:
                          d_eps = r_eps.json()
                          if "items" in d_eps: content_nodes.extend(d_eps["items"])
                          elif "itemRows" in d_eps: content_nodes.extend(d_eps["itemRows"])
+                         elif "rows" in d_eps:
+                             for r in d_eps["rows"]:
+                                 if "items" in r: content_nodes.extend(r["items"])
+                         
+                         # Añadir botón de siguiente página si es necesario (dentro de capítulos)
+                         if "pageInfo" in d_eps:
+                             pi = d_eps["pageInfo"]
+                             if pi.get("pageNumber", 0) < pi.get("totalPages", 0) - 1:
+                                 next_p = pi.get("pageNumber", 0) + 1
+                                 total_p = pi.get("totalPages", 0)
+                                 if "page=" in eps_href: next_href = re.sub(r'page=\d+', f'page={next_p}', eps_href)
+                                 elif "?" in eps_href: next_href = eps_href + f"&page={next_p}"
+                                 else: next_href = eps_href + f"?page={next_p}"
+                                 
+                                 content_nodes.append({
+                                     "title": f"[COLOR yellow]>> Página Siguiente ({next_p + 1}/{total_p})[/COLOR]",
+                                     "type": "LINK", "href": next_href, "image": {"pathVertical": "DefaultFolder.png"}
+                                 })
                  except Exception: pass
                  continue
             if any(bad in c_title for bad in BAD_TITLES): continue
@@ -234,7 +256,7 @@ def open_item(href):
                 for row in container["rows"]:
                     if not any(bad in (row.get("title") or "").lower() for bad in BAD_TITLES): content_nodes.extend(row.get("items") or [])
                     # FIX: Añadir filas lazy (con href pero sin items) como nodos navegables
-                    if "href" in row and "items" not in row:
+                    if "href" in row and "items" not in row and row.get("type") != "AD":
                         content_nodes.append(row)
             elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]: content_nodes.append(container)
 
@@ -282,7 +304,7 @@ def open_item(href):
                 list_item.setProperty('IsPlayable', 'true')
                 xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
         
-        # FIX: Restaurar bloque de paginación
+        # FIX: Restaurar bloque de paginación general
         if "pageInfo" in data:
             page_info = data["pageInfo"]
             total_pages = page_info.get("totalPages", 0)
