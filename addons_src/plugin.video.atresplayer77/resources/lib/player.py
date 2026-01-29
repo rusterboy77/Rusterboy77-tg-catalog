@@ -154,28 +154,32 @@ def play(href):
             video_url = None # Reseteamos para buscar en sources
 
         # LÓGICA DE SELECCIÓN DE FUENTE (Soporte Live y VOD)
-        def _get_best_source(sources):
+        def _get_best_source_item(sources):
             if not sources: return None
             # 1. DASH
             for src in sources:
                 if src.get("type") == "application/dash+xml" and src.get("src"):
-                    return src.get("src")
+                    return src
             # 2. HLS
             for src in sources:
                 if "mpegurl" in str(src.get("type")) and src.get("src"):
-                    return src.get("src")
+                    return src
             # 3. Cualquiera con src
             for src in sources:
-                if src.get("src"): return src.get("src")
+                if src.get("src"): return src
             return None
 
+        source_item = None
         if not video_url:
             # Intentar fuentes de directo (sourcesLive)
-            video_url = _get_best_source(data.get("sourcesLive"))
+            source_item = _get_best_source_item(data.get("sourcesLive"))
         
         if not video_url:
             # Intentar fuentes estándar (sources)
-            video_url = _get_best_source(data.get("sources"))
+            source_item = _get_best_source_item(data.get("sources"))
+
+        if source_item:
+            video_url = source_item.get("src")
 
         if not video_url:
              # DEBUG CRÍTICO: Imprimir estructura completa si falla para comparar con la web
@@ -204,6 +208,11 @@ def play(href):
                     elif isinstance(widevine_data, str):
                         drm_url = widevine_data
             
+            # Intentar obtener DRM específico del source seleccionado (prioritario)
+            if source_item and "drm" in source_item and isinstance(source_item["drm"], dict):
+                src_drm = source_item["drm"].get("widevine")
+                if src_drm: drm_url = src_drm if isinstance(src_drm, str) else src_drm.get("url", "")
+
             # DIAGNÓSTICO: Si no encontramos DRM, volcamos la respuesta al log para ver qué estructura tiene
             if not drm_url and (".mpd" in video_url or ".m3u8" in video_url):
                 xbmc.log(f"ATRES_DRM_FAIL: No se encontró clave DRM. Respuesta API: {json.dumps(data)}", xbmc.LOGWARNING)
@@ -225,6 +234,11 @@ def play(href):
             cookie_str = "; ".join([f"{c.name}={c.value}" for c in s.cookies])
             if cookie_str:
                 headers_dict['Cookie'] = cookie_str
+            
+            # IMPORTANTE: Añadir token de autorización si existe en el source (Fix DRM)
+            if source_item and source_item.get("token"):
+                headers_dict['Authorization'] = f"Bearer {source_item['token']}"
+
             headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
             
             li.setProperty('inputstream.adaptive.stream_headers', headers)

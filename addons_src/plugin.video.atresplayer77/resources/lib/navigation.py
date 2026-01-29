@@ -121,6 +121,16 @@ def list_live():
             channels = _extract_channels(data)
             xbmc.log(f"ATRES_LIVE: Canales encontrados directamente: {len(channels)}", xbmc.LOGWARNING)
 
+            # NUEVO: Si no hay canales y es una redirección (href en raíz), seguirla
+            if not channels and data.get("href") and not data.get("components"):
+                target = data["href"]
+                xbmc.log(f"ATRES_LIVE: Siguiendo redirección a {target}", xbmc.LOGWARNING)
+                # Si es URL completa usarla, si no, usar endpoint de resolución
+                r2 = s.get(target, timeout=10) if target.startswith("http") else s.get(f"{API_BASE}/client/v1/url", params={"href": target}, timeout=10)
+                if r2.ok:
+                    channels = _extract_channels(r2.json())
+                    xbmc.log(f"ATRES_LIVE: Canales encontrados tras redirección: {len(channels)}", xbmc.LOGWARNING)
+
             # Si no hay canales directos, buscar en sub-enlaces (Lazy Load)
             if not channels and "components" in data:
                 xbmc.log("ATRES_LIVE: Buscando en componentes (Lazy Load)...", xbmc.LOGWARNING)
