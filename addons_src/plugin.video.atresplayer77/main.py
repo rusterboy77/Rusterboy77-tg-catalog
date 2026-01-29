@@ -1,33 +1,39 @@
 import sys
+import urllib.parse
 from urllib.parse import parse_qsl
-from resources.lib import navigation, player, search, auth
 
+# Importar módulos propios
+from resources.lib.common import open_settings
+from resources.lib.navigation import list_categories, list_section, open_item, list_live
+from resources.lib.player import play
+from resources.lib.search import search_palantir_bridge, do_search
+from resources.lib.auth import do_login
 
 def router(paramstring):
     params = dict(parse_qsl(paramstring))
     
     if not params:
-        navigation.list_categories()
+        list_categories()
         return
 
     action = params.get('action')
 
     if action == 'settings':
-        auth.open_settings()
+        open_settings()
     elif action == 'list_section':
-        navigation.list_section(params.get('category_id'), params.get('category_name'), int(params.get('page', 0)))
+        list_section(params.get('category_id'), params.get('category_name'), int(params.get('page', 0)))
     elif action == 'open_item':
-        navigation.open_item(params.get('href'))
+        open_item(params.get('href'))
     elif action == 'login':
-        auth.do_login()
+        do_login()
     elif action == 'list_live':
-        navigation.list_live()
+        list_live()
     elif action == 'play':
-        player.play(params.get('href'))
+        play(params.get('href'))
     elif action == 'bridge_palantir':
-        search.search_palantir_bridge(params.get('q'))
+        search_palantir_bridge(params.get('q'))
     elif action == 'search':
-        search.do_search(params.get('query'))
+        do_search(params.get('query'))
 
 if __name__ == '__main__':
     router(sys.argv[2][1:])
