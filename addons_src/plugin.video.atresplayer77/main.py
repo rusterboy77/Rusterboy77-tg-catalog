@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.64...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.65...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -997,21 +997,27 @@ def do_search():
     query = kb.getText()
     if not query: return
     
-    # Endpoint de búsqueda
-    # Usar safe='' para codificar caracteres como / que romperían la URL
-    q_enc = urllib.parse.quote(query, safe='')
-    url = f"{API_BASE}/client/v1/search/web/all/{q_enc}"
+    # Endpoint de búsqueda actualizado (v1/row/search)
+    url = f"{API_BASE}/client/v1/row/search"
     
     s = get_session()
     try:
-        # Añadir mainChannelId por si acaso y log de debug
-        params = {"mainChannelId": MAIN_CHANNEL_ID}
-        xbmc.log(f"ATRES_SEARCH: Consultando {url}", xbmc.LOGWARNING)
+        # Params según sniffing: entityType=ATPFormat, text=query
+        params = {
+            "entityType": "ATPFormat",
+            "text": query,
+            "size": 30,
+            "page": 0
+        }
+        xbmc.log(f"ATRES_SEARCH: Consultando {url} | params={params}", xbmc.LOGWARNING)
         r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
         
         results = []
+        # Estructura nueva: itemRows en la raíz
+        if "itemRows" in data: results.extend(data["itemRows"])
+        
         if "items" in data: results.extend(data["items"])
         if "rows" in data: 
              for row in data["rows"]:
