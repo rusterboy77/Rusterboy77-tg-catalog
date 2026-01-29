@@ -989,13 +989,24 @@ def play(href):
         xbmcgui.Dialog().notification("Error Reproducción", str(e))
         xbmc.log(f"ATRES_PLAY_ERR: {e}", xbmc.LOGERROR)
 
-def do_search():
+def do_search(query=None):
     """Buscador global"""
-    kb = xbmc.Keyboard('', 'Buscar en Atresplayer')
-    kb.doModal()
-    if not kb.isConfirmed(): return
-    query = kb.getText()
-    if not query: return
+    # Parte 1: Obtener query si no se ha pasado (soluciona que el teclado vuelva a salir)
+    if query is None:
+        kb = xbmc.Keyboard('', 'Buscar en Atresplayer')
+        kb.doModal()
+        if not kb.isConfirmed(): return
+        query_text = kb.getText()
+        if not query_text: return
+        
+        # Recargar la vista con la query en la URL para que la navegación funcione
+        url = get_url(action='search', query=query_text)
+        xbmc.executebuiltin(f"Container.Update({url})")
+        return
+
+    # Parte 2: Realizar la búsqueda con la query
+    # Establecer tipo de contenido para vista de posters (soluciona vista de iconos)
+    xbmcplugin.setContent(_handle, 'tvshows')
     
     # Endpoint de búsqueda actualizado (v1/row/search)
     url = f"{API_BASE}/client/v1/row/search"
@@ -1026,6 +1037,7 @@ def do_search():
         
         if not results:
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron resultados")
+            xbmcplugin.endOfDirectory(_handle)
             return
 
         for item in results:
@@ -1034,9 +1046,10 @@ def do_search():
             
             img_data = item.get("image") or item.get("images") or {}
             poster = _fix_img(img_data.get("pathVertical"), 'vertical')
+            fanart = _fix_img(img_data.get("pathHorizontal"), 'horizontal')
             
             li = xbmcgui.ListItem(label=title)
-            li.setArt({'poster': poster, 'icon': poster})
+            li.setArt({'poster': poster, 'icon': poster, 'thumb': poster, 'fanart': fanart})
             li.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
             href = item.get("href") or (item.get("link") or {}).get("href")
@@ -1083,7 +1096,7 @@ def router(paramstring):
     elif action == 'bridge_palantir':
         search_palantir_bridge(params.get('q'))
     elif action == 'search':
-        do_search()
+        do_search(params.get('query'))
 
 if __name__ == '__main__':
     router(sys.argv[2][1:])
