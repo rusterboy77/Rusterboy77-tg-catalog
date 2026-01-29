@@ -74,7 +74,7 @@ def list_categories():
         xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     # Siempre añadir acceso directo a Live por si acaso
-    list_item = xbmcgui.ListItem(label='[COLOR red]En Directo (TV)[/COLOR]')
+    list_item = xbmcgui.ListItem(label='En Directo (TV)')
     list_item.setArt({'icon': _get_icon('directo.png', 'DefaultAddonPVRClient.png')})
     url = get_url(action='list_live')
     xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
@@ -86,7 +86,7 @@ def list_categories():
     xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
     # 3. Configuración
-    list_item = xbmcgui.ListItem(label='[COLOR yellow]Configuración[/COLOR]')
+    list_item = xbmcgui.ListItem(label='Configuración')
     list_item.setArt({'icon': _get_icon('configuracion.png', 'DefaultAddonService.png')})
     url = get_url(action='settings')
     xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
@@ -96,6 +96,28 @@ def list_categories():
 def list_live():
     """Lista los canales en directo"""
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
+    
+    # Intentar saltar el menú intermedio de /directos/ buscando el contenedor de canales
+    try:
+        s = get_session()
+        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=8)
+        if r.ok:
+            data = r.json()
+            candidates = []
+            if "components" in data: candidates.extend(data["components"])
+            if "rows" in data: candidates.extend(data["rows"])
+            
+            for c in candidates:
+                # Buscamos componente con enlace pero sin contenido inline (lazy load)
+                if c.get("href") and not c.get("items") and not c.get("rows"):
+                    title = str(c.get("title", "")).lower()
+                    # Si el título suena a lista de canales, entramos directamente
+                    if "canales" in title or "directo" in title or "parrilla" in title:
+                        open_item(c["href"])
+                        return
+    except Exception:
+        pass
+
     open_item('/directos/')
 
 def list_section(category_id, category_name=None, page=0):
@@ -519,6 +541,23 @@ def open_item(href):
             img_data = node.get("image") or node.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            
+            # MEJORA: Buscar fanart local si no viene de la API (para U7D y canales)
+            if not poster and not fanart:
+                safe_name = title.lower().strip().replace(' ', '_')
+                
+                # Parche: Usar cine_2 para diferenciar de la sección principal
+                if safe_name == 'cine': safe_name = 'cine_2'
+
+                # Intentar buscar en resources/media/ (ej: antena_3.png, lasexta.png)
+                media_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media')
+                for ext in ['.png', '.jpg', '.jpeg']:
+                    local_img = os.path.join(media_path, safe_name + ext)
+                    if os.path.exists(local_img):
+                        poster = local_img
+                        fanart = local_img
+                        break
+
             # Fallbacks con imagen padre
             if not poster: poster = parent_poster
             if not fanart: fanart = parent_fanart

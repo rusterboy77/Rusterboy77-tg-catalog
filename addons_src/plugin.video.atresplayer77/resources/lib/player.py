@@ -189,8 +189,15 @@ def play(href):
         # Configurar InputStream Adaptive (necesario para DASH/HLS)
         if ".mpd" in video_url or ".m3u8" in video_url:
             li.setProperty('inputstream', 'inputstream.adaptive')
-            li.setProperty('inputstream.adaptive.manifest_type', 'mpd' if '.mpd' in video_url else 'hls')
-            li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+            
+            # Detectar DRM y configurar licencia si existe
+            drm_url = ""
+            if "drm" in data and isinstance(data["drm"], dict):
+                drm_url = data["drm"].get("widevine", {}).get("url", "")
+            
+            if drm_url:
+                li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
+                li.setProperty('inputstream.adaptive.license_key', drm_url)
             
             # MEJORA: Forzar inicio con ancho de banda alto (evita 720p inicial)
             li.setProperty('inputstream.adaptive.min_bandwidth', '10000000') # 10 Mbps
