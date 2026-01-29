@@ -14,7 +14,7 @@ import urllib.parse
 from urllib.parse import parse_qsl, urlencode
 
 # Configuración inicial
-xbmc.log("ATRESPLAYER77: Iniciando script v0.0.66...", xbmc.LOGWARNING)
+xbmc.log("ATRESPLAYER77: Iniciando script v0.0.67...", xbmc.LOGWARNING)
 _url = sys.argv[0]
 _handle = int(sys.argv[1])
 addon = xbmcaddon.Addon()
@@ -112,7 +112,7 @@ def list_categories():
     list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
     list_item.setArt({'icon': _get_icon('buscador.png', 'DefaultAddonSearch.png')})
     url = get_url(action='search')
-    xbmcplugin.addDirectoryItem(_handle, url, list_item, True)
+    xbmcplugin.addDirectoryItem(_handle, url, list_item, False)
 
     if dynamic_items:
         for item in dynamic_items:
@@ -1013,14 +1013,15 @@ def do_search(query=None):
     xbmcplugin.setContent(_handle, 'tvshows')
     
     # Endpoint de búsqueda actualizado (v1/row/search)
-    url = f"{API_BASE}/client/v1/row/search"
+    # Usar quote para garantizar %20 en lugar de + (requests usa + por defecto)
+    q_enc = urllib.parse.quote(query)
+    url = f"{API_BASE}/client/v1/row/search?text={q_enc}"
     
     s = get_session()
     try:
         # Params según sniffing: entityType=ATPFormat, text=query
         params = {
             "entityType": "ATPFormat",
-            "text": query,
             "size": 30,
             "page": 0
         }
