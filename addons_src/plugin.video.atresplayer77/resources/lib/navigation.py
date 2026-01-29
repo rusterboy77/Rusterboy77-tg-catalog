@@ -99,8 +99,8 @@ def list_live():
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
     try:
         s = get_session()
-        xbmc.log(f"ATRES_LIVE: Solicitando {API_BASE}/client/v1/url con href=/directos/", xbmc.LOGWARNING)
-        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=10)
+        xbmc.log(f"ATRES_LIVE: Solicitando {API_BASE}/client/v1/row/live", xbmc.LOGWARNING)
+        r = s.get(f"{API_BASE}/client/v1/row/live", params={"size": 30, "page": 0}, timeout=10)
         if r.ok:
             data = r.json()
             xbmc.log(f"ATRES_LIVE: Respuesta recibida. Keys: {list(data.keys())}", xbmc.LOGWARNING)

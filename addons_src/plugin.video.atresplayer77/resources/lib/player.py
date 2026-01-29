@@ -148,7 +148,7 @@ def play(href):
         # Si es una URL de API de player (ej: https://api.atresplayer.com/player/v1/...), hay que consultarla
         if video_url and "/player/" in video_url:
             xbmc.log(f"ATRES_PLAY: Resolviendo endpoint de player: {video_url}", xbmc.LOGWARNING)
-            r_player = s.get(video_url, timeout=10)
+            r_player = s.get(video_url, params={"device": "desktop", "NODRM": "true"}, timeout=10)
             r_player.raise_for_status()
             data = r_player.json() # Sobrescribimos data con la respuesta del player (que trae 'sources')
             video_url = None # Reseteamos para buscar en sources
@@ -237,9 +237,17 @@ def play(href):
             
             # IMPORTANTE: Añadir token de autorización si existe en el source (Fix DRM)
             if source_item and source_item.get("token"):
-                headers_dict['Authorization'] = f"Bearer {source_item['token']}"
+                token = source_item['token']
+                headers_dict['Authorization'] = f"Bearer {token}"
+                # Fallback: Añadir token a la URL de licencia también (común en Widevine)
+                sep = '&' if '?' in drm_url else '?'
+                drm_url += f"{sep}token={token}"
+                li.setProperty('inputstream.adaptive.license_key', drm_url)
 
             headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
+            
+            # LOG DE DEBUG PARA COMPARAR CON NAVEGADOR
+            xbmc.log(f"ATRES_DRM_HEADERS: {headers}", xbmc.LOGWARNING)
             
             li.setProperty('inputstream.adaptive.stream_headers', headers)
             li.setProperty('inputstream.adaptive.manifest_headers', headers)
