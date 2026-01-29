@@ -213,10 +213,6 @@ def play(href):
                 src_drm = source_item["drm"].get("widevine")
                 if src_drm: drm_url = src_drm if isinstance(src_drm, str) else src_drm.get("url", "")
 
-            # DIAGNÓSTICO: Si no encontramos DRM, volcamos la respuesta al log para ver qué estructura tiene
-            if not drm_url and (".mpd" in video_url or ".m3u8" in video_url):
-                xbmc.log(f"ATRES_DRM_FAIL: No se encontró clave DRM. Respuesta API: {json.dumps(data)}", xbmc.LOGWARNING)
-
             if drm_url:
                 li.setProperty('inputstream.adaptive.license_type', 'com.widevine.alpha')
                 li.setProperty('inputstream.adaptive.license_key', drm_url)
@@ -245,9 +241,6 @@ def play(href):
                 li.setProperty('inputstream.adaptive.license_key', drm_url)
 
             headers = "&".join([f"{k}={urllib.parse.quote(v)}" for k, v in headers_dict.items()])
-            
-            # LOG DE DEBUG PARA COMPARAR CON NAVEGADOR
-            xbmc.log(f"ATRES_DRM_HEADERS: {headers}", xbmc.LOGWARNING)
             
             li.setProperty('inputstream.adaptive.stream_headers', headers)
             li.setProperty('inputstream.adaptive.manifest_headers', headers)

@@ -95,57 +95,50 @@ def list_categories():
 
 def list_live():
     """Lista los canales en directo"""
-    xbmc.log("ATRES_LIVE: Iniciando list_live...", xbmc.LOGWARNING)
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
     try:
         s = get_session()
-        xbmc.log(f"ATRES_LIVE: Solicitando {API_BASE}/client/v1/row/live", xbmc.LOGWARNING)
-        r = s.get(f"{API_BASE}/client/v1/row/live", params={"size": 30, "page": 0}, timeout=10)
+        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=10)
         if r.ok:
             data = r.json()
-            xbmc.log(f"ATRES_LIVE: Respuesta recibida. Keys: {list(data.keys())}", xbmc.LOGWARNING)
             
             # Helper para extraer canales de cualquier estructura anidada
             def _extract_channels(d):
                 found = []
-                if "items" in d: found.extend(d["items"])
-                if "rows" in d: found.extend(d["rows"])
-                if "nodes" in d: found.extend(d["nodes"])
-                if "components" in d:
-                    for c in d["components"]:
-                        if "items" in c: found.extend(c["items"])
-                        if "rows" in c: found.extend(c["rows"])
-                # Filtrar solo lo que parece canal
-                return [i for i in found if i.get("channelId") or i.get("type") == "CHANNEL" or "/directos/" in str(i.get("href", ""))]
+                # Búsqueda recursiva real
+                if isinstance(d, dict):
+                    # AÑADIDO: type == "LIVE" para los items de /row/live
+                    if d.get("channelId") or d.get("type") in ["CHANNEL", "LIVE"] or "/directos/" in str(d.get("href", "")):
+                        found.append(d)
+                    for k, v in d.items():
+                        found.extend(_extract_channels(v))
+                elif isinstance(d, list):
+                    for i in d:
+                        found.extend(_extract_channels(i))
+                
+                return [i for i in found if i.get("channelId") or i.get("type") in ["CHANNEL", "LIVE"] or "/directos/" in str(i.get("href", ""))]
 
             channels = _extract_channels(data)
-            xbmc.log(f"ATRES_LIVE: Canales encontrados directamente: {len(channels)}", xbmc.LOGWARNING)
 
             # NUEVO: Si no hay canales y es una redirección (href en raíz), seguirla
-            if not channels and data.get("href") and not data.get("components"):
+            if not channels and data.get("href") and not data.get("components") and not data.get("itemRows"):
                 target = data["href"]
-                xbmc.log(f"ATRES_LIVE: Siguiendo redirección a {target}", xbmc.LOGWARNING)
                 # Si es URL completa usarla, si no, usar endpoint de resolución
                 r2 = s.get(target, timeout=10) if target.startswith("http") else s.get(f"{API_BASE}/client/v1/url", params={"href": target}, timeout=10)
                 if r2.ok:
                     channels = _extract_channels(r2.json())
-                    xbmc.log(f"ATRES_LIVE: Canales encontrados tras redirección: {len(channels)}", xbmc.LOGWARNING)
 
             # Si no hay canales directos, buscar en sub-enlaces (Lazy Load)
             if not channels and "components" in data:
-                xbmc.log("ATRES_LIVE: Buscando en componentes (Lazy Load)...", xbmc.LOGWARNING)
                 for c in data["components"]:
                     if c.get("href") and not c.get("items"):
-                        xbmc.log(f"ATRES_LIVE: Consultando componente: {c['href']}", xbmc.LOGWARNING)
                         r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": c["href"]}, timeout=10)
                         if r2.ok:
                             found = _extract_channels(r2.json())
-                            xbmc.log(f"ATRES_LIVE: Encontrados {len(found)} canales en sub-consulta", xbmc.LOGWARNING)
                             channels.extend(found)
                         if channels: break
             
             if channels:
-                xbmc.log(f"ATRES_LIVE: Renderizando {len(channels)} canales directamente.", xbmc.LOGWARNING)
                 # Renderizar canales directamente para evitar redundancia
                 for node in channels:
                     title = node.get("title") or node.get("name") or "Sin título"
@@ -167,6 +160,10 @@ def list_live():
                     list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
                     
                     href = node.get("href")
+                    if not href and node.get("contentId"):
+                         # Construir href de player si falta (común en items LIVE)
+                         href = f"/player/v1/episode/{node['contentId']}"
+
                     if href:
                         url = get_url(action='play', href=href)
                         list_item.setProperty('IsPlayable', 'true')
@@ -174,13 +171,10 @@ def list_live():
                 
                 xbmcplugin.endOfDirectory(HANDLE)
                 return
-            else:
-                xbmc.log("ATRES_LIVE: No se encontraron canales tras la búsqueda.", xbmc.LOGWARNING)
 
     except Exception as e:
         xbmc.log(f"ATRES_LIVE_ERR: {e}", xbmc.LOGERROR)
 
-    xbmc.log("ATRES_LIVE: Fallback a open_item('/directos/')", xbmc.LOGWARNING)
     open_item('/directos/')
 
 def list_section(category_id, category_name=None, page=0):
