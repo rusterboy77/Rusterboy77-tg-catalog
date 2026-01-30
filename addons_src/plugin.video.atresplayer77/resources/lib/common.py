@@ -81,17 +81,19 @@ def fix_img(url, type='vertical'):
     """Arregla las URLs de imágenes de Atresplayer"""
     if not url: return ""
     # A veces vienen sin esquema
-    if url.startswith("//"): return "https:" + url
-    if url.startswith("/"): return "https://www.atresplayer.com" + url
+    if url.startswith("//"): url = "https:" + url
+    elif url.startswith("/"): url = "https://www.atresplayer.com" + url
+    
     # CORRECCIÓN: Si la URL es un directorio, añadir un tamaño de imagen estándar.
     if url.endswith('/'):
         if type == 'horizontal':
-            return url + '1280x720.jpg' # Fanart HD
+            url = url + '1280x720.jpg' # Fanart HD
         elif type == 'logo':
-            return url + 'original.png' # Logo transparente
+            url = url + 'original.png' # Logo transparente
         else:
-            return url + '390x219.jpg' # Poster vertical
-    return url
+            url = url + '390x219.jpg' # Poster vertical
+    # Añadir User-Agent para asegurar que Kodi pueda descargar la imagen
+    return url + "|User-Agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0"
 
 def open_settings():
     addon.openSettings()

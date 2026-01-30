@@ -120,13 +120,22 @@ def list_section(category_id, category_name=None, page=0):
             img_data = item.get("image") or item.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
-            clearlogo = fix_img(img_data.get("pathLogo"), 'logo')
+            
+            # Buscar logo: Prioridad logoURL (root) > pathLogo (images) > program > channel
+            logo_path = item.get("logoURL") or img_data.get("pathLogo")
+            if not logo_path and "program" in item:
+                logo_path = (item["program"].get("images") or {}).get("pathLogo")
+            if not logo_path and "channel" in item:
+                logo_path = (item["channel"].get("images") or {}).get("pathLogo")
+            
+            clearlogo = fix_img(logo_path, 'logo')
             if not poster: poster = fanart
             if not fanart: fanart = poster
             
             list_item = xbmcgui.ListItem(label=title)
             art = {'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart}
             if clearlogo: art['clearlogo'] = clearlogo
+            if clearlogo: art['clearart'] = clearlogo
             list_item.setArt(art)
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
@@ -315,7 +324,11 @@ def open_item(href):
         if "components" in data: other_containers.extend(data["components"])
         if "rows" in data: other_containers.extend(data["rows"])
         
-        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos", "mosaico", "últimos 7 días", "ultimos 7 dias"]
+        # Detectar si estamos en la sección de Últimos 7 Días para no filtrarla
+        is_u7d = "/u7d/" in href or "ultimos-7-dias" in href
+        
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "mosaico"]
+        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias"])
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
@@ -424,7 +437,15 @@ def open_item(href):
             img_data = node.get("image") or node.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
-            clearlogo = fix_img(img_data.get("pathLogo"), 'logo')
+            
+            # Buscar logo: Prioridad logoURL (root) > pathLogo (images) > program > channel
+            logo_path = node.get("logoURL") or img_data.get("pathLogo")
+            if not logo_path and "program" in node:
+                logo_path = (node["program"].get("images") or {}).get("pathLogo")
+            if not logo_path and "channel" in node:
+                logo_path = (node["channel"].get("images") or {}).get("pathLogo")
+            
+            clearlogo = fix_img(logo_path, 'logo')
             
             if not poster and not fanart:
                 safe_name = title.lower().strip().replace(' ', '_')
@@ -443,6 +464,7 @@ def open_item(href):
             list_item = xbmcgui.ListItem(label=title)
             art = {'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart}
             if clearlogo: art['clearlogo'] = clearlogo
+            if clearlogo: art['clearart'] = clearlogo
             list_item.setArt(art)
             
             info = {'title': title, 'plot': node.get('description', '')}

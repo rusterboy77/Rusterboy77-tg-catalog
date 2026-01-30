@@ -79,11 +79,20 @@ def do_search(query=None):
             img_data = item.get("image") or item.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
-            clearlogo = fix_img(img_data.get("pathLogo"), 'logo')
+            
+            # Buscar logo: Prioridad logoURL (root) > pathLogo (images) > program > channel
+            logo_path = item.get("logoURL") or img_data.get("pathLogo")
+            if not logo_path and "program" in item:
+                logo_path = (item["program"].get("images") or {}).get("pathLogo")
+            if not logo_path and "channel" in item:
+                logo_path = (item["channel"].get("images") or {}).get("pathLogo")
+            
+            clearlogo = fix_img(logo_path, 'logo')
             
             li = xbmcgui.ListItem(label=title)
             art = {'poster': poster, 'icon': poster, 'thumb': poster, 'fanart': fanart}
             if clearlogo: art['clearlogo'] = clearlogo
+            if clearlogo: art['clearart'] = clearlogo
             li.setArt(art)
             li.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
