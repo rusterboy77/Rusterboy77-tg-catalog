@@ -372,9 +372,12 @@ def open_item(href):
                      else: eps_href += "?size=30"
 
                      # Pasar página actual a la sub-petición de capítulos
-                     if "page=" not in eps_href:
-                         sep = "&" if "?" in eps_href else "?"
-                         eps_href += f"{sep}page={current_page}"
+                     if "page=" in eps_href:
+                         eps_href = re.sub(r'page=\d+', f'page={current_page}', eps_href)
+                     elif "?" in eps_href:
+                         eps_href += f"&page={current_page}"
+                     else:
+                         eps_href += f"?page={current_page}"
 
                      r_eps = s.get(eps_href, timeout=5)
                      if r_eps.ok:
