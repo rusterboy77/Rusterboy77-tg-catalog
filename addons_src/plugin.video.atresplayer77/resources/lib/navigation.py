@@ -96,85 +96,7 @@ def list_categories():
 def list_live():
     """Lista los canales en directo"""
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
-    try:
-        s = get_session()
-        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=10)
-        if r.ok:
-            data = r.json()
-            
-            # Helper para extraer canales de cualquier estructura anidada
-            def _extract_channels(d):
-                found = []
-                # Búsqueda recursiva real
-                if isinstance(d, dict):
-                    # AÑADIDO: type == "LIVE" para los items de /row/live
-                    if d.get("channelId") or str(d.get("type")).upper() in ["CHANNEL", "LIVE"] or "/directos/" in str(d.get("href", "")):
-                        found.append(d)
-                    for k, v in d.items():
-                        found.extend(_extract_channels(v))
-                elif isinstance(d, list):
-                    for i in d:
-                        found.extend(_extract_channels(i))
-                
-                return [i for i in found if i.get("channelId") or str(i.get("type")).upper() in ["CHANNEL", "LIVE"] or "/directos/" in str(i.get("href", ""))]
-
-            channels = _extract_channels(data)
-
-            # NUEVO: Si no hay canales y es una redirección (href en raíz), seguirla
-            if not channels and data.get("href") and not data.get("components") and not data.get("itemRows"):
-                target = data["href"]
-                # Si es URL completa usarla, si no, usar endpoint de resolución
-                r2 = s.get(target, timeout=10) if target.startswith("http") else s.get(f"{API_BASE}/client/v1/url", params={"href": target}, timeout=10)
-                if r2.ok:
-                    channels = _extract_channels(r2.json())
-
-            # Si no hay canales directos, buscar en sub-enlaces (Lazy Load)
-            if not channels and "components" in data:
-                for c in data["components"]:
-                    if c.get("href") and not c.get("items"):
-                        r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": c["href"]}, timeout=10)
-                        if r2.ok:
-                            found = _extract_channels(r2.json())
-                            channels.extend(found)
-                        if channels: break
-            
-            if channels:
-                # Renderizar canales directamente para evitar redundancia
-                for node in channels:
-                    title = node.get("title") or node.get("name") or "Sin título"
-                    img_data = node.get("image") or node.get("images") or {}
-                    poster = fix_img(img_data.get("pathVertical"), 'vertical')
-                    fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
-                    
-                    # Fallback local images
-                    if not poster:
-                        safe_name = title.lower().strip().replace(' ', '_')
-                        media_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media')
-                        for ext in ['.png', '.jpg', '.jpeg']:
-                            local_img = os.path.join(media_path, safe_name + ext)
-                            if os.path.exists(local_img):
-                                poster = local_img; fanart = local_img; break
-
-                    list_item = xbmcgui.ListItem(label=title)
-                    list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
-                    list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
-                    
-                    href = node.get("href")
-                    if not href and node.get("contentId"):
-                         # Construir href de player si falta (común en items LIVE)
-                         href = f"/player/v1/episode/{node['contentId']}"
-
-                    if href:
-                        url = get_url(action='play', href=href)
-                        list_item.setProperty('IsPlayable', 'true')
-                        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
-                
-                xbmcplugin.endOfDirectory(HANDLE)
-                return
-
-    except Exception as e:
-        xbmc.log(f"ATRES_LIVE_ERR: {e}", xbmc.LOGERROR)
-
+    xbmc.log("ATRES_LIVE_DEBUG: Iniciando list_live (Revertido a open_item)", xbmc.LOGWARNING)
     open_item('/directos/')
 
 def list_section(category_id, category_name=None, page=0):
@@ -279,6 +201,11 @@ def open_item(href):
         r = s.get(url, params=params, timeout=10)
         r.raise_for_status()
         data = r.json()
+        
+        # LOG DETALLADO PARA DIRECTOS (Solicitado por usuario)
+        if "/directos/" in href:
+             xbmc.log(f"ATRES_LIVE_DEBUG: URL consultada: {r.url}", xbmc.LOGWARNING)
+             xbmc.log(f"ATRES_LIVE_DEBUG: JSON DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
         
         # DEBUG: Descomenta esto si quieres ver la estructura al entrar en una ficha
         # xbmc.log(f"ATRES_OPEN_DUMP: {json.dumps(data)}", xbmc.LOGWARNING)
