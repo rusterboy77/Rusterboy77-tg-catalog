@@ -170,6 +170,11 @@ def open_item(href):
         sep = "&" if "?" in href else "?"
         href += f"{sep}size=30"
 
+    # Extraer página actual para sub-peticiones
+    current_page = 0
+    match_page = re.search(r'[?&]page=(\d+)', href)
+    if match_page: current_page = int(match_page.group(1))
+
     # Resolución de URL
     params = {}
     if href.startswith("http"): url = href
@@ -366,6 +371,11 @@ def open_item(href):
                      elif "?" in eps_href: eps_href += "&size=30"
                      else: eps_href += "?size=30"
 
+                     # Pasar página actual a la sub-petición de capítulos
+                     if "page=" not in eps_href:
+                         sep = "&" if "?" in eps_href else "?"
+                         eps_href += f"{sep}page={current_page}"
+
                      r_eps = s.get(eps_href, timeout=5)
                      if r_eps.ok:
                          d_eps = r_eps.json()
@@ -374,6 +384,10 @@ def open_item(href):
                          elif "rows" in d_eps:
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
+                         
+                         # Capturar info de paginación del contenedor de episodios
+                         if "pageInfo" in d_eps:
+                             data["pageInfo"] = d_eps["pageInfo"]
                  except Exception: pass
                  continue
 
