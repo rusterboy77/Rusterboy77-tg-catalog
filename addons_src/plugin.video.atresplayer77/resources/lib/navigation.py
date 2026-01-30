@@ -460,7 +460,12 @@ def open_item(href):
         if "episode" in data: content_nodes.append(data["episode"])
 
         # --- FASE 3: CONSTRUIR LISTA FINAL ---
-        is_movie_mode = main_video_node and not has_seasons
+        
+        # CORRECCIÓN PARA DIRECTOS: Si la página es de tipo LIVE, desactivar el "modo película"
+        # Esto evita que el banner de cabecera (hero) haga desaparecer la lista de canales.
+        # Basado en el JSON: "pageType": "LIVE"
+        is_live_page = data.get("pageType") == "LIVE"
+        is_movie_mode = main_video_node and not has_seasons and not is_live_page
         
         # 1. Filtrar contenido válido (Episodios/Temporadas) y descartar clips basura
         valid_content = []
@@ -469,11 +474,10 @@ def open_item(href):
             for n in content_nodes:
                 ntype = str(n.get("type", "")).upper()
                 # Si encontramos episodios sueltos (ej: Programas que no usan temporadas), son contenido válido
-                # FIX: AÑADIDO CHANNEL Y LIVE AL FILTRO PARA EVITAR QUE DESAPAREZCAN EN DIRECTOS
-                if ntype in ["EPISODE", "VIDEO", "CHANNEL", "LIVE", "MOVIE"] or "season" in str(n).lower():
+                if ntype in ["EPISODE", "VIDEO"] or "season" in str(n).lower():
                     valid_content.append(n)
         else:
-            # Si es serie con temporadas explícitas, todo el contenido recopilado es válido
+            # Si es serie con temporadas explícitas O ES PAGINA DE DIRECTOS, todo el contenido recopilado es válido
             valid_content.extend(content_nodes)
 
         # 2. Decidir si mostramos el botón "Reproducir" (Hero)
