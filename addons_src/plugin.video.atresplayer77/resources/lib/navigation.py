@@ -327,8 +327,8 @@ def open_item(href):
         # Detectar si estamos en la sección de Últimos 7 Días para no filtrarla
         is_u7d = "/u7d/" in href or "ultimos-7-dias" in href
         
-        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "mosaico"]
-        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias"])
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
+        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico"])
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
