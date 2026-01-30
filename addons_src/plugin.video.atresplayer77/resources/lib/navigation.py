@@ -166,9 +166,14 @@ def list_section(category_id, category_name=None, page=0):
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
     # Ajuste de tamaño de página (Generalizar para todas las secciones)
+    # EXCEPCIÓN: Para temporadas/capítulos, aumentamos el límite (300) para evitar paginación
+    target_size = 30
+    if "temporada" in href.lower() or "season" in href.lower():
+        target_size = 300
+
     if "size=" not in href and "pageSize=" not in href:
         sep = "&" if "?" in href else "?"
-        href += f"{sep}size=30"
+        href += f"{sep}size={target_size}"
 
     # Extraer página actual para sub-peticiones
     current_page = 0
@@ -367,9 +372,9 @@ def open_item(href):
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
                      eps_href = container["href"]
-                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
-                     elif "?" in eps_href: eps_href += "&size=30"
-                     else: eps_href += "?size=30"
+                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=300', eps_href)
+                     elif "?" in eps_href: eps_href += "&size=300"
+                     else: eps_href += "?size=300"
 
                      # Pasar página actual a la sub-petición de capítulos
                      if "page=" not in eps_href:
