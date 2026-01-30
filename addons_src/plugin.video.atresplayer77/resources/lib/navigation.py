@@ -229,7 +229,21 @@ def open_item(href):
 
         # --- FASE 1: BUSCAR VIDEO PRINCIPAL (PLAY) ---
         main_video_node = None
+        
+        # Detectar si es explícitamente un episodio/película
+        is_explicit_video = data.get("pageType") in ["EPISODE", "MOVIE", "VIDEO"]
+        
         has_seasons = "seasons" in data and data["seasons"]
+        
+        # Correcciones para documentales/películas que parecen series
+        if has_seasons:
+            if is_explicit_video:
+                has_seasons = False
+            elif len(data["seasons"]) == 1:
+                # Si hay una sola temporada y no tiene episodios listados -> Tratar como película (evitar carpeta vacía)
+                s0 = data["seasons"][0]
+                if not s0.get("episodes") and not s0.get("items") and not s0.get("nodes"):
+                    has_seasons = False
         
         if "firstEpisode" in data and isinstance(data["firstEpisode"], dict) and data["firstEpisode"].get("href"):
              ep = data["firstEpisode"]
@@ -319,7 +333,7 @@ def open_item(href):
         
         if "episodes" in data and data["episodes"]:
              content_nodes.extend(data["episodes"])
-        elif "seasons" in data and not is_season_view:
+        elif has_seasons and not is_season_view:
             for season in data["seasons"]:
                 found_eps = False
                 if "episodes" in season: content_nodes.extend(season["episodes"]); found_eps = True
