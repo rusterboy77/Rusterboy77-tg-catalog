@@ -40532,6 +40532,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:33436e6e14f65129993e03cbbff03c911efcabb5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7d9a5446f783acebc9198d3e2fe3e59fc1dc6823"
             }
           ]
         },
@@ -76175,6 +76179,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ffa142d4e51ff5812920abc46ff109884f4dc44d"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:67d44721e77ec901792e2891979cbe6ee9a3e055"
             }
           ]
         },
@@ -236700,6 +236708,21 @@
               "magnet": "magnet:?xt=urn:btih:c1205b206d40a3e521922d79aef1ede7bbeaeb1e"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2530a1e6a4cb9bc9d6f4e18bb787dcd632875a10"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:41021858d0fc3658904249731e8eaf320c6c5a51"
+            }
+          ]
         }
       ]
     },
@@ -237220,6 +237243,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d907c7a2bdb07efb5b7a367876921396ca5fd0fc"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:48f2ee4aa935dc87ff3221ee4aa0c8d5e484bbd8"
             }
           ]
         },
@@ -237308,6 +237335,17 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:60f5cb6e907a8d5d0c6a94b151f39966d30751d0"
+            }
+          ]
+        },
+        {
+          "season": 8,
+          "episode": 1,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6b063d3df36a7815bc242a36524ae78193b0760b"
             }
           ]
         }
@@ -237812,6 +237850,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6f0e71ed01c029e3e8839d8c08bf5d11db97e41c"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:969bb377d64556e4268dd0b65ddada59c3bce570"
             }
           ]
         },
@@ -238026,6 +238068,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:f504800a5fbac807710dc232f03b5539947d45e7"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:01830ef229efcd34d441ca71d55f2905e27543c5"
             }
           ]
         },
@@ -238296,6 +238342,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:19a61dfe642cc0f08dcf05035f9e545cef3359b6"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a60088b38ff9889668bd5ba96d3cc6c2ae0509fa"
             }
           ]
         },
@@ -238610,6 +238660,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:44ce2c07680067978b06a622e08646ac08d9e217"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:95ce05e08952278f9abe6fd0e7dbac82c9c634a1"
             }
           ]
         },
@@ -238912,6 +238966,17 @@
               "magnet": "magnet:?xt=urn:btih:ceab9174ff6e8f17055ab760f50bd49e06e2f6cf"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Un día normal en Lochmill Capital se ve alterado cuando unos ladrones irrumpen y obligan a punta de pistola a Zara y a su mejor amigo Luke a cumplir sus exigencias. El detective Rhys se enfrenta a una carrera contrarreloj para descubrir quién ha robado los 4000 millones de libras y por qué.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a9485d1fd320afb23e8e6f00f0744bf4c2627f5b"
+            }
+          ]
         }
       ]
     },
@@ -238974,6 +239039,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:eb5fc83556b5acd28e0056eecfd52a6ea7de5e0c"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:4a8d4f7fea592a153bba138f3d0d13ad950a7ed1"
             }
           ]
         }
@@ -239113,6 +239182,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:9c39f620a2d125824251cdbebe3d73a60b4c57f1"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:04ad1f0a1d5cd25f24cf21415d75e48760c634f3"
             }
           ]
         }
@@ -239305,6 +239378,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0c3e16f893fa376c501bb2a00820110687f37e29"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c25b4f1dce7294f2e85af7eaffae2e23c3761aa1"
             }
           ]
         }
@@ -239375,6 +239452,21 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:c0edbab4c8ac6c5f34407adced96f6df437f305c"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:06b6bc0082a2916f98f5bcad256543d2f5fed978"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4ef990f0013171842ca23942f6888df7d634d4c8"
             }
           ]
         }
@@ -239733,6 +239825,17 @@
               "magnet": "magnet:?xt=urn:btih:07ac7765bedbf20078e4dfaa8adc7bbeb08f8cf6"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:70d544820cdf17783a639ee9d5700a05b2b652a9"
+            }
+          ]
         }
       ]
     },
@@ -239779,6 +239882,18 @@
         {
           "quality": "4k",
           "magnet": "magnet:?xt=urn:btih:1bf01b92f76d3e49d54078a011d433d8e7e63564"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:37c6ea6d749b5d3695e60d1cbadae51543a095f9"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:a08cf28e6af42d8ac42e0ff777b9cd8abc40c0b4"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:5917eedc41829dd61d918a36ce45923da7f19a97"
         }
       ],
       "poster_url": "https://image.tmdb.org/t/p/w500/ttEESBvVrO8ngZr19qp6eBMVS9F.jpg",
@@ -239945,6 +240060,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:5dd061d3f0f67fe73a10ce0fa7586f016659726a"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "El detective inspector Max Arnold vive en una casa flotante destartalada al final de Cheyne Walk después de separarse de su esposa Astrid, una comerciante de arte. Max, hijo del dueño de una librería local, está muy lejos de la élite adinerada cuyos crímenes ayudará a resolver junto con D.C. Priya Shamsie.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:fef3923ac371bf75bd0d0e01d7493a9d2987b4cd"
             }
           ]
         }
@@ -240146,7 +240272,753 @@
               "magnet": "magnet:?xt=urn:btih:7e49c703b74391c0dc64c9910de89a4b1e1c6609"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "El actor de Hollywood Simon Williams se sumerge en el mundo de los superhéroes a medida que obtiene sus propios poderes y se convierte en el nuevo superhéroe Wonder Man.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:90408c14404a8d60b29ccefc498b548c45447066"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:da5a8df7cb5bee2989e103c68199a64506aa29d2"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "El actor de Hollywood Simon Williams se sumerge en el mundo de los superhéroes a medida que obtiene sus propios poderes y se convierte en el nuevo superhéroe Wonder Man.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e88fcc971fc4c44c6ecd0759feedcbf002f787ff"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6fe8d2a25b49ccb224f396d5a6bf9d989a218184"
+            }
+          ]
         }
+      ]
+    },
+    {
+      "file": "Asesinato_en_la_Embajada_Murder_at_the_Embassy_2025_Bluray_1080pEsp.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Asesinato en la Embajada Murder at the Embassy",
+        "year": "2025",
+        "quality": "1080p"
+      },
+      "tmdb_top": {
+        "id": 1310568,
+        "title": "Asesinato en la Embajada",
+        "original_title": "Murder at the Embassy",
+        "overview": "1934. Miranda Green, detective privada, investiga un asesinato perpetrado en la embajada británica en El Cairo, donde se robó un documento de alto secreto, con el riesgo de poner en peligro el Palacio de Buckingham y la paz del mundo.",
+        "poster_path": "/svoGJAty4YuztulaaMEQsp7c4SI.jpg",
+        "backdrop_path": "/gLXibzLQ4qegvjdqDC0f8yTij2P.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/svoGJAty4YuztulaaMEQsp7c4SI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/gLXibzLQ4qegvjdqDC0f8yTij2P.jpg",
+        "genres": [
+          "Misterio",
+          "Suspense",
+          "Acción"
+        ],
+        "cast": [
+          "Mischa Barton",
+          "Richard Dillane",
+          "Mido Hamada",
+          "Antonia Bernath",
+          "Kojo Attah",
+          "Raha Rahbari",
+          "Kathryn McGarr",
+          "Nick Harris",
+          "Yassine Mkhichen",
+          "Josh Burdett"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/gLXibzLQ4qegvjdqDC0f8yTij2P.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/svoGJAty4YuztulaaMEQsp7c4SI.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:70084082af52c51dc6ce1d83a5aeeb7f67d8ec06"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:5919a9c68674e60de63962005806f9296d362661"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:59a69e69227af9c42541e69fb53ab77225903fc7"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/svoGJAty4YuztulaaMEQsp7c4SI.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/gLXibzLQ4qegvjdqDC0f8yTij2P.jpg",
+      "overview": "1934. Miranda Green, detective privada, investiga un asesinato perpetrado en la embajada británica en El Cairo, donde se robó un documento de alto secreto, con el riesgo de poner en peligro el Palacio de Buckingham y la paz del mundo.",
+      "genres": [
+        "Misterio",
+        "Suspense",
+        "Acción"
+      ],
+      "cast": [
+        "Mischa Barton",
+        "Richard Dillane",
+        "Mido Hamada",
+        "Antonia Bernath",
+        "Kojo Attah",
+        "Raha Rahbari",
+        "Kathryn McGarr",
+        "Nick Harris",
+        "Yassine Mkhichen",
+        "Josh Burdett"
+      ]
+    },
+    {
+      "file": "DOC",
+      "parsed": {
+        "type": "series",
+        "series": "DOC"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 10042,
+        "title": "Doc",
+        "original_title": "Doc",
+        "overview": "El doctor Clint Cassidy (interpretado por Billy Ray Cyrus, famoso cantante estadounidense de country) es un apuesto médico de Montana que se enamora de una escritora de una revista de Nueva York. Doc deja entonces su vida sencilla en el campo para seguir a su amante a la gran ciudad, donde trabajará en un hospital, y donde su actitud serena y cercana con la gente servirá de gran ayuda a los pacientes de una ciudad frenética como Nueva York.",
+        "poster_path": "/4hNOf5ulemoI7EqYg8fDVIclFzq.jpg",
+        "backdrop_path": "/94IX4eV3goPM1Ftcw9nYtBRmjBI.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4hNOf5ulemoI7EqYg8fDVIclFzq.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/94IX4eV3goPM1Ftcw9nYtBRmjBI.jpg",
+        "genres": [
+          "Drama",
+          "Familia"
+        ],
+        "cast": [
+          "Billy Ray Cyrus",
+          "Tyler Posey",
+          "Derek McGrath",
+          "Ron Lea",
+          "Ruth Marshall",
+          "Andrea C. Robinson",
+          "Tracy Shreve",
+          "Richard Leacock",
+          "Paula Boudreau",
+          "Malin Åkerman"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/94IX4eV3goPM1Ftcw9nYtBRmjBI.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4hNOf5ulemoI7EqYg8fDVIclFzq.jpg",
+        "episode_title": "Episodio 9"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 9,
+          "overview": "El doctor Clint Cassidy (interpretado por Billy Ray Cyrus, famoso cantante estadounidense de country) es un apuesto médico de Montana que se enamora de una escritora de una revista de Nueva York. Doc deja entonces su vida sencilla en el campo para seguir a su amante a la gran ciudad, donde trabajará en un hospital, y donde su actitud serena y cercana con la gente servirá de gran ayuda a los pacientes de una ciudad frenética como Nueva York.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:797afa6c74a33a397c887a41841607ec2888e148"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:590823b1e19ec029cb9a342f3baf5f7e89b78665"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Los Bridgerton",
+      "parsed": {
+        "type": "series",
+        "series": "Los Bridgerton"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 91239,
+        "title": "Los Bridgerton",
+        "original_title": "Bridgerton",
+        "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+        "poster_path": "/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "backdrop_path": "/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Ruth Gemmell",
+          "Luke Thompson",
+          "Yerin Ha",
+          "Luke Newton",
+          "Nicola Coughlan",
+          "Hannah Dodd",
+          "Victor Alli",
+          "Claudia Jessie",
+          "Florence Hunt",
+          "Will Tilston"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/A9S8mk45IKWVND45fjWmHtJPwFf.png",
+        "banner": "https://image.tmdb.org/t/p/original/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "episode_title": "El vals",
+        "episode_overview": "A pesar de la insistencia de la alta sociedad, Benedict Bridgerton no es de los que se comprometen, al menos hasta que una dama enmascarada le roba el corazón en un baile.",
+        "still_path": "https://image.tmdb.org/t/p/original/ah0YzFOqNyV30NCNB4J28nOcQrk.jpg"
+      },
+      "episodes": [
+        {
+          "season": 4,
+          "episode": 1,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:7fa3b076b8aaaffb3a6df2058588ce2464d7d9db"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:743bd97f1df2c306eba1072e024c18f1b5c1bd9e"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 2,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:53a0a522263ecfa8640de468030e5ae4b73b9914"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a445e7b4a36df9e053d3ab26973fb2b1a27fc98f"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 3,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e4817b602592056872b4aaa31fa24f40a8a0bc79"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:edf2b81d0def241802a1db1e431d7f9da7a47a79"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 4,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1352c99802eeecd328a1b55c6ee1893cddda770b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:37c46b2e8a7b32b2ebbc6d155afadf95def597c8"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Pura Sangre",
+      "parsed": {
+        "type": "series",
+        "series": "Pura Sangre"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 115081,
+        "title": "Pura Sangre",
+        "original_title": "Pura Sangre",
+        "overview": "En la Sabana de Bogotá de los años 40, el hacendado Pedro Nel Lagos mantiene una relación secreta con su ama de llaves, Ana Gregoria Beltrán. Sin embargo, su esposa Clemencia descubre el romance y, al enterarse de que Ana está embarazada, toma medidas drásticas que cambian el destino de todos.",
+        "poster_path": "/2LfjdBuFhGqyOSxGO9KQ2fTLmJy.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/2LfjdBuFhGqyOSxGO9KQ2fTLmJy.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [
+          "Familia"
+        ],
+        "cast": [
+          "Marcela Mar",
+          "Rafael Novoa",
+          "Pepe Sánchez",
+          "Juan Pablo Gamboa",
+          "Silvia de Dios",
+          "Alejandra Borrero",
+          "Martina García",
+          "Juliana Galvis",
+          "Jason Chad Roth",
+          "Kathy Sáenz"
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/2LfjdBuFhGqyOSxGO9KQ2fTLmJy.jpg",
+        "episode_title": "Capitulo 1"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "En la Sabana de Bogotá de los años 40, el hacendado Pedro Nel Lagos mantiene una relación secreta con su ama de llaves, Ana Gregoria Beltrán. Sin embargo, su esposa Clemencia descubre el romance y, al enterarse de que Ana está embarazada, toma medidas drásticas que cambian el destino de todos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:34e1e39b54c5dafdf9e93b978cfc0a178b8132af"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c570a413803c9d48ad36585063f106de317c9c01"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Putain",
+      "parsed": {
+        "type": "series",
+        "series": "Putain"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 211655,
+        "title": "Putain",
+        "original_title": "Putain",
+        "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+        "poster_path": "/hvrilFOV7nyi3M4Nh2ol2AFLmRg.jpg",
+        "backdrop_path": "/hAYE3ceoAVBeTY1RWb5ga3d3UYO.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hvrilFOV7nyi3M4Nh2ol2AFLmRg.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/hAYE3ceoAVBeTY1RWb5ga3d3UYO.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Liam Jacqmin",
+          "Felix Heremans",
+          "Victoria Djamusala",
+          "Liesa Van der Aa",
+          "Hind Bouabid",
+          "Roda Fawaz",
+          "Laura Darnovsky",
+          "Gorik Van Oudheusden",
+          "Tom Vermeir",
+          "Pierre Boeraeve"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/hAYE3ceoAVBeTY1RWb5ga3d3UYO.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/hvrilFOV7nyi3M4Nh2ol2AFLmRg.jpg",
+        "episode_title": "Todo",
+        "still_path": "https://image.tmdb.org/t/p/original/g1dI7guDM1j0uWsqZq09IjqmLMY.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dc5bdb9ef702816efb2051b9d7f27829559a0233"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:526852ef391da7c4539ffe4b7d601a5db402e039"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:690be0259d970eb13d7e144238b1459a08f04484"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:35c69f5a00cb1a61b88d893e471977516a632194"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:01747d5114e9118380a93b868c954e52f4607a8a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0cc3852469b4f01ad25067037219edc84d356593"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:90a34eb171e839aea15fe4b764bf32a547cad823"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3c6bd773aa05a61f8a51cc3a23fa16675574c7d2"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:164ff8645dad4ba8be973132b47ec30581e27f3c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5d626d56e8c011a02ae283594f16d633f47384a5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:fe4c126ac201e4d22f7a0237190fadfcf20b2956"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d6a37e6ddb3f87ae4a80fcbe16ee8760e0646f18"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ad63cfa27b847f6f5705a8620dcd627cd2668259"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e389a814946b7b43d3662c3e4913ae8247710f59"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9796c6f4a5a4aa69624351962254712c466071bd"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:29ef07721fec2013e146253f4aef4819d9463f70"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1010d13f4e77ed1094f4d5238b09543cdc516c1a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:28318fb5174664e9c818aca0897f5dbf58ca3984"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Cuando Gigi descubre que su madre Anaïs está saliendo de nuevo con su ex, con quien compartió no solo una historia de amor sino también una adicción a las drogas en el pasado, le plantea un ultimátum: su hijo o su amante. Cuando Anaïs se niega a elegir, Gigi decide irse de casa. Recurriendo a sus amigos, Gigi intenta abrirse camino en las frías calles de Bruselas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8b623295b3b7daf0474507eb68a1e0f7ec0370e3"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9b2818cdac7299b83bd9200ceefcb76160ef80b1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Spartacus House of Ashur",
+      "parsed": {
+        "type": "series",
+        "series": "Spartacus House of Ashur"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 240459,
+        "title": "Spartacus: La Casa de Ashur",
+        "original_title": "Spartacus: House of Ashur",
+        "overview": "¿Y si Ashur hubiese vivido y hubiese recibido el ludus donde antes sangró? Con Achillia, una gladiadora, desata espectáculos que desafían a Roma y sorprenden a la élite.",
+        "poster_path": "/bV50amPMtGHJuosHgQylN43oWaD.jpg",
+        "backdrop_path": "/wIysQFRoro0DsNRMjFUoiTxbt5.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/bV50amPMtGHJuosHgQylN43oWaD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/wIysQFRoro0DsNRMjFUoiTxbt5.jpg",
+        "genres": [
+          "Drama",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Nick E. Tarabay",
+          "Graham McTavish",
+          "Tenika Davis",
+          "Jamaica Vaughan",
+          "Ivana Baquero",
+          "Jordi Webber",
+          "Claudia Black",
+          "India Shaw-Smith",
+          "Leigh Gill"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/bG50Usf7hKEaOsv3bxKtFNaSHbg.png",
+        "banner": "https://image.tmdb.org/t/p/original/wIysQFRoro0DsNRMjFUoiTxbt5.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/bV50amPMtGHJuosHgQylN43oWaD.jpg",
+        "episode_title": "Horizontes",
+        "episode_overview": "Achillia prepara su regreso a la arena mientras Ashur se enfrenta a un contratiempo devastador.",
+        "still_path": "https://image.tmdb.org/t/p/original/oqmpIETb0JaFBxlsPF5PTWkgRmI.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "¿Y si Ashur hubiese vivido y hubiese recibido el ludus donde antes sangró? Con Achillia, una gladiadora, desata espectáculos que desafían a Roma y sorprenden a la élite.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ff7062bd2d204d016f5f42c3ac9ca3ce77d7d7d5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Terapia sin filtro",
+      "parsed": {
+        "type": "series",
+        "series": "Terapia sin filtro"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 136311,
+        "title": "Terapia sin filtro",
+        "original_title": "Shrinking",
+        "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+        "poster_path": "/1paLVdoniAR45emRMlOTGnZG0F7.jpg",
+        "backdrop_path": "/8lWcmMKvIbilcIMaTNTk5nEcYYS.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1paLVdoniAR45emRMlOTGnZG0F7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8lWcmMKvIbilcIMaTNTk5nEcYYS.jpg",
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Jason Segel",
+          "Harrison Ford",
+          "Jessica Williams",
+          "Luke Tennie",
+          "Michael Urie",
+          "Lukita Maxwell",
+          "Christa Miller",
+          "Ted McGinley"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/bxcE5bPOibbuG8kTtLaSBQEGUuT.png",
+        "banner": "https://image.tmdb.org/t/p/original/8lWcmMKvIbilcIMaTNTk5nEcYYS.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/1paLVdoniAR45emRMlOTGnZG0F7.jpg",
+        "episode_title": "Fallo mío",
+        "episode_overview": "Jimmy lidia con el síndrome del nido vacío y con sus sentimientos sobre la decisión que ha tomado Alice. Paul enfrenta nuevos retos del párkinson.",
+        "still_path": "https://image.tmdb.org/t/p/original/ktwNnZppviKPoR8F0dFxRAIG9b1.jpg"
+      },
+      "episodes": [
+        {
+          "season": 3,
+          "episode": 1,
+          "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4c1fc4aba337e10aa177348adc09103acc3774d5"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:99e712419077dfc3b4150ceda387a8e0bae0de9c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Trigger Point",
+      "parsed": {
+        "type": "series",
+        "series": "Trigger Point"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 127716,
+        "title": "Trigger point: Fuera de control",
+        "original_title": "Trigger Point",
+        "overview": "Lana Washington y Joel Nutkins son dos experimentados oficiales del equipo de artificieros de la policía de Londres. Una serie de atentados en pleno verano levanta sospechas sobre un ataque premeditado contra el equipo.",
+        "poster_path": "/yGeQsRm4hBErW1q0UlflCFQzI0o.jpg",
+        "backdrop_path": "/vG3U8t5OKHO2xHap9QqclincYl5.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/yGeQsRm4hBErW1q0UlflCFQzI0o.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/vG3U8t5OKHO2xHap9QqclincYl5.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Vicky McClure",
+          "Eric Shango",
+          "Nabil Elouahabi",
+          "Natalie Simpson",
+          "Maanuv Thiara"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/nIp9SSGiMKqngFp45Pk0t4l9Aqh.png",
+        "banner": "https://image.tmdb.org/t/p/original/vG3U8t5OKHO2xHap9QqclincYl5.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/yGeQsRm4hBErW1q0UlflCFQzI0o.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Un hombre secuestrado en un taxi bomba inaugura una nueva serie de atentados con el mensaje “Confiesa o muere”. La amenaza escala hasta una universidad, donde una rehén muere en un ataque devastador que deja una palabra clave como advertencia: Coldmarsh.",
+        "still_path": "https://image.tmdb.org/t/p/original/9FEcP5NByFw8txNLIlyfQHwqdvR.jpg"
+      },
+      "episodes": [
+        {
+          "season": 3,
+          "episode": 1,
+          "overview": "Lana Washington y Joel Nutkins son dos experimentados oficiales del equipo de artificieros de la policía de Londres. Una serie de atentados en pleno verano levanta sospechas sobre un ataque premeditado contra el equipo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cf4691a5c3183c91fe9a98d71cf0a3403d878f21"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6cb1ceb1ba4b4344657e79ed07ac5bff32c8d71f"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 2,
+          "overview": "Lana Washington y Joel Nutkins son dos experimentados oficiales del equipo de artificieros de la policía de Londres. Una serie de atentados en pleno verano levanta sospechas sobre un ataque premeditado contra el equipo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a68a1f713764d7a4e24f5187d89fea1e434432f9"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0f8c7424552127f1a8042121daa2db0eba228f92"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Una carta a mi juventud (2026) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Una carta a mi juventud",
+        "year": "2026",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1602705,
+        "title": "Una carta a mi juventud",
+        "original_title": "Surat untuk Masa Mudaku",
+        "overview": "Un adolescente rebelde y un reservado educador forjan un vínculo inesperado en un orfanato, mientras intentan pasar página y lidiar con su doloroso pasado.",
+        "poster_path": "/lQAEYXhRyOD6OQK0tKt9FAj3Kkx.jpg",
+        "backdrop_path": "/3RaVf9MWpB74kK8AtPJ7DJmfZNA.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/lQAEYXhRyOD6OQK0tKt9FAj3Kkx.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3RaVf9MWpB74kK8AtPJ7DJmfZNA.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Millo Taslim",
+          "Agus Kencrot",
+          "Cleo Haura",
+          "Aqila Herby",
+          "Jordan Omar",
+          "Halim Latuconsina",
+          "Diandra Salsabila Lubis",
+          "Fendy Chow",
+          "Agla Artalidia",
+          "Wilza Lubis"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/3RaVf9MWpB74kK8AtPJ7DJmfZNA.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/lQAEYXhRyOD6OQK0tKt9FAj3Kkx.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:08c2e88cef090c745ae652b46327a2d16900d9d6"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:a18bb542ec8aea47c90f3996961222795be47ef4"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:5252f561998a2e292e3874b70c8b6354d804d8de"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/lQAEYXhRyOD6OQK0tKt9FAj3Kkx.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/3RaVf9MWpB74kK8AtPJ7DJmfZNA.jpg",
+      "overview": "Un adolescente rebelde y un reservado educador forjan un vínculo inesperado en un orfanato, mientras intentan pasar página y lidiar con su doloroso pasado.",
+      "genres": [
+        "Drama"
+      ],
+      "cast": [
+        "Millo Taslim",
+        "Agus Kencrot",
+        "Cleo Haura",
+        "Aqila Herby",
+        "Jordan Omar",
+        "Halim Latuconsina",
+        "Diandra Salsabila Lubis",
+        "Fendy Chow",
+        "Agla Artalidia",
+        "Wilza Lubis"
       ]
     }
   ]
