@@ -27,6 +27,9 @@ def list_categories():
     xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
     if dynamic_items:
+        # Reordenar: Priorizar 'Cine' para que salga justo después del buscador
+        dynamic_items.sort(key=lambda x: 0 if "cine" in str(x.get("title", "")).lower() else 1)
+
         for item in dynamic_items:
             label = item.get("title", "Sin título")
             href = item.get("href")
@@ -55,7 +58,10 @@ def list_categories():
 
     else:
         # Fallback
-        for label, cat_id in CATEGORIES.items():
+        # Reordenar: Priorizar 'Cine'
+        sorted_cats = sorted(CATEGORIES.items(), key=lambda x: 0 if "cine" in x[0].lower() else 1)
+
+        for label, cat_id in sorted_cats:
             icon_name = label.lower().replace(' ', '_') + ".png"
             icon_path = _get_icon(icon_name, 'DefaultFolder.png')
             list_item = xbmcgui.ListItem(label=label)
