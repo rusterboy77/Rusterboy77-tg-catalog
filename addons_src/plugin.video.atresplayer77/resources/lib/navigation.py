@@ -121,7 +121,7 @@ def list_section(category_id, category_name=None, page=0):
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             
-            # Buscar logo: Prioridad logoURL (root) > pathLogo (images) > program > channel
+            # Buscar logo
             logo_path = item.get("logoURL") or img_data.get("pathLogo")
             if not logo_path and "program" in item:
                 logo_path = (item["program"].get("images") or {}).get("pathLogo")
@@ -133,10 +133,7 @@ def list_section(category_id, category_name=None, page=0):
             if not fanart: fanart = poster
             
             list_item = xbmcgui.ListItem(label=title)
-            art = {'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart}
-            if clearlogo: art['clearlogo'] = clearlogo
-            if clearlogo: art['clearart'] = clearlogo
-            list_item.setArt(art)
+            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart, 'clearlogo': clearlogo, 'clearart': clearlogo})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
             link_data = item.get("link") or {}
@@ -165,12 +162,12 @@ def list_section(category_id, category_name=None, page=0):
 
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
-    # Ajuste de tamaño de página (Generalizar para todas las secciones)
+    # Ajuste de tamaño de página
     if "size=" not in href and "pageSize=" not in href:
         sep = "&" if "?" in href else "?"
         href += f"{sep}size=30"
 
-    # Extraer página actual para sub-peticiones
+    # Extraer página actual
     current_page = 0
     match_page = re.search(r'[?&]page=(\d+)', href)
     if match_page: current_page = int(match_page.group(1))
@@ -193,8 +190,9 @@ def open_item(href):
         # Detectamos si es la página de Directos para activar el fix de redundancia
         is_live_page = data.get("pageType") == "LIVE"
 
-        # Detectar si es un objeto de redirección/resolución (tiene href/url pero no contenido)
+        # Detectar si es un objeto de redirección
         is_resolution_object = (data.get("href") or data.get("url")) and "components" not in data and "nodes" not in data and "itemRows" not in data
+        
         if data.get("redirect") or is_resolution_object:
             # Prioridad 1: ID de episodio directo
             if "firstEpisode" in data and isinstance(data["firstEpisode"], str):
@@ -330,27 +328,22 @@ def open_item(href):
         if "components" in data: other_containers.extend(data["components"])
         if "rows" in data: other_containers.extend(data["rows"])
         
-        # Detectar si estamos en la sección de Últimos 7 Días para no filtrarla
         is_u7d = "/u7d/" in href or "ultimos-7-dias" in href or data.get("pageType") == "U7D"
         
-        BAD_TITLES = ["clips", "extras", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
-        # CORRECCIÓN: Bloquear solo "mosaico directo" para no borrar contenido útil de U7D que venga en "Mosaico"
+        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos"]
         if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico directo"])
-        
-        # CORRECCIÓN: Si ya tenemos temporadas, ocultar contenedores redundantes de "Capítulos"
         if has_seasons: BAD_TITLES.extend(["capítulos", "capitulos", "episodios"])
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
             
             # --- SOLUCIÓN REDUNDANCIA: Expansión automática para Directos ---
-            # Solo se activa si is_live_page es True (Página de directos)
             if is_live_page and container.get("href") and not container.get("items") and not container.get("rows"):
                 try:
                      row_href = container["href"]
-                     if "size=" in row_href: row_href = re.sub(r'size=\d+', 'size=30', row_href)
-                     elif "?" in row_href: row_href += "&size=30"
-                     else: row_href += "?size=30"
+                     if "size=" not in row_href and "pageSize=" not in row_href:
+                         sep = "&" if "?" in row_href else "?"
+                         row_href += f"{sep}size=30"
                      
                      r_row = s.get(row_href, timeout=5)
                      if r_row.ok:
@@ -360,18 +353,18 @@ def open_item(href):
                          elif "rows" in d_row: 
                              for r in d_row["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
-                         # Continue evita que se añada la carpeta, ya que hemos expandido el contenido
                          continue 
                 except Exception: pass
 
+            # --- LÓGICA DE TEMPORADAS: Expansión y Paginación ---
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
                      eps_href = container["href"]
-                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
-                     elif "?" in eps_href: eps_href += "&size=30"
-                     else: eps_href += "?size=30"
+                     if "size=" not in eps_href and "pageSize=" not in eps_href:
+                         sep = "&" if "?" in eps_href else "?"
+                         eps_href += f"{sep}size=30"
 
-                     # Pasar página actual a la sub-petición de capítulos
+                     # Pasar página actual a la sub-petición
                      if "page=" in eps_href:
                          eps_href = re.sub(r'page=\d+', f'page={current_page}', eps_href)
                      elif "?" in eps_href:
@@ -388,9 +381,28 @@ def open_item(href):
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
                          
-                         # Capturar info de paginación del contenedor de episodios
+                         # --- AÑADIR BOTÓN PÁGINA SIGUIENTE DENTRO DE LA LISTA ---
                          if "pageInfo" in d_eps:
-                             data["pageInfo"] = d_eps["pageInfo"]
+                             pi = d_eps["pageInfo"]
+                             if pi.get("pageNumber", 0) < pi.get("totalPages", 0) - 1:
+                                 next_p = pi.get("pageNumber", 0) + 1
+                                 total_p = pi.get("totalPages", 0)
+                                 
+                                 # Construir href para la siguiente página de la SERIE (recargar vista temporada)
+                                 # No usamos eps_href, sino href original modificado
+                                 if "page=" in href:
+                                     next_href_view = re.sub(r'page=\d+', f'page={next_p}', href)
+                                 elif "?" in href:
+                                     next_href_view = href + f"&page={next_p}"
+                                 else:
+                                     next_href_view = href + f"?page={next_p}"
+                                 
+                                 content_nodes.append({
+                                     "title": f"[COLOR yellow]>> Página Siguiente ({next_p + 1}/{total_p})[/COLOR]",
+                                     "type": "LINK",
+                                     "href": next_href_view,
+                                     "image": {"pathVertical": "DefaultFolder.png"}
+                                 })
                  except Exception: pass
                  continue
 
@@ -433,7 +445,7 @@ def open_item(href):
 
         nodes.extend(valid_content)
 
-        # CORRECCIÓN: Ordenar episodios si estamos en vista de temporada
+        # Ordenar episodios si estamos en vista de temporada
         if is_season_view:
             def _get_ep_num(n):
                 try: return int(n.get("episode", 0))
@@ -467,7 +479,7 @@ def open_item(href):
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             
-            # Buscar logo: Prioridad logoURL (root) > pathLogo (images) > program > channel
+            # Buscar logo
             logo_path = node.get("logoURL") or img_data.get("pathLogo")
             if not logo_path and "program" in node:
                 logo_path = (node["program"].get("images") or {}).get("pathLogo")
@@ -491,10 +503,7 @@ def open_item(href):
             if not fanart: fanart = poster
 
             list_item = xbmcgui.ListItem(label=title)
-            art = {'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart}
-            if clearlogo: art['clearlogo'] = clearlogo
-            if clearlogo: art['clearart'] = clearlogo
-            list_item.setArt(art)
+            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart, 'clearlogo': clearlogo, 'clearart': clearlogo})
             
             info = {'title': title, 'plot': node.get('description', '')}
             if "episode" in node:
@@ -510,26 +519,19 @@ def open_item(href):
             sub_link = node.get("link") or {}
             sub_href = node.get("href") or sub_link.get("href")
             
-            # --- CORRECCIÓN FINAL: Restaurada lógica original estricta para sub_href ---
-            # Eliminado cualquier bloque que forzara /player/v1/...
-            
+            # --- LÓGICA ORIGINAL DE TIPO DE NODO ---
             node_type = str(node.get("type", "")).upper()
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             looks_like_video = sub_href and ("/episode/" in sub_href or "/player/" in sub_href)
             
-            # Detectar si tiene fuentes explícitas (para U7D y grabaciones)
             has_sources = node.get("sources") or node.get("urlVideo") or node.get("sourcesLive")
-            
-            # Tipos de video conocidos (Añadidos RECORDING y VOD_7D)
             video_types = ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL', 'LIVE_CHANNEL', 'RECORDING', 'VOD_7D']
 
-            # Decisión Play vs Carpeta usando la lógica que funcionaba antes, añadiendo los tipos LIVE
             if sub_href and not looks_like_video and (node_type not in video_types or is_row_container) and not has_sources:
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
                 target_href = sub_href if sub_href else href
-                # Si tiene sources, permitimos el item aunque la URL sea la misma (es el propio video)
                 if not sub_href and target_href == href and not has_sources: continue
                 
                 url = get_url(action='play', href=target_href)
@@ -538,6 +540,7 @@ def open_item(href):
 
             xbmcplugin.addDirectoryItem(HANDLE, url, list_item, is_folder)
 
+        # Paginación general al final (para listas planas)
         if "pageInfo" in data:
             page_info = data["pageInfo"]
             if page_info.get("pageNumber", 0) < page_info.get("totalPages", 0) - 1:
