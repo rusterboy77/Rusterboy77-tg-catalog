@@ -6,5 +6,7 @@
     </category>
     <category label="General">
         <setting id="debug" label="Modo Debug" type="boolean" default="false"/>
+        <setting id="menu_order" type="text" label="Orden del Menú (search,categories,premium,u7d,live,account)" default="search,categories,premium,u7d,live,account"/>
+        <setting id="categories_order" type="text" label="Orden de Categorías (Series,Cine,Programas...)" default=""/>
     </category>
 </settings>

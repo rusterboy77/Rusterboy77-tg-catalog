@@ -20,69 +20,102 @@ def list_categories():
     except Exception:
         pass
 
-    # 0. Buscador
-    list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
-    list_item.setArt({'icon': _get_icon('buscador.png', 'DefaultAddonSearch.png')})
-    url = get_url(action='search')
-    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
+    # --- Bloques de contenido ---
+    def _add_search():
+        list_item = xbmcgui.ListItem(label='[COLOR yellow]Buscador[/COLOR]')
+        list_item.setArt({'icon': _get_icon('buscador.png', 'DefaultAddonSearch.png')})
+        url = get_url(action='search')
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
 
-    if dynamic_items:
-        for item in dynamic_items:
-            label = item.get("title", "Sin título")
-            href = item.get("href")
-            icon_name = label.lower().replace(' ', '_') + ".png"
-            icon_path = _get_icon(icon_name, 'DefaultFolder.png')
-            
-            list_item = xbmcgui.ListItem(label=label)
-            list_item.setArt({'icon': icon_path, 'thumb': icon_path})
-            
-            if "directos" in href or "guia-tv" in href:
-                url = get_url(action='list_live')
-            else:
-                url = get_url(action='open_item', href=href)
-            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
-        
-        # Añadidos manuales importantes
+    def _add_categories():
+        # Orden personalizado de categorías
+        cat_order_str = addon.getSetting('categories_order')
+        cat_order = [x.strip().lower() for x in cat_order_str.split(',') if x.strip()]
+
+        if dynamic_items:
+            if cat_order:
+                def _sort_key(item):
+                    t = item.get("title", "").lower()
+                    return cat_order.index(t) if t in cat_order else 999
+                dynamic_items.sort(key=_sort_key)
+
+            for item in dynamic_items:
+                label = item.get("title", "Sin título")
+                href = item.get("href")
+                icon_name = label.lower().replace(' ', '_') + ".png"
+                icon_path = _get_icon(icon_name, 'DefaultFolder.png')
+                
+                list_item = xbmcgui.ListItem(label=label)
+                list_item.setArt({'icon': icon_path, 'thumb': icon_path})
+                
+                if "directos" in href or "guia-tv" in href:
+                    url = get_url(action='list_live')
+                else:
+                    url = get_url(action='open_item', href=href)
+                xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
+        else:
+            # Fallback
+            items_list = list(CATEGORIES.items())
+            if cat_order:
+                def _sort_key_fb(tup):
+                    t = tup[0].lower()
+                    return cat_order.index(t) if t in cat_order else 999
+                items_list.sort(key=_sort_key_fb)
+
+            for label, cat_id in items_list:
+                icon_name = label.lower().replace(' ', '_') + ".png"
+                icon_path = _get_icon(icon_name, 'DefaultFolder.png')
+                list_item = xbmcgui.ListItem(label=label)
+                list_item.setArt({'icon': icon_path, 'thumb': icon_path})
+                url = get_url(action='list_section', category_id=cat_id, category_name=label)
+                xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
+
+    def _add_premium():
         list_item = xbmcgui.ListItem(label='Premium')
         list_item.setArt({'icon': _get_icon('premium.png'), 'thumb': _get_icon('premium.png')})
         url = get_url(action='list_section', category_id="605b306f7ed1a86f42397281", category_name="Premium")
         xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
+    def _add_u7d():
         list_item = xbmcgui.ListItem(label='Últimos 7 Días')
         list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
         url = get_url(action='open_item', href='/u7d/')
         xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
+    def _add_live():
+        list_item = xbmcgui.ListItem(label='En Directo (TV)')
+        list_item.setArt({'icon': _get_icon('directo.png', 'DefaultAddonPVRClient.png')})
+        url = get_url(action='list_live')
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
+
+    def _add_account():
+        list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
+        list_item.setArt({'icon': _get_icon('cuenta.png', 'DefaultUser.png')})
+        url = get_url(action='login')
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
+
+        list_item = xbmcgui.ListItem(label='Configuración')
+        list_item.setArt({'icon': _get_icon('configuracion.png', 'DefaultAddonService.png')})
+        url = get_url(action='settings')
+        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
+
+    # Mapa de bloques y orden
+    blocks = {'search': _add_search, 'categories': _add_categories, 'premium': _add_premium, 'u7d': _add_u7d, 'live': _add_live, 'account': _add_account}
+    default_order = "search,categories,premium,u7d,live,account"
+    user_order = addon.getSetting('menu_order')
+    
+    if not user_order: order_list = default_order.split(',')
     else:
-        # Fallback
-        for label, cat_id in CATEGORIES.items():
-            icon_name = label.lower().replace(' ', '_') + ".png"
-            icon_path = _get_icon(icon_name, 'DefaultFolder.png')
-            list_item = xbmcgui.ListItem(label=label)
-            list_item.setArt({'icon': icon_path, 'thumb': icon_path})
-            url = get_url(action='list_section', category_id=cat_id, category_name=label)
-            xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
-        
-        list_item = xbmcgui.ListItem(label='Últimos 7 Días')
-        list_item.setArt({'icon': _get_icon('ultimos_7_dias.png'), 'thumb': _get_icon('ultimos_7_dias.png')})
-        url = get_url(action='open_item', href='/u7d/')
-        xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
+        order_list = [x.strip() for x in user_order.split(',') if x.strip()]
+        # Añadir faltantes al final
+        present = set(order_list)
+        for k in default_order.split(','):
+            if k not in present: order_list.append(k)
 
-    list_item = xbmcgui.ListItem(label='En Directo (TV)')
-    list_item.setArt({'icon': _get_icon('directo.png', 'DefaultAddonPVRClient.png')})
-    url = get_url(action='list_live')
-    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
-
-    # Login y Config
-    list_item = xbmcgui.ListItem(label='[COLOR blue]Iniciar Sesión / Cuenta[/COLOR]')
-    list_item.setArt({'icon': _get_icon('cuenta.png', 'DefaultUser.png')})
-    url = get_url(action='login')
-    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
-
-    list_item = xbmcgui.ListItem(label='Configuración')
-    list_item.setArt({'icon': _get_icon('configuracion.png', 'DefaultAddonService.png')})
-    url = get_url(action='settings')
-    xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
+    for key in order_list:
+        if key in blocks:
+            try: blocks[key]()
+            except Exception: pass
 
     xbmcplugin.endOfDirectory(HANDLE)
 
