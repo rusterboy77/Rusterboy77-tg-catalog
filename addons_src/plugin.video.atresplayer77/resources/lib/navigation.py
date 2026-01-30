@@ -174,6 +174,7 @@ def open_item(href):
         data = r.json()
         
         # --- DETECCIÓN DE REDIRECCIÓN Y TIPO DE PÁGINA ---
+        # Detectamos si es la página de Directos para activar el fix de redundancia
         is_live_page = data.get("pageType") == "LIVE"
 
         if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
@@ -317,7 +318,7 @@ def open_item(href):
             c_title = (container.get("title") or "").lower()
             
             # --- SOLUCIÓN REDUNDANCIA: Expansión automática para Directos ---
-            # Solo si es LIVE page y la fila es un enlace sin items
+            # Solo se activa si is_live_page es True (Página de directos)
             if is_live_page and container.get("href") and not container.get("items") and not container.get("rows"):
                 try:
                      row_href = container["href"]
@@ -333,6 +334,7 @@ def open_item(href):
                          elif "rows" in d_row: 
                              for r in d_row["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
+                         # Continue evita que se añada la carpeta, ya que hemos expandido el contenido
                          continue 
                 except Exception: pass
 
@@ -351,9 +353,6 @@ def open_item(href):
                          elif "rows" in d_eps:
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
-                         if "pageInfo" in d_eps:
-                             # Lógica paginación simplificada para no extender el código
-                             pass
                  except Exception: pass
                  continue
 
@@ -454,12 +453,14 @@ def open_item(href):
             sub_link = node.get("link") or {}
             sub_href = node.get("href") or sub_link.get("href")
             
+            # --- CORRECCIÓN FINAL: Restaurada lógica original estricta para sub_href ---
+            # Eliminado cualquier bloque que forzara /player/v1/...
+            
             node_type = str(node.get("type", "")).upper()
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             looks_like_video = sub_href and ("/episode/" in sub_href or "/player/" in sub_href)
             
-            # --- DECISIÓN PLAY vs CARPETA ---
-            # Volvemos a la lógica original estricta para no romper U7D ni Live
+            # Decisión Play vs Carpeta usando la lógica que funcionaba antes, añadiendo los tipos LIVE
             if sub_href and not looks_like_video and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL', 'LIVE_CHANNEL'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
