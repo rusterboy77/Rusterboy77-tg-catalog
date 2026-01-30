@@ -491,13 +491,21 @@ def open_item(href):
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
             looks_like_video = sub_href and ("/episode/" in sub_href or "/player/" in sub_href)
             
+            # Detectar si tiene fuentes explícitas (para U7D y grabaciones)
+            has_sources = node.get("sources") or node.get("urlVideo") or node.get("sourcesLive")
+            
+            # Tipos de video conocidos (Añadidos RECORDING y VOD_7D)
+            video_types = ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL', 'LIVE_CHANNEL', 'RECORDING', 'VOD_7D']
+
             # Decisión Play vs Carpeta usando la lógica que funcionaba antes, añadiendo los tipos LIVE
-            if sub_href and not looks_like_video and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL', 'LIVE_CHANNEL'] or is_row_container):
+            if sub_href and not looks_like_video and (node_type not in video_types or is_row_container) and not has_sources:
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
                 target_href = sub_href if sub_href else href
-                if not sub_href and target_href == href: continue
+                # Si tiene sources, permitimos el item aunque la URL sea la misma (es el propio video)
+                if not sub_href and target_href == href and not has_sources: continue
+                
                 url = get_url(action='play', href=target_href)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
