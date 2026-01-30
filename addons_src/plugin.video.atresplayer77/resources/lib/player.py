@@ -174,7 +174,7 @@ def play(href):
             # Intentar fuentes de directo (sourcesLive)
             source_item = _get_best_source_item(data.get("sourcesLive"))
         
-        if not video_url:
+        if not video_url and not source_item:
             # Intentar fuentes estándar (sources)
             source_item = _get_best_source_item(data.get("sources"))
 
