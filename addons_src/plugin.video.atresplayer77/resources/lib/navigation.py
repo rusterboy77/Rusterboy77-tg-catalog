@@ -96,94 +96,6 @@ def list_categories():
 def list_live():
     """Lista los canales en directo"""
     # Usar la ruta web oficial, ya que la API directa /live/channels da 404
-    try:
-        s = get_session()
-        # 1. Resolver /directos/ para obtener la URL real (normalmente .../page/live)
-        r = s.get(f"{API_BASE}/client/v1/url", params={"href": "/directos/"}, timeout=10)
-        if r.ok:
-            data = r.json()
-            target = data.get("href")
-            
-            # 2. Seguir la redirección a la página de directos
-            if target:
-                if target.startswith("http"):
-                    r2 = s.get(target, timeout=10)
-                else:
-                    r2 = s.get(f"{API_BASE}/client/v1/url", params={"href": target}, timeout=10)
-                
-                if r2.ok:
-                    data = r2.json()
-                    
-                    # 3. Extraer canales recursivamente, saltando contenedores
-                    def _extract_channels(d):
-                        found = []
-                        if isinstance(d, dict):
-                            # Es contenedor si tiene listas de items
-                            # 'items' en un nodo que NO es canal suele ser un contenedor (fila/componente)
-                            is_container = "itemRows" in d or "rows" in d or ("items" in d and not d.get("channelId"))
-                            
-                            ctype = str(d.get("type", "")).upper()
-                            # Es canal si tiene ID o tipo correcto y no es contenedor
-                            if (d.get("channelId") or ctype in ["CHANNEL", "LIVE"]) and not is_container:
-                                found.append(d)
-                            
-                            for k, v in d.items():
-                                found.extend(_extract_channels(v))
-                        elif isinstance(d, list):
-                            for i in d:
-                                found.extend(_extract_channels(i))
-                        return found
-
-                    channels = _extract_channels(data)
-                    
-                    # Deduplicar
-                    seen = set()
-                    unique = []
-                    for c in channels:
-                        k = c.get("contentId") or c.get("href") or c.get("channelId") or str(c)
-                        if k not in seen:
-                            seen.add(k)
-                            unique.append(c)
-                    channels = unique
-
-                    if channels:
-                        # Renderizar canales directamente
-                        for node in channels:
-                            title = node.get("title") or node.get("name") or "Sin título"
-                            img_data = node.get("image") or node.get("images") or {}
-                            poster = fix_img(img_data.get("pathVertical"), 'vertical')
-                            fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
-                            
-                            # Fallback local images
-                            if not poster:
-                                safe_name = title.lower().strip().replace(' ', '_')
-                                media_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media')
-                                for ext in ['.png', '.jpg', '.jpeg']:
-                                    local_img = os.path.join(media_path, safe_name + ext)
-                                    if os.path.exists(local_img):
-                                        poster = local_img; fanart = local_img; break
-
-                            list_item = xbmcgui.ListItem(label=title)
-                            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
-                            list_item.setInfo('video', {'title': title, 'plot': node.get('description', '')})
-                            
-                            # Construir href
-                            href = node.get("href")
-                            if not href and node.get("contentId"):
-                                href = f"/player/v1/episode/{node['contentId']}"
-                            
-                            if href:
-                                url = get_url(action='play', href=href)
-                                list_item.setProperty('IsPlayable', 'true')
-                                xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
-                        
-                        xbmcplugin.endOfDirectory(HANDLE)
-                        return
-
-    except Exception:
-        pass
-
-    # Fallback por si falla la extracción
     open_item('/directos/')
 
 def list_section(category_id, category_name=None, page=0):
@@ -557,7 +469,8 @@ def open_item(href):
             for n in content_nodes:
                 ntype = str(n.get("type", "")).upper()
                 # Si encontramos episodios sueltos (ej: Programas que no usan temporadas), son contenido válido
-                if ntype in ["EPISODE", "VIDEO"] or "season" in str(n).lower():
+                # FIX: AÑADIDO CHANNEL Y LIVE AL FILTRO PARA EVITAR QUE DESAPAREZCAN EN DIRECTOS
+                if ntype in ["EPISODE", "VIDEO", "CHANNEL", "LIVE", "MOVIE"] or "season" in str(n).lower():
                     valid_content.append(n)
         else:
             # Si es serie con temporadas explícitas, todo el contenido recopilado es válido
