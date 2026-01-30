@@ -999,7 +999,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             display_title = rep.get('title') or (items_group[0].get('title') if items_group else key)
             
             # Detectar si es película para evitar tratarla como serie (carpeta)
-            is_movie = _get_item_type(rep) == 'movie'
+            is_movie = _get_item_type(rep) == 'movie' or len(items_group) == 1
             
             li = xbmcgui.ListItem(label=display_title)
             # aplicar poster/overview si existen
