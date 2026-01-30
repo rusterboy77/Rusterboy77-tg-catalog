@@ -87,6 +87,8 @@ def fix_img(url, type='vertical'):
     if url.endswith('/'):
         if type == 'horizontal':
             return url + '1280x720.jpg' # Fanart HD
+        elif type == 'logo':
+            return url + 'original.png' # Logo transparente
         else:
             return url + '390x219.jpg' # Poster vertical
     return url

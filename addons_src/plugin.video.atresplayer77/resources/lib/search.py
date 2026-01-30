@@ -79,9 +79,12 @@ def do_search(query=None):
             img_data = item.get("image") or item.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            clearlogo = fix_img(img_data.get("pathLogo"), 'logo')
             
             li = xbmcgui.ListItem(label=title)
-            li.setArt({'poster': poster, 'icon': poster, 'thumb': poster, 'fanart': fanart})
+            art = {'poster': poster, 'icon': poster, 'thumb': poster, 'fanart': fanart}
+            if clearlogo: art['clearlogo'] = clearlogo
+            li.setArt(art)
             li.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
             href = item.get("href") or (item.get("link") or {}).get("href")
