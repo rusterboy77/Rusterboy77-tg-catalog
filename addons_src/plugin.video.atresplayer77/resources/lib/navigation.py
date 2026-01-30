@@ -166,7 +166,9 @@ def list_section(category_id, category_name=None, page=0):
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
     # Ajuste de tamaño de página (Generalizar para todas las secciones)
-    if "size=" not in href and "pageSize=" not in href:
+    # CORRECCIÓN: Solo aplicar a URLs de API. Modificar URLs web (que empiezan por /) rompe el resolver.
+    is_api = "client/v1" in href or "api.atresplayer.com" in href
+    if is_api and "size=" not in href and "pageSize=" not in href:
         sep = "&" if "?" in href else "?"
         # Aumentar a 300 solo para episodios/temporadas
         if "entityType=ATPEpisode" in href or "seasonId=" in href or "temporada" in href.lower():
