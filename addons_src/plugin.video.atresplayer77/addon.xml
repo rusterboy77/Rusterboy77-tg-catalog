@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="plugin.video.atresplayer77" name="Atresplayer 77" version="0.1.13" provider-name="Rusterboy77">
+<addon id="plugin.video.atresplayer77" name="Atresplayer 77" version="0.1.14" provider-name="Rusterboy77">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests"/>
