@@ -139,7 +139,9 @@ def list_section(category_id, category_name=None, page=0):
             link_data = item.get("link") or {}
             href = item.get("href") or link_data.get("href")
             if href:
-                if category_name == "Cine":
+                # Detectar si es contenido reproducible directo (Cine o Episodio suelto/Documental único)
+                page_type = link_data.get("pageType") or item.get("pageType")
+                if category_name == "Cine" or page_type in ["EPISODE", "MOVIE", "VIDEO"]:
                     url = get_url(action='play', href=href)
                     list_item.setProperty('IsPlayable', 'true')
                     xbmcplugin.addDirectoryItem(HANDLE, url, list_item, False)
