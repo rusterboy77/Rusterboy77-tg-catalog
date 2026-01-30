@@ -120,11 +120,20 @@ def list_section(category_id, category_name=None, page=0):
             img_data = item.get("image") or item.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
+            
+            # Buscar logo
+            logo_path = item.get("logoURL") or img_data.get("pathLogo")
+            if not logo_path and "program" in item:
+                logo_path = (item["program"].get("images") or {}).get("pathLogo")
+            if not logo_path and "channel" in item:
+                logo_path = (item["channel"].get("images") or {}).get("pathLogo")
+            
+            clearlogo = fix_img(logo_path, 'logo')
             if not poster: poster = fanart
             if not fanart: fanart = poster
             
             list_item = xbmcgui.ListItem(label=title)
-            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
+            list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart, 'clearlogo': clearlogo, 'clearart': clearlogo})
             list_item.setInfo('video', {'title': title, 'plot': item.get('description', '')})
             
             link_data = item.get("link") or {}
@@ -319,7 +328,11 @@ def open_item(href):
         if "components" in data: other_containers.extend(data["components"])
         if "rows" in data: other_containers.extend(data["rows"])
         
+        is_u7d = "/u7d/" in href or "ultimos-7-dias" in href or data.get("pageType") == "U7D"
+        
         BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos"]
+        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico directo"])
+        if has_seasons: BAD_TITLES.extend(["capítulos", "capitulos", "episodios"])
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
@@ -376,6 +389,7 @@ def open_item(href):
                                  total_p = pi.get("totalPages", 0)
                                  
                                  # Construir href para la siguiente página de la SERIE (recargar vista temporada)
+                                 # No usamos eps_href, sino href original modificado
                                  if "page=" in href:
                                      next_href_view = re.sub(r'page=\d+', f'page={next_p}', href)
                                  elif "?" in href:
@@ -431,31 +445,12 @@ def open_item(href):
 
         nodes.extend(valid_content)
 
-        # Ordenar episodios si estamos en vista de temporada (FIX MEJORADO)
+        # Ordenar episodios si estamos en vista de temporada
         if is_season_view:
-            def _get_ep_sort_key(n):
-                # 1. Botón siguiente siempre al final
-                if "Página Siguiente" in n.get("title", ""):
-                    return 999999
-                
-                # 2. Intentar usar campo numérico de API
-                try:
-                    ep = int(n.get("episode"))
-                    if ep > 0: return ep
-                except: pass
-
-                # 3. Intentar extraer número del título (Regex)
-                # Busca: Cap/Capítulo/Episodio/C + espacio opcional + numero
-                try:
-                    title = n.get("title", "").lower()
-                    match = re.search(r'(?:capitulo|capítulo|episodio|cap\.?|c\.?)\s*(\d+)', title)
-                    if match:
-                        return int(match.group(1))
-                except: pass
-                
-                return 0 # Por defecto si no encontramos nada
-
-            nodes.sort(key=_get_ep_sort_key)
+            def _get_ep_num(n):
+                try: return int(n.get("episode", 0))
+                except: return 99999
+            nodes.sort(key=_get_ep_num)
 
         if not nodes and not main_video_node:
              candidates = []
@@ -545,11 +540,10 @@ def open_item(href):
 
             xbmcplugin.addDirectoryItem(HANDLE, url, list_item, is_folder)
 
-        # Paginación general al final (para listas planas, no dentro de temporadas)
+        # Paginación general al final (para listas planas)
         if "pageInfo" in data:
             page_info = data["pageInfo"]
-            # Solo añadir si no es vista de temporada (porque ahí ya lo añadimos dentro de la lista)
-            if not is_season_view and page_info.get("pageNumber", 0) < page_info.get("totalPages", 0) - 1:
+            if page_info.get("pageNumber", 0) < page_info.get("totalPages", 0) - 1:
                 next_p = page_info.get("pageNumber", 0) + 1
                 if "page=" in href: next_href = re.sub(r'page=\d+', f'page={next_p}', href)
                 elif "?" in href: next_href = href + f"&page={next_p}"
@@ -560,7 +554,8 @@ def open_item(href):
                 list_item.setArt({'icon': 'DefaultFolder.png'})
                 list_item.setProperty('SpecialSort', 'bottom')
                 
-                if "itemRows" in data:
+                # Si es vista de episodios, poner número alto para que el sort por defecto lo deje al final
+                if is_season_view or "itemRows" in data:
                      list_item.setInfo('video', {'episode': 99999, 'title': '>> Página Siguiente'})
                 
                 xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
