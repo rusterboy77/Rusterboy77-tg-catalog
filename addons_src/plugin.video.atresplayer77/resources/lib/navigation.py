@@ -367,8 +367,8 @@ def open_item(href):
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
                      eps_href = container["href"]
-                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=0', eps_href)
-                     elif "?" in eps_href: eps_href += "&size=0"
+                     if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
+                     elif "?" in eps_href: eps_href += "&size=30"
                      else: eps_href += "?size=0"
 
                      # Pasar página actual a la sub-petición de capítulos
