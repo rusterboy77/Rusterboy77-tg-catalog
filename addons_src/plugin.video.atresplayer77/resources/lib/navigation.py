@@ -369,7 +369,7 @@ def open_item(href):
                      eps_href = container["href"]
                      if "size=" in eps_href: eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
                      elif "?" in eps_href: eps_href += "&size=30"
-                     else: eps_href += "?size=0"
+                     else: eps_href += "?size=30"
 
                      # Pasar página actual a la sub-petición de capítulos
                      if "page=" not in eps_href:
