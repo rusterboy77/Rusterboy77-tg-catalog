@@ -189,7 +189,9 @@ def open_item(href):
         # Detectamos si es la página de Directos para activar el fix de redundancia
         is_live_page = data.get("pageType") == "LIVE"
 
-        if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
+        # Detectar si es un objeto de redirección/resolución (tiene href/url pero no contenido)
+        is_resolution_object = (data.get("href") or data.get("url")) and "components" not in data and "nodes" not in data and "itemRows" not in data
+        if data.get("redirect") or is_resolution_object:
             # Prioridad 1: ID de episodio directo
             if "firstEpisode" in data and isinstance(data["firstEpisode"], str):
                  ep_id = data["firstEpisode"]
@@ -325,10 +327,10 @@ def open_item(href):
         if "rows" in data: other_containers.extend(data["rows"])
         
         # Detectar si estamos en la sección de Últimos 7 Días para no filtrarla
-        is_u7d = "/u7d/" in href or "ultimos-7-dias" in href
+        is_u7d = "/u7d/" in href or "ultimos-7-dias" in href or data.get("pageType") == "U7D"
         
-        BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
-        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico"])
+        BAD_TITLES = ["clips", "extras", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog"]
+        if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico", "secciones"])
         
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
