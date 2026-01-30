@@ -166,13 +166,19 @@ def list_section(category_id, category_name=None, page=0):
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
     # Ajuste de tamaño de página (Generalizar para todas las secciones)
+    # EXCEPCIÓN: Para temporadas/capítulos, aumentamos el límite (300) para evitar paginación
+    target_size = 30
+    if "temporada" in href.lower() or "season" in href.lower():
+        target_size = 300
+
     if "size=" not in href and "pageSize=" not in href:
         sep = "&" if "?" in href else "?"
-        # Aumentar a 300 solo para episodios/temporadas
-        if "entityType=ATPEpisode" in href or "seasonId=" in href or "temporada" in href.lower():
-            href += f"{sep}size=300"
-        else:
-            href += f"{sep}size=30"
+        href += f"{sep}size={target_size}"
+
+    # Extraer página actual para sub-peticiones
+    current_page = 0
+    match_page = re.search(r'[?&]page=(\d+)', href)
+    if match_page: current_page = int(match_page.group(1))
 
     # Resolución de URL
     params = {}
@@ -370,6 +376,11 @@ def open_item(href):
                      elif "?" in eps_href: eps_href += "&size=300"
                      else: eps_href += "?size=300"
 
+                     # Pasar página actual a la sub-petición de capítulos
+                     if "page=" not in eps_href:
+                         sep = "&" if "?" in eps_href else "?"
+                         eps_href += f"{sep}page={current_page}"
+
                      r_eps = s.get(eps_href, timeout=5)
                      if r_eps.ok:
                          d_eps = r_eps.json()
@@ -378,6 +389,10 @@ def open_item(href):
                          elif "rows" in d_eps:
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
+                         
+                         # Capturar info de paginación del contenedor de episodios
+                         if "pageInfo" in d_eps:
+                             data["pageInfo"] = d_eps["pageInfo"]
                  except Exception: pass
                  continue
 
