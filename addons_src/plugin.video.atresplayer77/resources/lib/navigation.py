@@ -165,11 +165,10 @@ def list_section(category_id, category_name=None, page=0):
 
 def open_item(href):
     """Navega dentro de una serie, temporada o programa"""
-    # Ajuste de tamaño de página
-    if "/row/search" in href:
-        if "size=" in href: href = re.sub(r'size=\d+', 'size=30', href)
-        elif "?" in href: href += "&size=30"
-        else: href += "?size=30"
+    # Ajuste de tamaño de página (Generalizar para todas las secciones)
+    if "size=" not in href and "pageSize=" not in href:
+        sep = "&" if "?" in href else "?"
+        href += f"{sep}size=30"
 
     # Resolución de URL
     params = {}
@@ -211,7 +210,7 @@ def open_item(href):
                 if target != href and target != href + "/":
                     return open_item(target)
 
-        is_season_view = "seasonId=" in url or "seasonId=" in href
+        is_season_view = "seasonId=" in url or "seasonId=" in href or data.get("pageType") == "SEASON"
         
         parent_img = data.get("image") or data.get("images") or {}
         parent_poster = fix_img(parent_img.get("pathVertical"), 'vertical')
@@ -333,6 +332,9 @@ def open_item(href):
         # CORRECCIÓN: Bloquear solo "mosaico directo" para no borrar contenido útil de U7D que venga en "Mosaico"
         if not is_u7d: BAD_TITLES.extend(["últimos 7 días", "ultimos 7 dias", "mosaico directo"])
         
+        # CORRECCIÓN: Si ya tenemos temporadas, ocultar contenedores redundantes de "Capítulos"
+        if has_seasons: BAD_TITLES.extend(["capítulos", "capitulos", "episodios"])
+        
         for container in other_containers:
             c_title = (container.get("title") or "").lower()
             
@@ -413,6 +415,13 @@ def open_item(href):
             nodes.append(main_video_node)
 
         nodes.extend(valid_content)
+
+        # CORRECCIÓN: Ordenar episodios si estamos en vista de temporada
+        if is_season_view:
+            def _get_ep_num(n):
+                try: return int(n.get("episode", 0))
+                except: return 99999
+            nodes.sort(key=_get_ep_num)
 
         if not nodes and not main_video_node:
              candidates = []
@@ -523,6 +532,12 @@ def open_item(href):
                 url = get_url(action='open_item', href=next_href)
                 list_item = xbmcgui.ListItem(label=f"[COLOR yellow]>> Página Siguiente ({next_p + 1}/{page_info.get('totalPages', 0)})[/COLOR]")
                 list_item.setArt({'icon': 'DefaultFolder.png'})
+                list_item.setProperty('SpecialSort', 'bottom')
+                
+                # Si es vista de episodios, poner número alto para que el sort por defecto lo deje al final
+                if is_season_view or "itemRows" in data:
+                     list_item.setInfo('video', {'episode': 99999, 'title': '>> Página Siguiente'})
+                
                 xbmcplugin.addDirectoryItem(HANDLE, url, list_item, True)
 
     except Exception as e:
