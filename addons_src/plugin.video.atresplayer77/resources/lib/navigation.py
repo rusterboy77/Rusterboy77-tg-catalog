@@ -205,36 +205,45 @@ def open_item(href):
         is_live_page = data.get("pageType") == "LIVE"
 
         # --- DETECCIÓN DE REDIRECCIÓN (Fix para Directos y cambios de ruta) ---
+        # El log mostró que a veces devuelve: ['url', 'redirect', 'href', 'pageType', 'jsonld']
         if data.get("redirect") or (data.get("url") and "components" not in data and "nodes" not in data):
+            # NUEVO: Manejo de respuesta inProgressFormat (solo ID de episodio)
             if "firstEpisode" in data and isinstance(data["firstEpisode"], str):
                  ep_id = data["firstEpisode"]
                  target = f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
+                 xbmc.log(f"ATRES_REDIRECT: inProgressFormat ID -> {target}", xbmc.LOGWARNING)
                  return open_item(target)
 
+            # NUEVO: Priorizar href de API si existe (evita bucles con la url web)
             if data.get("href") and "api.atresplayer.com" in data["href"]:
                 target = data["href"]
                 if target != href:
+                    xbmc.log(f"ATRES_REDIRECT: Usando API Href: {target}", xbmc.LOGWARNING)
                     return open_item(target)
 
             target = data.get("url") or data.get("href")
             if target:
+                # Si nos dan una URL completa de atresplayer, la convertimos a relativa para usar la API
                 if "atresplayer.com" in target:
                     parsed = urllib.parse.urlparse(target)
                     target = parsed.path
                     if parsed.query: target += "?" + parsed.query
                 
                 if target != href and target != href + "/":
+                    xbmc.log(f"ATRES_REDIRECT: API indica redirección a {target}", xbmc.LOGWARNING)
                     return open_item(target)
 
         # Detectar si estamos navegando dentro de una temporada específica
         is_season_view = "seasonId=" in url or "seasonId=" in href
         
+        # Imagen de cabecera (Serie/Programa padre) para fallback
         parent_img = data.get("image") or data.get("images") or {}
         parent_poster = fix_img(parent_img.get("pathVertical"), 'vertical')
         parent_fanart = fix_img(parent_img.get("pathHorizontal"), 'horizontal')
 
         nodes = []
         
+        # ESTRATEGIA 0: El propio objeto es reproducible (Peliculas/Directos que vienen completos)
         if data.get("urlVideo") or data.get("sources"):
              nodes.append(data)
 
@@ -242,6 +251,7 @@ def open_item(href):
         main_video_node = None
         has_seasons = "seasons" in data and data["seasons"]
         
+        # A. firstEpisode (Estructura típica de películas/eventos)
         if "firstEpisode" in data and isinstance(data["firstEpisode"], dict) and data["firstEpisode"].get("href"):
              ep = data["firstEpisode"]
              main_video_node = {
@@ -252,6 +262,7 @@ def open_item(href):
                  "description": data.get("description")
              }
 
+        # A.2 Episode (Campo directo en Formatos de Cine detectado en logs)
         if not main_video_node and "episode" in data:
              ep_val = data["episode"]
              ep_target = None
@@ -259,6 +270,7 @@ def open_item(href):
              elif isinstance(ep_val, dict): ep_target = ep_val.get("href")
 
              if ep_target:
+                 # xbmc.log(f"ATRES_OPEN: Detectado campo 'episode' para Cine: {ep_target}", xbmc.LOGWARNING)
                  main_video_node = {
                      "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
                      "type": "VIDEO",
@@ -267,10 +279,12 @@ def open_item(href):
                      "description": data.get("description")
                  }
 
+        # B. Hero Action (Botón en la cabecera) - Si no tenemos firstEpisode
         if not main_video_node:
             hero = data.get('hero')
             if not hero and 'components' in data:
                 for c in data['components']:
+                    # Ampliamos la lista de componentes posibles donde puede estar el botón
                     if c.get('component') in ['Hero', 'HERO', 'Showcase', 'Header', 'Poster', 'Banner']:
                         hero = c; break
             if hero:
@@ -287,13 +301,17 @@ def open_item(href):
                         }
                         break
         
+        # C. Fallback: Intentar inProgressFormat si es una ficha de formato sin video
         if not main_video_node and not has_seasons and data.get("id"):
              try:
                  fmt_id = data["id"]
                  url_prog = f"{API_BASE}/client/v1/inProgressFormat/watch/{fmt_id}"
+                 # xbmc.log(f"ATRES_FALLBACK: Probando inProgressFormat {url_prog}", xbmc.LOGWARNING)
                  r_prog = s.get(url_prog, timeout=5)
                  if r_prog.ok:
                      d_prog = r_prog.json()
+                     # xbmc.log(f"ATRES_FALLBACK_RESP: {str(d_prog)[:200]}", xbmc.LOGWARNING)
+                     
                      ep_id = None
                      if "firstEpisode" in d_prog:
                          val = d_prog["firstEpisode"]
@@ -301,6 +319,7 @@ def open_item(href):
                          elif isinstance(val, dict): ep_id = val.get("id") or val.get("href")
 
                      if ep_id:
+                         # Si es un ID simple, construimos la URL. Si es una URL completa, la usamos.
                          target = ep_id if (str(ep_id).startswith("http") or str(ep_id).startswith("/")) else f"https://api.atresplayer.com/client/v1/page/episode/{ep_id}"
                          main_video_node = {
                              "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
@@ -312,11 +331,13 @@ def open_item(href):
              except Exception as e:
                  xbmc.log(f"ATRES_FALLBACK_ERR: {e}", xbmc.LOGERROR)
 
+        # D. Búsqueda Recursiva (Último recurso si no hay temporadas y no hemos encontrado botón)
         if not main_video_node and not has_seasons:
              candidates = []
              recursive_find_playable(data, candidates)
              for c in candidates:
                  h = c.get('href', '')
+                 # Priorizar enlaces a player o episodios
                  if '/episode/' in h or '/player/' in h:
                      main_video_node = {
                         "title": f"[COLOR green]▶ Reproducir: {data.get('title')}[/COLOR]",
@@ -330,6 +351,8 @@ def open_item(href):
         # --- FASE 2: PROCESAR CONTENIDO ADICIONAL (Temporadas, Filas) ---
         content_nodes = []
         
+        # A. Seasons (Series)
+        # NUEVO: Si hay episodios en la raíz (vista de Temporada), usarlos directamente y evitar duplicar temporadas
         if "episodes" in data and data["episodes"]:
              content_nodes.extend(data["episodes"])
         elif "seasons" in data and not is_season_view:
@@ -341,16 +364,20 @@ def open_item(href):
                 elif "items" in season:
                     content_nodes.extend(season["items"])
                     found_eps = True
+                # Si no hay episodios inline, añadir la temporada como carpeta
                 if not found_eps:
                     content_nodes.append(season)
 
+        # B. Components y Rows
         other_containers = []
         if "components" in data: other_containers.extend(data["components"])
         if "rows" in data: other_containers.extend(data["rows"])
         
+        # FILTRO: Palabras clave para eliminar secciones basura
         BAD_TITLES = ["clips", "extras", "secciones", "mejores momentos", "relacionado", "reparto", "detalles", "más de", "redes", "te puede interesar", "caras", "interesar", "sigue viendo", "recomendado", "suscríbete", "noticias", "blog", "capítulos", "capitulos", "temporadas", "episodios", "programas", "programas completos"]
         
         for container in other_containers:
+            # 1. Filtrar por título del contenedor
             c_title = (container.get("title") or "").lower()
             
             # --- SOLUCIÓN REDUNDANCIA: Expansión automática para Directos ---
@@ -358,6 +385,7 @@ def open_item(href):
             if is_live_page and container.get("href") and not container.get("items") and not container.get("rows"):
                 try:
                      row_href = container["href"]
+                     # Ajustar parámetros
                      if "size=" in row_href:
                          row_href = re.sub(r'size=\d+', 'size=30', row_href)
                      elif "?" in row_href:
@@ -371,12 +399,17 @@ def open_item(href):
                          d_row = r_row.json()
                          if "items" in d_row: content_nodes.extend(d_row["items"])
                          elif "itemRows" in d_row: content_nodes.extend(d_row["itemRows"])
-                         continue # Ya hemos procesado esta fila, saltamos el añadir la carpeta
+                         elif "rows" in d_row:
+                             for r in d_row["rows"]:
+                                 if "items" in r: content_nodes.extend(r["items"])
+                         # Marcar como expandido y continuar para no añadir la carpeta original
+                         continue 
                 except Exception: pass
 
             # Lógica normal para series/programas (expandir capítulos)
             if is_season_view and ("capítulos" in c_title or container.get("type") == "EPISODE") and container.get("href"):
                  try:
+                     # MODIFICACIÓN: Forzar size=30 y gestionar paginación
                      eps_href = container["href"]
                      if "size=" in eps_href:
                          eps_href = re.sub(r'size=\d+', 'size=30', eps_href)
@@ -394,6 +427,7 @@ def open_item(href):
                              for r in d_eps["rows"]:
                                  if "items" in r: content_nodes.extend(r["items"])
                          
+                         # Añadir botón de siguiente página si es necesario
                          if "pageInfo" in d_eps:
                              pi = d_eps["pageInfo"]
                              if pi.get("pageNumber", 0) < pi.get("totalPages", 0) - 1:
@@ -418,6 +452,7 @@ def open_item(href):
 
             if any(bad in c_title for bad in BAD_TITLES): continue
             
+            # 2. Filtrar por tipo de contenido en el enlace (href)
             c_href = container.get("href") or ""
             if "entityType=ATPClip" in c_href or "entityType=ATPExtra" in c_href or "entityType=ATPSection" in c_href: continue
 
@@ -425,6 +460,7 @@ def open_item(href):
                 content_nodes.extend(container["items"])
             elif "rows" in container:
                 for row in container["rows"]:
+                    # 3. Filtrar filas internas
                     r_title = (row.get("title") or "").lower()
                     if any(bad in r_title for bad in BAD_TITLES): continue
                     content_nodes.extend(row.get("items") or [])
@@ -432,9 +468,11 @@ def open_item(href):
                 content_nodes.extend(container["episodes"])
             elif "nodes" in container:
                 content_nodes.extend(container["nodes"])
+            # Fallback para contenedores navegables (ej: enlaces a secciones)
             elif "href" in container and "title" in container and container.get("type") not in ["HERO", "Hero"]:
                  content_nodes.append(container)
 
+        # 3. Fallback: Listas raíz
         if "nodes" in data: content_nodes.extend(data["nodes"])
         if "itemRows" in data: content_nodes.extend(data["itemRows"])
         if "episode" in data: content_nodes.append(data["episode"])
@@ -444,22 +482,31 @@ def open_item(href):
         # IMPORTANTE: Desactivar "Modo Película" si estamos en Directos (LIVE)
         is_movie_mode = main_video_node and not has_seasons and not is_live_page
         
+        # 1. Filtrar contenido válido (Episodios/Temporadas) y descartar clips basura
         valid_content = []
         if is_movie_mode:
+            # En modo "película/programa suelto", filtramos clips y extras agresivamente
             for n in content_nodes:
                 ntype = str(n.get("type", "")).upper()
+                # Si encontramos episodios sueltos (ej: Programas que no usan temporadas), son contenido válido
                 if ntype in ["EPISODE", "VIDEO"] or "season" in str(n).lower():
                     valid_content.append(n)
         else:
-            # En Live o Series, aceptamos todo lo encontrado
+            # Si es serie con temporadas explícitas O PAGINA DIRECTOS, todo el contenido recopilado es válido
             valid_content.extend(content_nodes)
 
+        # 2. Decidir si mostramos el botón "Reproducir" (Hero)
+        # Solo lo mostramos si NO hay contenido válido (es decir, es una película sola o un directo)
+        # Esto evita que en Series/Programas salga el botón "Reproducir" duplicado arriba.
         if main_video_node and not valid_content:
             nodes.append(main_video_node)
 
+        # 3. Añadir el contenido válido (Episodios, Temporadas)
         nodes.extend(valid_content)
 
+        # Fallback final de emergencia si no hay nada de nada
         if not nodes and not main_video_node:
+             # Intento desesperado de encontrar algo reproducible
              candidates = []
              recursive_find_playable(data, candidates)
              for c in candidates:
@@ -470,34 +517,46 @@ def open_item(href):
                     "image": data.get("image")
                  })
         
+        # Establecer tipo de contenido para las vistas
         if is_season_view or "itemRows" in data:
             xbmcplugin.setContent(HANDLE, 'episodes')
         elif "seasons" in data:
-            xbmcplugin.setContent(HANDLE, 'seasons')
+            xbmcplugin.setContent(HANDLE, 'seasons') # O 'tvshows' si prefieres vista de serie
         else:
             xbmcplugin.setContent(HANDLE, 'videos')
 
         if not nodes:
+            # Si no hay nodos, puede ser un capítulo suelto o una película lista para ver
+            # xbmc.log(f"ATRES_DEBUG_NO_NODES: Keys={list(data.keys())}", xbmc.LOGERROR)
             xbmcgui.Dialog().notification("Atresplayer", "No se encontraron enlaces reproducibles")
-            xbmcplugin.endOfDirectory(HANDLE)
+            xbmcplugin.endOfDirectory(HANDLE) # Importante cerrar directorio para evitar error en log
             return
 
         for node in nodes:
             title = node.get("title") or node.get("name") or "Sin título"
             
+            # Imagen
             img_data = node.get("image") or node.get("images") or {}
             poster = fix_img(img_data.get("pathVertical"), 'vertical')
             fanart = fix_img(img_data.get("pathHorizontal"), 'horizontal')
             
+            # MEJORA: Buscar fanart local si no viene de la API (para U7D y canales)
             if not poster and not fanart:
                 safe_name = title.lower().strip().replace(' ', '_')
+                
+                # Parche: Usar cine_2 para diferenciar de la sección principal
                 if safe_name == 'cine': safe_name = 'cine_2'
+
+                # Intentar buscar en resources/media/ (ej: antena_3.png, lasexta.png)
                 media_path = os.path.join(addon.getAddonInfo('path'), 'resources', 'media')
                 for ext in ['.png', '.jpg', '.jpeg']:
                     local_img = os.path.join(media_path, safe_name + ext)
                     if os.path.exists(local_img):
-                        poster = local_img; fanart = local_img; break
+                        poster = local_img
+                        fanart = local_img
+                        break
 
+            # Fallbacks con imagen padre
             if not poster: poster = parent_poster
             if not fanart: fanart = parent_fanart
             if not poster: poster = fanart
@@ -507,38 +566,64 @@ def open_item(href):
             list_item.setArt({'poster': poster, 'icon': poster, 'thumb': fanart, 'fanart': fanart})
             
             info = {'title': title, 'plot': node.get('description', '')}
+            
+            # Intentar obtener número de episodio para ordenación correcta
             if "episode" in node:
                 try: info['episode'] = int(node["episode"])
                 except: pass
             
+            # Fix: Forzar que el botón de "Siguiente Página" aparezca al final
             if "Página Siguiente" in title:
                 info['episode'] = 99999
                 list_item.setProperty('SpecialSort', 'bottom')
 
             list_item.setInfo('video', info)
             
+            # Recursividad: Si tiene href, podemos entrar. Si no, es video final.
             sub_link = node.get("link") or {}
             sub_href = node.get("href") or sub_link.get("href")
             
-            if not sub_href and node.get("contentId"):
-                 sub_href = f"/player/v1/episode/{node['contentId']}"
-
+            # CORRECCIÓN URGENTE PARA CANALES EN DIRECTO Y U7D
+            # 1. Si NO tenemos href pero hay contentId, intentamos generar la URL correcta.
+            
             node_type = str(node.get("type", "")).upper()
+            
+            if not sub_href and node.get("contentId"):
+                 if "LIVE" in node_type or "CHANNEL" in node_type:
+                     sub_href = f"/player/v1/live/{node['contentId']}"
+                 elif node_type in ["EPISODE", "VIDEO"]:
+                     sub_href = f"/player/v1/episode/{node['contentId']}"
+                 # Si es FORMAT, dejamos sub_href vacío para que open_item lo maneje (o falle y no haga bucle)
+
+            # 2. Detectar si es un contenedor (carpeta)
             is_row_container = sub_href and ("/row/" in sub_href or "search" in sub_href)
+            
+            # 3. Detectar si parece un video final
             looks_like_video = sub_href and ("/episode/" in sub_href or "/player/" in sub_href)
             
-            if sub_href and not looks_like_video and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL'] or is_row_container):
+            # 4. Decisión final: ¿Carpeta o Play?
+            # Si es FORMAT (Programas en U7D), debe ser carpeta.
+            if node_type == "FORMAT" and sub_href and not looks_like_video:
+                 url = get_url(action='open_item', href=sub_href)
+                 is_folder = True
+            elif sub_href and not looks_like_video and (node_type not in ['EPISODE', 'VIDEO', 'MOVIE', 'LIVE', 'CHANNEL', 'LIVE_CHANNEL'] or is_row_container):
                 url = get_url(action='open_item', href=sub_href)
                 is_folder = True
             else:
+                # Es un video final
                 target_href = sub_href if sub_href else href
-                if not sub_href and target_href == href: continue
+                
+                # Evitar bucle infinito si no hay sub_href
+                if not sub_href and target_href == href:
+                    continue
+
                 url = get_url(action='play', href=target_href)
                 is_folder = False
                 list_item.setProperty('IsPlayable', 'true')
 
             xbmcplugin.addDirectoryItem(HANDLE, url, list_item, is_folder)
 
+        # Paginación para listas dinámicas (open_item)
         if "pageInfo" in data:
             page_info = data["pageInfo"]
             total_pages = page_info.get("totalPages", 0)
