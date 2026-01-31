@@ -262,7 +262,7 @@ def list_root():
     import xbmc
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    default_icon = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
     # CAMBIO: Establecer el tipo de contenido para que Kodi muestre el fanart
     xbmcplugin.setContent(HANDLE, 'files')
@@ -276,8 +276,16 @@ def list_root():
         except Exception:
             pass
         
+        # Lógica de iconos personalizados
+        # Normalizar etiqueta: minúsculas, sin acentos, espacios a guiones bajos
+        safe_label = ''.join(c for c in unicodedata.normalize('NFD', label) if unicodedata.category(c) != 'Mn')
+        safe_label = safe_label.lower().replace('...', '').strip().replace(' ', '_')
+        icon_name = f"{safe_label}.png"
+        custom_icon_path = os.path.join(addon_path, 'resources', 'media', icon_name)
+        icon_to_use = custom_icon_path if os.path.exists(custom_icon_path) else default_icon
+
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt({'fanart': addon_fanart, 'icon': icon_to_use, 'thumb': icon_to_use})
         except Exception:
             pass
         
@@ -989,12 +997,18 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             items_sorted = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)
             rep = items_sorted[0]
             display_title = rep.get('title') or (items_group[0].get('title') if items_group else key)
+            
+            # Detectar si es película para evitar tratarla como serie (carpeta)
+            is_movie = _get_item_type(rep) == 'movie' or len(items_group) == 1
+            
             li = xbmcgui.ListItem(label=display_title)
             # aplicar poster/overview si existen
             poster = rep.get('poster') or ''
             fanart = rep.get('fanart') or ''
             overview = rep.get('overview') or ''
-            info = {'title': display_title, 'plot': overview, 'mediatype': 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
+            info = {'title': display_title, 'plot': overview, 'mediatype': 'movie' if is_movie else 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
+            if is_movie:
+                info['year'] = int(rep.get('year')) if rep.get('year') and str(rep.get('year')).isdigit() else None
             _apply_info_tag(li, info)
             # Also set full video info so Kodi UI can show genres/cast where supported
             try:
@@ -1005,9 +1019,17 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
             except Exception:
                 pass
-            url = build_url({'action': 'list_seasons', 'series': display_title})
-            xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+            
+            if is_movie:
+                li.setProperty('IsPlayable', 'true')
+                li.setMimeType('application/x-bittorrent')
+                rep_key = rep.get('key')
+                url = build_url({'action': 'select', 'key': rep_key}) if rep_key else build_url({'action': 'select', 'index': str(catalog.index(rep))})
+                xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
+            else:
+                url = build_url({'action': 'list_seasons', 'series': display_title})
+                xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
+                xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
 
         # Enriquecer en background solo los items visibles (no bloquear UI)
         try:

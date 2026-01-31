@@ -1,14 +1,13 @@
-name: Update Catalog from Telegram
+name: Catalog Auto-Update
 
 on:
   # Añadimos trigger 'push' para asegurar que se registra y para debug
   push:
     branches:
       - main
-      - master
   schedule:
-    # Ejecutar en minutos "raros" (12 y 42) para evitar las colas de las horas en punto
-    - cron: '12,42 * * * *'
+    # Ejecutar cada hora en el minuto 15 (para evitar colas y asegurar arranque)
+    - cron: '15 * * * *'
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
@@ -25,10 +24,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.12'
 
@@ -49,7 +48,7 @@ jobs:
         python app/process_batch.py
 
     - name: Commit and Push changes
-      uses: stefanzweifel/git-auto-commit-action@v4
+      uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: "Auto-update catalog and cache [skip ci]"
         file_pattern: "catalog.json cache.db"
