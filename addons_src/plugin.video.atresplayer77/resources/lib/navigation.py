@@ -11,6 +11,10 @@ def list_categories():
     dynamic_items = []
     try:
         r = s.get(f"{API_BASE}/client/v1/menus/web", timeout=5)
+        if r.status_code == 401 and attempt_auto_login():
+            s = get_session()
+            r = s.get(f"{API_BASE}/client/v1/menus/web", timeout=5)
+
         if r.ok:
             menu = r.json()
             xbmc.log(f"ATRES_MENU_DEBUG: Encontrados {len(menu.get('items', []))} items en menú web", xbmc.LOGWARNING)
@@ -116,6 +120,11 @@ def list_section(category_id, category_name=None, page=0):
     s = get_session()
     try:
         r = s.get(url, params=params, timeout=10)
+        if r.status_code == 401 and attempt_auto_login():
+            # Si el login automático funciona, recargamos sesión y reintentamos
+            s = get_session()
+            r = s.get(url, params=params, timeout=10)
+
         r.raise_for_status()
         data = r.json()
         
@@ -189,6 +198,10 @@ def open_item(href):
     s = get_session()
     try:
         r = s.get(url, params=params, timeout=10)
+        if r.status_code == 401 and attempt_auto_login():
+            s = get_session()
+            r = s.get(url, params=params, timeout=10)
+
         r.raise_for_status()
         data = r.json()
         

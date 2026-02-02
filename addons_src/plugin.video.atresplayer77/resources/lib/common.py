@@ -47,7 +47,7 @@ def get_session():
     """Crea una sesión persistente con cookies"""
     s = requests.Session()
     s.headers.update({
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:147.0) Gecko/20100101 Firefox/147.0',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0',
         'Accept': '*/*',
         'Accept-Language': 'es-ES,es;q=0.9,en-US;q=0.8,en;q=0.7',
         'Origin': 'https://www.atresplayer.com',
@@ -119,3 +119,45 @@ def recursive_find_playable(data, results):
     elif isinstance(data, list):
         for item in data:
             recursive_find_playable(item, results)
+
+def login_process(username, password):
+    """Realiza el login contra la API y guarda las cookies (Lógica centralizada)"""
+    try:
+        s = requests.Session()
+        # Usamos los mismos headers que en get_session
+        s.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0',
+            'Accept': '*/*',
+            'Accept-Language': 'es-ES,es;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Origin': 'https://www.atresplayer.com',
+            'Referer': 'https://www.atresplayer.com/',
+            'Connection': 'keep-alive'
+        })
+        
+        # 1. Obtener cookies de sesión iniciales
+        s.get("https://www.atresplayer.com/", timeout=10)
+        
+        # 2. Login
+        url = "https://account.atresplayer.com/auth/v1/login"
+        payload = {"username": username, "password": password}
+        r = s.post(url, data=payload, timeout=15)
+        
+        if r.status_code == 200:
+            save_cookies(s)
+            return True
+        return False
+    except Exception as e:
+        xbmc.log(f"ATRES_LOGIN_ERR: {e}", xbmc.LOGERROR)
+        return False
+
+def attempt_auto_login():
+    """Intenta renovar la sesión silenciosamente usando las credenciales guardadas"""
+    username = addon.getSetting('username')
+    password = addon.getSetting('password')
+    if username and password:
+        xbmc.log("ATRESPLAYER77: 401 Detectado - Intentando renovación automática de sesión...", xbmc.LOGWARNING)
+        if login_process(username, password):
+            xbmc.log("ATRESPLAYER77: Renovación exitosa", xbmc.LOGINFO)
+            xbmcgui.Dialog().notification("Atresplayer", "Sesión renovada automáticamente")
+            return True
+    return False

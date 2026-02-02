@@ -54,6 +54,10 @@ def do_search(query=None):
         }
         xbmc.log(f"ATRES_SEARCH: Consultando {url} | params={params}", xbmc.LOGWARNING)
         r = s.get(url, params=params, timeout=10)
+        if r.status_code == 401 and attempt_auto_login():
+            s = get_session()
+            r = s.get(url, params=params, timeout=10)
+
         r.raise_for_status()
         data = r.json()
         

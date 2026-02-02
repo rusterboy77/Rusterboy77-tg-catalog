@@ -16,6 +16,9 @@ def play(href):
     
     try:
         r = s.get(url, params=params, timeout=10)
+        if r.status_code == 401 and attempt_auto_login():
+            s = get_session()
+            r = s.get(url, params=params, timeout=10)
         
         # DEBUG: Imprimir respuesta ANTES de validar status (por si da 403/404)
         try:
@@ -149,6 +152,10 @@ def play(href):
         if video_url and "/player/" in video_url:
             xbmc.log(f"ATRES_PLAY: Resolviendo endpoint de player: {video_url}", xbmc.LOGWARNING)
             r_player = s.get(video_url, params={"device": "desktop", "NODRM": "true"}, timeout=10)
+            if r_player.status_code == 401 and attempt_auto_login():
+                s = get_session()
+                r_player = s.get(video_url, params={"device": "desktop", "NODRM": "true"}, timeout=10)
+            
             r_player.raise_for_status()
             data = r_player.json() # Sobrescribimos data con la respuesta del player (que trae 'sources')
             video_url = None # Reseteamos para buscar en sources
