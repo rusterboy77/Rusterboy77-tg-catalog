@@ -20481,6 +20481,17 @@
               "magnet": "magnet:?xt=urn:btih:05dc820af24522b32798d3b80f9e0f5c492069bf"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:85d6e59dc945607820905619f42cbcb35bd52c7a"
+            }
+          ]
         }
       ]
     },
@@ -34201,6 +34212,17 @@
               "magnet": "magnet:?xt=urn:btih:aa43103691324da6b6165f5bd6fa9fab330e333e"
             }
           ]
+        },
+        {
+          "season": 13,
+          "episode": 17,
+          "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:6a49eeafe893bb52cc8adff611e741ec640b5f85"
+            }
+          ]
         }
       ]
     },
@@ -40551,6 +40573,40 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:3866334d542c26b8a51a1a9c591e499e55b0f10c"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:54ccabc8345241384f99f5e67e2a49c9006fca50"
+            }
+          ]
+        },
+        {
+          "season": 7,
+          "episode": 3,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8283d03f4bd26d21ffe84e753e08148ea9bc3813"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4bbfc332302a377f275be619e456cbf0ad8adc6a"
+            }
+          ]
+        },
+        {
+          "season": 7,
+          "episode": 4,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d14b3b52e30a2172d6237eefb6937545d093fce2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ab4a0f1330bdda997f1e1be9d799150ca2b16eb2"
             }
           ]
         }
@@ -65424,7 +65480,39 @@
           "infohash": "2891212f4d3cc57b2deaa15b84c000896d29b1dd"
         }
       ],
-      "overview": "Después de su exitosa carrera en Chicago, Elsbeth Tascioni, una abogada astuta pero poco convencional, utiliza su singular punto de vista para hacer observaciones únicas y arrinconar a criminales brillantes junto con la policía de Nueva York."
+      "overview": "Después de su exitosa carrera en Chicago, Elsbeth Tascioni, una abogada astuta pero poco convencional, utiliza su singular punto de vista para hacer observaciones únicas y arrinconar a criminales brillantes junto con la policía de Nueva York.",
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Después de su exitosa carrera en Chicago, Elsbeth Tascioni, una abogada astuta pero poco convencional, utiliza su singular punto de vista para hacer observaciones únicas y arrinconar a criminales brillantes junto con la policía de Nueva York.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8b7a79d33fceffc8d0e8fd9cca3cfcffe3697e71"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:19593e6cad2bd70007c8a4611dcbb57da780c398"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 9,
+          "overview": "Después de su exitosa carrera en Chicago, Elsbeth Tascioni, una abogada astuta pero poco convencional, utiliza su singular punto de vista para hacer observaciones únicas y arrinconar a criminales brillantes junto con la policía de Nueva York.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:84997adea17c068f95772fff35fe9dbaa8966193"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a8901eaaa70ec075be0748efd5750a65e74ca86b"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Elsbeth [HDTV 1080p][Cap.207].torrent",
@@ -77404,6 +77492,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:fa9518ff1acb342642e7e9886965da3f7ddaedb9"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:58015ee94a1dd4e3c9fee1aed95e441e5b693008"
             }
           ]
         }
@@ -89364,7 +89456,20 @@
           "infohash": "c34b314c0e283ffa792485235b31f14135f391a3"
         }
       ],
-      "overview": "Programa que aborda la temática de la pandemia de COVID-19 de 2020 con la presencia de médicos y expertos en la materia"
+      "overview": "Programa que aborda la temática de la pandemia de COVID-19 de 2020 con la presencia de médicos y expertos en la materia",
+      "episodes": [
+        {
+          "season": 6,
+          "episode": 19,
+          "overview": "Programa que aborda la temática de la pandemia de COVID-19 de 2020 con la presencia de médicos y expertos en la materia",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:083960ff333d16363db43e529afb2eb7b0b3f8cd"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Horizonte [HDTV][Cap.518].torrent",
@@ -126465,7 +126570,24 @@
           "infohash": "4c4d85cfaaf72fa6f6c0ceb273e376af42cc8e52"
         }
       ],
-      "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios."
+      "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+      "episodes": [
+        {
+          "season": 27,
+          "episode": 3,
+          "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:441378e76f8964d68b8b1fd5dffbbbd406600ebf"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:429983bd471428823bab01e1ef61c2c993f7e14d"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Ley_y_Orden_Unidad_de_Víctimas_Especiales_HDTVCap_2604.torrent",
@@ -144311,7 +144433,24 @@
           "infohash": "4a7197a693d348864bdd7dabe1f797083254a329"
         }
       ],
-      "overview": "Sigue a un neurólogo revolucionario, el Dr. Oliver Wolf, y su equipo de pasantes mientras exploran la última gran frontera, la mente humana, a la vez que luchan con sus propias relaciones y su salud mental."
+      "overview": "Sigue a un neurólogo revolucionario, el Dr. Oliver Wolf, y su equipo de pasantes mientras exploran la última gran frontera, la mente humana, a la vez que luchan con sus propias relaciones y su salud mental.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "overview": "Sigue a un neurólogo revolucionario, el Dr. Oliver Wolf, y su equipo de pasantes mientras exploran la última gran frontera, la mente humana, a la vez que luchan con sus propias relaciones y su salud mental.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:84a2d2c9f5f4c3ded84c58973b8b00219025f6d9"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ca90383640aff76a614e39c2b46994a4961a4763"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Mentes Criminales Evolution [HDTV 1080p][Cap.301].torrent",
@@ -208447,6 +208586,40 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:6c0e699dacd5ad59ae89fbe9caa2d8c200ceae59"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:33ec9f366e4a2627c4d1b07d1ffafac5ef44215f"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "The Pitt ofrece una visión realista de los retos a los que se enfrenta el personal sanitario en los Estados Unidos de hoy, visto a través de la lente de los héroes de primera línea que trabajan en un hospital de la actualidad en Pittsburgh, Pensilvania.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:97d99f450603dd51afedace9c7ec9c4787b50a83"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "The Pitt ofrece una visión realista de los retos a los que se enfrenta el personal sanitario en los Estados Unidos de hoy, visto a través de la lente de los héroes de primera línea que trabajan en un hospital de la actualidad en Pittsburgh, Pensilvania.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:f10fe0aab04ec28f649e40b38ed43fbd9d809394"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1d23a4eed82a14e20334dc6843b4cded17ed5d15"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0a4b6d5e74f1acfe89e2d315a4e0823149724365"
             }
           ]
         }
@@ -236620,6 +236793,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:33e29c3cc84a2f2af1fd07f71c24b4acac0b2504"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:edd8fe76c188a05eab8507b13a6d960fcbf1b040"
             }
           ]
         }
@@ -237150,6 +237327,21 @@
               "magnet": "magnet:?xt=urn:btih:dfca91cf89a27ca6588524d78e66f37104d561a4"
             }
           ]
+        },
+        {
+          "season": 13,
+          "episode": 4,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f47438c89c6cadad42aee650390ec899d890097e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e6ed87c138c9da37940a8e31daf4febf28f81a81"
+            }
+          ]
         }
       ]
     },
@@ -237199,6 +237391,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bed454585d180e8a8fb0ddff735e3e06b5bdda4e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1da2569950323dd6ec19d90c41386727a6ecfb37"
             }
           ]
         },
@@ -237210,6 +237406,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6efa05183a5d529088d0eadb2658654cb17d29d3"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:27fe22d0de2aa1a41841d3d3929cadf6e638477c"
             }
           ]
         },
@@ -237221,6 +237421,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ecf0ba5ad58f334c0bce171d795b2c78571edb41"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b477edfb7a94af69d9c7ec773121e213d3dc2369"
             }
           ]
         },
@@ -237232,6 +237436,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:de854f6cdb62c21ada97c329ea420d7842a57c4f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:45ba7a40149176935f06f7cfddfbe629940daa1b"
             }
           ]
         },
@@ -237607,6 +237815,17 @@
               "magnet": "magnet:?xt=urn:btih:a6261a970754c00d70bc20977816f4d518d4b47e"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Diez valientes solteros, de muy diferentes y carismáticos perfiles, han aceptado el reto de casarse sin conocer a su futura pareja hasta el día de su propia boda. Se conocerán en el altar y, tras un mes de convivencia, decidirán si siguen adelante con su unión.\n\nLos espectadores serán testigos de la primera vez que se vean, de sus bodas, dl momento en el que conocen a sus familias y de los sentimientos de alegría, humos, emoción, tristeza y nervios por los que atraviesan.\n\nMarian Frías, Silvia Sanz y Rubén Turienzo componen el grupo de expertos que han estudiado la compatibilidad de los candidatos y que les guiarán durante su primer mes de convivencia.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0d97fab0ebee9e36ebb9b14b92f2f7740cfe883d"
+            }
+          ]
         }
       ]
     },
@@ -237820,6 +238039,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:de4ad0a61595ae8b24db7aa9b294979a19571d24"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d315aeb43d7605ba173ad599c2b6b7051ee96914"
             }
           ]
         },
@@ -237869,6 +238092,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:fac66fc763a681d4b461b8da5b65c5b656f860f5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0a73bae06bfb8136c3192c5efc69547bf5608442"
             }
           ]
         },
@@ -237884,6 +238111,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:79c6fa051c0e76a663f5dfbefc262c1c2fe100ba"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:22c010e17ef38b3af29950320715b5bbd0acea13"
             }
           ]
         }
@@ -237939,6 +238170,21 @@
               "magnet": "magnet:?xt=urn:btih:d2aea60d72c7d6a3af2157bfb8b27620ac48f4d5"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "En una tierra donde no hay magia presente. Una tierra donde los fuertes hacen las reglas y los débiles tienen que obedecer. Una tierra llena de atractivos tesoros y belleza, pero también llena de peligro imprevisto. Hace tres años, Xiao Yan, que había mostrado talentos que ninguno había visto en décadas, de repente lo perdió todo. Sus poderes, su reputación y la promesa a su madre. ¿Qué le ha hecho perder todos sus poderes? ¿Y por qué ha aparecido de repente su prometida?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:eccccbf6eb93643f8954a2492168f238e2b761e0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bf7ed44c79e78a572f5f5f1b50adc7ffc1c3b69f"
+            }
+          ]
         }
       ]
     },
@@ -237990,6 +238236,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:0c9df4b2682476308f1772a8fc443fd9481804e4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "En Hell Motel, un grupo de 10 obsesos de los crímenes reales son invitados al fin de semana de apertura del recientemente renovado Cold River Motel, el lugar donde se cometió un asesinato en masa satánico sin resolver hace 30 años. La historia se repite cuando los huéspedes se quedan tirados y empiezan a ser asesinados uno a uno durante una ola de asesinatos que crece exponencialmente más horripilante que el original con cada muerte.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:606c3c07f6ceac14e983fa2584cab080db1fc94e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a06f50b83f774cae189a9b203d18867ac3237195"
             }
           ]
         }
@@ -238072,6 +238333,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:01830ef229efcd34d441ca71d55f2905e27543c5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f2b35897a357f80483cbf9416434a10e698081b3"
             }
           ]
         },
@@ -238147,6 +238412,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:1343f762fec62469b0b595682c1e6456a4bf20db"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1e4d1dbef5fc4cc20c808dc4129fb6d66d38f5d9"
             }
           ]
         }
@@ -238361,6 +238630,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2955d4a0e718407ebe9cc0fee9ffcfeda59f324f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:aa7d3b99711dd9f83706478214d60dd72ec1157c"
             }
           ]
         },
@@ -238376,6 +238649,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:dcbdfa6d464b610b188204229f5b74024dd9c967"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:12beb1208619fd932a2e4d61c4dc9f0160593310"
             }
           ]
         }
@@ -238679,6 +238956,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a9f368846cc3c13a4f82298ce4e02d827b6ffc84"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:03a611369b8488d6b13ce3f4a11e3fd1d40431ca"
             }
           ]
         },
@@ -238694,6 +238975,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:73d2f699a7fb2a6d7651fb75b9393521a0a08272"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9d6ae0d90613f7856456039c65d3eaa9b588c7e6"
             }
           ]
         },
@@ -238709,6 +238994,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:eb8a113e0ef03831853dcd5863aad06e72b2d8d3"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1225ce6337cc33782b08c55f63e32025917ac36a"
             }
           ]
         },
@@ -238771,6 +239060,28 @@
               "magnet": "magnet:?xt=urn:btih:0233034b4cf1e92d59d34c521fe97074b97bbed2"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c5fc5408546879f352d6eda3415f186f3e129586"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:50b603e777b97098f9fd43c4568b7dbee2720be7"
+            }
+          ]
         }
       ]
     },
@@ -238827,6 +239138,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:dee4d58f93a76d35252be15ba45188b058622d9a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9764b10a3f52bb54d92f3ff4ae5d413026fc9a60"
             }
           ]
         },
@@ -238900,6 +239215,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:fc6c79b617c7d627155ef97e08e3790cc792fc5d"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:178d8294ecc4b2cf1fa673c16cb784e43fe70d1b"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "El exsoldado británico Jonathan Pine es reclutado por la agente Burr, de los servicios de inteligencia, para infiltrarse en la red de un traficante de armas internacional liderada por Richard Onslow Roper.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:86e40399b7d2a27adf986ca128fc849cf76825c5"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dcf58601c4c653a6bf03535280625fd37b6119b5"
             }
           ]
         }
@@ -238977,6 +239311,17 @@
               "magnet": "magnet:?xt=urn:btih:a9485d1fd320afb23e8e6f00f0744bf4c2627f5b"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Un día normal en Lochmill Capital se ve alterado cuando unos ladrones irrumpen y obligan a punta de pistola a Zara y a su mejor amigo Luke a cumplir sus exigencias. El detective Rhys se enfrenta a una carrera contrarreloj para descubrir quién ha robado los 4000 millones de libras y por qué.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:aae1e7c16fe294e96489c929824130456c79b91f"
+            }
+          ]
         }
       ]
     },
@@ -239043,6 +239388,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:4a8d4f7fea592a153bba138f3d0d13ad950a7ed1"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:52fa26a7a84c45692d4e0a20e6a5df89c7c3b1fb"
             }
           ]
         }
@@ -239111,6 +239460,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2087d625eb85e62ebd1c4f70a1b5a296ef9400e2"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f3ad6961b34458515598b0bef7a8f411d50e3495"
             }
           ]
         },
@@ -239126,6 +239479,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:38f597b946698faccc975c433381b3dfbb3d11f8"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:90bb89627e17d91be0497643c90d12c87bca5a3a"
             }
           ]
         }
@@ -239384,6 +239741,21 @@
               "magnet": "magnet:?xt=urn:btih:c25b4f1dce7294f2e85af7eaffae2e23c3761aa1"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b78a0e98d4da4a256190dca32efeec6ba0c30ebe"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e002fe41d210ccac447667715e5e3f7195ea5690"
+            }
+          ]
         }
       ]
     },
@@ -239467,6 +239839,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4ef990f0013171842ca23942f6888df7d634d4c8"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:b122c7fb0cb152f7443523eb54c7726037f02308"
             }
           ]
         }
@@ -239961,6 +240337,25 @@
               "magnet": "magnet:?xt=urn:btih:42302a7533f4b373da73547d648eefdd9983f321"
             }
           ]
+        },
+        {
+          "season": 3,
+          "episode": 4,
+          "overview": "Tamar es una hacker del Mosad que se infiltra en Teherán bajo una identidad falsa para ayudar a destruir el reactor nuclear de Irán. Pero, tras fracasar en su misión, Tamar deberá trazar un plan que pondrá en riesgo a todos sus seres queridos.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:17c65234a9738c6bac3b52dee6e47577e6d29b1f"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1e2fc338482b1a86edbb60fa0619dc9ed55b8eb2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9ae5718bfc071cfeac2bce5c49979341d2cf7e52"
+            }
+          ]
         }
       ]
     },
@@ -240012,6 +240407,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2bb4f076aa235a5e4b21abb0de047a8a34f7fbec"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:37470ad5d09ad45634d50db00fe5471f2a796eb2"
             }
           ]
         }
@@ -240071,6 +240470,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:fef3923ac371bf75bd0d0e01d7493a9d2987b4cd"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "El detective inspector Max Arnold vive en una casa flotante destartalada al final de Cheyne Walk después de separarse de su esposa Astrid, una comerciante de arte. Max, hijo del dueño de una librería local, está muy lejos de la élite adinerada cuyos crímenes ayudará a resolver junto con D.C. Priya Shamsie.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f267f8ca37330855a17c2c459b7641b59960820a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:13e4052200d899b298b01c818d60ba80f11c6237"
             }
           ]
         }
@@ -240484,6 +240898,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:743bd97f1df2c306eba1072e024c18f1b5c1bd9e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:140d62a5bdfe2d784ed26a6f3c897d6c303ac975"
             }
           ]
         },
@@ -240638,6 +241056,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:526852ef391da7c4539ffe4b7d601a5db402e039"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7dcd6e079d7c80aedbbd93268f172c808cea0be3"
             }
           ]
         },
@@ -240825,6 +241247,25 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:ff7062bd2d204d016f5f42c3ac9ca3ce77d7d7d5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "¿Y si Ashur hubiese vivido y hubiese recibido el ludus donde antes sangró? Con Achillia, una gladiadora, desata espectáculos que desafían a Roma y sorprenden a la élite.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:ca76eda360fc279237940fe0af60432b3db7f7b1"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9d9e56c41e36c3c39288b0227571642326a4b590"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:44a530570bfae36e049aa3ecc64baaf2f807af38"
             }
           ]
         }
@@ -241019,6 +241460,689 @@
         "Fendy Chow",
         "Agla Artalidia",
         "Wilza Lubis"
+      ]
+    },
+    {
+      "file": "Bright minds",
+      "parsed": {
+        "type": "series",
+        "series": "Bright minds"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 88384,
+        "title": "Bright Minds",
+        "original_title": "Astrid et Raphaëlle",
+        "overview": "La comandante Raphaëlle Coste ve como su vida da un vuelco de 180 grados cuando entra en ella Astrid Nielsen, una colaboradora de la policía con Asperger.",
+        "poster_path": "/4F5PuEuCisduk79FFDycnFsOFmY.jpg",
+        "backdrop_path": "/myrp6HO70ZOeG2rCVjkkFZGIZUh.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4F5PuEuCisduk79FFDycnFsOFmY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/myrp6HO70ZOeG2rCVjkkFZGIZUh.jpg",
+        "genres": [
+          "Crimen"
+        ],
+        "cast": [
+          "Sara Mortensen",
+          "Lola Dewaere",
+          "Benoît Michel",
+          "Husky Kihal"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/l7oAnaxs06vzwUFLSIjAacZTVOU.png",
+        "banner": "https://image.tmdb.org/t/p/original/myrp6HO70ZOeG2rCVjkkFZGIZUh.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4F5PuEuCisduk79FFDycnFsOFmY.jpg",
+        "episode_title": "Episodio 3",
+        "still_path": "https://image.tmdb.org/t/p/original/o6SeS2w1Fj2PYk0yuBWsLDbc8b0.jpg"
+      },
+      "episodes": [
+        {
+          "season": 6,
+          "episode": 3,
+          "overview": "La comandante Raphaëlle Coste ve como su vida da un vuelco de 180 grados cuando entra en ella Astrid Nielsen, una colaboradora de la policía con Asperger.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:49874d58204122af8a070b306c58dc9bcc1127e3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Cronicas de guerra (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Cronicas de guerra",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 975615,
+        "title": "Crónicas de guerra",
+        "original_title": "Words of War",
+        "overview": "La valiente cruzada de la periodista Anna Politkovskaya, luchando por una voz independiente en la Rusia de Putin.",
+        "poster_path": "/oSoMQbqBTKJYk8LF9ibeNhkaHTQ.jpg",
+        "backdrop_path": "/kMYzdhWBeZBP9mS8vAvuigpa3LF.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oSoMQbqBTKJYk8LF9ibeNhkaHTQ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kMYzdhWBeZBP9mS8vAvuigpa3LF.jpg",
+        "genres": [
+          "Drama",
+          "Suspense"
+        ],
+        "cast": [
+          "Maxine Peake",
+          "Ciarán Hinds",
+          "Jason Isaacs",
+          "Naomi Battrick",
+          "Harry Lawtey",
+          "Ellie Bamber",
+          "Ben Miles",
+          "Ian Hart",
+          "Oliver Maltman",
+          "Agni Scott"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/kMYzdhWBeZBP9mS8vAvuigpa3LF.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/oSoMQbqBTKJYk8LF9ibeNhkaHTQ.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:315d02d77bd60e9a501fc33a9acbc317d9183834"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:03d433b629e5fc769d2acacf42ffc19af92d1182"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/oSoMQbqBTKJYk8LF9ibeNhkaHTQ.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/kMYzdhWBeZBP9mS8vAvuigpa3LF.jpg",
+      "overview": "La valiente cruzada de la periodista Anna Politkovskaya, luchando por una voz independiente en la Rusia de Putin.",
+      "genres": [
+        "Drama",
+        "Suspense"
+      ],
+      "cast": [
+        "Maxine Peake",
+        "Ciarán Hinds",
+        "Jason Isaacs",
+        "Naomi Battrick",
+        "Harry Lawtey",
+        "Ellie Bamber",
+        "Ben Miles",
+        "Ian Hart",
+        "Oliver Maltman",
+        "Agni Scott"
+      ]
+    },
+    {
+      "file": "Cuando nadie me ve",
+      "parsed": {
+        "type": "series",
+        "series": "Cuando nadie me ve"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 312439,
+        "title": "Alejandro Sanz: Cuando nadie me ve",
+        "original_title": "Alejandro Sanz: Cuando nadie me ve",
+        "overview": "Serie documental de 3 partes sobre el cantante español Alejandro Sanz, que ofrece una mirada sin precedentes al presente y futuro del cantante, quien por primera vez hablará sobre los momentos más complicados que ha enfrentado a lo largo de su vida.",
+        "poster_path": "/ezMWRBT1sCze72QrSRlbR6DvvVy.jpg",
+        "backdrop_path": "/gzxKsGQCwH8mu1dVSFY4GKlH6VS.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ezMWRBT1sCze72QrSRlbR6DvvVy.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/gzxKsGQCwH8mu1dVSFY4GKlH6VS.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/gzxKsGQCwH8mu1dVSFY4GKlH6VS.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/ezMWRBT1sCze72QrSRlbR6DvvVy.jpg",
+        "episode_title": "Lo que soy",
+        "episode_overview": "Alejandro Sánchez, un joven madrileño de raíces gaditanas, descubre desde niño su pasión por la música. Tras un inicio difícil y un primer intento fallido, logra publicar su primer álbum como Alejandro Sanz, en el que por fin se reconoce como artista. El éxito fulgurante del disco transforma su vida para siempre: deja de ser Alejandro Sánchez para convertirse, con todo lo que implica, en Alejandro Sanz. Mientras, en el presente, Alejandro Sanz sale de un último bache emocional mientras estrena 'Palmeras en el Jardín', el primer single de su nuevo álbum."
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Serie documental de 3 partes sobre el cantante español Alejandro Sanz, que ofrece una mirada sin precedentes al presente y futuro del cantante, quien por primera vez hablará sobre los momentos más complicados que ha enfrentado a lo largo de su vida.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:7b3be3978076098eb36cd76a193370fc30992307"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Serie documental de 3 partes sobre el cantante español Alejandro Sanz, que ofrece una mirada sin precedentes al presente y futuro del cantante, quien por primera vez hablará sobre los momentos más complicados que ha enfrentado a lo largo de su vida.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:42faef00e53dd7dd29d7f2d507b15387a16926ba"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Serie documental de 3 partes sobre el cantante español Alejandro Sanz, que ofrece una mirada sin precedentes al presente y futuro del cantante, quien por primera vez hablará sobre los momentos más complicados que ha enfrentado a lo largo de su vida.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a905ee0145791b721161576687cf7dec739ec5fa"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Got Talent",
+      "parsed": {
+        "type": "series",
+        "series": "Got Talent"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 4551,
+        "title": "America's Got Talent",
+        "original_title": "America's Got Talent",
+        "overview": "",
+        "poster_path": "/nd5FjRlEdC05GUK4svGj7TpyR2b.jpg",
+        "backdrop_path": "/p7a2f9gewbzG2Hp3iUiqNRyeVYi.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/nd5FjRlEdC05GUK4svGj7TpyR2b.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/p7a2f9gewbzG2Hp3iUiqNRyeVYi.jpg",
+        "genres": [
+          "Reality"
+        ],
+        "cast": [
+          "Simon Cowell",
+          "Howie Mandel",
+          "Sofía Vergara",
+          "Mel B",
+          "Terry Crews"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/p7a2f9gewbzG2Hp3iUiqNRyeVYi.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/nd5FjRlEdC05GUK4svGj7TpyR2b.jpg",
+        "episode_title": "Episodio 3",
+        "still_path": "https://image.tmdb.org/t/p/original/gLpvlJ4iFbNCNqjQSIZkHwLutO8.jpg"
+      },
+      "episodes": [
+        {
+          "season": 11,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8678d5da291bd719ab6d40a056940b3986d6ed80"
+            }
+          ]
+        },
+        {
+          "season": 11,
+          "episode": 4,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:06d7093e8c7e657d19c8d8009d3d27a7407acabd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Ingenieria desde el aire",
+      "parsed": {
+        "type": "series",
+        "series": "Ingenieria desde el aire"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 312587,
+        "title": "Ingeniería desde el aire",
+        "original_title": "Ingeniería desde el aire",
+        "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+        "poster_path": null,
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Episodio dio 1....."
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ad6824841f3a1cf02faa27ca4c92552a51644cda"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0f1f997ab78f3cd41a78c6962b2a4251539586fe"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5a590cbeaded6516784abf10697dd1118f7c99ca"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0e93157f79e7425de1fe0bda9875bee40562b399"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9f15a74026a4a7231075e4c5043e90998d50d743"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:56f4d65e4c2c106f1401121654dbab8fec3db409"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e4ad56415d6b96aa0d3c1a31342a3a50af222e16"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Los expertos y la tecnología punta revelan secretos ocultos tras las maravillas de la ingeniería en todo el mundo, desde una nueva perspectiva.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1720e5104ff604fe3ee2163c74244b8b1c42a3df"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "La doncella del lago (2024) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La doncella del lago",
+        "year": "2024",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1285479,
+        "title": "La doncella del lago",
+        "original_title": "光る川",
+        "overview": "En el verano de 1958, un pueblo ribereño se ve amenazado regularmente por tifones. Allí, un niño llamado Yucha aprende la leyenda local de las inundaciones de un narrador de Kami-Shibai (teatro de papel). Cuenta la historia de una chica con el corazón roto que se ahogó en la poza de un río en lo profundo de las montañas. Se dice que, desde entonces, su dolor ha provocado grandes inundaciones cada pocas décadas. Se acerca un gran tifón, y Yucha se dirige al estanque de las montañas, al que temen incluso los adultos, con la esperanza de detener la inundación.",
+        "poster_path": "/nRbarih3ib4mUbjMG1FXNXhQSt5.jpg",
+        "backdrop_path": "/nAyfXvvVlvQAnhEbFD49wlpttLS.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/nRbarih3ib4mUbjMG1FXNXhQSt5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/nAyfXvvVlvQAnhEbFD49wlpttLS.jpg",
+        "genres": [
+          "Drama",
+          "Fantasía"
+        ],
+        "cast": [
+          "Sanetoshi Ariyama",
+          "Asuka Hanamura",
+          "Yo Aoi",
+          "Tomomitsu Adachi",
+          "Kinuo Yamada",
+          "Keisuke Horibe",
+          "Tetsu Watanabe",
+          "Toshie Negishi",
+          "Ken Yasuda",
+          "Yusuke Takahashi"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/nAyfXvvVlvQAnhEbFD49wlpttLS.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/nRbarih3ib4mUbjMG1FXNXhQSt5.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:279e8aa580fd728d555d7652f47dfa0b0cd7947d"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:ecf5b6d58149df80ed2b450c359dc2a018f776e7"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/nRbarih3ib4mUbjMG1FXNXhQSt5.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/nAyfXvvVlvQAnhEbFD49wlpttLS.jpg",
+      "overview": "En el verano de 1958, un pueblo ribereño se ve amenazado regularmente por tifones. Allí, un niño llamado Yucha aprende la leyenda local de las inundaciones de un narrador de Kami-Shibai (teatro de papel). Cuenta la historia de una chica con el corazón roto que se ahogó en la poza de un río en lo profundo de las montañas. Se dice que, desde entonces, su dolor ha provocado grandes inundaciones cada pocas décadas. Se acerca un gran tifón, y Yucha se dirige al estanque de las montañas, al que temen incluso los adultos, con la esperanza de detener la inundación.",
+      "genres": [
+        "Drama",
+        "Fantasía"
+      ],
+      "cast": [
+        "Sanetoshi Ariyama",
+        "Asuka Hanamura",
+        "Yo Aoi",
+        "Tomomitsu Adachi",
+        "Kinuo Yamada",
+        "Keisuke Horibe",
+        "Tetsu Watanabe",
+        "Toshie Negishi",
+        "Ken Yasuda",
+        "Yusuke Takahashi"
+      ]
+    },
+    {
+      "file": "Obituary",
+      "parsed": {
+        "type": "series",
+        "series": "Obituary"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 235769,
+        "title": "Obituario",
+        "original_title": "Obituary",
+        "overview": "Elvira Clancy, una joven de 24 años apasionada por su trabajo escribiendo esquelas en un periódico local, enfrenta un giro inesperado en su vida cuando, debido a dificultades económicas del periódico, su remuneración cambia a ser por esquela publicada. Este cambio lleva a Elvira a un oscuro descubrimiento sobre sí misma tras matar \"accidentalmente\" a un individuo desagradable: una insospechada sed de sangre. A medida que Elvira empieza a idear métodos cada vez más sofisticados para cometer asesinatos, encuentra en esta macabra práctica una manera de mantener sus ingresos y su empleo. Sin embargo, su vida se complica aún más con la llegada de un nuevo corresponsal de crímenes al periódico, por quien siente una profunda atracción, y ante quien debe esforzarse por ocultar su creciente lista de crímenes. La historia se desarrolla en un juego peligroso de gato y ratón, donde Elvira debe equilibrar su atracción, su carrera y su creciente afición por el asesinato.",
+        "poster_path": "/uVFqfV4feeByVUdg6RhuThSkIAq.jpg",
+        "backdrop_path": "/mPucdbSF7zw8fwLFoXRzgE2zZKX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/uVFqfV4feeByVUdg6RhuThSkIAq.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mPucdbSF7zw8fwLFoXRzgE2zZKX.jpg",
+        "genres": [
+          "Comedia",
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Siobhán Cullen",
+          "Ronan Raftery",
+          "Mairéad Tyers",
+          "David Ganly",
+          "Noni Stapleton"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/mPucdbSF7zw8fwLFoXRzgE2zZKX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/uVFqfV4feeByVUdg6RhuThSkIAq.jpg",
+        "episode_title": "No es un delito si te divertiste",
+        "still_path": "https://image.tmdb.org/t/p/original/2Kt2ugkDjeF4ZoRoyQLxB1DDdda.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "Elvira Clancy, una joven de 24 años apasionada por su trabajo escribiendo esquelas en un periódico local, enfrenta un giro inesperado en su vida cuando, debido a dificultades económicas del periódico, su remuneración cambia a ser por esquela publicada. Este cambio lleva a Elvira a un oscuro descubrimiento sobre sí misma tras matar \"accidentalmente\" a un individuo desagradable: una insospechada sed de sangre. A medida que Elvira empieza a idear métodos cada vez más sofisticados para cometer asesinatos, encuentra en esta macabra práctica una manera de mantener sus ingresos y su empleo. Sin embargo, su vida se complica aún más con la llegada de un nuevo corresponsal de crímenes al periódico, por quien siente una profunda atracción, y ante quien debe esforzarse por ocultar su creciente lista de crímenes. La historia se desarrolla en un juego peligroso de gato y ratón, donde Elvira debe equilibrar su atracción, su carrera y su creciente afición por el asesinato.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9f72687c6942650dbb8e168a398e0bab9c64c2e1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Ponies",
+      "parsed": {
+        "type": "series",
+        "series": "Ponies"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 262793,
+        "title": "Ponies",
+        "original_title": "PONIES",
+        "overview": "Dos secretarias de la embajada estadounidense en Moscú en la década de 1970 se convierten en agentes de la CIA tras la muerte de sus maridos, descubriendo una conspiración de la Guerra Fría detrás de la tragedia.",
+        "poster_path": "/rwKS6rSAqMGnXwBVteYkHxeDLWX.jpg",
+        "backdrop_path": "/Ak7AdQpvmZpSe9WYBd5KrgjSsSX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/rwKS6rSAqMGnXwBVteYkHxeDLWX.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/Ak7AdQpvmZpSe9WYBd5KrgjSsSX.jpg",
+        "genres": [
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Emilia Clarke",
+          "Haley Lu Richardson",
+          "Adrian Lester",
+          "Artjom Gilz",
+          "Vic Michaelis",
+          "Nicholas Podany",
+          "Petro Ninovskyi"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/Ak7AdQpvmZpSe9WYBd5KrgjSsSX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/rwKS6rSAqMGnXwBVteYkHxeDLWX.jpg",
+        "episode_title": "Noticias de segunda mano",
+        "episode_overview": "Tras una tragedia, dos mujeres estadounidenses comienzan una nueva vida como espías en la Unión Soviética.",
+        "still_path": "https://image.tmdb.org/t/p/original/d9uu4QnjGTCEpwKCNbkeTAOcdss.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Dos secretarias de la embajada estadounidense en Moscú en la década de 1970 se convierten en agentes de la CIA tras la muerte de sus maridos, descubriendo una conspiración de la Guerra Fría detrás de la tragedia.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1acee3220fd4b09937d098dd162041e0724b72ca"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a1b2c4617178b1b91da3267adefd72f22fa7faf3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Dos secretarias de la embajada estadounidense en Moscú en la década de 1970 se convierten en agentes de la CIA tras la muerte de sus maridos, descubriendo una conspiración de la Guerra Fría detrás de la tragedia.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b7946d331b26e59eb4fc4c7a1bb212ad41bae654"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:cb9bcb1076f159b65d05c5de28defb40ba073db1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "The Death of Bunny Munro",
+      "parsed": {
+        "type": "series",
+        "series": "The Death of Bunny Munro"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 279116,
+        "title": "The Death of Bunny Munro",
+        "original_title": "The Death of Bunny Munro",
+        "overview": "Miniserie de TV (2025). 6 episodios. Tras la muerte de su esposa, Bunny Munro, un vendedor a domicilio adicto al sexo y lujurioso confeso, se lleva a su hijo pequeño en una caótica gira de ventas por Brighton y más allá, donde se ve obligado a enfrentarse a qué clase de hombre -y de padre- es en realidad.",
+        "poster_path": "/2ucY5MO4lSpcHzry93aFzSoJ2S6.jpg",
+        "backdrop_path": "/ogi8uZCaW17tmz5uOQkUoxXKVSX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/2ucY5MO4lSpcHzry93aFzSoJ2S6.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ogi8uZCaW17tmz5uOQkUoxXKVSX.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Matt Smith",
+          "Rafael Mathé",
+          "Sarah Greene",
+          "Johann Myers",
+          "Robert Glenister",
+          "Alice May Feetham",
+          "David Threlfall",
+          "Lindsay Duncan",
+          "Elizabeth Berrington"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/ogi8uZCaW17tmz5uOQkUoxXKVSX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/2ucY5MO4lSpcHzry93aFzSoJ2S6.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/h3fikokVGycYOW3IdT405xapE88.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Miniserie de TV (2025). 6 episodios. Tras la muerte de su esposa, Bunny Munro, un vendedor a domicilio adicto al sexo y lujurioso confeso, se lleva a su hijo pequeño en una caótica gira de ventas por Brighton y más allá, donde se ve obligado a enfrentarse a qué clase de hombre -y de padre- es en realidad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f9e3092dd1987ec484b9bafa57bc1d33894f2120"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:aac209d29a6592289356c39acf815ab10958ec13"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Miniserie de TV (2025). 6 episodios. Tras la muerte de su esposa, Bunny Munro, un vendedor a domicilio adicto al sexo y lujurioso confeso, se lleva a su hijo pequeño en una caótica gira de ventas por Brighton y más allá, donde se ve obligado a enfrentarse a qué clase de hombre -y de padre- es en realidad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:982e362e04bec89cdbbf87f13c3effa3b6506a54"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d2374abe38811ea4c86ae36e46f7de2c6ce189cb"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Miniserie de TV (2025). 6 episodios. Tras la muerte de su esposa, Bunny Munro, un vendedor a domicilio adicto al sexo y lujurioso confeso, se lleva a su hijo pequeño en una caótica gira de ventas por Brighton y más allá, donde se ve obligado a enfrentarse a qué clase de hombre -y de padre- es en realidad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:08ac89085dd0162abad662608fa5940962d66e6f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:eba2c2b8a706c08158ea71eb003ffa40b0e6e5e7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Miniserie de TV (2025). 6 episodios. Tras la muerte de su esposa, Bunny Munro, un vendedor a domicilio adicto al sexo y lujurioso confeso, se lleva a su hijo pequeño en una caótica gira de ventas por Brighton y más allá, donde se ve obligado a enfrentarse a qué clase de hombre -y de padre- es en realidad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bc9bf6c6b76aef1e4b078f3b4c532d0c58e93993"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:968abd4a44d37b84261a072d6a6ce5108420f2d0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "To Cook A Bear",
+      "parsed": {
+        "type": "series",
+        "series": "To Cook A Bear"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 281555,
+        "title": "Un asesino entre nosotros",
+        "original_title": "Koka björn",
+        "overview": "Norte de Suecia, 1852, un pastor y su familia llegan a Kengis, un pueblecito que ha sucumbido a la inmoralidad. El pastor quiere mejorar la comunidad, pero algunos vecinos se oponen al cambio. Cuando tienen lugar una serie de asesinatos, el pastor y su hijo adopotivo sami, Jussi, investigan, pero aquellos que controlan el pueblo les ponen trabas. La tensión aumenta, se ponen a prueba lealtades y el pastor se ve obligado a proteger a su familia mientras busca a un asesino que no piensa parar.",
+        "poster_path": "/r75AR6Ow2JFOIbXGVmf9JpCC2e6.jpg",
+        "backdrop_path": "/aQiLb3L29b7qnnHyZ8EqM6hQzp6.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/r75AR6Ow2JFOIbXGVmf9JpCC2e6.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/aQiLb3L29b7qnnHyZ8EqM6hQzp6.jpg",
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Gustaf Skarsgård",
+          "Jaakko Ohtonen",
+          "Pernilla August",
+          "Magnus Krepper",
+          "Ane Dahl Torp",
+          "Jonas Karlsson",
+          "Gusten Wickberg",
+          "Tyra Wingren",
+          "Tobias Zilliacus",
+          "Anton Sehlstedt"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/z0yBrRy6xB8qgEAAx4uJj97nn2S.png",
+        "banner": "https://image.tmdb.org/t/p/original/aQiLb3L29b7qnnHyZ8EqM6hQzp6.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/r75AR6Ow2JFOIbXGVmf9JpCC2e6.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Un pastor nuevo llega a Kengis. Una joven desaparece y el pastor inicia una investigación.",
+        "still_path": "https://image.tmdb.org/t/p/original/A5d2jLSSjcF1QVmawy7qfnUzD8z.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Norte de Suecia, 1852, un pastor y su familia llegan a Kengis, un pueblecito que ha sucumbido a la inmoralidad. El pastor quiere mejorar la comunidad, pero algunos vecinos se oponen al cambio. Cuando tienen lugar una serie de asesinatos, el pastor y su hijo adopotivo sami, Jussi, investigan, pero aquellos que controlan el pueblo les ponen trabas. La tensión aumenta, se ponen a prueba lealtades y el pastor se ve obligado a proteger a su familia mientras busca a un asesino que no piensa parar.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2a6a9280938e2284711f47753103df773e212869"
+            }
+          ]
+        }
       ]
     }
   ]
