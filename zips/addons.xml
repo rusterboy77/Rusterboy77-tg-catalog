@@ -58,7 +58,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.2" name="RusterWolf 77" provider-name="rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="rusterboy77">
         
     
         <requires>
@@ -85,7 +85,10 @@
             <summary lang="es">Catálogo de torrents con reproducción en Elementum</summary>
             
         
-            <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.</description>
+            <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.
+
+v1.0.3:
+- Solucionado problema con trailers: integración nativa con skins mediante TMDB ID.</description>
             
         
             <platform>all</platform>

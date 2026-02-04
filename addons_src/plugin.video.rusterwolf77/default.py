@@ -111,8 +111,6 @@ def _read_items_per_page():
     except Exception:
         return 24
 
-
-
 def _apply_art(li, item_dict, addon_fanart=None):
     """Helper mínimo para añadir arte extra si está disponible en el item.
     Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
@@ -164,6 +162,18 @@ def _apply_art(li, item_dict, addon_fanart=None):
                 pass
         pass
 
+def _set_unique_ids(li, item_dict):
+    """Configura los IDs únicos (TMDB) en el ListItem para que skins/helpers los detecten."""
+    if not isinstance(item_dict, dict):
+        return
+    tmdb_id = item_dict.get('tmdb_id')
+    if tmdb_id:
+        sid = str(tmdb_id)
+        try:
+            li.getVideoInfoTag().setUniqueIDs({'tmdb': sid})
+        except Exception:
+            pass
+        li.setProperty('tmdb_id', sid)
 
 def _normalize_str(s):
     import unicodedata, re
@@ -697,8 +707,6 @@ def list_years(filter_type=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, original_params=None):
-    import xbmc
-    xbmc.log(f"RusterWolf: list_items recibido filter_type={filter_type} page={page}", xbmc.LOGWARNING)
     try:
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
@@ -707,28 +715,22 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     results = []
-    import xbmc
-    count_movie = count_tv = count_doc = count_seriesdoc = 0
     for it in catalog:
         mediatype = _get_item_type(it)
         genres = _get_item_genres(it) or []
         if filter_type == 'movie' and mediatype == 'movie':
             results.append(it)
-            count_movie += 1
         elif filter_type == 'tv' and mediatype == 'tv':
             # Para TV no añadimos episodios individuales aquí; agruparemos por serie en la UI
             results.append(it)
-            count_tv += 1
         elif filter_type == 'documentary':
             genre_names = [g['name'].lower() if isinstance(g, dict) and 'name' in g else str(g).lower() for g in genres] if isinstance(genres, list) else [str(genres).lower()]
             if mediatype == 'movie' and any('documental' in g or 'documentary' in g for g in genre_names):
                 results.append(it)
-                count_doc += 1
         elif filter_type == 'series_documentary':
             genre_names = [g['name'].lower() if isinstance(g, dict) and 'name' in g else str(g).lower() for g in genres] if isinstance(genres, list) else [str(genres).lower()]
             if mediatype == 'tv' and any('documental' in g or 'documentary' in g for g in genre_names):
                 results.append(it)
-                count_seriesdoc += 1
         elif filter_type is None:
             results.append(it)
 
@@ -878,7 +880,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     # asegurar filtrado por tipo si filter_type está presente (evita mezclar tipos en vistas agrupadas)
     if filter_type:
         results = [it for it in results if _get_item_type(it) == filter_type]
-    xbmc.log(f"RusterWolf: Sección '{filter_type}' - Películas: {count_movie}, Series: {count_tv}, Documentales: {count_doc}, Series Documental: {count_seriesdoc}, Total preliminar: {len(results)}", xbmc.LOGWARNING)
     # paginación (page se pasa desde router)
     per_page = _read_items_per_page()
     start = (page - 1) * per_page
@@ -978,7 +979,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 continue
             key = normalize_title(title)
             series_map.setdefault(key, []).append(it)
-        xbmc.log(f"RusterWolf: series encontradas (normalizadas): {len(series_map)}", xbmc.LOGWARNING)
 
         # aplicar paginación en el listado de series normalizadas
         # si se pidió agrupar por año o por género en la vista de series, construir grupos distintos
@@ -997,18 +997,12 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             items_sorted = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)
             rep = items_sorted[0]
             display_title = rep.get('title') or (items_group[0].get('title') if items_group else key)
-            
-            # Detectar si es película para evitar tratarla como serie (carpeta)
-            is_movie = _get_item_type(rep) == 'movie' or len(items_group) == 1
-            
             li = xbmcgui.ListItem(label=display_title)
             # aplicar poster/overview si existen
             poster = rep.get('poster') or ''
             fanart = rep.get('fanart') or ''
             overview = rep.get('overview') or ''
-            info = {'title': display_title, 'plot': overview, 'mediatype': 'movie' if is_movie else 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
-            if is_movie:
-                info['year'] = int(rep.get('year')) if rep.get('year') and str(rep.get('year')).isdigit() else None
+            info = {'title': display_title, 'plot': overview, 'mediatype': 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
             _apply_info_tag(li, info)
             # Also set full video info so Kodi UI can show genres/cast where supported
             try:
@@ -1019,17 +1013,10 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
             except Exception:
                 pass
-            
-            if is_movie:
-                li.setProperty('IsPlayable', 'true')
-                li.setMimeType('application/x-bittorrent')
-                rep_key = rep.get('key')
-                url = build_url({'action': 'select', 'key': rep_key}) if rep_key else build_url({'action': 'select', 'index': str(catalog.index(rep))})
-                xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-            else:
-                url = build_url({'action': 'list_seasons', 'series': display_title})
-                xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
-                xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+            _set_unique_ids(li, rep)
+            url = build_url({'action': 'list_seasons', 'series': display_title})
+            xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
+            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
 
         # Enriquecer en background solo los items visibles (no bloquear UI)
         try:
@@ -1118,7 +1105,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 continue
             key = normalize_title(title)
             movie_map.setdefault(key, []).append(it)
-        xbmc.log(f"RusterWolf: peliculas encontradas (normalizadas): {len(movie_map)}", xbmc.LOGWARNING)
 
         # soporte para agrupación por género/año en películas
         if group_by == 'genre':
@@ -1157,12 +1143,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
             except Exception:
                 pass
-            # add context menu 'Información' to surface details on long-press
-            try:
-                plugin_url = BASE_URL + '?' + urllib.parse.urlencode({'action': 'show_info', 'key': rep.get('key') or rep.get('tmdb_id')})
-                li.addContextMenuItems([('Información', f'RunPlugin({plugin_url})')], replace=False)
-            except Exception:
-                pass
+            _set_unique_ids(li, rep)
             li.setProperty('IsPlayable', 'true')
             li.setMimeType('application/x-bittorrent')
             # linkear al primer item del grupo
@@ -1268,6 +1249,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
         except Exception:
             pass
+        _set_unique_ids(li, it)
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
         # Prefer a stable key to identify the item rather than a list index
@@ -1383,6 +1365,7 @@ def novedades(page=1, sub=None):
                 _apply_art(li, rep, addon_fanart)
             except Exception:
                 pass
+            _set_unique_ids(li, rep)
             url = build_url({'action': 'list_seasons', 'series': display_title})
             xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
         # paginación
@@ -1459,6 +1442,7 @@ def novedades(page=1, sub=None):
             _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
         except Exception:
             pass
+        _set_unique_ids(li, it)
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
         item_key = it.get('key') if isinstance(it, dict) else None
@@ -1554,6 +1538,8 @@ def list_seasons(series):
                         pass
         except Exception:
             pass
+        if 'rep' in locals() and rep:
+            _set_unique_ids(li, rep)
         url = build_url({'action':'list_episodes', 'series': series, 'season': season})
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.endOfDirectory(HANDLE)
@@ -1638,6 +1624,7 @@ def list_episodes(series, season):
                         pass
         except Exception:
             pass
+        _set_unique_ids(li, it)
         li.setProperty('IsPlayable', 'true')
         item_key = it.get('key') if isinstance(it, dict) else None
         if item_key:
@@ -1746,6 +1733,7 @@ def do_search(q=None):
             _apply_art(li, rep, addon_fanart)
         except Exception:
             pass
+        _set_unique_ids(li, rep)
         
         # Enlazar a la lista de temporadas
         url = build_url({'action': 'list_seasons', 'series': display_title})
@@ -1783,13 +1771,7 @@ def do_search(q=None):
             _apply_art(li, it, addon_fanart)
         except Exception:
             pass
-        
-        # Añadir menú contextual de información
-        try:
-            plugin_url = BASE_URL + '?' + urllib.parse.urlencode({'action': 'show_info', 'key': it.get('key') or it.get('tmdb_id')})
-            li.addContextMenuItems([('Información', f'RunPlugin({plugin_url})')], replace=False)
-        except Exception:
-            pass
+        _set_unique_ids(li, it)
         
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
@@ -1877,59 +1859,6 @@ def show_select(index=None, key=None):
     play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
     li = xbmcgui.ListItem(path=play_path)
     xbmcplugin.setResolvedUrl(HANDLE, True, li)
-
-
-def show_info(key=None):
-    """Show a modal dialog with item metadata read from DB or catalog by key or tmdb_id."""
-    import xbmcgui, xbmc
-    if not key:
-        xbmcgui.Dialog().notification('RusterWolf', 'Item no especificado', xbmcgui.NOTIFICATION_ERROR)
-        return
-    # try DB first
-    try:
-        from resources.lib.db import load_items_by_keys
-        items = load_items_by_keys([key])
-        item = items[0] if items else None
-    except Exception:
-        item = None
-    # fallback to catalog.json
-    if not item:
-        try:
-            addon_path = xbmcaddon.Addon().getAddonInfo('path')
-            cp = os.path.join(addon_path, 'catalog.json')
-            if os.path.exists(cp):
-                with open(cp, 'r', encoding='utf-8') as f:
-                    data = json.load(f).get('results', [])
-                for e in data:
-                    if e.get('key') == key or str(e.get('tmdb_top', {}).get('id') or e.get('parsed', {}).get('tmdb_id')) == str(key):
-                        item = e
-                        break
-        except Exception:
-            item = None
-    if not item:
-        xbmcgui.Dialog().notification('RusterWolf', 'Elemento no encontrado en DB/catalog', xbmcgui.NOTIFICATION_ERROR)
-        return
-    title = item.get('title') or item.get('tmdb_top', {}).get('title') or item.get('parsed', {}).get('title')
-    overview = item.get('overview') or item.get('episode_overview') or ''
-    genres = item.get('genres') or []
-    cast = item.get('cast') or []
-    lines = [f'Título: {title}', '']
-    if genres:
-        try:
-            gnames = ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in genres])
-            lines.append(f'Géneros: {gnames}')
-        except Exception:
-            lines.append(f'Géneros: {genres}')
-    if cast:
-        lines.append('Actores: ' + ', '.join(cast[:10]))
-    lines.append('')
-    lines.append('Sinopsis:')
-    if overview:
-        lines.append(overview)
-    else:
-        lines.append('(sin sinopsis)')
-    dlg = xbmcgui.Dialog()
-    dlg.textviewer(title, '\n'.join(lines))
 
 def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
@@ -2113,8 +2042,6 @@ def router(params):
         list_episodes(params.get('series'), params.get('season'))
     elif action == 'settings':
         open_settings()
-    elif action == 'show_info':
-        show_info(params.get('key'))
     else:
         list_root()
 
