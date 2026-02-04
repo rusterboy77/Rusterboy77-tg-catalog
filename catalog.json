@@ -34223,6 +34223,28 @@
               "magnet": "magnet:?xt=urn:btih:6a49eeafe893bb52cc8adff611e741ec640b5f85"
             }
           ]
+        },
+        {
+          "season": 13,
+          "episode": 18,
+          "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a7be9fc44541c6e5121140d6af2bc112ffd3e344"
+            }
+          ]
+        },
+        {
+          "season": 13,
+          "episode": 8,
+          "overview": "El espectáculo sigue las vidas de los bomberos y paramédicos que trabajan en el Departamento de Bomberos de la ciudad de Chicago en la estación de bomberos 51, formada por el Camión 81, la Brigada 3, la Ambulancia 61 y la Patrulla 25.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:540e981fe54ae716f0c0b917a867a2abb2ffb535"
+            }
+          ]
         }
       ]
     },
@@ -144458,6 +144480,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ca90383640aff76a614e39c2b46994a4961a4763"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ad5bbf5b724a5e5faacac38bb83b73244652c780"
             }
           ]
         }
@@ -193048,6 +193074,61 @@
               "magnet": "magnet:?xt=urn:btih:3a13d4672f6910a8575f0ab4c3337b958b584aa5"
             }
           ]
+        },
+        {
+          "season": 14,
+          "episode": 84,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:72ce6b5a247fce4c54cf381a5191f24f7c24eee2"
+            }
+          ]
+        },
+        {
+          "season": 14,
+          "episode": 90,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:346e91aaf3d4d9dd8a9adffa87df1eceeccd802e"
+            }
+          ]
+        },
+        {
+          "season": 14,
+          "episode": 91,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:98f7842768dab82ba3a55da87b24cf131a8f6c70"
+            }
+          ]
+        },
+        {
+          "season": 14,
+          "episode": 92,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:70dd558bb8eeb43a13a18b449ed4c9b35a545185"
+            }
+          ]
+        },
+        {
+          "season": 14,
+          "episode": 93,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:aa64c5cec087a83a9c538388d1b4e8d088d57767"
+            }
+          ]
         }
       ]
     },
@@ -208631,6 +208712,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0a4b6d5e74f1acfe89e2d315a4e0823149724365"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:96cba26cf7a74819398332e6850f6f8e4d91764b"
             }
           ]
         }
@@ -231556,6 +231641,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:693048cede972f6f19bfd22822192b9ac1370d4f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cd0ac0bb1e42d9fe18b4a6d736cff2e344df39c4"
             }
           ]
         }
@@ -238300,6 +238389,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a06f50b83f774cae189a9b203d18867ac3237195"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:38151a3db6142d6451f5e4cca9d33f5d543d097f"
             }
           ]
         }
@@ -239142,6 +239235,17 @@
               "magnet": "magnet:?xt=urn:btih:20fa84cc42b2aac5d6c7eecb72c1e209590618b0"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Una artista y su intérprete viajan por varios países grabando un programa mientras sus emociones se desvanecen entre subtítulos invisibles. ¿Logrará el amor hacerse entender?",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c573ef9bf3d8f5ee3b1b3951fc6ddfe4c84b7744"
+            }
+          ]
         }
       ]
     },
@@ -239562,6 +239666,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:90bb89627e17d91be0497643c90d12c87bca5a3a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Yun Bom, después de sufrir un desengaño sentimental en Seúl, se traslada a la pequeña ciudad de Sinsu para empezar de nuevo como profesora. Aunque al principio se muestra distante y fría, poco a poco vuelve a descubrir la alegría tras conocer a Sun Jae-gyu.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:80c5a65f506250dfb30e517aef0f5af489e96321"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0875a242290499eb0ee400b058402bd1ce64a8b8"
             }
           ]
         }
@@ -240310,6 +240429,17 @@
               "magnet": "magnet:?xt=urn:btih:70d544820cdf17783a639ee9d5700a05b2b652a9"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f59c3560c9492b9e180f2e5abf989f87d73669a1"
+            }
+          ]
         }
       ]
     },
@@ -240583,6 +240713,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:13e4052200d899b298b01c818d60ba80f11c6237"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:bd0b0e6d26a92b3118a7646326f0722410abb6e1"
             }
           ]
         }
@@ -240780,6 +240914,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:cb001f12c51aed30cb7a12e6ef97f6d706702ae6"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:6faf9daca54b44c6fa8bec96a28d5d51001c7cc2"
             }
           ]
         },
@@ -240833,6 +240971,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:da5a8df7cb5bee2989e103c68199a64506aa29d2"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:011d911b17bed3ecc16a54d56c276df35da6e75c"
             }
           ]
         },
@@ -240848,6 +240990,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6fe8d2a25b49ccb224f396d5a6bf9d989a218184"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:39569c80c0d3b451c97cd79ec67e3097afb9d2a3"
             }
           ]
         }
@@ -241074,6 +241220,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:edf2b81d0def241802a1db1e431d7f9da7a47a79"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ecb46f3e66f5e09696d307c87f37b18eeca40c62"
             }
           ]
         },
@@ -241240,6 +241390,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0cc3852469b4f01ad25067037219edc84d356593"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:de38653396db1a17f117c220f99baeb5f4c889c8"
             }
           ]
         },
@@ -241565,6 +241719,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:72ad83fc8cc456d13674477b75dbf3a045f60680"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:28d55900a3ebe69f01cd934063ad5c3ed6c883e3"
             }
           ]
         },
@@ -242157,6 +242315,21 @@
               "magnet": "magnet:?xt=urn:btih:9f72687c6942650dbb8e168a398e0bab9c64c2e1"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "Elvira Clancy, una joven de 24 años apasionada por su trabajo escribiendo esquelas en un periódico local, enfrenta un giro inesperado en su vida cuando, debido a dificultades económicas del periódico, su remuneración cambia a ser por esquela publicada. Este cambio lleva a Elvira a un oscuro descubrimiento sobre sí misma tras matar \"accidentalmente\" a un individuo desagradable: una insospechada sed de sangre. A medida que Elvira empieza a idear métodos cada vez más sofisticados para cometer asesinatos, encuentra en esta macabra práctica una manera de mantener sus ingresos y su empleo. Sin embargo, su vida se complica aún más con la llegada de un nuevo corresponsal de crímenes al periódico, por quien siente una profunda atracción, y ante quien debe esforzarse por ocultar su creciente lista de crímenes. La historia se desarrolla en un juego peligroso de gato y ratón, donde Elvira debe equilibrar su atracción, su carrera y su creciente afición por el asesinato.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:398a26b791a962c9993469278ddbf2fa9114000f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7d6502f39e71930d6f404b91ec24c499c131fda4"
+            }
+          ]
         }
       ]
     },
@@ -242209,6 +242382,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a1b2c4617178b1b91da3267adefd72f22fa7faf3"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f3f3c94fcc33dc8e1d7c171a8dca6e73c6203fe7"
             }
           ]
         },
@@ -242668,6 +242845,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bffb9bd2292a1ff5995f88f2353e795023a8c62e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:990b9aafb6d054d548efc2df02c1f82692e8d523"
             }
           ]
         },
@@ -242945,6 +243126,207 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6ef2ccb35f03d061e0b6d88acc96d33228f2a61a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "A Sami Wedding",
+      "parsed": {
+        "type": "series",
+        "series": "A Sami Wedding"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 306944,
+        "title": "La gran Boda Sami",
+        "original_title": "Heajastallan",
+        "overview": "",
+        "poster_path": "/93l2WVgFqMWgGnVmUkgiQXMuPpE.jpg",
+        "backdrop_path": "/bzxHrwl2QA8klFLUa9wf6VOEU68.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/93l2WVgFqMWgGnVmUkgiQXMuPpE.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/bzxHrwl2QA8klFLUa9wf6VOEU68.jpg",
+        "genres": [
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Sara Margrethe Oskal",
+          "Ánte Siri",
+          "Inga Marja Utsi",
+          "Ivan Aleksander Buljo",
+          "Craig Stein",
+          "Anni-Kristiina Juuso",
+          "Sverre Porsanger",
+          "Ellen Anne Buljo",
+          "Ellen J. Sara Eira",
+          "Edel S. Pentha"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/bzxHrwl2QA8klFLUa9wf6VOEU68.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/93l2WVgFqMWgGnVmUkgiQXMuPpE.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/18esOj8QFO5wk3tWxuTbdUt2m5H.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a1f3a3e36a67471762de100574ab11d369a30a19"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f5bb7c832a2a1cad10c5e42158bb472643b29a3b"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e959430a6b7317fe7c3324a36646b59dbae667ca"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7cce6f4b12a25f584ee21295144531ec18e2a086"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8cc761cfd0e7ef727ce8f94883e5a2ca63c7658c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:fb610583db896ee149585ca620606478076b1cc1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dd20c037f5a1d4cf11737733bb685968bbda74a2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:8b9ab1bc201e5717666338efbb0739ca0bb849d4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Bridgerton",
+      "parsed": {
+        "type": "series",
+        "series": "Bridgerton"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 91239,
+        "title": "Los Bridgerton",
+        "original_title": "Bridgerton",
+        "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+        "poster_path": "/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "backdrop_path": "/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Ruth Gemmell",
+          "Luke Thompson",
+          "Yerin Ha",
+          "Luke Newton",
+          "Claudia Jessie",
+          "Florence Hunt",
+          "Will Tilston",
+          "Adjoa Andoh",
+          "Julie Andrews",
+          "Golda Rosheuvel"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ze8iaJtOzkaLc8X7KCy6S1lPv8B.png",
+        "banner": "https://image.tmdb.org/t/p/original/6umsRLI7t0ydFwCl0JNEIO0q2LH.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/4Yo1Yxj9uXxTeXBJPDAIU2SRy7Z.jpg",
+        "episode_title": "El vals",
+        "episode_overview": "A pesar de la insistencia de la alta sociedad, Benedict Bridgerton no es de los que se comprometen, al menos hasta que una dama enmascarada le roba el corazón en un baile.",
+        "still_path": "https://image.tmdb.org/t/p/original/ah0YzFOqNyV30NCNB4J28nOcQrk.jpg"
+      },
+      "episodes": [
+        {
+          "season": 4,
+          "episode": 1,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:cb5e9e898e58f00f66ed322b612a8f408ce7513c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Padre Brown",
+      "parsed": {
+        "type": "series",
+        "series": "Padre Brown"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 61511,
+        "title": "Padre Brown",
+        "original_title": "Father Brown",
+        "overview": "Serie de TV (2013-Actualidad). Serie inspirada en los relatos de G.K. Chesterton, pero situada en un pequeño pueblo de Inglaterra a principio de los años 50, sobre un sacerdote católico que tiene un don para resolver misterios.",
+        "poster_path": "/9HPUbAYFnYItdiyDSRSE69U0dMo.jpg",
+        "backdrop_path": "/eesuJC91i5MPGOZvEtoa11cPqe5.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9HPUbAYFnYItdiyDSRSE69U0dMo.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eesuJC91i5MPGOZvEtoa11cPqe5.jpg",
+        "genres": [
+          "Drama",
+          "Crimen",
+          "Misterio"
+        ],
+        "cast": [
+          "Mark Williams",
+          "John Burton",
+          "Tom Chambers",
+          "Ruby-May Martinwood",
+          "Claudie Blakley"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/eesuJC91i5MPGOZvEtoa11cPqe5.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9HPUbAYFnYItdiyDSRSE69U0dMo.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/g3KpfOQq78v2vltxnaPRzT8w7dD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 13,
+          "episode": 1,
+          "overview": "Serie de TV (2013-Actualidad). Serie inspirada en los relatos de G.K. Chesterton, pero situada en un pequeño pueblo de Inglaterra a principio de los años 50, sobre un sacerdote católico que tiene un don para resolver misterios.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:8bae62b8201fc1794295f840503d5c28cd05f697"
             }
           ]
         }
