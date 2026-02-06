@@ -40625,6 +40625,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4bbfc332302a377f275be619e456cbf0ad8adc6a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ca700b6007e695546de948afcf63e7b671ef45ed"
             }
           ]
         },
@@ -65538,6 +65542,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:19593e6cad2bd70007c8a4611dcbb57da780c398"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0abf2f09d544b108ec30d7cacabbd6f4fd929bb0"
             }
           ]
         },
@@ -193195,6 +193203,17 @@
               "magnet": "magnet:?xt=urn:btih:aa64c5cec087a83a9c538388d1b4e8d088d57767"
             }
           ]
+        },
+        {
+          "season": 14,
+          "episode": 96,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a92abf8ce7cf90f0663ea6606389547a8b2b48e7"
+            }
+          ]
         }
       ]
     },
@@ -209377,7 +209396,24 @@
           "infohash": "d63da21b5e24c69bd0e14c346caab721bbe48c3f"
         }
       ],
-      "overview": "Comenzar de nuevo no es fácil, especialmente para el chico de una ciudad pequeña John Nolan que, después de un incidente que cambia su vida, está persiguiendo su sueño de ser un oficial de policía de Los Ángeles. Como el novato más viejo de la fuerza, se ha encontrado con el escepticismo de algunos de los superiores que lo ven como una crisis ambulante."
+      "overview": "Comenzar de nuevo no es fácil, especialmente para el chico de una ciudad pequeña John Nolan que, después de un incidente que cambia su vida, está persiguiendo su sueño de ser un oficial de policía de Los Ángeles. Como el novato más viejo de la fuerza, se ha encontrado con el escepticismo de algunos de los superiores que lo ven como una crisis ambulante.",
+      "episodes": [
+        {
+          "season": 8,
+          "episode": 1,
+          "overview": "Comenzar de nuevo no es fácil, especialmente para el chico de una ciudad pequeña John Nolan que, después de un incidente que cambia su vida, está persiguiendo su sueño de ser un oficial de policía de Los Ángeles. Como el novato más viejo de la fuerza, se ha encontrado con el escepticismo de algunos de los superiores que lo ven como una crisis ambulante.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:69157f4a225a958e35233ded10e7e25e0d23a486"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bbd5b5776b9d3131f06aba384c0b83a1851b3018"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "The Rookie [HDTV 1080p][Cap.702].torrent",
@@ -221212,6 +221248,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:cc229571714e18c260990da5d568f1f459bb350f"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 1,
+          "overview": "Halis Korhan, desesperado por enderezar el rumbo de su nieto Ferit, decide casarlo para poner fin a su comportamiento irresponsable. Sin embargo, los planes toman un giro inesperado cuando Ferit se enamora de Seyran. Este romance no solo altera el destino de la pareja, sino también el de toda la familia, desatando conflictos y secretos ocultos.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b7bdaa69cbe02a44221a629e26d5b070beb66073"
             }
           ]
         }
@@ -237096,6 +237143,21 @@
               "magnet": "magnet:?xt=urn:btih:d3c93a8ac41a1548ebbbf9b4c434aa8e0230be7c"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:daeed3bd00718a6bf5e8bcb83773c16f916ca31e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:95305e4be288472c42c5c8c629f7ef5fe8cfdeac"
+            }
+          ]
         }
       ]
     },
@@ -237986,6 +238048,21 @@
               "magnet": "magnet:?xt=urn:btih:19075dec083ac88e8fb50cb52224d2c0338ccbc1"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:59feb7c4c88f2ea4b6dcfa2a26f514df5eee6ea3"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d406100b0a9bf74317eedd3f2e6fb1fe1c04647c"
+            }
+          ]
         }
       ]
     },
@@ -238409,6 +238486,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bf7ed44c79e78a572f5f5f1b50adc7ffc1c3b69f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f8306e08b2a73cda5d5fbdac1ab4ac52483aaf50"
             }
           ]
         }
@@ -239296,6 +239377,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:97916ad7683ed52cb5a958d6c1e35307b8bade94"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f0d9105179f49b24f1cb90258b2c6141b2e0bb0c"
             }
           ]
         },
@@ -240127,6 +240212,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e002fe41d210ccac447667715e5e3f7195ea5690"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3ce6f51f7af89e4289ae4e0cc327fcf92c2ccab1"
             }
           ]
         }
@@ -240220,6 +240309,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:e79ee4f83e1a26a5a195caa0e270781cc40011b6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:caa4640638a804fccb7b83dc3604108dbcd67341"
             }
           ]
         }
@@ -240620,6 +240720,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:c5f53b8eec8519e6eefc24810bb250bc42b624c1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a3e1c2992d9e3fe7fce10ca0e9e957de518981e9"
             }
           ]
         }
@@ -241161,6 +241272,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:8a573dd7fd67d9fd71eb8f852093e6f5a4fb0f64"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:aa5f7f7c0f7b1753bb5fa857a6d21203181b014a"
             }
           ]
         },
@@ -241652,6 +241767,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:5d626d56e8c011a02ae283594f16d633f47384a5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0986bdec86ca6ad5708321aa0ab7f5e1852e6312"
             }
           ]
         },
@@ -241798,6 +241917,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:44a530570bfae36e049aa3ecc64baaf2f807af38"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9810e3d6597eef4e3984e3b98d9e30107460529b"
             }
           ]
         }
@@ -241857,6 +241980,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:3f76ef1120c06e78f14626e588511b5578c202ae"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 2,
+          "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e0b3c07b86af0b471e3981442fb40ce5a9cfa5f0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ae791b0e645f020108817ec803eea07ccbf4d944"
             }
           ]
         }
@@ -241985,6 +242123,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:85a680717c5e2b8d9da8945d1320a55a82403730"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ea8a919c88d1a7ff6c6152511989e5036998f56f"
             }
           ]
         },
@@ -242710,6 +242852,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d2374abe38811ea4c86ae36e46f7de2c6ce189cb"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:eb4029caa467103f22533d6b01174860eb6bc1d9"
             }
           ]
         },
@@ -242847,6 +242993,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4d0f258517db3592948e8c8a4d8851ce37ef7978"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:5a2bc3c0ffd5e7df38adb4e46851fe62eb764a2c"
             }
           ]
         },
@@ -243127,6 +243277,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:646f0f1dc788f562498c33c3abe8efaa849336fc"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b451693a25466098f3cfb274c163ce9a3ab466d0"
             }
           ]
         },
@@ -243600,6 +243754,17 @@
               "magnet": "magnet:?xt=urn:btih:7be6668aed17cc873aaf003c0e89f5941cf7a030"
             }
           ]
+        },
+        {
+          "season": 4,
+          "episode": 3,
+          "overview": "Ambientada en la alta sociedad londinense de principios del siglo XIX, la historia se centra en la familia Bridgerton, formada por varios hermanos y hermanas que se debaten entre el amor, el deber y la vocación. Cada temporada refleja la vida amorosa de un hermano Bridgerton, empezando por Daphne y siguiendo por Anthony, Colin y Benedict.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:2a6431ad1b6ec1eeee3207c784d23317946a7cd5"
+            }
+          ]
         }
       ]
     },
@@ -244038,6 +244203,461 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a5445bc38eff140f4d4350517a91264f029570b4"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El abogado del Lincoln",
+      "parsed": {
+        "type": "series",
+        "series": "El abogado del Lincoln"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 116799,
+        "title": "El abogado del Lincoln",
+        "original_title": "The Lincoln Lawyer",
+        "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+        "poster_path": "/w4kfFjqanJuvkVOg1nb2ag1VG2e.jpg",
+        "backdrop_path": "/jBFOVEE5sMIyT141YIqIwyU8Y1D.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/w4kfFjqanJuvkVOg1nb2ag1VG2e.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/jBFOVEE5sMIyT141YIqIwyU8Y1D.jpg",
+        "genres": [
+          "Drama",
+          "Crimen"
+        ],
+        "cast": [
+          "Manuel Garcia-Rulfo",
+          "Becki Newton",
+          "Angus Sampson",
+          "Jazz Raycole"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/l0aG8zCDkug0oJ493noryrvPtgK.png",
+        "banner": "https://image.tmdb.org/t/p/original/jBFOVEE5sMIyT141YIqIwyU8Y1D.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/w4kfFjqanJuvkVOg1nb2ag1VG2e.jpg",
+        "episode_title": "7-2-1-1-9-5-6",
+        "episode_overview": "Mickey cuestiona la validez de la parada de tráfico que lo llevó entre rejas. Entretanto, Haller y asociados se resiente bajo la presión del inminente juicio por asesinato.",
+        "still_path": "https://image.tmdb.org/t/p/original/2rjImMfnCdnOGSJ6MeoEbpbsyMD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 4,
+          "episode": 1,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0f17a5b7042265e0bc341add5212c6ae3015f028"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:94b12707aadb945f37e28685e406038319c4ad17"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Las leonas",
+      "parsed": {
+        "type": "series",
+        "series": "Las leonas"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 269160,
+        "title": "Las Leonas",
+        "original_title": "Les Lionnes",
+        "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+        "poster_path": "/hjNM1CAM3hXJyL8HLpOlsVyKzxY.jpg",
+        "backdrop_path": "/djAGltv1bVw625yYku4CyA42gq0.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hjNM1CAM3hXJyL8HLpOlsVyKzxY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/djAGltv1bVw625yYku4CyA42gq0.jpg",
+        "genres": [
+          "Comedia",
+          "Action & Adventure",
+          "Drama"
+        ],
+        "cast": [
+          "Rebecca Marder",
+          "Naidra Ayadi",
+          "Zoé Marchal",
+          "Pascale Arbillot",
+          "Jonathan Cohen",
+          "Tya Deslauriers",
+          "François Damiens",
+          "Brahim Koutari",
+          "Lucas Mortier",
+          "Sami Outalbali"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/tJ6WXQAgO2fcFjeTuk8uS5cP5gx.png",
+        "banner": "https://image.tmdb.org/t/p/original/djAGltv1bVw625yYku4CyA42gq0.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/hjNM1CAM3hXJyL8HLpOlsVyKzxY.jpg",
+        "episode_title": "Una suma considerable",
+        "episode_overview": "Las amigas Rosalie y Kim deciden atracar un banco para solucionar sus problemas económicos. Por el camino consiguen alistar más compinches… y se meten en líos.",
+        "still_path": "https://image.tmdb.org/t/p/original/embsn2N972dsnrgHB7tSwYS3VRC.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5f8bb0a563b12830eff2a94b57e73aa4ea1861dd"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ccdb0d0d227623e3896611532b8021cc63b6de1e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:390f9c5cf040384f79b351fd2176a03b892b17dd"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3f7d8082ef0ed664b6ffb8dc4e06264ece44e307"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:19066692a33a2f284933ea381089998168a3624b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2897bda124f172e5ee75dfd62f6e7ef79d6c024a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bf65498528f92fe3d4c4e9e53cfea0bdb1e56140"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4bfe5505d5621ca79686a1ce9446c61a1a6dba76"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7665c395f897c5645dc0391523137eb1365a0e89"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dcd83ae9aeefd6a60daa7ffb17acd9ef8ee1956d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ae32db1bd5c2b80955492e4e1f1feb1a5d53aa43"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Tras verse con el agua al cuello, cinco amigas desesperadas no encuentran otra salida que montar una banda, robar un montón de armas y ponerse a atracar bancos.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6db704bdd1e7fba4a284cd6d6c4f84fe9d18f51f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Los Muppets Un show especial (2026) [Bluray][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Los Muppets Un show especial",
+        "year": "2026",
+        "quality": "bluray"
+      },
+      "tmdb_top": {
+        "id": 1548113,
+        "title": "El show de los Muppets",
+        "original_title": "The Muppet Show",
+        "overview": "¡Vuelve \"El show de los Muppets\"! La rana Gustavo, la Señorita Peggy y el resto de los queridos Muppets regresan con un nuevo programa especial. La música, la comedia y el caos están garantizados cuando los Muppets se suban de nuevo al escenario del Teatro de los Muppets original con una invitada muy especial: ¡Sabrina Carpenter!",
+        "poster_path": "/9UQB40mDmP9l5WsOTYs9FW0ItOI.jpg",
+        "backdrop_path": "/v1DsKWjIF9M9eB7xtIwVfU6unSW.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9UQB40mDmP9l5WsOTYs9FW0ItOI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/v1DsKWjIF9M9eB7xtIwVfU6unSW.jpg",
+        "genres": [
+          "Comedia",
+          "Familia",
+          "Música",
+          "Película de TV"
+        ],
+        "cast": [
+          "Bill Barretta",
+          "Dave Goelz",
+          "Eric Jacobson",
+          "Peter Linz",
+          "David Rudman",
+          "Matt Vogel",
+          "Sabrina Carpenter",
+          "Seth Rogen",
+          "Maya Rudolph",
+          "Stephanie D'Abruzzo"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/mlyh2WLyp4KKNhfDwSoYjj0CsJH.png",
+        "banner": "https://image.tmdb.org/t/p/original/knn3OIa9T4yeLjkmeQgJ8JLwdG0.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9UQB40mDmP9l5WsOTYs9FW0ItOI.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:55096161f817fbaa2b7fc4ddf8656d71ad86c6cc"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/9UQB40mDmP9l5WsOTYs9FW0ItOI.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/v1DsKWjIF9M9eB7xtIwVfU6unSW.jpg",
+      "overview": "¡Vuelve \"El show de los Muppets\"! La rana Gustavo, la Señorita Peggy y el resto de los queridos Muppets regresan con un nuevo programa especial. La música, la comedia y el caos están garantizados cuando los Muppets se suban de nuevo al escenario del Teatro de los Muppets original con una invitada muy especial: ¡Sabrina Carpenter!",
+      "genres": [
+        "Comedia",
+        "Familia",
+        "Música",
+        "Película de TV"
+      ],
+      "cast": [
+        "Bill Barretta",
+        "Dave Goelz",
+        "Eric Jacobson",
+        "Peter Linz",
+        "David Rudman",
+        "Matt Vogel",
+        "Sabrina Carpenter",
+        "Seth Rogen",
+        "Maya Rudolph",
+        "Stephanie D'Abruzzo"
+      ]
+    },
+    {
+      "file": "Star Trek Academia de la Flota Estelar",
+      "parsed": {
+        "type": "series",
+        "series": "Star Trek Academia de la Flota Estelar"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 223530,
+        "title": "Star Trek: Academia de la Flota Estelar",
+        "original_title": "Star Trek: Starfleet Academy",
+        "overview": "Una nueva promoción de cadetes se entrenan bajo la atenta y exigente mirada de los mejores de la Flota Estelar. Juntos, se enfrentarán a los altibajos de la vida en la Academia: forjarán amistades inquebrantables, chocarán en explosivas rivalidades, experimentarán sus primeros amores y se adentrarán en su destino como la próxima generación de oficiales de la Flota Estelar. Cuando un nuevo y misterioso enemigo amenace tanto a la Academia como a la propia Federación, estos cadetes deberán estar a la altura del desafío o arriesgarse a perder todo por lo que acaban de empezar a luchar.",
+        "poster_path": "/m4JnADIJkF5ck6jq7GUEcPBKxd0.jpg",
+        "backdrop_path": "/rXtSdCGmG07zjAg5h7GR1v52ogX.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/m4JnADIJkF5ck6jq7GUEcPBKxd0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rXtSdCGmG07zjAg5h7GR1v52ogX.jpg",
+        "genres": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Holly Hunter",
+          "Sandro Rosta",
+          "Karim Diane",
+          "Kerrice Brooks",
+          "George Hawkins",
+          "Bella Shepard",
+          "Zoë Steiner",
+          "Gina Yashere",
+          "Robert Picardo",
+          "Tig Notaro"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/eEYzIQ0RInmAOB9SlVHgqA2WcZs.png",
+        "banner": "https://image.tmdb.org/t/p/original/rXtSdCGmG07zjAg5h7GR1v52ogX.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/m4JnADIJkF5ck6jq7GUEcPBKxd0.jpg",
+        "episode_title": "Los jóvenes de ahora",
+        "episode_overview": "Tras años a la fuga, a Caleb le ofrecen ingresar en una nueva promoción de la Academia de la Flota Estelar.",
+        "still_path": "https://image.tmdb.org/t/p/original/1U61OOu2BCLeqqjdIdSeXCCwDWc.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Una nueva promoción de cadetes se entrenan bajo la atenta y exigente mirada de los mejores de la Flota Estelar. Juntos, se enfrentarán a los altibajos de la vida en la Academia: forjarán amistades inquebrantables, chocarán en explosivas rivalidades, experimentarán sus primeros amores y se adentrarán en su destino como la próxima generación de oficiales de la Flota Estelar. Cuando un nuevo y misterioso enemigo amenace tanto a la Academia como a la propia Federación, estos cadetes deberán estar a la altura del desafío o arriesgarse a perder todo por lo que acaban de empezar a luchar.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a4445b0cd23bcc10352541b6a8e78044d31896fa"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1e61c32f85718446ea922d92c83af741b5e8236f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Una nueva promoción de cadetes se entrenan bajo la atenta y exigente mirada de los mejores de la Flota Estelar. Juntos, se enfrentarán a los altibajos de la vida en la Academia: forjarán amistades inquebrantables, chocarán en explosivas rivalidades, experimentarán sus primeros amores y se adentrarán en su destino como la próxima generación de oficiales de la Flota Estelar. Cuando un nuevo y misterioso enemigo amenace tanto a la Academia como a la propia Federación, estos cadetes deberán estar a la altura del desafío o arriesgarse a perder todo por lo que acaban de empezar a luchar.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:28b5b3f2024a5812470cce132129811a98c6ffc2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0480a89d820dc196052aced3b44b12a606a6ee22"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Unfamiliar",
+      "parsed": {
+        "type": "series",
+        "series": "Unfamiliar"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 274776,
+        "title": "Unfamiliar",
+        "original_title": "Unfamiliar",
+        "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+        "poster_path": "/cdXNPeSidTtc8JG24K7oq7vcab8.jpg",
+        "backdrop_path": "/xbmiF9ArvJdDtxatz3zAHVyWkeq.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/cdXNPeSidTtc8JG24K7oq7vcab8.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xbmiF9ArvJdDtxatz3zAHVyWkeq.jpg",
+        "genres": [
+          "Drama",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Felix Kramer",
+          "Susanne Wolff",
+          "Samuel Finzi",
+          "Natalia Belitski",
+          "Andreas Pietschmann",
+          "Maja Bons",
+          "Genija Rykova",
+          "Henry Hübchen"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/qDq3dG4ElRohih5fUGNQRLHuBaC.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/cdXNPeSidTtc8JG24K7oq7vcab8.jpg",
+        "episode_title": "Dieciséis años",
+        "episode_overview": "Meret y Simon se ven obligados a irse de la fiesta de cumpleaños de su hija para recibir a un agente herido en un piso franco, pero este no tarda en despertar sospechas.",
+        "still_path": "https://image.tmdb.org/t/p/original/2IXeonZNwUnHHcTWlpjulINSQgG.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cce9d0385124b7954e858335fd7a574d8cd7f05d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:18bd918f39949159d6374986fd63fa188db01940"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:20b1b88473d1c1275eb7bf7305d6552e85519e45"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:816c88c8a29029106c6a43bf26f44d49b2baeefe"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a47c02b66f137fc39d29b084382cde41baecf5c2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2cb239887254d0b02293608c874a472dd6f91b33"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5bb296725dd198083258b1b8cd13a03e9fd4dae7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6f8d7a18e2a7adaa63c36ec1bc7b7aa0e86d75ef"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Con sus identidades y su escondite al descubierto, dos exespías deben luchar por sus vidas cuando un secreto que creyeron enterrado amenaza sus vidas… y la de su hija.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d6b7e6b080b3802ddfa1fc9ba487ff48b97d1460"
             }
           ]
         }
