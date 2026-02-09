@@ -34254,6 +34254,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:540e981fe54ae716f0c0b917a867a2abb2ffb535"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4d824c6bfc3b4c4be3db88b9745023a22be87451"
             }
           ]
         }
@@ -40109,7 +40113,24 @@
           "infohash": "dea022dbf2e1995dd8b578b1c62bde7c54eeea89"
         }
       ],
-      "overview": "La historia se centra en el personaje de Richard Poole, un policía inglés con muy poco sentido del humor y de carácter huraño que llega la ficticia isla caribeña de Saint-Marie para resolver el asesinato de un compañero. Tras resolver el crimen, recibirá una recompensa inesperada y no deseada: un puesto de trabajo como Inspector Jefe de la policía local. Al principio de la temporada, esta premisa se repite con el detective Humphrey Goodman sustituyendo a su antecesor en el cargo."
+      "overview": "La historia se centra en el personaje de Richard Poole, un policía inglés con muy poco sentido del humor y de carácter huraño que llega la ficticia isla caribeña de Saint-Marie para resolver el asesinato de un compañero. Tras resolver el crimen, recibirá una recompensa inesperada y no deseada: un puesto de trabajo como Inspector Jefe de la policía local. Al principio de la temporada, esta premisa se repite con el detective Humphrey Goodman sustituyendo a su antecesor en el cargo.",
+      "episodes": [
+        {
+          "season": 15,
+          "episode": 1,
+          "overview": "La historia se centra en el personaje de Richard Poole, un policía inglés con muy poco sentido del humor y de carácter huraño que llega la ficticia isla caribeña de Saint-Marie para resolver el asesinato de un compañero. Tras resolver el crimen, recibirá una recompensa inesperada y no deseada: un puesto de trabajo como Inspector Jefe de la policía local. Al principio de la temporada, esta premisa se repite con el detective Humphrey Goodman sustituyendo a su antecesor en el cargo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:699a18392638a89f09c246c5483d4e429f794ce2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:97f34c7697c4f7383728f49b6d05f7ab20f98203"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Crimen en el paraiso [HDTV 1080p][Cap.1401].torrent",
@@ -40644,6 +40665,40 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ab4a0f1330bdda997f1e1be9d799150ca2b16eb2"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e449f550497ee43dd2972b19ddac96748406f527"
+            }
+          ]
+        },
+        {
+          "season": 7,
+          "episode": 5,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:687f8fc50b2e83767c7134fd8cc2c9e582b17ce6"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:91784c515898adee81749e39af169b106542d6ba"
+            }
+          ]
+        },
+        {
+          "season": 7,
+          "episode": 6,
+          "overview": "Deadly Tropics sigue a la nueva detective Melissa Sainte-Rose (Sonia Rolland), quien debe formar equipo con la detective Gaelle Crivelli (Beatrice de la Boulaye) para investigar un asesinato. La pregunta es si las dos policías podrán dejar de lado sus ideas muy diferentes de la ley y el orden y sus diferencias para localizar al perpetrador.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e37eb4a0db504295417a78a7fcd9007f9fab8b6f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:753b4494307b3f65759b7bdb072d827103345734"
             }
           ]
         }
@@ -89556,6 +89611,17 @@
               "magnet": "magnet:?xt=urn:btih:083960ff333d16363db43e529afb2eb7b0b3f8cd"
             }
           ]
+        },
+        {
+          "season": 6,
+          "episode": 20,
+          "overview": "Programa que aborda la temática de la pandemia de COVID-19 de 2020 con la presencia de médicos y expertos en la materia",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b8f9702624b44250824903bd4a4b030f3291544a"
+            }
+          ]
         }
       ]
     },
@@ -126676,6 +126742,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:1df474ce2cd21c605e3050f85cc20089a47a2413"
+            }
+          ]
+        },
+        {
+          "season": 27,
+          "episode": 5,
+          "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4d9a730f938dbbc8341c92a9af3817fb19602da1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5d5056f3fcf5972762339bf7e00b0c14e5110535"
             }
           ]
         }
@@ -237604,6 +237685,21 @@
               "magnet": "magnet:?xt=urn:btih:c4acacfaf87c21420b01512146d63cfbb6df42c4"
             }
           ]
+        },
+        {
+          "season": 13,
+          "episode": 5,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cbf5170a16836469d508ba2b09f068665c300882"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:76a15ad2380c7655f4a2f8f1d615a3d3744bf827"
+            }
+          ]
         }
       ]
     },
@@ -237831,6 +237927,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:fcdfc7d12a4982d4f9e9c9a7d9b4dc5b7d700d73"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b123c666a655cb07d8e1855d2afe7dc5b485ca91"
             }
           ]
         }
@@ -238562,6 +238662,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:38151a3db6142d6451f5e4cca9d33f5d543d097f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "En Hell Motel, un grupo de 10 obsesos de los crímenes reales son invitados al fin de semana de apertura del recientemente renovado Cold River Motel, el lugar donde se cometió un asesinato en masa satánico sin resolver hace 30 años. La historia se repite cuando los huéspedes se quedan tirados y empiezan a ser asesinados uno a uno durante una ola de asesinatos que crece exponencialmente más horripilante que el original con cada muerte.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ccef304c62573326171767afe98a0bf2ae437ad1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1d3748c5a9fcef69d7f01a52f287d9977702dbbc"
             }
           ]
         }
@@ -239396,6 +239511,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:1557b650a1cc694af1ad3cd2dd7edce70843e72b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3644a0d5d07e4ec24ed86aea31a38b4021f1d433"
             }
           ]
         },
@@ -239411,6 +239530,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0233034b4cf1e92d59d34c521fe97074b97bbed2"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:59938f066f32d6f42209d1bb101e7a1027095b9f"
             }
           ]
         },
@@ -239547,6 +239670,29 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:8af370debed4c43fc798fc4666b991e0ddfd9ac3"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8dedc69520e62895818ae982f193790fa6b765d7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Un siglo antes de los acontecimientos de \"Juego de Tronos\", dos héroes improbables vagaban por Poniente: un joven e ingenuo, pero valiente caballero, Ser Duncan el Alto, y su pequeño escudero, Egg. Ambientada en una época en la que el linaje Targaryen aún ostenta el Trono de Hierro y el recuerdo del último dragón aún no ha desaparecido de la memoria viva, grandes destinos, poderosos enemigos y peligrosas hazañas aguardan a estos improbables e incomparables amigos.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:4b2255517f5e6809e16a51606b90d5a0cff0c5d0"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8ef5c4e2f44b9084cf73607ec6061ac5d99cbfd3"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:832421f6565724a223dda4464ef188c515fc0675"
             }
           ]
         }
@@ -239628,6 +239774,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:dcf58601c4c653a6bf03535280625fd37b6119b5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c8bb7b25a82471dc586aa3aa1abc991c5c4f8853"
             }
           ]
         }
@@ -239911,6 +240061,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0875a242290499eb0ee400b058402bd1ce64a8b8"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a5db58deda524ea492d0dfe4b48de340888a0c3d"
             }
           ]
         },
@@ -239926,6 +240080,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:c84252039a8437493749b0cd0a5c3a6467ea9718"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:067b7a27f344a892f913eacfe02c0b2ce542fa0a"
             }
           ]
         }
@@ -240001,6 +240159,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:7b890a3f9302485d4fe82add6f9a60bac9db0c32"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:51f57e7eee0bb9e3f22ab64aafa1f3fa71f22fc0"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 5,
+          "overview": "Un grupo de jóvenes graduados compiten por un conjunto limitado de puestos permanentes en un banco de inversión de primer nivel en Londres, pero los límites entre colega, amigo, amante y enemigo pronto se desdibujan a medida que se sumergen en una cultura empresarial definida tanto por sexo, drogas y ego como por acuerdos y dividendos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:7c476bed4daf2ff66bffae017c1c8acfefa36634"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:214089eda23bb8401c96ecceedfc7a2f8709c2b8"
             }
           ]
         }
@@ -240216,6 +240393,114 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:3ce6f51f7af89e4289ae4e0cc327fcf92c2ccab1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3a7c21fc7565ae5d3f9be207933abb7c4415f3e1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2d796261efaf378fd2ffa21def72fa05de83af2b"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:43d9a937307ea06df930b8bfed5d942486e5a091"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3ceeae295beca66cae641ec942dce7b0d5d0a4b4"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:cd3c73446ba8bca35e21066ceb6ff27902cdc61f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:623b000bfa00e8e535d2d8b9c01d51aaa5b2bd74"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:76edb83affa4d815da237a47141615fbe5915881"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b5f26b002ec56d075bb75d78517adb20811b8574"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:88d02236c49828cb6cf7823ed8dee88cb5401310"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:faceb4972447992526a8429fdc8b3b9385d0b472"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:aabe130ffd421c9304c4c9b0556a91a8346366ce"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:799fef2404b918e000ff7ab3acf24386603f5af8"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f1dcffc8e8e1ee141cba66df7358c7a585b6b30a"
             }
           ]
         }
@@ -242271,6 +242556,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e512eee4c62813928ab1689ff05eaaff31646c88"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e04dab515eac4b9e55cad21b5eed6ea876ad7e22"
             }
           ]
         }
@@ -242457,6 +242746,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:06d7093e8c7e657d19c8d8009d3d27a7407acabd"
+            }
+          ]
+        },
+        {
+          "season": 12,
+          "episode": 5,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8649c2ed8628250088aae12366187b73a931debb"
             }
           ]
         }
@@ -242702,6 +243002,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:7d6502f39e71930d6f404b91ec24c499c131fda4"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4d0bca0090232afd8a4085625fe0ed28d1b13789"
             }
           ]
         }
@@ -243584,6 +243888,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:f5bb7c832a2a1cad10c5e42158bb472643b29a3b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9d724392ecd27f172944f05a5191c523435a6af5"
             }
           ]
         },
@@ -243811,6 +244119,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:8bae62b8201fc1794295f840503d5c28cd05f697"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2ee97d060dfe7dab528d14aa82a494d47a8feabb"
             }
           ]
         }
@@ -244256,6 +244568,141 @@
               "magnet": "magnet:?xt=urn:btih:94b12707aadb945f37e28685e406038319c4ad17"
             }
           ]
+        },
+        {
+          "season": 4,
+          "episode": 2,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:76c66a39ee328136e2ec893aab9762d554f2cc50"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:91e2a80a7abeb051331ac7916b6268ea064d6af4"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 3,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a5abc351e4deaae03069f1d77b34f2635a8d9d9a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5b81e85c09d5c7f893185437df5d92489d59b0b4"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 4,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a56bee183c328de3ed95b52a794804b57bd62c55"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b99af0843ba33fb7c89e353b7d838c0165daa1db"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 5,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9e900dcd153a44bc5fa51bee277b4e8e48ab9e54"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e5f3302b3aab964e4dd537a44ed14e141924f37c"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 6,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:59ff1eab55f8124f92c9395e59df8efbbf005224"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b73891b6f4b20e08b3abee974398f3383d7ee209"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 7,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:47af92fcca30feec5fb1f930c33506103eb4e123"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9039526e115f6f31411677add500d92911ae1833"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 8,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:816c6bc2ad5031c619326972ef4f9126ce466d46"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ed100b8fb79abdecdc14993907e8ed7f050cd6b5"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 9,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d315eb06e137feb180be84b0c70d9031560de825"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0ce6e1436ca790725807412ca15c49310fe3c676"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 10,
+          "overview": "Mickey Haller, el famoso abogado de Los Ángeles, hace lo que sea necesario para ganar sus casos mientras lidia con el sistema de justicia penal desde su emblemático Lincoln.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f0f81e52509ed11455e2206f9762ce5670e79c5e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4e096324a0a87e3fe998c4e7a91664e57e9a8514"
+            }
+          ]
         }
       ]
     },
@@ -244368,6 +244815,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:7665c395f897c5645dc0391523137eb1365a0e89"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c8d1140bc597996ff80c563118df348251c8bd31"
             }
           ]
         },
@@ -244379,6 +244830,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:dcd83ae9aeefd6a60daa7ffb17acd9ef8ee1956d"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c80395e211fbd9d397f54abb33eccc022d15a6e5"
             }
           ]
         },
@@ -244390,6 +244845,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ae32db1bd5c2b80955492e4e1f1feb1a5d53aa43"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3752ced47df2c87a724718c3eef201012c2abcdd"
             }
           ]
         },
@@ -244401,6 +244860,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6db704bdd1e7fba4a284cd6d6c4f84fe9d18f51f"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a1ba03d37f96177a4c6079f5fdcfeff15d69ae15"
             }
           ]
         }
@@ -244658,6 +245121,536 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d6b7e6b080b3802ddfa1fc9ba487ff48b97d1460"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Domino Day",
+      "parsed": {
+        "type": "series",
+        "series": "Domino Day"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 238128,
+        "title": "Domino Day",
+        "original_title": "Domino Day",
+        "overview": "",
+        "poster_path": "/qPDxgmngzLqqwMz9xNl9hrZCwg5.jpg",
+        "backdrop_path": "/zexWsJ5BsRzNlUJxg4FKHJH4Pvm.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qPDxgmngzLqqwMz9xNl9hrZCwg5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zexWsJ5BsRzNlUJxg4FKHJH4Pvm.jpg",
+        "genres": [
+          "Drama",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Siena Kelly",
+          "Poppy Lee Friar",
+          "Babirye Bukilwa",
+          "Alisha Bailey",
+          "Molly Harris",
+          "Sam Howard Sneyd",
+          "Percelle Ascott",
+          "Christopher Jeffers",
+          "Jonah Rzeskiewicz",
+          "Maimuna Memon"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/pK724NAIH6zbPixxIMMFKIhadfU.png",
+        "banner": "https://image.tmdb.org/t/p/original/zexWsJ5BsRzNlUJxg4FKHJH4Pvm.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/qPDxgmngzLqqwMz9xNl9hrZCwg5.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/qhHLpzdJ1ScQW1u64j4QgtLvIqE.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f3dc03d996bc6e085fd74c7c7544761564c1292c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:56633594f69ae3d370eda9598a32ee4094fc536e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:98538f40a10e8e1f0bef1e3c79b0e19b2fa43b3f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c13fee57118ee36360bb4baf9929ab3e5dfe40ee"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El Elegido",
+      "parsed": {
+        "type": "series",
+        "series": "El Elegido"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 223400,
+        "title": "El elegido",
+        "original_title": "El elegido",
+        "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+        "poster_path": "/9FXAxIL08jokkah8SR6dxvAJQG.jpg",
+        "backdrop_path": "/tHUTky5uZdpngfChbJzUgrrcCOW.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9FXAxIL08jokkah8SR6dxvAJQG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tHUTky5uZdpngfChbJzUgrrcCOW.jpg",
+        "genres": [
+          "Drama",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Bobby Luhnow",
+          "Dianna Agron",
+          "Lilith Curiel",
+          "Juanito Anguamea",
+          "Jorge Javier Arballo",
+          "Alberto Pérez-Jácome",
+          "Patricio Serna Meza",
+          "Elvis Zamora"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/u9bS4gsv77WmUsOTfYh4PXld96H.png",
+        "banner": "https://image.tmdb.org/t/p/original/tHUTky5uZdpngfChbJzUgrrcCOW.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9FXAxIL08jokkah8SR6dxvAJQG.jpg",
+        "episode_title": "La llegada",
+        "episode_overview": "El tío desaparecido de Tuka aparece, iniciando la búsqueda de una criatura mítica que llevará a Jodie y al grupo a un territorio peligroso e inexplorado.",
+        "still_path": "https://image.tmdb.org/t/p/original/12FkVFT9PTLuT0OA6y5hEnNSTAw.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:00f41535610b4c23c63a124c0a8ac0aa2fb6728e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:c16a5e0fab3bf082ee23f9c44ad41829e604f9f9"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:00f4309d4a90cfae7d061aa9cbdb10d8210b4f6f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:60264f85ffff4fdd6c28fcb59baf306faf534828"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2bd03d3d8ca21374d51f6eed10428070dc98eb5e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:38be98ec9451d0e83e7cef44e7f288c18ceefc83"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1240842f81555ea0d53098365075041ae3390281"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:78f5cdbb2a6dacf068b8d8a207906d99b4949bfe"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9aaac039b85fe237b37363bfcc6134cd7ac8639c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9c8aeae17a017da3ba234272ee4a1bf9af9eef63"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Jodie tiene 12 años y vive en el estado de Baja California Sur. Y ahora sabe que tiene los mismos poderes que Jesucristo. ¿Será capaz de cumplir con su destino?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:78d37e2bbaafe1d4fe46dc9f6b231edc92e9888d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d55c8464663a779e349f7d50670bc0f37eed2b6c"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El fin de las antiguas civilizaciones",
+      "parsed": {
+        "type": "series",
+        "series": "El fin de las antiguas civilizaciones"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 306219,
+        "title": "El fin de las antiguas civilizaciones",
+        "original_title": "Civilisations: Rise and Fall",
+        "overview": "Cuatro poderosas civilizaciones: el Imperio romano, el Antiguo Egipto, los samuráis japoneses y los aztecas. Sus obras de arte más valiosas revelan los secretos detrás de su grandeza y el misterioso destino que los llevó a convertirse en leyenda.\n\nEste documental, producido por BBC Studios, analiza por qué cuatro poderosas antiguas civilizaciones se encontraron al borde del desastre, y cómo el arte y las reliquias que dejaron atrás contienen pistas para explicar su destino.",
+        "poster_path": "/lrJHQZ3TYAL3kP35rmHRJKnoBl5.jpg",
+        "backdrop_path": "/8AWEmUaKlldQDbU7cgqcEIP0YvP.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/lrJHQZ3TYAL3kP35rmHRJKnoBl5.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8AWEmUaKlldQDbU7cgqcEIP0YvP.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [
+          "Sophie Okonedo"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/8AWEmUaKlldQDbU7cgqcEIP0YvP.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/lrJHQZ3TYAL3kP35rmHRJKnoBl5.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/4Sqttq3WQXluUvCr7BGIEWgbfIb.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Cuatro poderosas civilizaciones: el Imperio romano, el Antiguo Egipto, los samuráis japoneses y los aztecas. Sus obras de arte más valiosas revelan los secretos detrás de su grandeza y el misterioso destino que los llevó a convertirse en leyenda.\n\nEste documental, producido por BBC Studios, analiza por qué cuatro poderosas antiguas civilizaciones se encontraron al borde del desastre, y cómo el arte y las reliquias que dejaron atrás contienen pistas para explicar su destino.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:46fd3623d0a72bbd2ef7a0c0e21c59528c19c6a7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Cuatro poderosas civilizaciones: el Imperio romano, el Antiguo Egipto, los samuráis japoneses y los aztecas. Sus obras de arte más valiosas revelan los secretos detrás de su grandeza y el misterioso destino que los llevó a convertirse en leyenda.\n\nEste documental, producido por BBC Studios, analiza por qué cuatro poderosas antiguas civilizaciones se encontraron al borde del desastre, y cómo el arte y las reliquias que dejaron atrás contienen pistas para explicar su destino.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c438fd160b039799e22b444c3286988a6cc26100"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Cuatro poderosas civilizaciones: el Imperio romano, el Antiguo Egipto, los samuráis japoneses y los aztecas. Sus obras de arte más valiosas revelan los secretos detrás de su grandeza y el misterioso destino que los llevó a convertirse en leyenda.\n\nEste documental, producido por BBC Studios, analiza por qué cuatro poderosas antiguas civilizaciones se encontraron al borde del desastre, y cómo el arte y las reliquias que dejaron atrás contienen pistas para explicar su destino.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8aa2cb07d51adbd4d0c34dbe61654e12b4aa21b4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Cuatro poderosas civilizaciones: el Imperio romano, el Antiguo Egipto, los samuráis japoneses y los aztecas. Sus obras de arte más valiosas revelan los secretos detrás de su grandeza y el misterioso destino que los llevó a convertirse en leyenda.\n\nEste documental, producido por BBC Studios, analiza por qué cuatro poderosas antiguas civilizaciones se encontraron al borde del desastre, y cómo el arte y las reliquias que dejaron atrás contienen pistas para explicar su destino.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:73bff7fbc10fee96d94e43ab26299eafc4227893"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "La_investigacion_sobre_Lucy_Letby_2026_Bluray_720pEsp.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La investigacion sobre Lucy Letby",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1620991,
+        "title": "La investigación sobre Lucy Letby",
+        "original_title": "The Investigation of Lucy Letby",
+        "overview": "Grabaciones inéditas y testimonios inauditos en primera persona desnudan el polémico y desgarrador caso de Lucy Letby, una enfermera de neonatos condenada por varios infanticidios.",
+        "poster_path": "/qhNThwc72GqihJhXaP29Af5hJ2A.jpg",
+        "backdrop_path": "/qhSfXdkrIzwYsyQ3Z9ehFmO3zjy.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qhNThwc72GqihJhXaP29Af5hJ2A.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qhSfXdkrIzwYsyQ3Z9ehFmO3zjy.jpg",
+        "genres": [
+          "Documental",
+          "Crimen"
+        ],
+        "cast": [
+          "Lucy Letby"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ozl90qkCGwygUUkmPY2zZGI8IQH.png",
+        "banner": "https://image.tmdb.org/t/p/original/qhSfXdkrIzwYsyQ3Z9ehFmO3zjy.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/qhNThwc72GqihJhXaP29Af5hJ2A.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:48db17ca9f5e5337ad81982b1100ee56dbfa2fcc"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/qhNThwc72GqihJhXaP29Af5hJ2A.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/qhSfXdkrIzwYsyQ3Z9ehFmO3zjy.jpg",
+      "overview": "Grabaciones inéditas y testimonios inauditos en primera persona desnudan el polémico y desgarrador caso de Lucy Letby, una enfermera de neonatos condenada por varios infanticidios.",
+      "genres": [
+        "Documental",
+        "Crimen"
+      ],
+      "cast": [
+        "Lucy Letby"
+      ]
+    },
+    {
+      "file": "La Meta Es El Amor (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La Meta Es El Amor",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1433842,
+        "title": "La Meta es el Amor",
+        "original_title": "Relationship Goals",
+        "overview": "Cuando la brillante productora de televisión Leah Caldwell (Kelly Rowland) está a punto de hacer historia como la primera mujer en dirigir el programa matutino más importante de Nueva York, su ex, Jarrett Roy (Clifford \"Method Man\" Smith), aparece para competir por el mismo puesto. Afirma ser un hombre diferente, transformado por la sabiduría del bestseller del New York Times, \"Relationship Goals\".Mientras su círculo íntimo de amigos se sumerge en el mismo libro transformador, todos comienzan a redescubrir su propósito en el amor. Sin embargo, Leah, completamente centrada en romper el techo de cristal, no está lista para creer en encontrar el amor, incluso cuando la innegable química con su ex amenaza con reavivar viejas llamas.",
+        "poster_path": "/eZRbRa0q9rKkPe0gfJ2a0NhygBX.jpg",
+        "backdrop_path": "/dFdFQaffaBNBNM5hzinc6Q0oWDZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/eZRbRa0q9rKkPe0gfJ2a0NhygBX.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dFdFQaffaBNBNM5hzinc6Q0oWDZ.jpg",
+        "genres": [
+          "Romance",
+          "Comedia"
+        ],
+        "cast": [
+          "Kelly Rowland",
+          "Method Man",
+          "Robin Thede",
+          "Annie Gonzalez",
+          "Dennis Haysbert",
+          "Melanie Leishman",
+          "Matt Walsh",
+          "Daniel Malik",
+          "Carlos Gonzalez-Vio",
+          "DeVaughn Nixon"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/ylOh8VgywtfDdcN28G4qNhSkACJ.png",
+        "banner": "https://image.tmdb.org/t/p/original/dFdFQaffaBNBNM5hzinc6Q0oWDZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/eZRbRa0q9rKkPe0gfJ2a0NhygBX.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:b995a153a2c4eb3ca150c8605caed5bab0ff2cd1"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:4b5a015f83f93654c5453af7169056a23e7b43dd"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:d8c4835876f26f99dc8bcb7a298e5ac73f65f4a2"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:60020db63e36138656aa23101b026c4804adb97e"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/eZRbRa0q9rKkPe0gfJ2a0NhygBX.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/dFdFQaffaBNBNM5hzinc6Q0oWDZ.jpg",
+      "overview": "Cuando la brillante productora de televisión Leah Caldwell (Kelly Rowland) está a punto de hacer historia como la primera mujer en dirigir el programa matutino más importante de Nueva York, su ex, Jarrett Roy (Clifford \"Method Man\" Smith), aparece para competir por el mismo puesto. Afirma ser un hombre diferente, transformado por la sabiduría del bestseller del New York Times, \"Relationship Goals\".Mientras su círculo íntimo de amigos se sumerge en el mismo libro transformador, todos comienzan a redescubrir su propósito en el amor. Sin embargo, Leah, completamente centrada en romper el techo de cristal, no está lista para creer en encontrar el amor, incluso cuando la innegable química con su ex amenaza con reavivar viejas llamas.",
+      "genres": [
+        "Romance",
+        "Comedia"
+      ],
+      "cast": [
+        "Kelly Rowland",
+        "Method Man",
+        "Robin Thede",
+        "Annie Gonzalez",
+        "Dennis Haysbert",
+        "Melanie Leishman",
+        "Matt Walsh",
+        "Daniel Malik",
+        "Carlos Gonzalez-Vio",
+        "DeVaughn Nixon"
+      ]
+    },
+    {
+      "file": "Mas que rivales",
+      "parsed": {
+        "type": "series",
+        "series": "Mas que rivales"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 301507,
+        "title": "Más que rivales",
+        "original_title": "Heated Rivalry",
+        "overview": "Dos de las mayores estrellas de la Major League Hockey están unidas por la ambición, la rivalidad y una atracción magnética que ninguna de las dos comprende del todo. Lo que comienza como una aventura secreta entre dos novatos se convierte en un viaje de años de amor, negación y autodescubrimiento. Durante los siguientes ocho años, mientras buscan la gloria sobre el hielo, luchan por comprender sus sentimientos mutuos. Divididos entre el deporte que les apasiona y el amor que no pueden ignorar, deben decidir si hay espacio en su mundo ferozmente competitivo para algo tan frágil —y poderoso— como el amor verdadero.",
+        "poster_path": "/mZMQrmWDKSIv3PWebKlkpZQHatw.jpg",
+        "backdrop_path": "/QbRbCULZVBcrN2uydpmIOQLV5O.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/mZMQrmWDKSIv3PWebKlkpZQHatw.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/QbRbCULZVBcrN2uydpmIOQLV5O.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Hudson Williams",
+          "Connor Storrie",
+          "François Arnaud",
+          "Robbie G.K.",
+          "Christina Chang",
+          "Dylan Walsh",
+          "Ksenia Daniela Kharlamova"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/jtMBvy4Nf3AQRMjtfM3q07vRqfS.png",
+        "banner": "https://image.tmdb.org/t/p/original/QbRbCULZVBcrN2uydpmIOQLV5O.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/mZMQrmWDKSIv3PWebKlkpZQHatw.jpg",
+        "episode_title": "Novatos",
+        "still_path": "https://image.tmdb.org/t/p/original/AuCYbaUVVwriRuBtDrB7lBSkNT.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Dos de las mayores estrellas de la Major League Hockey están unidas por la ambición, la rivalidad y una atracción magnética que ninguna de las dos comprende del todo. Lo que comienza como una aventura secreta entre dos novatos se convierte en un viaje de años de amor, negación y autodescubrimiento. Durante los siguientes ocho años, mientras buscan la gloria sobre el hielo, luchan por comprender sus sentimientos mutuos. Divididos entre el deporte que les apasiona y el amor que no pueden ignorar, deben decidir si hay espacio en su mundo ferozmente competitivo para algo tan frágil —y poderoso— como el amor verdadero.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:51db6d02a1f8c45591e3e1e579019cf5003e7050"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4c1f9c19751738efbdc49b03b1b548578137d478"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Dos de las mayores estrellas de la Major League Hockey están unidas por la ambición, la rivalidad y una atracción magnética que ninguna de las dos comprende del todo. Lo que comienza como una aventura secreta entre dos novatos se convierte en un viaje de años de amor, negación y autodescubrimiento. Durante los siguientes ocho años, mientras buscan la gloria sobre el hielo, luchan por comprender sus sentimientos mutuos. Divididos entre el deporte que les apasiona y el amor que no pueden ignorar, deben decidir si hay espacio en su mundo ferozmente competitivo para algo tan frágil —y poderoso— como el amor verdadero.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8706ea2aaa44f134d2d1fc4de87b112da51017df"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d58da7fa615cf8514eb50283b0630b5a50022b35"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Dos de las mayores estrellas de la Major League Hockey están unidas por la ambición, la rivalidad y una atracción magnética que ninguna de las dos comprende del todo. Lo que comienza como una aventura secreta entre dos novatos se convierte en un viaje de años de amor, negación y autodescubrimiento. Durante los siguientes ocho años, mientras buscan la gloria sobre el hielo, luchan por comprender sus sentimientos mutuos. Divididos entre el deporte que les apasiona y el amor que no pueden ignorar, deben decidir si hay espacio en su mundo ferozmente competitivo para algo tan frágil —y poderoso— como el amor verdadero.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:af4527bc476e7e2ef4e8d3784643469a5f021889"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d4e5beac62acf9c41850c41d8376cb43b7afbc5a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Padre no hay mas que uno la serie",
+      "parsed": {
+        "type": "series",
+        "series": "Padre no hay mas que uno la serie"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 301058,
+        "title": "Padre no hay más que uno, la serie",
+        "original_title": "Padre no hay más que uno, la serie",
+        "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+        "poster_path": "/g1T4RXeChi27cc2abUdz3ufzcGi.jpg",
+        "backdrop_path": "/sFRuHQczbqBfN14DLnRbx1Knwpz.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/g1T4RXeChi27cc2abUdz3ufzcGi.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/sFRuHQczbqBfN14DLnRbx1Knwpz.jpg",
+        "genres": [
+          "Comedia",
+          "Familia"
+        ],
+        "cast": [
+          "Daniel Pérez Prada",
+          "Mariam Hernández",
+          "Claudio Gallego",
+          "Amanda Cárdenas",
+          "Alberto Salvador",
+          "Naia de las Heras",
+          "Olivia Guerrero",
+          "Miriam Díaz-Aroca",
+          "Rosario Pardo"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/fyLAQzwcxR7cVECy3f5Wq0c2IHs.png",
+        "banner": "https://image.tmdb.org/t/p/original/sFRuHQczbqBfN14DLnRbx1Knwpz.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/g1T4RXeChi27cc2abUdz3ufzcGi.jpg",
+        "episode_title": "Primer día de colegio",
+        "episode_overview": "¡Primer día de colegio! Mateo tiene que encargarse de que sus hijos se levanten, desayunen, se vistan, se metan al coche… y no lleguen tarde. Una tarea difícil, pero eso no es nada comparado con gestionar todo el papeleo que se le ha olvidado rellenar. Los niños llegan al nuevo cole y cada uno tiene que encontrar el grupo en el que mejor encaja.",
+        "still_path": "https://image.tmdb.org/t/p/original/6OEpoS5tu1zybhKA3mKWF0md5dB.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Helena y Mateo son un matrimonio con cinco hijos. Cuando a Helena le ofrecen el trabajo de su vida en la app Conchy, toda la familia decide mudarse. Mateo, con más confianza que sentido común, deja de lado su carrera para encargarse del cuidado de sus hijos, convencido de que “esto no puede ser tan difícil” pero pronto descubrirá que lo es, y mucho. Mientras Helena intenta brillar en su nueva empresa, sus hijos, descontentos con la mudanza, se organizan para sabotear este cambio de vida y poder volver a su antigua ciudad.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:00e000c860f9c18cf3638f8c0d5be4cb8c3feeb8"
             }
           ]
         }
