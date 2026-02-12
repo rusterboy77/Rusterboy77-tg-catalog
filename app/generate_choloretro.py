@@ -84,23 +84,42 @@ def get_tmdb_meta(query, is_tv, year=None):
         print(f"Error TMDB: {e}")
     return {}
 
+def get_1fichier_files_recursive(folder_id, headers):
+    """Función auxiliar para recorrer carpetas recursivamente."""
+    all_files = []
+    
+    # 1. Obtener archivos de la carpeta actual
+    try:
+        r = requests.post("https://api.1fichier.com/v1/file/ls.cgi", json={'folder_id': folder_id}, headers=headers)
+        if r.ok:
+            items = r.json().get('items', [])
+            all_files.extend(items)
+    except Exception as e:
+        print(f"Error leyendo archivos en carpeta {folder_id}: {e}")
+
+    # 2. Buscar subcarpetas y entrar en ellas
+    try:
+        r = requests.post("https://api.1fichier.com/v1/folder/ls.cgi", json={'folder_id': folder_id}, headers=headers)
+        if r.ok:
+            subfolders = r.json().get('sub_folders', [])
+            for sub in subfolders:
+                print(f"  >> Escaneando subcarpeta: {sub['name']}")
+                all_files.extend(get_1fichier_files_recursive(sub['id'], headers))
+    except Exception as e:
+        print(f"Error leyendo subcarpetas en {folder_id}: {e}")
+        
+    return all_files
+
 def get_1fichier_files(folder_id):
-    """Lista archivos de una carpeta de 1fichier."""
+    """Inicia el escaneo recursivo desde la carpeta raíz."""
     if not ONEFICHIER_API_KEY or not folder_id:
         print("Faltan credenciales de 1fichier")
         return []
         
-    url = "https://api.1fichier.com/v1/file/ls.cgi"
     headers = {'Authorization': f'Bearer {ONEFICHIER_API_KEY}', 'Content-Type': 'application/json'}
-    payload = {'folder_id': folder_id}
     
-    try:
-        response = requests.post(url, json=payload, headers=headers)
-        data = response.json()
-        return data.get('items', [])
-    except Exception as e:
-        print(f"Error 1fichier: {e}")
-        return []
+    print(f"Iniciando escaneo recursivo en 1fichier (ID Raíz: {folder_id})...")
+    return get_1fichier_files_recursive(folder_id, headers)
 
 def generate():
     print("Iniciando generación de catálogo Choloretro...")
