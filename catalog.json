@@ -247236,6 +247236,152 @@
         "Iñigo Gastesi",
         "Emilia Lazo"
       ]
+    },
+    {
+      "file": "The Artful Dodger",
+      "parsed": {
+        "type": "series",
+        "series": "The Artful Dodger"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 202208,
+        "title": "The Artful Dodger",
+        "original_title": "The Artful Dodger",
+        "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+        "poster_path": "/eIXNWHvt8dprz3EDiqxIvXgZriF.jpg",
+        "backdrop_path": "/8SqmduaPoPvSpqPUEw0YNXvJoQj.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/eIXNWHvt8dprz3EDiqxIvXgZriF.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8SqmduaPoPvSpqPUEw0YNXvJoQj.jpg",
+        "genres": [
+          "Drama",
+          "Crimen",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Thomas Brodie-Sangster",
+          "David Thewlis",
+          "Maia Mitchell",
+          "Lucy-Rose Leonard",
+          "Damien Garvey",
+          "Luke Bracey",
+          "Jeremy Sims",
+          "Albert Latailakepa",
+          "Aljin Abella"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/otOhaIKX6X14plHL7pECqslOjyj.png",
+        "banner": "https://image.tmdb.org/t/p/original/8SqmduaPoPvSpqPUEw0YNXvJoQj.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/eIXNWHvt8dprz3EDiqxIvXgZriF.jpg",
+        "episode_title": "Verdugo",
+        "episode_overview": "A Jack le espera la horca. ¿Podrán Belle y Fagin ayudar a nuestro héroe a esquivar su destino?",
+        "still_path": "https://image.tmdb.org/t/p/original/ihIfYAALQT4RZvAKd7g8RS4qENZ.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:eb99d01589179b34b250ab1e5908f2ae0f359f21"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:059f5c01e266726e66d59a03ee12f8d5c0fbf44e"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0630710a4e6bca0382343ddd412fd33f481de1a7"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ca0b9de726dcdfda7fa40fe9108f11408d796ce0"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bc16a3972775751938fc70fcbdbcd77359b8cfb0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ec16c9e43cfe5275e6e9d97e08fe74a4084b2baa"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:025339d9df924e927e1e1b0489964984f767237b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9f7d3a757ce5025cc99b397c0181f864bbab3d55"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:87d8e2528dc910ac053eba95a8a776d1d7658f9e"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:54d0f4c0bfe87780e825d0b499b557a76351afe5"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b4c67e1c3d49bfc054b74e725fa9235e71aeeca3"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "overview": "Es una historia de reinvención, traición, redención y amor. Jack Dawkins es el Artful Dodger, cuyos dedos de carterista se han convertido en las hábiles manos de un cirujano. Se debate entre un amor imposible y el submundo delictivo que anhela en secreto. Esa situación requerirá ingenio.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ffbe380e469cf21402b5bb479c93daf9d901fc1a"
+            }
+          ]
+        }
+      ]
     }
   ]
 }
