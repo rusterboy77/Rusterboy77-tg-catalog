@@ -5,6 +5,11 @@ import json
 import requests
 import re
 import sys
+import datetime
+
+# Importar rename.py desde el mismo directorio
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import rename
 
 # Configuración desde Secrets
 TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
@@ -15,21 +20,37 @@ ONEFICHIER_FOLDER_ID = os.environ.get('ONEFICHIER_FOLDER_ID')
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(BASE_DIR, "catalog_choloretro.json")
 
-def clean_filename(filename):
-    """Limpia el nombre del archivo para búsqueda en TMDB."""
-    name = os.path.splitext(filename)[0]
-    name = name.replace('.', ' ').replace('_', ' ')
-    name = re.sub(r'(1080p|720p|4k|x264|x265|HDR|BluRay|WEB-DL|DVDRip)', '', name, flags=re.IGNORECASE)
-    name = re.sub(r'\[.*?\]', '', name)
-    name = re.sub(r'\(.*?\)', '', name)
-    return name.strip()
+def parse_filename_with_rename(filename):
+    """Usa la lógica de rename.py para extraer metadatos."""
+    base = rename.safe_norm(filename.rsplit(".", 1)[0])
+    base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)
+    base = rename.MULTI_SPACES_RE.sub(" ", base).strip()
 
-def parse_series_info(filename):
-    """Extrae SxxExx del nombre."""
-    match = re.search(r'[Ss](\d{1,2})[Ee](\d{1,2})', filename)
-    if match:
-        return int(match.group(1)), int(match.group(2))
-    return None, None
+    se_match = rename.SEASON_EPISODE_RE.search(base)
+    cap_num = None
+    if not se_match:
+        cap_num = rename.detect_cap_number(base)
+
+    is_series_se = (se_match is not None)
+    is_series_cap = (cap_num is not None and cap_num >= 100)
+    
+    quality = rename.detect_quality(filename)
+    
+    if is_series_se:
+        season = int(se_match.group(1))
+        episode = int(se_match.group(2))
+        title_part = base[:se_match.start()]
+        title_clean = rename.normalize_title(rename.remove_tokens(title_part))
+        _, title_clean = rename.extract_year_and_clean(title_clean)
+        return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality}
+    elif is_series_cap:
+        # Lógica simple para capítulos numéricos (ej. 101 -> S1 E1)
+        return {"type": "series", "series": rename.normalize_title(rename.remove_tokens(base)), "season": cap_num // 100, "episode": cap_num % 100, "quality": quality}
+    else:
+        cleaned = rename.remove_tokens(base)
+        year, cleaned_no_year = rename.extract_year_and_clean(cleaned)
+        movie_title = rename.normalize_title(rename.safe_norm(cleaned_no_year))
+        return {"type": "movie", "title": movie_title, "year": year or "", "quality": quality}
 
 def get_tmdb_meta(query, is_tv, year=None):
     """Busca en TMDB y retorna metadatos."""
@@ -47,10 +68,16 @@ def get_tmdb_meta(query, is_tv, year=None):
             item = results[0]
             return {
                 'tmdb_id': item.get('id'),
-                'title': item.get('name') if is_tv else item.get('title'),
+                'title': item.get('name') if is_tv else item.get('title'), # Título oficial
+                'original_title': item.get('original_name') if is_tv else item.get('original_title'),
                 'overview': item.get('overview'),
-                'poster': f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get('poster_path') else "",
-                'fanart': f"https://image.tmdb.org/t/p/original{item.get('backdrop_path')}" if item.get('backdrop_path') else "",
+                'poster_url': f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get('poster_path') else "",
+                'backdrop_url': f"https://image.tmdb.org/t/p/original{item.get('backdrop_path')}" if item.get('backdrop_path') else "",
+                # Campos extra para igualar a RusterWolf
+                'vote_average': item.get('vote_average'),
+                'release_date': item.get('first_air_date') if is_tv else item.get('release_date'),
+                # Nota: genres y cast requerirían una llamada extra a TMDB (details), 
+                # por ahora usamos lo básico de la búsqueda.
                 'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4]
             }
     except Exception as e:
@@ -79,63 +106,96 @@ def generate():
     print("Iniciando generación de catálogo Choloretro...")
     
     # Cargar catálogo existente para no machacar todo si falla la API
-    catalog = {"movies": {}, "series": {}}
+    # Estructura tipo RusterWolf: {"results": [...]}
+    catalog = {"results": []}
     if os.path.exists(CATALOG_PATH):
         try:
             with open(CATALOG_PATH, 'r', encoding='utf-8') as f:
                 catalog = json.load(f)
+                if "results" not in catalog: catalog = {"results": []}
         except: pass
 
     # Obtener archivos de 1fichier
     files = get_1fichier_files(ONEFICHIER_FOLDER_ID)
     if not files:
         print("No se encontraron archivos en 1fichier o error de API.")
-        # Si es la primera vez y falla, salimos. Si ya había catálogo, lo mantenemos.
         return
 
+    # Mapa temporal para agrupar series antes de guardar
+    # Clave: Título normalizado
+    series_map = {}
+    
+    # Procesar catálogo existente para llenar el mapa (preservar datos)
+    for item in catalog["results"]:
+        parsed = item.get("parsed", {})
+        if parsed.get("type") == "series":
+            title = rename.normalize_title(parsed.get("series") or "")
+            series_map[title] = item
+
+    new_results = []
+    
     for file in files:
         filename = file.get('filename')
         link = file.get('url')
         if not filename or not link: continue
         
-        clean_name = clean_filename(filename)
-        season, episode = parse_series_info(filename)
+        meta = parse_filename_with_rename(filename)
+        quality = meta.get("quality", "SD")
         
-        if season and episode:
-            # ES SERIE
-            # Simplificación: Usamos el nombre limpio como clave de la serie
-            # En un caso real, podrías querer agrupar mejor (ej. quitar 'S01E01' del nombre limpio)
-            series_name = re.sub(r'[Ss]\d+[Ee]\d+.*', '', clean_name).strip()
+        if meta["type"] == "series":
+            series_name = meta["series"]
+            norm_name = rename.normalize_title(series_name)
+            season = meta["season"]
+            episode = meta["episode"]
             
-            if series_name not in catalog['series']:
-                meta = get_tmdb_meta(series_name, is_tv=True)
-                if meta:
-                    catalog['series'][series_name] = meta
-                    catalog['series'][series_name]['date_added'] = "2023-10-27" # Fecha ejemplo
+            if norm_name not in series_map:
+                tmdb_data = get_tmdb_meta(series_name, is_tv=True)
+                series_map[norm_name] = {
+                    "file": series_name,
+                    "parsed": {"type": "series", "series": series_name},
+                    "tmdb_top": tmdb_data,
+                    "episodes": [],
+                    "date_added": datetime.datetime.utcnow().isoformat()
+                }
             
-            if series_name in catalog['series']:
-                # Asegurar estructura
-                if str(season) not in catalog['series'][series_name]:
-                    catalog['series'][series_name][str(season)] = {}
-                if str(episode) not in catalog['series'][series_name][str(season)]:
-                    catalog['series'][series_name][str(season)][str(episode)] = {}
-                
-                # Añadir enlace
-                catalog['series'][series_name][str(season)][str(episode)]['1080p'] = {'url': link}
-                print(f"Procesado Serie: {series_name} S{season}E{episode}")
+            # Buscar/Crear episodio
+            entry = series_map[norm_name]
+            ep_found = None
+            for ep in entry["episodes"]:
+                if ep["season"] == season and ep["episode"] == episode:
+                    ep_found = ep
+                    break
+            
+            if not ep_found:
+                ep_found = {"season": season, "episode": episode, "links": []}
+                entry["episodes"].append(ep_found)
+            
+            # Añadir link si no existe
+            if not any(l["url"] == link for l in ep_found.get("links", [])):
+                ep_found.setdefault("links", []).append({"quality": quality, "url": link})
+                print(f"Serie procesada: {series_name} S{season}E{episode}")
 
         else:
             # ES PELICULA
-            if clean_name not in catalog['movies']:
-                meta = get_tmdb_meta(clean_name, is_tv=False)
-                if meta:
-                    catalog['movies'][clean_name] = meta
-                    catalog['movies'][clean_name]['qualities'] = {'1080p': {'url': link}}
-                    catalog['movies'][clean_name]['date_added'] = "2023-10-27"
-                    print(f"Procesado Película: {clean_name}")
-            else:
-                # Actualizar enlace si ya existe
-                catalog['movies'][clean_name]['qualities']['1080p'] = {'url': link}
+            title = meta["title"]
+            # Buscar si ya existe en new_results o catalog
+            # (Simplificación: reconstruimos la lista de pelis cada vez o hacemos append)
+            # Para este ejemplo, creamos un item nuevo
+            tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
+            
+            item = {
+                "file": filename,
+                "parsed": meta,
+                "tmdb_top": tmdb_data,
+                "links": [{"quality": quality, "url": link}],
+                "date_added": datetime.datetime.utcnow().isoformat()
+            }
+            new_results.append(item)
+            print(f"Película procesada: {title}")
+
+    # Reconstruir lista final
+    final_results = new_results + list(series_map.values())
+    catalog["results"] = final_results
 
     # Guardar JSON
     with open(CATALOG_PATH, 'w', encoding='utf-8') as f:
