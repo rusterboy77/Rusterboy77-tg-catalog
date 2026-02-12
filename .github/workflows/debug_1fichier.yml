@@ -1,0 +1,56 @@
+name: Obtener IDs 1fichier
+
+on: 
+  workflow_dispatch: # Permite ejecutarlo manualmente con un botón
+
+jobs:
+  list-folders:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar requests
+        run: pip install requests
+
+      - name: Consultar API 1fichier
+        env:
+          API_KEY: ${{ secrets.ONEFICHIER_API_KEY }}
+        run: |
+          cat <<EOF > script.py
+          import requests, os, json
+          key = os.environ.get('API_KEY')
+          if not key:
+              print('Error: No se detectó ONEFICHIER_API_KEY en los secrets.')
+              exit(1)
+          
+          url = 'https://api.1fichier.com/v1/folder/ls.cgi'
+          headers = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
+          # folder_id 0 es la raíz
+          resp = requests.post(url, json={'folder_id': 0}, headers=headers)
+          
+          print(f'Status: {resp.status_code}')
+          
+          if resp.status_code == 200:
+              try:
+                  data = resp.json()
+              except Exception as e:
+                  print(f'Error JSON: {e}')
+                  print(f'Body: {resp.text!r}')
+                  exit(1)
+
+              print('\n' + '='*30)
+              print(' CARPETAS ENCONTRADAS EN LA RAÍZ')
+              print('='*30)
+              subfolders = data.get('sub_folders', [])
+              if not subfolders:
+                  print('No hay subcarpetas. ¿Has creado la carpeta Choloretro?')
+              for f in subfolders:
+                  print(f"Nombre: {f['name']}  |  ID: {f['id']}")
+              print('='*30 + '\n')
+          else:
+              print(f'Error API: {resp.status_code} - {resp.text}')
+          EOF
+          python script.py
