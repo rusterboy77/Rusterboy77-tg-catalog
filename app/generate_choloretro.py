@@ -6,6 +6,7 @@ import requests
 import re
 import sys
 import datetime
+import sqlite3
 
 # Importar rename.py desde el mismo directorio
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -19,6 +20,7 @@ ONEFICHIER_FOLDER_ID = os.environ.get('ONEFICHIER_FOLDER_ID')
 # Rutas
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(BASE_DIR, "catalog_choloretro.json")
+CACHE_DB_PATH = os.path.join(BASE_DIR, "cache_choloretro.db")
 
 def parse_filename_with_rename(filename):
     """Usa la lógica de rename.py para extraer metadatos."""
@@ -121,6 +123,76 @@ def get_1fichier_files(folder_id):
     print(f"Iniciando escaneo recursivo en 1fichier (ID Raíz: {folder_id})...")
     return get_1fichier_files_recursive(folder_id, headers)
 
+def update_cache_db(catalog_results):
+    """Genera cache_choloretro.db a partir del catálogo completo."""
+    print(f"Generando base de datos SQLite en {CACHE_DB_PATH}...")
+    
+    # Conectar y asegurar esquema (idéntico al del addon)
+    conn = sqlite3.connect(CACHE_DB_PATH)
+    c = conn.cursor()
+    c.executescript('''
+        CREATE TABLE IF NOT EXISTS items (
+          "key" TEXT PRIMARY KEY,
+          title TEXT,
+          type TEXT,
+          year TEXT,
+          season TEXT,
+          episode TEXT,
+          tmdb_id TEXT,
+          poster TEXT,
+          fanart TEXT,
+          clearlogo TEXT,
+          banner TEXT,
+          clearart TEXT,
+          overview TEXT,
+          episode_title TEXT,
+          episode_overview TEXT,
+          still_path TEXT,
+          genres TEXT,
+          "cast" TEXT,
+          links TEXT,
+          date_added TEXT,
+          enriched INTEGER DEFAULT 0
+        );
+        CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
+    ''')
+
+    # Preparar datos
+    items_db = []
+    for entry in catalog_results:
+        parsed = entry.get('parsed', {})
+        tmdb = entry.get('tmdb_top', {})
+        item_type = parsed.get('type')
+        date_added = entry.get('date_added')
+        
+        # Campos comunes
+        common_vals = [
+            str(tmdb.get('id') or ''),
+            tmdb.get('poster_url'), tmdb.get('backdrop_url'),
+            tmdb.get('clearlogo'), tmdb.get('banner'), tmdb.get('clearart'),
+            tmdb.get('overview'),
+            '', '', '', # episode_title, overview, still (pendientes de implementar en TMDB fetch)
+            json.dumps(tmdb.get('genres') or []), json.dumps(tmdb.get('cast') or [])
+        ]
+
+        if item_type == 'movie':
+            links = entry.get('links') or []
+            if links:
+                key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
+                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1))
+        
+        elif item_type == 'series':
+            for ep in entry.get('episodes', []):
+                links = ep.get('links') or []
+                if links:
+                    key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
+                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1))
+
+    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
+    conn.commit()
+    conn.close()
+    print(f"Base de datos actualizada con {len(items_db)} items.")
+
 def generate():
     print("Iniciando generación de catálogo Choloretro...")
     
@@ -157,6 +229,9 @@ def generate():
         filename = file.get('filename')
         link = file.get('url')
         if not filename or not link: continue
+        
+        if file.get('pass') == 1:
+            print(f"⚠️  AVISO: El archivo '{filename}' está protegido con contraseña. Puede fallar en el addon. Se recomienda quitarla en 1fichier.")
         
         meta = parse_filename_with_rename(filename)
         quality = meta.get("quality", "SD")
@@ -220,6 +295,9 @@ def generate():
     with open(CATALOG_PATH, 'w', encoding='utf-8') as f:
         json.dump(catalog, f, indent=2, ensure_ascii=False)
     print(f"Catálogo guardado en {CATALOG_PATH}")
+    
+    # Generar DB
+    update_cache_db(final_results)
 
 if __name__ == "__main__":
     generate()
