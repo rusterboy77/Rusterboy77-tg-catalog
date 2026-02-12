@@ -1,0 +1,116 @@
+{
+  "results": [
+    {
+      "file": "1x04 Beetlejuice @canales_locos.avi",
+      "parsed": {
+        "type": "movie",
+        "title": "1x04 Beetlejuice @canales locos",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?dbofzmmkt5r8mvkim6sl"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.024904"
+    },
+    {
+      "file": "1x05 Beetlejuice @canales_locos.avi",
+      "parsed": {
+        "type": "movie",
+        "title": "1x05 Beetlejuice @canales locos",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?eu4uum1ygkvob14mqgw1"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.332308"
+    },
+    {
+      "file": "1x01 Beetlejuice @canales_locos.avi",
+      "parsed": {
+        "type": "movie",
+        "title": "1x01 Beetlejuice @canales locos",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?nqp8hf6pvswnsxzm2vt6"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.463100"
+    },
+    {
+      "file": "1x03 Beetlejuice @canales_locos.avi",
+      "parsed": {
+        "type": "movie",
+        "title": "1x03 Beetlejuice @canales locos",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?t6x5q5g72y0yqyhv0xoo"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.649603"
+    },
+    {
+      "file": "1x02 Beetlejuice @canales_locos.avi",
+      "parsed": {
+        "type": "movie",
+        "title": "1x02 Beetlejuice @canales locos",
+        "year": "",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?z3rfbj3d0v3m2fwh8vmf"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.786359"
+    },
+    {
+      "file": "La casa magica (2013).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "La casa magica",
+        "year": "2013",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 202575,
+        "title": "La casa mágica",
+        "original_title": "The House of Magic",
+        "overview": "Thunder, un gatito abandonado, busca refugio en una noche de tormenta. En su aventura topa con una casa extraña, en la que habita un viejo mago.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/2guiQR9Km3WzoZhBPvvKV9AAH28.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/sPU9KWoPYt9z8ZbI6iLlF6Xvsje.jpg",
+        "vote_average": 6.315,
+        "release_date": "2013-12-24",
+        "year": "2013"
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?oropovr77pipwyhrrnh8"
+        }
+      ],
+      "date_added": "2026-02-12T15:48:47.903544"
+    }
+  ]
+}
