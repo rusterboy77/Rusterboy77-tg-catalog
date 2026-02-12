@@ -97,6 +97,9 @@ def main():
         # El título es todo lo que hay antes del SxxExx
         span = se_match.span()
         title_part = base[:span[0]]
+        # Si no hay título antes (ej: "1x04 Beetlejuice"), buscar después
+        if not title_part.strip():
+            title_part = base[span[1]:]
         title_clean = normalize_title(remove_tokens(title_part))
         _, title_clean = extract_year_and_clean(title_clean)
         result.update({"type": "series", "series": title_clean, "season": season, "episode": episode})

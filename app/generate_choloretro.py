@@ -46,6 +46,9 @@ def parse_filename_with_rename(filename):
             season = int(se_match.group(3))
             episode = int(se_match.group(4))
         title_part = base[:se_match.start()]
+        # CORRECCIÓN: Si el título está vacío (ej: 1x04 Titulo), buscar después del patrón
+        if not title_part.strip():
+            title_part = base[se_match.end():]
         title_clean = rename.normalize_title(rename.remove_tokens(title_part))
         _, title_clean = rename.extract_year_and_clean(title_clean)
         return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality}
@@ -72,8 +75,34 @@ def get_tmdb_meta(query, is_tv, year=None):
         results = r.json().get('results', [])
         if results:
             item = results[0]
+            tmdb_id = item.get('id')
+            
+            # --- ENRIQUECIMIENTO EXTRA (Detalles, Créditos, Imágenes) ---
+            # Esto recupera géneros, actores y clearlogo que faltaban
+            genres = []
+            cast = []
+            clearlogo = ""
+            try:
+                details_url = f"https://api.themoviedb.org/3/{type_str}/{tmdb_id}"
+                details_params = {'api_key': TMDB_API_KEY, 'language': 'es-ES', 'append_to_response': 'credits,images'}
+                r_det = requests.get(details_url, params=details_params, timeout=5)
+                if r_det.ok:
+                    det = r_det.json()
+                    genres = det.get('genres', [])
+                    # Cast (Top 10)
+                    raw_cast = det.get('credits', {}).get('cast', [])
+                    cast = [{'name': c['name'], 'role': c['character'], 'thumbnail': f"https://image.tmdb.org/t/p/w185{c['profile_path']}" if c.get('profile_path') else ""} for c in raw_cast[:10]]
+                    # Clearlogo (buscar en imágenes)
+                    logos = det.get('images', {}).get('logos', [])
+                    # Preferir logo en español, sino el primero
+                    logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
+                    if logo_match:
+                        clearlogo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
+            except Exception as e:
+                print(f"Error enriqueciendo TMDB {tmdb_id}: {e}")
+
             return {
-                'tmdb_id': item.get('id'),
+                'tmdb_id': tmdb_id,
                 'title': item.get('name') if is_tv else item.get('title'), # Título oficial
                 'original_title': item.get('original_name') if is_tv else item.get('original_title'),
                 'overview': item.get('overview'),
@@ -82,9 +111,13 @@ def get_tmdb_meta(query, is_tv, year=None):
                 # Campos extra para igualar a RusterWolf
                 'vote_average': item.get('vote_average'),
                 'release_date': item.get('first_air_date') if is_tv else item.get('release_date'),
-                # Nota: genres y cast requerirían una llamada extra a TMDB (details), 
-                # por ahora usamos lo básico de la búsqueda.
-                'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4]
+                'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4],
+                # Nuevos campos enriquecidos
+                'genres': genres,
+                'cast': cast,
+                'clearlogo': clearlogo,
+                'banner': '', 
+                'clearart': ''
             }
     except Exception as e:
         print(f"Error TMDB: {e}")
@@ -160,6 +193,9 @@ def update_cache_db(catalog_results):
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
     ''')
+    
+    # CORRECCIÓN: Limpiar la tabla antes de insertar para borrar items antiguos (ej. Beetlejuice como peli)
+    c.execute("DELETE FROM items")
 
     # Preparar datos
     items_db = []
