@@ -20,7 +20,7 @@ CAP_WORD_RE = re.compile(r"cap(?=[\s\._\-\(\d])", re.IGNORECASE)
 DIGITS_RE = re.compile(r"(\d{2,4})")
 MULTI_SPACES_RE = re.compile(r"\s{2,}")
 TRAILING_RE = re.compile(r"^[\s\-\._\[]+|[\s\-\._\]]+$")
-SEASON_EPISODE_RE = re.compile(r"(?i)\bS(\d{1,2})E(\d{1,3})\b")
+SEASON_EPISODE_RE = re.compile(r"(?i)\b(?:S(\d{1,2})E(\d{1,3})|(\d{1,2})x(\d{1,3}))\b")
 
 RESOLUTION_RE = re.compile(r"(2160p|1080p|720p|4k)", re.IGNORECASE)
 SOURCE_RE = re.compile(r"(bluray|hdtv|webrip|web-dl|webdl|remux)", re.IGNORECASE)
@@ -88,8 +88,12 @@ def main():
     result = {"title": fname}
 
     if is_series_se:
-        season = int(se_match.group(1))
-        episode = int(se_match.group(2))
+        if se_match.group(1):
+            season = int(se_match.group(1))
+            episode = int(se_match.group(2))
+        else:
+            season = int(se_match.group(3))
+            episode = int(se_match.group(4))
         # El título es todo lo que hay antes del SxxExx
         span = se_match.span()
         title_part = base[:span[0]]

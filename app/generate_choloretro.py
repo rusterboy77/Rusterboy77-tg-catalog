@@ -39,8 +39,12 @@ def parse_filename_with_rename(filename):
     quality = rename.detect_quality(filename)
     
     if is_series_se:
-        season = int(se_match.group(1))
-        episode = int(se_match.group(2))
+        if se_match.group(1):
+            season = int(se_match.group(1))
+            episode = int(se_match.group(2))
+        else:
+            season = int(se_match.group(3))
+            episode = int(se_match.group(4))
         title_part = base[:se_match.start()]
         title_clean = rename.normalize_title(rename.remove_tokens(title_part))
         _, title_clean = rename.extract_year_and_clean(title_clean)
