@@ -58,58 +58,6 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="rusterboy77">
-        
-    
-        <requires>
-            
-        
-            <import addon="xbmc.python" version="3.0.0"/>
-            
-    
-        </requires>
-        
-    
-        <extension point="xbmc.python.pluginsource" library="default.py">
-            
-        
-            <provides>video</provides>
-            
-    
-        </extension>
-        
-    
-        <extension point="xbmc.addon.metadata">
-            
-        
-            <summary lang="es">Catálogo de torrents con reproducción en Elementum</summary>
-            
-        
-            <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.
-
-v1.0.3:
-- Solucionado problema con trailers: integración nativa con skins mediante TMDB ID.</description>
-            
-        
-            <platform>all</platform>
-            
-        
-            <assets>
-                
-            
-                <icon>resources/media/icon.png</icon>
-                
-            
-                <fanart>resources/media/fanart.jpeg</fanart>
-                
-        
-            </assets>
-            
-    
-        </extension>
-        
-
-    </addon>
     <addon id="repository.rusterboy77" name="Rusterboy77 Repository" version="1.0.1" provider-name="Rusterboy77">
         
     
@@ -153,6 +101,58 @@ v1.0.3:
                 
             
                 <fanart>fanart.jpg</fanart>
+                
+        
+            </assets>
+            
+    
+        </extension>
+        
+
+    </addon>
+    <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="rusterboy77">
+        
+    
+        <requires>
+            
+        
+            <import addon="xbmc.python" version="3.0.0"/>
+            
+    
+        </requires>
+        
+    
+        <extension point="xbmc.python.pluginsource" library="default.py">
+            
+        
+            <provides>video</provides>
+            
+    
+        </extension>
+        
+    
+        <extension point="xbmc.addon.metadata">
+            
+        
+            <summary lang="es">Catálogo de torrents con reproducción en Elementum</summary>
+            
+        
+            <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.
+
+v1.0.3:
+- Solucionado problema con trailers: integración nativa con skins mediante TMDB ID.</description>
+            
+        
+            <platform>all</platform>
+            
+        
+            <assets>
+                
+            
+                <icon>resources/media/icon.png</icon>
+                
+            
+                <fanart>resources/media/fanart.jpeg</fanart>
                 
         
             </assets>
