@@ -13,6 +13,7 @@ ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
 DB_FILE = os.path.join(PROFILE_DIR, 'cache.db')
+REMOTE_DB_URL = "https://raw.githubusercontent.com/rusterboy77/Rusterboy77-tg-catalog/main/cache_choloretro.db"
 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
@@ -163,10 +164,7 @@ def get_tv_shows():
 
 def update_db_from_remote():
     """Descarga la base de datos pre-generada desde GitHub."""
-    url = ADDON.getSetting('remote_db_url')
-    if not url:
-        log("Database: No hay URL de base de datos remota configurada.")
-        return False
+    url = REMOTE_DB_URL
     
     log(f"Database: Iniciando descarga de DB desde {url}")
     tmp_db = DB_FILE + ".tmp"

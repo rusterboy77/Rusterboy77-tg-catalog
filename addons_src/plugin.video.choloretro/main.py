@@ -4,7 +4,6 @@ from urllib.parse import parse_qsl
 from resources.lib.router import Router
 from resources.lib.utils.tools import log
 from resources.lib.database import init_db, update_db_from_remote
-from resources.lib.services.catalog import update_catalog
 
 def main():
     # Parsear argumentos de Kodi
@@ -16,13 +15,13 @@ def main():
     # Inicializar DB si es la raíz (sin params)
     if not params:
         init_db()
-        # Procesar catalog.json para obtener metadatos completos
+        # Descargar base de datos precompilada desde GitHub
         try:
-            if update_catalog():
+            if update_db_from_remote():
                 import xbmcgui
                 xbmcgui.Dialog().notification('Choloretro', 'Catálogo actualizado', xbmcgui.NOTIFICATION_INFO, 2000)
         except Exception as e:
-            log(f"Main: Error en update_catalog: {e}")
+            log(f"Main: Error en update_db_from_remote: {e}")
 
     # Instanciar enrutador y despachar
     router = Router(url, handle)
