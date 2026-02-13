@@ -7,7 +7,7 @@ on:
       - main
   schedule:
     # Ejecutar cada hora en el minuto 15 (para evitar colas y asegurar arranque)
-    - cron: '15 * * * *'
+    - cron: '30 4 * * *' # Ejecutar a las 4:30 AM
   # Permitir ejecución manual desde la web de GitHub
   workflow_dispatch:
 
