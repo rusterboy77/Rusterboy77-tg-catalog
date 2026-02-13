@@ -24,6 +24,9 @@ CACHE_DB_PATH = os.path.join(BASE_DIR, "cache_choloretro.db")
 
 def parse_filename_with_rename(filename):
     """Usa la lógica de rename.py para extraer metadatos."""
+    # LIMPIEZA: Eliminar marcas de canales que confunden al parser
+    filename = re.sub(r'@canales? locos?', '', filename, flags=re.IGNORECASE)
+
     base = rename.safe_norm(filename.rsplit(".", 1)[0])
     base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)
     base = rename.MULTI_SPACES_RE.sub(" ", base).strip()
@@ -254,15 +257,22 @@ def generate():
 
     # Mapa temporal para agrupar series antes de guardar
     # Clave: Título normalizado
-    series_map = {}
-    
-    # Procesar catálogo existente para llenar el mapa (preservar datos)
+    # CAMBIO: Usar catálogo antiguo SOLO como caché de metadatos (TMDB)
+    # para asegurar que se eliminan los archivos que ya no están en 1fichier.
+    meta_cache = {}
     for item in catalog["results"]:
         parsed = item.get("parsed", {})
+        tmdb = item.get("tmdb_top", {})
+        if not tmdb: continue
         if parsed.get("type") == "series":
             title = rename.normalize_title(parsed.get("series") or "")
-            series_map[title] = item
+            meta_cache[f"tv_{title}"] = tmdb
+        elif parsed.get("type") == "movie":
+            title = rename.normalize_title(parsed.get("title") or "")
+            year = parsed.get("year") or ""
+            meta_cache[f"movie_{title}_{year}"] = tmdb
 
+    series_map = {}
     new_results = []
     
     for file in files:
@@ -283,7 +293,11 @@ def generate():
             episode = meta["episode"]
             
             if norm_name not in series_map:
-                tmdb_data = get_tmdb_meta(series_name, is_tv=True)
+                # Intentar recuperar de caché, si no buscar en TMDB
+                tmdb_data = meta_cache.get(f"tv_{norm_name}")
+                if not tmdb_data:
+                    tmdb_data = get_tmdb_meta(series_name, is_tv=True)
+                
                 series_map[norm_name] = {
                     "file": series_name,
                     "parsed": {"type": "series", "series": series_name},
@@ -315,7 +329,10 @@ def generate():
             # Buscar si ya existe en new_results o catalog
             # (Simplificación: reconstruimos la lista de pelis cada vez o hacemos append)
             # Para este ejemplo, creamos un item nuevo
-            tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
+            cache_key = f"movie_{rename.normalize_title(title)}_{meta['year'] or ''}"
+            tmdb_data = meta_cache.get(cache_key)
+            if not tmdb_data:
+                tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
             
             item = {
                 "file": filename,
