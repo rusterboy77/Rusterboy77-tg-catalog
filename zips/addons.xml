@@ -58,6 +58,58 @@
         
 
     </addon>
+    <addon id="plugin.video.choloretro" version="0.0.1" name="Choloretro" provider-name="rusterboy77">
+        
+    
+        <requires>
+            
+        
+            <import addon="xbmc.python" version="3.0.0"/>
+            
+        
+            <import addon="script.module.requests"/>
+            
+    
+        </requires>
+        
+    
+        <extension point="xbmc.python.pluginsource" library="main.py">
+            
+        
+            <provides>video</provides>
+            
+    
+        </extension>
+        
+    
+        <extension point="xbmc.addon.metadata">
+            
+        
+            <summary lang="es">Contenido Retro</summary>
+            
+        
+            <description lang="es">Addon de contenido retro alojado en 1fichier, potenciado por AllDebrid.</description>
+            
+        
+            <platform>all</platform>
+            
+        
+            <assets>
+                
+            
+                <icon>icon.png</icon>
+                
+            
+                <fanart>fanart.jpg</fanart>
+                
+        
+            </assets>
+            
+    
+        </extension>
+        
+
+    </addon>
     <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="rusterboy77">
         
     
