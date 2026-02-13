@@ -25,7 +25,7 @@ CACHE_DB_PATH = os.path.join(BASE_DIR, "cache_choloretro.db")
 def parse_filename_with_rename(filename):
     """Usa la lógica de rename.py para extraer metadatos."""
     # LIMPIEZA: Eliminar marcas de canales que confunden al parser
-    filename = re.sub(r'@canales? locos?', '', filename, flags=re.IGNORECASE)
+    filename = re.sub(r'[@\[\(]?\s*canales?[\s._-]*locos?\s*[\]\)]?', '', filename, flags=re.IGNORECASE)
 
     base = rename.safe_norm(filename.rsplit(".", 1)[0])
     base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)

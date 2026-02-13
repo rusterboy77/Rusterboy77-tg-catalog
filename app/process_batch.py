@@ -130,7 +130,7 @@ def process_telegram_updates():
         for doc in docs:
             file_name = doc.get("file_name", "unknown.torrent")
             # LIMPIEZA: Eliminar marcas de canales
-            file_name = re.sub(r'@canales? locos?', '', file_name, flags=re.IGNORECASE)
+            file_name = re.sub(r'[@\[\(]?\s*canales?[\s._-]*locos?\s*[\]\)]?', '', file_name, flags=re.IGNORECASE)
             file_id = doc.get("file_id")
             
             logger.info(f"Procesando archivo: {file_name}")
