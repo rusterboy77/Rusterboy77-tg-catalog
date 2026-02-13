@@ -98,15 +98,94 @@
           "url": "https://1fichier.com/?oropovr77pipwyhrrnh8"
         }
       ],
-      "date_added": "2026-02-13T11:24:58.486648"
+      "date_added": "2026-02-13T11:37:03.121773"
     },
     {
-      "file": "Beetlejuice @canales locos",
+      "file": "Beetlejuice",
       "parsed": {
         "type": "series",
-        "series": "Beetlejuice @canales locos"
+        "series": "Beetlejuice"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 4288,
+        "title": "Beetlejuice",
+        "original_title": "Beetlejuice",
+        "overview": "Basada ligeramente en el film homónimo de Tim Burton, la serie presenta a Beetlejuice, un fantasma salvaje procedente del mundo de los muertos y su mejor amiga, una joven mortal llamada Lydia.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6KZUc5WlukYvlixgNYJaFXzgdkv.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dmwhROBzM8VsFASDgHO7CafMyqO.jpg",
+        "vote_average": 7.61,
+        "release_date": "1989-09-09",
+        "year": "1989",
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 10765,
+            "name": "Sci-Fi & Fantasy"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Stephen Ouimette",
+            "role": "Beetlejuice (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kk7rbjYnNNgLN1f853vRepd3GcA.jpg"
+          },
+          {
+            "name": "Alyson Court",
+            "role": "Lydia Deetz (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kPeTYEV6vyyAJEsUlomVpiLcd6v.jpg"
+          },
+          {
+            "name": "Tabitha St. Germain",
+            "role": "Ginger (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ljFeqt5uanRHqKTuMumd0iMW69b.jpg"
+          },
+          {
+            "name": "Len Carlson",
+            "role": "The Monster Across the Street (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xmj4nwXFymJHFjrEErQ1aiFl16M.jpg"
+          },
+          {
+            "name": "Elizabeth Hanna",
+            "role": "Delia Deetz (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ogiU5ZtrVrO9uWaUWuTfjvekuSv.jpg"
+          },
+          {
+            "name": "Roger Dunn",
+            "role": "Charles Deetz (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7MG0DYaOab0J97fsCiRdgfdSjml.jpg"
+          },
+          {
+            "name": "John Stocker",
+            "role": "Bartholomew Batt",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/Aqz4LEZmrpnRCd1ru4y0A3jaoo7.jpg"
+          },
+          {
+            "name": "Tara Strong",
+            "role": "Claire Brewster",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/y9S3QzI3L5aARP8GYYO86rREKxU.jpg"
+          },
+          {
+            "name": "Dan Hennessey",
+            "role": "Bully the Crud",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/daqfBEBplJg6DpFAVX8q41t0eZP.jpg"
+          },
+          {
+            "name": "Keith Knight",
+            "role": "Armhold Musclehugger",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/4bcuT6GPFuj9jBx4bUx4RUl0EKu.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
       "episodes": [
         {
           "season": 1,
@@ -159,7 +238,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-13T11:24:58.486350"
+      "date_added": "2026-02-13T11:37:03.121502"
     }
   ]
 }
