@@ -1,0 +1,9 @@
+<settings>
+    <category label="General">
+        <setting id="debug_logging" type="bool" label="Activar logs debug" default="false" />
+        <setting id="items_per_page" type="number" label="Items por página" default="24" minimum="10" maximum="100" />
+    </category>
+    <category label="Cuentas">
+        <setting id="alldebrid_apikey" type="text" label="AllDebrid API Key" default="" option="hidden" />
+    </category>
+</settings>
