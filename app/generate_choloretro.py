@@ -208,14 +208,21 @@ def update_cache_db(catalog_results):
         item_type = parsed.get('type')
         date_added = entry.get('date_added')
         
+        # Procesar géneros: convertir {id, name} a lista de nombres
+        genres_raw = tmdb.get('genres', [])
+        genres = [g['name'] if isinstance(g, dict) else str(g) for g in genres_raw]
+        
+        # Procesar cast: ya está en formato correcto {name, role, thumbnail}
+        cast = tmdb.get('cast', [])
+        
         # Campos comunes
         common_vals = [
-            str(tmdb.get('id') or ''),
+            str(tmdb.get('tmdb_id') or ''),
             tmdb.get('poster_url'), tmdb.get('backdrop_url'),
             tmdb.get('clearlogo'), tmdb.get('banner'), tmdb.get('clearart'),
             tmdb.get('overview'),
-            '', '', '', # episode_title, overview, still (pendientes de implementar en TMDB fetch)
-            json.dumps(tmdb.get('genres') or []), json.dumps(tmdb.get('cast') or [])
+            '', '', '', # episode_title, episode_overview, still_path (pendientes de implementar en TMDB fetch)
+            json.dumps(genres), json.dumps(cast)
         ]
 
         if item_type == 'movie':
