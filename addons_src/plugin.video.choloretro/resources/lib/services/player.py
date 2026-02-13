@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 import xbmcgui
 import xbmcplugin
+import os
 from resources.lib.services import alldebrid
 from resources.lib.utils.tools import log
+from resources.lib.services.notify import notify
+
 
 def play_item(handle, params):
     """
@@ -13,17 +16,17 @@ def play_item(handle, params):
     title = params.get('title', 'Video')
     
     if not url_1fichier:
-        xbmcgui.Dialog().notification('Choloretro', 'Enlace no encontrado', xbmcgui.NOTIFICATION_ERROR)
+        notify('Choloretro', 'Enlace no encontrado', 3000)
         return
 
     # Notificar al usuario que estamos resolviendo
-    xbmcgui.Dialog().notification('Choloretro', 'Resolviendo enlace...', xbmcgui.NOTIFICATION_INFO, 2000)
+    notify('Choloretro', 'Resolviendo enlace...', 2000)
 
     # Desbloquear con AllDebrid
     stream_url = alldebrid.unlock_link(url_1fichier)
     
     if stream_url:
-        log(f"Player: Reproduciendo {stream_url}")
+        log("Player: Reproduciendo (URL oculto)")
         li = xbmcgui.ListItem(path=stream_url)
         
         # Establecer metadatos básicos para el reproductor

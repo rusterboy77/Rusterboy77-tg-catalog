@@ -58,7 +58,7 @@
         
 
     </addon>
-    <addon id="plugin.video.choloretro" version="0.0.1" name="Choloretro" provider-name="rusterboy77">
+    <addon id="plugin.video.choloretro" version="1.0.1" name="CholoRetro" provider-name="Rusterboy77">
         
     
         <requires>
@@ -110,7 +110,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="1.0.3" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>

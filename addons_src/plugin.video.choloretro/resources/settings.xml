@@ -4,6 +4,8 @@
         <setting id="items_per_page" type="number" label="Items por página" default="24" minimum="10" maximum="100" />
     </category>
     <category label="Cuentas">
-        <setting id="alldebrid_apikey" type="text" label="AllDebrid API Key" default="" option="hidden" />
+        <setting type="lsep" label="AllDebrid (Desbloqueador de Enlaces)" />
+        <setting type="action" label="Autenticar con PIN ►" action="RunPlugin(plugin://plugin.video.choloretro/?action=auth_alldebrid)" />
+        <setting id="alldebrid_apikey" type="text" label="API Key (Ingresar manualmente)" default="" option="hidden" />
     </category>
 </settings>

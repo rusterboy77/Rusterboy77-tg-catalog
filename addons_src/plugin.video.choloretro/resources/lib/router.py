@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from resources.lib.gui import home, listings
-from resources.lib.services import player
+from resources.lib.services import player, alldebrid
 from resources.lib.utils.tools import log
 import xbmcplugin
 
@@ -16,15 +16,68 @@ class Router:
         if not action:
             home.show_main_menu(self.base_url, self.handle)
         
-        # --- Listados ---
+        # --- Películas ---
         elif action == 'list_movies':
             listings.show_movies(self.base_url, self.handle, params)
+        elif action == 'list_all_movies':
+            listings.list_all_movies(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_title':
+            listings.show_movies_by_title(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_letter':
+            listings.list_movies_by_letter(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_genre':
+            listings.show_movies_by_genre(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_genre_filter':
+            listings.list_movies_by_genre_filter(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_year':
+            listings.show_movies_by_year(self.base_url, self.handle, params)
+        elif action == 'list_movies_by_year_filter':
+            listings.list_movies_by_year_filter(self.base_url, self.handle, params)
+        
+        # --- Series ---
         elif action == 'list_tvshows':
             listings.show_tvshows(self.base_url, self.handle, params)
+        elif action == 'list_all_tvshows':
+            listings.list_all_tvshows(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_title':
+            listings.show_tvshows_by_title(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_letter':
+            listings.list_tvshows_by_letter(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_genre':
+            listings.show_tvshows_by_genre(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_genre_filter':
+            listings.list_tvshows_by_genre_filter(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_year':
+            listings.show_tvshows_by_year(self.base_url, self.handle, params)
+        elif action == 'list_tvshows_by_year_filter':
+            listings.list_tvshows_by_year_filter(self.base_url, self.handle, params)
+        
         elif action == 'list_seasons':
             listings.show_seasons(self.base_url, self.handle, params)
         elif action == 'list_episodes':
             listings.show_episodes(self.base_url, self.handle, params)
+        
+        # --- Dibujos (Animación) ---
+        elif action == 'show_animated':
+            listings.show_animated(self.base_url, self.handle, params)
+        elif action == 'list_animated_movies':
+            listings.show_animated_movies(self.base_url, self.handle, params)
+        elif action == 'list_animated_tvshows':
+            listings.show_animated_tvshows(self.base_url, self.handle, params)
+        
+        # --- Seguir viendo ---
+        elif action == 'show_continue_watching':
+            listings.show_continue_watching(self.base_url, self.handle, params)
+        
+        # --- Búsqueda ---
+        elif action == 'search':
+            listings.show_search(self.base_url, self.handle, params)
+        
+        # --- AllDebrid Auth ---
+        elif action == 'auth_alldebrid':
+            alldebrid.authenticate_with_pin()
+            import xbmc
+            xbmc.executebuiltin('Addon.OpenSettings(plugin.video.choloretro)')
         
         # --- Reproducción ---
         elif action == 'play':
