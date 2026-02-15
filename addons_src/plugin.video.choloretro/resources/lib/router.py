@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from resources.lib.gui import home, listings
-from resources.lib.services import player, alldebrid
+from resources.lib.services import player, alldebrid, realdebrid
 from resources.lib.utils.tools import log
 import xbmcplugin
 
@@ -76,6 +76,12 @@ class Router:
         # --- AllDebrid Auth ---
         elif action == 'auth_alldebrid':
             alldebrid.authenticate_with_pin()
+            import xbmc
+            xbmc.executebuiltin('Addon.OpenSettings(plugin.video.choloretro)')
+        
+        # --- Real-Debrid Auth ---
+        elif action == 'auth_realdebrid':
+            realdebrid.authenticate_with_pin()
             import xbmc
             xbmc.executebuiltin('Addon.OpenSettings(plugin.video.choloretro)')
         

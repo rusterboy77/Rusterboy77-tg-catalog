@@ -2,7 +2,7 @@
 import xbmcgui
 import xbmcplugin
 import os
-from resources.lib.services import alldebrid
+from resources.lib.services import alldebrid, realdebrid
 from resources.lib.utils.tools import log
 from resources.lib.services.notify import notify
 
@@ -22,8 +22,12 @@ def play_item(handle, params):
     # Notificar al usuario que estamos resolviendo
     notify('Choloretro', 'Resolviendo enlace...', 2000)
 
-    # Desbloquear con AllDebrid
+    # 1. Intentar desbloquear con AllDebrid
     stream_url = alldebrid.unlock_link(url_1fichier)
+    
+    # 2. Si falla o no hay cuenta AD, intentar con Real-Debrid
+    if not stream_url:
+        stream_url = realdebrid.unlock_link(url_1fichier)
     
     if stream_url:
         log("Player: Reproduciendo (URL oculto)")
