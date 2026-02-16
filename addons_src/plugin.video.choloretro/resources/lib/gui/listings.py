@@ -1344,6 +1344,7 @@ def show_movies_by_title(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'peliculas.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1364,6 +1365,7 @@ def show_movies_by_title(base_url, handle, params):
     # Mostrar grupos alfabéticamente
     for letter in sorted(groups.keys()):
         li = xbmcgui.ListItem(label=f"{letter}")
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_movies_by_letter', 'letter': letter}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
@@ -1436,6 +1438,7 @@ def show_movies_by_genre(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'peliculas.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1463,6 +1466,7 @@ def show_movies_by_genre(base_url, handle, params):
         if not genre:
             continue
         li = xbmcgui.ListItem(label=genre)
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_movies_by_genre_filter', 'genre': genre}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
@@ -1534,6 +1538,7 @@ def show_movies_by_year(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'peliculas.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1548,6 +1553,7 @@ def show_movies_by_year(base_url, handle, params):
     
     for year in sorted(years_set, reverse=True):
         li = xbmcgui.ListItem(label=year)
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_movies_by_year_filter', 'year': year}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
@@ -1619,6 +1625,7 @@ def show_tvshows_by_title(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'series.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1637,6 +1644,7 @@ def show_tvshows_by_title(base_url, handle, params):
     
     for letter in sorted(groups.keys()):
         li = xbmcgui.ListItem(label=f"{letter}")
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_tvshows_by_letter', 'letter': letter}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
@@ -1701,6 +1709,7 @@ def show_tvshows_by_genre(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'series.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1728,6 +1737,7 @@ def show_tvshows_by_genre(base_url, handle, params):
         if not genre:
             continue
         li = xbmcgui.ListItem(label=genre)
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_tvshows_by_genre_filter', 'genre': genre}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
@@ -1795,6 +1805,7 @@ def show_tvshows_by_year(base_url, handle, params):
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'series.png')
     
     xbmcplugin.setContent(handle, 'files')
     
@@ -1809,6 +1820,7 @@ def show_tvshows_by_year(base_url, handle, params):
     
     for year in sorted(years_set, reverse=True):
         li = xbmcgui.ListItem(label=year)
+        li.setArt({'icon': icon_path, 'fanart': FANART})
         url_params = {'action': 'list_tvshows_by_year_filter', 'year': year}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)

@@ -26,6 +26,8 @@ def parse_filename_with_rename(filename):
     """Usa la lógica de rename.py para extraer metadatos."""
     # LIMPIEZA: Eliminar marcas de canales que confunden al parser
     filename = re.sub(r'[@\[\(]?\s*canales?[\s._-]*locos?\s*[\]\)]?', '', filename, flags=re.IGNORECASE)
+    # LIMPIEZA: Eliminar sufijos numéricos tipo -021 (ej: Pelicula (1999)-021.mkv)
+    filename = re.sub(r'-\d{3}(?=\.\w+$)', '', filename)
 
     base = rename.safe_norm(filename.rsplit(".", 1)[0])
     base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)

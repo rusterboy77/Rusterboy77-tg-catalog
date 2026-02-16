@@ -166,7 +166,7 @@ def get_tv_shows():
     try:
         c = conn.cursor()
         # Agrupamos por título pero seleccionamos TODOS los campos para tener metadata completa
-        c.execute('SELECT * FROM items WHERE type="tv" GROUP BY title ORDER BY title')
+        c.execute('SELECT * FROM items WHERE type="tv" GROUP BY title ORDER BY MAX(date_added) DESC')
         return [dict(row) for row in c.fetchall()]
     finally:
         conn.close()
