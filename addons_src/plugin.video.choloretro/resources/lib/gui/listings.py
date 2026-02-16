@@ -6,7 +6,7 @@ import json
 import os
 from urllib.parse import urlencode, urlparse, parse_qs, unquote_plus
 import unicodedata, re
-from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes
+from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder
 from resources.lib.utils.tools import log
 
 def build_url(base_url, query):
@@ -96,6 +96,7 @@ def show_movies(base_url, handle, params):
     
     categories = [
         ('Todas', {'action': 'list_all_movies'}),
+        ('Colecciones', {'action': 'show_collections'}),
         ('Por Título', {'action': 'list_movies_by_title'}),
         ('Por Género', {'action': 'list_movies_by_genre'}),
         ('Por Año', {'action': 'list_movies_by_year'}),
@@ -594,6 +595,107 @@ def show_animated_tvshows(base_url, handle, params):
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
     xbmcplugin.setPluginFanart(handle, FANART)
+    xbmcplugin.endOfDirectory(handle)
+
+def show_collections(base_url, handle, params):
+    """Muestra las colecciones especiales definidas por ID de carpeta."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'peliculas.png')
+    
+    xbmcplugin.setContent(handle, 'files')
+    
+    # Definición de colecciones y sus IDs de carpeta
+    collections = [
+        ('Cine Quinqui', '19205939'),
+        ('Clásicas Español', '19205942'),
+        ('Lina Morgan', '19205937'),
+        ('Pajares y Esteso', '19205934')
+    ]
+    
+    for title, folder_id in collections:
+        li = xbmcgui.ListItem(label=title)
+        li.setArt({'icon': icon_path, 'fanart': FANART})
+        url_params = {'action': 'list_collection_items', 'folder_id': folder_id, 'title': title}
+        url = build_url(base_url, url_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, True)
+    
+    xbmcplugin.setPluginFanart(handle, FANART)
+    xbmcplugin.endOfDirectory(handle)
+
+def list_collection_items(base_url, handle, params):
+    """Lista items filtrados por folder_id."""
+    folder_id = params.get('folder_id')
+    
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
+    xbmcplugin.setContent(handle, 'movies')
+    xbmcplugin.setPluginFanart(handle, FANART)
+    
+    items = get_items_by_folder(folder_id)
+
+    for item in items:
+        li = xbmcgui.ListItem(label=item['title'])
+        
+        genres_raw = item.get('genres')
+        if isinstance(genres_raw, str):
+            try:
+                genres = json.loads(genres_raw)
+            except:
+                genres = genres_raw.split(', ') if ', ' in genres_raw else [genres_raw] if genres_raw else []
+        else:
+            genres = genres_raw or []
+        
+        cast_raw = item.get('cast')
+        if isinstance(cast_raw, str):
+            try:
+                cast = json.loads(cast_raw)
+            except:
+                cast = []
+        else:
+            cast = cast_raw or []
+        
+        info = {
+            'title': item.get('title'),
+            'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
+            'plot': item.get('overview'),
+            'mediatype': item.get('type', 'movie'),
+            'genre': genres,
+            'rating': item.get('rating'),
+            'cast': cast,
+            'tmdb_id': item.get('tmdb_id')
+        }
+        _apply_meta(li, info)
+        
+        art = {
+            'poster': item.get('poster'), 
+            'fanart': item.get('fanart'),
+            'clearlogo': item.get('clearlogo'),
+            'banner': item.get('banner')
+        }
+        li.setArt({k: v for k, v in art.items() if v})
+
+        # Manejar si es serie o película
+        if item.get('type') == 'tv':
+             url_params = {'action': 'list_seasons', 'title': item['title']}
+             is_folder = True
+        else:
+             li.setProperty('IsPlayable', 'true')
+             links = json.loads(item['links']) if item.get('links') else []
+             url_link = links[0]['url'] if links else ''
+             url_params = {
+                'action': 'play',
+                'title': item['title'],
+                'url': url_link
+             }
+             is_folder = False
+
+        url = build_url(base_url, url_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, is_folder)
+
     xbmcplugin.endOfDirectory(handle)
 
 def show_search(base_url, handle, params):

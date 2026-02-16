@@ -33,6 +33,10 @@ class Router:
             listings.show_movies_by_year(self.base_url, self.handle, params)
         elif action == 'list_movies_by_year_filter':
             listings.list_movies_by_year_filter(self.base_url, self.handle, params)
+        elif action == 'show_collections':
+            listings.show_collections(self.base_url, self.handle, params)
+        elif action == 'list_collection_items':
+            listings.list_collection_items(self.base_url, self.handle, params)
         
         # --- Series ---
         elif action == 'list_tvshows':

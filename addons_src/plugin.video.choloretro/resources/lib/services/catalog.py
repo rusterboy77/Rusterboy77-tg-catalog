@@ -50,6 +50,7 @@ def parse_catalog(data):
         banner = tmdb.get('banner', '')
         clearart = tmdb.get('clearart', '')
         rating = tmdb.get('vote_average')  # Rating de TMDB
+        folder_id = str(entry.get('folder_id', '')) # Extraer ID de carpeta
         
         if item_type == 'movie':
             title = parsed.get('title')
@@ -74,7 +75,8 @@ def parse_catalog(data):
                 'banner': banner,
                 'clearart': clearart,
                 'links': links,
-                'date_added': entry.get('date_added')
+                'date_added': entry.get('date_added'),
+                'folder_id': folder_id
             }
             parsed_items.append(item)
             
@@ -107,7 +109,8 @@ def parse_catalog(data):
                     'banner': banner,
                     'clearart': clearart,
                     'links': links,
-                    'date_added': entry.get('date_added')
+                    'date_added': entry.get('date_added'),
+                    'folder_id': folder_id
                 }
                 parsed_items.append(item)
     

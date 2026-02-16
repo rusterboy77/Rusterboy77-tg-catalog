@@ -37,7 +37,8 @@ CREATE TABLE IF NOT EXISTS items (
   "cast" TEXT,
   links TEXT,
   date_added TEXT,
-  enriched INTEGER DEFAULT 0
+  enriched INTEGER DEFAULT 0,
+  folder_id TEXT
 )
 '''
 
@@ -55,6 +56,13 @@ def init_db():
         c.executescript(_SCHEMA)
         # Migraciones o indices adicionales si fueran necesarios
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_type ON items(type)')
+        
+        # Migración: Añadir columna folder_id si no existe (para usuarios que ya tienen la DB creada)
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+        except:
+            pass
+            
         conn.commit()
     except Exception as e:
         log(f"Database Error Init: {e}")
@@ -91,13 +99,14 @@ def upsert_items(items):
                 json.dumps(it.get('cast') or []),
                 json.dumps(it.get('links') or []),
                 it.get('date_added'),
-                1
+                1,
+                it.get('folder_id')
             ))
         
         c.executemany('''
             INSERT OR REPLACE INTO items 
-            ("key", title, type, year, season, episode, tmdb_id, poster, fanart, clearlogo, banner, clearart, overview, episode_title, episode_overview, still_path, genres, "cast", links, date_added, enriched)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ("key", title, type, year, season, episode, tmdb_id, poster, fanart, clearlogo, banner, clearart, overview, episode_title, episode_overview, still_path, genres, "cast", links, date_added, enriched, folder_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', vals)
         conn.commit()
     except Exception as e:
@@ -158,6 +167,15 @@ def get_tv_shows():
         c = conn.cursor()
         # Agrupamos por título pero seleccionamos TODOS los campos para tener metadata completa
         c.execute('SELECT * FROM items WHERE type="tv" GROUP BY title ORDER BY title')
+        return [dict(row) for row in c.fetchall()]
+    finally:
+        conn.close()
+
+def get_items_by_folder(folder_id):
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
         return [dict(row) for row in c.fetchall()]
     finally:
         conn.close()
