@@ -28,29 +28,26 @@ jobs:
           
           url = 'https://api.1fichier.com/v1/folder/ls.cgi'
           headers = {'Authorization': f'Bearer {key}', 'Content-Type': 'application/json'}
-          # folder_id 0 es la raíz
-          resp = requests.post(url, json={'folder_id': 0}, headers=headers)
           
-          print(f'Status: {resp.status_code}')
-          
-          if resp.status_code == 200:
-              try:
+          def list_recursive(folder_id, path=""):
+              resp = requests.post(url, json={'folder_id': folder_id}, headers=headers)
+              if resp.status_code == 200:
                   data = resp.json()
-              except Exception as e:
-                  print(f'Error JSON: {e}')
-                  print(f'Body: {resp.text!r}')
-                  exit(1)
-
-              print('\n' + '='*30)
-              print(' CARPETAS ENCONTRADAS EN LA RAÍZ')
-              print('='*30)
-              subfolders = data.get('sub_folders', [])
-              if not subfolders:
-                  print('No hay subcarpetas. ¿Has creado la carpeta Choloretro?')
-              for f in subfolders:
-                  print(f"Nombre: {f['name']}  |  ID: {f['id']}")
-              print('='*30 + '\n')
-          else:
-              print(f'Error API: {resp.status_code} - {resp.text}')
+                  subfolders = data.get('sub_folders', [])
+                  for f in subfolders:
+                      current_name = f['name']
+                      current_id = f['id']
+                      print(f"📂 {path}/{current_name}  |  ID: {current_id}")
+                      # Llamada recursiva para entrar en esta carpeta
+                      list_recursive(current_id, f"{path}/{current_name}")
+              else:
+                  print(f"Error leyendo carpeta ID {folder_id}: {resp.status_code}")
+          
+          print('\n' + '='*40)
+          print(' ÁRBOL DE CARPETAS (RECURSIVO)')
+          print('='*40)
+          # Iniciar escaneo desde la raíz (ID 0)
+          list_recursive(0)
+          print('='*40 + '\n')
           EOF
           python script.py
