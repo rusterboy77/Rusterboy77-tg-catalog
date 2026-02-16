@@ -175,7 +175,20 @@ def get_items_by_folder(folder_id):
     conn = get_connection()
     try:
         c = conn.cursor()
-        c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
+        try:
+            c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
+        except sqlite3.OperationalError as e:
+            if 'no such column' in str(e):
+                log("Database: Columna folder_id faltante detectada. Aplicando migración automática.")
+                try:
+                    c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+                    conn.commit()
+                    c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
+                except Exception as e2:
+                    log(f"Database Error recovering column: {e2}")
+                    return []
+            else:
+                raise e
         return [dict(row) for row in c.fetchall()]
     finally:
         conn.close()
@@ -208,6 +221,10 @@ def update_db_from_remote():
             except: pass # Si falla el borrado, rename podría fallar en Windows, pero intentamos
         
         os.rename(tmp_db, DB_FILE)
+        
+        # Asegurar que la nueva DB tiene el esquema correcto (migraciones)
+        init_db()
+        
         return True
         
     except Exception as e:
