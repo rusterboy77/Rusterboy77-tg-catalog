@@ -9,6 +9,8 @@ import unicodedata, re
 from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder
 from resources.lib.utils.tools import log
 
+ITEMS_PER_PAGE = 40
+
 def build_url(base_url, query):
     return base_url + '?' + urlencode(query)
 
@@ -85,6 +87,15 @@ def _apply_meta(li, info):
     except Exception as e:
         pass
 
+def _add_next_page(handle, base_url, params, page):
+    next_page = page + 1
+    new_params = params.copy()
+    new_params['page'] = next_page
+    url = build_url(base_url, new_params)
+    li = xbmcgui.ListItem(label=f'>>> Página Siguiente ({next_page}) >>>')
+    li.setArt({'icon': 'DefaultFolder.png'})
+    xbmcplugin.addDirectoryItem(handle, url, li, True)
+
 def show_movies(base_url, handle, params):
     """Menú principal de películas con opciones de filtrado."""
     ADDON = xbmcaddon.Addon()
@@ -123,10 +134,18 @@ def list_all_movies(base_url, handle, params):
     # Obtener películas reales de la base de datos
     movies = get_all_items('movie')
 
-    for movie in movies:
-        # Excluir películas animadas (estarán en Dibujos)
-        if _has_genre(movie, 'Animación'):
-            continue
+    # Filtrar animacion
+    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+
+    # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
+    movies.sort(key=lambda x: x.get('date_added') or '', reverse=False)
+
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
         li = xbmcgui.ListItem(label=movie['title'])
         
         # Procesar géneros - ya vienen como lista de strings desde catalog.py
@@ -200,6 +219,9 @@ def list_all_movies(base_url, handle, params):
 
         xbmcplugin.addDirectoryItem(handle, url, li, False)
 
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.endOfDirectory(handle)
 
 def show_tvshows(base_url, handle, params):
@@ -237,10 +259,18 @@ def list_all_tvshows(base_url, handle, params):
     xbmcplugin.setPluginFanart(handle, FANART)
     
     items = get_tv_shows()
-    for item in items:
-        # Excluir series animadas (estarán en Dibujos)
-        if _has_genre(item, 'Animación'):
-            continue
+    # Filtrar animacion
+    items = [i for i in items if not _has_genre(i, 'Animación')]
+
+    # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
+    items.sort(key=lambda x: x.get('date_added') or '', reverse=False)
+
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         # Procesar géneros - ya vienen como lista de strings desde catalog.py
@@ -288,6 +318,10 @@ def list_all_tvshows(base_url, handle, params):
         url_params = {'action': 'list_seasons', 'title': item['title']}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
+
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.endOfDirectory(handle)
 
 def show_seasons(base_url, handle, params):
@@ -351,6 +385,11 @@ def show_episodes(base_url, handle, params):
     xbmcplugin.setContent(handle, 'episodes')
     episodes = get_episodes(title, season)
     
+    page = int(params.get('page', 1))
+    total_items = len(episodes)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
     # Retrieve series info to get clearlogo and other metadata
     series_info = None
     try:
@@ -368,7 +407,7 @@ def show_episodes(base_url, handle, params):
         clearlogo_val = series_info.get('clearlogo') or series_info.get('logo') or ''
         fanart_default = series_info.get('fanart') or ''
     
-    for ep in episodes:
+    for ep in episodes[start:end]:
         li = xbmcgui.ListItem(label=f"Episodio {ep['episode']}")
         info = {
             'title': ep.get('title'), 
@@ -436,6 +475,9 @@ def show_episodes(base_url, handle, params):
     if fanart_default:
         xbmcplugin.setPluginFanart(handle, fanart_default)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.endOfDirectory(handle)
 
 def _has_genre(item, genre_name):
@@ -483,11 +525,14 @@ def show_animated_movies(base_url, handle, params):
     
     xbmcplugin.setContent(handle, 'movies')
     movies = get_all_items('movie')
-    
-    for movie in movies:
-        if not _has_genre(movie, 'Animación'):
-            continue
-            
+    movies = [m for m in movies if _has_genre(m, 'Animación')]
+
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
         li = xbmcgui.ListItem(label=movie['title'])
         
         genres_raw = movie.get('genres')
@@ -535,6 +580,9 @@ def show_animated_movies(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -546,11 +594,14 @@ def show_animated_tvshows(base_url, handle, params):
     
     xbmcplugin.setContent(handle, 'tvshows')
     items = get_tv_shows()
-    
-    for item in items:
-        if not _has_genre(item, 'Animación'):
-            continue
-            
+    items = [i for i in items if _has_genre(i, 'Animación')]
+
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
@@ -594,6 +645,9 @@ def show_animated_tvshows(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -636,8 +690,13 @@ def list_collection_items(base_url, handle, params):
     xbmcplugin.setPluginFanart(handle, FANART)
     
     items = get_items_by_folder(folder_id)
+    
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
 
-    for item in items:
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
@@ -696,6 +755,9 @@ def list_collection_items(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, is_folder)
 
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.endOfDirectory(handle)
 
 def show_search(base_url, handle, params):
@@ -717,68 +779,34 @@ def show_search(base_url, handle, params):
     xbmcplugin.setContent(handle, 'movies')  # Mostrar como contenido de video para ver posters
     search_term_lower = search_term.lower()
     found_total = 0
+    all_results = []
     
-    # Buscar películas (incluyendo animadas)
+    # Recolectar películas
     movies = get_all_items('movie')
     for movie in movies:
         movie_title = movie.get('title', '')
-        if not movie_title or search_term_lower not in movie_title.lower():
-            continue
-        
-        found_total += 1
-        li = xbmcgui.ListItem(label=movie_title)
-        
-        genres_raw = movie.get('genres')
-        if isinstance(genres_raw, str):
-            try:
-                genres = json.loads(genres_raw)
-            except:
-                genres = []
-        else:
-            genres = genres_raw or []
-        
-        cast_raw = movie.get('cast')
-        if isinstance(cast_raw, str):
-            try:
-                cast = json.loads(cast_raw)
-            except:
-                cast = []
-        else:
-            cast = cast_raw or []
-        
-        info = {
-            'title': movie.get('title'),
-            'year': int(movie['year']) if movie.get('year') and str(movie['year']).isdigit() else 0,
-            'plot': movie.get('overview'),
-            'mediatype': 'movie',
-            'genre': genres,
-            'cast': cast,
-            'tmdb_id': movie.get('tmdb_id')
-        }
-        _apply_meta(li, info)
-        
-        art = {
-            'poster': movie.get('poster'), 
-            'fanart': movie.get('fanart'),
-        }
-        li.setArt({k: v for k, v in art.items() if v})
-        li.setProperty('IsPlayable', 'true')
-        
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
-        url = build_url(base_url, url_params)
-        xbmcplugin.addDirectoryItem(handle, url, li, False)
+        if movie_title and search_term_lower in movie_title.lower():
+            all_results.append({'type': 'movie', 'data': movie})
     
+    # Recolectar series
     items = get_tv_shows()
     for item in items:
         item_title = item.get('title', '')
-        if not item_title or search_term_lower not in item_title.lower():
-            continue
-        
+        if item_title and search_term_lower in item_title.lower():
+            all_results.append({'type': 'tvshow', 'data': item})
+    
+    # Paginación
+    page = int(params.get('page', 1))
+    total_items = len(all_results)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+    
+    for res in all_results[start:end]:
         found_total += 1
-        li = xbmcgui.ListItem(label=item_title)
+        item = res['data']
+        itype = res['type']
+        
+        li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
         if isinstance(genres_raw, str):
@@ -802,7 +830,7 @@ def show_search(base_url, handle, params):
             'title': item.get('title'),
             'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
             'plot': item.get('overview'),
-            'mediatype': 'tvshow',
+            'mediatype': itype,
             'genre': genres,
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
@@ -815,15 +843,27 @@ def show_search(base_url, handle, params):
         }
         li.setArt({k: v for k, v in art.items() if v})
         
-        url_params = {'action': 'list_seasons', 'title': item['title']}
+        if itype == 'movie':
+            li.setProperty('IsPlayable', 'true')
+            links = json.loads(item['links']) if item.get('links') else []
+            url_link = links[0]['url'] if links else ''
+            url_params = {'action': 'play', 'title': item['title'], 'url': url_link}
+            is_folder = False
+        else:
+            url_params = {'action': 'list_seasons', 'title': item['title']}
+            is_folder = True
+            
         url = build_url(base_url, url_params)
-        xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.addDirectoryItem(handle, url, li, is_folder)
     
     if found_total == 0:
         no_results = xbmcgui.ListItem('Sin resultados')
         no_results.setProperty('IsPlayable', 'false')
         xbmcplugin.addDirectoryItem(handle, '', no_results, False)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1387,7 +1427,12 @@ def list_movies_by_letter(base_url, handle, params):
     movies = [m for m in movies if m.get('title', '').upper().startswith(letter)]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
-    for movie in movies:
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
         li = xbmcgui.ListItem(label=movie['title'])
         
         genres_raw = movie.get('genres')
@@ -1430,6 +1475,9 @@ def list_movies_by_letter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1487,7 +1535,12 @@ def list_movies_by_genre_filter(base_url, handle, params):
     movies = [m for m in movies if not _has_genre(m, 'Animación') and _has_genre(m, genre)]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
-    for movie in movies:
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
         li = xbmcgui.ListItem(label=movie['title'])
         
         genres_raw = movie.get('genres')
@@ -1530,6 +1583,9 @@ def list_movies_by_genre_filter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1574,7 +1630,12 @@ def list_movies_by_year_filter(base_url, handle, params):
     movies = [m for m in movies if not _has_genre(m, 'Animación') and str(m.get('year', '')) == year]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
-    for movie in movies:
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
         li = xbmcgui.ListItem(label=movie['title'])
         
         genres_raw = movie.get('genres')
@@ -1617,6 +1678,9 @@ def list_movies_by_year_filter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1662,7 +1726,12 @@ def list_tvshows_by_letter(base_url, handle, params):
     items = [i for i in items if i.get('title', '').upper().startswith(letter)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
-    for item in items:
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
@@ -1701,6 +1770,9 @@ def list_tvshows_by_letter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1758,7 +1830,12 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
     items = [i for i in items if not _has_genre(i, 'Animación') and _has_genre(i, genre)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
-    for item in items:
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
@@ -1797,6 +1874,9 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
@@ -1841,7 +1921,12 @@ def list_tvshows_by_year_filter(base_url, handle, params):
     items = [i for i in items if not _has_genre(i, 'Animación') and str(i.get('year', '')) == year]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
-    for item in items:
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
         li = xbmcgui.ListItem(label=item['title'])
         
         genres_raw = item.get('genres')
@@ -1880,5 +1965,8 @@ def list_tvshows_by_year_filter(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
