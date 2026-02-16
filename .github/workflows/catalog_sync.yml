@@ -37,6 +37,13 @@ jobs:
         # Instalar dependencias necesarias
         pip install requests bencodepy fastapi uvicorn
 
+    # NUEVO: Actualizar repo antes de procesar para evitar errores de push (non-fast-forward)
+    - name: Pull latest changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git pull origin main --rebase || git pull origin main
+
     - name: Run update script
       env:
         BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
@@ -52,3 +59,17 @@ jobs:
       with:
         commit_message: "Auto-update catalog and cache [skip ci]"
         file_pattern: "catalog.json cache.db"
+
+    # NUEVO: Confirmar a Telegram SOLO si el commit/push anterior tuvo éxito
+    - name: Confirm Telegram Updates
+      if: success()
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      run: |
+        if [ -f telegram_offset.txt ]; then
+          OFFSET=$(cat telegram_offset.txt)
+          echo "Confirmando offset $OFFSET a Telegram..."
+          curl -s "https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${OFFSET}" > /dev/null
+        else
+          echo "No hay actualizaciones nuevas para confirmar."
+        fi

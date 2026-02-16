@@ -206,7 +206,14 @@ def process_telegram_updates():
 
     # Confirmar updates a Telegram (para que no vuelvan a salir)
     if max_update_id > 0:
-        requests.get(f"https://api.telegram.org/bot{BOT_TOKEN}/getUpdates?offset={max_update_id + 1}")
+        # CAMBIO: No confirmar aquí. Guardar el offset en un archivo para que GitHub Actions lo confirme
+        # SOLO si el commit y push tienen éxito.
+        try:
+            with open("telegram_offset.txt", "w") as f:
+                f.write(str(max_update_id + 1))
+            logger.info(f"Offset {max_update_id + 1} guardado para confirmación post-commit.")
+        except Exception as e:
+            logger.error(f"No se pudo guardar telegram_offset.txt: {e}")
 
 if __name__ == "__main__":
     process_telegram_updates()
