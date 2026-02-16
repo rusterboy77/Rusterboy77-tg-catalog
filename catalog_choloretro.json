@@ -1,6 +1,1280 @@
 {
   "results": [
     {
+      "file": "Navajeros (1980).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Navajeros",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 114051,
+        "title": "Navajeros",
+        "original_title": "Navajeros",
+        "overview": "José Manuel Gómez Perales, alias “El Jaro”, vive solo en Madrid, sin más compañía que la de su banda y sus “novias”. Un día conoce a Mercedes, una prostituta de origen mejicano. Mercedes se enamora de él y le ofrece su casa con el fin de apartarle de su vida delictiva. Jaro acepta el refugio, pero sigue dando “palos” con su banda. Un día conoce a Toñi, una adolescente drogadicta de la que se enamora.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/dkmgJgkQ3ojaSpnlFUwND1JJ3Fx.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/hqYLCZvwLBxBKy0uyLQww1FmuF4.jpg",
+        "vote_average": 6.333,
+        "release_date": "1980-10-06",
+        "year": "1980",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "José Luis Manzano",
+            "role": "El Jaro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "Isela Vega",
+            "role": "Mercedes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h9LIprljvxTTPL0pgLWYkCKi1Lc.jpg"
+          },
+          {
+            "name": "Verónica Castro",
+            "role": "Toñi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/d8Ldx8BlaK8vCh1N4TifQUcH89q.jpg"
+          },
+          {
+            "name": "Jaime Garza",
+            "role": "El Butano",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hDSLglLuK50MQcHabXLaBEolpBz.jpg"
+          },
+          {
+            "name": "Enrique San Francisco",
+            "role": "El Marqués",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qqCGyo5yFIGr3KC8WLDzP7dhSZQ.jpg"
+          },
+          {
+            "name": "María Martín",
+            "role": "Madre de El Jaro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6F9CzZN50JcWROiK4Yhg66AIKdq.jpg"
+          },
+          {
+            "name": "José Sacristán",
+            "role": "Oteiza",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dT1tMNeRiBHVfpgSKY1EoxiioVw.jpg"
+          },
+          {
+            "name": "José Manuel Cervino",
+            "role": "Lara",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sAZ07e1ZNPYUx7MCldmBIGcWRdq.jpg"
+          },
+          {
+            "name": "Ramón Reparaz",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xiVGznW0moo1Iymnw78KoEnL7Kj.jpg"
+          },
+          {
+            "name": "Alfred Lucchetti",
+            "role": "Ciudadano armado",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1aY1H8d0jNo8W0TlXDNySea6iJ3.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?05wcg41neitb9f55lakw"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:21.902152",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Maravillas (1981).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Maravillas",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 179005,
+        "title": "Maravillas",
+        "original_title": "Maravillas",
+        "overview": "Maravillas, una adolescente de quince años, vive con su padre, un viejo fotógrafo desempleado que le roba dinero a su hija para sus pequeños vicios eróticos. Pero Maravillas cuenta con la protección de sus padrinos, unos judíos de origen sefardita. Cuando desaparece una esmeralda, el principal sospechoso es el padre de la chica.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4lnOV5D2va3v3Cahwxbyv37sC26.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8DkxI6yzjJUA1DvhRbKDNotoaFI.jpg",
+        "vote_average": 5.0,
+        "release_date": "1981-02-26",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Fernán Gómez",
+            "role": "Fernando",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2itwZtBNlvA4B6tmFmNbQN9qvmu.jpg"
+          },
+          {
+            "name": "Cristina Marcos",
+            "role": "Maravillas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9xE1wX3T9qsrscLpNnPuUFllHEB.jpg"
+          },
+          {
+            "name": "Enrique San Francisco",
+            "role": "Membrillo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qqCGyo5yFIGr3KC8WLDzP7dhSZQ.jpg"
+          },
+          {
+            "name": "José Luis Fernández 'Pirri'",
+            "role": "Pirri",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nroz9MOVUJZuWCplrdS9AmvmYRk.jpg"
+          },
+          {
+            "name": "Francisco Merino",
+            "role": "Salomón",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yxDHATaiZl8D7hn6FiZbgOkLA3x.jpg"
+          },
+          {
+            "name": "León Klimovsky",
+            "role": "Santos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5e1DJZFzbk3G4zXOxp7pjof4twW.jpg"
+          },
+          {
+            "name": "Eduardo MacGregor",
+            "role": "Simón",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9sfpEyRFZJ57nQmdbvLoMX5kUTp.jpg"
+          },
+          {
+            "name": "Gérard Tichy",
+            "role": "Benito",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tMcupV3SQTOxRIzPObzxNZfyte1.jpg"
+          },
+          {
+            "name": "George Rigaud",
+            "role": "Tomás",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/AbLHAUcxvr84ojrVEpBSRa6JCST.jpg"
+          },
+          {
+            "name": "Miki Molina",
+            "role": "Miqui",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/x2nmTfsnLGYRkpRDWH2O9JPyozG.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?07rgstssgij1myvfq60k"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.009616",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Que he hecho yo para merecer esto (1984)-029.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Que he hecho yo para merecer esto",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 8221,
+        "title": "¿Qué he hecho yo para merecer esto!",
+        "original_title": "¿Qué he hecho yo para merecer esto?",
+        "overview": "Gloria, un ama de casa frustrada, malcasada y adicta a las anfetaminas, vive en una casa de vecinos de un barrio humilde con su marido, que es taxista, sus hijos y su suegra. Compagina las labores del hogar con el trabajo de asistenta en otras casas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/c5s9LiPJMzQjVYdYbGNV9b3eKQ9.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dgp3j52f2MeNVrp7PY8A1pCtRZT.jpg",
+        "vote_average": 7.107,
+        "release_date": "1984-10-25",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Carmen Maura",
+            "role": "Gloria",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sXvr7BvxscBkYpGTcYjpqbzkUSH.jpg"
+          },
+          {
+            "name": "Luis Hostalot",
+            "role": "Polo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bVr1IeJ3nKtCPyr1y9NShW3TW9t.jpg"
+          },
+          {
+            "name": "Ryo Hiruma",
+            "role": "Profesor kendo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ángel de Andrés López",
+            "role": "Antonio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r2eU3jZukfLkC0OHxbSzd2tHtvs.jpg"
+          },
+          {
+            "name": "Gonzalo Suárez",
+            "role": "Lucas Villalba",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/c7fAwbkLQHtRAoposnuf2rMmeqZ.jpg"
+          },
+          {
+            "name": "Verónica Forqué",
+            "role": "Cristal",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/m9NIBixFvxqz4UdFlSe68A3Ogwx.jpg"
+          },
+          {
+            "name": "Juan Martínez",
+            "role": "Toni",
+            "thumbnail": ""
+          },
+          {
+            "name": "Chus Lampreave",
+            "role": "Abuela",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/86dFl41dHUzRYHRBoMt8Mocvfzf.jpg"
+          },
+          {
+            "name": "Kiti Mánver",
+            "role": "Juani",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1hMLpxmw3HP6yx6LtH0UgMiFGmA.jpg"
+          },
+          {
+            "name": "Sonia Hohmann",
+            "role": "Vanessa",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?0q0eognl853x8y0gn91a"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.116531",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Los golfos (1960).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los golfos",
+        "year": "1960",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 198915,
+        "title": "Los golfos",
+        "original_title": "Los golfos",
+        "overview": "Un grupo de amigos que sobreviven penosamente en los arrabales de Madrid cometen pequeños delitos con el propósito de financiar el debut como torero de uno de ellos.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/j5r2H4KqokTowdqR2hF2NC6pSEO.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/oOKt0b5BBYZmCekNiIK23PMMklk.jpg",
+        "vote_average": 6.2,
+        "release_date": "1960-05-14",
+        "year": "1960",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Manuel Zarzo",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kVYJhBEaOsxhUom2iYiUkDTMZ53.jpg"
+          },
+          {
+            "name": "Luis Marín",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wvUY3DgFLLVpq7XyuKjmfdTioAC.jpg"
+          },
+          {
+            "name": "Óscar Cruz",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Juanjo Losada",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ramón Rubio",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Rafael Vargas",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "María Mayer",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Antonio J. Escribano",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Arturo Ors",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Teresa Gisbert",
+            "role": "",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/jTHqA24tDv42YvNT4iqIhcOzw1b.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?1of8phu1ms1wd9xefw6l"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.261795",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El Bola (2000).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El Bola",
+        "year": "2000",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 33504,
+        "title": "El Bola",
+        "original_title": "El Bola",
+        "overview": "El Bola es un chaval de 12 años que vive una atmósfera violenta y sórdida. Su situación familiar, que oculta avergonzado, le incapacita para relacionarse y comunicarse con otros chicos. La llegada de un nuevo compañero al colegio, con quien descubre la amistad, y la posibilidad que ello le brinda de conocer una realidad familiar distinta por completo, le darán fuerzas para aceptar y finalmente ser capaz de enfrentarse a la suya.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/i51PMyfiomYL9dw9zcHc3Z7BpjZ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cYcx91LgbFqG5BhRcVwJeR4wAeI.jpg",
+        "vote_average": 7.13,
+        "release_date": "2000-10-20",
+        "year": "2000",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Juan José Ballesta",
+            "role": "Bola",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rq7FgmeQggR8c8xP6f5svAjx0kR.jpg"
+          },
+          {
+            "name": "Pablo Galán",
+            "role": "Alfredo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Manuel Morón",
+            "role": "Mariano",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kK9liGaocGdahQc4RnnMxm5U7V5.jpg"
+          },
+          {
+            "name": "Alberto Jiménez",
+            "role": "José",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/77sbeDpRlO3AwbzQECRS6naAP8H.jpg"
+          },
+          {
+            "name": "Ana Wagener",
+            "role": "Laura",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/y6sAOhd5OlKQLEXBdcCgJnvANoc.jpg"
+          },
+          {
+            "name": "Nieve de Medina",
+            "role": "Marisa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eUciOKs4nXkDyr6MPnT7tHn5ri8.jpg"
+          },
+          {
+            "name": "Gloria Muñoz",
+            "role": "Aurora",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/welTISMFpKiNvgPIz5NiViUMVzr.jpg"
+          },
+          {
+            "name": "Javier Lago",
+            "role": "Alfonso",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/umRqgzdTkIlgp3e0gzsP1jMJN6Y.jpg"
+          },
+          {
+            "name": "Soledad Osorio",
+            "role": "Abuela",
+            "thumbnail": ""
+          },
+          {
+            "name": "Omar Muñoz",
+            "role": "Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hoJslBfYe0pqAQyoPKT7iMiwtjj.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/bugsXFW1Cu1Vho79Te1v0Hab0hx.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?34p05bqcqdokbbshg5yl"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.388812",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "De tripas corazon (1985).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "De tripas corazon",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 297995,
+        "title": "De tripas corazón",
+        "original_title": "De tripas corazón",
+        "overview": "En el ardiente Madrid del mes de agosto, Jaime, abogado de oficio, 40 años, consigue la libertad para \"El Chirlo\", delincuente ocasional, 20 años, que está acusado de un delito menor. Jaime, separado, vive con Rocío, una modelo de 25 años. Y está cansado, muy cansado, para aceptar la amistad desinteresada que \"El Chirlo\" le ofrece con gratitud. Rocío, en cambio, está lo suficientemente disponible para aceptar la compañía de \"El Chirlo\" y éste lo suficientemente ciego para no darse cuenta de que cuando se juega en terreno ajeno, las posibilidades de perder son infinitas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/7T48kpgNK2XCS5szOL7zTWrVSUC.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tEzv8Zy4W9OoIykmdFf6pY3kKkd.jpg",
+        "vote_average": 4.8,
+        "release_date": "1985-02-28",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Juan Diego",
+            "role": "Jaime Vera",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dzHln6RFlKlRTe2HLAN113zliMQ.jpg"
+          },
+          {
+            "name": "José Luis Fernández 'Pirri'",
+            "role": "El Chirlo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nroz9MOVUJZuWCplrdS9AmvmYRk.jpg"
+          },
+          {
+            "name": "Sancho Gracia",
+            "role": "Arturo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ryZ6y9RFMatlJPbrJ3sC9Ncfv8t.jpg"
+          },
+          {
+            "name": "Juan Martínez",
+            "role": "El Nene",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Antonio Rielo",
+            "role": "El Pelos",
+            "thumbnail": ""
+          },
+          {
+            "name": "Rafael Machado",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Alicia Sánchez",
+            "role": "Irene",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/w6eW5RkTalxgpWO8Rw0SCddiwrc.jpg"
+          },
+          {
+            "name": "Javier Loyola",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pfwB4NZB1bRRIUWusE0spin191r.jpg"
+          },
+          {
+            "name": "Óscar Ladoire",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wJtzFwQMQnEu4krHcnDxiUkkiDG.jpg"
+          },
+          {
+            "name": "Patricia Adriani",
+            "role": "Rocío",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5yucAkvn7MR0xQXxf4MC4un95VH.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?47oyz8940r2ifgwvsbq5"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.513197",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Siete dias de Enero (1979).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Siete dias de Enero",
+        "year": "1979",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 134176,
+        "title": "7 días de enero",
+        "original_title": "7 días de enero",
+        "overview": "El 24 de enero de 1977, unos pistoleros de extrema derecha protagonizaron uno de los días más violentos de la transición política en España. Su objetivo era el despacho de abogados laboralistas de la calle Atocha, en Madrid. Murieron cuatro abogados y un administrativo y quedaron malheridos otros cuatro letrados. Aquella noche trágica se conoció como \"la matanza de Atocha\".",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oyGR7QFWXiQtUKIck5uNAdRuoaD.jpg",
+        "backdrop_url": "",
+        "vote_average": 6.0,
+        "release_date": "1979-03-28",
+        "year": "1979",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Manuel Ángel Egea",
+            "role": "Luis María Hernando de Cabral",
+            "thumbnail": ""
+          },
+          {
+            "name": "Fernando Sánchez Polack",
+            "role": "Sebastián Cifuentes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1vceSyuaPN9NWvpRmjo6y0vGE1z.jpg"
+          },
+          {
+            "name": "Madeleine Robinson",
+            "role": "Adelaïda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2YvbR42YJ94WkvabRXy0mKHuwXb.jpg"
+          },
+          {
+            "name": "Jacques François",
+            "role": "Don Thomas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gEE5ItVCtnRkshyAtgdF02xVeVy.jpg"
+          },
+          {
+            "name": "Virginia Mataix",
+            "role": "Pilar",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5I9hTu2uHtmz1IkHN01xnlZph7z.jpg"
+          },
+          {
+            "name": "José Manuel Cervino",
+            "role": "Antonio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sAZ07e1ZNPYUx7MCldmBIGcWRdq.jpg"
+          },
+          {
+            "name": "Manuel de Benito",
+            "role": "Andrés",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wkj6Mqeb3C2iIGmbZ85szugAEhz.jpg"
+          },
+          {
+            "name": "Alberto Alonso",
+            "role": "Cisko Kid",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cDJdLpzKqsjGCpgW4rJBOUlVgjs.jpg"
+          },
+          {
+            "name": "Joaquín Navarro",
+            "role": "Actor",
+            "thumbnail": ""
+          },
+          {
+            "name": "Miguel Bódalo",
+            "role": "Guardía yep 1",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?5omqmtuvelqrcfeut9a9"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.617475",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "La patria del _Rata_ (1981).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La patria del Rata",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 300399,
+        "title": "La patria del 'Rata'",
+        "original_title": "La patria del 'Rata'",
+        "overview": "José Moya Merino alias “El Rata”, condenado a veinte años de cárcel por un atentado terrorista en el que murieron dos policías, sale de Carabanchel gracias a una amnistía. Una vez en la calle, el desempleo y la falta de apoyos lo arrastran de nuevo al mundo del crimen y acaba participando, con dos amigos, en un atraco a un banco.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/75wtpZGc0wLLwlPVciZmcTIt0MF.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dA9OQkKLQYb6lX4jno9CCjh94my.jpg",
+        "vote_average": 4.786,
+        "release_date": "1981-05-04",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 28,
+            "name": "Acción"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Danilo Mattei",
+            "role": "José Moya Merino \"El Rata\"",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/uH4aVGzymMFq2AnOlqPLFA8gCiJ.jpg"
+          },
+          {
+            "name": "Julia Martínez",
+            "role": "Madre de la niña",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/52uLVHqTDhEPTklk1uvAslLezDD.jpg"
+          },
+          {
+            "name": "Arturo López",
+            "role": "Comisario",
+            "thumbnail": ""
+          },
+          {
+            "name": "Taida Urruzola",
+            "role": "Novia de 'El Rata'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/73WCesPWDHM7mqXluGjnD62YLOk.jpg"
+          },
+          {
+            "name": "María Isbert",
+            "role": "Dueña de la pensión",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dFr7cNxyH2xQCNWebPypUhLEhe7.jpg"
+          },
+          {
+            "name": "Miguel Rellán",
+            "role": "Miembro del PSOE",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/raW50z3LZZXOSXTwOFFUf4U3zet.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?5r33i0uas6nnaowknpdh"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.743109",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Criando ratas (2016).mp4",
+      "parsed": {
+        "type": "movie",
+        "title": "Criando ratas",
+        "year": "2016",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 434357,
+        "title": "Criando ratas",
+        "original_title": "Criando ratas",
+        "overview": "‘El Cristo’, reputado delincuente juvenil, tiene una deuda con uno los narcotraficantes más poderosos de su barrio. Bajo los efectos del consumo de sustancias estupefacientes e inmerso en un estado de desesperación, lleva a cabo todo tipo de actos delictivos para conseguir el dinero. Poco a poco, irá cometiendo errores que le harán ganarse muchos enemigos. Paralelamente, muestra las aventuras y desventuras de tres chavales que están comenzando su carrera delictiva. Juntos sufrirán las consecuencias de su estilo de vida y comprenderán cuál es el precio a pagar.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qwJ9KzAuuPHuRfyvZ9OkkW83Hgl.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xyKKFqiYX3zvVmwXU76oeaBJ2re.jpg",
+        "vote_average": 5.464,
+        "release_date": "2016-01-10",
+        "year": "2016",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Ramón Guerrero",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kk0EfKn7pBEIoKJioNIA7VcwuhB.jpg"
+          },
+          {
+            "name": "José Antonio Francés",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mauricio Manzano",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Carlos Victoria",
+            "role": "",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?5vpr01rf2hgq09kpcdjt"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.856017",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Can Tunis (2006).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Can Tunis",
+        "year": "2006",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 129005,
+        "title": "Can Tunis",
+        "original_title": "Can Tunis",
+        "overview": "Año 2002. En un barrio de Barcelona, los vecinos se manifiestan contra la expropiación de sus casas. Desde los años 80, este barrio en ruina es el principal mercado de droga de la ciudad. Allí vive Juan con su padre, ocho hermanos y cerca de veinte sobrinos. Rodeado de toxicómanos, Juan va creciendo esperando la salida de su madre de la cárcel. El barrio va a ser demolido, y la familia tendrá que buscar otro hogar.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/lS3XWhDTZTBXDPiq5hpJQljeQTj.jpg",
+        "backdrop_url": "",
+        "vote_average": 7.8,
+        "release_date": "2006-11-01",
+        "year": "2006",
+        "genres": [
+          {
+            "id": 99,
+            "name": "Documental"
+          }
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?6tzez8ubzcxlrfbz30py"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:22.970800",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Juventud drogada (1977).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Juventud drogada",
+        "year": "1977",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 301840,
+        "title": "Juventud drogada",
+        "original_title": "Juventud drogada",
+        "overview": "El hijo de un importante magnate farmacéutico es captado por una banda de delincuentes que se dedican al robo y al trafico de drogas. El joven se siente atraído por una de las chicas de esta peligrosa banda, cosa que aprovecharan para ganarse su confianza. El objetivo es acceder a los laboratorios de la empresa y hacerse con un deposito de heroína y cocaína.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xB57KzbzemhvLYjXAczd9j0DJUB.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/9KV6YeF3owlkbtzHczapng6LW1d.jpg",
+        "vote_average": 5.3,
+        "release_date": "1977-01-01",
+        "year": "1977",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Tony Isbert",
+            "role": "Albert",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eKtVnKGo7hCqNSD7vJCJNjmXNeJ.jpg"
+          },
+          {
+            "name": "Gloria Hayworth",
+            "role": "Sandra",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ivonne Sentis",
+            "role": "Débora",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zwVb4oMfH067t40l8ctNofgqyHM.jpg"
+          },
+          {
+            "name": "Eduardo Bea",
+            "role": "Álex",
+            "thumbnail": ""
+          },
+          {
+            "name": "Antonio Mayans",
+            "role": "Cris",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vA1qDHVekxZR3QMZJYVnemIB6wN.jpg"
+          },
+          {
+            "name": "Celia Torres",
+            "role": "Auri",
+            "thumbnail": ""
+          },
+          {
+            "name": "Inés Morales",
+            "role": "Celina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bhIWO7KDyyqC4UCGyC5E0INbGO9.jpg"
+          },
+          {
+            "name": "María Vico",
+            "role": "Madre de Sandra",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1eZD1cxWEjMneNrP1F632KwZwSh.jpg"
+          },
+          {
+            "name": "Heinrich Starhemberg",
+            "role": "Dr. Stanford",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yvPth9v7rxO21Rpxafk48YbLDG5.jpg"
+          },
+          {
+            "name": "'Dum Dum' Pacheco",
+            "role": "Dany",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ozHr7aAtcAfUfAGC9206qZKlcIH.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?7snp2iq1rsc01ecsncq0"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.102131",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Tres dias de libertad (1996).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Tres dias de libertad",
+        "year": "1996",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 297049,
+        "title": "Tres días de libertad",
+        "original_title": "Tres días de libertad",
+        "overview": "Juan \"El Gato\", un conocido delincuente con una larga condena por cumplir, sale de la cárcel con motivo de un permiso de tres días de duración. A las pocas horas de salir, un abogado compinchado con el comisario de policía propone a Tony, hermano del Gato, que den un último golpe que en teoría no puede fallar.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/E9YGCZuRxGBXTTVdVq8bhSetLO.jpg",
+        "backdrop_url": "",
+        "vote_average": 5.0,
+        "release_date": "1996-04-26",
+        "year": "1996",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Joan Bentallé",
+            "role": "El Gato",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/x5vLuBH2KZrjTrrlKgKdT0iiB73.jpg"
+          },
+          {
+            "name": "Tanya Celaya",
+            "role": "Aurora",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rLehZlYMnp4EA4p8rL9aE65iIoi.jpg"
+          },
+          {
+            "name": "Daniel Medrán",
+            "role": "Tony",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1xn3nhMxpHYLzafi59gEF6auMwH.jpg"
+          },
+          {
+            "name": "José María Blanco",
+            "role": "Inspector Martínez",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pP6EGy31fFXGYGRDcckvpuIRrmP.jpg"
+          },
+          {
+            "name": "Quim Lecina",
+            "role": "El Carica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sGq92rnTBbc55jktkTQoni1IQ3G.jpg"
+          },
+          {
+            "name": "Manuel Muntaner",
+            "role": "El Marsellés",
+            "thumbnail": ""
+          },
+          {
+            "name": "Jordi Serrat",
+            "role": "Abogado Villaverde",
+            "thumbnail": ""
+          },
+          {
+            "name": "Pepa Lavilla",
+            "role": "Julia",
+            "thumbnail": ""
+          },
+          {
+            "name": "Agustí Estadella",
+            "role": "Subcomisario Laguna",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mara Vador",
+            "role": "Rosa",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?8363uhq1ystws49i78jq"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.252660",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "La reina del mate (1985).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La reina del mate",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 315471,
+        "title": "La reina del mate",
+        "original_title": "La reina del mate",
+        "overview": "La vida de Rafa, un joven cartero de barrio obrero, cambia radicalmente cuando conoce a Cristina, \"La Reina del Mate\". Rafa se ve inmerso poco a poco en un mundo que nada tiene que ver con su vida anterior: drogas, dinero fácil y, por encima de todo, una mujer fascinante.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/b7IKfFlhIwex57td6b1kAGaQxTs.jpg",
+        "backdrop_url": "",
+        "vote_average": 6.0,
+        "release_date": "1985-04-19",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Amparo Muñoz",
+            "role": "Cristina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lwH1FIxCwje7Cx5kEh6TCDLYPeV.jpg"
+          },
+          {
+            "name": "Antonio Resines",
+            "role": "Rafa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jm4yMnneOWa5diykiBV13qbMsS2.jpg"
+          },
+          {
+            "name": "Ana Gracia",
+            "role": "Carmen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vvAURYBlPfCzYaWKsnf3RJOapTj.jpg"
+          },
+          {
+            "name": "Héctor Colomé",
+            "role": "Hernán",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mQ97L4wqVpAEr29hFQeLwvQXv4c.jpg"
+          },
+          {
+            "name": "Jorge de Juan",
+            "role": "Emilio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vdfAfG54MPyCI3pg1J0sd4z3v03.jpg"
+          },
+          {
+            "name": "Cristina Rota",
+            "role": "Aurora",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Luis Fernández 'Pirri'",
+            "role": "Pirri",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nroz9MOVUJZuWCplrdS9AmvmYRk.jpg"
+          },
+          {
+            "name": "Santiago Álvarez",
+            "role": "Fredy",
+            "thumbnail": ""
+          },
+          {
+            "name": "Luis Ciges",
+            "role": "Riaño",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xEDmDVTRc0m3ds6IRmQXG5Apry2.jpg"
+          },
+          {
+            "name": "Ofelia Angélica",
+            "role": "Mamá",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/foSmfdjorI6bIlb00kmL5YlAKcC.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?9q414qgiii2viiirgfij"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.368830",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Coto de caza (1983).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Coto de caza",
+        "year": "1983",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 104980,
+        "title": "Coto de caza",
+        "original_title": "Coto de caza",
+        "overview": "Adela es una abogada penal que se dedica a defender delincuentes con total convencimiento de lo que hace y dice sobre las penalidades que llevan al delito y no cree en la maldad natural. Esta candidez le lleva a que la banda del Mauri, a uno de cuyos integrantes defiende, le robe el coche con las cosas personales y prepare un golpe a la casa de campo familiar que tiene un coto de caza privado.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/11o1QcHLl0dCT8sf0lm520yZX8m.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/9k9VP9zy7ldon5VITxQJpwdZPfx.jpg",
+        "vote_average": 5.333,
+        "release_date": "1983-01-01",
+        "year": "1983",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 27,
+            "name": "Terror"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Assumpta Serna",
+            "role": "Adela",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bSiZG1PQAhdBjF0ucubXvTA7fuV.jpg"
+          },
+          {
+            "name": "Víctor Valverde",
+            "role": "Jorge",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/umz4Mz5XfvboBM8deKq7MnU7sQu.jpg"
+          },
+          {
+            "name": "Luis Hostalot",
+            "role": "Mauri",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bVr1IeJ3nKtCPyr1y9NShW3TW9t.jpg"
+          },
+          {
+            "name": "Montserrat Salvador",
+            "role": "Doña Carmen",
+            "thumbnail": ""
+          },
+          {
+            "name": "Paloma Lorena",
+            "role": "Lola",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Sacristán",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dT1tMNeRiBHVfpgSKY1EoxiioVw.jpg"
+          },
+          {
+            "name": "Sahli Mimoun Amar El",
+            "role": "El Chato",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Antonio García Romeu",
+            "role": "Travolta",
+            "thumbnail": ""
+          },
+          {
+            "name": "Adolfo Thous",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Manuel Pereiro",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eKoh8qbFMnKoulqEU3WI0i4OcJ0.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?alg23hgel5ur0y7nj74v"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.492999",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Los ultimos golpes de El Torete (1980).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Los ultimos golpes de El Torete",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 132008,
+        "title": "Los últimos golpes de El Torete",
+        "original_title": "Los últimos golpes de El Torete",
+        "overview": "El Torete y El Vaquilla son dos delincuentes juveniles con numerosos antecedentes penales que coinciden en el robo del mismo banco, decidiendo ser compañeros a partir de entonces.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/t4Y6XXHE1pHV7ML1XTbACP7eBjv.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/gKLsGuSlc8FsBs3k95NX6HD48cG.jpg",
+        "vote_average": 5.472,
+        "release_date": "1980-09-25",
+        "year": "1980",
+        "genres": [
+          {
+            "id": 28,
+            "name": "Acción"
+          },
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Ángel Fernández Franco",
+            "role": "El Torete",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sVp4CGvJfTOHfSAaOKNpG8r6Y0Q.jpg"
+          },
+          {
+            "name": "Bernard Seray",
+            "role": "El Vaquilla",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1oFUoGGR8SZEvEspGYN2ZM2q3DJ.jpg"
+          },
+          {
+            "name": "Berta Cabré",
+            "role": "Berta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pJiMw8sbMlvBJDfxMwSQXaiyUeP.jpg"
+          },
+          {
+            "name": "Isabel Mestres",
+            "role": "Begoña",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sGAwSctmtfc8bdurrKS78UKo6vP.jpg"
+          },
+          {
+            "name": "Fernando Guillén",
+            "role": "Perales",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3NXbnoe3aVUi0SqBUYNVLu24GxW.jpg"
+          },
+          {
+            "name": "Simón Andreu",
+            "role": "Quique Moreno",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6KGaeT8peDKh8Hzq7HrRKqA2jCV.jpg"
+          },
+          {
+            "name": "Carlos Lucena",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rstUjYVfcYLXmanz5JWt5k7CY05.jpg"
+          },
+          {
+            "name": "Fredy Ripers",
+            "role": "Preso",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dbT70a7ngx6tnhI1Nj2t6QRsMoz.jpg"
+          },
+          {
+            "name": "Miguel Avilés",
+            "role": "Jefe de competiciones (uncredited)",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ignacio Arquer",
+            "role": "Don Pedro",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?b4bxuyb7hf1f9vz23vhw"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.603049",
+      "folder_id": "19161644"
+    },
+    {
       "file": "Bailame el agua (2000).avi",
       "parsed": {
         "type": "movie",
@@ -86,7 +1360,556 @@
           "url": "https://1fichier.com/?cdzhzdc011k09bdv2s1u"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.028104",
+      "date_added": "2026-02-16T18:17:23.603192",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Barcelona sur (1981).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Barcelona sur",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 301845,
+        "title": "Barcelona sur",
+        "original_title": "Barcelona sur",
+        "overview": "En Barcelona, una de las ciudades portuarias de Europa más apreciadas por el tráfico de drogas y la prostitución, Gumer, una chica de 25 años, sale de la cárcel obsesionada por encontrar a su antiguo novio. Charo, su mejor amiga, trata de ayudarle pero no es libre ya que sirve a los deseos de su chulo Toni. Gumer convence a Charo para que abandone a Toni y formen, junto con otras amigas, una banda para montar negocios por su cuenta.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jRKMPTQjXX3qKBYrNtnvQMrhCr2.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/fpB6mNdhTG8vX3vjPLHGO6lKbiF.jpg",
+        "vote_average": 4.0,
+        "release_date": "1981-03-26",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Marta Molins",
+            "role": "Gumer",
+            "thumbnail": ""
+          },
+          {
+            "name": "Alma Muriel",
+            "role": "Charo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2HYtvQmxJe8DoX9MuRNFNCpEW8K.jpg"
+          },
+          {
+            "name": "Jaime Moreno",
+            "role": "Toni",
+            "thumbnail": ""
+          },
+          {
+            "name": "Àngel Jové",
+            "role": "Ángel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Carles Velat",
+            "role": "Javier",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cxcWml5mmKaEEBx2LCaXSH0TFYU.jpg"
+          },
+          {
+            "name": "Paca Gabaldón",
+            "role": "Inma",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lvGU25HSCwHrDchfdE9KnczKtju.jpg"
+          },
+          {
+            "name": "Irán Eory",
+            "role": "Carla",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mp2uDZzPzW0KlzQyLgE2wcKzB9y.jpg"
+          },
+          {
+            "name": "José Luis Manzano",
+            "role": "Chema",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "Myriam De Maeztu",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/13hQsfZMX1ctoVmynvTvPA4X2ay.jpg"
+          },
+          {
+            "name": "Del Negro",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8TCOD1TUQiV0PB3vtHURPsJbfpR.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?cwnvbzitdp4c1uu804zv"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.726697",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Perros callejeros II (1979) .avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Perros callejeros II",
+        "year": "1979",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 132001,
+        "title": "Perros callejeros II",
+        "original_title": "Perros callejeros II",
+        "overview": "Un policía veterano llamado Fernando siente mucho odio contra Ángel porque el chico lo atropelló con un automóvil dejándolo cojo. Ahora Fernando acusa al joven quinqui de haber participado en un robo en una gasolinera en el que se ha producido un asesinato. Ayudado por sus amigos, Ángel reconstruye los hechos que le sirven de coartada mientras se encuentra en prisión preventiva en \"La Modelo\" (Barcelona) en la que se producirá un terrible motín.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9foH7rlXCfYxcAhiCYZDmW9aSTI.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/y5WSjMlXv3aE2nM4BNYxM7J8NB8.jpg",
+        "vote_average": 5.519,
+        "release_date": "1979-10-08",
+        "year": "1979",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 28,
+            "name": "Acción"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Ángel Fernández Franco",
+            "role": "El Torete",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sVp4CGvJfTOHfSAaOKNpG8r6Y0Q.jpg"
+          },
+          {
+            "name": "Teresa Giménez",
+            "role": "Charo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Verónica Miriel",
+            "role": "Verónica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sA0R8RWWCOJ6RtKS2A0h5K9OXAh.jpg"
+          },
+          {
+            "name": "Raúl Ramírez",
+            "role": "Fernando",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/a2HDcTD8VM1ulL9OoO9RCasF0W8.jpg"
+          },
+          {
+            "name": "Isabel Mestres",
+            "role": "Mari Carmen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sGAwSctmtfc8bdurrKS78UKo6vP.jpg"
+          },
+          {
+            "name": "Reyes Poveda",
+            "role": "Tony",
+            "thumbnail": ""
+          },
+          {
+            "name": "Conrado Tortosa 'Pipper'",
+            "role": "Julián",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wk8QCXJlQyKk0YAngaPy4fareEL.jpg"
+          },
+          {
+            "name": "Pep Corominas",
+            "role": "El Pijo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Bernard Seray",
+            "role": "El Vaca",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1oFUoGGR8SZEvEspGYN2ZM2q3DJ.jpg"
+          },
+          {
+            "name": "José Febles",
+            "role": "El Chino",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?dmjq68ogombdvom5dl1m"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.821796",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Hasta el cielo (2020).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Hasta el cielo",
+        "year": "2020",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 651589,
+        "title": "Hasta el cielo",
+        "original_title": "Hasta el cielo",
+        "overview": "El día que Ángel habló con Estrella en aquella discoteca, su vida cambió para siempre. Tras una pelea con Poli, el posesivo novio de la chica, éste descubre que Ángel tiene talento para meterse en problemas y, lo más importante, para salir de ellos. Por eso, le anima a unirse a una banda de atracadores que tiene en jaque a toda la policía de Madrid. Ángel comienza a escalar rápidamente en una pirámide de atracos, dinero negro, negocios turbios y abogados corruptos que le llevarán a ser acorralado por Duque, un incansable detective que no parará hasta acabar con su carrera. Desoyendo los consejos de su gente, Ángel consigue ascender hasta convertirse en el protegido de Rogelio, uno de los tipos que controla el mercado negro de la ciudad. Con éste y Sole, hija del capo, Ángel descubrirá que el precio del poder es alto y que pronto tendrá que decidir entre su futuro como atracador y el amor de su vida, Estrella.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4wBsYozsXBlG7Lx4NO7ycDWnnUs.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/vx4bevtt3ZVgezPZsuiVxm90l5E.jpg",
+        "vote_average": 6.1,
+        "release_date": "2020-12-18",
+        "year": "2020",
+        "genres": [
+          {
+            "id": 28,
+            "name": "Acción"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Miguel Herrán",
+            "role": "Ángel",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eFNlbsaMODCHys35ZQOkMQNh0Jq.jpg"
+          },
+          {
+            "name": "Carolina Yuste",
+            "role": "Estrella",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/WbPX1SzFmAEaF4ioMEwgumvqzW.jpg"
+          },
+          {
+            "name": "Asia Ortega",
+            "role": "Sole",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jWDoTmcQKLIggpoFXSDugsepPrc.jpg"
+          },
+          {
+            "name": "Luis Tosar",
+            "role": "Rogelio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7ZTdhzUCpG9jhsKJeTJbGn36v5F.jpg"
+          },
+          {
+            "name": "Fernando Cayo",
+            "role": "Duque",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sglfXHNFlzOBBLuRrbDkxghSW4H.jpg"
+          },
+          {
+            "name": "Richard Holmes",
+            "role": "Poli",
+            "thumbnail": ""
+          },
+          {
+            "name": "Patricia Vico",
+            "role": "Mercedes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/96lZIgbJJHlobSvRIn1VT0X2kAW.jpg"
+          },
+          {
+            "name": "César Mateo",
+            "role": "Fernando",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7hONBQKzOXv4sTiyfENwrYcNVFe.jpg"
+          },
+          {
+            "name": "Marina Campos",
+            "role": "Relaciones Públicas",
+            "thumbnail": ""
+          },
+          {
+            "name": "Dollar Selmouni",
+            "role": "Gitano",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/47CDuL8ULakcCMNRfLxHicopkRJ.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ekwwoyx5it0bcvs43fea"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:23.935615",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "La quinta del porro (1981).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "La quinta del porro",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 287720,
+        "title": "La quinta del porro",
+        "original_title": "La quinta del porro",
+        "overview": "Las aventuras de un grupo de jóvenes cuyas ideas sobre el servicio militar y la autoridad están bastante alejadas de las de sus superiores.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6Wys2hT3cwMXwsDj1bcnDKdRJc2.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dSFc2gwVSnbxLegwQTN9MP0e8cG.jpg",
+        "vote_average": 5.0,
+        "release_date": "1981-01-08",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Álvaro de Luna",
+            "role": "El Sargento",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qgJv39yc67gnm7Un97bMHiqc0Fi.jpg"
+          },
+          {
+            "name": "Joan Borràs",
+            "role": "Vicente",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r4vwrHEO6F2DU85EyYS7j9JSHl1.jpg"
+          },
+          {
+            "name": "Carmen Pérez",
+            "role": "Violeta",
+            "thumbnail": ""
+          },
+          {
+            "name": "Pep Munné",
+            "role": "Futuro recluta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/t6MJozPb86TkMeUmacWCyborQkW.jpg"
+          },
+          {
+            "name": "Juan Manuel Montesinos",
+            "role": "Juan",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ricard Borràs",
+            "role": "Antonio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2c6z7IC6zRLoNR2cToFQ18E1Sbb.jpg"
+          },
+          {
+            "name": "Arnau Vilardebó",
+            "role": "Yago",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6beOTNfxAMc4R0muTPfpBJzyVD5.jpg"
+          },
+          {
+            "name": "Fernando Rubio",
+            "role": "Revisor",
+            "thumbnail": ""
+          },
+          {
+            "name": "Carlos Tristancho",
+            "role": "Kinki",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cnCbVWxTz5GponXsBiqRAuQqm2h.jpg"
+          },
+          {
+            "name": "José María Cañete",
+            "role": "Teniente",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?g5nsi1iszwowdxzzlej3"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.066142",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El truco del manco (2008).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "El truco del manco",
+        "year": "2008",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 143344,
+        "title": "El truco del manco",
+        "original_title": "El truco del manco",
+        "overview": "Quique el Cuajo, un buscavidas con medio cuerpo afectado por una parálisis cerebral, suma fuerzas con su amigo Adolfo, un joven mulato, para crear un estudio musical.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hW5nZk4Ohk9LWZUfvEP5nTI8rZG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kBQ7HwFSyYrFWyKD6fkPovaQ2ci.jpg",
+        "vote_average": 6.2,
+        "release_date": "2008-11-07",
+        "year": "2008",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "El Langui",
+            "role": "Quique Heredia el Cuajo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/awxI3u7yUNEgUuQfYOVJkmKTtnR.jpg"
+          },
+          {
+            "name": "Ovono Candela",
+            "role": "Adolfo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Javier Iglesias Bustamante",
+            "role": "Chacho",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7V2ElHYf7wU3CnPLcc4OkdUsg5g.jpg"
+          },
+          {
+            "name": "Elio Toffana",
+            "role": "Galleta",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mala Rodríguez",
+            "role": "Tsunami",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/u2oJWhrkMMD1psUoYytcsNcJLIL.jpg"
+          },
+          {
+            "name": "Juan Navarro",
+            "role": "Marquitos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ggg32UzFzTI1oCWV1HseD129rAe.jpg"
+          },
+          {
+            "name": "Diego Carrasco",
+            "role": "Jesús",
+            "thumbnail": ""
+          },
+          {
+            "name": "Younes Bachir",
+            "role": "Bilal Doorman",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bZoVjw8E0OWhNPtgTZ51mo3Vu0Q.jpg"
+          },
+          {
+            "name": "Alicia Orozco",
+            "role": "Cuajo's Mother",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8uSPmegZaNjxGRGac9JGTM39jD5.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?gr40vd7m9zq8v58wnjzc"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.194091",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El Lute II_ manana sere libre (1988).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El Lute II manana sere libre",
+        "year": "1988",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115695,
+        "title": "El Lute II: Mañana seré libre",
+        "original_title": "El Lute II: mañana seré libre",
+        "overview": "Tras tres años en el penal del Puerto de Santa María, El Lute aprovecha las fiestas de Navidad y escapa de la prisión para reencontrarse con su familia e iniciar un recorrido por Andalucía con la Guardia Civil en los talones. El Lute lucha denodadamente por su vida y su libertad; su sueño de vivir como los payos es tan fuerte que nada puede detenerlo.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/eNLpsvvfrxQ924cpGFguN5ejTH6.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/h1de3BjtvBY7RRGrr2GAlHPIf2W.jpg",
+        "vote_average": 5.7,
+        "release_date": "1988-04-20",
+        "year": "1988",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Imanol Arias",
+            "role": "Eleuterio Sánchez 'El Lute'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lbBiRaDzDzojfs6VbMfgzsf6QnI.jpg"
+          },
+          {
+            "name": "Jorge Sanz",
+            "role": "El Toto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8MmH5A2zDHCdFyA691nn6xJY49I.jpg"
+          },
+          {
+            "name": "Pastora Vega",
+            "role": "Esperanza",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h1AMRj3mQrLorgNEk4ZkLFLyrRy.jpg"
+          },
+          {
+            "name": "Ángel Pardo",
+            "role": "El Lolo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/e3cMAyN9jwIp9rcvyJscvNYf6wi.jpg"
+          },
+          {
+            "name": "Silvia Rodríguez",
+            "role": "Frasquita",
+            "thumbnail": ""
+          },
+          {
+            "name": "Montserrat Tey",
+            "role": "Emilia",
+            "thumbnail": ""
+          },
+          {
+            "name": "Margarita Calahorra",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Terele Pavez",
+            "role": "Gitana",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fXq6FkUXXehtT28LfRoI7fBJNej.jpg"
+          },
+          {
+            "name": "José Cerro",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Alberto Alonso",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cDJdLpzKqsjGCpgW4rJBOUlVgjs.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?h2qr1u4a9yd0z9faeoq1"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.316881",
       "folder_id": "19161644"
     },
     {
@@ -155,7 +1978,1180 @@
           "url": "https://1fichier.com/?h7uforziborccaseq9cx"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.155938",
+      "date_added": "2026-02-16T18:17:24.317311",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Quinqui Stars (2018).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Quinqui Stars",
+        "year": "2018",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 569010,
+        "title": "Quinqui Stars",
+        "original_title": "Quinqui Stars",
+        "overview": "Película en la frontera entre el documental creativo y la ficción, que comienza en los años de las transformaciones ocurridas entre los años 70 y 80 en las barriadas periféricas de Madrid, que afectaron a muchos jóvenes y les abocaron hacia la delincuencia. Todo ese proceso de cambios sociales, políticos, económicos y urbanísticos en los barrios obreros y el modo de vida de los jóvenes de la periferia son un documento histórico que nos ayuda a trazar un imaginario de lo que ocurrió entonces y lo que somos ahora. Un fenómeno cinematográfico, el de la delincuencia juvenil, que vivió su momento de apogeo con películas como ‘Navajeros’ y ‘Colegas’, de Eloy de la Iglesia; ‘Perros callejeros’, de José Antonio de la Loma; y ‘Deprisa, deprisa’, de Carlos Saura.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hnt6kjClAHeUydRh2Y1fNBCUkQR.jpg",
+        "backdrop_url": "",
+        "vote_average": 6.6,
+        "release_date": "2018-11-30",
+        "year": "2018",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 99,
+            "name": "Documental"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Ramsés «El Coleta» Gallego",
+            "role": "Self",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jCW9G3pfe7aKwVuEt3sqrIWoFUz.jpg"
+          },
+          {
+            "name": "Ira Rap",
+            "role": "Self",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mery Cuesta",
+            "role": "Self",
+            "thumbnail": ""
+          },
+          {
+            "name": "Daniel Guzmán",
+            "role": "Self",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fIavoaNjO0EkF7ACBqLgMOJtpdK.jpg"
+          },
+          {
+            "name": "Enrique San Francisco",
+            "role": "Self",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qqCGyo5yFIGr3KC8WLDzP7dhSZQ.jpg"
+          },
+          {
+            "name": "José Sacristán",
+            "role": "Self",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dT1tMNeRiBHVfpgSKY1EoxiioVw.jpg"
+          },
+          {
+            "name": "Rosario Flores",
+            "role": "Self",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zS8UNKXADu6USCf6WXvNqo2OHMS.jpg"
+          },
+          {
+            "name": "Paco Catalá",
+            "role": "Self",
+            "thumbnail": ""
+          },
+          {
+            "name": "Agnès Varda",
+            "role": "Self (archive footage)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8XKM6DCVcH5RsgIRh9mwVaEM0YB.jpg"
+          },
+          {
+            "name": "La Blondie",
+            "role": "Self",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?hncpf66il285v7enm8hd"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.440062",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Barrio (1998)-021.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Barrio",
+        "year": "1998",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 32118,
+        "title": "Barrio",
+        "original_title": "Barrio",
+        "overview": "En uno de esos barrios situados al sur de las grandes ciudades, a los que no llega ni el metro ni el dinero, Javi, Manu y Rai son compañeros de instituto, pero, sobre todo, amigos. Tienen esa edad en la que ni se es hombre ni se es niño, en la que se habla mucho de chicas y muy poco con ellas. Comparten también la vida en el barrio, el calor del verano y un montón de problemas. El primero es el propio barrio, un lugar de grandes bloques de viviendas sociales, de ladrillo oscuro y arquitectura deprimente y depresiva. Allí hay pocas cosas que hacer, y en agosto aún menos. El centro de la ciudad queda lejos y las comunicaciones son malas, así que los tres amigos pasan la mayor parte del tiempo por las calles del barrio.[FA]",
+        "poster_url": "https://image.tmdb.org/t/p/w500/8ok6tJJ3snPIPIaRCzdH1aKM2Bu.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/l1xnDBtuJYS4qxnBCzcpsYa6fbM.jpg",
+        "vote_average": 6.716,
+        "release_date": "1998-10-02",
+        "year": "1998",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Críspulo Cabezas",
+            "role": "Rai",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1IpPvOMXnKLy6KcwEIfeT7kmr4V.jpg"
+          },
+          {
+            "name": "Timy Benito",
+            "role": "Javi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/iCnaiI8OVytED9V5M28AsWkjmer.jpg"
+          },
+          {
+            "name": "Eloi Yebra",
+            "role": "Manu",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pSVMisRJhWeXiyvAA2aPS0WNxEu.jpg"
+          },
+          {
+            "name": "Marieta Orozco",
+            "role": "Susi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/94lxhnIZaYqXia302hjSmgeYAgz.jpg"
+          },
+          {
+            "name": "Enrique Villén",
+            "role": "Ricardo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/k9ZtWgntlwlMpW7LiijSwvRnuul.jpg"
+          },
+          {
+            "name": "Alicia Sánchez",
+            "role": "Carmen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/w6eW5RkTalxgpWO8Rw0SCddiwrc.jpg"
+          },
+          {
+            "name": "Francisco Algora",
+            "role": "Ángel",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1RUbOlWnaMiP2xX5crcSIjgutJQ.jpg"
+          },
+          {
+            "name": "Chete Lera",
+            "role": "Inspector de policía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zXYXiFDqKedLMYJyyTk8YWhp8pj.jpg"
+          },
+          {
+            "name": "Claude Pascadel",
+            "role": "Abuelo de Javi",
+            "thumbnail": ""
+          },
+          {
+            "name": "Pedro Miguel Martínez",
+            "role": "Vecino",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vVvPxct6NmQUiCzjwBhGSwTI50G.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/lzeOFKkTsQlU8enAVhcZaUCC8xb.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?kjo581og4rlsp4ernd1a"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.545108",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El pico (1983).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El pico",
+        "year": "1983",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 98596,
+        "title": "El pico",
+        "original_title": "El pico",
+        "overview": "Bilbao, años 80. Un Comandante de la Guardia Civil descubre que su hijo Paco de 17 años, que espera que ingrese en la Academia Militar, es heroinómano. Urko, el mejor amigo de Paco e hijo de un dirigente abertzale, también es heroinómano. En un momento dado, Paco huye de casa llevándose una pistola de su padre. Mientras el Comandante inicia la búsqueda de su hijo acompañado del padre de Urko, empieza a descubrir un mundo desconocido y poco a poco se producen en él importantes cambios.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vpjGsKbtUbGGvB47wqS6glqBeF7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/o55iCtiu26j1g8SI2JUWy9hFYox.jpg",
+        "vote_average": 6.5,
+        "release_date": "1983-09-04",
+        "year": "1983",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "José Luis Manzano",
+            "role": "Paco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "José Manuel Cervino",
+            "role": "Evaristo Torrecuadrada",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sAZ07e1ZNPYUx7MCldmBIGcWRdq.jpg"
+          },
+          {
+            "name": "Luis Iriondo",
+            "role": "Martín Aramendía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8nr0PfCI0t15PSeOX9M7FphjyRR.jpg"
+          },
+          {
+            "name": "Javier García",
+            "role": "Urko",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/4tZ2zMaRdj3uFd4MLvdKLQCZ3rt.jpg"
+          },
+          {
+            "name": "Enrique San Francisco",
+            "role": "Mikel Orbea",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qqCGyo5yFIGr3KC8WLDzP7dhSZQ.jpg"
+          },
+          {
+            "name": "Andrea Albani",
+            "role": "Betty",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/n1S8e2Ygq3ceGO5S0IQwXZgl8Wg.jpg"
+          },
+          {
+            "name": "Queta Ariel",
+            "role": "Eulalia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wO5V9McMqUa85VF70NmurZd7w5f.jpg"
+          },
+          {
+            "name": "Marta Molins",
+            "role": "Pilar",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ovidi Montllor",
+            "role": "El cojo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/oSuziEoDTGULkz7kApCaBzXqW6i.jpg"
+          },
+          {
+            "name": "Pedro Nieva Parola",
+            "role": "Teniente Alcántara",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ksegsv8txdk4al3fzblq"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.674845",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Perras callejeras (1985).mp4",
+      "parsed": {
+        "type": "movie",
+        "title": "Perras callejeras",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 297043,
+        "title": "Perras callejeras",
+        "original_title": "Perras callejeras",
+        "overview": "Crista, Berta y Sole son tres jóvenes que se sienten explotadas y discriminadas por la sociedad. Crista, gitana, tiene que soportar a un padrastro borracho e inútil, que la obliga a robar. Berta sale de la cárcel tras cumplir condena por un crimen que no cometió y es abordada por un proxeneta que la quiere meter en la prostitución. Sole está enferma y enganchada en la droga, y necesita más y más dinero. Por ello, armadas con navajas, las tres mujeres empiezan a asaltar en calles oscuras a los viandantes, pero el botín es escaso, por lo que deciden emprender algo un poco más importante.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aM8fZRllfZabWqvJD4Ig3n2PjrP.jpg",
+        "backdrop_url": "",
+        "vote_average": 4.8,
+        "release_date": "1985-03-15",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Sonia Martínez",
+            "role": "Berta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pNL6Hqs3DyjREMSDOTO43D5OQP5.jpg"
+          },
+          {
+            "name": "Teresa Giménez",
+            "role": "Crista",
+            "thumbnail": ""
+          },
+          {
+            "name": "Susana Sentís",
+            "role": "Sole",
+            "thumbnail": ""
+          },
+          {
+            "name": "Joan Borràs",
+            "role": "Don Epi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r4vwrHEO6F2DU85EyYS7j9JSHl1.jpg"
+          },
+          {
+            "name": "Gabriel Renom",
+            "role": "Carlos",
+            "thumbnail": ""
+          },
+          {
+            "name": "Martín Garrido",
+            "role": "Miguel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Alfred Lucchetti",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1aY1H8d0jNo8W0TlXDNySea6iJ3.jpg"
+          },
+          {
+            "name": "Tony Isbert",
+            "role": "Manolo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eKtVnKGo7hCqNSD7vJCJNjmXNeJ.jpg"
+          },
+          {
+            "name": "Luis Cuenca",
+            "role": "Don Eulogio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/o3LBBJGqzz3qTzpUpSktzJfcxAH.jpg"
+          },
+          {
+            "name": "Conrado Tortosa 'Pipper'",
+            "role": "Camello/Párroco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wk8QCXJlQyKk0YAngaPy4fareEL.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?l4cptu8vyx1hhix0cfkv"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.778378",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "La Corea (1976).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La Corea",
+        "year": "1976",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 379345,
+        "title": "La Corea",
+        "original_title": "La Corea",
+        "overview": "Toni es un joven de diecisiete años que llega a Madrid en busca de trabajo. Un amigo de su mismo pueblo le pone en contacto con Charo \"La Corea\", mujer madura que se dedica a facilitar muchachos a los americanos de Torrejón. Charo se enamora de Toni provocando las iras de Sebas, antiguo gigolo de \"la Corea\".",
+        "poster_url": "https://image.tmdb.org/t/p/w500/leq9CxiLkZYqp2X1kLYxhqTF7O5.jpg",
+        "backdrop_url": "",
+        "vote_average": 5.8,
+        "release_date": "1976-10-28",
+        "year": "1976",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Queta Claver",
+            "role": "Charo 'La Corea'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7fHN4zCW7eJZGO9IDNn7sRNeOu9.jpg"
+          },
+          {
+            "name": "Cristina Galbó",
+            "role": "Vicky",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fKxk2fMt1IpJJTPME4gsvX6KtdZ.jpg"
+          },
+          {
+            "name": "Encarna Paso",
+            "role": "Encarna",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3mDiXsoHZxgKU0N08fpATztghUY.jpg"
+          },
+          {
+            "name": "Gonzalo",
+            "role": "Paco",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ángel Pardo",
+            "role": "Toni",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/e3cMAyN9jwIp9rcvyJscvNYf6wi.jpg"
+          },
+          {
+            "name": "Dean Selmier",
+            "role": "Fred",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tGjP5D2P2cLP78vTbvddO0GUiIi.jpg"
+          },
+          {
+            "name": "José Luis Alexandre",
+            "role": "Sebas",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mimí Muñoz",
+            "role": "Dueña Pensión",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Franco",
+            "role": "Simón",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/4wQNai7xGxM48VrV1arZk2HO2XZ.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Taxista",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?m5cbtlnrzoe6epagdmja"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:24.946997",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Muerte de un quinqui (1975).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Muerte de un quinqui",
+        "year": "1975",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 136783,
+        "title": "Muerte de un quinqui",
+        "original_title": "Muerte de un quinqui",
+        "overview": "Tras el asalto a una joyería, la custodia del valioso botín es encomendada temporalmente a Marcos, un peligroso psicópata. Pero Marcos tiene otros planes: huir con las joyas y buscar un comprador. Cuando Martín, el jefe de la banda, y sus colegas se enteran de su desaparición se lanzarán en su búsqueda.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ligzcpw0tPm71PLOgfyTDR0pha0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/fHxmYsJJiCO1q4o4zCLyXmfjhDn.jpg",
+        "vote_average": 5.4,
+        "release_date": "1975-12-31",
+        "year": "1975",
+        "genres": [
+          {
+            "id": 53,
+            "name": "Suspense"
+          },
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Carmen Sevilla",
+            "role": "Marta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9N9MtWW8MRH96H77MRlJXx81AmY.jpg"
+          },
+          {
+            "name": "Paul Naschy",
+            "role": "Marcos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/uqdwjJhB9MV36bio6AWyIQ4vIi7.jpg"
+          },
+          {
+            "name": "Heinrich Starhemberg",
+            "role": "Ricardo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yvPth9v7rxO21Rpxafk48YbLDG5.jpg"
+          },
+          {
+            "name": "Julia Saly",
+            "role": "Elena",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kXUYR5QS1dOfPGkFrdKLxTnSpYD.jpg"
+          },
+          {
+            "name": "Pedro Mari Sánchez",
+            "role": "Compañero de Marcos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ym4GuEpVrg0XR3Y077iUwu6hCNd.jpg"
+          },
+          {
+            "name": "Francisco Nieto",
+            "role": "Samano (as Paco Nieto)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9vlAAxSIpdVonvD0QqEGSeWjoVH.jpg"
+          },
+          {
+            "name": "Fernando Hilbeck",
+            "role": "Amigo de Marcos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s65zVxbR8yQlKiUIu4jgcSo4ngv.jpg"
+          },
+          {
+            "name": "Mabel Escaño",
+            "role": "Irene",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/61yxeRf7a5I9Fawb2UKxVple1zZ.jpg"
+          },
+          {
+            "name": "Eva León",
+            "role": "Isabel (as Eva Leon)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hIV21QghvGq4aagMifSDPzYQLfh.jpg"
+          },
+          {
+            "name": "Frank Braña",
+            "role": "Martin",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cVl6735BB319Xm8q2N39upkN177.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?n7qvarodammkqx6blg63"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.081057",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Fanny Pelopaja (1984).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Fanny Pelopaja",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 94386,
+        "title": "Fanny «Pelopaja»",
+        "original_title": "Fanny «Pelopaja»",
+        "overview": "A Fanny, una mujer que acaba de salir de la cárcel, siempre le han ofrecido la violencia como la única posibilidad de supervivencia. \"El Gallego\", ex policía, fue expulsado del cuerpo por sus métodos irregulares y, concretamente, por llevar a cabo una cruel agresión contra Fanny y matar a su novio. Ahora ambos se buscan para matarse pero, en realidad, un sentimiento muy distinto al odio les acompaña.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/zJOQAolFLmqtnL24j5mDl3nG0VS.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xGTFNn426VeB20eNn8Ii7UkVHG7.jpg",
+        "vote_average": 5.0,
+        "release_date": "1984-07-02",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fanny Cottençon",
+            "role": "Estefanía Sánchez/Fanny 'Pelopaja'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9uRzXYEgsDvdxRfT8F6cRFPAgdh.jpg"
+          },
+          {
+            "name": "Bruno Cremer",
+            "role": "Andrés Gallego",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nJKNyrnUKN3WtbX4ERaShXVkBsd.jpg"
+          },
+          {
+            "name": "Francisco Algora",
+            "role": "Julián",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1RUbOlWnaMiP2xX5crcSIjgutJQ.jpg"
+          },
+          {
+            "name": "Berta Cabré",
+            "role": "Nena",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pJiMw8sbMlvBJDfxMwSQXaiyUeP.jpg"
+          },
+          {
+            "name": "Ian Sera",
+            "role": "El Gato",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tNz1BVCPBiIW8TEOW8B9UDCbMpB.jpg"
+          },
+          {
+            "name": "Paca Gabaldón",
+            "role": "La socióloga",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lvGU25HSCwHrDchfdE9KnczKtju.jpg"
+          },
+          {
+            "name": "Eduardo MacGregor",
+            "role": "Calvo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9sfpEyRFZJ57nQmdbvLoMX5kUTp.jpg"
+          },
+          {
+            "name": "Joaquim Cardona",
+            "role": "Pérez",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vuF5OmTgM3TB8JLRqzWGP02Dgpg.jpg"
+          },
+          {
+            "name": "Roberto Asla",
+            "role": "Pelo Blanco",
+            "thumbnail": ""
+          },
+          {
+            "name": "Jordi Serrat",
+            "role": "Policía",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/1oE0YAutFnznrXwaxYRL1vjdWYb.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?nucver2awpniunsd2gsf"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.212716",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El diputado (1978).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El diputado",
+        "year": "1978",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115894,
+        "title": "El diputado",
+        "original_title": "El diputado",
+        "overview": "Roberto Orbea, militante clandestino de un partido de izquierdas durante el franquismo, es elegido diputado en las elecciones de 1977. En el momento más importante de su carrera política, y cuando está a punto de ser nombrado Secretario General de su partido, un grupo de extrema derecha le prepara un chantaje aprovechándose de su homosexualidad, preparándole incluso un joven amante como gancho.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1zObGiy4FgTZx1IDam53s1lN44E.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/5p0kMEeMEfLiy8Gb4yhG0cjBATD.jpg",
+        "vote_average": 6.0,
+        "release_date": "1978-10-20",
+        "year": "1978",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "José Sacristán",
+            "role": "Roberto Orbea",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dT1tMNeRiBHVfpgSKY1EoxiioVw.jpg"
+          },
+          {
+            "name": "María Luisa San José",
+            "role": "Carmen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lIdbmPQP34P9HmONRzJlKkcmfSt.jpg"
+          },
+          {
+            "name": "José Luis Alonso",
+            "role": "Juanito",
+            "thumbnail": ""
+          },
+          {
+            "name": "Enrique Vivó",
+            "role": "Eusebio Moreno Pastrana",
+            "thumbnail": ""
+          },
+          {
+            "name": "Agustín González",
+            "role": "Carrés",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mZO2NuM7e7ftsutaiflgT20EM0G.jpg"
+          },
+          {
+            "name": "Queta Claver",
+            "role": "Juanito's Mother",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7fHN4zCW7eJZGO9IDNn7sRNeOu9.jpg"
+          },
+          {
+            "name": "Ángel Pardo",
+            "role": "Nes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/e3cMAyN9jwIp9rcvyJscvNYf6wi.jpg"
+          },
+          {
+            "name": "Juan Antonio Bardem",
+            "role": "Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7kKj3EIN6vvn8q1UFsWvsqULsJW.jpg"
+          },
+          {
+            "name": "Antonio Gonzalo",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ramón Reparaz",
+            "role": "Police Investigator",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xiVGznW0moo1Iymnw78KoEnL7Kj.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?nz126yxhuwphftxiy5wv"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.349776",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Las Leyes De La Frontera (2021).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Las Leyes De La Frontera",
+        "year": "2021",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 776821,
+        "title": "Las leyes de la frontera",
+        "original_title": "Las leyes de la frontera",
+        "overview": "Verano de 1978. Ignacio Cañas es un estudiante de 17 años introvertido y algo inadaptado que vive en Girona. Al conocer al Zarco y a Tere, dos jóvenes delincuentes del barrio chino de la ciudad, se ve inmerso en una carrera imparable de hurtos, robos y atracos. Es la historia en la que Nacho se hace mayor, cruzando la línea que hay entre el bien y el mal, entre la justicia y la injusticia.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/bMfjAg9ia8RIdlTvzit4R3ayajG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/avmsZW0c8y27bL1Mra95J5jHyXA.jpg",
+        "vote_average": 6.9,
+        "release_date": "2021-10-08",
+        "year": "2021",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Marcos Ruiz",
+            "role": "Nacho",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rpAw3p2WjLFYfmqM3JdF1tgDEDE.jpg"
+          },
+          {
+            "name": "Begoña Vargas",
+            "role": "Tere",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zlPlxLsEgbGJwTJcDunqCqBVGVP.jpg"
+          },
+          {
+            "name": "Chechu Salgado",
+            "role": "Zarco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/plhQKdcWiL8rvHAnQu1UwHZV5fq.jpg"
+          },
+          {
+            "name": "Pep Tosar",
+            "role": "Inspector Vives",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/smKTVFGwQxxB7xViCg7pp3TST9R.jpg"
+          },
+          {
+            "name": "Xavier Martín",
+            "role": "Gordo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Daniel Ibáñez",
+            "role": "Piernas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/d2j4qq0TUasP8if26wIXQOP4kjS.jpg"
+          },
+          {
+            "name": "Guillermo Lasheras",
+            "role": "Víctor",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hZMMrFZRzEQdcmYrahZAwYalAYO.jpg"
+          },
+          {
+            "name": "Cintia García",
+            "role": "Lidia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wNYtW9i9B67siJ66c0SzaiDWPqH.jpg"
+          },
+          {
+            "name": "Jorge Aparicio",
+            "role": "Chino",
+            "thumbnail": ""
+          },
+          {
+            "name": "Víctor Manuel Pajares",
+            "role": "Drácula",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/6ejRg4XscItgMlXxs7yC1w2LKIw.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?o7x18k8co5tg70nzv4my"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.527088",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El pico 2 (1984).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El pico 2",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 99760,
+        "title": "El pico 2",
+        "original_title": "El pico 2",
+        "overview": "Paco, hijo del comandante de la Guardia Civil Evaristo Torrecuadrada, se ha visto envuelto en Bilbao en el asesinato de una pareja de traficantes de heroína. Cuando la prensa empieza a interesarse por el caso, los esfuerzos de su padre por apartarlo de la droga y ocultar las pruebas del crimen resultan inútiles. Paco será detenido, juzgado y encarcelado en la madrileña prisión de Carabanchel, donde experimentará en carne propia los rigores del sistema penitenciario.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fc4lQVxiWIuPAw1d6jpg5UaMOiO.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lBQpmFLRSF37mgUXhwp9g8tMWrR.jpg",
+        "vote_average": 6.25,
+        "release_date": "1984-11-09",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "José Luis Manzano",
+            "role": "Paco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "Fernando Guillén",
+            "role": "Evaristo Torrecuadrada",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3NXbnoe3aVUi0SqBUYNVLu24GxW.jpg"
+          },
+          {
+            "name": "Andrea Albani",
+            "role": "Betty",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/n1S8e2Ygq3ceGO5S0IQwXZgl8Wg.jpg"
+          },
+          {
+            "name": "Jaume Valls",
+            "role": "El Lehendakari",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Luis Fernández 'Pirri'",
+            "role": "El Pirri",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nroz9MOVUJZuWCplrdS9AmvmYRk.jpg"
+          },
+          {
+            "name": "Gracita Morales",
+            "role": "Adela",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nQREjnhXrheYJyW4EoqdY7GPztz.jpg"
+          },
+          {
+            "name": "Rafaela Aparicio",
+            "role": "Abuela",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yOHAj7TV66QAYznxCHIAijxd78K.jpg"
+          },
+          {
+            "name": "Agustín González",
+            "role": "Laureano Alonso",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mZO2NuM7e7ftsutaiflgT20EM0G.jpg"
+          },
+          {
+            "name": "Valentín Paredes",
+            "role": "El Tejas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jDMtHgmYwxx5D0DKcTcKSuW7RQH.jpg"
+          },
+          {
+            "name": "Fermín Cabal",
+            "role": "Miguel Caballero",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?p523ikld1smocb2kkxuo"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.650618",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Colegas (1982).mp4",
+      "parsed": {
+        "type": "movie",
+        "title": "Colegas",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115903,
+        "title": "Colegas",
+        "original_title": "Colegas",
+        "overview": "Los hemanos Antonio y Rosario y el novio de ésta, José, deben enfrentarse diariamente a las dificultades derivadas de su humilde condición social. Ninguno tiene trabajo y las escasas oportunidades que se les presentan para lograrlo hacen que se fortalezcan los lazos que les unen.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hAlIzdwCGKCFwr3BOE6S86NzsWi.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eUDh5kmzOL6ZzQgTE5jzgC5NIlC.jpg",
+        "vote_average": 6.147,
+        "release_date": "1982-10-25",
+        "year": "1982",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Antonio Flores",
+            "role": "Antonio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5ms4CuoQvqdnD0XIUKtY2fYDBi7.jpg"
+          },
+          {
+            "name": "Rosario Flores",
+            "role": "Rosario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zS8UNKXADu6USCf6WXvNqo2OHMS.jpg"
+          },
+          {
+            "name": "José Luis Manzano",
+            "role": "José",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "José Manuel Cervino",
+            "role": "Esteban",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sAZ07e1ZNPYUx7MCldmBIGcWRdq.jpg"
+          },
+          {
+            "name": "Queta Ariel",
+            "role": "Herminia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wO5V9McMqUa85VF70NmurZd7w5f.jpg"
+          },
+          {
+            "name": "José Luis Fernández 'Pirri'",
+            "role": "Pirri",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nroz9MOVUJZuWCplrdS9AmvmYRk.jpg"
+          },
+          {
+            "name": "Enrique San Francisco",
+            "role": "Rogelio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qqCGyo5yFIGr3KC8WLDzP7dhSZQ.jpg"
+          },
+          {
+            "name": "Ricardo Márquez",
+            "role": "Sebas",
+            "thumbnail": ""
+          },
+          {
+            "name": "Francisco Casares",
+            "role": "Padre de Antonio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eFCPoJLXFypOoRLjSXdaeMp24vd.jpg"
+          },
+          {
+            "name": "Isabel Perales",
+            "role": "Madre de José",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?pg8oqwwc1gah4os29ul3"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.773176",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Volando voy (2006).mp4",
+      "parsed": {
+        "type": "movie",
+        "title": "Volando voy",
+        "year": "2006",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 74345,
+        "title": "Volando voy",
+        "original_title": "Volando voy",
+        "overview": "Getafe, finales de los años 70. La gente mira extrañada como un 600 sin conductor atraviesa la calle a toda velocidad. Al volante va Juan Carlos, el Pera, un niño de 9 años con una extraordinaria habilidad para conducir coches.... y para robarlos. Sus padres, desesperados, intentan alejarle de sus amigos, los chavales más problemáticos del barrio, pero el Pera elige la calle como centro de operaciones y lugar de aprendizaje, sin reglas ni límites. Pero su suerte cambia cuando llega a la Ciudad Escuela de los Muchachos. Allí, en un arriesgado pulso, el carisma y convicción del Tío Alberto intentarán rescatar al niño que, al fin y al cabo, el Pera lleva dentro. Volando Voy está basada en la historia real de Juan Carlos Delgado, el Pera.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fdhy43Kp8RtXzut8Mc3jb8nzlMY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lgwU7ivSVMgUSGbxMxCCciOsv2O.jpg",
+        "vote_average": 5.7,
+        "release_date": "2006-01-13",
+        "year": "2006",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 28,
+            "name": "Acción"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Borja Navas",
+            "role": "Juan Carlos 'El Pera'",
+            "thumbnail": ""
+          },
+          {
+            "name": "Fernando Tejero",
+            "role": "Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/btmXRLQoOAVFbaS8sfZxg7GqXG2.jpg"
+          },
+          {
+            "name": "Mariola Fuentes",
+            "role": "Pepita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cWElWUCtJ1ecAzs55ppm1kJR4Bd.jpg"
+          },
+          {
+            "name": "Àlex Casanovas",
+            "role": "Tío Alberto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2qZwHh0dSD5MfSqBSfGuDbtWL8x.jpg"
+          },
+          {
+            "name": "Mar Regueras",
+            "role": "Bego",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8XRgVVpV8EdnjF04leGymzBfLjd.jpg"
+          },
+          {
+            "name": "Juan Carlos Delgado",
+            "role": "Comrade Juan",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Luis García Pérez",
+            "role": "The young gentleman",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pszEIxu2skaRTf45YshJ2PTEuTO.jpg"
+          },
+          {
+            "name": "Christian Nájera",
+            "role": "El Charly",
+            "thumbnail": ""
+          },
+          {
+            "name": "Andreas Muñoz",
+            "role": "El Gavioto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5wwwN4hgOBlFHWnw56sYecm3bZp.jpg"
+          },
+          {
+            "name": "Juan Carlos Marina",
+            "role": "The Indian",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?q54euyt38u151ok7gxug"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:25.923321",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Nunca en horas de clase (1978).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Nunca en horas de clase",
+        "year": "1978",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 299165,
+        "title": "Nunca en horas de clase",
+        "original_title": "Nunca en horas de clase",
+        "overview": "Angélica, Susy y Yvonne son tres adolescentes de vida alegre de clase acomodada que van al mejor colegio de pago de Barcelona. Como sus despreocupados padres rechazan darles dinero para intentar así evitar que se paguen los vicios, las chicas utilizan armas de mujer para conseguir todo lo que quieren. Una apuesta entre Angélica y Susy para seducir al director del colegio será el colofón de las aventuras de estas jovencitas desvergonzadas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aefXFMZV4qEEJBMW56u9C6Psork.jpg",
+        "backdrop_url": "",
+        "vote_average": 4.3,
+        "release_date": "1978-11-03",
+        "year": "1978",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Inma de Santis",
+            "role": "Susy",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zSkIyjyOBcKYFrXGMDCsjNazVD2.jpg"
+          },
+          {
+            "name": "Nadia Windell",
+            "role": "Angélica",
+            "thumbnail": ""
+          },
+          {
+            "name": "Carlos Ballesteros",
+            "role": "Director",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vUjCGxQiBTaSdwK2sDoScDm17sr.jpg"
+          },
+          {
+            "name": "Isabel Mestres",
+            "role": "Celia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sGAwSctmtfc8bdurrKS78UKo6vP.jpg"
+          },
+          {
+            "name": "Alicia Agut",
+            "role": "Encarna",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yIihKpIBKJZ2g2trsB4CXq2PDWf.jpg"
+          },
+          {
+            "name": "Nuria Mora",
+            "role": "Yvonne",
+            "thumbnail": ""
+          },
+          {
+            "name": "Florencio Calpe",
+            "role": "Padre de Angélica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8C0GSJr4JMr3aFwTFZAvw6jjHHS.jpg"
+          },
+          {
+            "name": "Jordi Serrat",
+            "role": "Gaspar",
+            "thumbnail": ""
+          },
+          {
+            "name": "Alfred Lucchetti",
+            "role": "Portero (as Alfredo Luchetti)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1aY1H8d0jNo8W0TlXDNySea6iJ3.jpg"
+          },
+          {
+            "name": "José Luis López Vázquez",
+            "role": "Ligue de Angélica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3Gkpq4ZxUdsnz0XiqVXUVME6IGE.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?r1ivsk5xhi6s7mnpuuid"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.043889",
       "folder_id": "19161644"
     },
     {
@@ -244,7 +3240,96 @@
           "url": "https://1fichier.com/?rb67s8m51o7lcriwz1t4"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.310960",
+      "date_added": "2026-02-16T18:17:26.044430",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Los placeres ocultos (1977).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los placeres ocultos",
+        "year": "1977",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115890,
+        "title": "Los placeres ocultos",
+        "original_title": "Los placeres ocultos",
+        "overview": "Eduardo, un importante ejecutivo, conoce a Miguel, un atractivo joven de barrio de quien se enamora. Turbios personajes como Rosa, una mujer casada que engaña a su marido con los jovencitos del barrio, las prostitutas, los chulos, los navajeros, los chantajistas serán determinantes en el destino de los protagonistas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/nySJOOZrQp8d29vUC3AdVhUhpJb.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rlSsDsuJyoJDT6pPxaYwGNO0AsM.jpg",
+        "vote_average": 5.7,
+        "release_date": "1977-04-14",
+        "year": "1977",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Simón Andreu",
+            "role": "Eduardo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6KGaeT8peDKh8Hzq7HrRKqA2jCV.jpg"
+          },
+          {
+            "name": "Charo López",
+            "role": "Rosa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/g4NOfEwhBlcj3qGEDNe0IPR6RGD.jpg"
+          },
+          {
+            "name": "Tony Fuentes",
+            "role": "Miguel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Beatriz Rossat",
+            "role": "Carmen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJWn50RuUqXX89836C1G9uXCcw7.jpg"
+          },
+          {
+            "name": "Germán Cobos",
+            "role": "Ignacio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rUYkYTgOU7adUSB8rsjWHOIenxg.jpg"
+          },
+          {
+            "name": "Antonio Corencia",
+            "role": "Raúl",
+            "thumbnail": ""
+          },
+          {
+            "name": "Antonio Betancourt",
+            "role": "Miguel's Friend",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ángel Pardo",
+            "role": "Nes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/e3cMAyN9jwIp9rcvyJscvNYf6wi.jpg"
+          },
+          {
+            "name": "Antonio Iranzo",
+            "role": "Carmen's Father",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xIk5MvmEvvoYEOtmI4Fi9ym8Skn.jpg"
+          },
+          {
+            "name": "Antonio Gamero",
+            "role": "Voyeur in Park",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1uzxZm2r8u9vtALKYyJDMKe3B9I.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?rexgyb53cgmfgv6jy4mp"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.171653",
       "folder_id": "19161644"
     },
     {
@@ -332,25 +3417,468 @@
           "url": "https://1fichier.com/?rr6im0ec64tcoiat3djm"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.400383",
+      "date_added": "2026-02-16T18:17:26.172106",
       "folder_id": "19161644"
     },
     {
-      "file": "Aunque tu no lo sepas (2001)-020.mkv",
+      "file": "Historias del Kronen (1995).mkv",
       "parsed": {
         "type": "movie",
-        "title": "Aunque tu no lo sepas -020",
+        "title": "Historias del Kronen",
+        "year": "1995",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 98600,
+        "title": "Historias del Kronen",
+        "original_title": "Historias del Kronen",
+        "overview": "Carlos (Juan Diego Botto) es un joven estudiante de 21 años al que le gusta provocar y transgredir. Por la noche sale al encuentro de sus amigos en el Kronen, un bar. No hay límites ni barreras aceptadas. Cada aventura se encadena a la siguiente, como si se tratara de una noche continua con la voluntad de vivir cada minuto como si fuera el último.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vulTVwoMoy1IE1IRJhihHYQ6H2H.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/q4GHvZLR5czl7KB2NGwsc4b956Z.jpg",
+        "vote_average": 6.0,
+        "release_date": "1995-04-29",
+        "year": "1995",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Juan Diego Botto",
+            "role": "Carlos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6iu1uNMl511ZmEn0y828ZeLiuox.jpg"
+          },
+          {
+            "name": "Jordi Mollà",
+            "role": "Roberto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9XsTmWLJ2qMXoUpcb105h6h5OUX.jpg"
+          },
+          {
+            "name": "Eduardo Noriega",
+            "role": "Joven pelea 1.",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wL2pCdw5lNsDrWRor3rxwLaSTQK.jpg"
+          },
+          {
+            "name": "Aitor Merino",
+            "role": "Pedro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nc5RxOe9Qoa3e6VBUux3NxTTiST.jpg"
+          },
+          {
+            "name": "Armando del Río",
+            "role": "Manolo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/AuCppv180f27WZwwGnesEUrPpQr.jpg"
+          },
+          {
+            "name": "Diana Gálvez",
+            "role": "Silvia",
+            "thumbnail": ""
+          },
+          {
+            "name": "Iñaki Méndez",
+            "role": "Miguel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Mercedes Sampietro",
+            "role": "Madre de Carlos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5ZwykqdX9ClgABxC8d9VGSDW4kd.jpg"
+          },
+          {
+            "name": "André Falcon",
+            "role": "Abuelo de Carlos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/p7QRF1alXdQtGnJQelrvPecIlip.jpg"
+          },
+          {
+            "name": "Josep Maria Pou",
+            "role": "Padre de Carlos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dlrkGiYFUguEBdf19CLWHF1vGCj.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/cGEpXiyxMD8WG5QzUioNy2CSCHY.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?t7x8gs7zld19u3yz2150"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.306267",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Perros callejeros (1977).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Perros callejeros",
+        "year": "1977",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 47050,
+        "title": "Perros callejeros",
+        "original_title": "Perros callejeros",
+        "overview": "Una pandilla de quinceañeros que viven en los suburbios de Barcelona se han especializado en el robo de coches. Con ellos se dedican a dar el \"tirón\", a asaltar tiendas para malvender las mercancías y a atacar a parejas en lugares apartados con el fin de desvalijarlas y abusar de las mujeres. Sorprendidos a veces en flagrante delito, son perseguidos por la policía; para zafarse invaden la calzada, circulan en dirección contraria y se saltan controles, resultando a veces malheridos.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fbUlbqOYsFHQMHYsew4b0gtQw9S.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/y8tGuSOktAmbFzUJC6jzI5hOLoj.jpg",
+        "vote_average": 6.466,
+        "release_date": "1977-12-23",
+        "year": "1977",
+        "genres": [
+          {
+            "id": 28,
+            "name": "Acción"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 80,
+            "name": "Crimen"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Ángel Fernández Franco",
+            "role": "El Torete",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sVp4CGvJfTOHfSAaOKNpG8r6Y0Q.jpg"
+          },
+          {
+            "name": "Nadia Windell",
+            "role": "Isabel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Víctor Petit",
+            "role": "Manolo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jrBBEGmILtBc177Rbnq2hIjoPdO.jpg"
+          },
+          {
+            "name": "Frank Braña",
+            "role": "El Esquinao",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cVl6735BB319Xm8q2N39upkN177.jpg"
+          },
+          {
+            "name": "Xabier Elorriaga",
+            "role": "Padre Ignacio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/rPxfRfhEanQh74uSnYeijlRezPf.jpg"
+          },
+          {
+            "name": "Christa Leem",
+            "role": "Merche",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/4oxsnfWXDH5QQB6bBNZrZP3OCR8.jpg"
+          },
+          {
+            "name": "Miguel Hugal Cuenca",
+            "role": "El Pijo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Jesús Miguel Martínez",
+            "role": "El Corneta",
+            "thumbnail": ""
+          },
+          {
+            "name": "César Sánchez",
+            "role": "El Fitipaldi",
+            "thumbnail": ""
+          },
+          {
+            "name": "Francisco Javier Sánchez",
+            "role": "El Chungo",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?tr557qwhlp4xzshclbbr"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.412413",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Matar al Nani (1988).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Matar al Nani",
+        "year": "1988",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 276677,
+        "title": "Matar al Nani",
+        "original_title": "Matar al Nani",
+        "overview": "Santiago Corella, El Nani, es un atracador de joyerías nacido en un familia marginal. Algunos altos cargos de la Policía, junto con el industrial y joyero Molero, montan una organización de estafa a las aseguradoras, para lo cual utilizan los servicios de una banda de atracadores para robar joyerías con total impunidad. Con el cambio de gobierno, el ministro del interior socialista pide mayor control policial en los atracos a joyerías y que se encuentre la mercancía robada. Es entonces cuando el Nani deja de ser útil a la organización.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/kQQd03Joa4n1NNHcQsCWMzONqzu.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mokGoKEvhdDNKfHU4f35DLFODls.jpg",
+        "vote_average": 3.944,
+        "release_date": "1988-04-22",
+        "year": "1988",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Frédéric Deban",
+            "role": "Santiago Corella 'El Nani'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7ab2rGDeHtTB7mUE5ErA2feEfbW.jpg"
+          },
+          {
+            "name": "José Pedro Carrión",
+            "role": "Gálvez",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nWckZhviTyIB8n7bzo2qBOp3itJ.jpg"
+          },
+          {
+            "name": "Eulalia Ramon Estrach",
+            "role": "Lola",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/erpJMOmTYaVQwfVwZM4yu6RPv9g.jpg"
+          },
+          {
+            "name": "Chema de Miguel",
+            "role": "Teo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jAf66knHTMR5LZS6NO4dHj7yl4C.jpg"
+          },
+          {
+            "name": "Fermí Reixach",
+            "role": "Richard",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1V1K53TgdcH6WXNjPeZK77imE25.jpg"
+          },
+          {
+            "name": "Albert Vidal",
+            "role": "Manuel Soto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ajst7JAylVSzhRB6l1qnpwcpTP2.jpg"
+          },
+          {
+            "name": "Damián Velasco",
+            "role": "Luis Tejada",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2OcsH0Va4MtAap25HOLsapAm1us.jpg"
+          },
+          {
+            "name": "Antonio Dechent",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3aZ2VQrsGmZl5QKlS5Z4kth5ch8.jpg"
+          },
+          {
+            "name": "Yolanda Farr",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wAlOrGj5uU4YatkAk4fWganMSh0.jpg"
+          },
+          {
+            "name": "Pepe Soriano",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jtDGN5xEIY4CotTv0LqT9vehk19.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?uwadewqhyq31zyodn8ro"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.541956",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "El Lute_ camina o revienta (1987).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El Lute camina o revienta",
+        "year": "1987",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115693,
+        "title": "El Lute: Camina o revienta",
+        "original_title": "El Lute: camina o revienta",
+        "overview": "Un hombre humilde recorre Extremadura con su hijo, Eleuterio Sánchez, más conocido como el Lute. Éste roba unas gallinas y es condenado a seis meses de cárcel. Años más tarde, se ve involucrado en un atraco a una joyería en el que muere un vigilante. El Lute es juzgado por ello y condenado a muerte, pena que le es conmutada por la de cadena perpetua. Finalmente, durante un traslado en tren, logrará fugarse, convirtiéndose en el hombre más buscado de España.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oONiv6etDkhjPfmzPjHInEDPg8p.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/z4WOWDfdw0qxJzfGNyZT0oVBYvN.jpg",
+        "vote_average": 5.711,
+        "release_date": "1987-09-19",
+        "year": "1987",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Imanol Arias",
+            "role": "Eluterio Sánchez 'El Lute'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lbBiRaDzDzojfs6VbMfgzsf6QnI.jpg"
+          },
+          {
+            "name": "Victoria Abril",
+            "role": "Chelo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eXI42Fp7MIGHxEzmAX20I94CZi6.jpg"
+          },
+          {
+            "name": "Antonio Valero",
+            "role": "Raimundo Medrano",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yqKkzq9hcHObm4nZcrjRaZLVcrB.jpg"
+          },
+          {
+            "name": "Carlos Tristancho",
+            "role": "Juan José Agudo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cnCbVWxTz5GponXsBiqRAuQqm2h.jpg"
+          },
+          {
+            "name": "Diana Peñalver",
+            "role": "Esperanza",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kgaGA9jR3cN8IY7PKQwFLcKyA8r.jpg"
+          },
+          {
+            "name": "Margarita Calahorra",
+            "role": "La Madre de Chelo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Manuel de Blas",
+            "role": "Policía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aI3BzlNLvPzDQUHgXvCnEXvyylD.jpg"
+          },
+          {
+            "name": "Luis Marín",
+            "role": "Policía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wvUY3DgFLLVpq7XyuKjmfdTioAC.jpg"
+          },
+          {
+            "name": "Alicia Agut",
+            "role": "Señora 1",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yIihKpIBKJZ2g2trsB4CXq2PDWf.jpg"
+          },
+          {
+            "name": "José Luis Alexandre",
+            "role": "Policía",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?vcidmxmb8qu5fyky9z1k"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.658756",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Aunque tu no lo sepas (2001).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Aunque tu no lo sepas",
         "year": "2001",
         "quality": "desconocida"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 102516,
+        "title": "Aunque tú no lo sepas",
+        "original_title": "Aunque tú no lo sepas",
+        "overview": "A Lucía le da un vuelco al corazón cuando se cruza con Juan en unos grandes almacenes. Sin dudarlo, se decide a seguirle hasta su casa, la misma casa donde, veinticinco años atrás, Juan vio por primera vez a Lucía y se enamoró... Entonces tenía diecisiete años e inventaron un lenguaje común a través de los balcones. Pero Juan era un humilde chico de barrio, y los padre de Lucía tenían grandes planes para ella. Al ver a Juan, tanto tiempo después, se de cuenta de todo lo que ha renunciado por conseguir la posición que sus padres soñaban. Lucía se traslada a vivir frente la casa de Juan, trata de acercarse a él y reavivar aquel silenciosos diálogo entre balcones. Pero a Juan también le ha cambiado la vida y, sobre todo, no quiere que se abra la herida que Lucía dejó en su corazón cuando eran adolescentes.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4HGh9fMJGrJ6iBiIeFkgkqeGVAk.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/b6uKGiMCtE90LMwi4zuLeVeKy8w.jpg",
+        "vote_average": 6.2,
+        "release_date": "2001-01-05",
+        "year": "2001",
+        "genres": [
+          {
+            "id": 10749,
+            "name": "Romance"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Sílvia Munt",
+            "role": "Lucía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h2B7O6UVIdlfFmCEtTI1cqT2bNF.jpg"
+          },
+          {
+            "name": "Gary Piquer",
+            "role": "Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tjxfp9XrvBye2GcxjFhYiqKtqc2.jpg"
+          },
+          {
+            "name": "Andrés Gertrúdix",
+            "role": "Juan, de joven",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qR9EyorWi9Z8WnoFcY5AskYBW4B.jpg"
+          },
+          {
+            "name": "Cristina Brondo",
+            "role": "Lucía, de joven",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/czjecyVfFq2yJE4ZPbM9tLWDX22.jpg"
+          },
+          {
+            "name": "Óscar Jaenada",
+            "role": "Cacique",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qwphNLIwMyQW2ZLA0g0l1zFiB3w.jpg"
+          },
+          {
+            "name": "Daniel Guzmán",
+            "role": "Santi, de joven",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fIavoaNjO0EkF7ACBqLgMOJtpdK.jpg"
+          },
+          {
+            "name": "Mariví Bilbao",
+            "role": "Madre Lucia, de mayor",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/z7zZdAlAZC1OwI56vW401nbrKoo.jpg"
+          },
+          {
+            "name": "Luisa Gavasa",
+            "role": "Madre Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpw0QjiM1JhTVA7YlgBXOhQ30q6.jpg"
+          },
+          {
+            "name": "Emilio Linder",
+            "role": "Padre Juan",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gdIfIUzkTmRmPZEI1YyccJTCwES.jpg"
+          },
+          {
+            "name": "Txema Blasco",
+            "role": "Benito",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cAEGPfw9xsCZntZBYdWSXg3AUOG.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
       "links": [
         {
           "quality": "desconocida",
           "url": "https://1fichier.com/?vv2oa8kd71k075wivk82"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.477399",
+      "date_added": "2026-02-16T18:17:26.805003",
       "folder_id": "19161644"
     },
     {
@@ -414,7 +3942,387 @@
           "url": "https://1fichier.com/?w1rlluvvhxlet2igu17g"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.587517",
+      "date_added": "2026-02-16T18:17:26.805529",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "La estanquera de Vallecas (1987).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "La estanquera de Vallecas",
+        "year": "1987",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 111708,
+        "title": "La estanquera de Vallecas",
+        "original_title": "La estanquera de Vallecas",
+        "overview": "Leandro, un albañil en paro, y Tocho, un chaval amigo suyo, intentan atracar un estanco del madrileño barrio de Vallecas, pero la señora Justa, la estanquera, se lo impide alertando a los vecinos. Ante los gritos y amenazas de éstos, no tienen más remedio que atrancar la puerta del local. Avisada por los vecinos, llega la policía que, tras desalojar la plaza, toma posiciones a la espera de los acontecimientos. En el interior del estanco, el enfrentamiento entre los dos amigos y sus \"rehenes\", la estanquera y su sobrina Ángeles, va relajándose, y una incipiente simpatía surge entre ellos.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/iTNv9ZlNFVsPevNS7yEyHvna5nf.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8BjsbRzi8P9qkVG2MKK0VxCDqQS.jpg",
+        "vote_average": 6.191,
+        "release_date": "1987-04-09",
+        "year": "1987",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Emma Penella",
+            "role": "Doña Justa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fEFQvO6BW6AZADRweewrTmWbeAq.jpg"
+          },
+          {
+            "name": "José Luis Gómez",
+            "role": "Leandro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/eG52Jd823tAQ1Ktoz7eD3CGY2PR.jpg"
+          },
+          {
+            "name": "Maribel Verdú",
+            "role": "Ángeles",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xfpNy6z0eN2jwhv8NQnUxUYGq2P.jpg"
+          },
+          {
+            "name": "José Luis Manzano",
+            "role": "Tocho",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcssGIj26TxiNxc7xUEebD7KohL.jpg"
+          },
+          {
+            "name": "Fernando Guillén",
+            "role": "Maldonado",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3NXbnoe3aVUi0SqBUYNVLu24GxW.jpg"
+          },
+          {
+            "name": "Jesús Puente",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/z6uz9FxYBwOwxdwGkNpfp1bt3R.jpg"
+          },
+          {
+            "name": "Antonio Gamero",
+            "role": "Sargento Ortega",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1uzxZm2r8u9vtALKYyJDMKe3B9I.jpg"
+          },
+          {
+            "name": "Antonio Iranzo",
+            "role": "Don Julián",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xIk5MvmEvvoYEOtmI4Fi9ym8Skn.jpg"
+          },
+          {
+            "name": "Pedro Nieva Parola",
+            "role": "Teniente",
+            "thumbnail": ""
+          },
+          {
+            "name": "Tina Sainz",
+            "role": "Cuñada",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1tfzmb2fanB4nBxVkiN0gruPKK.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?yghpvmks9mne1jnbwsei"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:26.930737",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Los violadores del amanecer (1978).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los violadores del amanecer",
+        "year": "1978",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 229273,
+        "title": "Los violadores del amanecer",
+        "original_title": "Los violadores del amanecer",
+        "overview": "Una banda de delincuentes formada por cuatro chicos y una embarazada se dedican a secuestrar jovencitas para después violarlas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/13PaVZDDSd717Q0aFh7P4I9Smin.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/jNfEoNuBPBMO1fK2VMMqn5kmRCG.jpg",
+        "vote_average": 4.9,
+        "release_date": "1978-05-03",
+        "year": "1978",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Mireia Ros",
+            "role": "Dana",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ibJPlOAbrqKjgHFkgb1DSISOV93.jpg"
+          },
+          {
+            "name": "Bernard Seray",
+            "role": "Rafi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1oFUoGGR8SZEvEspGYN2ZM2q3DJ.jpg"
+          },
+          {
+            "name": "Manuel de Benito",
+            "role": "Rubiales",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wkj6Mqeb3C2iIGmbZ85szugAEhz.jpg"
+          },
+          {
+            "name": "Linda Lay",
+            "role": "María",
+            "thumbnail": ""
+          },
+          {
+            "name": "Eva Lyberten",
+            "role": "Elisa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hdrGh7WELHzB6qLUFBiD6ZV5GXv.jpg"
+          },
+          {
+            "name": "Daniel Medrán",
+            "role": "Quinto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1xn3nhMxpHYLzafi59gEF6auMwH.jpg"
+          },
+          {
+            "name": "César Sánchez",
+            "role": "El Caña",
+            "thumbnail": ""
+          },
+          {
+            "name": "Joan Borràs",
+            "role": "Comisario Vives",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r4vwrHEO6F2DU85EyYS7j9JSHl1.jpg"
+          },
+          {
+            "name": "Alicia Orozco",
+            "role": "Lagarta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/8uSPmegZaNjxGRGac9JGTM39jD5.jpg"
+          },
+          {
+            "name": "Ricard Reguant",
+            "role": "Policía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nTcGB0bvjHG25KJ0eRcCwK9Revi.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ym9dbn5b0p3npprnjwae"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:27.052213",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Deprisa, deprisa (1981).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Deprisa, deprisa",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 47211,
+        "title": "Deprisa, deprisa",
+        "original_title": "Deprisa, deprisa",
+        "overview": "Pablo, \"El Meca\", \"El Sebas\" y Ángela son cuatro amigos del extrarradio madrileño, cuya falta de expectativas es suplida por el dinero fácil y las drogas. Para escapar del ambiente marginal en el que viven necesitan conseguir dinero, pero no están dispuestos a trabajar durante años para poder ahorrar. Ellos sólo piensan en conseguirlo rápidamente y en vivir deprisa.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4MKnS0pB81ZCSDroa798Ne9BtUV.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lIqkuG6gvNwqkgoyMl6lTt8H8WI.jpg",
+        "vote_average": 6.371,
+        "release_date": "1981-03-25",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 10749,
+            "name": "Romance"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Berta Socuellamos Zarco",
+            "role": "Ángela",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Antonio Valdelomar",
+            "role": "Pablo",
+            "thumbnail": ""
+          },
+          {
+            "name": "Jesús Arias",
+            "role": "El Meca",
+            "thumbnail": ""
+          },
+          {
+            "name": "José María Hervás",
+            "role": "El Sebas",
+            "thumbnail": ""
+          },
+          {
+            "name": "María del Mar Serrano",
+            "role": "María",
+            "thumbnail": ""
+          },
+          {
+            "name": "Consuelo Pascual",
+            "role": "Abuela",
+            "thumbnail": ""
+          },
+          {
+            "name": "André Falcon",
+            "role": "Cajero",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/p7QRF1alXdQtGnJQelrvPecIlip.jpg"
+          },
+          {
+            "name": "Yves Arcanel",
+            "role": "Guarda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5yR6t6JosPbufCopojwHUoIeTmG.jpg"
+          },
+          {
+            "name": "Yves Barsacq",
+            "role": "Luis",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bxTkvQcR3b78MM3BXGBJ0jSbOL9.jpg"
+          },
+          {
+            "name": "Suzy Hannier",
+            "role": "Martita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/jkse529BbOCE5XeXaxcMcpkhqjI.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ypkb01obrf4kx52v114o"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:27.168811",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Yo, _El Vaquilla_ (1985).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Yo, El Vaquilla",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 189312,
+        "title": "Yo, 'El Vaquilla'",
+        "original_title": "Yo, 'El Vaquilla'",
+        "overview": "Relato de las andanzas de un famoso delincuente juvenil de Barcelona. Juan José Moreno Cuenca, alias \"El Vaquilla\", nace en una familia desestructurada debido al abandono de su padre. La madre tendrá que buscarse la vida para sacar a su familia adelante y el niño seguirá sus pasos criándose solo, en la calle y saltando de casa en casa de familiares. Así se convertirá en un conocido delincuente desde muy pronta edad con gran habilidad para robar y conducir coches. Esta es la historia contada en primera persona de este conocido delincuente, que pasó la mayor parte de su vida encerrado.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/myDF0z8XxLe1n9pRBQJgCpg7pvJ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kGTTc4hl7RH0zqUewLHqTU5lUHl.jpg",
+        "vote_average": 5.423,
+        "release_date": "1985-11-08",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 80,
+            "name": "Crimen"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Raúl García Losada",
+            "role": "El Vaquilla",
+            "thumbnail": ""
+          },
+          {
+            "name": "Teresa Giménez",
+            "role": "Rosita",
+            "thumbnail": ""
+          },
+          {
+            "name": "Carmen de Lirio",
+            "role": "Tía Penas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gCWbDAWgph9nINozlImTOmLrCXE.jpg"
+          },
+          {
+            "name": "Juan José Moreno Cuenca",
+            "role": "Juan José Moreno Cuenca \"El Vaquilla\"",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2UTQceXLnZlnrNwWRsIpOYVkR9b.jpg"
+          },
+          {
+            "name": "Frank Braña",
+            "role": "Manuel",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cVl6735BB319Xm8q2N39upkN177.jpg"
+          },
+          {
+            "name": "Daniel Medrán",
+            "role": "Antonet",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1xn3nhMxpHYLzafi59gEF6auMwH.jpg"
+          },
+          {
+            "name": "Mingo Ràfols",
+            "role": "Pencas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9LozK2Q1Rq7gcgfWmhZQdubsdi2.jpg"
+          },
+          {
+            "name": "Nat Collado",
+            "role": "Isabel",
+            "thumbnail": ""
+          },
+          {
+            "name": "Fredy Ripers",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dbT70a7ngx6tnhI1Nj2t6QRsMoz.jpg"
+          },
+          {
+            "name": "Carmen Serret",
+            "role": "Anita (as Carmen Cano)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/AuqgkgaGapgBDfzf3gjLwiGFodr.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?yy4rv93fhplytrd1ljt4"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:27.269478",
       "folder_id": "19161644"
     },
     {
@@ -486,25 +4394,252 @@
           "url": "https://1fichier.com/?z1mxe6lgxlmht2bmq1ih"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.704497",
+      "date_added": "2026-02-16T18:17:27.269939",
       "folder_id": "19161644"
     },
     {
-      "file": "27 horas (1986)-012.mkv",
+      "file": "Miedo a salir de noche (1980).mkv",
       "parsed": {
         "type": "movie",
-        "title": "27 horas -012",
+        "title": "Miedo a salir de noche",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 115895,
+        "title": "Miedo a salir de noche",
+        "original_title": "Miedo a salir de noche",
+        "overview": "Un empleado de banco, tímido y asustadizo, va cayendo en las redes del miedo ante los acontecimientos que ve a su alrededor y la ola de delincuencia que parece invadir la ciudad.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/mWk9OjEs2oFBywz09VhBWBSCTLl.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/9NC7SxosTLdnwL69EOozNXbgHPP.jpg",
+        "vote_average": 5.1,
+        "release_date": "1980-03-04",
+        "year": "1980",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "José Sacristán",
+            "role": "Paco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dT1tMNeRiBHVfpgSKY1EoxiioVw.jpg"
+          },
+          {
+            "name": "Antonio Ferrandis",
+            "role": "Don Cosme",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/weqF0cfgkTICEFkQGb757OoTHR5.jpg"
+          },
+          {
+            "name": "Claudia Gravy",
+            "role": "Begoña",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xRmzRRwXlricB6um7P2n58uNNmL.jpg"
+          },
+          {
+            "name": "Tina Sainz",
+            "role": "Loli",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1tfzmb2fanB4nBxVkiN0gruPKK.jpg"
+          },
+          {
+            "name": "Mari Carmen Prendes",
+            "role": "Madre de Paco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/iPQXVwIjAbENa0ORGXjcQvx6Gh0.jpg"
+          },
+          {
+            "name": "Florinda Chico",
+            "role": "Doña Paulina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mpM0PSrWngqkj7ClfNasMwDod5O.jpg"
+          },
+          {
+            "name": "Antonio Betancourt",
+            "role": "Police",
+            "thumbnail": ""
+          },
+          {
+            "name": "José Lifante",
+            "role": "Bank President",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/l3sV4lkRIHvQX4c86Pw9h1L7YFK.jpg"
+          },
+          {
+            "name": "Alfred Lucchetti",
+            "role": "Agapito",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1aY1H8d0jNo8W0TlXDNySea6iJ3.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?zkra1tqm8fqndyypbk50"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:27.406073",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "27 horas (1986).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "27 horas",
         "year": "1986",
         "quality": "desconocida"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 112803,
+        "title": "27 Horas",
+        "original_title": "27 Horas",
+        "overview": "Drama sobre la delincuencia juvenil, el paro y las drogas. Jon, un muchacho de veinte años, se levanta a las siete de la mañana y a partir de ese momento podemos ver cómo vive la amistad, el amor, las relaciones familiares y su oscura pasión por las drogas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oSWXSOfDWFBboL90pHir3nmCQV6.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3XwHUflxej3reQ9sFooYUcgTmfh.jpg",
+        "vote_average": 6.7,
+        "release_date": "1986-09-23",
+        "year": "1986",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Antonio Banderas",
+            "role": "Rafa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fce7zl6elUzsv7wudHFc7RgFtjD.jpg"
+          },
+          {
+            "name": "Martxelo Rubio",
+            "role": "Jon",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r7yHHSNKzxLTkvUIkpBTZoWVX0t.jpg"
+          },
+          {
+            "name": "Maribel Verdú",
+            "role": "Maite",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xfpNy6z0eN2jwhv8NQnUxUYGq2P.jpg"
+          },
+          {
+            "name": "Jon San Sebastián",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "André Falcon",
+            "role": "Tío de Jon",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/p7QRF1alXdQtGnJQelrvPecIlip.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
       "links": [
         {
           "quality": "desconocida",
           "url": "https://1fichier.com/?zmu5q3vohogcpq4h2d39"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.766175",
+      "date_added": "2026-02-16T18:17:27.545857",
+      "folder_id": "19161644"
+    },
+    {
+      "file": "Chocolate (1980).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Chocolate",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 301843,
+        "title": "Chocolate",
+        "original_title": "Chocolate",
+        "overview": "El Muertes y El Jato se bajan al moro a pillar chocolate pero se encuentran con problemas cuando son asaltados por gente del lugar. Magda, la novia de El Jato, les espera en Algeciras donde para volver deciden robar un coche.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/iJrftuagFmKsvZe8zBLLLZa2Wn0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6Zj6unuG3CxsI1wa7OFXCqNo1do.jpg",
+        "vote_average": 5.0,
+        "release_date": "1980-07-18",
+        "year": "1980",
+        "genres": [
+          {
+            "id": 18,
+            "name": "Drama"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Manuel de Benito",
+            "role": "El Jato",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wkj6Mqeb3C2iIGmbZ85szugAEhz.jpg"
+          },
+          {
+            "name": "Ángel Alcázar",
+            "role": "El Muertes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aXmZoJeYEpk6Z38X8rgVpCoJJTn.jpg"
+          },
+          {
+            "name": "Paloma Gil",
+            "role": "Magda",
+            "thumbnail": ""
+          },
+          {
+            "name": "Agustín González",
+            "role": "Padre de Magda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mZO2NuM7e7ftsutaiflgT20EM0G.jpg"
+          },
+          {
+            "name": "Encarna Paso",
+            "role": "Madre de Magda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3mDiXsoHZxgKU0N08fpATztghUY.jpg"
+          },
+          {
+            "name": "José Lifante",
+            "role": "Farmacéutico",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/l3sV4lkRIHvQX4c86Pw9h1L7YFK.jpg"
+          },
+          {
+            "name": "Anne Marie Rosier",
+            "role": "Ivonne",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/cwTfDys9jrW0Vx6PP8SypFbEvqx.jpg"
+          },
+          {
+            "name": "Félix Navarro",
+            "role": "Carroza en pub",
+            "thumbnail": ""
+          },
+          {
+            "name": "Elisenda Ribas",
+            "role": "Dueña chalet",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/grxyBCr2oVLJJzBAKPIpQke86In.jpg"
+          },
+          {
+            "name": "Carmen Lozano",
+            "role": "Invitada chalet",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xEQtRZdM0nlznDPn9djiosVzOGV.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?zt37z3sbcbgij3jls374"
+        }
+      ],
+      "date_added": "2026-02-16T18:17:27.676481",
       "folder_id": "19161644"
     },
     {
@@ -593,7 +4728,7 @@
           "url": "https://1fichier.com/?1o7an9dqh3re0qbqg76e"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.773075",
+      "date_added": "2026-02-16T18:17:27.683849",
       "folder_id": "19205934"
     },
     {
@@ -682,7 +4817,7 @@
           "url": "https://1fichier.com/?2qxtxf6q00pfl99mj9gx"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.773112",
+      "date_added": "2026-02-16T18:17:27.683908",
       "folder_id": "19205934"
     },
     {
@@ -771,7 +4906,7 @@
           "url": "https://1fichier.com/?2r6ooe7681zhhmwrj84a"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.773206",
+      "date_added": "2026-02-16T18:17:27.683959",
       "folder_id": "19205934"
     },
     {
@@ -860,7 +4995,7 @@
           "url": "https://1fichier.com/?2u3ikydq9e41ss0119ab"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.882357",
+      "date_added": "2026-02-16T18:17:27.683993",
       "folder_id": "19205934"
     },
     {
@@ -949,7 +5084,7 @@
           "url": "https://1fichier.com/?3mbzys23nblveim5sukp"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.882435",
+      "date_added": "2026-02-16T18:17:27.684024",
       "folder_id": "19205934"
     },
     {
@@ -1042,7 +5177,7 @@
           "url": "https://1fichier.com/?4i7o20e4570w6onvtrcd"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.882559",
+      "date_added": "2026-02-16T18:17:27.684060",
       "folder_id": "19205934"
     },
     {
@@ -1135,7 +5270,7 @@
           "url": "https://1fichier.com/?68gjyyw68kfitcxjmdp9"
         }
       ],
-      "date_added": "2026-02-16T17:05:26.882599",
+      "date_added": "2026-02-16T18:17:27.684093",
       "folder_id": "19205934"
     },
     {
@@ -1224,7 +5359,7 @@
           "url": "https://1fichier.com/?6h621ypgdb60uuz76yp2"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.034297",
+      "date_added": "2026-02-16T18:17:27.684133",
       "folder_id": "19205934"
     },
     {
@@ -1308,7 +5443,7 @@
           "url": "https://1fichier.com/?79uili3a8i89v6bulpbn"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.163521",
+      "date_added": "2026-02-16T18:17:27.684160",
       "folder_id": "19205934"
     },
     {
@@ -1401,7 +5536,7 @@
           "url": "https://1fichier.com/?7kgy9rgcl8u2fukz6v92"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.279847",
+      "date_added": "2026-02-16T18:17:27.684282",
       "folder_id": "19205934"
     },
     {
@@ -1490,7 +5625,7 @@
           "url": "https://1fichier.com/?9ldrnwdwgvbuvxjt840p"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.279971",
+      "date_added": "2026-02-16T18:17:27.684317",
       "folder_id": "19205934"
     },
     {
@@ -1579,7 +5714,7 @@
           "url": "https://1fichier.com/?ar6lh2fijbq42fvkfo3h"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.384614",
+      "date_added": "2026-02-16T18:17:27.684347",
       "folder_id": "19205934"
     },
     {
@@ -1668,7 +5803,7 @@
           "url": "https://1fichier.com/?c3ycit8w4zcv6j0gpd24"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.384817",
+      "date_added": "2026-02-16T18:17:27.684445",
       "folder_id": "19205934"
     },
     {
@@ -1757,7 +5892,7 @@
           "url": "https://1fichier.com/?cg06aszn6el0a0mgbc0z"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.384927",
+      "date_added": "2026-02-16T18:17:27.684485",
       "folder_id": "19205934"
     },
     {
@@ -1846,7 +5981,7 @@
           "url": "https://1fichier.com/?cz6eshhbef1ntcaoh90j"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.384968",
+      "date_added": "2026-02-16T18:17:27.684519",
       "folder_id": "19205934"
     },
     {
@@ -1935,7 +6070,7 @@
           "url": "https://1fichier.com/?gdava8al15lkwfuqe1y5"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.549576",
+      "date_added": "2026-02-16T18:17:27.684606",
       "folder_id": "19205934"
     },
     {
@@ -2024,7 +6159,7 @@
           "url": "https://1fichier.com/?ir7qww6cs8ysrh8r8c1j"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550127",
+      "date_added": "2026-02-16T18:17:27.684643",
       "folder_id": "19205934"
     },
     {
@@ -2113,7 +6248,7 @@
           "url": "https://1fichier.com/?kfnwmq5d1hr8duom9zlb"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550169",
+      "date_added": "2026-02-16T18:17:27.684675",
       "folder_id": "19205934"
     },
     {
@@ -2202,7 +6337,7 @@
           "url": "https://1fichier.com/?ly5nda8qjwlbun71q0kv"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550266",
+      "date_added": "2026-02-16T18:17:27.684742",
       "folder_id": "19205934"
     },
     {
@@ -2291,7 +6426,7 @@
           "url": "https://1fichier.com/?mj3usw55ok779bp0xk5p"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550305",
+      "date_added": "2026-02-16T18:17:27.684779",
       "folder_id": "19205934"
     },
     {
@@ -2380,7 +6515,7 @@
           "url": "https://1fichier.com/?oja1fihu1hu4i2uwpchn"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550342",
+      "date_added": "2026-02-16T18:17:27.684817",
       "folder_id": "19205934"
     },
     {
@@ -2469,7 +6604,7 @@
           "url": "https://1fichier.com/?ok035801mukm8mgsmiec"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550375",
+      "date_added": "2026-02-16T18:17:27.685375",
       "folder_id": "19205934"
     },
     {
@@ -2562,7 +6697,7 @@
           "url": "https://1fichier.com/?pjhaiabfvira65m3cytw"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.550405",
+      "date_added": "2026-02-16T18:17:27.685415",
       "folder_id": "19205934"
     },
     {
@@ -2651,7 +6786,7 @@
           "url": "https://1fichier.com/?q7m4g9cj9dcptt35nvwq"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.653562",
+      "date_added": "2026-02-16T18:17:27.685450",
       "folder_id": "19205934"
     },
     {
@@ -2740,7 +6875,7 @@
           "url": "https://1fichier.com/?rxjcc7fpuyl27fy3ioad"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.653763",
+      "date_added": "2026-02-16T18:17:27.685562",
       "folder_id": "19205934"
     },
     {
@@ -2829,7 +6964,7 @@
           "url": "https://1fichier.com/?sbxgvb8pbm6q0ym19lsf"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.653823",
+      "date_added": "2026-02-16T18:17:27.685600",
       "folder_id": "19205934"
     },
     {
@@ -2918,7 +7053,7 @@
           "url": "https://1fichier.com/?v2mux0rqbmgtml4000qn"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.653857",
+      "date_added": "2026-02-16T18:17:27.685632",
       "folder_id": "19205934"
     },
     {
@@ -3007,7 +7142,7 @@
           "url": "https://1fichier.com/?v4m0jugw8hcnh3f3l0x2"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.777522",
+      "date_added": "2026-02-16T18:17:27.685661",
       "folder_id": "19205934"
     },
     {
@@ -3100,7 +7235,7 @@
           "url": "https://1fichier.com/?veufvmuo124ds2fnsf60"
         }
       ],
-      "date_added": "2026-02-16T17:05:27.893822",
+      "date_added": "2026-02-16T18:17:27.685712",
       "folder_id": "19205934"
     },
     {
@@ -3144,7 +7279,7 @@
           "url": "https://1fichier.com/?wriexdflyln5hqbgp6vp"
         }
       ],
-      "date_added": "2026-02-16T17:05:28.018077",
+      "date_added": "2026-02-16T18:17:27.685800",
       "folder_id": "19205934"
     },
     {
@@ -3237,7 +7372,7 @@
           "url": "https://1fichier.com/?x2kid6soszelkceqgr21"
         }
       ],
-      "date_added": "2026-02-16T17:05:28.149109",
+      "date_added": "2026-02-16T18:17:27.685894",
       "folder_id": "19205934"
     },
     {
@@ -3326,7 +7461,7 @@
           "url": "https://1fichier.com/?xkf4jd5xols6mbzcugi6"
         }
       ],
-      "date_added": "2026-02-16T17:05:28.272392",
+      "date_added": "2026-02-16T18:17:27.685931",
       "folder_id": "19205934"
     },
     {
@@ -3415,7 +7550,7 @@
           "url": "https://1fichier.com/?zlw0lta6swhg114uzdil"
         }
       ],
-      "date_added": "2026-02-16T17:05:28.272835",
+      "date_added": "2026-02-16T18:17:27.685965",
       "folder_id": "19205934"
     },
     {
@@ -3516,7 +7651,7 @@
           "url": "https://1fichier.com/?oropovr77pipwyhrrnh8"
         }
       ],
-      "date_added": "2026-02-16T17:05:28.272973",
+      "date_added": "2026-02-16T18:17:27.686051",
       "folder_id": "19161662"
     },
     {
@@ -4105,7 +8240,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.766600",
+      "date_added": "2026-02-16T18:17:27.676761",
       "folder_id": "19197094"
     },
     {
@@ -4661,7 +8796,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.767518",
+      "date_added": "2026-02-16T18:17:27.677701",
       "folder_id": "19197106"
     },
     {
@@ -4987,7 +9122,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.768467",
+      "date_added": "2026-02-16T18:17:27.678829",
       "folder_id": "19197107"
     },
     {
@@ -5588,7 +9723,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.768905",
+      "date_added": "2026-02-16T18:17:27.679776",
       "folder_id": "19197117"
     },
     {
@@ -6259,7 +10394,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.770236",
+      "date_added": "2026-02-16T18:17:27.681092",
       "folder_id": "19197140"
     },
     {
@@ -6809,7 +10944,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.771424",
+      "date_added": "2026-02-16T18:17:27.682145",
       "folder_id": "19197142"
     },
     {
@@ -7231,7 +11366,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T17:05:26.772297",
+      "date_added": "2026-02-16T18:17:27.683056",
       "folder_id": "19197114"
     }
   ]
