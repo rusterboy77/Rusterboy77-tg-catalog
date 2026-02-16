@@ -53,8 +53,8 @@ def parse_filename_with_rename(filename):
         if not title_part.strip():
             title_part = base[se_match.end():]
         title_clean = rename.normalize_title(rename.remove_tokens(title_part))
-        _, title_clean = rename.extract_year_and_clean(title_clean)
-        return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality}
+        year, title_clean = rename.extract_year_and_clean(title_clean)
+        return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality, "year": year}
     elif is_series_cap:
         # Lógica simple para capítulos numéricos (ej. 101 -> S1 E1)
         return {"type": "series", "series": rename.normalize_title(rename.remove_tokens(base)), "season": cap_num // 100, "episode": cap_num % 100, "quality": quality}
@@ -71,7 +71,9 @@ def get_tmdb_meta(query, is_tv, year=None):
     type_str = 'tv' if is_tv else 'movie'
     url = f"https://api.themoviedb.org/3/search/{type_str}"
     params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
-    if year and not is_tv: params['year'] = year
+    if year:
+        if is_tv: params['first_air_date_year'] = year
+        else: params['year'] = year
     
     try:
         r = requests.get(url, params=params)
@@ -126,7 +128,7 @@ def get_tmdb_meta(query, is_tv, year=None):
         print(f"Error TMDB: {e}")
     return {}
 
-def get_1fichier_files_recursive(folder_id, headers):
+def get_1fichier_files_recursive(folder_id, headers, parent_folder_name=None):
     """Función auxiliar para recorrer carpetas recursivamente."""
     all_files = []
     
@@ -135,6 +137,8 @@ def get_1fichier_files_recursive(folder_id, headers):
         r = requests.post("https://api.1fichier.com/v1/file/ls.cgi", json={'folder_id': folder_id}, headers=headers)
         if r.ok:
             items = r.json().get('items', [])
+            for item in items:
+                item['folder_name'] = parent_folder_name
             all_files.extend(items)
     except Exception as e:
         print(f"Error leyendo archivos en carpeta {folder_id}: {e}")
@@ -146,7 +150,7 @@ def get_1fichier_files_recursive(folder_id, headers):
             subfolders = r.json().get('sub_folders', [])
             for sub in subfolders:
                 print(f"  >> Escaneando subcarpeta: {sub['name']}")
-                all_files.extend(get_1fichier_files_recursive(sub['id'], headers))
+                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, parent_folder_name=sub['name']))
     except Exception as e:
         print(f"Error leyendo subcarpetas en {folder_id}: {e}")
         
@@ -295,15 +299,26 @@ def generate():
         
         if meta["type"] == "series":
             series_name = meta["series"]
-            norm_name = rename.normalize_title(series_name)
             season = meta["season"]
             episode = meta["episode"]
+            year = meta.get("year")
             
+            # Si no hay nombre de serie (ej: 1x01.mkv), usar nombre de carpeta
+            if not series_name and file.get('folder_name'):
+                folder_clean = rename.remove_tokens(file.get('folder_name'))
+                year_folder, title_folder = rename.extract_year_and_clean(folder_clean)
+                series_name = rename.normalize_title(title_folder)
+                if not year and year_folder:
+                    year = year_folder
+
+            norm_name = rename.normalize_title(series_name)
+            if not norm_name: continue
+
             if norm_name not in series_map:
                 # Intentar recuperar de caché, si no buscar en TMDB
                 tmdb_data = meta_cache.get(f"tv_{norm_name}")
                 if not tmdb_data:
-                    tmdb_data = get_tmdb_meta(series_name, is_tv=True)
+                    tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year)
                 
                 series_map[norm_name] = {
                     "file": series_name,
