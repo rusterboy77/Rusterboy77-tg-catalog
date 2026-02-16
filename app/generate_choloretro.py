@@ -139,6 +139,7 @@ def get_1fichier_files_recursive(folder_id, headers, parent_folder_name=None):
             items = r.json().get('items', [])
             for item in items:
                 item['folder_name'] = parent_folder_name
+                item['folder_id'] = str(folder_id)
             all_files.extend(items)
     except Exception as e:
         print(f"Error leyendo archivos en carpeta {folder_id}: {e}")
@@ -196,10 +197,17 @@ def update_cache_db(catalog_results):
           "cast" TEXT,
           links TEXT,
           date_added TEXT,
-          enriched INTEGER DEFAULT 0
+          enriched INTEGER DEFAULT 0,
+          folder_id TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
     ''')
+    
+    # Migración por si la tabla ya existe sin la columna
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+    except:
+        pass
     
     # CORRECCIÓN: Limpiar la tabla antes de insertar para borrar items antiguos (ej. Beetlejuice como peli)
     c.execute("DELETE FROM items")
@@ -228,21 +236,23 @@ def update_cache_db(catalog_results):
             '', '', '', # episode_title, episode_overview, still_path (pendientes de implementar en TMDB fetch)
             json.dumps(genres), json.dumps(cast)
         ]
+        
+        folder_id = entry.get('folder_id', '')
 
         if item_type == 'movie':
             links = entry.get('links') or []
             if links:
                 key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
-                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1))
+                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1, folder_id))
         
         elif item_type == 'series':
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
                     key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
-                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1))
+                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1, folder_id))
 
-    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
+    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
     conn.close()
     print(f"Base de datos actualizada con {len(items_db)} items.")
@@ -332,7 +342,8 @@ def generate():
                     "parsed": {"type": "series", "series": series_name},
                     "tmdb_top": tmdb_data,
                     "episodes": [],
-                    "date_added": datetime.datetime.utcnow().isoformat()
+                    "date_added": datetime.datetime.utcnow().isoformat(),
+                    "folder_id": str(file.get('folder_id', ''))
                 }
             
             # Buscar/Crear episodio
@@ -368,7 +379,8 @@ def generate():
                 "parsed": meta,
                 "tmdb_top": tmdb_data,
                 "links": [{"quality": quality, "url": link}],
-                "date_added": datetime.datetime.utcnow().isoformat()
+                "date_added": datetime.datetime.utcnow().isoformat(),
+                "folder_id": str(file.get('folder_id', ''))
             }
             new_results.append(item)
             print(f"Película procesada: {title}")
