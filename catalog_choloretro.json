@@ -98,15 +98,82 @@
           "url": "https://1fichier.com/?oropovr77pipwyhrrnh8"
         }
       ],
-      "date_added": "2026-02-16T10:38:48.289589"
+      "date_added": "2026-02-16T10:59:13.451024"
     },
     {
-      "file": "Agallas el perro cobarde CAST",
+      "file": "Agallas el perro cobarde",
       "parsed": {
         "type": "series",
-        "series": "Agallas el perro cobarde CAST"
+        "series": "Agallas el perro cobarde"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 2085,
+        "title": "Agallas, el perro cobarde",
+        "original_title": "Courage the Cowardly Dog",
+        "overview": "La historia trata sobre un perro llamado Agallas y sus dueños: Muriel, una vieja mujer escocesa, y Eustaquio, un viejo agricultor gruñón. Este perro vive para salvarles la vida de tenebrosos monstruos, extraterrestres y otras criaturas míticas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6GgsPD43JYdQT1IdwByItdIrr5f.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dugFpakDXxjDjEUloukNqAx3cjK.jpg",
+        "vote_average": 8.192,
+        "release_date": "1999-11-12",
+        "year": "1999",
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 10751,
+            "name": "Familia"
+          },
+          {
+            "id": 10765,
+            "name": "Sci-Fi & Fantasy"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 10762,
+            "name": "Kids"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Marty Grabstein",
+            "role": "Courage (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/j44B2VqurMilLNkUjdwqk3zJXQU.jpg"
+          },
+          {
+            "name": "Thea White",
+            "role": "Muriel Bagge (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1l6H1kpB0KLw7Mf2YwqLgkxYDt4.jpg"
+          },
+          {
+            "name": "Simon Prebble",
+            "role": "The Computer (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bnobCWI0MO5DfvxDALhAgISbICe.jpg"
+          },
+          {
+            "name": "Billie Lou Watt",
+            "role": "Ma Bagge (voice)",
+            "thumbnail": ""
+          },
+          {
+            "name": "Paul Schoeffler",
+            "role": "Katz (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mVefRPbAwskzkIBdHXn2THNwTV3.jpg"
+          },
+          {
+            "name": "Arthur Anderson",
+            "role": "Eustace Bagge (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/y5NLgORkjolDwtP2h9qRzHwksPq.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/fNDMJXwJyZ5NwzVDwKh7FNhP6KZ.png",
+        "banner": "",
+        "clearart": ""
+      },
       "episodes": [
         {
           "season": 3,
@@ -619,15 +686,49 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:47.692701"
+      "date_added": "2026-02-16T10:59:13.097161"
     },
     {
-      "file": "Ana de las Tejas Verdes CAST",
+      "file": "Ana de las Tejas Verdes",
       "parsed": {
         "type": "series",
-        "series": "Ana de las Tejas Verdes CAST"
+        "series": "Ana de las Tejas Verdes"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 16047,
+        "title": "Ana de las tejas verdes",
+        "original_title": "赤毛のアン",
+        "overview": "Ana de las Tejas Verdes (赤毛のアン Akage no an?, \"Ana del cabello rojo\") es una serie de anime basada en la novela Anne of Green Gables (\"Ana de las Tejas Verdes\") de Lucy Maud Montgomery. La serie fue emitida originalmente en Japón en el año 1979, parte del contenedor infantil World Masterpiece Theater o Meisaku de Nippon Animation. El contenedor había antes y después producido una gran variedad de series de animación basadas en diferentes obras literarias infantiles; entre ellas estaban \"Sin familia\" (1978) y \"Las aventuras de Tom Sawyer\" (1980). En España, la serie fue emitida a través de Tele 5. En conmemoración del trigésimo aniversario desde el estreno de la serie y centenario desde la publicación de la novela original, para abril de 2009 Nippon Animation estrenó una precuela de la historia titulada Konnichiwa Anne: Before Green Gables (\"Antes de las Tejas Verdes\").",
+        "poster_url": "https://image.tmdb.org/t/p/w500/66I1lcG8lW2SQodTsJiVhc9DXYf.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/BDFyz4VH7E4AS5Fy8m9s1mRMcR.jpg",
+        "vote_average": 7.6,
+        "release_date": "1979-01-07",
+        "year": "1979",
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 18,
+            "name": "Drama"
+          },
+          {
+            "id": 10751,
+            "name": "Familia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Eiko Yamada",
+            "role": "Anne Shirley (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/uIESaPrL2AxOaYyfmh6krMVe813.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/hgv2GT3rLIO0GNzAb5SwUML4cOi.png",
+        "banner": "",
+        "clearart": ""
+      },
       "episodes": [
         {
           "season": 1,
@@ -1140,15 +1241,69 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:47.770106"
+      "date_added": "2026-02-16T10:59:13.232317"
     },
     {
-      "file": "Banner y Flappy CAST",
+      "file": "Banner y Flappy",
       "parsed": {
         "type": "series",
-        "series": "Banner y Flappy CAST"
+        "series": "Banner y Flappy"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 58606,
+        "title": "Banner y Flappy",
+        "original_title": "シートン動物記　りすのバナー",
+        "overview": "Un desafortunado incidente conduce a una pequeña ardilla hasta una granja, donde se la darán como comida a la gata. Pero la gata siente lástima por el animalito y le adopta como si fuera su hijo. Le llamará Banner. Pero su felicidad no durará demasiado. Un incendio arrasa la granja, y Banner se ve obligado a separarse de su \"madrastra\" en su huída al bosque. Allí conocerá a un búho real y se encontrará a más ardillas, entre las que se encuentra Flappy, de la que se enamorará y con la que vivirá muchas aventuras.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/pOKLhZqE2hpXIBMXjiEBgAQlDhY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cxgK46zRMi1DKfVTwRFSaNbDrbz.jpg",
+        "vote_average": 7.3,
+        "release_date": "1979-04-07",
+        "year": "1979",
+        "genres": [
+          {
+            "id": 10762,
+            "name": "Kids"
+          },
+          {
+            "id": 10751,
+            "name": "Familia"
+          },
+          {
+            "id": 16,
+            "name": "Animación"
+          }
+        ],
+        "cast": [
+          {
+            "name": "つかせのりこ",
+            "role": "Banner",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pmkDHsZTjENi41el8RTmYlZtVYR.jpg"
+          },
+          {
+            "name": "よこざわけい子",
+            "role": "Sue",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/f2xbRCbjvFcCl4ogeXEcHKBxdIZ.jpg"
+          },
+          {
+            "name": "池田一臣",
+            "role": "Grandfather",
+            "thumbnail": ""
+          },
+          {
+            "name": "菅谷政子",
+            "role": "Clay",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1TG561GzoMU0y4sqwSACHn7PTpZ.jpg"
+          },
+          {
+            "name": "永井一郎",
+            "role": "Uncle Owl",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/d5LuqwoIjMIqKvKmEk5y6AZY1Ww.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
       "episodes": [
         {
           "season": 1,
@@ -1411,13 +1566,13 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:47.835210"
+      "date_added": "2026-02-16T10:59:13.365828"
     },
     {
-      "file": "Basket Fever CAST",
+      "file": "Basket Fever",
       "parsed": {
         "type": "series",
-        "series": "Basket Fever CAST"
+        "series": "Basket Fever"
       },
       "tmdb_top": {},
       "episodes": [
@@ -1812,7 +1967,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:47.898989"
+      "date_added": "2026-02-16T10:59:13.444841"
     },
     {
       "file": "Bateadores",
@@ -2412,7 +2567,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:48.043458"
+      "date_added": "2026-02-16T10:59:13.445888"
     },
     {
       "file": "Beetlejuice",
@@ -3082,7 +3237,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:48.165036"
+      "date_added": "2026-02-16T10:59:13.447444"
     },
     {
       "file": "Bola de Dan",
@@ -3631,7 +3786,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T10:38:48.287821"
+      "date_added": "2026-02-16T10:59:13.449280"
     }
   ]
 }
