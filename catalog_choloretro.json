@@ -1,6 +1,2070 @@
 {
   "results": [
     {
+      "file": "El donante (1985).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El donante",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 134218,
+        "title": "El donante",
+        "original_title": "El donante",
+        "overview": "Tato Montini, un popular presentador radiofónico muy consciente de la importancia del pene en la vida, decide donar su espectacular miembro una vez fallezca. Pero cuando llega al cielo descubre que, tanto allí como en el infierno, su órgano reproductor es bastante necesario para entretenerse por toda la eternidad.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/gXBX4gjSkQNfz1S3HOvlqSM6VcL.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xbtxliTDFtAWLTRvwhoWuLhFGNm.jpg",
+        "vote_average": 5.765,
+        "release_date": "1985-07-29",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Tato Montini",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "José «Saza» Sazatornil",
+            "role": "Sr. Povedano",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/fkTHu4m8z8Cph2jPxF3R5cqdN8e.jpg"
+          },
+          {
+            "name": "Silvia Marsó",
+            "role": "Mirian",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zrdJGEiA6DnmssyvYn1FeEtSHvF.jpg"
+          },
+          {
+            "name": "Alfonso del Real",
+            "role": "Lucas",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mgVBed6ZNdcNow2y1YOJ96ELr8O.jpg"
+          },
+          {
+            "name": "Luis Barbero",
+            "role": "Don Pedro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wIq4TDDHv8nRaRaLzsgRsDlLaJe.jpg"
+          },
+          {
+            "name": "Josele Román",
+            "role": "Finada",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/56VvLH7vUvm8QkEdARLPzN9nCgm.jpg"
+          },
+          {
+            "name": "Emma Ozores",
+            "role": "Finada virgen",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mrFQv8TbYLUo1FM0MilI4p9CvLI.jpg"
+          },
+          {
+            "name": "Gracita Morales",
+            "role": "Monja #1",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nQREjnhXrheYJyW4EoqdY7GPztz.jpg"
+          },
+          {
+            "name": "Mónica Cano",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?1o7an9dqh3re0qbqg76e"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.322926"
+    },
+    {
+      "file": "El recomendado (1985).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El recomendado",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 254431,
+        "title": "El recomendado",
+        "original_title": "El recomendado",
+        "overview": "El primer empleo de Pablo es en una oficina de investigadores privados, y le encargan la vigilancia de una señora casada, de la que el marido sospecha que le es infiel. Pero Teresa, la esposa, es una mujer muy lista y rápidamente compra a Pablo con su recomendación para un buen empleo en la oficina de su marido. Clemente, el marido celoso, es un hombre que predica la más estricta moral, pero que no tiene la más mínima vergüenza y, al verse sorprendido por su mujer, utiliza a Pablo para cubrirle las espaldas y que reconozca como suyos todos los líos de faldas del jefe. Naturalmente, de estos conflictos se beneficia Pablo que sube en la empresa como la espuma, porque pase lo que pase siempre será el recomendado.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6uZWwS4vQ4NoJBbFuF1ACxNyWsj.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/bstpGxSusREE4ry09qt33TIrDjG.jpg",
+        "vote_average": 6.0,
+        "release_date": "1985-06-17",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Pablo Munilla",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Clemente Lapotegui",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Rosa Valenty",
+            "role": "Teresa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/w94vXmVgqx3XsdOO1VuJNKvi2dW.jpg"
+          },
+          {
+            "name": "Adriana Vega",
+            "role": "Luisa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9WazbABzzzGNPwtkPTMQTVyJVoq.jpg"
+          },
+          {
+            "name": "Azucena Hernández",
+            "role": "Brígida",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/grlDSkr8wX4nZGnFNZuZ2xanLHx.jpg"
+          },
+          {
+            "name": "Queta Claver",
+            "role": "Doña Sole",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7fHN4zCW7eJZGO9IDNn7sRNeOu9.jpg"
+          },
+          {
+            "name": "Alfonso del Real",
+            "role": "Sr. Fernández",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mgVBed6ZNdcNow2y1YOJ96ELr8O.jpg"
+          },
+          {
+            "name": "Tomás Zori",
+            "role": "Jefe Agencia detectives",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1q6b4GFfqrgoKgLdZs94AI7sr2D.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Perales",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          },
+          {
+            "name": "Curro Martín Summers",
+            "role": "Jorge",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?2qxtxf6q00pfl99mj9gx"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.469098"
+    },
+    {
+      "file": "Los chulos (1981) .mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los chulos",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 100764,
+        "title": "Los chulos",
+        "original_title": "Los chulos",
+        "overview": "Félix es un proxeneta dueño de un cabaret, dos bingos y tres casas de citas. Ahora se propone abrir una sala de fiestas, y para ello cuenta -como siempre lo ha hecho- con el apoyo del Obispo, al cual tiene sobornado con frecuentes donativos. Contando con el apoyo de la Iglesia le será mucho más fácil contar con el visto bueno del Ayuntamiento, aunque, por otra parte, también tiene sobornados, entre otros, al alcalde y al presidente del Consejo de la Diputación. Todo este estado de cosas va a verse seriamente amenazado con la llegada de Arcadio, seminarista y sobrino del Obispo. Arcadio, que abandonó el seminario por considerarlo demasiado frívolo para él, ahora ocupará el puesto de secretario de su tío, que había quedado vacante. Al encontrar a Rebolledo entre los feligreses amigos del Obispo, el casto seminarista queda enormemente escandalizado.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/4RLH3agIWL6Q52qu1ZjzlmCD6u9.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/1YVktER7rgzQqSE2uZiAxbemxtM.jpg",
+        "vote_average": 5.696,
+        "release_date": "1981-04-20",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Arcadio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Fernando Esteso",
+            "role": "Felix",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Jenny Llada",
+            "role": "Bárbara (Lolita) prostituta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1RlTVkIc0ZurHdczimtfz1H3ers.jpg"
+          },
+          {
+            "name": "María Isbert",
+            "role": "Doña Loreto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dFr7cNxyH2xQCNWebPypUhLEhe7.jpg"
+          },
+          {
+            "name": "Florinda Chico",
+            "role": "Doña Angelines, la esposa del presidente",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mpM0PSrWngqkj7ClfNasMwDod5O.jpg"
+          },
+          {
+            "name": "Ricardo Merino",
+            "role": "Bernardo, el presidente",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJDiaL1Mrvasd640uYH6mqLjK5w.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "El Obispo, tío de Arcadio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Adriana Ozores",
+            "role": "Lucía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6xxv8qvxDLpuaKFMMzXziOldkGK.jpg"
+          },
+          {
+            "name": "Simón Cabido",
+            "role": "Leocadio",
+            "thumbnail": ""
+          },
+          {
+            "name": "Gina Baro",
+            "role": "Lolita",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/u9tEIPKakprYmHiGSE0I8e3MNAT.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?2r6ooe7681zhhmwrj84a"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.622781"
+    },
+    {
+      "file": "Re-emigrantes (2016)-018.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Re-emigrantes -018",
+        "year": "2016",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?2u3ikydq9e41ss0119ab"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.690695"
+    },
+    {
+      "file": "Brujas magicas (1981).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Brujas magicas",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 77327,
+        "title": "Brujas mágicas",
+        "original_title": "Brujas mágicas",
+        "overview": "En el año 1595, la Santa Inquisición ejerce una gran influencia sobre la España de ese siglo. En un pueblo español vive el molinero Diego, irresistible para las jóvenes del lugar, que le asedian constantemente. Mientras, al pueblo llega un fraile que se dirige de peregrinación a Santiago, y que es confundido con un hombre enviado por la Inquisición.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1NN6Ye3qnQ8mHyTMnlqJjzfqXE0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/8vvDZeJkbXKl6WAcHPiAg74eanw.jpg",
+        "vote_average": 6.5,
+        "release_date": "1981-12-28",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Diego",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Vicentino",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Ángel de Andrés",
+            "role": "Don Lope",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lnjhmJRSao3ExOUH0qd978XrIGf.jpg"
+          },
+          {
+            "name": "Azucena Hernández",
+            "role": "Julisa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/grlDSkr8wX4nZGnFNZuZ2xanLHx.jpg"
+          },
+          {
+            "name": "Paloma Hurtado",
+            "role": "Cándida",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gTKljar48dPvJdLyEA36yt5ZhcY.jpg"
+          },
+          {
+            "name": "Adrián Ortega",
+            "role": "Calixto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h3oJRbxnmA2vZXXviW4HhFJexvV.jpg"
+          },
+          {
+            "name": "Trini Alonso",
+            "role": "Agripina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5HjqjH1XfURZ8dpctmmwaREZp22.jpg"
+          },
+          {
+            "name": "Adriana Ozores",
+            "role": "Mara",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6xxv8qvxDLpuaKFMMzXziOldkGK.jpg"
+          },
+          {
+            "name": "María Casal",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/7koLRVCLCHMj15HZfxqTTX3yyxe.jpg"
+          },
+          {
+            "name": "Alexia Loreto",
+            "role": "Florencia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/912h0u9FLm131zve2RRvK8taZ6.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?3mbzys23nblveim5sukp"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.831018"
+    },
+    {
+      "file": "Padre no hay mas que dos (1982).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Padre no hay mas que dos",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 122976,
+        "title": "Padre no hay más que dos",
+        "original_title": "Padre no hay más que dos",
+        "overview": "Florencio y Amalio son dos artistas de cabaret que se divorcian de sus mujeres y se quedan con la custodia de sus hijos. Un desaprensivo estafa a los dos alquilándoles la misma ruinosa casona. Allí se dispondrán a vivir ambos tratando de salir adelante formando un equipo de magos que resulta ser un fracaso. Pero gracias a las ideas de sus hijos, los dos padres forman una pareja de cómico musical que, a pesar de los fracasos iniciales, resulta ser un éxito con la participación de los chavales. Por otra parte, Florencio y Amalio intentarán ligar con chicas que son radicalmente distintas a sus esposas pero los chavales podrán todos los impedimentos para que no tengan futuro.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/txoqaGACEe73QjUluLqZRnDHWCA.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/offtP3HSdnbz0XH3KzRTzMlv8Ot.jpg",
+        "vote_average": 5.625,
+        "release_date": "1982-12-01",
+        "year": "1982",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 10751,
+            "name": "Familia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Florencio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Andrés Pajares",
+            "role": "Amalio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Miguel Ángel Valero",
+            "role": "Curro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tXFXFtOMy7KQhP4pEXQNPvCakK2.jpg"
+          },
+          {
+            "name": "Miguel Joven",
+            "role": "Amalio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nqEZqHPApiHUHshzesEcy7dQpV.jpg"
+          },
+          {
+            "name": "Mari Carmen Pascual",
+            "role": "Francisca",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wjasRvSrmfIZIj731F071m6g4mY.jpg"
+          },
+          {
+            "name": "Paloma Hurtado",
+            "role": "Emilia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gTKljar48dPvJdLyEA36yt5ZhcY.jpg"
+          },
+          {
+            "name": "Beatriz Carvajal",
+            "role": "Lola",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gGBoUwl1ZZVnzSz0EUnyZN0paC3.jpg"
+          },
+          {
+            "name": "Luisa Armenteros",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Ricardo Merino",
+            "role": "Castañeda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJDiaL1Mrvasd640uYH6mqLjK5w.jpg"
+          },
+          {
+            "name": "María Casanova",
+            "role": "Catalina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/28TeRmTMfgcAC2x7LQ5cAdjHGb4.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/8bQCGyM4jUvMMDofbGT37GZDQpj.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?4i7o20e4570w6onvtrcd"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:54.976261"
+    },
+    {
+      "file": "La hoz y el Martinez (1985).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La hoz y el Martinez",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 272129,
+        "title": "La hoz y el Martínez",
+        "original_title": "La hoz y el Martínez",
+        "overview": "Madrid está siendo escenario de la cumbre para la paz, en la que los soviéticos y los americanos han llegado a un acuerdo para la firma de un tratado de desarme nuclear bilateral. El representante soviético, principal valedor de la paz, sufre un atentado que pone en peligro su vida, y con ello las negociaciones. El embajador de su país y la traductora de su delegación deciden que alguien le suplante. El elegido es un fontanero madrileño, Juan.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9uiXxjvtaCyH1y6TzVsCN0Cy6l0.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/15j5gedaGqnhSOsJhDzlErcHgNB.jpg",
+        "vote_average": 7.3,
+        "release_date": "1985-01-21",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 53,
+            "name": "Suspense"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Juan Martinez / Joseph Nicolajev",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Silvia Tortosa",
+            "role": "Anna Petrovna Borodina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aOF0UFh5XQtyMGbAgK7ePAMbyTy.jpg"
+          },
+          {
+            "name": "Gérard Tichy",
+            "role": "Dimitri Vasilievich",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tMcupV3SQTOxRIzPObzxNZfyte1.jpg"
+          },
+          {
+            "name": "Jack Taylor",
+            "role": "Comisario ruso",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bTqdz2PeN9bPN3y6pvFehBAKTAI.jpg"
+          },
+          {
+            "name": "Javier Loyola",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pfwB4NZB1bRRIUWusE0spin191r.jpg"
+          },
+          {
+            "name": "Rafael Hernández",
+            "role": "Antonio 'Pocholo'",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aOFGTGTLvDeWlM6Si5PfoKvd2gW.jpg"
+          },
+          {
+            "name": "Ángel Ter",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r3NjNilSycv2OiI8ZgWrxu02Vqc.jpg"
+          },
+          {
+            "name": "José Lifante",
+            "role": "Traductor",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/l3sV4lkRIHvQX4c86Pw9h1L7YFK.jpg"
+          },
+          {
+            "name": "Mimí Muñoz",
+            "role": "Tía de Juan",
+            "thumbnail": ""
+          },
+          {
+            "name": "Paco de Osca",
+            "role": "Camarada en autobús",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?68gjyyw68kfitcxjmdp9"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.144553"
+    },
+    {
+      "file": "Cristobal Colon, de oficio descubridor (1982)-017.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Cristobal Colon, de oficio descubridor -017",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?6h621ypgdb60uuz76yp2"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.231300"
+    },
+    {
+      "file": "El currante (1983)-003.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El currante -003",
+        "year": "1983",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?79uili3a8i89v6bulpbn"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.297570"
+    },
+    {
+      "file": "Que cosas tiene el amor (1973)-028.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Que cosas tiene el amor -028",
+        "year": "1973",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?7kgy9rgcl8u2fukz6v92"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.366608"
+    },
+    {
+      "file": "Los liantes (1981).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los liantes",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 93679,
+        "title": "Los liantes",
+        "original_title": "Los liantes",
+        "overview": "Amador y Fidel son dos pequeños timadores de playa que actúan en Torremolinos y alrededores con más desdicha que fortuna y viviendo tan de milagro que Dolores, esposa de Fidel, le ha abandonado porque no le considera capaz de dedicarse a algo serio y honrado. Eduardo, un amigo de ambos y que además es el cerebro del grupo, tiene la idea de hacer creer a un millonario que juega en un casino que Amador es un hombre-elefante.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/8nmFydegjAmjhGHH00WjE2jt4aP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/kx8luNxJid8H9FPzuVMpRvxX7YK.jpg",
+        "vote_average": 5.864,
+        "release_date": "1981-09-14",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Fidel",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Andrés Pajares",
+            "role": "Amador González",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Eduardo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Adriana Vega",
+            "role": "Dolores",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9WazbABzzzGNPwtkPTMQTVyJVoq.jpg"
+          },
+          {
+            "name": "Loreta Tovar",
+            "role": "Macarena",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aXeQ180xkINFSBk9aPDKuhTc7EL.jpg"
+          },
+          {
+            "name": "Marcia Bell",
+            "role": "Marita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xPHpDpMndZF86LLY41nWssxHFcY.jpg"
+          },
+          {
+            "name": "Emiliano Redondo",
+            "role": "Sixto Calapeña",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/olSEIxcV2KTIOaAyxQZhLrXi0VD.jpg"
+          },
+          {
+            "name": "Antonio Gamero",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1uzxZm2r8u9vtALKYyJDMKe3B9I.jpg"
+          },
+          {
+            "name": "Adrián Ortega",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h3oJRbxnmA2vZXXviW4HhFJexvV.jpg"
+          },
+          {
+            "name": "José Yepes",
+            "role": "",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/y0NBsfNF3zpecmzWzRTusRjQCNH.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?9ldrnwdwgvbuvxjt840p"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.492327"
+    },
+    {
+      "file": "El soplagaitas (1981)-021.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El soplagaitas -021",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ar6lh2fijbq42fvkfo3h"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.564794"
+    },
+    {
+      "file": "Makinavaja, el ultimo choriso (1992).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Makinavaja, el ultimo choriso",
+        "year": "1992",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 96581,
+        "title": "Makinavaja, el último choriso",
+        "original_title": "Makinavaja, el último choriso",
+        "overview": "Makinavaja y su amigo Popeye son dos delincuentes de los barrios bajos de Barcelona que día a día intentan salir adelante en un mundo lleno de injusticias.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1sGYzCBjgRMOKefySoGlJeppp2n.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/esOUhJMBMPhv78FFlKho9rYcrPU.jpg",
+        "vote_average": 5.68,
+        "release_date": "1992-05-08",
+        "year": "1992",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Maki",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Jesús Bonilla",
+            "role": "Popeye",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sRbDlpCYqMVaw73bvTraBb5VtTS.jpg"
+          },
+          {
+            "name": "Mario Pardo",
+            "role": "Moromierda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vIXUQPkH32M4LLwCc7WC2TDfvM6.jpg"
+          },
+          {
+            "name": "Pedro Reyes",
+            "role": "Pirata",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/c8vh59l6ez3zFefvsnhKsX3IPi9.jpg"
+          },
+          {
+            "name": "Mary Santpere",
+            "role": "La Maru",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1vSU3K70sOMZ7r7XEG5P5wkacz.jpg"
+          },
+          {
+            "name": "Llàtzer Escarceller",
+            "role": "Matías",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xypaxbL2wqtjlwT7xQL2X8qvKxa.jpg"
+          },
+          {
+            "name": "Albert Vidal",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ajst7JAylVSzhRB6l1qnpwcpTP2.jpg"
+          },
+          {
+            "name": "Carmen Conesa",
+            "role": "Toti",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/A3WCxcXUOixv5pOE4DV1O2wG8Qp.jpg"
+          },
+          {
+            "name": "Boris Ruiz",
+            "role": "Inspector de Hacienda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hq03eSBxuvnhOYQOiUtMi7fn7Y.jpg"
+          },
+          {
+            "name": "Damià Barbany",
+            "role": "Vigilante del banco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qbENMTNbusoqYzemb1I7tgRDTiO.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?c3ycit8w4zcv6j0gpd24"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.699109"
+    },
+    {
+      "file": "La Lola nos lleva al huerto (1984).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La Lola nos lleva al huerto",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 119200,
+        "title": "La Lola nos lleva al huerto",
+        "original_title": "La Lola nos lleva al huerto",
+        "overview": "Lola es una joven y bella muchacha que va a tener un hijo pero que no sabe quién es el padre, por eso le dice, primero a Ataulfo y luego a Paco, que el hijo es suyo. Para no tener que casarse con Lola, uno se inventa que es un hombre casado y el otro que debe cuidar a su anciano padre. Lola les abandona indignada y acaba entrando en una secta religiosa regida por un sinvergüenza que ha prometido reconocer lo que nazca de ella. Esto hace reaccionar a Ataulfo y a Paco que deberán integrarse en la secta para rescatar a Lola y cumplir con su promesa.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oFoyYIrKPcafCoPqAhvUGqB20gq.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qqjEWP5K6bL3UJ00u3geC22UxJy.jpg",
+        "vote_average": 5.9,
+        "release_date": "1984-01-13",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Ataulfo Tovar",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Fernando Esteso",
+            "role": "Paco Andújar",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Susanna Bequer",
+            "role": "Lola",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/iKUyaAQYKWl3vkYjHpXXoWr4Az0.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Miguel",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Antonio Gamero",
+            "role": "Líder de la secta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1uzxZm2r8u9vtALKYyJDMKe3B9I.jpg"
+          },
+          {
+            "name": "Luisa Armenteros",
+            "role": "Antonia",
+            "thumbnail": ""
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Subsecretario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Emilio Fornet",
+            "role": "Rodolfo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/q4RZZpgxT8zXtyFiD7zNT25GWUE.jpg"
+          },
+          {
+            "name": "Charles Emanuel",
+            "role": "Porfirio",
+            "thumbnail": ""
+          },
+          {
+            "name": "María Elena Flores",
+            "role": "Felisa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/51I1Tss32alGGP2tsSohZC7TsMa.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/tcRyklPXdsOPJj9k7kyPYLSnQy9.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?cg06aszn6el0a0mgbc0z"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.832898"
+    },
+    {
+      "file": "El cura ya tiene hijo (1984).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El cura ya tiene hijo",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 268606,
+        "title": "El cura ya tiene hijo",
+        "original_title": "El cura ya tiene hijo",
+        "overview": "A Justo, el cura, tras el escándalo de la primera parte, \"El hijo del cura\", es enviado a un pueblo montañoso y frío, nada que ver con el pueblecito costero de agradable clima donde ejercía anteriormente. Nota que la gente joven de su nueva parroquia no va a la iglesia, y al preguntar el motivo, le dicen que todos saben que tiene una hija con una feligresa de la parroquia anterior. Justo intenta deshacer el entuerto, con tan mala suerte que en su parroquia y bajo secreto de confesión le entregan un niño que complica más la situación, ya que él cree que es \"su\" hijo.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/waBDbmP0WsZqX80qoSO9rWjrgFq.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/eCS5I2N8wtVRQ2bQqJJQ1kI6VJs.jpg",
+        "vote_average": 6.545,
+        "release_date": "1984-05-21",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Don Justo - el cura",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Ludovico - el obispo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Adriana Ozores",
+            "role": "Matilde",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6xxv8qvxDLpuaKFMMzXziOldkGK.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Agapito Fernández",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Florinda Chico",
+            "role": "Clara - la alcaldesa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mpM0PSrWngqkj7ClfNasMwDod5O.jpg"
+          },
+          {
+            "name": "África Pratt",
+            "role": "Aurora",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1QGk95ZEZzA3gEyn9VaD9A8edb.jpg"
+          },
+          {
+            "name": "Alfonso del Real",
+            "role": "Cardenal Estévez",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mgVBed6ZNdcNow2y1YOJ96ELr8O.jpg"
+          },
+          {
+            "name": "Ángel Ter",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/r3NjNilSycv2OiI8ZgWrxu02Vqc.jpg"
+          },
+          {
+            "name": "Manuel Zarzo",
+            "role": "Julio (as Manolo Zarzo)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kVYJhBEaOsxhUom2iYiUkDTMZ53.jpg"
+          },
+          {
+            "name": "Luisa Armenteros",
+            "role": "Amalia (as Luisa Mª Armenteros)",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?cz6eshhbef1ntcaoh90j"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:55.969480"
+    },
+    {
+      "file": "Los extremenos se tocan (1970)-015.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los extremenos se tocan -015",
+        "year": "1970",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?gdava8al15lkwfuqe1y5"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.040998"
+    },
+    {
+      "file": "Los energeticos (1980).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los energeticos",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 141198,
+        "title": "Los energéticos",
+        "original_title": "Los energéticos",
+        "overview": "Dos hombres rústicos castellanos se enteran un día que en sus terrenos va a ser instalada una central nuclear. Temen por sus vidas, la de sus cabras y por sus terrenos. Van a protestar al alcalde del pueblo, pero no consiguen nada. Intentan un encierro político, que termina en fracaso, hasta que aparece en sus vidas un representante de los países exportadores de petróleo que les ayuda a difundir por el mundo su protesta. Pero su actitud desencadena una serie de intereses políticos encontrados entre la OPEP, la CIA, las Multinacionales y las fuerzas vivas del pueblo.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/3VezCbpNmPSUZDq7nm9uHe8viWZ.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/5K2EFsMnOenQhaRDPN254n2iifr.jpg",
+        "vote_average": 6.167,
+        "release_date": "1980-01-21",
+        "year": "1980",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Floro / Fabián / Abuelo Belloto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Andrés Pajares",
+            "role": "Agapito / Anacleto / Abuelo Mondongo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Jeque Muley",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Sara Mora",
+            "role": "Cecilia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gLNl4kOo1OcrgnYEXh7pOH8d5x7.jpg"
+          },
+          {
+            "name": "Florinda Chico",
+            "role": "Martirio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mpM0PSrWngqkj7ClfNasMwDod5O.jpg"
+          },
+          {
+            "name": "Ricardo Merino",
+            "role": "Alcalde / Estraperlista",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJDiaL1Mrvasd640uYH6mqLjK5w.jpg"
+          },
+          {
+            "name": "Ajita Wilson",
+            "role": "Carla",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/dw5La0nIEfI3e9gRMeRQvDESq2X.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Nemesio / Estraperlista",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          },
+          {
+            "name": "Carmen Martínez Sierra",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hkEy3BTCp7NH0hcKLww7wKpCMWj.jpg"
+          },
+          {
+            "name": "Cristina Lay",
+            "role": "Rosi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gMjzPwDTZzsYxor6L2LtU0i8vdN.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/sot0obAYGjbe3aAVjMz5zWotkuA.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ir7qww6cs8ysrh8r8c1j"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.180975"
+    },
+    {
+      "file": "El hijo del cura (1982).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El hijo del cura",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 139635,
+        "title": "El hijo del cura",
+        "original_title": "El hijo del cura",
+        "overview": "En un pueblo de Levante Español, vive Justo, el cura. Es muy querido por todos los vecinos por su forma de ayudar a los demás. Agapito, el alcalde comunista, tiene una hija, que al quedar embarazada de su novio, el hijo de Santiago, el médico del pueblo, que es de Alianza Popular y pensando que su padre puede matarle, dice que el hijo que espera es del cura. Justo se ve mezclado en todo este follón, que Matilde, la chica embarazada, le cuenta en confesión, atándole de pies y manos para defenderse. Justo, acosado por Agapito, el Obispo y todo el pueblo, decide colgar los hábitos, pero en el último momento y ayudado por chicas del pueblo consigue que la verdad salga a relucir.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/14DaeLp1GwzVlVsBla9L5569j1m.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3SvPnrZAsz9lzYfoW6I153bp8Ph.jpg",
+        "vote_average": 7.2,
+        "release_date": "1982-09-17",
+        "year": "1982",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Don Justo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Agapito Fernández",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Adriana Ozores",
+            "role": "Matilde",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6xxv8qvxDLpuaKFMMzXziOldkGK.jpg"
+          },
+          {
+            "name": "Mari Carmen Prendes",
+            "role": "Ágata",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/iPQXVwIjAbENa0ORGXjcQvx6Gh0.jpg"
+          },
+          {
+            "name": "Nadine Rochex",
+            "role": "Florinda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vZiZKzJgsTJzZ1wsg4SnP4YXgMs.jpg"
+          },
+          {
+            "name": "Beatriz Escudero",
+            "role": "Violeta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pISi5mBNacH9lIWzTSlUxsZmrGg.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Dionisio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          },
+          {
+            "name": "Luisa Armenteros",
+            "role": "Amalia",
+            "thumbnail": ""
+          },
+          {
+            "name": "Florinda Chico",
+            "role": "Hermana Clara",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mpM0PSrWngqkj7ClfNasMwDod5O.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Ludovico, el obispo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?kfnwmq5d1hr8duom9zlb"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.301383"
+    },
+    {
+      "file": "Virilidad a la espanola (1977).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Virilidad a la espanola",
+        "year": "1977",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 138318,
+        "title": "Virilidad a la española",
+        "original_title": "Virilidad a la española",
+        "overview": "Orencio es un humilde joven que ayuda a su padre en un humilde negocio de un pueblecito castellano. Tiene novia, Angelita, y está muy enamorado de ella. Pero un día cae en manos de Vindemia, una joven algo ligera de cascos, que queda embarazada y que, posteriormente da a luz a cinco niños. Luego, Vindemia se casa con otro joven y se va a Suiza. Sin embargo, años después el superpotente de Orencio verá como la historia se repite de nuevo. Y esta vez no tiene muy claro si la siempre enamorada Angelita lo esperará.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xC4dKmTyLiBAhxirHTS3IwDrmrF.jpg",
+        "backdrop_url": "",
+        "vote_average": 3.0,
+        "release_date": "1977-02-18",
+        "year": "1977",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Orencio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Mónica Randall",
+            "role": "Mujer del Dr. Mejía",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/u4ehUPsyCrGtgBYiRxL6FzWIM0z.jpg"
+          },
+          {
+            "name": "Conchita Goyanes",
+            "role": "Angelita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zNDEPCpfIlQD7PpemnUnLCG21JN.jpg"
+          },
+          {
+            "name": "Josele Román",
+            "role": "Vindemia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/56VvLH7vUvm8QkEdARLPzN9nCgm.jpg"
+          },
+          {
+            "name": "Bárbara Rey",
+            "role": "Nati",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ki75u01Q2exOmH7a8yZPojHmbhL.jpg"
+          },
+          {
+            "name": "Eva León",
+            "role": "Peregrina",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hIV21QghvGq4aagMifSDPzYQLfh.jpg"
+          },
+          {
+            "name": "Maria Fernanda",
+            "role": "Artista de cabaret",
+            "thumbnail": ""
+          },
+          {
+            "name": "Venancio Muro",
+            "role": "Doro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lUMEdllFFJn2M7EckWeRpJ3KiGe.jpg"
+          },
+          {
+            "name": "Cris Huerta",
+            "role": "Marido secuestrador",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/nqhksVqJnSCrpJ559OuHj6N70d3.jpg"
+          },
+          {
+            "name": "Erasmo Pascual",
+            "role": "Padre de Angelita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/azZ4Mg4DKdOSiqdFZR44td9XlJY.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ly5nda8qjwlbun71q0kv"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.445432"
+    },
+    {
+      "file": "Cuatro mujeres y un lio (1985).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Cuatro mujeres y un lio",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 198249,
+        "title": "Cuatro mujeres y un lío",
+        "original_title": "Cuatro mujeres y un lío",
+        "overview": "Federico recibe una carta que contiene unas fotos suyas muy comprometidas con una chica. El problema es que su mujer, Alicia, ha visto esas fotos y decide abandonarlo. Para colmo, al día siguiente viene a visitarlo su tío millonario y Federico le pide a su chacha que se haga pasar por su mujer durante 24 horas para que éste no se entere, pero esto supondrá sólo el principio de un gran lío.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/7IGEti9GnwECjcnRIhXwZtSwPAi.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/sdwDurhZ8kszOOPJupaougiGDMJ.jpg",
+        "vote_average": 6.083,
+        "release_date": "1985-09-09",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Federico",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Tío Ramón",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Arévalo",
+            "role": "Alarico Carrasco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wNX0EnhCy4eYSNmXTbrKKUg7Hro.jpg"
+          },
+          {
+            "name": "Adriana Vega",
+            "role": "Manuela",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9WazbABzzzGNPwtkPTMQTVyJVoq.jpg"
+          },
+          {
+            "name": "Loreta Tovar",
+            "role": "Alicia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aXeQ180xkINFSBk9aPDKuhTc7EL.jpg"
+          },
+          {
+            "name": "Marta Valverde",
+            "role": "Bárbara",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tDP0iTsucjaAZFIzE6gV68gNUt9.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Obispo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Fedra Lorente",
+            "role": "Lola",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/2DGKxxnsLcFdMxw3eXnj5v57V7p.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Jardinero",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          },
+          {
+            "name": "Ramón Lillo",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zadcdKdEfVIDX3lSupKQPjPJNZh.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?mj3usw55ok779bp0xk5p"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.578358"
+    },
+    {
+      "file": "Agitese antes de usarla (1983).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Agitese antes de usarla",
+        "year": "1983",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 28141,
+        "title": "Agítese antes de usarla",
+        "original_title": "Agítese antes de usarla",
+        "overview": "Argimiro y Fabricio se conocen en una clínica de la Costa del Sol y aúnan esfuerzos para poder evadir doscientos millones de pesetas hacia Melilla. Como la clínica está en proceso de expansión, necesita hacer publicidad y para ello precisan de un enfermo famoso y ejemplar. Aprovechan la llegada fortuita del diputado que preside la comisión que vigila las incompatibilidades, que vienen a curarse de un uñero, y para retenerle hasta que llegue la televisión, Argimiro y Fabricio deciden escayolarlo hasta convertirle en una estatua.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vTu4oMJ4mHlrQstFpsqgFG3Dbd3.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/5NYHulsAzP5pmZWCUOUaaGy6HrY.jpg",
+        "vote_average": 6.2,
+        "release_date": "1983-09-12",
+        "year": "1983",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Argimiro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Fernando Esteso",
+            "role": "Fabricio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Dr. Roberto Branquia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Diputado Francisco Granja",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Jenny Llada",
+            "role": "Lucrecia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1RlTVkIc0ZurHdczimtfz1H3ers.jpg"
+          },
+          {
+            "name": "Beatriz Escudero",
+            "role": "Dra. Paquita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pISi5mBNacH9lIWzTSlUxsZmrGg.jpg"
+          },
+          {
+            "name": "Adrián Ortega",
+            "role": "Administrador de la clínica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h3oJRbxnmA2vZXXviW4HhFJexvV.jpg"
+          },
+          {
+            "name": "Nadine Rochex",
+            "role": "Rosa",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vZiZKzJgsTJzZ1wsg4SnP4YXgMs.jpg"
+          },
+          {
+            "name": "Arévalo",
+            "role": "Don Tarsicio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wNX0EnhCy4eYSNmXTbrKKUg7Hro.jpg"
+          },
+          {
+            "name": "José Lifante",
+            "role": "Valduque",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/l3sV4lkRIHvQX4c86Pw9h1L7YFK.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/atwZvfTw2gQf3RWANdTYGkGqoFW.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?oja1fihu1hu4i2uwpchn"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.721174"
+    },
+    {
+      "file": "Caray con el divorcio (1982).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Caray con el divorcio",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 60037,
+        "title": "Caray con el divorcio",
+        "original_title": "Caray con el divorcio",
+        "overview": "David está casado y no tiene hijos con su esposa, pero sin embargo, mantiene desde hace tiempo relaciones con Susi y Laly, con las que ha tenido un hijo con cada una de ellas. Promete, por separado, que cuando se autorice el divorcio en España, se casará con ellas. Sin embargo, se aprueba la ley del divorcio y empiezan sus problemas, puesto que no puede casarse con las dos a la vez, y además, no quiere separarse de su mujer, que es a quien realmente ama.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/b3PSnmPwIIFPah2y8rW2HW431nh.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/dz4AbBXbZJKh2rcSv1OkICgI0kH.jpg",
+        "vote_average": 5.125,
+        "release_date": "1982-03-08",
+        "year": "1982",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "David",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Rafael Alonso",
+            "role": "Carlos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bLIExztd2kJBTPzHlswUUf2Ryf9.jpg"
+          },
+          {
+            "name": "Ricardo Merino",
+            "role": "Mario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJDiaL1Mrvasd640uYH6mqLjK5w.jpg"
+          },
+          {
+            "name": "María Salerno",
+            "role": "Angélica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/x38f2Y4U0qAvmoQY2LSxVHhLZWl.jpg"
+          },
+          {
+            "name": "Nadine Rochex",
+            "role": "Susi",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vZiZKzJgsTJzZ1wsg4SnP4YXgMs.jpg"
+          },
+          {
+            "name": "Vanessa Hidalgo",
+            "role": "Lali",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/lcyZ8OxexQwOlQQR7MCTx7t1Qun.jpg"
+          },
+          {
+            "name": "Manuel Alexandre",
+            "role": "Padre de Angélica",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bPPMH8tRq4isCbXvxiuOxerBq6L.jpg"
+          },
+          {
+            "name": "María Luisa Ponte",
+            "role": "Enfermera",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3zOFsGSBPBMajxaSvWHSlAhxhHY.jpg"
+          },
+          {
+            "name": "Agustín González",
+            "role": "Doctor Rivera",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mZO2NuM7e7ftsutaiflgT20EM0G.jpg"
+          },
+          {
+            "name": "Mabel Escaño",
+            "role": "Doncella",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/61yxeRf7a5I9Fawb2UKxVple1zZ.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?ok035801mukm8mgsmiec"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.850639"
+    },
+    {
+      "file": "Al este del oeste (1984).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Al este del oeste",
+        "year": "1984",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 142968,
+        "title": "Al este del oeste",
+        "original_title": "Al este del oeste",
+        "overview": "Un pueblo se encuentra bajo el yugo de dos bandas de ladrones que les asaltan todas las semanas. El alcalde, en busca de una solución, ha decidido escribir una carta a Bill 'Pistolas de Oro', el hombre más rápido del oeste. En medio de tanta tensión, la llegada de dos forasteros hace pensar que uno de ellos es el famoso pistolero lo que provoca una serie de divertidas situaciones.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/sbWP9gbZUPcmuQWZbrUXvNmIsWP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/oru8eUtHnqqKnFSXU6yhYGXFW3B.jpg",
+        "vote_average": 5.2,
+        "release_date": "1984-01-10",
+        "year": "1984",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          },
+          {
+            "id": 37,
+            "name": "Western"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Bill Pistolas de oro",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Polonio Horacio Platón",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Conrado San Martín",
+            "role": "Alcalde - Padre de Margaret",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/m4Oc1WjpBi5oSQ4jVBcykPF6aUk.jpg"
+          },
+          {
+            "name": "Adriana Vega",
+            "role": "Margaret Rose",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/9WazbABzzzGNPwtkPTMQTVyJVoq.jpg"
+          },
+          {
+            "name": "Fernando Sancho Les",
+            "role": "Chapulín",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/zttePUBplDv07MPT4jYPO4daAq5.jpg"
+          },
+          {
+            "name": "África Pratt",
+            "role": "Stella",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1QGk95ZEZzA3gEyn9VaD9A8edb.jpg"
+          },
+          {
+            "name": "José Manuel Martín",
+            "role": "Bad Milk",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6uNCkyQFJifkQZTD0WVQGJdOkFP.jpg"
+          },
+          {
+            "name": "Luis Barbero",
+            "role": "Mr. First",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wIq4TDDHv8nRaRaLzsgRsDlLaJe.jpg"
+          },
+          {
+            "name": "Adrián Ortega",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h3oJRbxnmA2vZXXviW4HhFJexvV.jpg"
+          },
+          {
+            "name": "Francisco Camoiras",
+            "role": "Foster - Barber",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ghDt9xiiI3wMYFjumhYy6Dv6ogY.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?pjhaiabfvira65m3cytw"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:56.971411"
+    },
+    {
+      "file": "Yo hice a Roque III (1980)-004.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Yo hice a Roque III -004",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?q7m4g9cj9dcptt35nvwq"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.041110"
+    },
+    {
+      "file": "Semos peligrosos (Usease Makinavaja 2) (1993).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Semos peligrosos",
+        "year": "1993",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 134629,
+        "title": "¡Semos peligrosos! (Uséase Makinavaja 2)",
+        "original_title": "¡Semos peligrosos! (Uséase Makinavaja 2)",
+        "overview": "Nada más salir del talego, Maki va a buscar a su amigo Popeye, ahora reciclado en banquero. Juntos rescatan al abuelo de una peligrosa forma de \"ruleta rusa\" que se juega en el asilo, y deciden tomarse unas vacaciones en la playa. Un grupo de sudaméricanos que roban coches en las gasolineras, se llevará al abuelo secuestrado. Pero ese no será el único secuestro. Habrá persecuciones, ciegos de la ONCE convertidos en asesinos, asesores financieros gorrones, y mucho más.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/oTq10fIkhIOK0Ybh8qmsGpsWVBc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/5AsZjw2rsxiiBiKASFJgq30GXrT.jpg",
+        "vote_average": 5.7,
+        "release_date": "1993-05-14",
+        "year": "1993",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Maki",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Jesús Bonilla",
+            "role": "Popeye",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/sRbDlpCYqMVaw73bvTraBb5VtTS.jpg"
+          },
+          {
+            "name": "Llàtzer Escarceller",
+            "role": "Matías",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xypaxbL2wqtjlwT7xQL2X8qvKxa.jpg"
+          },
+          {
+            "name": "Mario Pardo",
+            "role": "Moromierda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/vIXUQPkH32M4LLwCc7WC2TDfvM6.jpg"
+          },
+          {
+            "name": "Pedro Reyes",
+            "role": "Pirata",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/c8vh59l6ez3zFefvsnhKsX3IPi9.jpg"
+          },
+          {
+            "name": "Lita Claver",
+            "role": "Manoli",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ecnj8de8K1X1oEqXT3z57gyXd5J.jpg"
+          },
+          {
+            "name": "Albert Vidal",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/ajst7JAylVSzhRB6l1qnpwcpTP2.jpg"
+          },
+          {
+            "name": "Boris Ruiz",
+            "role": "Padilla",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/hq03eSBxuvnhOYQOiUtMi7fn7Y.jpg"
+          },
+          {
+            "name": "Arnau Vilardebó",
+            "role": "Ciego",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/6beOTNfxAMc4R0muTPfpBJzyVD5.jpg"
+          },
+          {
+            "name": "Rafael Alonso",
+            "role": "Gutiérrez, el del Banco",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bLIExztd2kJBTPzHlswUUf2Ryf9.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?rxjcc7fpuyl27fy3ioad"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.173600"
+    },
+    {
+      "file": "Que gozada de divorcio (1981).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Que gozada de divorcio",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 213365,
+        "title": "¡Qué gozada de divorcio!",
+        "original_title": "¡Qué gozada de divorcio!",
+        "overview": "Alberto es un simpático sinvergüenza. Separado de su esposa hace cinco años, ahora tiene tres amantes, a las que siempre les pone la excusa de no poder casarse con ellas porque sigue estando casado, y el divorcio no está permitido. Hasta que un buen día el divorcio se legaliza y su mujer regresa con la intención de que firme los papeles del divorcio.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ud9QTiHSGy1ReuPblt6gbMaAiOj.jpg",
+        "backdrop_url": "",
+        "vote_average": 5.143,
+        "release_date": "1981-07-13",
+        "year": "1981",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Andrés Pajares",
+            "role": "Alberto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "África Pratt",
+            "role": "Julia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/1QGk95ZEZzA3gEyn9VaD9A8edb.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Camilo, padrastro de Alberto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Azucena Hernández",
+            "role": "Miércoles",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/grlDSkr8wX4nZGnFNZuZ2xanLHx.jpg"
+          },
+          {
+            "name": "Blaki",
+            "role": "Miguel, vecino de Alberto",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/63nnSdNoia216Zg0dDsiUhn5d5P.jpg"
+          },
+          {
+            "name": "Loreta Tovar",
+            "role": "Lunes",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/aXeQ180xkINFSBk9aPDKuhTc7EL.jpg"
+          },
+          {
+            "name": "Pilar Alcón",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/uwro6tq1rUB1fRvescB3udBQkPX.jpg"
+          },
+          {
+            "name": "Juan Santamaría",
+            "role": "",
+            "thumbnail": ""
+          },
+          {
+            "name": "Adrián Ortega",
+            "role": "Médico miope",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/h3oJRbxnmA2vZXXviW4HhFJexvV.jpg"
+          },
+          {
+            "name": "Trini Alonso",
+            "role": "Madame Margot",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/5HjqjH1XfURZ8dpctmmwaREZp22.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?sbxgvb8pbm6q0ym19lsf"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.329476"
+    },
+    {
+      "file": "Todos al suelo  (1982).mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Todos al suelo",
+        "year": "1982",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 142040,
+        "title": "Todos al suelo",
+        "original_title": "Todos al suelo",
+        "overview": "Una banda de cuatro auténticos elementos, compuesta por Facundo, una especie de Playboy \"a la española\" dispuesto a abandonar mujer y hogar para largarse con su querida; Aniceto, un hombre a punto de ser padre que comparte los angustiosos momentos del preparto de su esposa con amorosos flirteos con la vecina del piso; Pedro, un humilde mecánico aburrido de tanta grasa y de arrastrar su pata coja entre coches y motores, y por último Bernardo, un simpático abuelote que vive con su hija, yerno y nieto en un destartalado carromato de tio-vivo. Entre los cuatro deciden romper con la miseria habitual y trazan un arriesgado plan: dar un golpe a una sucursal del Banco Mistral, en la cual van a ser depositados 50 millones de pesetas.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/Atc0vMAZAiXfB9nwDAU5QVaPrjw.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/RRSsPsLNPfoYYMmyN1pI0ZuT8H.jpg",
+        "vote_average": 6.182,
+        "release_date": "1982-04-01",
+        "year": "1982",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Facundo Bonilla (Nº 0)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Andrés Pajares",
+            "role": "Aniceto García (Nº 1)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/s5jeH2AJgGF7nHNJaAxVun7uruX.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Pedro, el tuerto (Nº 2)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Abuelo de Julito (Nº 3)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Azucena Hernández",
+            "role": "Dorita",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/grlDSkr8wX4nZGnFNZuZ2xanLHx.jpg"
+          },
+          {
+            "name": "Paloma Hurtado",
+            "role": "Marta",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/gTKljar48dPvJdLyEA36yt5ZhcY.jpg"
+          },
+          {
+            "name": "Rafaela Aparicio",
+            "role": "Casilda",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yOHAj7TV66QAYznxCHIAijxd78K.jpg"
+          },
+          {
+            "name": "Beatriz Escudero",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/pISi5mBNacH9lIWzTSlUxsZmrGg.jpg"
+          },
+          {
+            "name": "Ricardo Merino",
+            "role": "Comisario",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/bJDiaL1Mrvasd640uYH6mqLjK5w.jpg"
+          },
+          {
+            "name": "Valeriano Andrés",
+            "role": "Don Gregorio",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/xO6Vj1OfpumVeciNsVdEhpxYp4d.jpg"
+          }
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/5ppKyDpodnA34czhmYZZ7S07tk6.png",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?v2mux0rqbmgtml4000qn"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.450508"
+    },
+    {
+      "file": "Los bingueros (1979)-013.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Los bingueros -013",
+        "year": "1979",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?v4m0jugw8hcnh3f3l0x2"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.521280"
+    },
+    {
+      "file": "El liguero magico (1980)-024.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "El liguero magico -024",
+        "year": "1980",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?veufvmuo124ds2fnsf60"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.637494"
+    },
+    {
+      "file": "Luces (2017)-026.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Luces -026",
+        "year": "2017",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?wriexdflyln5hqbgp6vp"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.720231"
+    },
+    {
+      "file": "La vida sigue igual (1969)-007.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "La vida sigue igual -007",
+        "year": "1969",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?x2kid6soszelkceqgr21"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.819298"
+    },
+    {
+      "file": "Queremos un hijo tuyo (1981)-001.mkv",
+      "parsed": {
+        "type": "movie",
+        "title": "Queremos un hijo tuyo -001",
+        "year": "1981",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {},
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?xkf4jd5xols6mbzcugi6"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:57.887574"
+    },
+    {
+      "file": "Que tia la C.I.A. (1985).avi",
+      "parsed": {
+        "type": "movie",
+        "title": "Que tia la C.I.A.",
+        "year": "1985",
+        "quality": "desconocida"
+      },
+      "tmdb_top": {
+        "tmdb_id": 268602,
+        "title": "¡Qué tía la C.I.A.!",
+        "original_title": "¡Qué tía la C.I.A.!",
+        "overview": "Carlos es un pobre y aburrido hombre que se deja llevar por la vida hasta el punto que se va a casar un tanto por la fuerza. Pero su vida cambia radicalmente un fin de semana cuando se encuentra en medio de espías extranjeros y aventuras.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vci6y939BXbjsnhcZum3jvHTi9L.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/bHzqakL49XHKC8pvTMuKkX9a2q6.jpg",
+        "vote_average": 6.273,
+        "release_date": "1985-04-22",
+        "year": "1985",
+        "genres": [
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Fernando Esteso",
+            "role": "Carlos del Campo",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qINXBdPAL6NAa2XNhuGABpKni6Z.jpg"
+          },
+          {
+            "name": "Antonio Ozores",
+            "role": "Manuel Álvarez",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/wpO5Q7RWUqOOziIHGsrALp6DA71.jpg"
+          },
+          {
+            "name": "Rafaela Aparicio",
+            "role": "Amancia",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/yOHAj7TV66QAYznxCHIAijxd78K.jpg"
+          },
+          {
+            "name": "Juanito Navarro",
+            "role": "Gaspar Melchor",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/qfwxDSb7zzvv82gg8Jm0dKa0mPB.jpg"
+          },
+          {
+            "name": "Alfonso del Real",
+            "role": "Fabricante de quesos",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/mgVBed6ZNdcNow2y1YOJ96ELr8O.jpg"
+          },
+          {
+            "name": "Brita Jensen",
+            "role": "Hertha Hitler",
+            "thumbnail": ""
+          },
+          {
+            "name": "Gérard Tichy",
+            "role": "Agente de la RFA",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/tMcupV3SQTOxRIzPObzxNZfyte1.jpg"
+          },
+          {
+            "name": "Emiliano Redondo",
+            "role": "Agente de la DDR",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/olSEIxcV2KTIOaAyxQZhLrXi0VD.jpg"
+          },
+          {
+            "name": "Carole James",
+            "role": "",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/kKxm60sBru9pBPgHjv5e8SYMTjk.jpg"
+          },
+          {
+            "name": "Concha Rosales",
+            "role": "",
+            "thumbnail": ""
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": ""
+      },
+      "links": [
+        {
+          "quality": "desconocida",
+          "url": "https://1fichier.com/?zlw0lta6swhg114uzdil"
+        }
+      ],
+      "date_added": "2026-02-16T16:38:58.042961"
+    },
+    {
       "file": "La casa magica (2013).avi",
       "parsed": {
         "type": "movie",
@@ -98,7 +2162,7 @@
           "url": "https://1fichier.com/?oropovr77pipwyhrrnh8"
         }
       ],
-      "date_added": "2026-02-16T11:05:44.041076"
+      "date_added": "2026-02-16T16:38:58.043257"
     },
     {
       "file": "Agallas el perro cobarde",
@@ -686,7 +2750,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.771462"
+      "date_added": "2026-02-16T16:38:54.127013"
     },
     {
       "file": "Ana de las Tejas Verdes",
@@ -1241,7 +3305,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.772381"
+      "date_added": "2026-02-16T16:38:54.127920"
     },
     {
       "file": "Banner y Flappy",
@@ -1566,7 +3630,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.773272"
+      "date_added": "2026-02-16T16:38:54.128812"
     },
     {
       "file": "Bateadores",
@@ -2166,7 +4230,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.773702"
+      "date_added": "2026-02-16T16:38:54.129251"
     },
     {
       "file": "Beetlejuice",
@@ -2836,7 +4900,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.774730"
+      "date_added": "2026-02-16T16:38:54.130432"
     },
     {
       "file": "Bola de Dan",
@@ -3385,7 +5449,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:43.775775"
+      "date_added": "2026-02-16T16:38:54.132211"
     },
     {
       "file": "Locos por el basket",
@@ -3806,7 +5870,7 @@
           ]
         }
       ],
-      "date_added": "2026-02-16T11:05:44.040210"
+      "date_added": "2026-02-16T16:38:54.133908"
     }
   ]
 }
