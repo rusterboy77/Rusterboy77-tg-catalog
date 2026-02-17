@@ -277,7 +277,7 @@ def update_cache_db(catalog_results):
             tmdb.get('clearlogo'), tmdb.get('banner'), tmdb.get('clearart'),
             tmdb.get('overview'),
             '', '', '', # episode_title, episode_overview, still_path (pendientes de implementar en TMDB fetch)
-            json.dumps(genres), json.dumps(cast)
+            json.dumps(genres, ensure_ascii=False), json.dumps(cast, ensure_ascii=False)
         ]
         
         folder_id = entry.get('folder_id', '')
@@ -286,14 +286,14 @@ def update_cache_db(catalog_results):
             links = entry.get('links') or []
             if links:
                 key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
-                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
+                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
         
         elif item_type == 'series':
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
                     key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
-                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
+                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
 
     c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
