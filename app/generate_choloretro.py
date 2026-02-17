@@ -7,6 +7,7 @@ import re
 import sys
 import datetime
 import sqlite3
+import unicodedata
 
 # Importar rename.py desde el mismo directorio
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +30,8 @@ def parse_filename_with_rename(filename):
     # LIMPIEZA: Eliminar sufijos numéricos tipo -021 (ej: Pelicula (1999)-021.mkv)
     filename = re.sub(r'-\d{3}(?=\.\w+$)', '', filename)
 
-    base = rename.safe_norm(filename.rsplit(".", 1)[0])
+    # Reemplazar puntos por espacios para mejorar detección de rename.py
+    base = rename.safe_norm(filename.rsplit(".", 1)[0].replace(".", " "))
     base = re.sub(r"wolfmax4k\.com|wolfmax4k\.net", " ", base, flags=re.IGNORECASE)
     base = rename.MULTI_SPACES_RE.sub(" ", base).strip()
 
@@ -80,6 +82,15 @@ def get_tmdb_meta(query, is_tv, year=None):
     try:
         r = requests.get(url, params=params)
         results = r.json().get('results', [])
+        
+        # Fallback: Si no hay resultados, intentar buscando sin acentos/caracteres especiales
+        if not results:
+            norm_query = ''.join(c for c in unicodedata.normalize('NFD', query) if unicodedata.category(c) != 'Mn')
+            if norm_query != query:
+                params['query'] = norm_query
+                r = requests.get(url, params=params)
+                results = r.json().get('results', [])
+
         if results:
             item = results[0]
             tmdb_id = item.get('id')
@@ -89,6 +100,7 @@ def get_tmdb_meta(query, is_tv, year=None):
             genres = []
             cast = []
             clearlogo = ""
+            collection = {}
             try:
                 details_url = f"https://api.themoviedb.org/3/{type_str}/{tmdb_id}"
                 details_params = {'api_key': TMDB_API_KEY, 'language': 'es-ES', 'append_to_response': 'credits,images'}
@@ -105,6 +117,13 @@ def get_tmdb_meta(query, is_tv, year=None):
                     logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
                     if logo_match:
                         clearlogo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
+                    
+                    if det.get('belongs_to_collection'):
+                        collection = {
+                            'id': str(det['belongs_to_collection'].get('id')),
+                            'name': det['belongs_to_collection'].get('name'),
+                            'poster': f"https://image.tmdb.org/t/p/w500{det['belongs_to_collection'].get('poster_path')}" if det['belongs_to_collection'].get('poster_path') else ""
+                        }
             except Exception as e:
                 print(f"Error enriqueciendo TMDB {tmdb_id}: {e}")
 
@@ -124,7 +143,8 @@ def get_tmdb_meta(query, is_tv, year=None):
                 'cast': cast,
                 'clearlogo': clearlogo,
                 'banner': '', 
-                'clearart': ''
+                'clearart': '',
+                'collection': collection
             }
     except Exception as e:
         print(f"Error TMDB: {e}")
@@ -200,7 +220,10 @@ def update_cache_db(catalog_results):
           links TEXT,
           date_added TEXT,
           enriched INTEGER DEFAULT 0,
-          folder_id TEXT
+          folder_id TEXT,
+          collection_id TEXT,
+          collection_name TEXT,
+          collection_poster TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
     ''')
@@ -208,6 +231,18 @@ def update_cache_db(catalog_results):
     # Migración por si la tabla ya existe sin la columna
     try:
         c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN collection_id TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
     except:
         pass
     
@@ -229,6 +264,12 @@ def update_cache_db(catalog_results):
         # Procesar cast: ya está en formato correcto {name, role, thumbnail}
         cast = tmdb.get('cast', [])
         
+        # Procesar colección
+        coll = tmdb.get('collection', {})
+        coll_id = coll.get('id', '')
+        coll_name = coll.get('name', '')
+        coll_poster = coll.get('poster', '')
+
         # Campos comunes
         common_vals = [
             str(tmdb.get('tmdb_id') or ''),
@@ -236,7 +277,8 @@ def update_cache_db(catalog_results):
             tmdb.get('clearlogo'), tmdb.get('banner'), tmdb.get('clearart'),
             tmdb.get('overview'),
             '', '', '', # episode_title, episode_overview, still_path (pendientes de implementar en TMDB fetch)
-            json.dumps(genres), json.dumps(cast)
+            json.dumps(genres), json.dumps(cast),
+            coll_id, coll_name, coll_poster
         ]
         
         folder_id = entry.get('folder_id', '')
@@ -245,16 +287,16 @@ def update_cache_db(catalog_results):
             links = entry.get('links') or []
             if links:
                 key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
-                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1, folder_id))
+                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
         
         elif item_type == 'series':
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
                     key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
-                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1, folder_id))
+                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
 
-    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
+    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
     conn.close()
     print(f"Base de datos actualizada con {len(items_db)} items.")
@@ -336,7 +378,8 @@ def generate():
             if norm_name not in series_map:
                 # Intentar recuperar de caché, si no buscar en TMDB
                 tmdb_data = meta_cache.get(f"tv_{norm_name}")
-                if not tmdb_data:
+                # Si no hay datos o son datos antiguos sin info de colección, refrescar
+                if not tmdb_data or 'collection' not in tmdb_data:
                     tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year)
                 
                 series_map[norm_name] = {
@@ -373,7 +416,8 @@ def generate():
             # Para este ejemplo, creamos un item nuevo
             cache_key = f"movie_{rename.normalize_title(title)}_{meta['year'] or ''}"
             tmdb_data = meta_cache.get(cache_key)
-            if not tmdb_data:
+            # Si no hay datos o son datos antiguos sin info de colección, refrescar
+            if not tmdb_data or 'collection' not in tmdb_data:
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
             
             item = {
