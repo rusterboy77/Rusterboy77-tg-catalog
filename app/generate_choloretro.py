@@ -277,8 +277,7 @@ def update_cache_db(catalog_results):
             tmdb.get('clearlogo'), tmdb.get('banner'), tmdb.get('clearart'),
             tmdb.get('overview'),
             '', '', '', # episode_title, episode_overview, still_path (pendientes de implementar en TMDB fetch)
-            json.dumps(genres), json.dumps(cast),
-            coll_id, coll_name, coll_poster
+            json.dumps(genres), json.dumps(cast)
         ]
         
         folder_id = entry.get('folder_id', '')
