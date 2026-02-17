@@ -119,10 +119,24 @@ def get_tmdb_meta(query, is_tv, year=None):
                         clearlogo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
                     
                     if det.get('belongs_to_collection'):
+                        coll_data = det['belongs_to_collection']
+                        coll_id = coll_data.get('id')
+                        coll_logo = ""
+                        try:
+                            r_coll = requests.get(f"https://api.themoviedb.org/3/collection/{coll_id}/images", params={'api_key': TMDB_API_KEY})
+                            if r_coll.ok:
+                                logos = r_coll.json().get('logos', [])
+                                logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
+                                if logo_match:
+                                    coll_logo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
+                        except: pass
+
                         collection = {
-                            'id': str(det['belongs_to_collection'].get('id')),
-                            'name': det['belongs_to_collection'].get('name'),
-                            'poster': f"https://image.tmdb.org/t/p/w500{det['belongs_to_collection'].get('poster_path')}" if det['belongs_to_collection'].get('poster_path') else ""
+                            'id': str(coll_id),
+                            'name': coll_data.get('name'),
+                            'poster': f"https://image.tmdb.org/t/p/w500{coll_data.get('poster_path')}" if coll_data.get('poster_path') else "",
+                            'fanart': f"https://image.tmdb.org/t/p/original{coll_data.get('backdrop_path')}" if coll_data.get('backdrop_path') else "",
+                            'clearlogo': coll_logo
                         }
             except Exception as e:
                 print(f"Error enriqueciendo TMDB {tmdb_id}: {e}")
@@ -223,7 +237,9 @@ def update_cache_db(catalog_results):
           folder_id TEXT,
           collection_id TEXT,
           collection_name TEXT,
-          collection_poster TEXT
+          collection_poster TEXT,
+          collection_fanart TEXT,
+          collection_clearlogo TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
     ''')
@@ -243,6 +259,14 @@ def update_cache_db(catalog_results):
         pass
     try:
         c.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
+    except:
+        pass
+    try:
+        c.execute("ALTER TABLE items ADD COLUMN collection_clearlogo TEXT")
     except:
         pass
     
@@ -269,6 +293,8 @@ def update_cache_db(catalog_results):
         coll_id = coll.get('id', '')
         coll_name = coll.get('name', '')
         coll_poster = coll.get('poster', '')
+        coll_fanart = coll.get('fanart', '')
+        coll_clearlogo = coll.get('clearlogo', '')
 
         # Campos comunes
         common_vals = [
@@ -286,16 +312,16 @@ def update_cache_db(catalog_results):
             links = entry.get('links') or []
             if links:
                 key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
-                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
+                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
         
         elif item_type == 'series':
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
                     key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
-                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster))
+                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
 
-    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
+    c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
     conn.close()
     print(f"Base de datos actualizada con {len(items_db)} items.")
@@ -417,30 +443,4 @@ def generate():
             tmdb_data = meta_cache.get(cache_key)
             # Si no hay datos o son datos antiguos sin info de colección, refrescar
             if not tmdb_data or 'collection' not in tmdb_data:
-                tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
-            
-            item = {
-                "file": filename,
-                "parsed": meta,
-                "tmdb_top": tmdb_data,
-                "links": [{"quality": quality, "url": link}],
-                "date_added": datetime.datetime.utcnow().isoformat(),
-                "folder_id": str(file.get('folder_id', ''))
-            }
-            new_results.append(item)
-            print(f"Película procesada: {title}")
-
-    # Reconstruir lista final
-    final_results = new_results + list(series_map.values())
-    catalog["results"] = final_results
-
-    # Guardar JSON
-    with open(CATALOG_PATH, 'w', encoding='utf-8') as f:
-        json.dump(catalog, f, indent=2, ensure_ascii=False)
-    print(f"Catálogo guardado en {CATALOG_PATH}")
-    
-    # Generar DB
-    update_cache_db(final_results)
-
-if __name__ == "__main__":
-    generate()
+              
