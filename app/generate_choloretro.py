@@ -443,4 +443,31 @@ def generate():
             tmdb_data = meta_cache.get(cache_key)
             # Si no hay datos o son datos antiguos sin info de colección, refrescar
             if not tmdb_data or 'collection' not in tmdb_data:
-              
+                tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
+            
+            item = {
+                "file": filename,
+                "parsed": meta,
+                "tmdb_top": tmdb_data,
+                "links": [{"quality": quality, "url": link}],
+                "date_added": datetime.datetime.utcnow().isoformat(),
+                "folder_id": str(file.get('folder_id', ''))
+            }
+            new_results.append(item)
+            print(f"Película procesada: {title}")
+
+    # Reconstruir lista final
+    final_results = new_results + list(series_map.values())
+    catalog["results"] = final_results
+
+    # Guardar JSON
+    with open(CATALOG_PATH, 'w', encoding='utf-8') as f:
+        json.dump(catalog, f, indent=2, ensure_ascii=False)
+    print(f"Catálogo guardado en {CATALOG_PATH}")
+    
+    # Generar DB
+    update_cache_db(final_results)
+
+if __name__ == "__main__":
+    # Iniciar proceso
+    generate()
