@@ -176,9 +176,13 @@ def get_tmdb_meta(query, is_tv, year=None):
         print(f"Error TMDB: {e}")
     return {}
 
-def get_1fichier_files_recursive(folder_id, headers, parent_folder_name=None):
+def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
     """Función auxiliar para recorrer carpetas recursivamente."""
+    if ancestors is None:
+        ancestors = []
+    
     all_files = []
+    parent_folder_name = ancestors[-1] if ancestors else None
     
     # 1. Obtener archivos de la carpeta actual
     try:
@@ -187,6 +191,7 @@ def get_1fichier_files_recursive(folder_id, headers, parent_folder_name=None):
             items = r.json().get('items', [])
             for item in items:
                 item['folder_name'] = parent_folder_name
+                item['ancestors'] = ancestors
                 item['folder_id'] = str(folder_id)
             all_files.extend(items)
     except Exception as e:
@@ -199,7 +204,8 @@ def get_1fichier_files_recursive(folder_id, headers, parent_folder_name=None):
             subfolders = r.json().get('sub_folders', [])
             for sub in subfolders:
                 print(f"  >> Escaneando subcarpeta: {sub['name']}")
-                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, parent_folder_name=sub['name']))
+                new_ancestors = ancestors + [sub['name']]
+                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, ancestors=new_ancestors))
     except Exception as e:
         print(f"Error leyendo subcarpetas en {folder_id}: {e}")
         
@@ -397,6 +403,13 @@ def generate():
             # Si no hay nombre de serie (ej: 1x01.mkv), usar nombre de carpeta
             if not series_name and file.get('folder_name'):
                 folder_raw = file.get('folder_name')
+                
+                # Si la carpeta es "Temporada X", usar la carpeta padre (nombre de la serie)
+                if re.search(r'(?i)^(temporada|season|t)\s*\d+$', folder_raw):
+                    ancestors = file.get('ancestors', [])
+                    if len(ancestors) >= 2:
+                        folder_raw = ancestors[-2]
+
                 # Estrategia: Buscar "Titulo (Año)" y descartar el resto (CAST, LAT, etc.)
                 match = re.search(r'^(.*?)\s*\(\s*(\d{4})\s*\)', folder_raw)
                 if match:
