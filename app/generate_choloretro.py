@@ -53,9 +53,8 @@ def parse_filename_with_rename(filename):
             season = int(se_match.group(3))
             episode = int(se_match.group(4))
         title_part = base[:se_match.start()]
-        # CORRECCIÓN: Si el título está vacío (ej: 1x04 Titulo), buscar después del patrón
-        if not title_part.strip():
-            title_part = base[se_match.end():]
+        # Si el título está vacío antes del patrón (ej: 1x04 Titulo), no usamos lo que sigue
+        # como nombre de serie, ya que probablemente sea el título del episodio.
         title_clean = rename.normalize_title(rename.remove_tokens(title_part))
         year, title_clean = rename.extract_year_and_clean(title_clean)
         return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality, "year": year}
