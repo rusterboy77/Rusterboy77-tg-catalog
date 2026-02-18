@@ -6,7 +6,7 @@ import json
 import os
 from urllib.parse import urlencode, urlparse, parse_qs, unquote_plus
 import unicodedata, re
-from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder
+from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder, get_collections, get_items_by_collection
 from resources.lib.utils.tools import log
 
 ITEMS_PER_PAGE = 40
@@ -108,6 +108,7 @@ def show_movies(base_url, handle, params):
     categories = [
         ('Todas', {'action': 'list_all_movies'}),
         ('Colecciones', {'action': 'show_collections'}),
+        ('Sagas', {'action': 'list_sagas'}),
         ('Por Título', {'action': 'list_movies_by_title'}),
         ('Por Género', {'action': 'list_movies_by_genre'}),
         ('Por Año', {'action': 'list_movies_by_year'}),
@@ -506,6 +507,7 @@ def show_animated(base_url, handle, params):
     categories = [
         ('Películas Animadas', {'action': 'list_animated_movies'}),
         ('Series Animadas', {'action': 'list_animated_tvshows'}),
+        ('Sagas Animadas', {'action': 'list_sagas', 'genre': 'Animación'}),
     ]
     
     for title, query_params in categories:
@@ -651,6 +653,92 @@ def show_animated_tvshows(base_url, handle, params):
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
+def list_sagas(base_url, handle, params):
+    """Lista las sagas (colecciones) disponibles."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
+    xbmcplugin.setContent(handle, 'movies')
+    xbmcplugin.setPluginFanart(handle, FANART)
+    
+    genre = params.get('genre')
+    # Si no hay género específico, excluimos Animación para que no salgan mezcladas
+    exclude_genre = 'Animación' if not genre else None
+    collections = get_collections(genre=genre, exclude_genre=exclude_genre)
+    
+    for col in collections:
+        li = xbmcgui.ListItem(label=col['collection_name'])
+        art = {'fanart': FANART}
+        if col.get('collection_poster'):
+            art['poster'] = col['collection_poster']
+            art['thumb'] = col['collection_poster']
+            art['icon'] = col['collection_poster']
+        if col.get('collection_fanart'):
+            art['fanart'] = col['collection_fanart']
+        if col.get('collection_clearlogo'):
+            art['clearlogo'] = col['collection_clearlogo']
+            art['clearart'] = col['collection_clearlogo']
+            art['logo'] = col['collection_clearlogo']
+        
+        # Añadir info básica para que la vista de póster funcione mejor
+        info = {
+            'title': col['collection_name'],
+            'plot': col['collection_name'],
+            'mediatype': 'set'
+        }
+        _apply_meta(li, info)
+        
+        li.setArt(art)
+        
+        url_params = {'action': 'list_saga_items', 'collection_id': col['collection_id'], 'title': col['collection_name']}
+        url = build_url(base_url, url_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, True)
+        
+    xbmcplugin.endOfDirectory(handle)
+
+def list_saga_items(base_url, handle, params):
+    """Lista los items de una saga específica."""
+    collection_id = params.get('collection_id')
+    
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
+    xbmcplugin.setContent(handle, 'movies')
+    xbmcplugin.setPluginFanart(handle, FANART)
+    
+    items = get_items_by_collection(collection_id)
+    
+    for item in items:
+        li = xbmcgui.ListItem(label=item['title'])
+        
+        # Reutilizamos lógica de info básica
+        info = {
+            'title': item.get('title'),
+            'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
+            'plot': item.get('overview'),
+            'mediatype': item.get('type', 'movie'),
+            'rating': item.get('rating'),
+            'tmdb_id': item.get('tmdb_id')
+        }
+        _apply_meta(li, info)
+        
+        art = {
+            'poster': item.get('poster'), 
+            'fanart': item.get('fanart'),
+            'clearlogo': item.get('clearlogo')
+        }
+        li.setArt({k: v for k, v in art.items() if v})
+
+        li.setProperty('IsPlayable', 'true')
+        links = json.loads(item['links']) if item.get('links') else []
+        url_link = links[0]['url'] if links else ''
+        url = build_url(base_url, {'action': 'play', 'title': item['title'], 'url': url_link})
+        xbmcplugin.addDirectoryItem(handle, url, li, False)
+
+    xbmcplugin.endOfDirectory(handle)
+
 def show_collections(base_url, handle, params):
     """Muestra las colecciones especiales definidas por ID de carpeta."""
     ADDON = xbmcaddon.Addon()
@@ -766,7 +854,7 @@ def show_search(base_url, handle, params):
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
     
-    search_term = params.get('search_term')
+    search_term = params.get('search_term') or params.get('q') or params.get('query')
     
     # Si no hay término de búsqueda, pedir al usuario
     if not search_term:

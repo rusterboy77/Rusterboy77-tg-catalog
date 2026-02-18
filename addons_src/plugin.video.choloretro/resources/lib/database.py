@@ -38,7 +38,12 @@ CREATE TABLE IF NOT EXISTS items (
   links TEXT,
   date_added TEXT,
   enriched INTEGER DEFAULT 0,
-  folder_id TEXT
+  folder_id TEXT,
+  collection_id TEXT,
+  collection_name TEXT,
+  collection_poster TEXT,
+  collection_fanart TEXT,
+  collection_clearlogo TEXT
 )
 '''
 
@@ -57,9 +62,29 @@ def init_db():
         # Migraciones o indices adicionales si fueran necesarios
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_type ON items(type)')
         
-        # Migración: Añadir columna folder_id si no existe (para usuarios que ya tienen la DB creada)
+        # Migración: Añadir columnas si no existen (en bloques separados para evitar fallos en cadena)
         try:
             c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+        except:
+            pass
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN collection_id TEXT")
+        except:
+            pass
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
+        except:
+            pass
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
+        except:
+            pass
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
+        except:
+            pass
+        try:
+            c.execute("ALTER TABLE items ADD COLUMN collection_clearlogo TEXT")
         except:
             pass
             
@@ -95,18 +120,23 @@ def upsert_items(items):
                 it.get('episode_title'),
                 it.get('episode_overview'),
                 it.get('still_path'),
-                json.dumps(it.get('genres') or []),
-                json.dumps(it.get('cast') or []),
-                json.dumps(it.get('links') or []),
+                json.dumps(it.get('genres') or [], ensure_ascii=False),
+                json.dumps(it.get('cast') or [], ensure_ascii=False),
+                json.dumps(it.get('links') or [], ensure_ascii=False),
                 it.get('date_added'),
                 1,
-                it.get('folder_id')
+                it.get('folder_id'),
+                it.get('collection_id'),
+                it.get('collection_name'),
+                it.get('collection_poster'),
+                it.get('collection_fanart'),
+                it.get('collection_clearlogo')
             ))
         
         c.executemany('''
             INSERT OR REPLACE INTO items 
-            ("key", title, type, year, season, episode, tmdb_id, poster, fanart, clearlogo, banner, clearart, overview, episode_title, episode_overview, still_path, genres, "cast", links, date_added, enriched, folder_id)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ("key", title, type, year, season, episode, tmdb_id, poster, fanart, clearlogo, banner, clearart, overview, episode_title, episode_overview, still_path, genres, "cast", links, date_added, enriched, folder_id, collection_id, collection_name, collection_poster, collection_fanart, collection_clearlogo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', vals)
         conn.commit()
     except Exception as e:
@@ -171,6 +201,53 @@ def get_tv_shows():
     finally:
         conn.close()
 
+def get_collections(genre=None, exclude_genre=None):
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        query = 'SELECT DISTINCT collection_id, collection_name, collection_poster, collection_fanart, collection_clearlogo FROM items WHERE collection_id IS NOT NULL AND collection_id != ""'
+        args = []
+        if genre:
+            query += ' AND genres LIKE ?'
+            args.append(f'%{genre}%')
+        if exclude_genre:
+            query += ' AND genres NOT LIKE ?'
+            args.append(f'%{exclude_genre}%')
+        query += ' ORDER BY collection_name'
+        
+        try:
+            c.execute(query, args)
+        except sqlite3.OperationalError as e:
+            if 'no such column' in str(e):
+                # Auto-recuperación: Intentar crear las columnas si faltan
+                try: c.execute("ALTER TABLE items ADD COLUMN collection_id TEXT")
+                except: pass
+                try: c.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
+                except: pass
+                try: c.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
+                except: pass
+                try: c.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
+                except: pass
+                try: c.execute("ALTER TABLE items ADD COLUMN collection_clearlogo TEXT")
+                except: pass
+                conn.commit()
+                c.execute(query, args)
+            else:
+                raise e
+                
+        return [dict(row) for row in c.fetchall()]
+    finally:
+        conn.close()
+
+def get_items_by_collection(collection_id):
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT * FROM items WHERE collection_id = ? ORDER BY year', (collection_id,))
+        return [dict(row) for row in c.fetchall()]
+    finally:
+        conn.close()
+
 def get_items_by_folder(folder_id):
     conn = get_connection()
     try:
@@ -182,6 +259,11 @@ def get_items_by_folder(folder_id):
                 log("Database: Columna folder_id faltante detectada. Aplicando migración automática.")
                 try:
                     c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
+                    c.execute("ALTER TABLE items ADD COLUMN collection_id TEXT")
+                    c.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
+                    c.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
+                    c.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
+                    c.execute("ALTER TABLE items ADD COLUMN collection_clearlogo TEXT")
                     conn.commit()
                     c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
                 except Exception as e2:

@@ -37,6 +37,10 @@ class Router:
             listings.show_collections(self.base_url, self.handle, params)
         elif action == 'list_collection_items':
             listings.list_collection_items(self.base_url, self.handle, params)
+        elif action == 'list_sagas':
+            listings.list_sagas(self.base_url, self.handle, params)
+        elif action == 'list_saga_items':
+            listings.list_saga_items(self.base_url, self.handle, params)
         
         # --- Series ---
         elif action == 'list_tvshows':
