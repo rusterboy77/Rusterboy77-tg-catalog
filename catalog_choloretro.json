@@ -61223,7 +61223,20 @@
         "vote_average": 7.3,
         "release_date": "1969-09-05",
         "year": "1969",
-        "genres": [],
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 10762,
+            "name": "Kids"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
         "cast": [],
         "clearlogo": "",
         "banner": "",
@@ -68517,7 +68530,20 @@
         "vote_average": 0.0,
         "release_date": "1965-01-01",
         "year": "1965",
-        "genres": [],
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 10762,
+            "name": "Kids"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
         "cast": [],
         "clearlogo": "",
         "banner": "",
@@ -81895,7 +81921,20 @@
         "vote_average": 7.0,
         "release_date": "1969-03-05",
         "year": "1969",
-        "genres": [],
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 10762,
+            "name": "Kids"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
         "cast": [
           {
             "name": "John Byner",
