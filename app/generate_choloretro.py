@@ -410,8 +410,16 @@ def generate():
             if norm_name not in series_map:
                 # Intentar recuperar de caché, si no buscar en TMDB
                 tmdb_data = meta_cache.get(f"tv_{norm_name}")
-                # Si no hay datos o son datos antiguos sin info de colección, refrescar
-                if not tmdb_data or 'collection' not in tmdb_data:
+                
+                # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
+                need_refresh = not tmdb_data or 'collection' not in tmdb_data
+                if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
+                    # Si tiene colección pero le falta fanart o logo, refrescar
+                    if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
+                        need_refresh = True
+
+                if need_refresh:
+                    print(f"Refrescando metadatos para serie: {series_name}")
                     tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year)
                 
                 series_map[norm_name] = {
@@ -448,8 +456,16 @@ def generate():
             # Para este ejemplo, creamos un item nuevo
             cache_key = f"movie_{rename.normalize_title(title)}_{meta['year'] or ''}"
             tmdb_data = meta_cache.get(cache_key)
-            # Si no hay datos o son datos antiguos sin info de colección, refrescar
-            if not tmdb_data or 'collection' not in tmdb_data:
+            
+            # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
+            need_refresh = not tmdb_data or 'collection' not in tmdb_data
+            if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
+                # Si tiene colección pero le falta fanart o logo, refrescar
+                if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
+                    need_refresh = True
+
+            if need_refresh:
+                print(f"Refrescando metadatos para película: {title}")
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
 
             item = {
