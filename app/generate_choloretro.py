@@ -122,20 +122,27 @@ def get_tmdb_meta(query, is_tv, year=None):
                         coll_data = det['belongs_to_collection']
                         coll_id = coll_data.get('id')
                         coll_logo = ""
+                        coll_backdrop = coll_data.get('backdrop_path')
                         try:
                             r_coll = requests.get(f"https://api.themoviedb.org/3/collection/{coll_id}/images", params={'api_key': TMDB_API_KEY})
                             if r_coll.ok:
-                                logos = r_coll.json().get('logos', [])
+                                coll_images = r_coll.json()
+                                logos = coll_images.get('logos', [])
                                 logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
                                 if logo_match:
                                     coll_logo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
+                                
+                                if not coll_backdrop:
+                                    backdrops = coll_images.get('backdrops', [])
+                                    if backdrops:
+                                        coll_backdrop = backdrops[0]['file_path']
                         except: pass
 
                         collection = {
                             'id': str(coll_id),
                             'name': coll_data.get('name'),
                             'poster': f"https://image.tmdb.org/t/p/w500{coll_data.get('poster_path')}" if coll_data.get('poster_path') else "",
-                            'fanart': f"https://image.tmdb.org/t/p/original{coll_data.get('backdrop_path')}" if coll_data.get('backdrop_path') else "",
+                            'fanart': f"https://image.tmdb.org/t/p/original{coll_backdrop}" if coll_backdrop else "",
                             'clearlogo': coll_logo
                         }
             except Exception as e:
@@ -444,7 +451,7 @@ def generate():
             # Si no hay datos o son datos antiguos sin info de colección, refrescar
             if not tmdb_data or 'collection' not in tmdb_data:
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
-            
+
             item = {
                 "file": filename,
                 "parsed": meta,
