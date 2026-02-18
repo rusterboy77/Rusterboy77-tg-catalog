@@ -60,7 +60,13 @@ def parse_filename_with_rename(filename):
         return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality, "year": year}
     elif is_series_cap:
         # Lógica simple para capítulos numéricos (ej. 101 -> S1 E1)
-        return {"type": "series", "series": rename.normalize_title(rename.remove_tokens(base)), "season": cap_num // 100, "episode": cap_num % 100, "quality": quality}
+        series_clean = ""
+        match = re.search(r'\b' + str(cap_num) + r'\b', base)
+        if match:
+            title_part = base[:match.start()]
+            series_clean = rename.normalize_title(rename.remove_tokens(title_part))
+        year, series_clean = rename.extract_year_and_clean(series_clean)
+        return {"type": "series", "series": series_clean, "season": cap_num // 100, "episode": cap_num % 100, "quality": quality, "year": year}
     else:
         cleaned = rename.remove_tokens(base)
         year, cleaned_no_year = rename.extract_year_and_clean(cleaned)
