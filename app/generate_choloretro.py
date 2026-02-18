@@ -18,6 +18,13 @@ TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
 ONEFICHIER_API_KEY = os.environ.get('ONEFICHIER_API_KEY')
 ONEFICHIER_FOLDER_ID = os.environ.get('ONEFICHIER_FOLDER_ID')
 
+# IDs manuales para corregir series con nombres ambiguos
+# Clave: Título normalizado en minúsculas
+MANUAL_OVERRIDES = {
+    "heidi": 29452,           # Heidi (Anime 1974)
+    "sherlock holmes": 21296,  # Sherlock Holmes (Granada TV 1984)
+}
+
 # Rutas
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(BASE_DIR, "catalog_choloretro.json")
@@ -78,103 +85,117 @@ def get_tmdb_meta(query, is_tv, year=None):
     if not TMDB_API_KEY: return {}
     
     type_str = 'tv' if is_tv else 'movie'
-    url = f"https://api.themoviedb.org/3/search/{type_str}"
-    params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
-    if year:
-        if is_tv: params['first_air_date_year'] = year
-        else: params['year'] = year
+    tmdb_id = None
+    item = {}
+
+    # 1. Revisar overrides manuales
+    norm_query = rename.normalize_title(query).lower()
+    if norm_query in MANUAL_OVERRIDES:
+        tmdb_id = MANUAL_OVERRIDES[norm_query]
+        print(f"Usando ID manual para '{query}': {tmdb_id}")
+    
+    # 2. Si no hay override, buscar en TMDB
+    if not tmdb_id:
+        url = f"https://api.themoviedb.org/3/search/{type_str}"
+        params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
+        if year:
+            if is_tv: params['first_air_date_year'] = year
+            else: params['year'] = year
+        
+        try:
+            r = requests.get(url, params=params)
+            results = r.json().get('results', [])
+            
+            # Fallback: Si no hay resultados, intentar buscando sin acentos/caracteres especiales
+            if not results:
+                norm_query_search = ''.join(c for c in unicodedata.normalize('NFD', query) if unicodedata.category(c) != 'Mn')
+                if norm_query_search != query:
+                    params['query'] = norm_query_search
+                    r = requests.get(url, params=params)
+                    results = r.json().get('results', [])
+
+            if results:
+                item = results[0]
+                tmdb_id = item.get('id')
+        except Exception as e:
+            print(f"Error buscando en TMDB: {e}")
+
+    if not tmdb_id:
+        return {}
+            
+    # 3. Obtener detalles completos (necesario para overrides y para enriquecer búsqueda)
+    genres = []
+    cast = []
+    clearlogo = ""
+    collection = {}
     
     try:
-        r = requests.get(url, params=params)
-        results = r.json().get('results', [])
-        
-        # Fallback: Si no hay resultados, intentar buscando sin acentos/caracteres especiales
-        if not results:
-            norm_query = ''.join(c for c in unicodedata.normalize('NFD', query) if unicodedata.category(c) != 'Mn')
-            if norm_query != query:
-                params['query'] = norm_query
-                r = requests.get(url, params=params)
-                results = r.json().get('results', [])
-
-        if results:
-            item = results[0]
-            tmdb_id = item.get('id')
+        details_url = f"https://api.themoviedb.org/3/{type_str}/{tmdb_id}"
+        details_params = {'api_key': TMDB_API_KEY, 'language': 'es-ES', 'append_to_response': 'credits,images'}
+        r_det = requests.get(details_url, params=details_params, timeout=5)
+        if r_det.ok:
+            det = r_det.json()
+            item = det # Usar detalles como fuente principal
+            genres = det.get('genres', [])
+            # Cast (Top 10)
+            raw_cast = det.get('credits', {}).get('cast', [])
+            cast = [{'name': c['name'], 'role': c['character'], 'thumbnail': f"https://image.tmdb.org/t/p/w185{c['profile_path']}" if c.get('profile_path') else ""} for c in raw_cast[:10]]
+            # Clearlogo (buscar en imágenes)
+            logos = det.get('images', {}).get('logos', [])
+            # Preferir logo en español, sino el primero
+            logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
+            if logo_match:
+                clearlogo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
             
-            # --- ENRIQUECIMIENTO EXTRA (Detalles, Créditos, Imágenes) ---
-            # Esto recupera géneros, actores y clearlogo que faltaban
-            genres = []
-            cast = []
-            clearlogo = ""
-            collection = {}
-            try:
-                details_url = f"https://api.themoviedb.org/3/{type_str}/{tmdb_id}"
-                details_params = {'api_key': TMDB_API_KEY, 'language': 'es-ES', 'append_to_response': 'credits,images'}
-                r_det = requests.get(details_url, params=details_params, timeout=5)
-                if r_det.ok:
-                    det = r_det.json()
-                    genres = det.get('genres', [])
-                    # Cast (Top 10)
-                    raw_cast = det.get('credits', {}).get('cast', [])
-                    cast = [{'name': c['name'], 'role': c['character'], 'thumbnail': f"https://image.tmdb.org/t/p/w185{c['profile_path']}" if c.get('profile_path') else ""} for c in raw_cast[:10]]
-                    # Clearlogo (buscar en imágenes)
-                    logos = det.get('images', {}).get('logos', [])
-                    # Preferir logo en español, sino el primero
-                    logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
-                    if logo_match:
-                        clearlogo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
-                    
-                    if det.get('belongs_to_collection'):
-                        coll_data = det['belongs_to_collection']
-                        coll_id = coll_data.get('id')
-                        coll_logo = ""
-                        coll_backdrop = coll_data.get('backdrop_path')
-                        try:
-                            r_coll = requests.get(f"https://api.themoviedb.org/3/collection/{coll_id}/images", params={'api_key': TMDB_API_KEY})
-                            if r_coll.ok:
-                                coll_images = r_coll.json()
-                                logos = coll_images.get('logos', [])
-                                logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
-                                if logo_match:
-                                    coll_logo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
-                                
-                                if not coll_backdrop:
-                                    backdrops = coll_images.get('backdrops', [])
-                                    if backdrops:
-                                        coll_backdrop = backdrops[0]['file_path']
-                        except: pass
+            if det.get('belongs_to_collection'):
+                coll_data = det['belongs_to_collection']
+                coll_id = coll_data.get('id')
+                coll_logo = ""
+                coll_backdrop = coll_data.get('backdrop_path')
+                try:
+                    r_coll = requests.get(f"https://api.themoviedb.org/3/collection/{coll_id}/images", params={'api_key': TMDB_API_KEY})
+                    if r_coll.ok:
+                        coll_images = r_coll.json()
+                        logos = coll_images.get('logos', [])
+                        logo_match = next((l for l in logos if l.get('iso_639_1') == 'es'), logos[0] if logos else None)
+                        if logo_match:
+                            coll_logo = f"https://image.tmdb.org/t/p/original{logo_match['file_path']}"
+                        
+                        if not coll_backdrop:
+                            backdrops = coll_images.get('backdrops', [])
+                            if backdrops:
+                                coll_backdrop = backdrops[0]['file_path']
+                except: pass
 
-                        collection = {
-                            'id': str(coll_id),
-                            'name': coll_data.get('name'),
-                            'poster': f"https://image.tmdb.org/t/p/w500{coll_data.get('poster_path')}" if coll_data.get('poster_path') else "",
-                            'fanart': f"https://image.tmdb.org/t/p/original{coll_backdrop}" if coll_backdrop else "",
-                            'clearlogo': coll_logo
-                        }
-            except Exception as e:
-                print(f"Error enriqueciendo TMDB {tmdb_id}: {e}")
-
-            return {
-                'tmdb_id': tmdb_id,
-                'title': item.get('name') if is_tv else item.get('title'), # Título oficial
-                'original_title': item.get('original_name') if is_tv else item.get('original_title'),
-                'overview': item.get('overview'),
-                'poster_url': f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get('poster_path') else "",
-                'backdrop_url': f"https://image.tmdb.org/t/p/original{item.get('backdrop_path')}" if item.get('backdrop_path') else "",
-                # Campos extra para igualar a RusterWolf
-                'vote_average': item.get('vote_average'),
-                'release_date': item.get('first_air_date') if is_tv else item.get('release_date'),
-                'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4],
-                # Nuevos campos enriquecidos
-                'genres': genres,
-                'cast': cast,
-                'clearlogo': clearlogo,
-                'banner': '', 
-                'clearart': '',
-                'collection': collection
-            }
+                collection = {
+                    'id': str(coll_id),
+                    'name': coll_data.get('name'),
+                    'poster': f"https://image.tmdb.org/t/p/w500{coll_data.get('poster_path')}" if coll_data.get('poster_path') else "",
+                    'fanart': f"https://image.tmdb.org/t/p/original{coll_backdrop}" if coll_backdrop else "",
+                    'clearlogo': coll_logo
+                }
     except Exception as e:
-        print(f"Error TMDB: {e}")
-    return {}
+        print(f"Error enriqueciendo TMDB {tmdb_id}: {e}")
+
+    return {
+        'tmdb_id': tmdb_id,
+        'title': item.get('name') if is_tv else item.get('title'), # Título oficial
+        'original_title': item.get('original_name') if is_tv else item.get('original_title'),
+        'overview': item.get('overview'),
+        'poster_url': f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get('poster_path') else "",
+        'backdrop_url': f"https://image.tmdb.org/t/p/original{item.get('backdrop_path')}" if item.get('backdrop_path') else "",
+        # Campos extra para igualar a RusterWolf
+        'vote_average': item.get('vote_average'),
+        'release_date': item.get('first_air_date') if is_tv else item.get('release_date'),
+        'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4],
+        # Nuevos campos enriquecidos
+        'genres': genres,
+        'cast': cast,
+        'clearlogo': clearlogo,
+        'banner': '', 
+        'clearart': '',
+        'collection': collection
+    }
 
 def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
     """Función auxiliar para recorrer carpetas recursivamente."""
