@@ -261,7 +261,7 @@ def list_all_tvshows(base_url, handle, params):
     
     items = get_tv_shows()
     # Filtrar animacion
-    items = [i for i in items if not _has_genre(i, 'Animación')]
+    items = [i for i in items if not _is_animated(i)]
 
     # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
     items.sort(key=lambda x: x.get('date_added') or '', reverse=False)
@@ -494,6 +494,16 @@ def _has_genre(item, genre_name):
     
     return any(genre_name.lower() in (g.lower() if isinstance(g, str) else g.get('name', '').lower()) for g in genres)
 
+def _is_animated(item):
+    """Determina si un item es animado por género o por carpeta."""
+    if _has_genre(item, 'Animación'):
+        return True
+    # Lista de carpetas de animación. Añade aquí los IDs de las subcarpetas si es necesario.
+    animation_folders = ['19161644', '19207971', '19208195', '19207967']
+    if str(item.get('folder_id') or '').strip() in animation_folders:
+        return True
+    return False
+
 def show_animated(base_url, handle, params):
     """Muestra películas y series animadas."""
     ADDON = xbmcaddon.Addon()
@@ -596,7 +606,7 @@ def show_animated_tvshows(base_url, handle, params):
     
     xbmcplugin.setContent(handle, 'tvshows')
     items = get_tv_shows()
-    items = [i for i in items if _has_genre(i, 'Animación')]
+    items = [i for i in items if _is_animated(i)]
 
     page = int(params.get('page', 1))
     total_items = len(items)
@@ -753,7 +763,8 @@ def show_collections(base_url, handle, params):
         ('Cine Quinqui', '19205939'),
         ('Clásicas Español', '19205942'),
         ('Lina Morgan', '19205937'),
-        ('Pajares y Esteso', '19205934')
+        ('Pajares y Esteso', '19205934'),
+        ('Grandes Clásicos del Cine', '19235310')
     ]
     
     for title, folder_id in collections:
@@ -865,22 +876,32 @@ def show_search(base_url, handle, params):
             return
     
     xbmcplugin.setContent(handle, 'movies')  # Mostrar como contenido de video para ver posters
-    search_term_lower = search_term.lower()
+    
+    # Normalizar búsqueda: quitar acentos, minúsculas y dividir en palabras
+    search_norm = _normalize_title_for_match(search_term)
+    search_words = search_norm.split()
+    
     found_total = 0
     all_results = []
     
+    # Si tras normalizar no queda nada (ej. solo símbolos), no buscar
+    if not search_words:
+        xbmcplugin.endOfDirectory(handle)
+        return
+
     # Recolectar películas
     movies = get_all_items('movie')
     for movie in movies:
-        movie_title = movie.get('title', '')
-        if movie_title and search_term_lower in movie_title.lower():
+        # Buscar si TODAS las palabras de la búsqueda están en el título normalizado
+        title_norm = _normalize_title_for_match(movie.get('title', ''))
+        if title_norm and all(word in title_norm for word in search_words):
             all_results.append({'type': 'movie', 'data': movie})
     
     # Recolectar series
     items = get_tv_shows()
     for item in items:
-        item_title = item.get('title', '')
-        if item_title and search_term_lower in item_title.lower():
+        title_norm = _normalize_title_for_match(item.get('title', ''))
+        if title_norm and all(word in title_norm for word in search_words):
             all_results.append({'type': 'tvshow', 'data': item})
     
     # Paginación
@@ -1782,7 +1803,7 @@ def show_tvshows_by_title(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación')]
+    items = [i for i in items if not _is_animated(i)]
     
     groups = {}
     for item in items:
@@ -1810,7 +1831,7 @@ def list_tvshows_by_letter(base_url, handle, params):
     letter = params.get('letter', 'A')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación')]
+    items = [i for i in items if not _is_animated(i)]
     items = [i for i in items if i.get('title', '').upper().startswith(letter)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
@@ -1874,7 +1895,7 @@ def show_tvshows_by_genre(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación')]
+    items = [i for i in items if not _is_animated(i)]
     
     genres_set = set()
     for item in items:
@@ -1915,7 +1936,7 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
     genre = params.get('genre', '')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación') and _has_genre(i, genre)]
+    items = [i for i in items if not _is_animated(i) and _has_genre(i, genre)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
@@ -1978,7 +1999,7 @@ def show_tvshows_by_year(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación')]
+    items = [i for i in items if not _is_animated(i)]
     
     years_set = set()
     for item in items:
@@ -2006,7 +2027,7 @@ def list_tvshows_by_year_filter(base_url, handle, params):
     year = params.get('year', '')
     
     items = get_tv_shows()
-    items = [i for i in items if not _has_genre(i, 'Animación') and str(i.get('year', '')) == year]
+    items = [i for i in items if not _is_animated(i) and str(i.get('year', '')) == year]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
