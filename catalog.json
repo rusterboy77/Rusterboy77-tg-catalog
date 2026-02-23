@@ -1861,7 +1861,24 @@
           "infohash": "a17c620688cf2fb9aac4007ff1471fd79f45d4f1"
         }
       ],
-      "overview": "Drama basado en hechos reales que explora la ajetreada profesión y vida del personal que opera detrás de la línea de emergencia 911. A través de ella, policías, paramédicos y bomberos reciben llamadas de urgencias diarias por las que rápidamente deben acudir y poner en riesgo su vida para salvar la de otros."
+      "overview": "Drama basado en hechos reales que explora la ajetreada profesión y vida del personal que opera detrás de la línea de emergencia 911. A través de ella, policías, paramédicos y bomberos reciben llamadas de urgencias diarias por las que rápidamente deben acudir y poner en riesgo su vida para salvar la de otros.",
+      "episodes": [
+        {
+          "season": 9,
+          "episode": 7,
+          "overview": "Drama basado en hechos reales que explora la ajetreada profesión y vida del personal que opera detrás de la línea de emergencia 911. A través de ella, policías, paramédicos y bomberos reciben llamadas de urgencias diarias por las que rápidamente deben acudir y poner en riesgo su vida para salvar la de otros.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8b6ef949f9dff636767f5d75ed84994296f0bf2e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:07d53606c3b0a579fe4b6903c899d2e45e20e58b"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "9-1-1 [HDTV 720p][Cap.811].torrent",
@@ -40161,6 +40178,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:f55f8b4ee6162cd9441cb262b7292e98331db7ae"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:01d1126110e7635a5b007b8f6315aa7de589ffb9"
+            }
+          ]
+        },
+        {
+          "season": 15,
+          "episode": 3,
+          "overview": "La historia se centra en el personaje de Richard Poole, un policía inglés con muy poco sentido del humor y de carácter huraño que llega la ficticia isla caribeña de Saint-Marie para resolver el asesinato de un compañero. Tras resolver el crimen, recibirá una recompensa inesperada y no deseada: un puesto de trabajo como Inspector Jefe de la policía local. Al principio de la temporada, esta premisa se repite con el detective Humphrey Goodman sustituyendo a su antecesor en el cargo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:99475fc6800aa88cbcfa1623dfb758f7c41f0b2a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:30916c79e8cd60068f45455ad534a8ae7dc68929"
             }
           ]
         }
@@ -58157,7 +58193,72 @@
           "infohash": "5e017f8c22473e5b371360c350d368e98aae1edb"
         }
       ],
-      "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas."
+      "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+      "episodes": [
+        {
+          "season": 3,
+          "episode": 1,
+          "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:10eb69b67240b0962c061e181328a174e4aa01df"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ce07dbd8e6521531bc05d80e62c6809d6c32dfe1"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 2,
+          "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1fa79334e225ec6fc01578be236e281867007530"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:db8c9ec3d692573474722c1136c08fef01c40178"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 3,
+          "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:567c512af182d8216cd0aaa2ecc7ca31da46183f"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 4,
+          "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dbf1ab1eed54c2fb7bbb7caa320479525d122073"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 5,
+          "overview": "Unidos por una llamada a medianoche, un agente del FBI y una experta en ciberseguridad deben desentrañar una intrincada red de conspiraciones políticas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bdb0a425297b35bdb5541b030c7840fe823d61f4"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "El agente nocturno [HDTV 1080p][Cap.202].torrent",
@@ -77742,6 +77843,21 @@
               "magnet": "magnet:?xt=urn:btih:a4165b642183ec3e6e108ac049c7df55272d1eb6"
             }
           ]
+        },
+        {
+          "season": 4,
+          "episode": 2,
+          "overview": "Bode Leone es un joven convicto que busca redención y una reducción de su condena al unirse a un programa de lucha contra incendios forestales para presos en el norte de California. En este programa, Bode y otros internos trabajan codo a codo con bomberos de élite para extinguir incendios masivos e impredecibles en la región. Es una misión de alto riesgo y grandes recompensas.\n\nLa tensión aumenta cuando Bode es asignado al programa en su pequeño pueblo natal, donde alguna vez fue un héroe local hasta que sus problemas comenzaron. Hace cinco años, Bode lo perdió todo y dejó el pueblo con un gran secreto. Ahora ha vuelto, con un historial criminal y la audacia de creer en una segunda oportunidad de redención con Cal Fire.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b77196c81877d8f422f27d7abbaf8a9cb566a826"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dc24ec65cbd903d69a2bc6fcd670578e8b749c87"
+            }
+          ]
         }
       ]
     },
@@ -88704,6 +88820,21 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ee963a1c2d57c4645f71199fd548a146a137fe27"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 11,
+          "overview": "Morgan es una madre soltera con una mente excepcional, cuya habilidad poco convencional para resolver crímenes conduce a una asociación inusual e imparable con un detective experimentado.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dff968d042f1a2466c3c74ccc48390f6c27e69b4"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:cf0fa53546455eb3b01019caf5c9c6bb567061e5"
             }
           ]
         }
@@ -209725,6 +209856,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:af1e59dbc8e97f809a9a64701318cdc3db91815c"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7216cd408e18f08a36379b6390b81d1d0ad5f7d3"
             }
           ]
         }
@@ -237512,6 +237647,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:93358f39181f4876cc8f81bb5ba43cf72698f75b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1dba51be6dffe17afd9240a45ca90d81fa8f0b73"
             }
           ]
         }
@@ -237977,6 +238116,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:ba59439fa54d812f659e048db40c35240738fe77"
+            }
+          ]
+        },
+        {
+          "season": 13,
+          "episode": 6,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a844f34260381f2353a5ba66b28df6f458b76266"
             }
           ]
         }
@@ -238459,6 +238609,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:5975066c85ebc6ce936f9f8afb7a0060d43dcf0a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:77fff1122a4348e8c58dfb94f67670fb5d33c76d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "El mundo de la moda se vuelve oscuro cuando supermodelos internacionales comienzan a morir de formas espantosas y misteriosas. Los agentes del FBI Cooper Madsen y Jordan Bennett viajan a París para descubrir la verdad. A medida que profundizan en el caso, descubren una enfermedad de transmisión sexual que transforma personas comunes en iconos de perfección física, pero con consecuencias aterradoras.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:68f8503b0e92fef6bda1663d8b46f25f08e60746"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:80c9155e9909732734e73c935a915bc626d12b9a"
             }
           ]
         }
@@ -239140,6 +239309,21 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:d501ab7d94b58cba4b65cb4fd15b12a053e6c940"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "El negociador Sam Nelson va a vivir el viaje de su vida cuando un grupo de secuestradores toma el control. Sam agotará sus tácticas, pero la situación es límite.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2c68966889102938e5bd121e0ccf82fe5c9c78f1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bccbb2509a16b821fdb452ac562c556817401c86"
             }
           ]
         }
@@ -241527,6 +241711,28 @@
               "magnet": "magnet:?xt=urn:btih:740ab56d90bfe37780189c2055cae4c1ce4a5e44"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f4c064c7197c61bd18154a142c1cbfc47b72bf17"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 11,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5a9744e21b0f855b5e1d8f3ad8e5b3424882e36e"
+            }
+          ]
         }
       ]
     },
@@ -241779,6 +241985,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:f00ab139c28d10a1bff1c0ee33b59ef68906c61a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Cuando Lucy Albright y Stephen DeMarco se conocen en la universidad, están en esa temprana edad en la que cualquier supuesta decisión trivial les encamina a unas consecuencias irrevocables. Su relación rápidamente se va desarrollando hasta caer en un enredo adictivo que les llevará a alterar de manera permanente no solo sus vidas, sino también las de todo su entorno.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a7d195c050488aedd97c1abc3f2f6a9ab58a2717"
             }
           ]
         }
@@ -242498,6 +242715,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:0892d70b6f56fa28b162c4087c7068ad499f36a0"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5aef52474413904ee04756286bb96d1d72de5a4d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b73e87e86202ec53f657e9f9647a9bd34455fb32"
             }
           ]
         }
@@ -245837,6 +246069,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a98042299940bb67141d971e3295ca3348153967"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:5a425033856a848631c2cbc0326b9be165e45c61"
             }
           ]
         }
@@ -246476,6 +246712,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:8fb7a76c5c13847ce4a2344dd2a530f2e7ae6a55"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:3101ebafdc1f191534a670709a92e90558a9da2d"
             }
           ]
         },
@@ -246853,6 +247093,17 @@
               "magnet": "magnet:?xt=urn:btih:751ddfbfc41b8ada4a90b64ccca785eced127d63"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8cc0cb11a4f9257497e54ea91f14a7c64457903d"
+            }
+          ]
         }
       ]
     },
@@ -247160,6 +247411,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:b2c7846c6ae1e3e9fa4cd955e7353c5f132494eb"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d8878d2aac1c3c133a4a83fc790310766a67acc7"
             }
           ]
         },
@@ -247175,6 +247430,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:ea6c097afe1de78c308105cff8a20f9415789d0a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c293524576c04d617d0728dd1498372492db0c38"
             }
           ]
         },
@@ -247339,6 +247598,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:72ede20b91d9756ee6a0bc572dd88643f23684c2"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a824423c69c17c455976ba388baed3fc8c6fd9e6"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "Un drama policíaco en Washington D. C. que sigue a Alex Cross, un brillante inspector de homicidios, cuyas luchas personales amenazan con hacer descarrilar su carrera y su vida. Basada en la serie de libros de éxito mundial de James Patterson.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:82e014363c980edbe90763b1f4791daf00517ad2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d7be7011eb10ab61a6b41c2d35ba356a502fbe07"
             }
           ]
         }
@@ -247577,6 +247855,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:144ba77f18e7dafe502aaa8c497c429d4f86d6f5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d732c66886ddc9a9e3b8f4b6df542527902ab282"
             }
           ]
         },
@@ -247837,6 +248119,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:f6f1306aa9012121a21bf53f57fe929c7ddc535f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:dccdd0b87806c5a03bee21d07c3368e44e914788"
             }
           ]
         },
@@ -247938,6 +248224,17 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:67dabead52d9efd28b99224fd832b4ad8f5ccfd8"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "En 1975, en un pequeño pueblo a las afueras de Belfast, donde cada palabra puede convertirse en una sentencia, Cushla, una joven maestra católica, conoce a Michael. Él es un abogado protestante, mayor y casado, habituado a defender a sospechosos del IRA. Entre pubs llenos de soldados, silencios cargados de miedo y una comunidad vigilante, ambos se lanzan a una relación tan apasionada como imposible.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:de2374a2d929efd4889135e2701ba3cbfff53c6c"
             }
           ]
         }
@@ -248104,6 +248401,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:c66d5574ec92a2cc70a09fd6fb6584fcc60f4d24"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:5489e78689cfdd4d40fdca17edb8401af4522402"
             }
           ]
         },
@@ -248298,6 +248599,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:11346fa7f5aebdd672864fc0e1c2ad3ab66c446e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:6cd54136c74ee746b90ce358421212e528b4b331"
             }
           ]
         },
@@ -248936,6 +249241,846 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:edd166e6fd78d409226189af6b8f11fc4ce67c1d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "56 dias",
+      "parsed": {
+        "type": "series",
+        "series": "56 dias"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 241372,
+        "title": "56 días",
+        "original_title": "56 Days",
+        "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+        "poster_path": "/sq7dGBq8yqtEouPyyMDfz2HFwjO.jpg",
+        "backdrop_path": "/77TCOiGEmHYLndIw4jsf6uUra4X.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/sq7dGBq8yqtEouPyyMDfz2HFwjO.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/77TCOiGEmHYLndIw4jsf6uUra4X.jpg",
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Misterio"
+        ],
+        "cast": [
+          "Dove Cameron",
+          "Avan Jogia",
+          "Dorian Missick",
+          "Karla Souza",
+          "Kingston Rumi Southwick",
+          "Patch Darragh"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/a79588ObGP9UZyWjQrCD8f0zL6T.png",
+        "banner": "https://image.tmdb.org/t/p/original/77TCOiGEmHYLndIw4jsf6uUra4X.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/sq7dGBq8yqtEouPyyMDfz2HFwjO.jpg",
+        "episode_title": "Título de episodio - 101",
+        "episode_overview": "Ciara, de clase trabajadora, empieza a enamorarse del rico y guapo Oliver tras un encuentro fortuito. A los 56 días, los inspectores Lee y Karl se encuentran con un macabro homicidio. ¿Acabó en asesinato el intenso romance de Ciara y Oliver?",
+        "still_path": "https://image.tmdb.org/t/p/original/yL4lAHSKf95jkJCou1UyJ3TpFJP.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bb8336a4d27f7537c0bef8b223e23e1a27877eb6"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:21efad22912cde2f969bd1496046e04dc20c244b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:62c59ebee9694b428b366f2cd1147a16ae358a1a"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:7b8ec224c0cbe35bbbdeea1c54e30dac8077c137"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7b89f06f0e0882ca59c6e668adc26870bec80edf"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:28023019eacf63e3eec15bc8638807b06b6df7f7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9b389abcf482f8f47fca606fac2aff4be890d89c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ea6ecdcddbc44460a226e600f4e9c38f948fd018"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d84ccf455d6c9bd20fcd129adf017a799c696419"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:409381d81072245e1019daf202057e7fa60fdc8c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:41b851262665945d432f85ae867c2557ae86446a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:37dd87de4534a1d2440ad9daac4e04932c91585c"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d8497a7ff99576b9cbaa15a7fe44ee66ce99a4dd"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:69342d6e5b8bc25656c756c939a4929db2a9be34"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:bba5f0f6cc08c6ff74e9ff6a0417caf3cf09000c"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:7350016390fbc4b90829a696ab1dff6045df4991"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7f878e4e8ae0ac028c20ad207b51e5a8654870c9"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:17bef830e4ba88a9055f6f9dadf0e2d3192b5656"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e5c75550e69480a59398dfd6a79129878b29caa4"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:36b05cea1b8e944c0bbf53546f0ccc8f5a3c7ef5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:816f6d6cca754125da24563adc721bbe395439ac"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Cuando se descubre un cadáver sin identificar en un piso de lujo vinculado a Oliver Kennedy y su novia Ciara Wyse, los inspectores Lee Reardon y Karl Connolly reconstruyen los últimos 56 días del romance mortal de la pareja.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:af7423014bf7be9960444b85d0e21e78b0955f8c"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:6f318ae0ce5a383268a1da3b82d6a50166bad0e1"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:55ad75328d3b33952e474eb86e40c60a17173b41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Asesinatos en Reikiavik",
+      "parsed": {
+        "type": "series",
+        "series": "Asesinatos en Reikiavik"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 293118,
+        "title": "Asesinatos en Reikiavik",
+        "original_title": "Reykjavík 112",
+        "overview": "",
+        "poster_path": "/yIYS6o797iVsQ3IFGE1jywyahBl.jpg",
+        "backdrop_path": "/uaVOKWlBq0qMh59qW15aSOtSo43.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/yIYS6o797iVsQ3IFGE1jywyahBl.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/uaVOKWlBq0qMh59qW15aSOtSo43.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Kolbeinn Arnbjörnsson",
+          "Þorsteinn Bachmann",
+          "Vivian Ólafsdóttir",
+          "Anna Gunndís Guðmundsdóttir",
+          "Valdís Brynja Finnsdóttir",
+          "Mikael Kaaber",
+          "Ebba Katrín Finnsdóttir",
+          "Valur Freyr Einarsson",
+          "Jóhanna Vigdís Arnardóttir",
+          "Elma Lísa Gunnarsdóttir"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/uaVOKWlBq0qMh59qW15aSOtSo43.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/yIYS6o797iVsQ3IFGE1jywyahBl.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/csvNHa4NSiKZJtRCgSDhJjTM9KF.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c15ba4a12b79555a9215b0a805c3f990e3c34a33"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:369c663b77e765f9376a395f95486011e4c06b30"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:fc5181454223f4d8d09c8624442d6c6e2b7b682d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dc4c2d04056ed06c816cee2ea02c3f7b5a914478"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d667a32e44aaa40b912ed85e162afc89c787bf2d"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0ebf1f4d8385789ec984052be1021722f20710e7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:8edd4950dd64ce11b366423b5f48d385afcb022c"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f23b917ed234b7802f0a982e9dd74cc83177a95d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4b5d389882b11b746d75207eeb00af0fa87a1b0c"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:42a9912b99bb20ac8aadcb6d220643610d146dde"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4b3a8b0bdaf1838040d16bc7d9aa26fdcda9792f"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8eba6a2bcab3118876275683c08b5ea1be596430"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Caligula El legado oculto",
+      "parsed": {
+        "type": "series",
+        "series": "Caligula El legado oculto"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 314350,
+        "title": "Calígula: El legado oculto",
+        "original_title": "Calígula: El legado oculto",
+        "overview": "Solo gobernó el Imperio romano durante cuatro años, pero Calígula fue uno de los líderes más controvertidos de la Historia. Su nombre se ha convertido en sinónimo de exceso y tiranía… ¿pero realmente lo fue?\n\nEste documental en dos partes redefine su legado, y va más allá de la imagen del tirano cruel para revelar a un constructor visionario. Los descubrimientos arqueológicos más recientes sacan a la luz sus proyectos más audaces: desde la transformación del templo de Cástor y Pólux y la construcción de acueductos como el Aqua Claudia, hasta la creación de dos palacios flotantes y el traslado de un colosal obelisco egipcio a Roma. Gracias al análisis experto y a un espectacular uso del modelado en 3D, la serie devuelve a la vida estas maravillas olvidadas y reescribe la historia de uno de los emperadores más controvertidos de Roma.",
+        "poster_path": "/6sCMxIMDL7MLi1toGpNYXhSGktA.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/6sCMxIMDL7MLi1toGpNYXhSGktA.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/6sCMxIMDL7MLi1toGpNYXhSGktA.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Episodio 1...."
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Solo gobernó el Imperio romano durante cuatro años, pero Calígula fue uno de los líderes más controvertidos de la Historia. Su nombre se ha convertido en sinónimo de exceso y tiranía… ¿pero realmente lo fue?\n\nEste documental en dos partes redefine su legado, y va más allá de la imagen del tirano cruel para revelar a un constructor visionario. Los descubrimientos arqueológicos más recientes sacan a la luz sus proyectos más audaces: desde la transformación del templo de Cástor y Pólux y la construcción de acueductos como el Aqua Claudia, hasta la creación de dos palacios flotantes y el traslado de un colosal obelisco egipcio a Roma. Gracias al análisis experto y a un espectacular uso del modelado en 3D, la serie devuelve a la vida estas maravillas olvidadas y reescribe la historia de uno de los emperadores más controvertidos de Roma.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9d46add11e741df7c2271de89580b429fe894f61"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Solo gobernó el Imperio romano durante cuatro años, pero Calígula fue uno de los líderes más controvertidos de la Historia. Su nombre se ha convertido en sinónimo de exceso y tiranía… ¿pero realmente lo fue?\n\nEste documental en dos partes redefine su legado, y va más allá de la imagen del tirano cruel para revelar a un constructor visionario. Los descubrimientos arqueológicos más recientes sacan a la luz sus proyectos más audaces: desde la transformación del templo de Cástor y Pólux y la construcción de acueductos como el Aqua Claudia, hasta la creación de dos palacios flotantes y el traslado de un colosal obelisco egipcio a Roma. Gracias al análisis experto y a un espectacular uso del modelado en 3D, la serie devuelve a la vida estas maravillas olvidadas y reescribe la historia de uno de los emperadores más controvertidos de Roma.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4ab77f6e0da656fb6a8e163bcfb5b3bbc79664ec"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Hamnet (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Hamnet",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 858024,
+        "title": "Hamnet",
+        "original_title": "Hamnet",
+        "overview": "Descubre la poderosa historia de amor que inspiró la creación de Hamlet, la intemporal obra maestra de Shakespeare.\r La historia de Agnes, la esposa de William Shakespeare, en su lucha por superar la tragedia familiar que irrumpe en su vida. Una historia con el telón de fondo de la creación de una de las más conocidas e importantes obras de Shakespeare, 'Hamlet'.",
+        "poster_path": "/hVo0g5M8z1kuhzxQ51eCbF81wUh.jpg",
+        "backdrop_path": "/73BClq9FOcrWrutnpiqhCNEWEwJ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hVo0g5M8z1kuhzxQ51eCbF81wUh.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/73BClq9FOcrWrutnpiqhCNEWEwJ.jpg",
+        "genres": [
+          "Drama",
+          "Romance",
+          "Historia"
+        ],
+        "cast": [
+          "Jessie Buckley",
+          "Paul Mescal",
+          "Emily Watson",
+          "Joe Alwyn",
+          "Jacobi Jupe",
+          "Noah Jupe",
+          "Olivia Lynes",
+          "Justine Mitchell",
+          "David Wilmot",
+          "Louisa Harland"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/73BClq9FOcrWrutnpiqhCNEWEwJ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/hVo0g5M8z1kuhzxQ51eCbF81wUh.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ac1693d41de69289e1c69ce4ca12943fcb6f42c7"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:441e31e7307d22ddf3e11d31fbc50f22eaee8966"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/hVo0g5M8z1kuhzxQ51eCbF81wUh.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/73BClq9FOcrWrutnpiqhCNEWEwJ.jpg",
+      "overview": "Descubre la poderosa historia de amor que inspiró la creación de Hamlet, la intemporal obra maestra de Shakespeare.\r La historia de Agnes, la esposa de William Shakespeare, en su lucha por superar la tragedia familiar que irrumpe en su vida. Una historia con el telón de fondo de la creación de una de las más conocidas e importantes obras de Shakespeare, 'Hamlet'.",
+      "genres": [
+        "Drama",
+        "Romance",
+        "Historia"
+      ],
+      "cast": [
+        "Jessie Buckley",
+        "Paul Mescal",
+        "Emily Watson",
+        "Joe Alwyn",
+        "Jacobi Jupe",
+        "Noah Jupe",
+        "Olivia Lynes",
+        "Justine Mitchell",
+        "David Wilmot",
+        "Louisa Harland"
+      ]
+    },
+    {
+      "file": "La hermanastra fea (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La hermanastra fea",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1284120,
+        "title": "La hermanastra fea",
+        "original_title": "Den stygge stesøsteren",
+        "overview": "Elvira lucha contra su hermosa hermanastra en un reino donde la belleza reina suprema. Ella recurre a medidas extremas para cautivar al príncipe, en medio de una despiadada competición por la perfección física.",
+        "poster_path": "/uI8ho9i1Dl6LUyyJ8ZqkE7SxVq4.jpg",
+        "backdrop_path": "/ev9kxdoJ5IYVprt1OvH2SMWJdU1.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/uI8ho9i1Dl6LUyyJ8ZqkE7SxVq4.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/ev9kxdoJ5IYVprt1OvH2SMWJdU1.jpg",
+        "genres": [
+          "Terror",
+          "Comedia",
+          "Fantasía",
+          "Drama"
+        ],
+        "cast": [
+          "Lea Myren",
+          "Ane Dahl Torp",
+          "Thea Sofie Loch Næss",
+          "Flo Fagerli",
+          "Isac Calmroth",
+          "Malte Gårdinger",
+          "Ralph Carlsson",
+          "Cecilia Forss",
+          "Katarzyna Herman",
+          "Adam Lundgren"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/fLyvO7SDNhoG6X1zZXlSnagYUZN.png",
+        "banner": "https://image.tmdb.org/t/p/original/ev9kxdoJ5IYVprt1OvH2SMWJdU1.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/uI8ho9i1Dl6LUyyJ8ZqkE7SxVq4.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:cea8498ab3537cca9ccd3037b03469625f327811"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:6b1ffe804b3bccf53a4a4827a4720b893b1c80d0"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:3d38c2a7c7c78c562db3feda5c7d084a6b85c7be"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:542f2bee972561d3161c58fc252e1967810dd47c"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/uI8ho9i1Dl6LUyyJ8ZqkE7SxVq4.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/ev9kxdoJ5IYVprt1OvH2SMWJdU1.jpg",
+      "overview": "Elvira lucha contra su hermosa hermanastra en un reino donde la belleza reina suprema. Ella recurre a medidas extremas para cautivar al príncipe, en medio de una despiadada competición por la perfección física.",
+      "genres": [
+        "Terror",
+        "Comedia",
+        "Fantasía",
+        "Drama"
+      ],
+      "cast": [
+        "Lea Myren",
+        "Ane Dahl Torp",
+        "Thea Sofie Loch Næss",
+        "Flo Fagerli",
+        "Isac Calmroth",
+        "Malte Gårdinger",
+        "Ralph Carlsson",
+        "Cecilia Forss",
+        "Katarzyna Herman",
+        "Adam Lundgren"
+      ]
+    },
+    {
+      "file": "Sin piedad (Mercy) (2026) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Sin piedad",
+        "year": "2026",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1236153,
+        "title": "Sin piedad",
+        "original_title": "Mercy",
+        "overview": "En un futuro próximo, un detective (Chris Pratt) es acusado de asesinar a su esposa. Tiene 90 minutos para demostrar su inocencia ante la Jueza de la I.A. avanzada (Rebecca Ferguson), a la que él mismo defendió en su día, antes de que esta decida su destino.",
+        "poster_path": "/9zBNg8koM3fjUTPT7QeJHuGG2r9.jpg",
+        "backdrop_path": "/7HKpc11uQfxnw0Y8tRUYn1fsKqE.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9zBNg8koM3fjUTPT7QeJHuGG2r9.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/7HKpc11uQfxnw0Y8tRUYn1fsKqE.jpg",
+        "genres": [
+          "Ciencia ficción",
+          "Acción",
+          "Suspense"
+        ],
+        "cast": [
+          "Chris Pratt",
+          "Rebecca Ferguson",
+          "Kali Reis",
+          "Kylie Rogers",
+          "Chris Sullivan",
+          "Jeff Pierre",
+          "Annabelle Wallis",
+          "Rafi Gavron",
+          "Kenneth Choi",
+          "Jamie McBride"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/z5s7nhm98yn2JkdIUVh1Z7Jx9sM.png",
+        "banner": "https://image.tmdb.org/t/p/original/7HKpc11uQfxnw0Y8tRUYn1fsKqE.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9zBNg8koM3fjUTPT7QeJHuGG2r9.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:b3456c2d93e1d54528dda2b24a06f8faf7e3ebe5"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:0ee70520886d046f3b22510a56e625f2a7270bd8"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:9070eef2eaadbde4cb8ee900c3c1a760cb0a8579"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:a9112da130c57af0eee9ffa34e34ed98a562f769"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/9zBNg8koM3fjUTPT7QeJHuGG2r9.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/7HKpc11uQfxnw0Y8tRUYn1fsKqE.jpg",
+      "overview": "En un futuro próximo, un detective (Chris Pratt) es acusado de asesinar a su esposa. Tiene 90 minutos para demostrar su inocencia ante la Jueza de la I.A. avanzada (Rebecca Ferguson), a la que él mismo defendió en su día, antes de que esta decida su destino.",
+      "genres": [
+        "Ciencia ficción",
+        "Acción",
+        "Suspense"
+      ],
+      "cast": [
+        "Chris Pratt",
+        "Rebecca Ferguson",
+        "Kali Reis",
+        "Kylie Rogers",
+        "Chris Sullivan",
+        "Jeff Pierre",
+        "Annabelle Wallis",
+        "Rafi Gavron",
+        "Kenneth Choi",
+        "Jamie McBride"
+      ]
+    },
+    {
+      "file": "The Copenhagen",
+      "parsed": {
+        "type": "series",
+        "series": "The Copenhagen"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 246412,
+        "title": "The Copenhagen Test",
+        "original_title": "The Copenhagen Test",
+        "overview": "Un analista de inteligencia se da cuenta de que su cerebro ha sido pirateado, lo que permite a unos hackers desconocidos acceder a todo lo que ve y oye. Atrapado entre la agencia y los hackers, decide actuar con normalidad para intentar descubrir a los culpables.",
+        "poster_path": "/9NjLaKL5pa2m4whf4cHAgfhyIzc.jpg",
+        "backdrop_path": "/mRVPTh5JpzvXNtgNXppKROOdrzd.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9NjLaKL5pa2m4whf4cHAgfhyIzc.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mRVPTh5JpzvXNtgNXppKROOdrzd.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Sci-Fi & Fantasy",
+          "Misterio"
+        ],
+        "cast": [
+          "Simu Liu",
+          "Melissa Barrera",
+          "Sinclair Daniel",
+          "Brian d'Arcy James",
+          "Mark O'Brien",
+          "Kathleen Chalfant",
+          "Saul Rubinek",
+          "Marnie McPhail",
+          "Sara Amini"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/mRVPTh5JpzvXNtgNXppKROOdrzd.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9NjLaKL5pa2m4whf4cHAgfhyIzc.jpg",
+        "episode_title": "Espejo",
+        "episode_overview": "Cuando explota una trampa para el enemigo, Alejandro sigue su propio plan de misión y arriesga todo.",
+        "still_path": "https://image.tmdb.org/t/p/original/dYN9DwUxKAEDwNQD9gQ0Jzs8ANF.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Un analista de inteligencia se da cuenta de que su cerebro ha sido pirateado, lo que permite a unos hackers desconocidos acceder a todo lo que ve y oye. Atrapado entre la agencia y los hackers, decide actuar con normalidad para intentar descubrir a los culpables.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2f1d8255776d5513fab745c2ddc56d7140234cfb"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:8bb4416fda8f0f4f21df0169a566bfa02bf0e5dc"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Abrahams Boys A Dracula Story (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Abrahams Boys A Dracula Story",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1452176,
+        "title": "Abraham's Boys: A Dracula Story",
+        "original_title": "Abraham's Boys: A Dracula Story",
+        "overview": "Tras los sucesos de Drácula, en un intento de escapar de su pasado, Abraham van Helsing traslada a sus dos hijos, Max y Rudy, a Estados Unidos.",
+        "poster_path": "/owUZI7rRIN85TnXJY8gD9LdMiGU.jpg",
+        "backdrop_path": "/b0yK9BHyTNHGS6fBFLXBFtLC9AW.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/owUZI7rRIN85TnXJY8gD9LdMiGU.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/b0yK9BHyTNHGS6fBFLXBFtLC9AW.jpg",
+        "genres": [
+          "Terror"
+        ],
+        "cast": [
+          "Titus Welliver",
+          "Jocelin Donahue",
+          "Brady Hepner",
+          "Judah Mackey",
+          "Aurora Perrineau",
+          "Corteon Moore",
+          "Jonathan Howard",
+          "Larry Cedar",
+          "Nick Epper",
+          "Paul Wong"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/b0yK9BHyTNHGS6fBFLXBFtLC9AW.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/owUZI7rRIN85TnXJY8gD9LdMiGU.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:1d413a227979f43e0d4a611eca74d974a24cd070"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:f6e221585bb45a7a0f30cef81a153153b34d66b6"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:177cf1befbe087cb5fac703b0e31c50de79ae489"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/owUZI7rRIN85TnXJY8gD9LdMiGU.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/b0yK9BHyTNHGS6fBFLXBFtLC9AW.jpg",
+      "overview": "Tras los sucesos de Drácula, en un intento de escapar de su pasado, Abraham van Helsing traslada a sus dos hijos, Max y Rudy, a Estados Unidos.",
+      "genres": [
+        "Terror"
+      ],
+      "cast": [
+        "Titus Welliver",
+        "Jocelin Donahue",
+        "Brady Hepner",
+        "Judah Mackey",
+        "Aurora Perrineau",
+        "Corteon Moore",
+        "Jonathan Howard",
+        "Larry Cedar",
+        "Nick Epper",
+        "Paul Wong"
+      ]
+    },
+    {
+      "file": "Armorsaurs",
+      "parsed": {
+        "type": "series",
+        "series": "Armorsaurs"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 301715,
+        "title": "Dinoarmaduras",
+        "original_title": "Armorsaurs",
+        "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+        "poster_path": "/iI4nknmUp1dzl0hnfnTUYdMaZZW.jpg",
+        "backdrop_path": "/hNXEnTA4a0WeqhoahaBhJRB2G06.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/iI4nknmUp1dzl0hnfnTUYdMaZZW.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/hNXEnTA4a0WeqhoahaBhJRB2G06.jpg",
+        "genres": [
+          "Kids",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy",
+          "Animación"
+        ],
+        "cast": [
+          "Michael Dorn",
+          "Derrick Kwak",
+          "Jacob Makabi",
+          "Jailen Bates",
+          "Avianna Mynhier",
+          "Sade Louise"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/hNXEnTA4a0WeqhoahaBhJRB2G06.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/iI4nknmUp1dzl0hnfnTUYdMaZZW.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Los héroes adolescentes aprenden que deben unirse y equiparse con dinosaurios reales para proteger la Tierra. Se embarcan en su primera misión para rescatar a Ajax.",
+        "still_path": "https://image.tmdb.org/t/p/original/b67HdgzejAW2velZf5CJwUNwj6a.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:16d8bbd695d6f484b6f73384949678f959a729eb"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:7103c054c36ce7809d93718ff8afd1853db7ddd7"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:991ec7bed8f13b99ad45f30ed550be1b5947a05b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:df2913a2ecede252f25b1f460847f53009f7e88a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Como llegar al cielo desde Belfast",
+      "parsed": {
+        "type": "series",
+        "series": "Como llegar al cielo desde Belfast"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 233079,
+        "title": "Cómo llegar al cielo desde Belfast",
+        "original_title": "How to Get to Heaven from Belfast",
+        "overview": "Tres grandes amigas se embarcan en una disparatada aventura para desentrañar la misteriosa y sospechosa muerte de otra amiga mientras tratan de mantener oculto su oscuro secreto.",
+        "poster_path": "/7A37vpIWIAQqaoFtnzaVSVKcaZ7.jpg",
+        "backdrop_path": "/lkmGrZXASDPwXyWf4p8GG83dw5N.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/7A37vpIWIAQqaoFtnzaVSVKcaZ7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lkmGrZXASDPwXyWf4p8GG83dw5N.jpg",
+        "genres": [
+          "Misterio",
+          "Comedia",
+          "Drama"
+        ],
+        "cast": [
+          "Roisin Gallagher",
+          "Sinéad Keenan",
+          "Caoilfhionn Dunne",
+          "Darragh Hand"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/jIni00jYnNZAdG5RQeD6zzZtnt2.png",
+        "banner": "https://image.tmdb.org/t/p/original/lkmGrZXASDPwXyWf4p8GG83dw5N.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/7A37vpIWIAQqaoFtnzaVSVKcaZ7.jpg",
+        "episode_title": "El velatorio",
+        "episode_overview": "Dara, Robyn y Saoirse son tres amigas que van a un pequeño pueblo de Donegal para acudir al velatorio de una amiga y asegurarse de que no salga a la luz un antiguo secreto.",
+        "still_path": "https://image.tmdb.org/t/p/original/cl6tvXYNi7mi6lpk1lVjM23R6tA.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Tres grandes amigas se embarcan en una disparatada aventura para desentrañar la misteriosa y sospechosa muerte de otra amiga mientras tratan de mantener oculto su oscuro secreto.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a5b45a92c3a3fb8269c7050ab59328a12a007bad"
             }
           ]
         }
