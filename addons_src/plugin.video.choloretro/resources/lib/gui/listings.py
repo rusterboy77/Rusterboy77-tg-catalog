@@ -1827,6 +1827,10 @@ def show_tvshows_by_title(base_url, handle, params):
 
 def list_tvshows_by_letter(base_url, handle, params):
     """Muestra series que comienzan con la letra especificada."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
     xbmcplugin.setContent(handle, 'tvshows')
     letter = params.get('letter', 'A')
     

@@ -330,14 +330,16 @@ def update_cache_db(catalog_results):
             links = entry.get('links') or []
             if links:
                 key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
-                items_db.append((key, parsed.get('title'), 'movie', str(parsed.get('year') or ''), '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
+                year_val = str(parsed.get('year') or tmdb.get('year') or '')
+                items_db.append((key, parsed.get('title'), 'movie', year_val, '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
         
         elif item_type == 'series':
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
                     key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
-                    items_db.append((key, parsed.get('series'), 'tv', str(parsed.get('year') or ''), str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
+                    year_val = str(parsed.get('year') or tmdb.get('year') or '')
+                    items_db.append((key, parsed.get('series'), 'tv', year_val, str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
 
     c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
@@ -442,7 +444,7 @@ def generate():
                 
                 series_map[norm_name] = {
                     "file": series_name,
-                    "parsed": {"type": "series", "series": series_name},
+                    "parsed": {"type": "series", "series": series_name, "year": year},
                     "tmdb_top": tmdb_data,
                     "episodes": [],
                     "date_added": datetime.datetime.utcnow().isoformat(),
