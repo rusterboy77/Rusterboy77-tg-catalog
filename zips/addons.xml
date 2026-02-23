@@ -58,7 +58,7 @@
         
 
     </addon>
-    <addon id="plugin.video.choloretro" version="1.0.8" name="CholoRetro" provider-name="Rusterboy77">
+    <addon id="plugin.video.choloretro" version="1.0." name="CholoRetro" provider-name="Rusterboy77">
         
     
         <requires>
@@ -71,6 +71,9 @@
             
         
             <import addon="service.upnext" version="1.1.0"/>
+            
+        
+            <import addon="script.module.addon.signals" version="0.0.6"/>
             
     
         </requires>
@@ -85,7 +88,7 @@
         </extension>
         
     
-        <extension point="xbmc.service" library="service.py"/>
+        <extension point="xbmc.service" library="service.py" start="login"/>
         
     
         <extension point="xbmc.addon.metadata">

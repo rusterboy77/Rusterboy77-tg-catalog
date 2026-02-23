@@ -7,10 +7,9 @@ from resources.lib.utils.tools import log
 from resources.lib.services.notify import notify
 
 
-def play_item(handle, params):
+def resolve_for_playback(params):
     """
-    Resuelve el enlace final y lo envía a Kodi.
-    params debe contener 'url' (el enlace de 1fichier) y metadatos opcionales.
+    Resuelve el enlace y devuelve (stream_url, listitem) para uso interno o externo.
     """
     url_1fichier = params.get('url')
     title = params.get('title', 'Video')
@@ -21,7 +20,7 @@ def play_item(handle, params):
     
     if not url_1fichier:
         notify('Choloretro', 'Enlace no encontrado', 3000)
-        return
+        return None, None
 
     # Notificar al usuario que estamos resolviendo
     notify('Choloretro', 'Resolviendo enlace...', 2000)
@@ -37,18 +36,32 @@ def play_item(handle, params):
         log("Player: Reproduciendo (URL oculto)")
         li = xbmcgui.ListItem(path=stream_url)
         
-        # Establecer metadatos básicos para el reproductor
-        info = {'title': title}
+        # Compatibilidad con Kodi 20+ (InfoTag) para evitar warnings y asegurar lectura correcta
+        tag = li.getVideoInfoTag()
+        tag.setTitle(title)
         if tvshowtitle:
-            info['tvshowtitle'] = tvshowtitle
-            info['mediatype'] = 'episode'
+            tag.setTvShowTitle(tvshowtitle)
+            tag.setMediaType('episode')
         if season:
-            info['season'] = int(season)
+            tag.setSeason(int(season))
         if episode:
-            info['episode'] = int(episode)
+            tag.setEpisode(int(episode))
         
-        li.setInfo('video', info)
-        
+        return stream_url, li
+    
+    return None, None
+
+
+def play_item(handle, params):
+    """
+    Función principal llamada por el Router de Kodi (main.py).
+    """
+    log(f"Player: Solicitud de reproducción recibida. Params: {params}")
+    
+    stream_url, li = resolve_for_playback(params)
+    
+    if stream_url and li:
+        log("Player: Reproduciendo (URL oculto)")
         # Es importante setResolvedUrl para addons que listan items 'isPlayable=True'
         xbmcplugin.setResolvedUrl(handle, True, li)
     else:
