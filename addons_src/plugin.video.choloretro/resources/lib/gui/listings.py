@@ -468,7 +468,15 @@ def show_episodes(base_url, handle, params):
         links = json.loads(ep['links']) if ep.get('links') else []
         url_link = links[0]['url'] if links else ''
         
-        url_params = {'action': 'play', 'title': f"{title} S{season}E{ep['episode']}", 'url': url_link}
+        url_params = {
+            'action': 'play',
+            'title': f"{title} S{season}E{ep['episode']}",
+            'url': url_link,
+            'tvshowtitle': title,
+            'season': season,
+            'episode': ep['episode'],
+            'tmdb': series_info.get('tmdb_id') if series_info else ''
+        }
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     

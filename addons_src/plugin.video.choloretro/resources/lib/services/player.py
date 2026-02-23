@@ -14,6 +14,10 @@ def play_item(handle, params):
     """
     url_1fichier = params.get('url')
     title = params.get('title', 'Video')
+    tvshowtitle = params.get('tvshowtitle')
+    season = params.get('season')
+    episode = params.get('episode')
+    tmdb_id = params.get('tmdb')
     
     if not url_1fichier:
         notify('Choloretro', 'Enlace no encontrado', 3000)
@@ -34,7 +38,16 @@ def play_item(handle, params):
         li = xbmcgui.ListItem(path=stream_url)
         
         # Establecer metadatos básicos para el reproductor
-        li.setInfo('video', {'title': title})
+        info = {'title': title}
+        if tvshowtitle:
+            info['tvshowtitle'] = tvshowtitle
+            info['mediatype'] = 'episode'
+        if season:
+            info['season'] = int(season)
+        if episode:
+            info['episode'] = int(episode)
+        
+        li.setInfo('video', info)
         
         # Es importante setResolvedUrl para addons que listan items 'isPlayable=True'
         xbmcplugin.setResolvedUrl(handle, True, li)
