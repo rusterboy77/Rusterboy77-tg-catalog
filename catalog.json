@@ -58233,6 +58233,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:567c512af182d8216cd0aaa2ecc7ca31da46183f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e9a83aecece89db1767d43ab64e99d891472bddb"
             }
           ]
         },
@@ -58244,6 +58248,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:dbf1ab1eed54c2fb7bbb7caa320479525d122073"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d80fc52a2475fe6dde65a653d5c0c5e9feb0cdb7"
             }
           ]
         },
@@ -58255,6 +58263,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:bdb0a425297b35bdb5541b030c7840fe823d61f4"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:384ed378a71f5de0baba31b42432d48eef32adb0"
             }
           ]
         }
@@ -237653,6 +237665,21 @@
               "magnet": "magnet:?xt=urn:btih:1dba51be6dffe17afd9240a45ca90d81fa8f0b73"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "California, 1820. Diego de la Vega, el único hijo de Don Alejandro, regresa a casa para luchar contra la injusticia y la corrupción reinantes. Durante el día es un dandy presumido y por las noches un espadachín enmascarado llamado El Zorro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:90c20e4150482f91bf858de36ad85b57c7ef3f3b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:85a735b4e438dcb73e54b77f3a19f01a70bba3b6"
+            }
+          ]
         }
       ]
     },
@@ -238360,6 +238387,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:b123c666a655cb07d8e1855d2afe7dc5b485ca91"
+            }
+          ]
+        },
+        {
+          "season": 8,
+          "episode": 4,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d40f50983c6ba1daf86810b095cd6bcf8d18790a"
             }
           ]
         }
@@ -241733,6 +241771,17 @@
               "magnet": "magnet:?xt=urn:btih:5a9744e21b0f855b5e1d8f3ad8e5b3424882e36e"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 12,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ea434209d89f6234a8478baa157836f082c2fbf3"
+            }
+          ]
         }
       ]
     },
@@ -243116,6 +243165,21 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d083cf7425442be40b15ef19462a26cb12ca2577"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 4,
+          "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:904adce00c5df380aaab8cbd6a296c1fb8e034d5"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:77ad344f02aaaac5af69aa7f01d0712ad9c421c3"
             }
           ]
         }
@@ -246075,6 +246139,25 @@
               "magnet": "magnet:?xt=urn:btih:5a425033856a848631c2cbc0326b9be165e45c61"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Una nueva promoción de cadetes se entrenan bajo la atenta y exigente mirada de los mejores de la Flota Estelar. Juntos, se enfrentarán a los altibajos de la vida en la Academia: forjarán amistades inquebrantables, chocarán en explosivas rivalidades, experimentarán sus primeros amores y se adentrarán en su destino como la próxima generación de oficiales de la Flota Estelar. Cuando un nuevo y misterioso enemigo amenace tanto a la Academia como a la propia Federación, estos cadetes deberán estar a la altura del desafío o arriesgarse a perder todo por lo que acaban de empezar a luchar.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4e0083a64bfcaa9638d1870005480d03ea90f634"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:30cfe8a27bf3205a9e981d5c5fd4335ef359f888"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:fb4d28fb568e0f1000ec46af5ccc7dc8df16b318"
+            }
+          ]
         }
       ]
     },
@@ -246731,6 +246814,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bc5f950c22c9dedc324f1fc3f54ff2fbdce84f6f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c5d1253380c030c84237a001414a36ce7da15ceb"
             }
           ]
         },
@@ -247874,6 +247961,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:dabd1bf7eddf97735c9b0f0f92d6bfc5f284f206"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cb8eda3dc076363d35903a6041be198df40b893a"
             }
           ]
         }
@@ -248138,6 +248229,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:22e1610c925e1298f6a0feb3fdbf319b95088eaa"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4e0ea6ff267b1e260b4bebcf881e64fd5736a58f"
             }
           ]
         },
@@ -248416,6 +248511,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:de99a2d51b1f80d791a47abe2c1de479cfb9d0a9"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cbb91b79042600a0569b0be8827d3fae1279f3fb"
             }
           ]
         },
@@ -248614,6 +248713,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:694df1748a9a219f808ef256ccf94f0829b7a63a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:97ff5a91e4bce3d58095e014c454229196e3d932"
             }
           ]
         },
@@ -250084,6 +250187,181 @@
             }
           ]
         }
+      ]
+    },
+    {
+      "file": "Honey Dont (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Honey Dont",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1149504,
+        "title": "Honey Don't!",
+        "original_title": "Honey Don't!",
+        "overview": "Una comedia negra sobre Honey O'Donahue, una investigadora privada de un pueblo pequeño, que se adentra en una serie de extrañas muertes vinculadas a una misteriosa iglesia.",
+        "poster_path": "/fJm3kmd9NLZWypMas7g34oNFgbk.jpg",
+        "backdrop_path": "/cjhq1eBLXgKq1xHDFeUnYzu61H6.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fJm3kmd9NLZWypMas7g34oNFgbk.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cjhq1eBLXgKq1xHDFeUnYzu61H6.jpg",
+        "genres": [
+          "Comedia",
+          "Crimen"
+        ],
+        "cast": [
+          "Margaret Qualley",
+          "Aubrey Plaza",
+          "Chris Evans",
+          "Lera Abova",
+          "Jacnier",
+          "Gabby Beans",
+          "Talia Ryder",
+          "Charlie Day",
+          "Kristen Connolly",
+          "Josh Pafchek"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/cjhq1eBLXgKq1xHDFeUnYzu61H6.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/fJm3kmd9NLZWypMas7g34oNFgbk.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:925efff98062b15c550bada9c85fce8dd43bbd19"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:37246a6ad64d3d98f7d1bcce6626792646623836"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:bb812d4ab695ee017b4d484ae1745bd509973bc1"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:1fbff313403bbb0111b4b193e569d819a9081ef9"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/fJm3kmd9NLZWypMas7g34oNFgbk.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/cjhq1eBLXgKq1xHDFeUnYzu61H6.jpg",
+      "overview": "Una comedia negra sobre Honey O'Donahue, una investigadora privada de un pueblo pequeño, que se adentra en una serie de extrañas muertes vinculadas a una misteriosa iglesia.",
+      "genres": [
+        "Comedia",
+        "Crimen"
+      ],
+      "cast": [
+        "Margaret Qualley",
+        "Aubrey Plaza",
+        "Chris Evans",
+        "Lera Abova",
+        "Jacnier",
+        "Gabby Beans",
+        "Talia Ryder",
+        "Charlie Day",
+        "Kristen Connolly",
+        "Josh Pafchek"
+      ]
+    },
+    {
+      "file": "Red Eye",
+      "parsed": {
+        "type": "series",
+        "series": "Red Eye"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 247704,
+        "title": "Red Eye",
+        "original_title": "Red Eye",
+        "overview": "La agente de policía londinense DC Hana Li escolta al Dr. Matthew Nolan de vuelta a Pekín, donde ha sido acusado de un crimen. Sin embargo, a bordo del vuelo 357, se ve envuelta en una conspiración cada vez mayor y en un creciente número de asesinatos.",
+        "poster_path": "/hmNbB68i1zQ7xq7MY82eBujziYF.jpg",
+        "backdrop_path": "/zQUMl21oCbFQ9FxodA5JbOndMXQ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/hmNbB68i1zQ7xq7MY82eBujziYF.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zQUMl21oCbFQ9FxodA5JbOndMXQ.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Drama",
+          "Crimen",
+          "Misterio"
+        ],
+        "cast": [
+          "Jing Lusi",
+          "Martin Compston",
+          "Nicholas Rowe",
+          "Trevor White",
+          "Tom Forbes",
+          "Cash Holland",
+          "Steph Lacey",
+          "Guy Williams",
+          "Lesley Sharp"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/zQUMl21oCbFQ9FxodA5JbOndMXQ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/hmNbB68i1zQ7xq7MY82eBujziYF.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "Mientras Hana investiga un asesinato en Heathrow, alguien amenaza el jet de Delaney.",
+        "still_path": "https://image.tmdb.org/t/p/original/cOaCwR3xp2TRIQ28ByXVcLJSdI.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "La agente de policía londinense DC Hana Li escolta al Dr. Matthew Nolan de vuelta a Pekín, donde ha sido acusado de un crimen. Sin embargo, a bordo del vuelo 357, se ve envuelta en una conspiración cada vez mayor y en un creciente número de asesinatos.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a1ffcc32a60e972390bebcf8ed02a30443a7894d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "SpaceTime (2026) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "SpaceTime",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1476978,
+        "title": "Spacetime",
+        "original_title": "Spacetime",
+        "overview": "",
+        "poster_path": "/gDE6FAPI4vTzbgvFIHtu7vO46Gr.jpg",
+        "backdrop_path": "/215pGkLPXmRwuviFsHeeUAIF8K8.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/gDE6FAPI4vTzbgvFIHtu7vO46Gr.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/215pGkLPXmRwuviFsHeeUAIF8K8.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [
+          "Frank Deboosere"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/215pGkLPXmRwuviFsHeeUAIF8K8.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/gDE6FAPI4vTzbgvFIHtu7vO46Gr.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:47ca9e7393e98861f4db2849e73e13fc8572afc3"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:0dc4958e3ff180d07a895c9da0b2369411a46cef"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/gDE6FAPI4vTzbgvFIHtu7vO46Gr.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/215pGkLPXmRwuviFsHeeUAIF8K8.jpg",
+      "genres": [
+        "Documental"
+      ],
+      "cast": [
+        "Frank Deboosere"
       ]
     }
   ]
