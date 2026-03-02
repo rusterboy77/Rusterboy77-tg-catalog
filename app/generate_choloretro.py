@@ -77,33 +77,41 @@ def parse_filename_with_rename(filename):
         movie_title = rename.normalize_title(rename.safe_norm(cleaned_no_year))
         return {"type": "movie", "title": movie_title, "year": year or "", "quality": quality}
 
-def get_tmdb_meta(query, is_tv, year=None):
+def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
     """Busca en TMDB y retorna metadatos."""
     if not TMDB_API_KEY: return {}
     
     type_str = 'tv' if is_tv else 'movie'
-    url = f"https://api.themoviedb.org/3/search/{type_str}"
-    params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
-    if year:
-        if is_tv: params['first_air_date_year'] = year
-        else: params['year'] = year
+    tmdb_id = None
+    item_basic = {}
     
     try:
-        r = requests.get(url, params=params)
-        results = r.json().get('results', [])
-        
-        # Fallback: Si no hay resultados, intentar buscando sin acentos/caracteres especiales
-        if not results:
-            norm_query = ''.join(c for c in unicodedata.normalize('NFD', query) if unicodedata.category(c) != 'Mn')
-            if norm_query != query:
-                params['query'] = norm_query
-                r = requests.get(url, params=params)
-                results = r.json().get('results', [])
-
-        if results:
-            item = results[0]
-            tmdb_id = item.get('id')
+        if manual_id:
+            tmdb_id = manual_id
+            print(f"  -> Usando ID manual: {tmdb_id}")
+        else:
+            url = f"https://api.themoviedb.org/3/search/{type_str}"
+            params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
+            if year:
+                if is_tv: params['first_air_date_year'] = year
+                else: params['year'] = year
             
+            r = requests.get(url, params=params)
+            results = r.json().get('results', [])
+            
+            # Fallback: Si no hay resultados, intentar buscando sin acentos/caracteres especiales
+            if not results:
+                norm_query = ''.join(c for c in unicodedata.normalize('NFD', query) if unicodedata.category(c) != 'Mn')
+                if norm_query != query:
+                    params['query'] = norm_query
+                    r = requests.get(url, params=params)
+                    results = r.json().get('results', [])
+
+            if results:
+                item_basic = results[0]
+                tmdb_id = item_basic.get('id')
+            
+        if tmdb_id:
             # --- ENRIQUECIMIENTO EXTRA (Detalles, Créditos, Imágenes) ---
             # Esto recupera géneros, actores y clearlogo que faltaban
             genres = []
@@ -159,15 +167,15 @@ def get_tmdb_meta(query, is_tv, year=None):
 
             return {
                 'tmdb_id': tmdb_id,
-                'title': item.get('name') if is_tv else item.get('title'), # Título oficial
-                'original_title': item.get('original_name') if is_tv else item.get('original_title'),
-                'overview': item.get('overview'),
-                'poster_url': f"https://image.tmdb.org/t/p/w500{item.get('poster_path')}" if item.get('poster_path') else "",
-                'backdrop_url': f"https://image.tmdb.org/t/p/original{item.get('backdrop_path')}" if item.get('backdrop_path') else "",
+                'title': det.get('name') if is_tv else det.get('title'), # Título oficial desde detalles
+                'original_title': det.get('original_name') if is_tv else det.get('original_title'),
+                'overview': det.get('overview'),
+                'poster_url': f"https://image.tmdb.org/t/p/w500{det.get('poster_path')}" if det.get('poster_path') else "",
+                'backdrop_url': f"https://image.tmdb.org/t/p/original{det.get('backdrop_path')}" if det.get('backdrop_path') else "",
                 # Campos extra para igualar a RusterWolf
-                'vote_average': item.get('vote_average'),
-                'release_date': item.get('first_air_date') if is_tv else item.get('release_date'),
-                'year': (item.get('first_air_date') if is_tv else item.get('release_date') or "")[:4],
+                'vote_average': det.get('vote_average'),
+                'release_date': det.get('first_air_date') if is_tv else det.get('release_date'),
+                'year': (det.get('first_air_date') if is_tv else det.get('release_date') or "")[:4],
                 # Nuevos campos enriquecidos
                 'genres': genres,
                 'cast': cast,
@@ -385,11 +393,11 @@ def generate():
         if not tmdb: continue
         if parsed.get("type") == "series":
             title = rename.normalize_title(parsed.get("series") or "")
-            meta_cache[f"tv_{title}"] = tmdb
+            meta_cache[f"tv_{title}"] = item
         elif parsed.get("type") == "movie":
             title = rename.normalize_title(parsed.get("title") or "")
             year = parsed.get("year") or ""
-            meta_cache[f"movie_{title}_{year}"] = tmdb
+            meta_cache[f"movie_{title}_{year}"] = item
 
     series_map = {}
     new_results = []
@@ -438,7 +446,9 @@ def generate():
 
             if norm_name not in series_map:
                 # Intentar recuperar de caché, si no buscar en TMDB
-                tmdb_data = meta_cache.get(f"tv_{norm_name}")
+                cached_item = meta_cache.get(f"tv_{norm_name}")
+                tmdb_data = cached_item.get('tmdb_top') if cached_item else None
+                manual_id = cached_item.get('manual_id') if cached_item else None
                 
                 # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
                 need_refresh = not tmdb_data or 'collection' not in tmdb_data
@@ -446,10 +456,14 @@ def generate():
                     # Si tiene colección pero le falta fanart o logo, refrescar
                     if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
                         need_refresh = True
+                
+                # Si hay ID manual y los datos no coinciden o necesitamos refrescar, forzar uso de ID manual
+                if manual_id and (need_refresh or str(tmdb_data.get('tmdb_id')) != str(manual_id)):
+                    need_refresh = True
 
                 if need_refresh:
                     print(f"Refrescando metadatos para serie: {series_name}")
-                    tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year)
+                    tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year, manual_id=manual_id)
                 
                 series_map[norm_name] = {
                     "file": series_name,
@@ -457,7 +471,8 @@ def generate():
                     "tmdb_top": tmdb_data,
                     "episodes": [],
                     "date_added": datetime.datetime.utcnow().isoformat(),
-                    "folder_id": str(file.get('folder_id', ''))
+                    "folder_id": str(file.get('folder_id', '')),
+                    "manual_id": manual_id
                 }
             
             # Buscar/Crear episodio
@@ -484,7 +499,9 @@ def generate():
             # (Simplificación: reconstruimos la lista de pelis cada vez o hacemos append)
             # Para este ejemplo, creamos un item nuevo
             cache_key = f"movie_{rename.normalize_title(title)}_{meta['year'] or ''}"
-            tmdb_data = meta_cache.get(cache_key)
+            cached_item = meta_cache.get(cache_key)
+            tmdb_data = cached_item.get('tmdb_top') if cached_item else None
+            manual_id = cached_item.get('manual_id') if cached_item else None
             
             # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
             need_refresh = not tmdb_data or 'collection' not in tmdb_data
@@ -492,10 +509,13 @@ def generate():
                 # Si tiene colección pero le falta fanart o logo, refrescar
                 if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
                     need_refresh = True
+            
+            if manual_id and (need_refresh or str(tmdb_data.get('tmdb_id')) != str(manual_id)):
+                need_refresh = True
 
             if need_refresh:
                 print(f"Refrescando metadatos para película: {title}")
-                tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"])
+                tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"], manual_id=manual_id)
 
             item = {
                 "file": filename,
@@ -503,7 +523,8 @@ def generate():
                 "tmdb_top": tmdb_data,
                 "links": [{"quality": quality, "url": link}],
                 "date_added": datetime.datetime.utcnow().isoformat(),
-                "folder_id": str(file.get('folder_id', ''))
+                "folder_id": str(file.get('folder_id', '')),
+                "manual_id": manual_id
             }
             new_results.append(item)
             print(f"Película procesada: {title}")
