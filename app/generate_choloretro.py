@@ -188,10 +188,15 @@ def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
         print(f"Error TMDB: {e}")
     return {}
 
-def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
+def get_1fichier_files_recursive(folder_id, headers, ancestors=None, special_root=None):
     """Función auxiliar para recorrer carpetas recursivamente."""
     if ancestors is None:
         ancestors = []
+    
+    # Detectar si estamos entrando en la carpeta Anime (19385669)
+    current_special = special_root
+    if str(folder_id) == '19385669':
+        current_special = '19385669'
     
     all_files = []
     parent_folder_name = ancestors[-1] if ancestors else None
@@ -204,7 +209,11 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
             for item in items:
                 item['folder_name'] = parent_folder_name
                 item['ancestors'] = ancestors
-                item['folder_id'] = str(folder_id)
+                # Si estamos bajo la estructura de Anime, forzamos el ID principal
+                if current_special == '19385669':
+                    item['folder_id'] = '19385669'
+                else:
+                    item['folder_id'] = str(folder_id)
             all_files.extend(items)
     except Exception as e:
         print(f"Error leyendo archivos en carpeta {folder_id}: {e}")
@@ -217,7 +226,7 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
             for sub in subfolders:
                 print(f"  >> Escaneando subcarpeta: {sub['name']}")
                 new_ancestors = ancestors + [sub['name']]
-                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, ancestors=new_ancestors))
+                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, ancestors=new_ancestors, special_root=current_special))
     except Exception as e:
         print(f"Error leyendo subcarpetas en {folder_id}: {e}")
         
@@ -477,6 +486,11 @@ def generate():
             
             # Buscar/Crear episodio
             entry = series_map[norm_name]
+            
+            # FIX: Si encontramos cualquier archivo de esta serie en la carpeta Anime, forzamos el ID de la serie
+            if str(file.get('folder_id', '')) == '19385669' and entry.get('folder_id') != '19385669':
+                entry['folder_id'] = '19385669'
+
             ep_found = None
             for ep in entry["episodes"]:
                 if ep["season"] == season and ep["episode"] == episode:
