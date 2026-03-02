@@ -26,6 +26,8 @@ jobs:
         TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
         ONEFICHIER_API_KEY: ${{ secrets.ONEFICHIER_API_KEY }}
         ONEFICHIER_FOLDER_ID: ${{ secrets.ONEFICHIER_FOLDER_ID }}
+        ONEFICHIER_API_KEY_2: ${{ secrets.ONEFICHIER_API_KEY_2 }}
+        ONEFICHIER_FOLDER_ID_2: ${{ secrets.ONEFICHIER_FOLDER_ID_2 }}
       run: python app/generate_choloretro.py
 
     - name: Empaquetar Repositorio (Zips y XML)

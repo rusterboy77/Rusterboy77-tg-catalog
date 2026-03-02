@@ -671,6 +671,150 @@ def show_animated_tvshows(base_url, handle, params):
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
 
+def _is_anime(item):
+    """Determina si un item es anime por carpeta (ID 19385669)."""
+    return str(item.get('folder_id') or '').strip() == '19385669'
+
+def show_anime(base_url, handle, params):
+    """Muestra películas y series de anime."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+    
+    xbmcplugin.setContent(handle, 'files')
+    
+    # Categorías de contenido anime
+    categories = [
+        ('Películas Anime', {'action': 'list_anime_movies'}),
+        ('Series Anime', {'action': 'list_anime_tvshows'}),
+        ('Sagas Anime', {'action': 'list_sagas', 'folder_id': '19385669'}),
+    ]
+    
+    for title, query_params in categories:
+        li = xbmcgui.ListItem(label=title)
+        # Usamos icono específico si existe, o fallback
+        li.setArt({'icon': icon_path, 'fanart': FANART})
+        url = build_url(base_url, query_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, True)
+    
+    xbmcplugin.setPluginFanart(handle, FANART)
+    xbmcplugin.endOfDirectory(handle)
+
+def list_anime_movies(base_url, handle, params):
+    """Muestra solo películas de la carpeta Anime."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
+    xbmcplugin.setContent(handle, 'movies')
+    movies = get_all_items('movie')
+    movies = [m for m in movies if _is_anime(m)]
+
+    page = int(params.get('page', 1))
+    total_items = len(movies)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for movie in movies[start:end]:
+        li = xbmcgui.ListItem(label=movie['title'])
+        
+        genres_raw = movie.get('genres')
+        if isinstance(genres_raw, str):
+            try: genres = json.loads(genres_raw)
+            except: genres = []
+        else: genres = genres_raw or []
+        
+        cast_raw = movie.get('cast')
+        if isinstance(cast_raw, str):
+            try: cast = json.loads(cast_raw)
+            except: cast = []
+        else: cast = cast_raw or []
+        
+        info = {
+            'title': movie.get('title'),
+            'year': int(movie['year']) if movie.get('year') and str(movie['year']).isdigit() else 0,
+            'plot': movie.get('overview'),
+            'mediatype': 'movie',
+            'genre': genres,
+            'rating': movie.get('rating'),
+            'cast': cast,
+            'tmdb_id': movie.get('tmdb_id')
+        }
+        _apply_meta(li, info)
+        
+        art = {'poster': movie.get('poster'), 'fanart': movie.get('fanart'), 'clearlogo': movie.get('clearlogo')}
+        li.setArt({k: v for k, v in art.items() if v})
+        li.setProperty('IsPlayable', 'true')
+        
+        links = json.loads(movie['links']) if movie.get('links') else []
+        url_link = links[0]['url'] if links else ''
+        
+        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url = build_url(base_url, url_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, False)
+    
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
+    xbmcplugin.setPluginFanart(handle, FANART)
+    xbmcplugin.endOfDirectory(handle)
+
+def list_anime_tvshows(base_url, handle, params):
+    """Muestra solo series de la carpeta Anime."""
+    ADDON = xbmcaddon.Addon()
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
+    
+    xbmcplugin.setContent(handle, 'tvshows')
+    items = get_tv_shows()
+    items = [i for i in items if _is_anime(i)]
+
+    page = int(params.get('page', 1))
+    total_items = len(items)
+    start = (page - 1) * ITEMS_PER_PAGE
+    end = start + ITEMS_PER_PAGE
+
+    for item in items[start:end]:
+        li = xbmcgui.ListItem(label=item['title'])
+        
+        genres_raw = item.get('genres')
+        if isinstance(genres_raw, str):
+            try: genres = json.loads(genres_raw)
+            except: genres = []
+        else: genres = genres_raw or []
+        
+        cast_raw = item.get('cast')
+        if isinstance(cast_raw, str):
+            try: cast = json.loads(cast_raw)
+            except: cast = []
+        else: cast = cast_raw or []
+        
+        info = {
+            'title': item.get('title'),
+            'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
+            'plot': item.get('overview'),
+            'mediatype': 'tvshow',
+            'genre': genres,
+            'rating': item.get('rating'),
+            'cast': cast,
+            'tmdb_id': item.get('tmdb_id')
+        }
+        _apply_meta(li, info)
+        
+        art = {'poster': item.get('poster'), 'fanart': item.get('fanart'), 'clearlogo': item.get('clearlogo')}
+        li.setArt({k: v for k, v in art.items() if v})
+        
+        url_params = {'action': 'list_seasons', 'title': item['title']}
+        url = build_url(base_url, url_params)
+        xbmcplugin.addDirectoryItem(handle, url, li, True)
+    
+    if end < total_items:
+        _add_next_page(handle, base_url, params, page)
+
+    xbmcplugin.setPluginFanart(handle, FANART)
+    xbmcplugin.endOfDirectory(handle)
+
 def list_sagas(base_url, handle, params):
     """Lista las sagas (colecciones) disponibles."""
     ADDON = xbmcaddon.Addon()
@@ -681,9 +825,10 @@ def list_sagas(base_url, handle, params):
     xbmcplugin.setPluginFanart(handle, FANART)
     
     genre = params.get('genre')
-    # Si no hay género específico, excluimos Animación para que no salgan mezcladas
-    exclude_genre = 'Animación' if not genre else None
-    collections = get_collections(genre=genre, exclude_genre=exclude_genre)
+    folder_id = params.get('folder_id')
+    # Si no hay género específico ni carpeta, excluimos Animación para que no salgan mezcladas
+    exclude_genre = 'Animación' if not genre and not folder_id else None
+    collections = get_collections(genre=genre, exclude_genre=exclude_genre, folder_id=folder_id)
     
     for col in collections:
         li = xbmcgui.ListItem(label=col['collection_name'])

@@ -25,6 +25,7 @@ def show_main_menu(base_url, handle):
         ('Películas', {'action': 'list_movies'}, 'peliculas.png'),
         ('Series', {'action': 'list_tvshows'}, 'series.png'),
         ('Dibujos', {'action': 'show_animated'}, 'dibujos.png'),
+        ('Anime', {'action': 'show_anime'}, 'anime.png'),
         ('Seguir viendo', {'action': 'show_continue_watching'}, 'seguir_viendo.png'),
         ('Buscador', {'action': 'search'}, 'buscador.png'),
         ('Ajustes', {'action': 'settings'}, 'ajustes.png'),

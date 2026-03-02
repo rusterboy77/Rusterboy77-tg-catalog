@@ -15,8 +15,12 @@ import rename
 
 # Configuración desde Secrets
 TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
-ONEFICHIER_API_KEY = os.environ.get('ONEFICHIER_API_KEY')
-ONEFICHIER_FOLDER_ID = os.environ.get('ONEFICHIER_FOLDER_ID')
+# Cuentas 1fichier (Soporte multi-cuenta)
+ONEFICHIER_ACCOUNTS = []
+if os.environ.get('ONEFICHIER_API_KEY') and os.environ.get('ONEFICHIER_FOLDER_ID'):
+    ONEFICHIER_ACCOUNTS.append({'key': os.environ.get('ONEFICHIER_API_KEY'), 'folder': os.environ.get('ONEFICHIER_FOLDER_ID')})
+if os.environ.get('ONEFICHIER_API_KEY_2') and os.environ.get('ONEFICHIER_FOLDER_ID_2'):
+    ONEFICHIER_ACCOUNTS.append({'key': os.environ.get('ONEFICHIER_API_KEY_2'), 'folder': os.environ.get('ONEFICHIER_FOLDER_ID_2')})
 
 # Rutas
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -211,13 +215,13 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None):
         
     return all_files
 
-def get_1fichier_files(folder_id):
+def get_1fichier_files(api_key, folder_id):
     """Inicia el escaneo recursivo desde la carpeta raíz."""
-    if not ONEFICHIER_API_KEY or not folder_id:
+    if not api_key or not folder_id:
         print("Faltan credenciales de 1fichier")
         return []
         
-    headers = {'Authorization': f'Bearer {ONEFICHIER_API_KEY}', 'Content-Type': 'application/json'}
+    headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
     
     print(f"Iniciando escaneo recursivo en 1fichier (ID Raíz: {folder_id})...")
     return get_1fichier_files_recursive(folder_id, headers)
@@ -360,9 +364,14 @@ def generate():
         except: pass
 
     # Obtener archivos de 1fichier
-    files = get_1fichier_files(ONEFICHIER_FOLDER_ID)
+    files = []
+    for i, acc in enumerate(ONEFICHIER_ACCOUNTS, 1):
+        print(f"--- Escaneando Cuenta {i} ---")
+        acc_files = get_1fichier_files(acc['key'], acc['folder'])
+        files.extend(acc_files)
+
     if not files:
-        print("No se encontraron archivos en 1fichier o error de API.")
+        print("No se encontraron archivos en ninguna cuenta de 1fichier.")
         return
 
     # Mapa temporal para agrupar series antes de guardar

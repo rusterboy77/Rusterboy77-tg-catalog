@@ -201,7 +201,7 @@ def get_tv_shows():
     finally:
         conn.close()
 
-def get_collections(genre=None, exclude_genre=None):
+def get_collections(genre=None, exclude_genre=None, folder_id=None):
     conn = get_connection()
     try:
         c = conn.cursor()
@@ -213,6 +213,9 @@ def get_collections(genre=None, exclude_genre=None):
         if exclude_genre:
             query += ' AND genres NOT LIKE ?'
             args.append(f'%{exclude_genre}%')
+        if folder_id:
+            query += ' AND folder_id = ?'
+            args.append(folder_id)
         query += ' ORDER BY collection_name'
         
         try:

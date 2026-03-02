@@ -73,6 +73,14 @@ class Router:
         elif action == 'list_animated_tvshows':
             listings.show_animated_tvshows(self.base_url, self.handle, params)
         
+        # --- Anime ---
+        elif action == 'show_anime':
+            listings.show_anime(self.base_url, self.handle, params)
+        elif action == 'list_anime_movies':
+            listings.list_anime_movies(self.base_url, self.handle, params)
+        elif action == 'list_anime_tvshows':
+            listings.list_anime_tvshows(self.base_url, self.handle, params)
+
         # --- Seguir viendo ---
         elif action == 'show_continue_watching':
             listings.show_continue_watching(self.base_url, self.handle, params)
