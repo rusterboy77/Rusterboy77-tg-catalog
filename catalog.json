@@ -1890,6 +1890,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:638e831919f5f571b95f1d3ccded1980f35aec33"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1e3091739f378dd2cdc2fc1d5e369bec569bb7d0"
             }
           ]
         }
@@ -20535,6 +20539,28 @@
               "magnet": "magnet:?xt=urn:btih:59578e2f7c5e9bee703eee6b603b1a3f065835f1"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dd02584b7bc40ddebf9b9d3bf837fda59ea5746d"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 10,
+          "overview": "Unos increíbles 1000 concursantes compiten en desafíos físicos y mentales por una oportunidad de ganar un enorme premio en efectivo de 5 millones de dólares. Semana a semana, los concursantes utilizarán su fuerza e ingenio para permanecer en el juego, ¡con la esperanza de ser el ganador multimillonario!",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d66da89357e99dd600f825695a3a0762d02b7817"
+            }
+          ]
         }
       ]
     },
@@ -34331,6 +34357,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d988f32d26cc1419c43d352ff2678e030e035500"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a013c454df06f3cee9d66a3a505d0c74eff949ae"
             }
           ]
         }
@@ -44394,6 +44424,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2fc3dffc6e0afb30263bb3ccca6a9041e4acb0e2"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:34917783826300e75ab3eb1713a1c1a84ae2b751"
             }
           ]
         }
@@ -58332,6 +58366,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e9a83aecece89db1767d43ab64e99d891472bddb"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d6d44114e616fceafc454d6eceee3008141ef725"
             }
           ]
         },
@@ -58347,6 +58385,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d80fc52a2475fe6dde65a653d5c0c5e9feb0cdb7"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a1e029935118f4bcbdbdceb59a85cf4637bfee79"
             }
           ]
         },
@@ -58362,6 +58404,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:384ed378a71f5de0baba31b42432d48eef32adb0"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e6c70de4529e8f0af50b4aff74561fffe7ad664b"
             }
           ]
         },
@@ -240936,6 +240982,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:adf8ab0a3f6b12a8f8da452e669e43ca3c9597d1"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d16d18c4a9564e27d6f14ece80fef9990b22de1e"
             }
           ]
         }
@@ -243263,6 +243313,21 @@
               "magnet": "magnet:?xt=urn:btih:355dae66b2b307d3760ab5dbc750f4958005e713"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 11,
+          "overview": "El doctor Clint Cassidy (interpretado por Billy Ray Cyrus, famoso cantante estadounidense de country) es un apuesto médico de Montana que se enamora de una escritora de una revista de Nueva York. Doc deja entonces su vida sencilla en el campo para seguir a su amante a la gran ciudad, donde trabajará en un hospital, y donde su actitud serena y cercana con la gente servirá de gran ayuda a los pacientes de una ciudad frenética como Nueva York.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8dffe090b91a03b10715e121f6a8267f74d60604"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d037e35be127e4816309418d7ceec97264d2b30e"
+            }
+          ]
         }
       ]
     },
@@ -244264,6 +244329,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ab4e4fed866642074dcd07ee549885de574557f6"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2a1491cd3f979ee7dbf527c819e88cf678cf0df3"
             }
           ]
         }
@@ -247268,6 +247337,21 @@
               "magnet": "magnet:?xt=urn:btih:0717de7bfa9e698b0490bebc6f813167f5c394a1"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Cuenta la historia de Domino, una joven y poderosa bruja atormentada por su necesidad de alimentarse de la energía de los demás.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:67a551e5175f0018914d469d79c28600b4807a79"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:84330424657006d7ca2eecad66e3ffb2e362fa72"
+            }
+          ]
         }
       ]
     },
@@ -247863,6 +247947,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:efdf0d3fd05a671ec9a12b18b87964b86d535a4f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:11c26985db36f0d83946da9194d368059e59d35c"
             }
           ]
         }
@@ -248154,6 +248242,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:f2cd7e030219e14469f6b8ae4825df7320179253"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:52f2ae321fb6b000ac05e08c0d9531070d74b6c4"
             }
           ]
         },
@@ -248169,6 +248261,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2d6597427a65d44a8c84312a6ecad1d23c765cc6"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:656c3b99bb1ae327975761bae90dfd34ac6df469"
             }
           ]
         },
@@ -248184,6 +248280,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:18b8b6dafcddb0b8bc07e96a2e044dc2fa53ab4f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0ef111565089f5730a210a58e062807a2a3f8374"
             }
           ]
         },
@@ -248745,6 +248845,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:40240d293c84ed98fb9736a003bc74cba467c711"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cc6100412708f448e311c31509000d59d306a241"
             }
           ]
         }
@@ -250139,6 +250243,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:b5fc37c6127b2c855568cf5826b1a5939238002b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8c5609651d9a61c9ca50dcd202ca1f17b4574885"
             }
           ]
         }
@@ -250812,6 +250920,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:8eba6a2bcab3118876275683c08b5ea1be596430"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9ed340a298cb9d22565b1835ebca9bb7a78ffcc7"
             }
           ]
         }
@@ -251328,6 +251440,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a1a84253da507027147e54bf7f1a5499fbf3b62b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:9817663df172ce167a43dda7d133cb7df099fd41"
             }
           ]
         }
@@ -251822,6 +251938,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:2d1cb8e9315c8e2b9c4eaa41458b4da16ca6e2df"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Yusuf, un modélico aprendiz de banquero, es detenido en medio de un partido de fútbol. El cargo: seis atracos a bancos en el plazo de un año, con un botín total de más de un millón de euros. Se enfrenta a diez años de prisión, a menos que delate a sus cómplices y devuelva el dinero. Pero le han robado su parte y Yusuf permanece en silencio. ¿Quién le ha delatado, y solo a él?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:581669879b3ecc995a43f4e9ecc9db8808847ae6"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ca79e4af3b41075aa41f630f2c47e4d4f63c1609"
             }
           ]
         }
@@ -252812,6 +252943,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:7b09cdf3b3458e168de86cf1342d332841402b7f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:82ffdde069d0c9b7365c3385a93e5b515d71a9fe"
             }
           ]
         }
@@ -253630,6 +253765,609 @@
         "Denise Haines",
         "Alyssa Ciminera",
         "Michael Grandinetti"
+      ]
+    },
+    {
+      "file": "Amelie_y_los_secretos_de_la_lluvia_2025_Bluray_720pEsp.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Amelie y los secretos de la lluvia",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 682012,
+        "title": "Little Amelie",
+        "original_title": "Amélie et la métaphysique des tubes",
+        "overview": "El mundo es un misterio confuso y pacífico para Amélie hasta que un encuentro milagroso con el chocolate enciende su salvaje curiosidad. A medida que desarrolla un profundo apego a la ama de llaves de su familia, Nishio-san, Amélie descubre las maravillas de la naturaleza, así como las verdades emocionales ocultas bajo la superficie de la vida idílica de su familia como extranjeros en un Japón de la post-guerra.",
+        "poster_path": "/aT6QQUpKTHtbfHMxe4tDG2B5tGC.jpg",
+        "backdrop_path": "/2WCpiFmRqXyu5y7WoZjEa3CJbiI.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aT6QQUpKTHtbfHMxe4tDG2B5tGC.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/2WCpiFmRqXyu5y7WoZjEa3CJbiI.jpg",
+        "genres": [
+          "Animación",
+          "Drama",
+          "Familia"
+        ],
+        "cast": [
+          "Loïse Charpentier",
+          "Victoria Grobois",
+          "Yumi Fujimori",
+          "Cathy Cerda",
+          "Marc Arnaud",
+          "Laëtitia Coryn",
+          "Haylee Issembourg",
+          "Isaac Schoumsky",
+          "François Raison",
+          "Emmylou Homs"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/aHpqKCO7ElDrSKUQ57SAK5WRbeD.png",
+        "banner": "https://image.tmdb.org/t/p/original/2WCpiFmRqXyu5y7WoZjEa3CJbiI.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/aT6QQUpKTHtbfHMxe4tDG2B5tGC.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:c77a898540613e7b65f9aba131904cee8a3f599d"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/aT6QQUpKTHtbfHMxe4tDG2B5tGC.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/2WCpiFmRqXyu5y7WoZjEa3CJbiI.jpg",
+      "overview": "El mundo es un misterio confuso y pacífico para Amélie hasta que un encuentro milagroso con el chocolate enciende su salvaje curiosidad. A medida que desarrolla un profundo apego a la ama de llaves de su familia, Nishio-san, Amélie descubre las maravillas de la naturaleza, así como las verdades emocionales ocultas bajo la superficie de la vida idílica de su familia como extranjeros en un Japón de la post-guerra.",
+      "genres": [
+        "Animación",
+        "Drama",
+        "Familia"
+      ],
+      "cast": [
+        "Loïse Charpentier",
+        "Victoria Grobois",
+        "Yumi Fujimori",
+        "Cathy Cerda",
+        "Marc Arnaud",
+        "Laëtitia Coryn",
+        "Haylee Issembourg",
+        "Isaac Schoumsky",
+        "François Raison",
+        "Emmylou Homs"
+      ]
+    },
+    {
+      "file": "Baki Dou El samurai invencible",
+      "parsed": {
+        "type": "series",
+        "series": "Baki Dou El samurai invencible"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 300054,
+        "title": "Baki-Dou: El samurái invencible",
+        "original_title": "刃牙道",
+        "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+        "poster_path": "/qC4JawqYlUS9fwvAzGfY5lSz5uB.jpg",
+        "backdrop_path": "/1M8uW8o6fdDaa3zqmBD2UUKu0VZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/qC4JawqYlUS9fwvAzGfY5lSz5uB.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/1M8uW8o6fdDaa3zqmBD2UUKu0VZ.jpg",
+        "genres": [
+          "Animación",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Nobunaga Shimazaki",
+          "Naoya Uchida",
+          "Akio Otsuka",
+          "Takuya Eguchi",
+          "Kenta Miyake",
+          "Rikiya Koyama",
+          "Takayuki Sugo",
+          "Bin Shimada",
+          "Yoshihisa Kawahara",
+          "Tatsuhisa Suzuki"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/axJay6uFamv8N3HlB38Qtse6fUV.png",
+        "banner": "https://image.tmdb.org/t/p/original/1M8uW8o6fdDaa3zqmBD2UUKu0VZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/qC4JawqYlUS9fwvAzGfY5lSz5uB.jpg",
+        "episode_title": "Episodio 7",
+        "still_path": "https://image.tmdb.org/t/p/original/r1Gj1GODmH79SkqYD23gfLIcOiR.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1e11a4632fec3246554373e62083eee829ebdace"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:46f3a0ca779748bb9f12052c6c88f3b39c1857cc"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3d7d1e2cac625dfbc3df07e35bb6c24cbcdd88d9"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:43ec2c69f63604cf841d40859a77a70e937a1e21"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 11,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:8303c61c1a1cec1b0ae9516236ad13e58dc13f96"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 12,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2c466e9f458fa7cbad9a5742ca978d09a1af47d0"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 13,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b82e7fce9cae30d087266067baee8582c6042f93"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:22ff303f8d795160421eff407d2b0e647a3d9821"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c15645a04aefa5cf68dbaba3ebb6ddff43126c96"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a83e6ff46c18ea0b29d086f2e9dfe86dfaf3ecd1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:16b271f1324bbc914c299ccab13d917485f568b6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2adeb63986dd1fc75abaea70c64827d928b7c9c5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Baki y los luchadores más fuertes del Estadio clandestino se enfrentan a una amenaza de proporciones históricas: el resucitado Musashi Miyamoto, el samurái más famoso de Japón.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:565823b35465ea9fac5ff253a8045e20a9135d7f"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "China Salvaje",
+      "parsed": {
+        "type": "series",
+        "series": "China Salvaje"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 20574,
+        "title": "China Salvaje",
+        "original_title": "Wild China",
+        "overview": "Serie documental de la BBC, de seis episodios, que muestra el país profundizando en su hábitat para revelar una tierra de increíble complejidad natural. Un viaje a través de China desde los picos brillantes del Himalaya hasta la estepa árida, desde el subártico hasta las islas tropicales, para ver, en imágenes pioneras, una deslumbrante variedad de criaturas.",
+        "poster_path": "/3YP8fFb0GI4j1QxuYHxLpyGmQUY.jpg",
+        "backdrop_path": "/zLDuCtG8ADavnWUVs5fjCzWaIIR.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/3YP8fFb0GI4j1QxuYHxLpyGmQUY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zLDuCtG8ADavnWUVs5fjCzWaIIR.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [
+          "Bernard Hill",
+          "李易"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/zLDuCtG8ADavnWUVs5fjCzWaIIR.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/3YP8fFb0GI4j1QxuYHxLpyGmQUY.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/evLSjVXgXGjsuvNHW4UDpNRLxhS.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Serie documental de la BBC, de seis episodios, que muestra el país profundizando en su hábitat para revelar una tierra de increíble complejidad natural. Un viaje a través de China desde los picos brillantes del Himalaya hasta la estepa árida, desde el subártico hasta las islas tropicales, para ver, en imágenes pioneras, una deslumbrante variedad de criaturas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:69991efb6af76e7e65da9633833abd702bc71cb3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Serie documental de la BBC, de seis episodios, que muestra el país profundizando en su hábitat para revelar una tierra de increíble complejidad natural. Un viaje a través de China desde los picos brillantes del Himalaya hasta la estepa árida, desde el subártico hasta las islas tropicales, para ver, en imágenes pioneras, una deslumbrante variedad de criaturas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ffab7ccfb1937de37dfb3a14df8cb4d9d1297ff0"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Serie documental de la BBC, de seis episodios, que muestra el país profundizando en su hábitat para revelar una tierra de increíble complejidad natural. Un viaje a través de China desde los picos brillantes del Himalaya hasta la estepa árida, desde el subártico hasta las islas tropicales, para ver, en imágenes pioneras, una deslumbrante variedad de criaturas.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2ee2bc7b123d9e049117f11a92d8950e4e14e947"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Clika (2026) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Clika",
+        "year": "2026",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1450257,
+        "title": "Clika",
+        "original_title": "Clika",
+        "overview": "Chito, un aspirante a músico de un pequeño pueblo, está decidido a triunfar. Cuando un video suyo interpretando una de sus canciones se vuelve viral, aprovecha la oportunidad y se esfuerza por hacerse un hueco en la nueva ola de la música mexicoamericana... y, finalmente, se ve envuelto en un juego más peligroso de lo previsto.",
+        "poster_path": "/dIbx6Lr1ENz1QxAvyUAWL5kWbVG.jpg",
+        "backdrop_path": "/juj498fB0FRZHRKrirHL61gMqUs.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/dIbx6Lr1ENz1QxAvyUAWL5kWbVG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/juj498fB0FRZHRKrirHL61gMqUs.jpg",
+        "genres": [
+          "Drama",
+          "Música"
+        ],
+        "cast": [
+          "Jay Dee",
+          "Cristian E. Gutierrez",
+          "Daniel 'DoKnows' Lopez",
+          "Laura Lopez",
+          "Nana Ponceleon",
+          "OhGeesy",
+          "Eric Roberts",
+          "Uziel Pantoja",
+          "Josh Benitez",
+          "Francine Sena"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/juj498fB0FRZHRKrirHL61gMqUs.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/dIbx6Lr1ENz1QxAvyUAWL5kWbVG.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:02e5d03542dc9155b4b249bd13ca97805a026f97"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:26b675e8f4032339a644d233d7678a36db806eb6"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:54deab69fa61315855e29d54b36a9ebc4ead0d65"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/dIbx6Lr1ENz1QxAvyUAWL5kWbVG.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/juj498fB0FRZHRKrirHL61gMqUs.jpg",
+      "overview": "Chito, un aspirante a músico de un pequeño pueblo, está decidido a triunfar. Cuando un video suyo interpretando una de sus canciones se vuelve viral, aprovecha la oportunidad y se esfuerza por hacerse un hueco en la nueva ola de la música mexicoamericana... y, finalmente, se ve envuelto en un juego más peligroso de lo previsto.",
+      "genres": [
+        "Drama",
+        "Música"
+      ],
+      "cast": [
+        "Jay Dee",
+        "Cristian E. Gutierrez",
+        "Daniel 'DoKnows' Lopez",
+        "Laura Lopez",
+        "Nana Ponceleon",
+        "OhGeesy",
+        "Eric Roberts",
+        "Uziel Pantoja",
+        "Josh Benitez",
+        "Francine Sena"
+      ]
+    },
+    {
+      "file": "Decorado (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Decorado",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1061771,
+        "title": "Decorado",
+        "original_title": "Decorado",
+        "overview": "En una fábula distópica llena de humor y terror, un ratón llamado Arnold se enfrenta a una crisis existencial al descubrir que su vida podría ser una gran farsa. La muerte de su mejor amigo lo lleva a cuestionar la superficialidad de las relaciones en un mundo dominado por la tecnología y las megacorporaciones.",
+        "poster_path": "/pErjlKIP9DBtcDheCpzd2GFxZyo.jpg",
+        "backdrop_path": "/a1O27Bp7rxMgqgTu669sTYZQhKo.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/pErjlKIP9DBtcDheCpzd2GFxZyo.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/a1O27Bp7rxMgqgTu669sTYZQhKo.jpg",
+        "genres": [
+          "Animación",
+          "Comedia",
+          "Fantasía",
+          "Terror"
+        ],
+        "cast": [
+          "Asier Hormaza",
+          "Aintzane Gamiz",
+          "Kandido Uranga",
+          "Mikel Garmendia",
+          "José Felipe Auzmendi",
+          "Ander Vildosola",
+          "Nagore Irizar",
+          "Arkaitz Gartziandia",
+          "Marga Altolaguirre",
+          "Iñaki Beraetxe"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/a1O27Bp7rxMgqgTu669sTYZQhKo.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/pErjlKIP9DBtcDheCpzd2GFxZyo.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:1691b888cd58c8ac487c06c118e6fadd1d7e53fb"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/pErjlKIP9DBtcDheCpzd2GFxZyo.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/a1O27Bp7rxMgqgTu669sTYZQhKo.jpg",
+      "overview": "En una fábula distópica llena de humor y terror, un ratón llamado Arnold se enfrenta a una crisis existencial al descubrir que su vida podría ser una gran farsa. La muerte de su mejor amigo lo lleva a cuestionar la superficialidad de las relaciones en un mundo dominado por la tecnología y las megacorporaciones.",
+      "genres": [
+        "Animación",
+        "Comedia",
+        "Fantasía",
+        "Terror"
+      ],
+      "cast": [
+        "Asier Hormaza",
+        "Aintzane Gamiz",
+        "Kandido Uranga",
+        "Mikel Garmendia",
+        "José Felipe Auzmendi",
+        "Ander Vildosola",
+        "Nagore Irizar",
+        "Arkaitz Gartziandia",
+        "Marga Altolaguirre",
+        "Iñaki Beraetxe"
+      ]
+    },
+    {
+      "file": "El flow de Kagoen",
+      "parsed": {
+        "type": "series",
+        "series": "El flow de Kagoen"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 276083,
+        "title": "El flow de Kagoen",
+        "original_title": "Kacken an der Havel",
+        "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+        "poster_path": "/9XXKr1vEgodDhfEW5slzcwwUIuS.jpg",
+        "backdrop_path": "/rTTEaQ54i6zUSDGnVyuNbvu86wf.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/9XXKr1vEgodDhfEW5slzcwwUIuS.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rTTEaQ54i6zUSDGnVyuNbvu86wf.jpg",
+        "genres": [
+          "Comedia"
+        ],
+        "cast": [
+          "Anton Schneider",
+          "Dimitrij Schaad",
+          "Jella Haase",
+          "Jördis Triebel",
+          "Sophia Münster",
+          "Jana Münster",
+          "Marc Hosemann",
+          "Sherine Ciara Merai",
+          "Amadeo Leo Arndt"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/pIsQClxxSgrhFiKKF9sRXwf95FQ.png",
+        "banner": "https://image.tmdb.org/t/p/original/rTTEaQ54i6zUSDGnVyuNbvu86wf.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/9XXKr1vEgodDhfEW5slzcwwUIuS.jpg",
+        "episode_title": "Se cayó de un árbol rescatando un pato",
+        "episode_overview": "Toni vuelve a su pueblo, Kagoen, para el funeral de un familiar y descubre que dejó atrás mucho más que su monótona vida de hace 18 años.",
+        "still_path": "https://image.tmdb.org/t/p/original/2A2WTqBAOwJIkatxJ9lJGXga5d3.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bb99224ad1465f52031952b19d589ef821940153"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bb403cca1481c843418e122cb1edd6841f1b85d6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:886550b95904ed944dd82413d3dbf5338a189bff"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:04d2c349ac20aa55e5ee7156a4208df012e40127"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f2508b98c716bf8e8a1cd51a9bff8927f7a74102"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ddba1938c297afd74a5e30ec99f15d9eb23d67c3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c761da2dd7620d4be4cdfea17a894d12016afa94"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5805e2600d43e021aeb4e78ed7ca58189805d388"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:667c175c2bc4c0f5a5ce4ffa40607b434589ea94"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e9356b44ac33be1b2742b8e6a6cb32710c2a5662"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:72a253ec62d5cd6e1d98f31075ff44db0ae4995d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "El rapero Toni vuelve a su pueblo para el funeral de su madre y de repente se encuentra compaginando sus sueños profesionales con la inesperada paternidad de un hijo adolescente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b3269581387adab20b5fa364a1d7c22f8f3187ac"
+            }
+          ]
+        }
       ]
     }
   ]
