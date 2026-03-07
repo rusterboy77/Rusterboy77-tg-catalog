@@ -1,0 +1,11 @@
+# Ignorar archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Ignorar archivos de sistema y entorno
+.env
+.DS_Store
+Thumbs.db
+
+# Opcional: Ignorar logs de Kodi si ejecutas pruebas locales
+kodi.log
