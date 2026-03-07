@@ -477,6 +477,9 @@ def generate():
                         elif abs(int(year) - int(tmdb_year)) > 1:
                             print(f"  -> Refrescando serie por discrepancia de año (Fichero: {year}, Caché: {tmdb_year}).")
                             need_refresh = True
+                            if manual_id:
+                                print(f"  -> Descartando ID manual {manual_id} por incoherencia de año.")
+                                manual_id = None
 
                     if not need_refresh and manual_id and str(tmdb_data.get('tmdb_id')) != str(manual_id):
                         print(f"  -> Refrescando serie porque el ID manual ({manual_id}) no coincide con el de la caché.")
@@ -547,6 +550,9 @@ def generate():
                     elif abs(int(meta.get('year')) - int(tmdb_year)) > 1:
                         print(f"  -> Refrescando película por discrepancia de año (Fichero: {meta.get('year')}, Caché: {tmdb_year}).")
                         need_refresh = True
+                        if manual_id:
+                            print(f"  -> Descartando ID manual {manual_id} por incoherencia de año.")
+                            manual_id = None
 
                 if not need_refresh and manual_id and str(tmdb_data.get('tmdb_id')) != str(manual_id):
                     print(f"  -> Refrescando película porque el ID manual ({manual_id}) no coincide con el de la caché.")
