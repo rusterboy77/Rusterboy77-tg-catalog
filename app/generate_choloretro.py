@@ -97,6 +97,7 @@ def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
                 if is_tv: params['first_air_date_year'] = year
                 else: params['year'] = year
             
+            print(f"  -> Buscando en TMDB: query='{query}' year='{year}'")
             r = requests.get(url, params=params)
             results = r.json().get('results', [])
             
@@ -522,6 +523,13 @@ def generate():
             
             # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
             need_refresh = not tmdb_data or 'collection' not in tmdb_data
+            
+            # Validar coincidencia de año para evitar falsos positivos cacheados (ej. Rey León 2019 vs 1994)
+            if not need_refresh and meta.get('year') and tmdb_data.get('year'):
+                if str(tmdb_data.get('year')) != str(meta.get('year')):
+                    print(f"  -> Mismatch de año detectado (Cache: {tmdb_data.get('year')} vs Archivo: {meta.get('year')}). Forzando refresh.")
+                    need_refresh = True
+
             if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
                 # Si tiene colección pero le falta fanart o logo, refrescar
                 if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
