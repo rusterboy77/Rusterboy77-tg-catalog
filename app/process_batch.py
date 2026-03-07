@@ -133,7 +133,7 @@ def process_telegram_updates():
             file_name = re.sub(r'[@\[\(]?\s*canales?[\s._-]*locos?\s*[\]\)]?', '', file_name, flags=re.IGNORECASE)
             file_id = doc.get("file_id")
             
-            logger.info(f"Procesando archivo: {file_name}")
+            # logger.info(f"Procesando archivo: {file_name}")
             
             # Descargar
             try:
@@ -172,7 +172,7 @@ def process_telegram_updates():
                 parsed = new_result.get("parsed") or {}
                 parsed_title = parsed.get("title") or parsed.get("series") or parsed.get("movie") or ""
                 title_norm = _norm_title(parsed_title); year = str(parsed.get("year") or "")
-                logger.info(f"Buscando en TMDB: title='{parsed_title}' year='{year}' type='{parsed.get('type')}'")
+                # logger.info(f"Buscando en TMDB: title='{parsed_title}' year='{year}' type='{parsed.get('type')}'")
 
                 # Enriquecer
                 enriched = logic.enrich_with_tmdb_if_needed(new_result["parsed"], None)

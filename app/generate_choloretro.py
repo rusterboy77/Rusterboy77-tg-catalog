@@ -89,7 +89,7 @@ def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
     try:
         if manual_id:
             tmdb_id = manual_id
-            print(f"  -> Usando ID manual: {tmdb_id}")
+            # print(f"  -> Usando ID manual: {tmdb_id}")
         else:
             url = f"https://api.themoviedb.org/3/search/{type_str}"
             params = {'api_key': TMDB_API_KEY, 'query': query, 'language': 'es-ES'}
@@ -97,7 +97,7 @@ def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
                 if is_tv: params['first_air_date_year'] = year
                 else: params['year'] = year
             
-            print(f"  -> Buscando en TMDB: query='{query}' year='{year}'")
+            # print(f"  -> Buscando en TMDB: query='{query}' year='{year}'")
             r = requests.get(url, params=params)
             results = r.json().get('results', [])
             
@@ -226,7 +226,7 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None, special_roo
         if r.ok:
             subfolders = r.json().get('sub_folders', [])
             for sub in subfolders:
-                print(f"  >> Escaneando subcarpeta: {sub['name']}")
+                # print(f"  >> Escaneando subcarpeta: {sub['name']}")
                 new_ancestors = ancestors + [sub['name']]
                 all_files.extend(get_1fichier_files_recursive(sub['id'], headers, ancestors=new_ancestors, special_root=current_special))
     except Exception as e:
@@ -242,7 +242,7 @@ def get_1fichier_files(api_key, folder_id):
         
     headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
     
-    print(f"Iniciando escaneo recursivo en 1fichier (ID Raíz: {folder_id})...")
+    print(f"Iniciando escaneo recursivo en 1fichier...")
     return get_1fichier_files_recursive(folder_id, headers)
 
 def update_cache_db(catalog_results):
@@ -427,7 +427,7 @@ def generate():
         if not filename or not link: continue
         
         if file.get('pass') == 1:
-            print(f"⚠️  AVISO: El archivo '{filename}' está protegido con contraseña. Puede fallar en el addon. Se recomienda quitarla en 1fichier.")
+            pass # print(f"⚠️  AVISO: Archivo protegido con contraseña detectado.")
         
         meta = parse_filename_with_rename(filename)
         quality = meta.get("quality", "SD")
@@ -481,7 +481,7 @@ def generate():
                     need_refresh = True
 
                 if need_refresh:
-                    print(f"Refrescando metadatos para serie: {series_name}")
+                    # print(f"Refrescando metadatos para serie: {series_name}")
                     tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year, manual_id=manual_id)
                 
                 series_map[norm_name] = {
@@ -514,7 +514,7 @@ def generate():
             # Añadir link si no existe
             if not any(l["url"] == link for l in ep_found.get("links", [])):
                 ep_found.setdefault("links", []).append({"quality": quality, "url": link})
-                print(f"Serie procesada: {series_name} S{season}E{episode}")
+                # print(f"Serie procesada: {series_name} S{season}E{episode}")
 
         else:
             # ES PELICULA
@@ -533,7 +533,7 @@ def generate():
             # Validar coincidencia de año para evitar falsos positivos cacheados (ej. Rey León 2019 vs 1994)
             if not need_refresh and meta.get('year') and tmdb_data.get('year'):
                 if str(tmdb_data.get('year')) != str(meta.get('year')):
-                    print(f"  -> Mismatch de año detectado (Cache: {tmdb_data.get('year')} vs Archivo: {meta.get('year')}). Forzando refresh.")
+                    # print(f"  -> Mismatch de año detectado. Forzando refresh.")
                     need_refresh = True
 
             if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
@@ -545,7 +545,7 @@ def generate():
                 need_refresh = True
 
             if need_refresh:
-                print(f"Refrescando metadatos para película: {title}")
+                # print(f"Refrescando metadatos para película: {title}")
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"], manual_id=manual_id)
 
             item = {
@@ -558,7 +558,7 @@ def generate():
                 "manual_id": manual_id
             }
             new_results.append(item)
-            print(f"Película procesada: {title}")
+            # print(f"Película procesada: {title}")
 
     # Reconstruir lista final
     final_results = new_results + list(series_map.values())
