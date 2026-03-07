@@ -461,6 +461,15 @@ def generate():
                 
                 # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
                 need_refresh = not tmdb_data or 'collection' not in tmdb_data
+                
+                # Validación de año: Si el archivo tiene año y difiere del de TMDB, refrescar
+                if not need_refresh and year and tmdb_data.get('year'):
+                    try:
+                        if abs(int(year) - int(tmdb_data['year'])) > 1:
+                            print(f"  -> Discrepancia de año en serie (File: {year}, TMDB: {tmdb_data['year']}). Refrescando.")
+                            need_refresh = True
+                    except: pass
+
                 if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
                     # Si tiene colección pero le falta fanart o logo, refrescar
                     if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
@@ -519,6 +528,15 @@ def generate():
             
             # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
             need_refresh = not tmdb_data or 'collection' not in tmdb_data
+
+            # Validación de año: Si el archivo tiene año y difiere del de TMDB, refrescar
+            if not need_refresh and meta.get('year') and tmdb_data.get('year'):
+                try:
+                    if abs(int(meta['year']) - int(tmdb_data['year'])) > 1:
+                        print(f"  -> Discrepancia de año (File: {meta['year']}, TMDB: {tmdb_data['year']}). Refrescando.")
+                        need_refresh = True
+                except: pass
+
             if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
                 # Si tiene colección pero le falta fanart o logo, refrescar
                 if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
