@@ -459,26 +459,29 @@ def generate():
                 tmdb_data = cached_item.get('tmdb_top') if cached_item else None
                 manual_id = cached_item.get('manual_id') if cached_item else None
                 
-                # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
-                need_refresh = not tmdb_data or 'collection' not in tmdb_data
-                
-                # Validación de año: Si el archivo tiene año y difiere del de TMDB, refrescar
-                if not need_refresh and year and tmdb_data.get('year'):
-                    try:
-                        if abs(int(year) - int(tmdb_data['year'])) > 1:
-                            print(f"  -> Discrepancia de año en serie (File: {year}, TMDB: {tmdb_data['year']}). Refrescando.")
-                            need_refresh = True
-                    except: pass
-
-                if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
-                    # Si tiene colección pero le falta fanart o logo, refrescar
-                    if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
-                        need_refresh = True
-                
-                # Si hay ID manual y los datos no coinciden o necesitamos refrescar, forzar uso de ID manual
-                if manual_id and (need_refresh or str(tmdb_data.get('tmdb_id')) != str(manual_id)):
+                # Lógica de refresco de metadatos más estricta
+                need_refresh = False
+                if not tmdb_data:
                     need_refresh = True
+                else:
+                    # Comprobar si hay razones para invalidar la caché
+                    if 'collection' not in tmdb_data or (tmdb_data.get('collection', {}).get('id') and not all(tmdb_data.get('collection', {}).get(k) for k in ['fanart', 'clearlogo'])):
+                        print(f"  -> Refrescando serie por datos de colección ausentes/incompletos.")
+                        need_refresh = True
+                    
+                    if not need_refresh and year:
+                        tmdb_year = tmdb_data.get('year')
+                        if not tmdb_year:
+                            print(f"  -> Refrescando serie porque el fichero tiene año ({year}) y la caché no.")
+                            need_refresh = True
+                        elif abs(int(year) - int(tmdb_year)) > 1:
+                            print(f"  -> Refrescando serie por discrepancia de año (Fichero: {year}, Caché: {tmdb_year}).")
+                            need_refresh = True
 
+                    if not need_refresh and manual_id and str(tmdb_data.get('tmdb_id')) != str(manual_id):
+                        print(f"  -> Refrescando serie porque el ID manual ({manual_id}) no coincide con el de la caché.")
+                        need_refresh = True
+                        
                 if need_refresh:
                     print(f"Refrescando metadatos para serie: {series_name}")
                     tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year, manual_id=manual_id)
@@ -526,25 +529,29 @@ def generate():
             tmdb_data = cached_item.get('tmdb_top') if cached_item else None
             manual_id = cached_item.get('manual_id') if cached_item else None
             
-            # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
-            need_refresh = not tmdb_data or 'collection' not in tmdb_data
-
-            # Validación de año: Si el archivo tiene año y difiere del de TMDB, refrescar
-            if not need_refresh and meta.get('year') and tmdb_data.get('year'):
-                try:
-                    if abs(int(meta['year']) - int(tmdb_data['year'])) > 1:
-                        print(f"  -> Discrepancia de año (File: {meta['year']}, TMDB: {tmdb_data['year']}). Refrescando.")
+            # Lógica de refresco de metadatos más estricta
+            need_refresh = False
+            if not tmdb_data:
+                need_refresh = True
+            else:
+                # Comprobar si hay razones para invalidar la caché
+                if 'collection' not in tmdb_data or (tmdb_data.get('collection', {}).get('id') and not all(tmdb_data.get('collection', {}).get(k) for k in ['fanart', 'clearlogo'])):
+                    print(f"  -> Refrescando película por datos de colección ausentes/incompletos.")
+                    need_refresh = True
+                
+                if not need_refresh and meta.get('year'):
+                    tmdb_year = tmdb_data.get('year')
+                    if not tmdb_year:
+                        print(f"  -> Refrescando película porque el fichero tiene año ({meta.get('year')}) y la caché no.")
                         need_refresh = True
-                except: pass
+                    elif abs(int(meta.get('year')) - int(tmdb_year)) > 1:
+                        print(f"  -> Refrescando película por discrepancia de año (Fichero: {meta.get('year')}, Caché: {tmdb_year}).")
+                        need_refresh = True
 
-            if not need_refresh and tmdb_data.get('collection') and tmdb_data['collection'].get('id'):
-                # Si tiene colección pero le falta fanart o logo, refrescar
-                if not tmdb_data['collection'].get('fanart') or not tmdb_data['collection'].get('clearlogo'):
+                if not need_refresh and manual_id and str(tmdb_data.get('tmdb_id')) != str(manual_id):
+                    print(f"  -> Refrescando película porque el ID manual ({manual_id}) no coincide con el de la caché.")
                     need_refresh = True
             
-            if manual_id and (need_refresh or str(tmdb_data.get('tmdb_id')) != str(manual_id)):
-                need_refresh = True
-
             if need_refresh:
                 print(f"Refrescando metadatos para película: {title}")
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"], manual_id=manual_id)
