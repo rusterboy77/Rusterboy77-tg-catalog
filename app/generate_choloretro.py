@@ -74,7 +74,8 @@ def parse_filename_with_rename(filename):
     else:
         cleaned = rename.remove_tokens(base)
         year, cleaned_no_year = rename.extract_year_and_clean(cleaned)
-        movie_title = rename.normalize_title(rename.safe_norm(cleaned_no_year))
+        # Devolvemos el título sin normalizar para mejorar la búsqueda en TMDB. La normalización se hará después si es necesaria.
+        movie_title = cleaned_no_year.strip()
         return {"type": "movie", "title": movie_title, "year": year or "", "quality": quality}
 
 def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
@@ -350,7 +351,9 @@ def update_cache_db(catalog_results):
         if item_type == 'movie':
             links = entry.get('links') or []
             if links:
-                key = f"movie_{parsed.get('title')}_{parsed.get('year')}"
+                # El título en 'parsed' ya no está normalizado, así que lo normalizamos aquí para la clave
+                norm_title = rename.normalize_title(parsed.get('title', ''))
+                key = f"movie_{norm_title}_{parsed.get('year')}"
                 year_val = str(parsed.get('year') or tmdb.get('year') or '')
                 items_db.append((key, parsed.get('title'), 'movie', year_val, '', '', *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
         
@@ -358,7 +361,7 @@ def update_cache_db(catalog_results):
             for ep in entry.get('episodes', []):
                 links = ep.get('links') or []
                 if links:
-                    key = f"tv_{parsed.get('series')}_{ep.get('season')}_{ep.get('episode')}"
+                    key = f"tv_{rename.normalize_title(parsed.get('series', ''))}_{ep.get('season')}_{ep.get('episode')}"
                     year_val = str(parsed.get('year') or tmdb.get('year') or '')
                     items_db.append((key, parsed.get('series'), 'tv', year_val, str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
 
@@ -510,9 +513,9 @@ def generate():
             # ES PELICULA
             title = meta["title"]
             # Buscar si ya existe en new_results o catalog
-            # (Simplificación: reconstruimos la lista de pelis cada vez o hacemos append)
-            # Para este ejemplo, creamos un item nuevo
-            cache_key = f"movie_{rename.normalize_title(title)}_{meta['year'] or ''}"
+            # La clave de caché usa el título normalizado, mientras que la búsqueda en TMDB usará el título sin normalizar.
+            norm_title = rename.normalize_title(title)
+            cache_key = f"movie_{norm_title}_{meta['year'] or ''}"
             cached_item = meta_cache.get(cache_key)
             tmdb_data = cached_item.get('tmdb_top') if cached_item else None
             manual_id = cached_item.get('manual_id') if cached_item else None
