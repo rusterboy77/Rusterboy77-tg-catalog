@@ -364,7 +364,13 @@ def update_cache_db(catalog_results):
                 if links:
                     key = f"tv_{rename.normalize_title(parsed.get('series', ''))}_{ep.get('season')}_{ep.get('episode')}"
                     year_val = str(parsed.get('year') or tmdb.get('year') or '')
-                    items_db.append((key, parsed.get('series'), 'tv', year_val, str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
+                    
+                    # Separar Anime de Series normales: Si viene de la carpeta Anime, cambiamos el tipo a 'anime'
+                    final_type = 'tv'
+                    if str(folder_id) == '19385669':
+                        final_type = 'anime'
+
+                    items_db.append((key, parsed.get('series'), final_type, year_val, str(ep.get('season')), str(ep.get('episode')), *common_vals, json.dumps(links, ensure_ascii=False), date_added, 1, folder_id, coll_id, coll_name, coll_poster, coll_fanart, coll_clearlogo))
 
     c.executemany('INSERT OR REPLACE INTO items VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)', items_db)
     conn.commit()
