@@ -502,8 +502,14 @@ def _has_genre(item, genre_name):
     
     return any(genre_name.lower() in (g.lower() if isinstance(g, str) else g.get('name', '').lower()) for g in genres)
 
+def _is_anime(item):
+    """Determina si un item es anime por carpeta (ID 19385669)."""
+    return str(item.get('folder_id') or '').strip() == '19385669'
+
 def _is_animated(item):
     """Determina si un item es animado por género o por carpeta."""
+    if _is_anime(item):
+        return False
     if _has_genre(item, 'Animación'):
         return True
     # Lista de carpetas de animación. Añade aquí los IDs de las subcarpetas si es necesario.
@@ -545,7 +551,7 @@ def show_animated_movies(base_url, handle, params):
     
     xbmcplugin.setContent(handle, 'movies')
     movies = get_all_items('movie')
-    movies = [m for m in movies if _has_genre(m, 'Animación')]
+    movies = [m for m in movies if _has_genre(m, 'Animación') and not _is_anime(m)]
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -670,10 +676,6 @@ def show_animated_tvshows(base_url, handle, params):
 
     xbmcplugin.setPluginFanart(handle, FANART)
     xbmcplugin.endOfDirectory(handle)
-
-def _is_anime(item):
-    """Determina si un item es anime por carpeta (ID 19385669)."""
-    return str(item.get('folder_id') or '').strip() == '19385669'
 
 def show_anime(base_url, handle, params):
     """Muestra películas y series de anime."""
