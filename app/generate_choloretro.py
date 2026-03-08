@@ -326,6 +326,11 @@ def update_cache_db(catalog_results):
         genres_raw = tmdb.get('genres', [])
         genres = [g['name'] if isinstance(g, dict) else str(g) for g in genres_raw]
         
+        # EXCEPCIÓN: Forzar género "Animación" para series que TMDB no etiqueta bien (para que salgan en Dibujos)
+        if str(tmdb.get('tmdb_id')) in ['12164', '237897']:
+            if "Animación" not in genres: genres.append("Animación")
+            if "Animation" not in genres: genres.append("Animation")
+        
         # Procesar cast: ya está en formato correcto {name, role, thumbnail}
         cast = tmdb.get('cast', [])
         
