@@ -59,7 +59,7 @@ def parse_filename_with_rename(filename):
         title_part = base[:se_match.start()]
         # Si el título está vacío antes del patrón (ej: 1x04 Titulo), no usamos lo que sigue
         # como nombre de serie, ya que probablemente sea el título del episodio.
-        title_clean = rename.normalize_title(rename.remove_tokens(title_part))
+        title_clean = rename.remove_tokens(title_part).strip()
         year, title_clean = rename.extract_year_and_clean(title_clean)
         return {"type": "series", "series": title_clean, "season": season, "episode": episode, "quality": quality, "year": year}
     elif is_series_cap:
@@ -68,7 +68,7 @@ def parse_filename_with_rename(filename):
         match = re.search(r'\b' + str(cap_num) + r'\b', base)
         if match:
             title_part = base[:match.start()]
-            series_clean = rename.normalize_title(rename.remove_tokens(title_part))
+            series_clean = rename.remove_tokens(title_part).strip()
         year, series_clean = rename.extract_year_and_clean(series_clean)
         return {"type": "series", "series": series_clean, "season": cap_num // 100, "episode": cap_num % 100, "quality": quality, "year": year}
     else:
@@ -438,8 +438,9 @@ def generate():
             episode = meta["episode"]
             year = meta.get("year")
             
-            # Si no hay nombre de serie (ej: 1x01.mkv), usar nombre de carpeta
-            if not series_name and file.get('folder_name'):
+            # INTELIGENCIA DE CARPETAS:
+            # Si la carpeta tiene el formato "Titulo (Año)", le damos prioridad absoluta sobre el nombre del archivo.
+            if file.get('folder_name'):
                 folder_raw = file.get('folder_name')
                 
                 # Si la carpeta es "Temporada X", usar la carpeta padre (nombre de la serie)
@@ -448,15 +449,17 @@ def generate():
                     if len(ancestors) >= 2:
                         folder_raw = ancestors[-2]
 
-                # Estrategia: Buscar "Titulo (Año)" y descartar el resto (CAST, LAT, etc.)
+                # Estrategia: Buscar patrón estricto "Titulo (Año)"
                 match = re.search(r'^(.*?)\s*\(\s*(\d{4})\s*\)', folder_raw)
                 if match:
+                    # Si la carpeta cumple el formato TMDB, usamos sus datos ignorando el nombre del archivo
                     series_name = match.group(1).strip()
-                    if not year: year = match.group(2)
-                else:
+                    year = match.group(2)
+                elif not series_name:
+                    # Solo si no hay nombre en el archivo y la carpeta no tiene año, intentamos adivinar
                     folder_clean = rename.remove_tokens(folder_raw)
                     year_folder, title_folder = rename.extract_year_and_clean(folder_clean)
-                    series_name = rename.normalize_title(title_folder)
+                    series_name = title_folder.strip()
                     if not year and year_folder:
                         year = year_folder
 
@@ -519,6 +522,15 @@ def generate():
         else:
             # ES PELICULA
             title = meta["title"]
+            
+            # INTELIGENCIA DE CARPETAS (PELICULAS): Prioridad a la carpeta si tiene formato "Titulo (Año)"
+            if file.get('folder_name'):
+                folder_raw = file.get('folder_name')
+                match = re.search(r'^(.*?)\s*\(\s*(\d{4})\s*\)', folder_raw)
+                if match:
+                    title = match.group(1).strip()
+                    meta["year"] = match.group(2)
+
             # Buscar si ya existe en new_results o catalog
             # La clave de caché usa el título normalizado, mientras que la búsqueda en TMDB usará el título sin normalizar.
             norm_title = rename.normalize_title(title)
