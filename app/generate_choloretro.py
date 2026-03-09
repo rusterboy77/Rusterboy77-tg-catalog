@@ -190,7 +190,7 @@ def get_tmdb_meta(query, is_tv, year=None, manual_id=None):
         print(f"Error TMDB: {e}")
     return {}
 
-def get_1fichier_files_recursive(folder_id, headers, ancestors=None, special_root=None):
+def get_1fichier_files_recursive(folder_id, headers, session, ancestors=None, special_root=None):
     """Función auxiliar para recorrer carpetas recursivamente."""
     if ancestors is None:
         ancestors = []
@@ -205,7 +205,7 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None, special_roo
     
     # 1. Obtener archivos de la carpeta actual
     try:
-        r = requests.post("https://api.1fichier.com/v1/file/ls.cgi", json={'folder_id': folder_id}, headers=headers)
+        r = session.post("https://api.1fichier.com/v1/file/ls.cgi", json={'folder_id': folder_id}, headers=headers)
         if r.ok:
             items = r.json().get('items', [])
             for item in items:
@@ -222,13 +222,13 @@ def get_1fichier_files_recursive(folder_id, headers, ancestors=None, special_roo
 
     # 2. Buscar subcarpetas y entrar en ellas
     try:
-        r = requests.post("https://api.1fichier.com/v1/folder/ls.cgi", json={'folder_id': folder_id}, headers=headers)
+        r = session.post("https://api.1fichier.com/v1/folder/ls.cgi", json={'folder_id': folder_id}, headers=headers)
         if r.ok:
             subfolders = r.json().get('sub_folders', [])
             for sub in subfolders:
                 # print(f"  >> Escaneando subcarpeta: {sub['name']}")
                 new_ancestors = ancestors + [sub['name']]
-                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, ancestors=new_ancestors, special_root=current_special))
+                all_files.extend(get_1fichier_files_recursive(sub['id'], headers, session, ancestors=new_ancestors, special_root=current_special))
     except Exception as e:
         print(f"Error leyendo subcarpetas en {folder_id}: {e}")
         
@@ -243,7 +243,8 @@ def get_1fichier_files(api_key, folder_id):
     headers = {'Authorization': f'Bearer {api_key}', 'Content-Type': 'application/json'}
     
     print(f"Iniciando escaneo recursivo en 1fichier...")
-    return get_1fichier_files_recursive(folder_id, headers)
+    with requests.Session() as s:
+        return get_1fichier_files_recursive(folder_id, headers, s)
 
 def update_cache_db(catalog_results):
     """Genera cache_choloretro.db a partir del catálogo completo."""
