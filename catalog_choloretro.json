@@ -166309,8 +166309,69 @@
         "series": "El Gallo Claudio",
         "year": "1946"
       },
-      "tmdb_top": {},
+      "tmdb_top": {
+        "tmdb_id": 316106,
+        "title": "El gallo Claudio",
+        "original_title": "Foghorn Leghorn",
+        "overview": "El gallo Claudio (Foghorn Leghorn en su versión original) es un personaje de dibujos animados que aparece en las series de la Warner Brothers, Looney Tunes y Merrie Melodies. Fue creado por Robert McKimson y protagonizó 28 cortos entre 1946 y 1963.",
+        "poster_url": "https://image.tmdb.org/t/p/w500/vj2s71O2fgrL20Iag33we9Uv54b.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/r4uEtj2n6G81p29nLz6YqgY33Xy.jpg",
+        "vote_average": 7.5,
+        "release_date": "1946-08-31",
+        "year": "1946",
+        "genres": [
+          {
+            "id": 16,
+            "name": "Animación"
+          },
+          {
+            "id": 35,
+            "name": "Comedia"
+          }
+        ],
+        "cast": [
+          {
+            "name": "Mel Blanc",
+            "role": "Foghorn Leghorn (voice)",
+            "thumbnail": "https://image.tmdb.org/t/p/w185/3m59uLzz3o3c30T2i63p2z7d7I.jpg"
+          }
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "",
+        "collection": {}
+      },
       "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?kd8btj6mqtqa7wuo4lg8"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?yabpf0vmo56nmgcg7qm4"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?h8ec1b4khrr2zscgkd63"
+            }
+          ]
+        },
         {
           "season": 1,
           "episode": 4,
@@ -166318,26 +166379,6 @@
             {
               "quality": "desconocida",
               "url": "https://1fichier.com/?1mj6a0agkm4rxcy8hhv8"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 19,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?2a43felbphu9qsoc9ixo"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 13,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?4taba3bjexv9cig91u2y"
             }
           ]
         },
@@ -166353,11 +166394,141 @@
         },
         {
           "season": 1,
-          "episode": 21,
+          "episode": 6,
           "links": [
             {
               "quality": "desconocida",
-              "url": "https://1fichier.com/?5yzho84rdom33l22zq6x"
+              "url": "https://1fichier.com/?90d4lhp3u08c2walggq3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?p5kkarj6or5d9io52hs0"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?vhaqx3dtq83pu4rqn26p"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?dw0yk7spdekx0fmz1f61"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?y76rrl6xdcecsuprf4bo"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 11,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?scfzkv7y2boor0ejtegz"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 12,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?nl4944jj5bulfdzs63lf"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 13,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?4taba3bjexv9cig91u2y"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 14,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?zuuykqi57vdbyfh1vaot"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 15,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?pm1kmxihmnoa189j657j"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 16,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?ta84m6m97qmd0scojo4j"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 17,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?xh3vxh68esx5v3fxj386"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 18,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?zqnh8dkp0nc0x18zcndt"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 19,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?2a43felbphu9qsoc9ixo"
             }
           ]
         },
@@ -166373,11 +166544,21 @@
         },
         {
           "season": 1,
-          "episode": 6,
+          "episode": 21,
           "links": [
             {
               "quality": "desconocida",
-              "url": "https://1fichier.com/?90d4lhp3u08c2walggq3"
+              "url": "https://1fichier.com/?5yzho84rdom33l22zq6x"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 22,
+          "links": [
+            {
+              "quality": "desconocida",
+              "url": "https://1fichier.com/?npptnigv17ipcven5x4k"
             }
           ]
         },
@@ -166393,11 +166574,11 @@
         },
         {
           "season": 1,
-          "episode": 9,
+          "episode": 24,
           "links": [
             {
               "quality": "desconocida",
-              "url": "https://1fichier.com/?dw0yk7spdekx0fmz1f61"
+              "url": "https://1fichier.com/?jivgd68ts54eeurnvocm"
             }
           ]
         },
@@ -166423,71 +166604,11 @@
         },
         {
           "season": 1,
-          "episode": 3,
+          "episode": 27,
           "links": [
             {
               "quality": "desconocida",
-              "url": "https://1fichier.com/?h8ec1b4khrr2zscgkd63"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 24,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?jivgd68ts54eeurnvocm"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 1,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?kd8btj6mqtqa7wuo4lg8"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 12,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?nl4944jj5bulfdzs63lf"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 22,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?npptnigv17ipcven5x4k"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 7,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?p5kkarj6or5d9io52hs0"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 15,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?pm1kmxihmnoa189j657j"
+              "url": "https://1fichier.com/?suj57xzmf2qtjhdb1znd"
             }
           ]
         },
@@ -166500,101 +166621,11 @@
               "url": "https://1fichier.com/?r8720aplu6fu0lhk8d48"
             }
           ]
-        },
-        {
-          "season": 1,
-          "episode": 11,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?scfzkv7y2boor0ejtegz"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 27,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?suj57xzmf2qtjhdb1znd"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 16,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?ta84m6m97qmd0scojo4j"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 8,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?vhaqx3dtq83pu4rqn26p"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 17,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?xh3vxh68esx5v3fxj386"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 10,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?y76rrl6xdcecsuprf4bo"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 2,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?yabpf0vmo56nmgcg7qm4"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 18,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?zqnh8dkp0nc0x18zcndt"
-            }
-          ]
-        },
-        {
-          "season": 1,
-          "episode": 14,
-          "links": [
-            {
-              "quality": "desconocida",
-              "url": "https://1fichier.com/?zuuykqi57vdbyfh1vaot"
-            }
-          ]
         }
       ],
       "date_added": "2026-03-09T13:10:34.675890",
       "folder_id": "19207967",
-      "manual_id": null
+      "manual_id": 316106
     },
     {
       "file": "El Inspector Clouseau",
