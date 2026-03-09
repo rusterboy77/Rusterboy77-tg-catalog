@@ -194350,6 +194350,28 @@
               "magnet": "magnet:?xt=urn:btih:ab62da32f38d981d49f2aaed706df85850108e7f"
             }
           ]
+        },
+        {
+          "season": 15,
+          "episode": 16,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:abbbc6411f18a4df5983e5bd05eb75908c5630bb"
+            }
+          ]
+        },
+        {
+          "season": 15,
+          "episode": 17,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ef7900d0baf0af61df98a1f62207870b082b0d41"
+            }
+          ]
         }
       ]
     },
@@ -207858,7 +207880,24 @@
           "infohash": "ff350c7921d6a8a0e3436b967e4ccd28c801a777"
         }
       ],
-      "overview": "Tras una explosión en una prisión secreta, el asesino en serie Richard Harris se escapa. Bex Henderson, una exagente del FBI, es llamada de nuevo para detenerlo antes de que vuelva a matar."
+      "overview": "Tras una explosión en una prisión secreta, el asesino en serie Richard Harris se escapa. Bex Henderson, una exagente del FBI, es llamada de nuevo para detenerlo antes de que vuelva a matar.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "Tras una explosión en una prisión secreta, el asesino en serie Richard Harris se escapa. Bex Henderson, una exagente del FBI, es llamada de nuevo para detenerlo antes de que vuelva a matar.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4806bb780906ca9c6e3f1aea7cd3e840666319c6"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f8ee6d326d579d8fc8a7f8e05b8a5c198f76dc66"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "The Hunting Party [HDTV 1080p][Cap.103].torrent",
@@ -209974,6 +210013,25 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:b5af892fd1aeee5623cd4e1e8954f587bc8b84bc"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 9,
+          "overview": "The Pitt ofrece una visión realista de los retos a los que se enfrenta el personal sanitario en los Estados Unidos de hoy, visto a través de la lente de los héroes de primera línea que trabajan en un hospital de la actualidad en Pittsburgh, Pensilvania.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:37118cb12db60cf0c9963765825c9ac0cb393e6b"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1fe6336f1aeddb3ed9da9de8bbc43dd7e6b25307"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5d22f7fd852178f438f40df6bfc8c7a6f05d0532"
             }
           ]
         }
@@ -242394,6 +242452,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ea9881e43049dc1318426c22d712b22dbff1665e"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:b448ad464bbf6c5de36acef7484c539c147b9a6f"
             }
           ]
         },
@@ -242409,6 +242471,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:584b9bc7cbaa2ab2a056a0427596c768140245f1"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:9ff9e2dbf2b5811d2ed3b3912a0307de91a39753"
             }
           ]
         }
@@ -246269,6 +246335,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:c652c5f0a4e80bc79a00e2ac7a347d121ba0afc8"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Un analista de inteligencia se da cuenta de que su cerebro ha sido pirateado, lo que permite a unos hackers desconocidos acceder a todo lo que ve y oye. Atrapado entre la agencia y los hackers, decide actuar con normalidad para intentar descubrir a los culpables.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a048895f94ba8082151e9c3a90057b55e5c16a2d"
             }
           ]
         }
@@ -250619,6 +250696,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:b593aa9d73a95407dae08ea1de6462e17adb55eb"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:53b5a9add2e780b7181b0e2c8a25eb2873a72a54"
             }
           ]
         },
@@ -250630,6 +250711,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:80c784f4cefa4ac4551f97ecb91f7f0b8df54e70"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:6b60560f4742b3e645e370b2ed9111ab39361f31"
             }
           ]
         },
@@ -255870,6 +255955,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a7d153c04a4fffe34d39759bc7ef8567d879c723"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4efe1f2a8c80b375e14343d035e1fb63bb2e2f5f"
             }
           ]
         },
@@ -256063,6 +256152,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:2aaa27f65f97d88f5ef045ea9f759dfdd85ad934"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f8da256d0b68ea54dfd3b0128287c71f42cec528"
             }
           ]
         },
@@ -256074,6 +256167,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:513e3d60ec8f3fb0c13ced0f38e356caad489f5b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:008d5d33d88a475fcaa9356acbfdd3b7085b3821"
             }
           ]
         },
@@ -256096,6 +256193,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:dd52eff331fbde63a5bcfb2ffe16a0e24cb373b4"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 3,
+          "overview": "En el despiadado mundo de los informativos de televisión en 1986, el ambicioso reportero Dale Jennings y la estrella de las noticias Helen Norville, con un carácter difícil, forman pareja en un programa nocturno de éxito. Juntos cubren noticias históricas como el desastre del Challenger, la crisis del sida o la llegada del cometa Halley. Sus vidas personales y profesionales empiezan a mezclarse mientras el mundo a su alrededor afronta grandes cambios a un ritmo vertiginoso.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0c1964e524601ded6203dbebcd8165f0f3f54636"
             }
           ]
         }
@@ -256205,6 +256313,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:88d3889a677d14cde97659fe5ace4e1950e1b190"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "La identidad de un troll noruego de Internet con tendencias misóginas queda al descubierto. Para evitar la persecución, debe presentarse como mujer, lo que inesperadamente le abre los ojos a los prejuicios sexistas.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:116d311ab22f87574536198d8f1ce8c3632eb6b4"
             }
           ]
         }
@@ -257006,6 +257125,61 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:01d444794bcb9cb09bf9f506db88712f890e6416"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Sigue a una joven pareja que regresa a la casa de la infancia del marido. Su mundo se tambalea cuando unos nuevos vecinos se mudan a la casa de al lado, sacando a la luz viejos secretos del callejón sin salida, y nuevas amenazas mortales rompen la ilusión de su tranquilo vecindario.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:eeda9e8c9ddea35ba1755ed5c493d41d245614f6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Sigue a una joven pareja que regresa a la casa de la infancia del marido. Su mundo se tambalea cuando unos nuevos vecinos se mudan a la casa de al lado, sacando a la luz viejos secretos del callejón sin salida, y nuevas amenazas mortales rompen la ilusión de su tranquilo vecindario.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:dc05a4cd0149cfe3dbfb5d1953f1aaeae8f61a14"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Sigue a una joven pareja que regresa a la casa de la infancia del marido. Su mundo se tambalea cuando unos nuevos vecinos se mudan a la casa de al lado, sacando a la luz viejos secretos del callejón sin salida, y nuevas amenazas mortales rompen la ilusión de su tranquilo vecindario.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8a523b0bcb1d798ebcc52d3033e78a4fe0dfc7bc"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Sigue a una joven pareja que regresa a la casa de la infancia del marido. Su mundo se tambalea cuando unos nuevos vecinos se mudan a la casa de al lado, sacando a la luz viejos secretos del callejón sin salida, y nuevas amenazas mortales rompen la ilusión de su tranquilo vecindario.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:daed098a23aedde3b7111a09a075c3d969531a43"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Sigue a una joven pareja que regresa a la casa de la infancia del marido. Su mundo se tambalea cuando unos nuevos vecinos se mudan a la casa de al lado, sacando a la luz viejos secretos del callejón sin salida, y nuevas amenazas mortales rompen la ilusión de su tranquilo vecindario.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:960983a2d63d0c15b260479c9f856b618580e02d"
             }
           ]
         }
@@ -257987,6 +258161,471 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:101238fefe169ce3c97dd6a913dc63d12acffcd5"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Reversion (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Reversion",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1526519,
+        "title": "Reversión",
+        "original_title": "Reversion",
+        "overview": "Mario se muda a una nueva casa con sus padres y con su hermano mayor David, al cual está muy unido. Mario sufre episodios de ansiedad y falta de concentración, por lo que está tomando una medicación de manera regular. Una tarde lluviosa, Mario presencia como secuestran a su hermano mayor. Después de 19 días de angustiosa espera, David vuelve a casa, pero no recuerda nada de su desaparición. Desde ese momento, Mario nota suficientes cambios en la personalidad y el comportamiento de su hermano mayor como para empezar a creer que la persona que ha regresado no es su verdadero hermano.",
+        "poster_path": "/mtF0pQycyzJQOUXZrlf49g5pbB.jpg",
+        "backdrop_path": "/qWjCuTnOendTxzpiualWfmURNXT.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/mtF0pQycyzJQOUXZrlf49g5pbB.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qWjCuTnOendTxzpiualWfmURNXT.jpg",
+        "genres": [
+          "Misterio",
+          "Suspense"
+        ],
+        "cast": [
+          "Jaime Lorente",
+          "Manuel Vega",
+          "Belén Rueda",
+          "Fernando Cayo",
+          "Manny Perez",
+          "Roger Wasserman",
+          "Víc Gómez",
+          "Gerardo Mercedes",
+          "Alvaro Jose Alvarez Useche",
+          "Omar Patin"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/qWjCuTnOendTxzpiualWfmURNXT.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/mtF0pQycyzJQOUXZrlf49g5pbB.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:82e479836ef48785d9620cb46debdd6765e967df"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:921416f4edfcec0184c8da8d89bb78369ca6383c"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/mtF0pQycyzJQOUXZrlf49g5pbB.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/qWjCuTnOendTxzpiualWfmURNXT.jpg",
+      "overview": "Mario se muda a una nueva casa con sus padres y con su hermano mayor David, al cual está muy unido. Mario sufre episodios de ansiedad y falta de concentración, por lo que está tomando una medicación de manera regular. Una tarde lluviosa, Mario presencia como secuestran a su hermano mayor. Después de 19 días de angustiosa espera, David vuelve a casa, pero no recuerda nada de su desaparición. Desde ese momento, Mario nota suficientes cambios en la personalidad y el comportamiento de su hermano mayor como para empezar a creer que la persona que ha regresado no es su verdadero hermano.",
+      "genres": [
+        "Misterio",
+        "Suspense"
+      ],
+      "cast": [
+        "Jaime Lorente",
+        "Manuel Vega",
+        "Belén Rueda",
+        "Fernando Cayo",
+        "Manny Perez",
+        "Roger Wasserman",
+        "Víc Gómez",
+        "Gerardo Mercedes",
+        "Alvaro Jose Alvarez Useche",
+        "Omar Patin"
+      ]
+    },
+    {
+      "file": "Stags",
+      "parsed": {
+        "type": "series",
+        "series": "Stags"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 241278,
+        "title": "Despedida Salvaje",
+        "original_title": "Stags",
+        "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+        "poster_path": "/1KikEbbtBEkPYvtuMpvv4sNB4f7.jpg",
+        "backdrop_path": "/3tjHqQMR4j4nuD7Ws2KLI9OU0er.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/1KikEbbtBEkPYvtuMpvv4sNB4f7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/3tjHqQMR4j4nuD7Ws2KLI9OU0er.jpg",
+        "genres": [
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Nico Mirallegro",
+          "Corin Silva",
+          "Sophie Lenglinger",
+          "Jojo Macari",
+          "Paul Forman",
+          "Javier Godino",
+          "Paulina Gálvez",
+          "Oscar Foronda",
+          "Cavan Clerkin"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/3tjHqQMR4j4nuD7Ws2KLI9OU0er.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/1KikEbbtBEkPYvtuMpvv4sNB4f7.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/itwuBrSJY23wY0BCdUgfeCjnNSv.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:a4ff2722e804a0d9c6aeb2f508d3b67edfc49d56"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a2e5809c611bacd73c92d7a292435b44d571502d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0d1d5358f2ca067b453adbdc9464905422477ff6"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:aadd7377b1aa9efc311091ca7d9ed7dd75a3a39d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:afa46d9e8affbba9fa43eb2d8b58c027b12884b5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9e846296a82d4c6302f424edc11a6db5ff1b5305"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bc00e03dac5ae8e4e7ca79f5241b5339bf497953"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Sigue al futuro novio Stu y a sus amigos en su despedida de soltero en Sudamérica.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:cd8559d5b4c9bdb12c169c7ec7d4949bd5f344d3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "The Occupant (2025) [Bluray 1080p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "The Occupant",
+        "year": "2025",
+        "quality": "1080p"
+      },
+      "tmdb_top": {
+        "id": 1280444,
+        "title": "The Occupant",
+        "original_title": "The Occupant",
+        "overview": "Abby, una geóloga ingeniera llena de culpa en tránsito desde su remota misión, sobrevive a un misterioso accidente de helicóptero y debe intentar escapar del duro entorno. Pero no está sola...",
+        "poster_path": "/aRWeT2UIkaWolqQ6fYeHOB1D6vA.jpg",
+        "backdrop_path": "/hltwDG1SWl1BqjORA619hIJb4Ui.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/aRWeT2UIkaWolqQ6fYeHOB1D6vA.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/hltwDG1SWl1BqjORA619hIJb4Ui.jpg",
+        "genres": [
+          "Ciencia ficción",
+          "Drama",
+          "Suspense"
+        ],
+        "cast": [
+          "Ella Balinska",
+          "Rob Delaney",
+          "Vanessa Ifediora",
+          "Stuart Graham",
+          "George Lasha",
+          "Konstantine Roinishvili",
+          "Armin Karima"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/hltwDG1SWl1BqjORA619hIJb4Ui.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/aRWeT2UIkaWolqQ6fYeHOB1D6vA.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:3b7c32065e78b7108903ffd96c6e67d7bc409234"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:9763f1e6dd8427adc224070085a9bdd0f51afbf1"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:22f957489192a119432c6f5d1ad3e6e3826b7b5e"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/aRWeT2UIkaWolqQ6fYeHOB1D6vA.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/hltwDG1SWl1BqjORA619hIJb4Ui.jpg",
+      "overview": "Abby, una geóloga ingeniera llena de culpa en tránsito desde su remota misión, sobrevive a un misterioso accidente de helicóptero y debe intentar escapar del duro entorno. Pero no está sola...",
+      "genres": [
+        "Ciencia ficción",
+        "Drama",
+        "Suspense"
+      ],
+      "cast": [
+        "Ella Balinska",
+        "Rob Delaney",
+        "Vanessa Ifediora",
+        "Stuart Graham",
+        "George Lasha",
+        "Konstantine Roinishvili",
+        "Armin Karima"
+      ]
+    },
+    {
+      "file": "Valiant One (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Valiant One",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1009640,
+        "title": "Valiente",
+        "original_title": "Valiant One",
+        "overview": "Un helicóptero estadounidense se estrella en el lado norcoreano, ahora los supervivientes deben trabajar juntos para proteger a un civil especialista en tecnología y encontrar la salida sin la ayuda del apoyo militar estadounidense.",
+        "poster_path": "/njCc9bEut22FkxoRdPzcLkSa1np.jpg",
+        "backdrop_path": "/wPSZXVqe84X8SINvJGiKYZhkSG1.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/njCc9bEut22FkxoRdPzcLkSa1np.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/wPSZXVqe84X8SINvJGiKYZhkSG1.jpg",
+        "genres": [
+          "Bélica",
+          "Suspense",
+          "Acción"
+        ],
+        "cast": [
+          "Chase Stokes",
+          "Lana Condor",
+          "Desmin Borges",
+          "Callan Mulvey",
+          "Diana Tsoy",
+          "Daniel Jun",
+          "Jonathan Whitesell",
+          "Stephen Adekolu",
+          "Ronald Patrick Thompson",
+          "Leo Chiang"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/aE4tLAKV61edZQvOCM3puWwmgRl.png",
+        "banner": "https://image.tmdb.org/t/p/original/wPSZXVqe84X8SINvJGiKYZhkSG1.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/njCc9bEut22FkxoRdPzcLkSa1np.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:c9ecc74054a34c00beb3ca42713567e5c3c2f4ce"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:4937a79466f615b7da277386b375a1dc604094bc"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/njCc9bEut22FkxoRdPzcLkSa1np.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/wPSZXVqe84X8SINvJGiKYZhkSG1.jpg",
+      "overview": "Un helicóptero estadounidense se estrella en el lado norcoreano, ahora los supervivientes deben trabajar juntos para proteger a un civil especialista en tecnología y encontrar la salida sin la ayuda del apoyo militar estadounidense.",
+      "genres": [
+        "Bélica",
+        "Suspense",
+        "Acción"
+      ],
+      "cast": [
+        "Chase Stokes",
+        "Lana Condor",
+        "Desmin Borges",
+        "Callan Mulvey",
+        "Diana Tsoy",
+        "Daniel Jun",
+        "Jonathan Whitesell",
+        "Stephen Adekolu",
+        "Ronald Patrick Thompson",
+        "Leo Chiang"
+      ]
+    },
+    {
+      "file": "Vladimir",
+      "parsed": {
+        "type": "series",
+        "series": "Vladimir"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 285739,
+        "title": "Vladimir",
+        "original_title": "Vladimir",
+        "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+        "poster_path": "/cQhv0HrWrxXikH5R8d0tF1w3QHg.jpg",
+        "backdrop_path": "/fqWXGP79tEMAyLKW0wkJLbKSP61.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/cQhv0HrWrxXikH5R8d0tF1w3QHg.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/fqWXGP79tEMAyLKW0wkJLbKSP61.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Rachel Weisz",
+          "Leo Woodall",
+          "John Slattery",
+          "Ellen Robertson",
+          "Jessica Henwick"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/fqWXGP79tEMAyLKW0wkJLbKSP61.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/cQhv0HrWrxXikH5R8d0tF1w3QHg.jpg",
+        "episode_title": "Siempre hemos vivido en el castillo",
+        "episode_overview": "M, a cuyo marido están investigando por haber tenido aventuras con estudiantes, se siente atraída por Vladimir, un compañero nuevo, cautivador y mucho más joven que ella.",
+        "still_path": "https://image.tmdb.org/t/p/original/114nknJfS5xoDqf6VPOP0TDz17Z.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c0a680eaf0dc06c0c0392e5bd73499463bdad5d1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ad37e14d7f675a800cfcc98da499c85d97625c52"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:157e5878b6309b6248cd0dbc5778b77a351f7424"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b53252a27df34c89c1a934abe0c3ef2e3075747e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:014a00468398b7ff7cbe52456cdfacb67b8db595"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:babb106730a9ee487d917e0735ab15bc6ca0be00"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bcfccd944185e73ae81b53d8981db37fd4200cb8"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1a0f3074c43050b087cc98351d07b0b680cbf4ab"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f20e0ce3c616cc7117ebcba05c49c6964067d5e1"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0e9b7cdb53470aecbbb2aa816cae2c4d417d07ae"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d24320814944d89edaefad10b4eae2d076f12b33"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f52002ed070d19eb5a6b4f2fcf3c74e20a9ceee2"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:18d1ad3408e60b2e67468cbac1eb2aa51b026166"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Una profesora de inglés se obsesiona con un nuevo y apuesto compañero. Su matrimonio y su vida profesional, ya complicados, se ven sumidos en el caos total.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d90a0321e01dd444967ce83dd78e649b29402c62"
             }
           ]
         }
