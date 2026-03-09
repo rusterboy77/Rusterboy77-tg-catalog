@@ -136,7 +136,7 @@ def list_all_movies(base_url, handle, params):
     movies = get_all_items('movie')
 
     # Filtrar animacion
-    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and not _is_anime(m)]
 
     # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
     movies.sort(key=lambda x: x.get('date_added') or '', reverse=False)
@@ -261,7 +261,7 @@ def list_all_tvshows(base_url, handle, params):
     
     items = get_tv_shows()
     # Filtrar animacion
-    items = [i for i in items if not _is_animated(i)]
+    items = [i for i in items if not _is_animated(i) and not _is_anime(i)]
 
     # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
     items.sort(key=lambda x: x.get('date_added') or '', reverse=False)
@@ -1653,7 +1653,7 @@ def show_movies_by_title(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and not _is_anime(m)]
     
     # Agrupar por primera letra
     groups = {}
@@ -1687,7 +1687,7 @@ def list_movies_by_letter(base_url, handle, params):
     letter = params.get('letter', 'A')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and not _is_anime(m)]
     movies = [m for m in movies if m.get('title', '').upper().startswith(letter)]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
@@ -1755,7 +1755,7 @@ def show_movies_by_genre(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and not _is_anime(m)]
     
     genres_set = set()
     for movie in movies:
@@ -1796,7 +1796,7 @@ def list_movies_by_genre_filter(base_url, handle, params):
     genre = params.get('genre', '')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación') and _has_genre(m, genre)]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and _has_genre(m, genre) and not _is_anime(m)]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
@@ -1863,7 +1863,7 @@ def show_movies_by_year(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación')]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and not _is_anime(m)]
     
     years_set = set()
     for movie in movies:
@@ -1891,7 +1891,7 @@ def list_movies_by_year_filter(base_url, handle, params):
     year = params.get('year', '')
     
     movies = get_all_items('movie')
-    movies = [m for m in movies if not _has_genre(m, 'Animación') and str(m.get('year', '')) == year]
+    movies = [m for m in movies if not _has_genre(m, 'Animación') and str(m.get('year', '')) == year and not _is_anime(m)]
     movies = sorted(movies, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
@@ -1958,7 +1958,7 @@ def show_tvshows_by_title(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i)]
+    items = [i for i in items if not _is_animated(i) and not _is_anime(i)]
     
     groups = {}
     for item in items:
@@ -1990,7 +1990,7 @@ def list_tvshows_by_letter(base_url, handle, params):
     letter = params.get('letter', 'A')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i)]
+    items = [i for i in items if not _is_animated(i) and not _is_anime(i)]
     items = [i for i in items if i.get('title', '').upper().startswith(letter)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
@@ -2054,7 +2054,7 @@ def show_tvshows_by_genre(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i)]
+    items = [i for i in items if not _is_animated(i) and not _is_anime(i)]
     
     genres_set = set()
     for item in items:
@@ -2095,7 +2095,7 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
     genre = params.get('genre', '')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i) and _has_genre(i, genre)]
+    items = [i for i in items if not _is_animated(i) and _has_genre(i, genre) and not _is_anime(i)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
@@ -2158,7 +2158,7 @@ def show_tvshows_by_year(base_url, handle, params):
     xbmcplugin.setContent(handle, 'files')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i)]
+    items = [i for i in items if not _is_animated(i) and not _is_anime(i)]
     
     years_set = set()
     for item in items:
@@ -2186,7 +2186,7 @@ def list_tvshows_by_year_filter(base_url, handle, params):
     year = params.get('year', '')
     
     items = get_tv_shows()
-    items = [i for i in items if not _is_animated(i) and str(i.get('year', '')) == year]
+    items = [i for i in items if not _is_animated(i) and str(i.get('year', '')) == year and not _is_anime(i)]
     items = sorted(items, key=lambda x: x.get('title', ''))
     
     page = int(params.get('page', 1))
