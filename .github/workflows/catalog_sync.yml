@@ -57,7 +57,7 @@ jobs:
     - name: Commit and Push changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
-        commit_message: "Auto-update catalog and cache [skip ci]"
+        commit_message: "Auto-update catalog and cache"
         file_pattern: "catalog.json cache.db"
 
     # NUEVO: Confirmar a Telegram SOLO si el commit/push anterior tuvo éxito
