@@ -34391,6 +34391,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:c546118c9c634dde2a424b5aef2912abe98687f9"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:95e1957f06a093455ad3654ff9e71cf7432ac067"
             }
           ]
         }
@@ -44499,6 +44503,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:8d25aad3c76d9261146284f949730522f6dc3350"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8bf69af773920fb6d4479a7aeccb1bf103f26896"
             }
           ]
         }
@@ -57371,7 +57379,24 @@
           "infohash": "e433a5c395a7644a8c4a4c2739237c43a6eca003"
         }
       ],
-      "overview": "Georgie y Mandy crían a su joven familia en Texas mientras enfrentan los desafíos de la edad adulta, la crianza de su hija y el matrimonio."
+      "overview": "Georgie y Mandy crían a su joven familia en Texas mientras enfrentan los desafíos de la edad adulta, la crianza de su hija y el matrimonio.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 11,
+          "overview": "Georgie y Mandy crían a su joven familia en Texas mientras enfrentan los desafíos de la edad adulta, la crianza de su hija y el matrimonio.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3949fced2760905b335aa230878ec48f100e3510"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:948a3e5cd117bf028ee07b41eb8af708a22cd84e"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "El Primer Matrimonio De Georgie y Mandy [HDTV][Cap.102].torrent",
@@ -58566,6 +58591,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:fd6623b30d1f604ec45a062e25c99e742cff6b3d"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:80ff19d43aba310c1985a2e0baa127285142d63d"
             }
           ]
         }
@@ -127436,6 +127465,43 @@
               "magnet": "magnet:?xt=urn:btih:a47b47a47bee2e77de840f173a425a156b5d69b6"
             }
           ]
+        },
+        {
+          "season": 27,
+          "episode": 9,
+          "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bda35a80bab3851e4182bda2d11046f6d68586fb"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e5a9198899c62ffba5fe584d009b43af1b859959"
+            }
+          ]
+        },
+        {
+          "season": 27,
+          "episode": 7,
+          "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:430336b20a85e5e45b63623987481374e27be14f"
+            }
+          ]
+        },
+        {
+          "season": 27,
+          "episode": 8,
+          "overview": "‘Ley y Orden: Unidad de Víctimas Especiales’ es una serie de televisión estadounidense grabada en Nueva York donde es también principalmente producida. Con el estilo de la original ‘Ley y Orden’ los episodios son usualmente \"sacados de los titulares\" o basados libremente en verdaderos asesinatos que han recibido la atención de los medios.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2d57ec56b6ba260ebb5cf020c6ae647cb337b4de"
+            }
+          ]
         }
       ]
     },
@@ -158212,7 +158278,24 @@
           "infohash": "da374da79198c247de2c3ab0528de36cc1934679"
         }
       ],
-      "overview": "Sigue la historia de Claire Randall, una enfermera de combate casada en los años 40, que misteriosamente es arrastrada atrás en el tiempo hasta 1743, donde se lanza de inmediato a un mundo desconocido, viéndose amenazada su propia vida. Cuando se ve obligada a casarse con Jamie Fraser, un joven guerrero escocés caballeroso y romántico, Claire comienza un pasional triángulo entre dos hombres muy diferentes con dos vidas irreconciliables."
+      "overview": "Sigue la historia de Claire Randall, una enfermera de combate casada en los años 40, que misteriosamente es arrastrada atrás en el tiempo hasta 1743, donde se lanza de inmediato a un mundo desconocido, viéndose amenazada su propia vida. Cuando se ve obligada a casarse con Jamie Fraser, un joven guerrero escocés caballeroso y romántico, Claire comienza un pasional triángulo entre dos hombres muy diferentes con dos vidas irreconciliables.",
+      "episodes": [
+        {
+          "season": 8,
+          "episode": 1,
+          "overview": "Sigue la historia de Claire Randall, una enfermera de combate casada en los años 40, que misteriosamente es arrastrada atrás en el tiempo hasta 1743, donde se lanza de inmediato a un mundo desconocido, viéndose amenazada su propia vida. Cuando se ve obligada a casarse con Jamie Fraser, un joven guerrero escocés caballeroso y romántico, Claire comienza un pasional triángulo entre dos hombres muy diferentes con dos vidas irreconciliables.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:70bb8aceace504db14511781bfb3b90997869c89"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:fe43190651f4cd523adbccc29351688ad3a3d8f1"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Outlander [HDTV 1080p][Cap.715].torrent",
@@ -159859,6 +159942,10 @@
             {
               "quality": "2160p",
               "magnet": "magnet:?xt=urn:btih:2519ec295e1b4602d31a2f835ecfb4e6cfe88076"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0558d07ee14ae744cd3f1fddc740f0c663109e8f"
             }
           ]
         }
@@ -238912,6 +238999,21 @@
               "magnet": "magnet:?xt=urn:btih:4f95c255376def18c307de58bf3701774ed5648b"
             }
           ]
+        },
+        {
+          "season": 13,
+          "episode": 9,
+          "overview": "Narra las historias del Distrito 21 del Departamento de Policía de Chicago, hombres y mujeres que lo dan todo para proteger su comunidad El distrito 21 está compuesto por dos grupos, los uniformados que patrullan la ciudad y se enfrentan a los delitos callejeros, y la unidad de inteligencia, que combate los grandes delitos - crimen organizado, tráfico de drogas, asesinatos y más.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:783cfdff0c867223bec53530a6c88877f9af4bc7"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b220bfd2220e8550b8fce0de77b6b21d0c9caef3"
+            }
+          ]
         }
       ]
     },
@@ -239169,6 +239271,17 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:5cb33792ff9b008280111f9b240e7a2a8c807302"
+            }
+          ]
+        },
+        {
+          "season": 8,
+          "episode": 6,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4d85bbac22a74330fed2a0ea257e430fb38b80ea"
             }
           ]
         }
@@ -241762,6 +241875,17 @@
               "magnet": "magnet:?xt=urn:btih:15a89ca9e90d6e0ee520aa89ca617ceb51596d94"
             }
           ]
+        },
+        {
+          "season": 4,
+          "episode": 8,
+          "overview": "Un grupo de jóvenes graduados compiten por un conjunto limitado de puestos permanentes en un banco de inversión de primer nivel en Londres, pero los límites entre colega, amigo, amante y enemigo pronto se desdibujan a medida que se sumergen en una cultura empresarial definida tanto por sexo, drogas y ego como por acuerdos y dividendos.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:8738b486961fc62e6fe0851d119b68f099d6fa5b"
+            }
+          ]
         }
       ]
     },
@@ -242551,6 +242675,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:fbc74f194ca47f87f3c74e2a0997b6cbf4e51a60"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Charlie es único: un humancé, híbrido de humano y chimpancé. Su intelecto y habilidades físicas son excepcionales. Por eso, el grupo terrorista Alianza de Liberación Animal lo persigue y, para ello, tomarán medidas muy radicales. Sin embargo, Charlie está dispuesto a contraatacar por sus seres queridos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4d6d2062dd45989ca11ec851dccb332d296e40de"
             }
           ]
         }
@@ -243655,6 +243790,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d996d64f5442167d473eb23e76e787397885783f"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ad590a1f145c0ae1651693ce6029a6941f72316c"
             }
           ]
         }
@@ -243844,6 +243983,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:f64f3ecc802f2b11614b4dd76eb9bbfe2fc7b25a"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e0240ae28f060cc85dd950fb843bdd4d2925ff30"
             }
           ]
         }
@@ -244691,6 +244834,17 @@
               "magnet": "magnet:?xt=urn:btih:2a1491cd3f979ee7dbf527c819e88cf678cf0df3"
             }
           ]
+        },
+        {
+          "season": 6,
+          "episode": 8,
+          "overview": "La comandante Raphaëlle Coste ve como su vida da un vuelco de 180 grados cuando entra en ella Astrid Nielsen, una colaboradora de la policía con Asperger.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d699f9c4a9583439e12a21459c1c5687907d2b1a"
+            }
+          ]
         }
       ]
     },
@@ -245279,6 +245433,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:f2429da0e3e13b884424a0f391b587db63fc0830"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Dos secretarias de la embajada estadounidense en Moscú en la década de 1970 se convierten en agentes de la CIA tras la muerte de sus maridos, descubriendo una conspiración de la Guerra Fría detrás de la tragedia.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ae7376d81b5ee40479f6ffa187b167815bbe2ea4"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:9c93951994a29e1d32ace6ba7e11e74812b3da6e"
             }
           ]
         }
@@ -246504,6 +246673,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:0b2093aaae1916167deec7b9facc6f96c6524c24"
+            }
+          ]
+        },
+        {
+          "season": 13,
+          "episode": 6,
+          "overview": "Serie de TV (2013-Actualidad). Serie inspirada en los relatos de G.K. Chesterton, pero situada en un pequeño pueblo de Inglaterra a principio de los años 50, sobre un sacerdote católico que tiene un don para resolver misterios.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f0c2955db123da302888392cad194616491008cd"
             }
           ]
         }
@@ -247760,6 +247940,21 @@
               "magnet": "magnet:?xt=urn:btih:1716981489d53dbea62dd26a73494ae29557e628"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Cuenta la historia de Domino, una joven y poderosa bruja atormentada por su necesidad de alimentarse de la energía de los demás.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1c20bc0d5ede2a2fd35c019b7cc72aaf408a49c7"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d3ff1e127576a2fcee726ba4b7c5cdd87d563ccc"
+            }
+          ]
         }
       ]
     },
@@ -248722,6 +248917,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:84c1d8d3316efb4755bbf647ca3fd14565fb62d7"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:07825472cd3e10533c3c579645748246778d6768"
             }
           ]
         }
@@ -251100,6 +251299,32 @@
               "magnet": "magnet:?xt=urn:btih:5b42af0d48d8517c51924e8ce24389868a98c391"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Rafaela vive con su madre, ama de casa, su padre, inventor, y su abuela. Junto a sus amigas Corpus, Chelo y Debo, y su caniche, navegarán por diferentes peligros para salvar el mundo antes de que se les acabe la adolescencia.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:67ca5024c1c467a49d18ddef72aee73a4894ba2e"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f62981b4f83118b458a05c7eb534017c8c421226"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Rafaela vive con su madre, ama de casa, su padre, inventor, y su abuela. Junto a sus amigas Corpus, Chelo y Debo, y su caniche, navegarán por diferentes peligros para salvar el mundo antes de que se les acabe la adolescencia.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4f270c1107ddf9f0b4c3e8026a48d58d39ce3f7f"
+            }
+          ]
         }
       ]
     },
@@ -251975,6 +252200,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4df2c78291385b2ae502c167f16f804f9d96d4f0"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a63f428ac489f60671e00015500aad2848cf1b5e"
             }
           ]
         },
@@ -251990,6 +252219,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:8522ddac8a077f76b0b26709045c0920423ecf42"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1a7dd8364f32ed212221c5ad5452ec872a6c0fa8"
             }
           ]
         },
@@ -252514,6 +252747,25 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ca79e4af3b41075aa41f630f2c47e4d4f63c1609"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:bbe5ce7f20c0aaebc4123d85436b0a63ebfd9daa"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Yusuf, un modélico aprendiz de banquero, es detenido en medio de un partido de fútbol. El cargo: seis atracos a bancos en el plazo de un año, con un botín total de más de un millón de euros. Se enfrenta a diez años de prisión, a menos que delate a sus cómplices y devuelva el dinero. Pero le han robado su parte y Yusuf permanece en silencio. ¿Quién le ha delatado, y solo a él?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:313349a0aa5aa5ca07faa1ac76b3ce44733318c9"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4e354d6e144fbea9df9d71c3f5e73343bdef5cae"
             }
           ]
         }
@@ -252921,6 +253173,21 @@
               "magnet": "magnet:?xt=urn:btih:8a683d3fc15a57e65d47757cb13e1d4ed51ca56f"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "Una mujer debe forjar una relación con su hijastra adolescente para encontrar a su marido, que ha desaparecido misteriosamente.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:091229b3784cd89e8c40e2a39b3a99887d67b5d8"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d6b9c0776650bb602f510ffd68a6c41f85b51ba0"
+            }
+          ]
         }
       ]
     },
@@ -253005,6 +253272,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:0fbfb8c2e5bacf55adfa1025fc0dbf16a70c19fc"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Miniserie. 9 episodios. Serie que narra la relación entre Carolyn Bessette y John John Kennedy, pareja que tras un breve noviazgo contrajo matrimonio, convirtiéndose en una de las parejas más icónicas del finales del siglo XX. Fue una historia de amor que capturó la atención de toda una nación: John F. Kennedy Jr. (Paul Anthony Kelly), hijo del legendario presidente JFK, era el cabeza visible de la familia más parecida a la realeza estadounidense. El país lo vio crecer, pasó de niño a ser el soltero más deseado y fenómeno mediático.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ef74d68e945dd599bcf50f6ab86d1c53696abd77"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:176d3a0df1228f4bbff966a656165f1d4459e7fd"
             }
           ]
         }
@@ -253239,6 +253521,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:fa4aebce8be1a3dad7c9d99e8011506a93cea618"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Cuenta la historia de Enzo Tortora, acusado por colaboradores de la justicia de formar parte de una organización criminal dedicada al narcotráfico.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c5fc08fd290e496f8a7f50bc2dd171a1d5192308"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:1425783ab7958742ad6097cbc78dbf618d857bb5"
             }
           ]
         }
@@ -253571,6 +253868,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:82ffdde069d0c9b7365c3385a93e5b515d71a9fe"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Sigue a los heroicos socorristas, así como a su saga familiar de poder y glamour, en una de las ciudades más diversas y dinámicas de Estados Unidos: Nashville, Tennessee.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:86562871babd62bb7321ea15aea5258e5a353adb"
             }
           ]
         }
@@ -254946,6 +255254,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:c761da2dd7620d4be4cdfea17a894d12016afa94"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:74e9cb131650c03b79e63fb15df461bc18d0ed02"
             }
           ]
         },
@@ -254957,6 +255269,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:5805e2600d43e021aeb4e78ed7ca58189805d388"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:eee968895d686bc9e8dd927f5cbc3b43f7e38a54"
             }
           ]
         },
@@ -254968,6 +255284,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:667c175c2bc4c0f5a5ce4ffa40607b434589ea94"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:6c87bf4a7fcbaaee7c3afa04ab9c24e5e7978404"
             }
           ]
         },
@@ -254979,6 +255299,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:e9356b44ac33be1b2742b8e6a6cb32710c2a5662"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:0715367166cc443db206840d0040e402901d9b8b"
             }
           ]
         },
@@ -254990,6 +255314,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:72a253ec62d5cd6e1d98f31075ff44db0ae4995d"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7c537e8480b8120df23dd950311708efa8e058f0"
             }
           ]
         },
@@ -255049,6 +255377,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:17ab02aa407413aa7f50663dbe56fc7b9ac750eb"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e7a0f6c77826b83ccb9f398b16d7527a53b7d18c"
             }
           ]
         },
@@ -255060,6 +255392,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:df309e9c40c7a145c99042df04b41294f8380f4f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:b2c7140a8bbe469d2f145b9842d57baaae4cf195"
             }
           ]
         },
@@ -255071,6 +255407,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:16226fd287e6602d35ee2c249ca3a6b34080efc8"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1acbf69d2f619f9e409b98e98874121095e43bc0"
             }
           ]
         },
@@ -255093,6 +255433,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:e7bddbdce21ab64d12aa7267d5af6a0bb2dd2ddd"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Evie y Noa, son dos amigos inseparables desde la universidad que, 198 semanas después, siguen reuniéndose cada viernes para recrear en un garaje el universo de grandes clásicos del cine. Pero mientras Noa está a punto de mudarse a Bristol por un ascenso profesional, Evie permanece encerrada en casa de su madre tras una crisis de salud mental que la ha obligado a pausar su vida.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:59e75d459184a96dc99b519516a184c1c3ebe654"
             }
           ]
         }
@@ -255151,6 +255502,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:b7e9f66c36425c61d378948a039b33dcfbb5236e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:472dc689e23d588e2ca8d7c86b7ecc157de39417"
             }
           ]
         },
@@ -255294,6 +255649,39 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:5815c622482e861a90a2e1b7042016f518a5d875"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Lily, de 17 años, es secuestrada por un maestro de su confianza. Tras cinco años en cautiverio, escapa y regresa a casa para revelar años de abuso en un sótano, obligando a su familia a enfrentar el trauma en la lucha por reconstruir sus vidas.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:35e0f00f0ae70e9a9574f88d9ea37fc009caeb32"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Lily, de 17 años, es secuestrada por un maestro de su confianza. Tras cinco años en cautiverio, escapa y regresa a casa para revelar años de abuso en un sótano, obligando a su familia a enfrentar el trauma en la lucha por reconstruir sus vidas.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4cc6b091b1856c78175c9bfd07c77924e303e253"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Lily, de 17 años, es secuestrada por un maestro de su confianza. Tras cinco años en cautiverio, escapa y regresa a casa para revelar años de abuso en un sótano, obligando a su familia a enfrentar el trauma en la lucha por reconstruir sus vidas.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:99c53574c1226390ba57c6f617ee4dec32455b13"
             }
           ]
         }
@@ -256103,6 +256491,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:341ad5f731b3ec7e826ccba8d122682589616c4f"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dd2aa06f06f7566492155251f6ef5a26f4718c68"
             }
           ]
         },
@@ -256114,6 +256506,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:44344539a8dfcc9c7243637386db648fca4bc82d"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d888d3bc0d83c8861c84e5337ca6342bac2966ee"
             }
           ]
         }
@@ -256283,6 +256679,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:07ed9d60d3f3c22feafc3782db853efe415a6f60"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:35b1c3b1b3d40f4256c545d69636e23d38a51a4d"
             }
           ]
         },
@@ -256294,6 +256694,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:b38b97d8aea7ccb857127fa0516211fb73bd473e"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d05ee379ba93888069cf3684db7f0e77d4f31f38"
             }
           ]
         },
@@ -256305,6 +256709,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:cdcf340873063aa7f3883f63abcd6061ab3355f2"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:af7f9159d89a20cbd2f1526d0b85c2ef84f9bdc1"
             }
           ]
         }
@@ -256598,6 +257006,987 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:01d444794bcb9cb09bf9f506db88712f890e6416"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Bambi La Venganza (2025) [Bluray 1080p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Bambi La Venganza",
+        "year": "2025",
+        "quality": "1080p"
+      },
+      "tmdb_top": {
+        "id": 1049942,
+        "title": "Bambi: La venganza",
+        "original_title": "Bambi: The Reckoning",
+        "overview": "Después de perder a su madre a manos de un cazador, el inocente cervatillo ha desaparecido. En su lugar, ha surgido una bestia sedienta de venganza. Mutado por la rabia y el dolor, Bambi se convierte en un depredador imparable, acechando a todo aquel que ose entrar en su bosque. Casas, coches... Nada es refugio. Nadie está a salvo.",
+        "poster_path": "/i0amBD0hmCCB8Kf6t3nVHqKaSKi.jpg",
+        "backdrop_path": "/tG5ZSx57zkijfK975aENinlOdIy.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/i0amBD0hmCCB8Kf6t3nVHqKaSKi.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tG5ZSx57zkijfK975aENinlOdIy.jpg",
+        "genres": [
+          "Terror",
+          "Suspense"
+        ],
+        "cast": [
+          "Roxanne McKee",
+          "Tom Mulheron",
+          "Adrian Relph",
+          "Nicola Wright",
+          "Alex Cooke",
+          "Ewan Borthwick",
+          "Big Tobz",
+          "Joseph Greenwood",
+          "Russell Geoffrey Banks",
+          "Samira Mighty"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/AsdMcggBFw2f6g87Dm11uNMZKzI.png",
+        "banner": "https://image.tmdb.org/t/p/original/tG5ZSx57zkijfK975aENinlOdIy.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/i0amBD0hmCCB8Kf6t3nVHqKaSKi.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:9da4972174f3456375ea08b2fee2f335d5340266"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:ee2190b2546a16c460e2ab69eaea0c192042baed"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:41522892dc08dce19ec6d73a6c0cc377a0cfbdb4"
+        },
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:3d7bb37a532ef47f49d91569f3e6559ee1953ef5"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/i0amBD0hmCCB8Kf6t3nVHqKaSKi.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/tG5ZSx57zkijfK975aENinlOdIy.jpg",
+      "overview": "Después de perder a su madre a manos de un cazador, el inocente cervatillo ha desaparecido. En su lugar, ha surgido una bestia sedienta de venganza. Mutado por la rabia y el dolor, Bambi se convierte en un depredador imparable, acechando a todo aquel que ose entrar en su bosque. Casas, coches... Nada es refugio. Nadie está a salvo.",
+      "genres": [
+        "Terror",
+        "Suspense"
+      ],
+      "cast": [
+        "Roxanne McKee",
+        "Tom Mulheron",
+        "Adrian Relph",
+        "Nicola Wright",
+        "Alex Cooke",
+        "Ewan Borthwick",
+        "Big Tobz",
+        "Joseph Greenwood",
+        "Russell Geoffrey Banks",
+        "Samira Mighty"
+      ]
+    },
+    {
+      "file": "Boston Blue",
+      "parsed": {
+        "type": "series",
+        "series": "Boston Blue"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 284736,
+        "title": "Boston Blue",
+        "original_title": "Boston Blue",
+        "overview": "Danny Reagan se une a la policía de Boston procedente de la policía de Nueva York y se asocia con la detective Lena Silver, la hija mayor de una notable familia dedicada al cumplimiento de la ley en Boston.",
+        "poster_path": "/8pyxutHxpgBt8ZwbIG2TZWCW394.jpg",
+        "backdrop_path": "/lNenic4X3hzz7R0XFUcGKfsemKC.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/8pyxutHxpgBt8ZwbIG2TZWCW394.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/lNenic4X3hzz7R0XFUcGKfsemKC.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Donnie Wahlberg",
+          "Sonequa Martin-Green",
+          "Ernie Hudson",
+          "Maggie Lawson",
+          "Gloria Reuben",
+          "Marcus Scribner",
+          "Mika Amonsen"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/lNenic4X3hzz7R0XFUcGKfsemKC.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/8pyxutHxpgBt8ZwbIG2TZWCW394.jpg",
+        "episode_title": "Fe y familia",
+        "episode_overview": "Danny Reagan se une a la detective de Boston Lena Silver para investigar un incendio en una empresa tecnológica.",
+        "still_path": "https://image.tmdb.org/t/p/original/uMLLE6JrCjcbUMNhf0Z7r6VHeRI.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Danny Reagan se une a la policía de Boston procedente de la policía de Nueva York y se asocia con la detective Lena Silver, la hija mayor de una notable familia dedicada al cumplimiento de la ley en Boston.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:234d5d7f8ce0e018254fd524fe6bb2057bf73359"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2a2d565e530d9ae5e87e5e4050cff5197d7fc844"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Deathstalker (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Deathstalker",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1253000,
+        "title": "Deathstalker",
+        "original_title": "Deathstalker",
+        "overview": "El reino de Abraxeon está siendo asediado por los Dreadites, heraldos del hechicero Nekromemnon, muerto hace mucho tiempo. Cuando Deathstalker recupera un amuleto maldito de un campo de batalla sembrado de cadáveres, queda marcado por la magia negra y es perseguido por monstruosos asesinos de todo tipo. Para sobrevivir, debe romper la maldición y enfrentarse al mal naciente.",
+        "poster_path": "/nEI3DnzQC1afAjJOAizx6UX27pL.jpg",
+        "backdrop_path": "/7aiQebqYUHbs2wZPhsTznuMWyeH.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/nEI3DnzQC1afAjJOAizx6UX27pL.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/7aiQebqYUHbs2wZPhsTznuMWyeH.jpg",
+        "genres": [
+          "Fantasía",
+          "Acción",
+          "Aventura"
+        ],
+        "cast": [
+          "Daniel Bernhardt",
+          "Christina Orjalo",
+          "Paul Lazenby",
+          "Nicholas Rice",
+          "Patton Oswalt",
+          "Nina Bergman",
+          "John Clifford Talbot",
+          "Jon Ambrose",
+          "Laurie Field",
+          "Tanya Saari"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/7aiQebqYUHbs2wZPhsTznuMWyeH.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/nEI3DnzQC1afAjJOAizx6UX27pL.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:c3ae435a58b59af724af8278e842edf010c1a0f5"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:93701ca2b2e108db534dd633478a53f6f09f1edc"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/nEI3DnzQC1afAjJOAizx6UX27pL.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/7aiQebqYUHbs2wZPhsTznuMWyeH.jpg",
+      "overview": "El reino de Abraxeon está siendo asediado por los Dreadites, heraldos del hechicero Nekromemnon, muerto hace mucho tiempo. Cuando Deathstalker recupera un amuleto maldito de un campo de batalla sembrado de cadáveres, queda marcado por la magia negra y es perseguido por monstruosos asesinos de todo tipo. Para sobrevivir, debe romper la maldición y enfrentarse al mal naciente.",
+      "genres": [
+        "Fantasía",
+        "Acción",
+        "Aventura"
+      ],
+      "cast": [
+        "Daniel Bernhardt",
+        "Christina Orjalo",
+        "Paul Lazenby",
+        "Nicholas Rice",
+        "Patton Oswalt",
+        "Nina Bergman",
+        "John Clifford Talbot",
+        "Jon Ambrose",
+        "Laurie Field",
+        "Tanya Saari"
+      ]
+    },
+    {
+      "file": "Dtf St Louis",
+      "parsed": {
+        "type": "series",
+        "series": "Dtf St Louis"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 206828,
+        "title": "DTF St. Louis",
+        "original_title": "DTF St. Louis",
+        "overview": "Tres personas de mediana edad se enredan en un triángulo amoroso que conduce a la muerte prematura de una de ellas.",
+        "poster_path": "/xHfafw9UmomDc7jO25s9MpiL4Zs.jpg",
+        "backdrop_path": "/cGxRQdL2zF7UMycN0S5WBaDQ1u8.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/xHfafw9UmomDc7jO25s9MpiL4Zs.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/cGxRQdL2zF7UMycN0S5WBaDQ1u8.jpg",
+        "genres": [
+          "Crimen",
+          "Drama"
+        ],
+        "cast": [
+          "Jason Bateman",
+          "David Harbour",
+          "Linda Cardellini",
+          "Richard Jenkins",
+          "Joy Sunday",
+          "Arlan Ruf"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/cGxRQdL2zF7UMycN0S5WBaDQ1u8.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/xHfafw9UmomDc7jO25s9MpiL4Zs.jpg",
+        "episode_title": "Cornhole",
+        "episode_overview": "Cuando Clark y Floyd descubren que ambos matrimonios se han estancado, comienzan a probar una nueva app de citas para aventuras.",
+        "still_path": "https://image.tmdb.org/t/p/original/95Ypc9SbZcM5roTIFFUuBWLJziT.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Tres personas de mediana edad se enredan en un triángulo amoroso que conduce a la muerte prematura de una de ellas.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:02373869d386c1cd59ee00e87880b1a562c1d7da"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "El ultimo tiroteo (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "El ultimo tiroteo",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1465038,
+        "title": "El último tiroteo",
+        "original_title": "The Last GunFight",
+        "overview": "Los asesinos más letales del mundo luchan a muerte en un torneo clandestino. Pero un grupo rebelde se infiltra con una misión: sobrevivir a la masacre...",
+        "poster_path": "/mwRZ00JgrpF2xTmO6cvl3eYu5X.jpg",
+        "backdrop_path": "/mcmFEGb4A4XtJivjHrYnDMVvfu8.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/mwRZ00JgrpF2xTmO6cvl3eYu5X.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/mcmFEGb4A4XtJivjHrYnDMVvfu8.jpg",
+        "genres": [
+          "Acción"
+        ],
+        "cast": [
+          "Jon Voight",
+          "Adam Woodward",
+          "Charlotte Vega",
+          "Eloise Lovell Anderson",
+          "Daniel Bernhardt",
+          "Brock Pierce",
+          "Shaina West",
+          "Alix Villaret",
+          "Skyler Shaye",
+          "Rade Šerbedžija"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/mcmFEGb4A4XtJivjHrYnDMVvfu8.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/mwRZ00JgrpF2xTmO6cvl3eYu5X.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:2e523ddfe88bf729cdeb496e0c44d1c5f739fdbf"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:e221eb9603815548fd5a08bdded56304d93ae7ce"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/mwRZ00JgrpF2xTmO6cvl3eYu5X.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/mcmFEGb4A4XtJivjHrYnDMVvfu8.jpg",
+      "overview": "Los asesinos más letales del mundo luchan a muerte en un torneo clandestino. Pero un grupo rebelde se infiltra con una misión: sobrevivir a la masacre...",
+      "genres": [
+        "Acción"
+      ],
+      "cast": [
+        "Jon Voight",
+        "Adam Woodward",
+        "Charlotte Vega",
+        "Eloise Lovell Anderson",
+        "Daniel Bernhardt",
+        "Brock Pierce",
+        "Shaina West",
+        "Alix Villaret",
+        "Skyler Shaye",
+        "Rade Šerbedžija"
+      ]
+    },
+    {
+      "file": "Escuadron letal (2025) [4k 2160p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Escuadron letal",
+        "year": "2025",
+        "quality": "4k"
+      },
+      "tmdb_top": {
+        "id": 1419406,
+        "title": "Escuadrón letal",
+        "original_title": "The Shadow's Edge",
+        "overview": "Unos astutos y traicioneros ladrones desafian a la Policía Judicial de Macao. La Policía, que se encontraba en una dura batalla, invita de nuevo al experto en rastreo Huang De Zhong, retirado desde hace muchos años, a unir fuerzas con la joven élite del Departamento de Investigación Criminal de la Policía Judicial. Bajo la colisión de las técnicas tradicionales de rastreo y la alta tecnología, la policía y los criminales luchan con ingenio y valentía, y se lanzan a un duelo entre el bien y el mal parecido al juego del gato y el ratón.",
+        "poster_path": "/ftBCLqEhDvgKRcux0fk5TriVhMD.jpg",
+        "backdrop_path": "/tn95fumbkVAgXjOuw9CQOg0aYQz.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ftBCLqEhDvgKRcux0fk5TriVhMD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/tn95fumbkVAgXjOuw9CQOg0aYQz.jpg",
+        "genres": [
+          "Acción",
+          "Crimen",
+          "Drama",
+          "Suspense"
+        ],
+        "cast": [
+          "Jackie Chan",
+          "Zhang Zifeng",
+          "Tony Leung Ka-fai",
+          "Ci Sha",
+          "Jun",
+          "Zhou Zhengjie",
+          "Wang Ziyi",
+          "Lang Yueting",
+          "Lin Qiunan",
+          "Zac Wang"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/tn95fumbkVAgXjOuw9CQOg0aYQz.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/ftBCLqEhDvgKRcux0fk5TriVhMD.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "4k",
+          "magnet": "magnet:?xt=urn:btih:bb71ec91be6afd2172b840138543066fd28c522b"
+        },
+        {
+          "quality": "1080p",
+          "magnet": "magnet:?xt=urn:btih:7da9e7c2decc41b88bbced6acc31f3259d0fa11c"
+        },
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:7ae3273c9068b7ca877d6608675d8da5a3e8fc08"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:2cebeef4ddbd634c1afbcda4690866a6264682e7"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/ftBCLqEhDvgKRcux0fk5TriVhMD.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/tn95fumbkVAgXjOuw9CQOg0aYQz.jpg",
+      "overview": "Unos astutos y traicioneros ladrones desafian a la Policía Judicial de Macao. La Policía, que se encontraba en una dura batalla, invita de nuevo al experto en rastreo Huang De Zhong, retirado desde hace muchos años, a unir fuerzas con la joven élite del Departamento de Investigación Criminal de la Policía Judicial. Bajo la colisión de las técnicas tradicionales de rastreo y la alta tecnología, la policía y los criminales luchan con ingenio y valentía, y se lanzan a un duelo entre el bien y el mal parecido al juego del gato y el ratón.",
+      "genres": [
+        "Acción",
+        "Crimen",
+        "Drama",
+        "Suspense"
+      ],
+      "cast": [
+        "Jackie Chan",
+        "Zhang Zifeng",
+        "Tony Leung Ka-fai",
+        "Ci Sha",
+        "Jun",
+        "Zhou Zhengjie",
+        "Wang Ziyi",
+        "Lang Yueting",
+        "Lin Qiunan",
+        "Zac Wang"
+      ]
+    },
+    {
+      "file": "Hoizonte",
+      "parsed": {
+        "type": "series",
+        "series": "Hoizonte"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "episodes": [
+        {
+          "season": 6,
+          "episode": 24,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:dfafc862a939ff45c347c5b46bc8d8c0742c343d"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "La asistenta (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "La asistenta",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1368166,
+        "title": "La asistenta",
+        "original_title": "The Housemaid",
+        "overview": "Una joven (Sydney Sweeney), con un pasado complicado comienza a trabajar como asistenta en la lujosa casa de los Winchester. A medida que se adentra en la vida de la familia, descubrirá secretos oscuros que pondrán en peligro su seguridad, pero quizá ya sea demasiado tarde... Adaptación de la novela de Freida McFadden.",
+        "poster_path": "/tMEu0gniT4zfcyDF5KMjof0DMog.jpg",
+        "backdrop_path": "/zTnAnYIn0Iv3cn0ZHlzLhou3ybm.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/tMEu0gniT4zfcyDF5KMjof0DMog.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zTnAnYIn0Iv3cn0ZHlzLhou3ybm.jpg",
+        "genres": [
+          "Drama",
+          "Misterio",
+          "Suspense"
+        ],
+        "cast": [
+          "Sydney Sweeney",
+          "Amanda Seyfried",
+          "Brandon Sklenar",
+          "Michele Morrone",
+          "Elizabeth Perkins",
+          "Indiana Elle",
+          "Amanda Joy Erickson",
+          "Sarah Cooper",
+          "Megan Ferguson",
+          "Ellen Tamaki"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/nncYxwFgTm2sIPPWDjzc9Ygf6U2.png",
+        "banner": "https://image.tmdb.org/t/p/original/zTnAnYIn0Iv3cn0ZHlzLhou3ybm.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/tMEu0gniT4zfcyDF5KMjof0DMog.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:37e650bd8527dc1d7095d64892c25fecbbadfae8"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:c2c8dc3fc0c831bc687886e9773a3c9984a966c7"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/tMEu0gniT4zfcyDF5KMjof0DMog.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/zTnAnYIn0Iv3cn0ZHlzLhou3ybm.jpg",
+      "overview": "Una joven (Sydney Sweeney), con un pasado complicado comienza a trabajar como asistenta en la lujosa casa de los Winchester. A medida que se adentra en la vida de la familia, descubrirá secretos oscuros que pondrán en peligro su seguridad, pero quizá ya sea demasiado tarde... Adaptación de la novela de Freida McFadden.",
+      "genres": [
+        "Drama",
+        "Misterio",
+        "Suspense"
+      ],
+      "cast": [
+        "Sydney Sweeney",
+        "Amanda Seyfried",
+        "Brandon Sklenar",
+        "Michele Morrone",
+        "Elizabeth Perkins",
+        "Indiana Elle",
+        "Amanda Joy Erickson",
+        "Sarah Cooper",
+        "Megan Ferguson",
+        "Ellen Tamaki"
+      ]
+    },
+    {
+      "file": "Los dinosaurios",
+      "parsed": {
+        "type": "series",
+        "series": "Los dinosaurios"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 313298,
+        "title": "Los dinosaurios",
+        "original_title": "The Dinosaurs",
+        "overview": "Desde los primeros dinosaurios hasta los últimos, esta gloriosa serie documental examina sus 165 millones de años en la Tierra y las fuerzas que moldearon su evolución.",
+        "poster_path": "/jr0MS8g4Dq3nwZQXDo5BeaP9ypu.jpg",
+        "backdrop_path": "/xBCqa89aObojLlXu6MuGgnAmhcP.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/jr0MS8g4Dq3nwZQXDo5BeaP9ypu.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/xBCqa89aObojLlXu6MuGgnAmhcP.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [
+          "Morgan Freeman"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/w7DwHIgjsJPWvmzVWMZf8iEStNj.png",
+        "banner": "https://image.tmdb.org/t/p/original/xBCqa89aObojLlXu6MuGgnAmhcP.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/jr0MS8g4Dq3nwZQXDo5BeaP9ypu.jpg",
+        "episode_title": "Ascenso",
+        "episode_overview": "Hace 235 millones de años, nace una pequeña criatura que dará origen a una dinastía de dinosaurios... si logra sobrevivir al clima caótico y a los reptiles carnívoros.",
+        "still_path": "https://image.tmdb.org/t/p/original/cLrKgHtnPVZqKtwjocQydg7ASHY.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Desde los primeros dinosaurios hasta los últimos, esta gloriosa serie documental examina sus 165 millones de años en la Tierra y las fuerzas que moldearon su evolución.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:6d14ddbaee644c69f66488877a8b46cbbc3a9e98"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Desde los primeros dinosaurios hasta los últimos, esta gloriosa serie documental examina sus 165 millones de años en la Tierra y las fuerzas que moldearon su evolución.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:d6019f75db86c0852ac51e0d8d3fb9890f53753f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Desde los primeros dinosaurios hasta los últimos, esta gloriosa serie documental examina sus 165 millones de años en la Tierra y las fuerzas que moldearon su evolución.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0fd643b3d57193053af397cdce431722c97e79fd"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Desde los primeros dinosaurios hasta los últimos, esta gloriosa serie documental examina sus 165 millones de años en la Tierra y las fuerzas que moldearon su evolución.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:32fd6e558f704acccc8e33189590e7bf3f90dfba"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Los secretos del Bunny Ranch",
+      "parsed": {
+        "type": "series",
+        "series": "Los secretos del Bunny Ranch"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 292100,
+        "title": "Los secretos del Bunny Ranch",
+        "original_title": "Secrets of the Bunny Ranch",
+        "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+        "poster_path": "/blbO5xUgOf7B68YhVskWxONZIFS.jpg",
+        "backdrop_path": "/rchz8N2lvMa91oeLwa62fRvsRal.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/blbO5xUgOf7B68YhVskWxONZIFS.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rchz8N2lvMa91oeLwa62fRvsRal.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/rchz8N2lvMa91oeLwa62fRvsRal.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/blbO5xUgOf7B68YhVskWxONZIFS.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/7ZLK7bdTGyf0a9ERsOabvH2aY6j.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e59fad49a265205e4e37dd34734b580397d4ca9f"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:04081e043b32844197ca847505de5c047b96f6c3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:054b4dd0a14ac30c6a7fc15739d112320e0d5b98"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:bc278cf6234e3420895ee7db9ca5e8aefd40726e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:fd2ca8221074442fd90f21ca0bc5fc4e02a18563"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Esta serie descubre la verdad sobre el burdel más famoso del mundo y la serie de televisión que lo popularizó. ¿Empoderó a las mujeres el propietario Dennis Hof o las manipuló para que entraran en un mundo de abuso sexual?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0ad69fcecd8775c9db90184bb1908770df0e5959"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Los trucos del cerebro",
+      "parsed": {
+        "type": "series",
+        "series": "Los trucos del cerebro"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 315736,
+        "title": "Los trucos del cerebro",
+        "original_title": "Los trucos del cerebro",
+        "overview": "El neurocientífico Albert Moukheiber explora cómo los sesgos cognitivos de nuestro cerebro moldean las decisiones, alimentando la magia, las estafas, el marketing y las noticias falsas, revelando los trucos ocultos que nuestra mente nos juega.",
+        "poster_path": "/w3Keaz76kQAmd4qVPXUqGtarZPG.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/w3Keaz76kQAmd4qVPXUqGtarZPG.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/w3Keaz76kQAmd4qVPXUqGtarZPG.jpg",
+        "episode_title": "Episodio 1",
+        "episode_overview": "EPisodio 1...."
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "El neurocientífico Albert Moukheiber explora cómo los sesgos cognitivos de nuestro cerebro moldean las decisiones, alimentando la magia, las estafas, el marketing y las noticias falsas, revelando los trucos ocultos que nuestra mente nos juega.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1a0379389e83d8ecf41f107cc2b99cc8d8b2d43b"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "El neurocientífico Albert Moukheiber explora cómo los sesgos cognitivos de nuestro cerebro moldean las decisiones, alimentando la magia, las estafas, el marketing y las noticias falsas, revelando los trucos ocultos que nuestra mente nos juega.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:76cd122efb8c093e3f27f3b2b42659c6b5464de6"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Maquina_de_guerra_War_Machine_2026_Bluray_720pEsp.torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Maquina de guerra War Machine",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1265609,
+        "title": "Máquina de guerra",
+        "original_title": "War Machine",
+        "overview": "En una última misión agotadora durante el entrenamiento para ser ranger, un ingeniero de combate debe liderar a su unidad contra una gigantesca máquina asesina de otro mundo.",
+        "poster_path": "/d5YmQx9kPLQBHEboGwrAavypztB.jpg",
+        "backdrop_path": "/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/d5YmQx9kPLQBHEboGwrAavypztB.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+        "genres": [
+          "Acción",
+          "Ciencia ficción",
+          "Suspense"
+        ],
+        "cast": [
+          "Alan Ritchson",
+          "Dennis Quaid",
+          "Stephan James",
+          "Jai Courtney",
+          "Esai Morales",
+          "Blake Richardson",
+          "Keiynan Lonsdale",
+          "Jack Patten",
+          "Joshua Diaz",
+          "Heather Burridge"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/72I2CuBl7ArEgv4rijdnVvd3WOS.png",
+        "banner": "https://image.tmdb.org/t/p/original/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/d5YmQx9kPLQBHEboGwrAavypztB.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:8444a0501f7257a956dc64f09f86befb224b5c7a"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:4193ee05bb9b8a4cb8f60331e1ebb319414d8f25"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/d5YmQx9kPLQBHEboGwrAavypztB.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/6yeVcxFR0j08vlv2OlL6zbewm4D.jpg",
+      "overview": "En una última misión agotadora durante el entrenamiento para ser ranger, un ingeniero de combate debe liderar a su unidad contra una gigantesca máquina asesina de otro mundo.",
+      "genres": [
+        "Acción",
+        "Ciencia ficción",
+        "Suspense"
+      ],
+      "cast": [
+        "Alan Ritchson",
+        "Dennis Quaid",
+        "Stephan James",
+        "Jai Courtney",
+        "Esai Morales",
+        "Blake Richardson",
+        "Keiynan Lonsdale",
+        "Jack Patten",
+        "Joshua Diaz",
+        "Heather Burridge"
+      ]
+    },
+    {
+      "file": "Marshals Una historia de Yellowstone",
+      "parsed": {
+        "type": "series",
+        "series": "Marshals Una historia de Yellowstone"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 290856,
+        "title": "Marshals: Una historia de Yellowstone",
+        "original_title": "Marshals",
+        "overview": "Kayce Dutton, un ex SEAL de la Marina, deja el rancho Yellowstone para unirse a los U.S. Marshals. Utiliza sus habilidades como vaquero y militar para luchar contra el crimen en Montana mientras lidia con los lazos familiares y el desgaste mental de las fuerzas del orden.",
+        "poster_path": "/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "backdrop_path": "/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "genres": [
+          "Drama",
+          "Western"
+        ],
+        "cast": [
+          "Luke Grimes",
+          "Logan Marshall-Green",
+          "Arielle Kebbel",
+          "Ash Santos",
+          "Tatanka Means",
+          "Brecken Merrill",
+          "Mo Brings Plenty",
+          "Gil Birmingham"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/3AGTImytIOlu807c3VeJpdzIj9f.png",
+        "banner": "https://image.tmdb.org/t/p/original/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "episode_title": "Piya Wiconi",
+        "episode_overview": "Kayce ayuda a una unidad de élite de los Marshals a dar con un peligroso terrorista que atenta contra antiguos aliados.",
+        "still_path": "https://image.tmdb.org/t/p/original/zHfWl4xfc4l7ZM8pxjmEQm53I31.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Kayce Dutton, un ex SEAL de la Marina, deja el rancho Yellowstone para unirse a los U.S. Marshals. Utiliza sus habilidades como vaquero y militar para luchar contra el crimen en Montana mientras lidia con los lazos familiares y el desgaste mental de las fuerzas del orden.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f28cd8394e1ceadaac9120ddefa8a474f8bcb5b9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Monarch",
+      "parsed": {
+        "type": "series",
+        "series": "Monarch"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 202411,
+        "title": "Monarch: El legado de los monstruos",
+        "original_title": "Monarch: Legacy of Monsters",
+        "overview": "Tras sobrevivir al ataque de Godzilla en San Francisco, un espeluznante secreto vuelve a sobrecoger a Cate. En medio de amenazas monstruosas, se embarca en una aventura por todo el mundo para descubrir la verdad sobre su familia y la misteriosa organización conocida como Monarca.",
+        "poster_path": "/ufFSOyMYcuPhZpVs1obeYIzcnYY.jpg",
+        "backdrop_path": "/n5FGEUmId87nZAdFiOFmCKXynmT.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/ufFSOyMYcuPhZpVs1obeYIzcnYY.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/n5FGEUmId87nZAdFiOFmCKXynmT.jpg",
+        "genres": [
+          "Sci-Fi & Fantasy",
+          "Drama",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Anna Sawai",
+          "Kiersey Clemons",
+          "Ren Watabe",
+          "Mari Yamamoto",
+          "Anders Holm",
+          "Joe Tippett",
+          "Wyatt Russell",
+          "Kurt Russell"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/4boxgUjMH7zhEvtha5U2hHNkmsa.png",
+        "banner": "https://image.tmdb.org/t/p/original/n5FGEUmId87nZAdFiOFmCKXynmT.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/ufFSOyMYcuPhZpVs1obeYIzcnYY.jpg",
+        "episode_title": "Resonancia",
+        "episode_overview": "Lee y Keiko investigan un pueblo misterioso con una secta dedicada a una criatura enigmática. Cate se topa con un polizón peligroso.",
+        "still_path": "https://image.tmdb.org/t/p/original/dB1NaVwAn6LY8e1tGKgLcEgcSRW.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "Tras sobrevivir al ataque de Godzilla en San Francisco, un espeluznante secreto vuelve a sobrecoger a Cate. En medio de amenazas monstruosas, se embarca en una aventura por todo el mundo para descubrir la verdad sobre su familia y la misteriosa organización conocida como Monarca.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:f8990f052d61ffd017b372ad873bbd9a8393c4bd"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4dd2d2960c0146a75d084a0218ca8007c713e591"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0cd3ff2b66bc10ba7c2121e4eca4f58f35f3403e"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Mongol (2025) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Mongol",
+        "year": "2025",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1648122,
+        "title": "Mongol",
+        "original_title": "Mongol",
+        "overview": "En 1910, el joven nómada Mongol se enamora perdidamente de Serchmaa, la hija de su jefe. Sin embargo, su historia de amor da un giro peligroso cuando su padre le culpa de ser un criminal y orquesta una trama para arrebatarle a Mongol todo lo que ama. Mongol debe reunir fuerzas para vagar por un mundo plagado de traiciones y mentiras y luchar por sobrevivir y hacer justicia. Durante sus viajes, sirve de inspiración y hace crecer la unidad de su gente",
+        "poster_path": "/lnrLEE4s0NGjC011892jlGOs02n.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/lnrLEE4s0NGjC011892jlGOs02n.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [
+          "Acción",
+          "Historia"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/lnrLEE4s0NGjC011892jlGOs02n.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:b7e32cb3788a7256958e02e3f5c7037dbdc123ce"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:7be15acf11cf4544982b0c90eaed83f03ed8d38c"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/lnrLEE4s0NGjC011892jlGOs02n.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original",
+      "overview": "En 1910, el joven nómada Mongol se enamora perdidamente de Serchmaa, la hija de su jefe. Sin embargo, su historia de amor da un giro peligroso cuando su padre le culpa de ser un criminal y orquesta una trama para arrebatarle a Mongol todo lo que ama. Mongol debe reunir fuerzas para vagar por un mundo plagado de traiciones y mentiras y luchar por sobrevivir y hacer justicia. Durante sus viajes, sirve de inspiración y hace crecer la unidad de su gente",
+      "genres": [
+        "Acción",
+        "Historia"
+      ]
+    },
+    {
+      "file": "Negotiator",
+      "parsed": {
+        "type": "series",
+        "series": "Negotiator"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 130626,
+        "title": "The Negotiators",
+        "original_title": "The Negotiators",
+        "overview": "",
+        "poster_path": "/u4zHcBqcA0Zp1aUmcJuAK17CM9H.jpg",
+        "backdrop_path": "/koyoYxhiuU8FeMlhep9ymDFZJvJ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/u4zHcBqcA0Zp1aUmcJuAK17CM9H.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/koyoYxhiuU8FeMlhep9ymDFZJvJ.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/koyoYxhiuU8FeMlhep9ymDFZJvJ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/u4zHcBqcA0Zp1aUmcJuAK17CM9H.jpg",
+        "episode_title": "Episodio 2",
+        "still_path": "https://image.tmdb.org/t/p/original/aAntrXdI7ddKsueTcbRgzJQR2fM.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:92798a838a324984db7f6cbc1701f8a5dd625c7f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:93c1c8b02187f14860485d6876f89ad39f55ac72"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:101238fefe169ce3c97dd6a913dc63d12acffcd5"
             }
           ]
         }
