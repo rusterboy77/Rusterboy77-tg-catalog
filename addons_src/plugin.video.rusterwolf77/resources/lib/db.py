@@ -751,3 +751,69 @@ def find_unenriched(limit=200):
         return [r[0] for r in c.fetchall()]
     finally:
         conn.close()
+
+def get_next_episode(tvshowtitle, season, episode):
+    """Busca el siguiente episodio en la base de datos."""
+    import unicodedata, re
+    
+    def normalize(s):
+        if not s: return ''
+        s = unicodedata.normalize('NFKD', str(s)).encode('ASCII', 'ignore').decode('ASCII').lower()
+        return re.sub(r'[^a-z0-9]', '', s)
+    
+    target_title = normalize(tvshowtitle)
+    if not target_title: return None
+
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        # Obtenemos todos los items de tipo TV para filtrar en python (más seguro con normalización)
+        c.execute('SELECT "key", title, season, episode, torrents, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path FROM items WHERE type="tv"')
+        rows = c.fetchall()
+        
+        try:
+            curr_s = int(season)
+            curr_e = int(episode)
+        except: return None
+
+        # Buscamos S.E+1 o S+1.E1
+        target_next = (curr_s, curr_e + 1)
+        target_next_season = (curr_s + 1, 1)
+        
+        cand_next = None
+        cand_next_season = None
+
+        for r in rows:
+            if normalize(r[1]) != target_title:
+                continue
+            try:
+                s = int(r[2])
+                e = int(r[3])
+            except: continue
+
+            if (s, e) == target_next:
+                cand_next = r
+            elif (s, e) == target_next_season:
+                cand_next_season = r
+        
+        res = cand_next or cand_next_season
+        if res:
+            return {
+                'key': res[0],
+                'title': res[1],
+                'season': int(res[2]),
+                'episode': int(res[3]),
+                'torrents': json.loads(res[4]) if res[4] else [],
+                'tmdb_id': res[5],
+                'poster': res[6],
+                'fanart': res[7],
+                'overview': res[8],
+                'episode_title': res[9],
+                'episode_overview': res[10],
+                'still_path': res[11]
+            }
+    except Exception as e:
+        xbmc.log(f"RusterWolf DB: error buscando siguiente episodio: {e}", xbmc.LOGERROR)
+    finally:
+        conn.close()
+    return None

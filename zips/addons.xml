@@ -119,13 +119,19 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.4" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="1.0.5" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
             
         
             <import addon="xbmc.python" version="3.0.0"/>
+            
+        
+            <import addon="script.module.addon.signals" version="0.0.6"/>
+            
+        
+            <import addon="service.upnext" version="1.1.0"/>
             
     
         </requires>
@@ -140,6 +146,9 @@
         </extension>
         
     
+        <extension point="xbmc.service" library="service.py" start="login"/>
+        
+    
         <extension point="xbmc.addon.metadata">
             
         
@@ -148,8 +157,10 @@
         
             <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.
 
-v1.0.3:
-- Solucionado problema con trailers: integración nativa con skins mediante TMDB ID.</description>
+v1.0.5:
+- Integración con Next Up: Aviso y reproducción automática del siguiente episodio.
+- Nueva opción en menú contextual: "Añadir a Seguir Viendo" para gestión manual.
+- Mejoras visuales: Iconos unificados en todas las subsecciones del menú.</description>
             
         
             <platform>all</platform>

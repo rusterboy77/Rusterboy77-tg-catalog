@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
-import unicodedata, re, os, threading
+import unicodedata, re, os, threading, time
 from resources.lib.catalog import fetch_catalogs, sort_by_newest, enrich_items_by_keys, enqueue_enrich
 from resources.lib.player import is_elementum_installed, play_with_elementum
 from resources.lib.db import load_all_items, load_items_by_keys
@@ -256,6 +256,71 @@ def _get_item_year(it):
     except Exception:
         return ''
 
+def _apply_info_tag(li, info):
+    try:
+        tag = li.getVideoInfoTag()
+        if info.get('title'):
+            tag.setTitle(info.get('title'))
+        if info.get('plot'):
+            tag.setPlot(info.get('plot'))
+        if info.get('year'):
+            try:
+                tag.setYear(int(info.get('year')))
+            except Exception:
+                pass
+        if info.get('rating'):
+            try:
+                tag.setRating(float(info.get('rating')))
+            except Exception:
+                pass
+    except Exception as e:
+        xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
+
+# --- Funciones para Watchlist (Seguir Viendo Manual) ---
+def get_watchlist_file():
+    try:
+        profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
+        if not os.path.exists(profile_dir): os.makedirs(profile_dir)
+        return os.path.join(profile_dir, 'watchlist.json')
+    except: return ''
+
+def load_watchlist():
+    wf = get_watchlist_file()
+    if os.path.exists(wf):
+        try:
+            with open(wf, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except: pass
+    return {}
+
+def save_watchlist(data):
+    wf = get_watchlist_file()
+    if wf:
+        try:
+            with open(wf, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except: pass
+
+def action_add_watchlist(params):
+    wtype = params.get('wtype')
+    val = params.get('val')
+    title = params.get('title')
+    if not wtype or not val: return
+    wl = load_watchlist()
+    uid = f"{wtype}_{val}"
+    wl[uid] = {'wtype': wtype, 'val': val, 'title': title, 'added': time.time()}
+    save_watchlist(wl)
+    xbmcgui.Dialog().notification('RusterWolf', f'{title} añadido a Seguir Viendo')
+
+def action_remove_watchlist(params):
+    uid = params.get('uid')
+    wl = load_watchlist()
+    if uid in wl:
+        del wl[uid]
+        save_watchlist(wl)
+        xbmcgui.Dialog().notification('RusterWolf', 'Eliminado de Seguir Viendo')
+        xbmc.executebuiltin('Container.Refresh')
+# --------------------------------------------------------
 
 
 def list_root():
@@ -312,7 +377,9 @@ def novedades_menu():
     """Submenú para Novedades: accesos directos a películas y series recientes."""
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'novedades.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
     # Usar 'action': 'novedades' con el parámetro 'sub' correcto
     entries = [
@@ -362,7 +429,9 @@ def continue_watching():
 
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'seguir_viendo.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
 
     xbmcplugin.setContent(HANDLE, 'movies')
 
@@ -375,6 +444,50 @@ def continue_watching():
             catalog = fetch_catalogs()
         except Exception:
             catalog = []
+
+    # 1. Cargar Watchlist manual
+    wl = load_watchlist()
+    if wl:
+        # Ordenar por fecha de añadido descendente
+        for uid, witem in sorted(wl.items(), key=lambda x: x[1].get('added', 0), reverse=True):
+            try:
+                wtype = witem.get('wtype')
+                val = witem.get('val')
+                wtitle = witem.get('title')
+                
+                li = None
+                url = None
+                isFolder = True
+                
+                if wtype == 'tv':
+                    series_items = [i for i in catalog if _get_item_type(i) == 'tv' and normalize_title(_get_item_title(i)) == normalize_title(val)]
+                    if not series_items: 
+                        li = xbmcgui.ListItem(label=wtitle)
+                    else:
+                        rep = sorted(series_items, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
+                        li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
+                        _apply_art(li, rep, addon_fanart)
+                        _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tv'})
+                    url = build_url({'action': 'list_seasons', 'series': val})
+                
+                elif wtype == 'movie':
+                    found = [i for i in catalog if i.get('key') == val]
+                    if found:
+                        it = found[0]
+                        li = xbmcgui.ListItem(label=it.get('title'))
+                        _apply_art(li, it, addon_fanart)
+                        _apply_info_tag(li, {'title': it.get('title'), 'plot': it.get('overview'), 'mediatype': 'movie'})
+                        url = build_url({'action': 'select', 'key': val})
+                        isFolder = False
+                
+                if li and url:
+                    cm = []
+                    rm_url = build_url({'action': 'remove_watchlist', 'uid': uid})
+                    cm.append(('Quitar de Seguir Viendo', f'RunPlugin({rm_url})'))
+                    li.addContextMenuItems(cm)
+                    xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder)
+            except Exception as e:
+                xbmc.log(f"RusterWolf: error en watchlist item: {e}", xbmc.LOGERROR)
 
     # índice simple por key para acceso rápido
     catalog_by_key = {}
@@ -418,8 +531,8 @@ def continue_watching():
         except Exception as e:
             xbmc.log(f"RusterWolf: error leyendo bookmarks de {db_path}: {e}", xbmc.LOGERROR)
 
-    # Si no hay bookmarks, informar y cerrar el contenedor
-    if not bookmarks:
+    # Si no hay bookmarks ni watchlist, informar y cerrar el contenedor
+    if not bookmarks and not wl:
         li = xbmcgui.ListItem(label='No hay contenido en progreso')
         try:
             info_tag = li.getVideoInfoTag(); info_tag.setTitle('No hay contenido en progreso')
@@ -579,7 +692,9 @@ def movie_menu():
         ('Novedades (Películas)', {'action': 'novedades', 'sub': 'movies', 'origin': 'movie'})
     ]
     xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
@@ -608,7 +723,9 @@ def tv_menu():
         ('Novedades (Series)', {'action': 'novedades', 'sub': 'series', 'origin': 'tv'})
     ]
     xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
@@ -647,7 +764,17 @@ def list_genres(filter_type=None):
         filter_type = 'movie'
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    
+    icon_map = {
+        'movie': 'peliculas.png',
+        'tv': 'series_tv.png',
+        'documentary': 'documentales.png',
+        'series_documentary': 'series_documental.png'
+    }
+    use_icon = icon_map.get(filter_type, 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     xbmcplugin.setContent(HANDLE, 'files')
     for gname in sorted(genres.keys()):
         li = xbmcgui.ListItem(label=gname)
@@ -687,7 +814,17 @@ def list_years(filter_type=None):
         filter_type = 'movie'
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+
+    icon_map = {
+        'movie': 'peliculas.png',
+        'tv': 'series_tv.png',
+        'documentary': 'documentales.png',
+        'series_documentary': 'series_documental.png'
+    }
+    use_icon = icon_map.get(filter_type, 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     xbmcplugin.setContent(HANDLE, 'files')
     for y in sorted([k for k in years.keys() if k], reverse=True):
         li = xbmcgui.ListItem(label=f'Año {y}')
@@ -1016,6 +1153,13 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             _set_unique_ids(li, rep)
             url = build_url({'action': 'list_seasons', 'series': display_title})
             xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
+            
+            # CM: Añadir a Seguir Viendo
+            cm = []
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            li.addContextMenuItems(cm)
+            
             xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
 
         # Enriquecer en background solo los items visibles (no bloquear UI)
@@ -1156,6 +1300,13 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             else:
                 first_index = str(catalog.index(group[0]))
                 url = build_url({'action': 'select', 'index': first_index})
+            
+            if rep_key:
+                cm = []
+                add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': rep_key, 'title': title})
+                cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+                li.addContextMenuItems(cm)
+                
             xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
 
         # Enriquecer en background solo los items visibles (MOVIE)
@@ -1258,6 +1409,13 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             url = build_url({'action': 'select', 'key': item_key})
         else:
             url = build_url({'action': 'select', 'index': str(catalog.index(it))})
+        
+        if mediatype_item == 'movie' and item_key:
+            cm = []
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            li.addContextMenuItems(cm)
+            
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     # Enriquecer en background solo los items visibles (GENERIC)
     try:
@@ -1367,6 +1525,12 @@ def novedades(page=1, sub=None):
                 pass
             _set_unique_ids(li, rep)
             url = build_url({'action': 'list_seasons', 'series': display_title})
+            
+            cm = []
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            li.addContextMenuItems(cm)
+            
             xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
         # paginación
         total_pages = (len(series_keys) + per_page - 1) // per_page
@@ -1450,6 +1614,13 @@ def novedades(page=1, sub=None):
             url = build_url({'action': 'select', 'key': item_key})
         else:
             url = build_url({'action': 'select', 'index': str(catalog.index(it))})
+        
+        if mediatype_item == 'movie' and item_key:
+            cm = []
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            li.addContextMenuItems(cm)
+            
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     # Prioritización eliminada: no se realizará ningún enriquecimiento en background (Novedades)
     try:
@@ -1737,6 +1908,12 @@ def do_search(q=None):
         
         # Enlazar a la lista de temporadas
         url = build_url({'action': 'list_seasons', 'series': display_title})
+        
+        cm = []
+        add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
+        cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+        li.addContextMenuItems(cm)
+        
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     
     # Mostrar películas
@@ -1783,6 +1960,12 @@ def do_search(q=None):
         else:
             url = build_url({'action': 'select', 'index': str(catalog.index(it))})
         
+        if item_key:
+            cm = []
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            li.addContextMenuItems(cm)
+            
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     
     xbmcplugin.endOfDirectory(HANDLE)
@@ -1858,6 +2041,32 @@ def show_select(index=None, key=None):
     # 2. Reproducir usando setResolvedUrl (ESTA DEBE SER LA ÚLTIMA LLAMADA)
     play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
     li = xbmcgui.ListItem(path=play_path)
+    
+    # CRUCIAL: Transferir metadatos al ListItem final para que el servicio Next Up los lea
+    if it:
+        try:
+            # InfoTag (Kodi 20+)
+            tag = li.getVideoInfoTag()
+            title = it.get('title')
+            if title:
+                tag.setTitle(it.get('episode_title') or title) # Para series, preferir titulo episodio
+                tag.setTvShowTitle(title) # Importante para Next Up
+            
+            if it.get('season'): tag.setSeason(int(it['season']))
+            if it.get('episode'): tag.setEpisode(int(it['episode']))
+            
+            plot = it.get('episode_overview') or it.get('overview') or it.get('plot')
+            if plot: tag.setPlot(plot)
+            
+            media_type = it.get('type')
+            if media_type == 'tv': tag.setMediaType('episode')
+            elif media_type == 'movie': tag.setMediaType('movie')
+            
+            # Arte
+            _apply_art(li, it)
+        except Exception as e:
+            xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
+            
     xbmcplugin.setResolvedUrl(HANDLE, True, li)
 
 def open_settings():
@@ -1880,6 +2089,12 @@ def router(params):
     # Detectar si la petición incluye una búsqueda por URL (query/name/q) o
     # el caso malformado action='search=texto' y, en ese caso, invocar
     # do_search(prefill) para evitar abrir el teclado.
+    if action == 'add_watchlist':
+        action_add_watchlist(params)
+        return
+    if action == 'remove_watchlist':
+        action_remove_watchlist(params)
+        return
     try:
         q_param = None
         if isinstance(params, dict):
