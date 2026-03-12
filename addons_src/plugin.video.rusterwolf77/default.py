@@ -111,6 +111,13 @@ def _read_items_per_page():
     except Exception:
         return 24
 
+def _is_valid_art_url(url):
+    """Valida que la URL de imagen no sea solo la base de TMDB (evita error 404 en logs)."""
+    if not url: return False
+    if url.endswith('/original') or url.endswith('/w500') or url.endswith('/w185') or url.endswith('/w300'):
+        return False
+    return True
+
 def _apply_art(li, item_dict, addon_fanart=None):
     """Helper mínimo para añadir arte extra si está disponible en el item.
     Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
@@ -127,16 +134,16 @@ def _apply_art(li, item_dict, addon_fanart=None):
                     pass
             return
         poster = item_dict.get('poster') or item_dict.get('poster_path') or ''
-        if poster:
+        if _is_valid_art_url(poster):
             art['poster'] = poster
             art['thumb'] = poster
         fanart = item_dict.get('fanart') or item_dict.get('backdrop_path') or ''
-        if fanart:
+        if _is_valid_art_url(fanart):
             art['fanart'] = fanart
         # extra art metadata commonly used
         for k in ('clearlogo', 'banner', 'clearart'):
             v = item_dict.get(k)
-            if v:
+            if _is_valid_art_url(v):
                 art[k] = v
                 # also expose common alias keys so skins that check 'logo' or 'icon' find them
                 if k == 'clearlogo':
@@ -329,8 +336,8 @@ def list_root():
         ('Seguir Viendo...', {'action':'continue_watching'}), 
         ('Películas', {'action':'movie_menu'}),
         ('Series TV', {'action':'tv_menu'}),
-        ('Documentales', {'action':'list', 'filter':'movie', 'genre': 'Documental', 'origin':'movie'}),
-        ('Series Documental', {'action':'list', 'filter':'tv', 'genre': 'Documental', 'origin':'tv'}),
+        ('Documentales', {'action':'documentary_menu'}),
+        ('Series Documental', {'action':'series_documentary_menu'}),
         ('Buscar', {'action':'search'}),
         ('Ajustes', {'action':'settings'}),
     ]
@@ -686,9 +693,10 @@ def movie_menu():
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     entries = [
-        ('Por título', {'action': 'list', 'filter': 'movie', 'origin': 'movie'}),
-        ('Por género', {'action': 'list', 'filter': 'movie', 'group': 'genre', 'origin': 'movie'}),
-        ('Por año', {'action': 'list', 'filter': 'movie', 'group': 'year', 'origin': 'movie'}),
+        ('Título', {'action': 'list', 'filter': 'movie', 'origin': 'movie'}),
+        ('Género', {'action': 'list', 'filter': 'movie', 'group': 'genre', 'origin': 'movie'}),
+        ('Calidad', {'action': 'list', 'filter': 'movie', 'group': 'quality', 'origin': 'movie'}),
+        ('Año', {'action': 'list', 'filter': 'movie', 'group': 'year', 'origin': 'movie'}),
         ('Novedades (Películas)', {'action': 'novedades', 'sub': 'movies', 'origin': 'movie'})
     ]
     xbmcplugin.setContent(HANDLE, 'files')
@@ -717,9 +725,10 @@ def tv_menu():
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     entries = [
-        ('Por título', {'action': 'list', 'filter': 'tv', 'origin': 'tv'}),
-        ('Por género', {'action': 'list', 'filter': 'tv', 'group': 'genre', 'origin': 'tv'}),
-        ('Por año', {'action': 'list', 'filter': 'tv', 'group': 'year', 'origin': 'tv'}),
+        ('Título', {'action': 'list', 'filter': 'tv', 'origin': 'tv'}),
+        ('Género', {'action': 'list', 'filter': 'tv', 'group': 'genre', 'origin': 'tv'}),
+        ('Calidad', {'action': 'list', 'filter': 'tv', 'group': 'quality', 'origin': 'tv'}),
+        ('Año', {'action': 'list', 'filter': 'tv', 'group': 'year', 'origin': 'tv'}),
         ('Novedades (Series)', {'action': 'novedades', 'sub': 'series', 'origin': 'tv'})
     ]
     xbmcplugin.setContent(HANDLE, 'files')
@@ -737,6 +746,56 @@ def tv_menu():
             li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
         except Exception:
             pass
+        url = build_url(params)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.endOfDirectory(HANDLE)
+
+def documentary_menu():
+    """Submenú para Documentales."""
+    addon_path = ADDON.getAddonInfo('path')
+    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
+    entries = [
+        ('Título', {'action': 'list', 'filter': 'movie', 'genre': 'Documental', 'origin': 'movie'}),
+        ('Calidad', {'action': 'list', 'filter': 'movie', 'genre': 'Documental', 'group': 'quality', 'origin': 'movie'}),
+        ('Novedades', {'action': 'novedades', 'sub': 'documentary', 'origin': 'movie'})
+    ]
+    xbmcplugin.setContent(HANDLE, 'files')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'documentales.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    for label, params in entries:
+        li = xbmcgui.ListItem(label)
+        try:
+            info_tag = li.getVideoInfoTag()
+            info_tag.setTitle(label)
+        except Exception: pass
+        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        url = build_url(params)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.endOfDirectory(HANDLE)
+
+def series_documentary_menu():
+    """Submenú para Series Documental."""
+    addon_path = ADDON.getAddonInfo('path')
+    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
+    entries = [
+        ('Título', {'action': 'list', 'filter': 'tv', 'genre': 'Documental', 'origin': 'tv'}),
+        ('Calidad', {'action': 'list', 'filter': 'tv', 'genre': 'Documental', 'group': 'quality', 'origin': 'tv'}),
+        ('Novedades', {'action': 'novedades', 'sub': 'series_documentary', 'origin': 'tv'})
+    ]
+    xbmcplugin.setContent(HANDLE, 'files')
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'series_documental.png')
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    for label, params in entries:
+        li = xbmcgui.ListItem(label)
+        try:
+            info_tag = li.getVideoInfoTag()
+            info_tag.setTitle(label)
+        except Exception: pass
+        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
@@ -843,7 +902,71 @@ def list_years(filter_type=None):
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
     xbmcplugin.endOfDirectory(HANDLE)
 
-def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, original_params=None):
+def list_qualities(filter_type=None, genre_filter=None):
+    """Listar calidades presentes en la base (filtrando por tipo y opcionalmente género)."""
+    try:
+        from resources.lib.db import load_all_items
+        catalog = load_all_items() or []
+    except Exception:
+        catalog = fetch_catalogs()
+    
+    qualities = set()
+    gf = (genre_filter or '').strip().lower()
+
+    for it in catalog:
+        t = _get_item_type(it)
+        if filter_type and t != (filter_type or ''):
+            continue
+        
+        # Filtrado previo por género si es necesario (ej: Documentales)
+        if gf:
+            matched = False
+            for g in (_get_item_genres(it) or []):
+                gname = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).strip()
+                if gname and (gf in gname.lower() or gname.lower() in gf):
+                    matched = True
+                    break
+            if not matched:
+                continue
+
+        for tor in (it.get('torrents') or []):
+            q = tor.get('quality')
+            if q:
+                s = str(q).strip()
+                # Unificar 2160p y 4k en '4K'
+                if s.lower() in ('2160p', '4k'):
+                    s = '4K'
+                qualities.add(s)
+
+    addon_path = ADDON.getAddonInfo('path')
+    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
+    
+    # Usar icono por defecto o mapeado
+    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    
+    xbmcplugin.setContent(HANDLE, 'files')
+    for qname in sorted(list(qualities)):
+        li = xbmcgui.ListItem(label=qname)
+        try:
+            info_tag = li.getVideoInfoTag()
+            info_tag.setTitle(qname)
+        except Exception:
+            pass
+        try:
+            li.setArt({'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart})
+        except Exception:
+            pass
+        # Construir URL con el filtro de calidad
+        q_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'quality': qname}
+        if genre_filter:
+            q_params['genre'] = genre_filter
+        url = build_url(q_params)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.endOfDirectory(HANDLE)
+
+def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, quality_filter=None, original_params=None):
+    xbmc.log(f"RusterWolf DEBUG: === list_items CALL === filter={filter_type} page={page}", xbmc.LOGWARNING)
     try:
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
@@ -851,6 +974,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         catalog = fetch_catalogs()
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
+    xbmc.log(f"RusterWolf DEBUG: loaded catalog size={len(catalog)}", xbmc.LOGWARNING)
     results = []
     for it in catalog:
         mediatype = _get_item_type(it)
@@ -872,7 +996,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             results.append(it)
 
     # If caller asked to group (genre/year) but didn't specify movie/tv, present a small chooser
-    if not filter_type and group_by in ('genre', 'year'):
+    if not filter_type and group_by in ('genre', 'year', 'quality'):
         try:
             # show two folders: Películas and Series that link back with explicit filter
             li_movie = xbmcgui.ListItem('Películas')
@@ -890,15 +1014,15 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
 
     # If caller passed a genre/year filter but didn't provide filter_type (movie/tv),
     # require explicit choice to avoid ambiguous inference between movie/tv.
-    if filter_type is None and (genre_filter or year_filter):
+    if filter_type is None and (genre_filter or year_filter or quality_filter):
         try:
             li_movie = xbmcgui.ListItem('Películas')
             li_movie.setArt({'fanart': addon_fanart})
-            url_movie = build_url({'action': 'list', 'filter': 'movie', 'genre': genre_filter, 'year': year_filter})
+            url_movie = build_url({'action': 'list', 'filter': 'movie', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
             li_tv = xbmcgui.ListItem('Series')
             li_tv.setArt({'fanart': addon_fanart})
-            url_tv = build_url({'action': 'list', 'filter': 'tv', 'genre': genre_filter, 'year': year_filter})
+            url_tv = build_url({'action': 'list', 'filter': 'tv', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
             return
@@ -941,6 +1065,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             current_q['genre'] = genre_filter
         if year_filter:
             current_q['year'] = year_filter
+        if quality_filter:
+            current_q['quality'] = quality_filter
         try:
             current_url = build_url(current_q)
         except Exception:
@@ -1014,6 +1140,27 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             xbmc.log(f"RusterWolf: after year_filter={year_filter} remaining={len(results)}", xbmc.LOGDEBUG)
         except Exception:
             pass
+
+    # Filtrar por calidad si se solicita
+    if quality_filter:
+        qf = quality_filter.strip().lower()
+        # Soporte para alias (ej: 4K incluye 2160p)
+        target_qualities = {qf}
+        if qf == '4k':
+            target_qualities.add('2160p')
+
+        _q = []
+        for it in results:
+            # Comprobar si alguno de los torrents tiene la calidad exacta solicitada
+            has_quality = False
+            for tor in (it.get('torrents') or []):
+                if str(tor.get('quality') or '').strip().lower() in target_qualities:
+                    has_quality = True
+                    break
+            if has_quality:
+                _q.append(it)
+        results = _q
+
     # asegurar filtrado por tipo si filter_type está presente (evita mezclar tipos en vistas agrupadas)
     if filter_type:
         results = [it for it in results if _get_item_type(it) == filter_type]
@@ -1124,6 +1271,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             return list_genres(filter_type='tv')
         if group_by == 'year':
             return list_years(filter_type='tv')
+        if group_by == 'quality':
+            return list_qualities(filter_type='tv', genre_filter=genre_filter)
         series_keys = sorted(series_map.items(), key=lambda x: x[0])
         total_pages = (len(series_keys) + per_page - 1) // per_page
         start = (page - 1) * per_page
@@ -1200,6 +1349,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 q['genre'] = genre_filter
             if year_filter:
                 q['year'] = year_filter
+            if quality_filter:
+                q['quality'] = quality_filter
             try:
                 xbmc.log(f"RusterWolf: pagination link q={q}", xbmc.LOGDEBUG)
             except Exception:
@@ -1221,6 +1372,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 q['genre'] = genre_filter
             if year_filter:
                 q['year'] = year_filter
+            if quality_filter:
+                q['quality'] = quality_filter
             try:
                 xbmc.log(f"RusterWolf: pagination link q={q}", xbmc.LOGDEBUG)
             except Exception:
@@ -1236,6 +1389,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         # pero NO forzar cuando se está pidiendo una agrupación (group_by)
         try:
             if not group_by:
+                xbmc.log("RusterWolf DEBUG: Setting content to 'movies'", xbmc.LOGWARNING)
                 try:
                     xbmcplugin.setContent(HANDLE, 'movies')
                 except Exception:
@@ -1250,15 +1404,19 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             key = normalize_title(title)
             movie_map.setdefault(key, []).append(it)
 
+        xbmc.log(f"RusterWolf DEBUG: Unique movie keys found={len(movie_map)}", xbmc.LOGWARNING)
         # soporte para agrupación por género/año en películas
         if group_by == 'genre':
             return list_genres(filter_type='movie')
         if group_by == 'year':
             return list_years(filter_type='movie')
+        if group_by == 'quality':
+            return list_qualities(filter_type='movie', genre_filter=genre_filter)
         movie_keys = sorted(movie_map.items(), key=lambda x: x[0])
         total_pages = (len(movie_keys) + per_page - 1) // per_page
         start = (page - 1) * per_page
         end = start + per_page
+        xbmc.log(f"RusterWolf DEBUG: Pagination start={start} end={end}", xbmc.LOGWARNING)
         paged_movies = movie_keys[start:end]
         for key, group in paged_movies:
             # elegir representante con poster/overview preferido
@@ -1342,6 +1500,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 q['genre'] = genre_filter
             if year_filter:
                 q['year'] = year_filter
+            if quality_filter:
+                q['quality'] = quality_filter
             url_prev = build_url(q)
             xbmcplugin.addDirectoryItem(HANDLE, url_prev, li_prev, True)
         if page < total_pages or len(movie_keys) > end:
@@ -1359,8 +1519,11 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 q['genre'] = genre_filter
             if year_filter:
                 q['year'] = year_filter
+            if quality_filter:
+                q['quality'] = quality_filter
             url = build_url(q)
             xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+        xbmc.log("RusterWolf DEBUG: endOfDirectory(movies)", xbmc.LOGWARNING)
         xbmcplugin.endOfDirectory(HANDLE)
         return
 
@@ -1462,17 +1625,30 @@ def novedades(page=1, sub=None):
             return True
         if sub_param == 'series' and t == 'tv':
             return True
+        
+        # Lógica para documentales
+        genres = _get_item_genres(it) or []
+        genre_names = []
+        for g in genres:
+            name = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).lower()
+            genre_names.append(name)
+        is_doc = any('documental' in gn or 'documentary' in gn for gn in genre_names)
+
+        if sub_param == 'documentary' and t == 'movie' and is_doc:
+            return True
+        if sub_param == 'series_documentary' and t == 'tv' and is_doc:
+            return True
         return False
 
     filtered = [it for it in catalog if _accept_by_sub(it)]
     # Forzar tipo de contenido para que los skins muestren la vista adecuada
     try:
-        if sub_param == 'series':
+        if sub_param in ('series', 'series_documentary'):
             try:
                 xbmcplugin.setContent(HANDLE, 'tvshows')
             except Exception:
                 pass
-        elif sub_param == 'movies':
+        elif sub_param in ('movies', 'documentary'):
             try:
                 xbmcplugin.setContent(HANDLE, 'movies')
             except Exception:
@@ -1480,7 +1656,7 @@ def novedades(page=1, sub=None):
     except Exception:
         pass
     # Para novedades de series: mostrar por serie (título) en lugar de mostrar episodios con 1x01
-    if sub_param == 'series':
+    if sub_param in ('series', 'series_documentary'):
         # agrupamos por serie y mostramos la serie como entrada; la navegación llevará a listar temporadas
         series_map = {}
         for it in filtered:
@@ -1833,16 +2009,14 @@ def do_search(q=None):
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     
     try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
+        # MEJORA DE RENDIMIENTO: Usar búsqueda SQL directa en lugar de cargar todo
+        from resources.lib.db import search_items_sql
+        results = search_items_sql(q, limit=100) # Límite para no saturar UI
     except Exception:
-        catalog = fetch_catalogs()
-    
-    # Filtrar resultados que coincidan con la búsqueda
-    results = [it for it in catalog if q.lower() in (it.get('title') or '').lower()]
-    
+        results = []
+
     if not results:
-        xbmcgui.Dialog().notification('RusterWolf', 'No se encontraron resultados', xbmcgui.NOTIFICATION_INFO)
+        xbmcgui.Dialog().notification('RusterWolf', 'Sin resultados', xbmcgui.NOTIFICATION_INFO)
         xbmcplugin.endOfDirectory(HANDLE)
         return
     
@@ -1953,12 +2127,9 @@ def do_search(q=None):
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
         
-        # Usar key estable si está disponible
         item_key = it.get('key')
-        if item_key:
-            url = build_url({'action': 'select', 'key': item_key})
-        else:
-            url = build_url({'action': 'select', 'index': str(catalog.index(it))})
+        # Siempre usar KEY en búsqueda SQL (el índice no es fiable aquí)
+        url = build_url({'action': 'select', 'key': item_key})
         
         if item_key:
             cm = []
@@ -2008,6 +2179,18 @@ def show_select(index=None, key=None):
     if not torrents:
         xbmcgui.Dialog().notification('RusterWolf 77', 'No hay torrents disponibles', xbmcgui.NOTIFICATION_INFO)
         return
+        
+    # Ordenar por calidad según preferencia: 4K > 1080p > 720p > Bluray > HDTV
+    def _q_rank(t):
+        q = str(t.get('quality') or '').lower()
+        if '4k' in q or '2160' in q: return 10
+        if '1080' in q: return 9
+        if '720' in q: return 8
+        if 'bluray' in q: return 7
+        if 'hdtv' in q: return 6
+        return 0
+    torrents = sorted(torrents, key=_q_rank, reverse=True)
+
     choices = [t.get('quality') or 'default' for t in torrents]
     sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
     if sel < 0:
@@ -2016,6 +2199,23 @@ def show_select(index=None, key=None):
     if not torrent_url or not torrent_url.startswith('magnet:?xt=urn:btih:'):
         xbmcgui.Dialog().notification('RusterWolf 77', 'Magnet no válido o no encontrado', xbmcgui.NOTIFICATION_ERROR)
         return
+        
+    # INYECCIÓN DE TRACKERS: Lista de trackers públicos estables para mejorar conectividad
+    # Esto ayuda a encontrar 'peers' incluso si los trackers originales del magnet están caídos.
+    public_trackers = [
+        "udp://tracker.opentrackr.org:1337/announce",
+        "udp://open.demonii.com:1337/announce",
+        "udp://tracker.openbittorrent.com:80/announce",
+        "udp://tracker.coppersurfer.tk:6969/announce",
+        "udp://glotorrents.pw:6969/announce",
+        "udp://tracker.leechers-paradise.org:6969/announce",
+        "udp://p4p.arenabg.com:1337/announce",
+        "udp://tracker.internetwarriors.net:1337/announce"
+    ]
+    for tr in public_trackers:
+        if tr not in torrent_url:
+            torrent_url += f"&tr={urllib.parse.quote(tr)}"
+            
     if not is_elementum_installed():
         xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:', 'https://elementumorg.github.io/')
         return
@@ -2117,7 +2317,7 @@ def router(params):
     except Exception:
         pass
     # Soportar acciones explícitas para evitar depender de parámetros 'filter' que no siempre llegan
-    if action in ('movie_menu', 'tv_menu', 'novedades_menu', 'continue_watching'):
+    if action in ('movie_menu', 'tv_menu', 'novedades_menu', 'continue_watching', 'documentary_menu', 'series_documentary_menu'):
         # acciones que muestran submenús para Películas/Series o pantallas especiales
         if action == 'movie_menu':
             movie_menu()
@@ -2131,6 +2331,12 @@ def router(params):
         if action == 'continue_watching':
             continue_watching()
             return
+        if action == 'documentary_menu':
+            documentary_menu()
+            return
+        if action == 'series_documentary_menu':
+            series_documentary_menu()
+            return
     if action in ('list_movie', 'list_tv', 'list_documentary', 'list_series_documentary'):
         # mapear acciones explícitas a un filter_type antes de llamar a list_items
         map_action = {
@@ -2142,7 +2348,7 @@ def router(params):
         filter_type = map_action.get(action)
         xbmc.log(f"RusterWolf: router mapped action={action} to filter_type={filter_type}", xbmc.LOGWARNING)
         list_items(filter_type=filter_type, page=page, action_name=action,
-                   group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), original_params=params)
+                   group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), quality_filter=params.get('quality'), original_params=params)
         return
     elif action == 'list':
         # Si se solicitó agrupación (por género/año) pero no se indicó filter (movie/tv),
@@ -2242,7 +2448,7 @@ def router(params):
                 pass
         xbmc.log(f"RusterWolf: router llama a list_items con filter_type={flt} page={page}", xbmc.LOGWARNING)
         list_items(filter_type=flt, page=page, action_name='list',
-                   group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), original_params=params)
+                   group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), quality_filter=params.get('quality'), original_params=params)
         return
     elif action == 'novedades':
         novedades(page=page, sub=params.get('sub'))

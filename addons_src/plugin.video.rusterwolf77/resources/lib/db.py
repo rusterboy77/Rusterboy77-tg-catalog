@@ -568,6 +568,7 @@ def init_db():
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_type ON items(type)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_tmdb ON items(tmdb_id)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_enriched ON items(enriched)')
+        c.execute('CREATE INDEX IF NOT EXISTS idx_items_title ON items(title)')
         try:
             c.execute('PRAGMA journal_mode=WAL;')
             c.execute('PRAGMA synchronous=NORMAL;')
@@ -738,6 +739,62 @@ def load_items_by_keys(keys):
                 'enriched': bool(r[20])
             })
         return items
+    finally:
+        conn.close()
+
+def search_items_sql(query_str, limit=50):
+    """Busca items usando SQL LIKE en lugar de cargar todo en memoria."""
+    if not os.path.exists(DB_FILE) or not query_str:
+        return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        # Búsqueda insensible a mayúsculas por título
+        like_str = f"%{query_str}%"
+        c.execute('''
+            SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
+                   episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
+                   genres, "cast", torrents, date_added, enriched 
+            FROM items 
+            WHERE title LIKE ? OR episode_title LIKE ?
+            LIMIT ?
+        ''', (like_str, like_str, limit))
+        
+        rows = c.fetchall()
+        items = []
+        for r in rows:
+            try:
+                season_val = int(r[4]) if r[4] is not None and str(r[4]).strip() != '' else None
+                episode_val = int(r[5]) if r[5] is not None and str(r[5]).strip() != '' else None
+            except: season_val, episode_val = None, None
+
+            items.append({
+                'key': r[0],
+                'title': r[1],
+                'type': r[2],
+                'year': r[3],
+                'season': season_val,
+                'episode': episode_val,
+                'tmdb_id': r[6],
+                'poster': r[7],
+                'fanart': r[8],
+                'overview': r[9],
+                'episode_title': r[10],
+                'episode_overview': r[11],
+                'still_path': r[12],
+                'clearlogo': r[13],
+                'banner': r[14],
+                'clearart': r[15],
+                'genres': json.loads(r[16]) if r[16] else [],
+                'cast': json.loads(r[17]) if r[17] else [],
+                'torrents': json.loads(r[18]) if r[18] else [],
+                'date_added': r[19],
+                'enriched': bool(r[20])
+            })
+        return items
+    except Exception as e:
+        xbmc.log(f"RusterWolf DB: error en search_items_sql: {e}", xbmc.LOGERROR)
+        return []
     finally:
         conn.close()
 

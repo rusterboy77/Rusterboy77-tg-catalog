@@ -284,6 +284,7 @@ def update_cache_db(catalog_results):
           collection_clearlogo TEXT
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
+        CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
     ''')
     
     # Migración por si la tabla ya existe sin la columna

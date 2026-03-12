@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.5" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="1.0.6" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
@@ -155,12 +155,7 @@
             <summary lang="es">Catálogo de torrents con reproducción en Elementum</summary>
             
         
-            <description lang="es">Addon de video que lista torrents desde JSON en GitHub, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum si está instalado.
-
-v1.0.5:
-- Integración con Next Up: Aviso y reproducción automática del siguiente episodio.
-- Nueva opción en menú contextual: &quot;Añadir a Seguir Viendo&quot; para gestión manual.
-- Mejoras visuales: Iconos unificados en todas las subsecciones del menú.</description>
+            <description lang="es">Addon de video que lista torrents, organiza por películas, series, documentales y permite búsqueda. Reproduce mediante Elementum.</description>
             
         
             <platform>all</platform>

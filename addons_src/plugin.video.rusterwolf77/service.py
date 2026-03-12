@@ -79,6 +79,21 @@ def on_upnext_play_action(data):
                         magnet = torrents[0].get('magnet')
                     
                     if magnet:
+                        # Inyectar trackers también en Autoplay (Next Up)
+                        public_trackers = [
+                            "udp://tracker.opentrackr.org:1337/announce",
+                            "udp://open.demonii.com:1337/announce",
+                            "udp://tracker.openbittorrent.com:80/announce",
+                            "udp://tracker.coppersurfer.tk:6969/announce",
+                            "udp://glotorrents.pw:6969/announce",
+                            "udp://tracker.leechers-paradise.org:6969/announce",
+                            "udp://p4p.arenabg.com:1337/announce",
+                            "udp://tracker.internetwarriors.net:1337/announce"
+                        ]
+                        for tr in public_trackers:
+                            if tr not in magnet:
+                                magnet += f"&tr={urllib.parse.quote(tr)}"
+
                         # 3. Construir URL directa de Elementum
                         elementum_url = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(magnet)
                         
