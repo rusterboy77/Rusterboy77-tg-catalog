@@ -40340,6 +40340,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:6322936c227442cbb56fc9060f25c2472821165f"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:12495d43d800c79fc8e6068e58b040bae6f454d6"
             }
           ]
         }
@@ -44522,6 +44526,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:8bf69af773920fb6d4479a7aeccb1bf103f26896"
+            }
+          ]
+        },
+        {
+          "season": 4,
+          "episode": 4,
+          "overview": "Año 1971 en un punto remoto de la Nación Navajo cerca de Monument Valley. El teniente Joe Leaphorn de la Policía Tribal está abrumado por una serie de crímenes, aparentemente, sin relación entre ellos. Cuanto más se acerca a la verdad, más se abren las heridas de su pasado. Lo acompaña en este viaje su nuevo adjunto, Jim Chee. Chee también tiene viejas cuentas que saldar de su juventud en la reserva. Los dos hombres luchan juntos contra las fuerzas del mal, entre sí y contra sus propios demonios personales en su camino hacia la salvación.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:f2aba722e1dcd33444b1bd783fa6acf8bae4fe74"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:dcc57499041896247e843642f0f9824c24a3aec4"
             }
           ]
         }
@@ -78245,6 +78264,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e142955ffa405a78874817fb0dcabb9dc444ff8b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d248910663128f216f28e68cc66a1841c040f57a"
             }
           ]
         }
@@ -159976,6 +159999,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2984d3906b015c6ac07eea5bdc35934cbd73957d"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:bcb2aef6233cbeaad0752e8c96266beeee451df7"
             }
           ]
         }
@@ -194402,6 +194429,28 @@
               "magnet": "magnet:?xt=urn:btih:ef7900d0baf0af61df98a1f62207870b082b0d41"
             }
           ]
+        },
+        {
+          "season": 15,
+          "episode": 18,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:616cb4fbd38988b28bd943e402607df7dca5cbdc"
+            }
+          ]
+        },
+        {
+          "season": 15,
+          "episode": 19,
+          "overview": "Begoña Montes es una mujer que vive atrapada en un matrimonio tóxico y busca la ansiada libertad en la España de 1958.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e3a9faf83df9d73d19a54484f6cfbc66330c0c30"
+            }
+          ]
         }
       ]
     },
@@ -222605,6 +222654,17 @@
               "magnet": "magnet:?xt=urn:btih:7dfc8e705063addb0d0170ac51977ddfd203780c"
             }
           ]
+        },
+        {
+          "season": 3,
+          "episode": 6,
+          "overview": "Halis Korhan, desesperado por enderezar el rumbo de su nieto Ferit, decide casarlo para poner fin a su comportamiento irresponsable. Sin embargo, los planes toman un giro inesperado cuando Ferit se enamora de Seyran. Este romance no solo altera el destino de la pareja, sino también el de toda la familia, desatando conflictos y secretos ocultos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:e0c2cbc92745940e4f6c9f94c739b0e899f56853"
+            }
+          ]
         }
       ]
     },
@@ -240576,6 +240636,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:3547353532f555b90bbdd30a3ae25941af07491e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a378f167c2268755febff3dfc71e6d1f67e88bcd"
             }
           ]
         }
@@ -242486,6 +242550,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:2cd21570abd68421026ac16a3c954b3f5653e3ab"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:4fca9691e048b0d09c46eb79c4ee241cb2398ba6"
             }
           ]
         },
@@ -243078,6 +243146,17 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:b6dd5c646b143ea6d98469e84057a3a57df246e6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 19,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5d128f17d1ce91166426260de5f97309a672d705"
             }
           ]
         }
@@ -244652,6 +244731,17 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:23a2154dc24bf94ac447bfaf7c1f50a6837ab3c0"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 6,
+          "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:96e56f4220487e88559aeeea4c40abc1f5bde417"
             }
           ]
         }
@@ -247855,6 +247945,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:765593c3985b1f70cc2b8e8724784df16e112a15"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a0f1773545b133b560c1d723ec360a64328bdd48"
             }
           ]
         }
@@ -255714,6 +255808,21 @@
               "magnet": "magnet:?xt=urn:btih:28487056c08922a6dd57e32b814472326f371d6d"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "El investigador de fraudes al seguro Cha Woo-seok recibe una misteriosa llamada de una informante que afirma tener pruebas de un asesinato relacionado con un fraude. Antes de revelar la verdad, la informante muere. La investigación de Woo-seok lo lleva a la Subasta Real y a su subastadora principal, Han Seol-ah, cuyos tres prometidos han muerto en circunstancias sospechosas. Para revelar la verdad, o quizás para ponerla a prueba, Woo-seok propone fingir una relación. Al descubrir sus secretos, se da cuenta de que podría haber caído en una red de la que no puede escapar, y que escapar podría costarle todo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2379d7c54fae86727065577953414b986e08da32"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:07452e96c91b2462f7e29a7a5c317dac68ae76d5"
+            }
+          ]
         }
       ]
     },
@@ -256099,6 +256208,10 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:6cffa8f4334ef9240ba9f027ed3ad376448159ad"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2d3f6949160d7381fe966e7dec7a8dd145592fda"
             }
           ]
         },
@@ -256205,6 +256318,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:08e3c5914df8cb1cb66679ec6808786711beef44"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e2d60a4c73022da413e53fb7773e17b3e9640edc"
             }
           ]
         },
@@ -256642,6 +256759,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:569249390596a17085316e658c2953668f7c375b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:5861c78b02638989478ac1ac5baa90228bde6995"
             }
           ]
         },
@@ -256823,6 +256944,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ea37f876bc08d088dadf8ad003db34084a516fdc"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:d0547d171d204c998cf091f794221c033454b128"
             }
           ]
         }
@@ -256879,6 +257004,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:feed6a8cafc1eac8e3bab60677f57c66a21a9865"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:42bbd8e9816edd5ca9ca480bfd587811a7e14d3d"
             }
           ]
         },
@@ -258518,6 +258647,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bc00e03dac5ae8e4e7ca79f5241b5339bf497953"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2aa1a3845a9187b3696b9bc2f8a35773e73c7e8d"
             }
           ]
         },
@@ -258529,6 +258662,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:cd8559d5b4c9bdb12c169c7ec7d4949bd5f344d3"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:3e1c4e1417ac37c6714182d964c73dd9108952f1"
             }
           ]
         }
@@ -258980,6 +259117,445 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:843b2dfeab6910aac5643f0575ee315409371295"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Arlempdes (2026) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Arlempdes",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1371511,
+        "title": "La leyenda del castillo",
+        "original_title": "Arlempdes, La Légende du Premier Château de la Loire",
+        "overview": "En 1538, en los albores de las Guerras de Religión de Francia, el castillo de Arlempdes, propiedad de la familia Poitiers (leal al rey de Francia), se vio amenazado por los hugonotes dirigidos por su líder Antoine de Chambonas. Los hugonotes querían derrocar el poder real y apoderarse del castillo, primer bastión estratégico del Loira en el reino de Francia. Françoise de Brézé, hija de Diana de Poitiers, emprendió una campaña militar de tres años con la ayuda de su caballero, Jean de Goys, para recuperar el feudo de su madre. Con la ayuda de sus leales caballeros, se enfrentó a la amenaza del terrible jefe hugonote, que estaba decidido a apoderarse de su castillo...",
+        "poster_path": "/d7CtydpVmIB5cArF2TOjTLyBKv2.jpg",
+        "backdrop_path": null,
+        "poster_url": "https://image.tmdb.org/t/p/w500/d7CtydpVmIB5cArF2TOjTLyBKv2.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original",
+        "genres": [
+          "Drama",
+          "Historia"
+        ],
+        "cast": [
+          "Marina Golenko",
+          "Loris Monet",
+          "Titouan Monnier",
+          "Basile Bibard",
+          "Tristan da Silva",
+          "Maelia Ruiz",
+          "Matias Leonardì",
+          "Romaric Maucoeur"
+        ],
+        "clearlogo": "",
+        "banner": "",
+        "clearart": "https://image.tmdb.org/t/p/w500/d7CtydpVmIB5cArF2TOjTLyBKv2.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:44b36a773b54f689f129118ad9c02172e93e4022"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:d7513f8f1dae523cb1b497be8940736b41033128"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/d7CtydpVmIB5cArF2TOjTLyBKv2.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original",
+      "overview": "En 1538, en los albores de las Guerras de Religión de Francia, el castillo de Arlempdes, propiedad de la familia Poitiers (leal al rey de Francia), se vio amenazado por los hugonotes dirigidos por su líder Antoine de Chambonas. Los hugonotes querían derrocar el poder real y apoderarse del castillo, primer bastión estratégico del Loira en el reino de Francia. Françoise de Brézé, hija de Diana de Poitiers, emprendió una campaña militar de tres años con la ayuda de su caballero, Jean de Goys, para recuperar el feudo de su madre. Con la ayuda de sus leales caballeros, se enfrentó a la amenaza del terrible jefe hugonote, que estaba decidido a apoderarse de su castillo...",
+      "genres": [
+        "Drama",
+        "Historia"
+      ],
+      "cast": [
+        "Marina Golenko",
+        "Loris Monet",
+        "Titouan Monnier",
+        "Basile Bibard",
+        "Tristan da Silva",
+        "Maelia Ruiz",
+        "Matias Leonardì",
+        "Romaric Maucoeur"
+      ]
+    },
+    {
+      "file": "Gladiadores Guerreros del mundo antiguo",
+      "parsed": {
+        "type": "series",
+        "series": "Gladiadores Guerreros del mundo antiguo"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 304031,
+        "title": "Gladiadores: Guerreros del mundo antiguo",
+        "original_title": "Gladiators: Warriors of the Ancient World",
+        "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+        "poster_path": "/fx7VmueHWl5YA721Ievd4RZLetD.jpg",
+        "backdrop_path": "/zdJx8e5vmmLJqxHp54dtotHG9GZ.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/fx7VmueHWl5YA721Ievd4RZLetD.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/zdJx8e5vmmLJqxHp54dtotHG9GZ.jpg",
+        "genres": [
+          "Documental"
+        ],
+        "cast": [],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/zdJx8e5vmmLJqxHp54dtotHG9GZ.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/fx7VmueHWl5YA721Ievd4RZLetD.jpg",
+        "episode_title": "Episodio 1"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2ba59b91ca7c5a776dc909c55976537df54fa2fb"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:18731b1b69b72c6980bbdb37651efa107ab7dd88"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ffaff2935d3e93f904b661cc7533a53d77b64247"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:501a4e6c2f3e390de002eb7cec2007f814ec188b"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:80a983f7faa0a6f074d7ada9c835c9ed89b174b5"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Esta serie revive las vidas de los gladiadores más legendarios de la antigua Roma, desde rebeliones imposibles hasta sacrificios en la arena. A través de combates, intrigas y supervivencia extrema, muestra cómo estos guerreros marcaron el poder, la cultura y la identidad de un imperio construido sobre la violencia y el espectáculo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:515162d6333b582b6ec56a57096658468c0be21b"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Marshals",
+      "parsed": {
+        "type": "series",
+        "series": "Marshals"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 290856,
+        "title": "Marshals: Una historia de Yellowstone",
+        "original_title": "Marshals",
+        "overview": "Kayce Dutton, un ex SEAL de la Marina, deja el rancho Yellowstone para unirse a los U.S. Marshals. Utiliza sus habilidades como vaquero y militar para luchar contra el crimen en Montana mientras lidia con los lazos familiares y el desgaste mental de las fuerzas del orden.",
+        "poster_path": "/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "backdrop_path": "/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Luke Grimes",
+          "Logan Marshall-Green",
+          "Arielle Kebbel",
+          "Ash Santos",
+          "Tatanka Means",
+          "Brecken Merrill",
+          "Mo Brings Plenty",
+          "Gil Birmingham"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/3AGTImytIOlu807c3VeJpdzIj9f.png",
+        "banner": "https://image.tmdb.org/t/p/original/yGJGwt7DdIWTUXuahLfhcH1gi7G.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/eYY0w7tyAQrwoAT6fpw8gIxeWhv.jpg",
+        "episode_title": "Zona letal",
+        "episode_overview": "Al emprender su nueva vida, Kayce aprende a ganarse el afecto de sus nuevos compañeros de equipo.",
+        "still_path": "https://image.tmdb.org/t/p/original/r1GLaDUe0pUYOTGZwJbtPU3o5pD.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Kayce Dutton, un ex SEAL de la Marina, deja el rancho Yellowstone para unirse a los U.S. Marshals. Utiliza sus habilidades como vaquero y militar para luchar contra el crimen en Montana mientras lidia con los lazos familiares y el desgaste mental de las fuerzas del orden.",
+          "torrents": [
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:0f2e1e5f810a197b98b645b51b8973ba344d4c22"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "One Piece",
+      "parsed": {
+        "type": "series",
+        "series": "One Piece"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 111110,
+        "title": "ONE PIECE",
+        "original_title": "ONE PIECE",
+        "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+        "poster_path": "/gCZ18cl7Pc4tgiwMPWHTgjABrhy.jpg",
+        "backdrop_path": "/qD211Hb5XwFxrszzBBe5EUYJerh.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/gCZ18cl7Pc4tgiwMPWHTgjABrhy.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/qD211Hb5XwFxrszzBBe5EUYJerh.jpg",
+        "genres": [
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "cast": [
+          "Iñaki Godoy",
+          "Emily Rudd",
+          "Mackenyu",
+          "Jacob Gibson",
+          "Taz Skylar",
+          "Charithra Chandran"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/qD211Hb5XwFxrszzBBe5EUYJerh.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/gCZ18cl7Pc4tgiwMPWHTgjABrhy.jpg",
+        "episode_title": "El principio y el fin",
+        "episode_overview": "Antes de entrar en la Grand Line, los Sombrero de Paja llegan a Loguetown, el lugar donde nació la Gran era de los piratas y donde les aguardan rivales nuevos y conocidos.",
+        "still_path": "https://image.tmdb.org/t/p/original/yM9oNwkHjmZc0jm3JxXm7HFhKtI.jpg"
+      },
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cc50fad8837ca830175fb2cc2db5d004c38bb288"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:ff994eeb216af37752fedb9e8610c79ffc8bac57"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 2,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:590e66d4dd80ca63d2c1a2b3a0d6d7b600fbb835"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5496520d7802dc40dcf4eef562796b7722f7653d"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 3,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4487409e351c4d51374e89a421fd5e62b115ac1a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:461caee1c155c4908a6b886ead1e59ebd2ec319f"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 4,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2b8f749f8637568d51397b73d32a055cbdbd3739"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 5,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0945d9c8eae34c9d0fce88f614dfaede15b701c2"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 6,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:bd55d2b2f70b10f683a83951535740d491975450"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 7,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e92c20f723d882587f6a6a0cbd1b83a05f2a0a28"
+            }
+          ]
+        },
+        {
+          "season": 2,
+          "episode": 8,
+          "overview": "El joven pirata Monkey D. Luffy y su variopinta tripulación emprenden un viaje épico en busca de un tesoro.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:49ef1552a5434d161dcd4e57b395c1b50db6d591"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "USS Cole el ataque antes del 11-S",
+      "parsed": {
+        "type": "series",
+        "series": "USS Cole el ataque antes del 11-S"
+      },
+      "matched": false,
+      "tmdb_top": {},
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cfaf063b70d4f64e26fd0619492d61d60f770d2c"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:cb6b794481b0a72da2c65b5a034e552c8bd3af65"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": null,
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:b07f45896147977ae2e1c1f832c898989e2b4812"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Will Tren",
+      "parsed": {
+        "type": "series",
+        "series": "Will Tren"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 208569,
+        "title": "Will Trent, Agente Especial",
+        "original_title": "Will Trent",
+        "overview": "El agente especial Will Trent del Gabinete de Investigación de Georgia (GBI) fue abandonado al nacer y creció en el complicado ambiente de las casas de acogida de Atlanta. Sin embargo, a día de hoy, está decidido a utilizar su inimitable agudeza para asegurarse de que a nadie lo abandonan como le hicieron a él. Will Trent cuenta con la tasa de resolución más alta del gabinete.",
+        "poster_path": "/g3uXy5GZFKJflyHWEnU827q6qqM.jpg",
+        "backdrop_path": "/imdWToan0MpzCUZfw2nTrjI25dE.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/g3uXy5GZFKJflyHWEnU827q6qqM.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/imdWToan0MpzCUZfw2nTrjI25dE.jpg",
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Comedia"
+        ],
+        "cast": [
+          "Ramón Rodríguez",
+          "Erika Christensen",
+          "Iantha Richardson",
+          "Jake McLaughlin",
+          "Sonja Sohn",
+          "Kevin Daniels"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/eGP1P1ppEHIPlppIPLO3TeieFRZ.png",
+        "banner": "https://image.tmdb.org/t/p/original/imdWToan0MpzCUZfw2nTrjI25dE.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/g3uXy5GZFKJflyHWEnU827q6qqM.jpg",
+        "episode_title": "Ya no eres la misma persona",
+        "episode_overview": "La relación de Faith con Malcolm se complica, y su trabajo de incógnito y sus emociones chocan. Amanda afronta un reto inesperado mientras el futuro de Seth y Angie empieza a tomar forma.",
+        "still_path": "https://image.tmdb.org/t/p/original/kX4sTO7NQ2cZbzK4zsjf4RqAYUq.jpg"
+      },
+      "episodes": [
+        {
+          "season": 4,
+          "episode": 6,
+          "overview": "El agente especial Will Trent del Gabinete de Investigación de Georgia (GBI) fue abandonado al nacer y creció en el complicado ambiente de las casas de acogida de Atlanta. Sin embargo, a día de hoy, está decidido a utilizar su inimitable agudeza para asegurarse de que a nadie lo abandonan como le hicieron a él. Will Trent cuenta con la tasa de resolución más alta del gabinete.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:c6f36abb02961e20616be8f36020523e7528fc98"
             }
           ]
         }
