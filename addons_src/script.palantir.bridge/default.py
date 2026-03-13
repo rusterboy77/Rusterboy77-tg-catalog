@@ -5,6 +5,9 @@ import xbmcaddon
 import xbmcgui
 import xbmcvfs
 from urllib.parse import parse_qsl
+import base64
+import importlib.abc
+import importlib.util
 
 if not hasattr(xbmc, '_palantir_addon_patched'):
     _original_Addon = xbmcaddon.Addon
@@ -25,11 +28,45 @@ for module in list(sys.modules.keys()):
 if palantir_path not in sys.path:
     sys.path.append(palantir_path)
 
+# --- DECRYPT ON THE FLY ---
+class PalantirLoader(importlib.abc.SourceLoader):
+    def __init__(self, path):
+        self.path = path
+    def get_filename(self, fullname):
+        return self.path
+    def get_data(self, path):
+        with open(path, 'rb') as f:
+            encrypted_data = f.read()
+        length = len(encrypted_data)
+        part_size = length // 3
+        part_C = encrypted_data[length - part_size:]
+        remaining = encrypted_data[:length - part_size]
+        part_A = remaining[:part_size]
+        part_B = remaining[part_size:][::-1]
+        shuffled_data = part_C + part_A + part_B
+        return base64.b85decode(shuffled_data)
+
+class PalantirFinder(importlib.abc.MetaPathFinder):
+    def __init__(self, libs_path):
+        self.libs_path = libs_path
+    def find_spec(self, fullname, path, target=None):
+        module_name = fullname.split('.')[-1]
+        md_path = os.path.join(self.libs_path, f"{module_name}.md")
+        if os.path.exists(md_path):
+            return importlib.util.spec_from_file_location(fullname, md_path, loader=PalantirLoader(md_path))
+        return None
+
+libs_dir = os.path.join(palantir_path, 'libs')
+bridge_finder = PalantirFinder(libs_dir)
+sys.meta_path.insert(0, bridge_finder)
+
 try:
     from libs.ioI1iII import P3Item
 except ImportError:
-    sys.path.append(os.path.join(palantir_path, 'libs'))
+    sys.path.append(libs_dir)
     from ioI1iII import P3Item
+
+sys.meta_path.remove(bridge_finder)
 
 def get_params():
     try:

@@ -58,52 +58,6 @@
         
 
     </addon>
-    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.2" provider-name="Rusterboy77">
-        
-  
-        <requires>
-            
-    
-            <import addon="xbmc.python" version="3.0.0"/>
-            
-    
-            <import addon="plugin.video.palantir3" optional="true"/>
-            
-    
-            <import addon="script.module.requests"/>
-            
-  
-        </requires>
-        
-  
-        <extension point="xbmc.python.script" library="default.py"/>
-        
-  
-        <extension point="xbmc.python.pluginsource" library="default.py">
-            
-    
-            <provides>executable</provides>
-            
-  
-        </extension>
-        
-  
-        <extension point="xbmc.addon.metadata">
-            
-    
-            <summary lang="en_GB">Busqueda externa para Palantir 3</summary>
-            
-    
-            <description lang="en_GB">Permite a las skins buscar en Palantir 3</description>
-            
-    
-            <platform>all</platform>
-            
-  
-        </extension>
-        
-
-    </addon>
     <addon id="plugin.video.choloretro" version="1.0.13" name="CholoRetro" provider-name="Rusterboy77">
         
     
@@ -271,6 +225,52 @@
             </assets>
             
     
+        </extension>
+        
+
+    </addon>
+    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.3" provider-name="Rusterboy77">
+        
+  
+        <requires>
+            
+    
+            <import addon="xbmc.python" version="3.0.0"/>
+            
+    
+            <import addon="plugin.video.palantir3" optional="true"/>
+            
+    
+            <import addon="script.module.requests"/>
+            
+  
+        </requires>
+        
+  
+        <extension point="xbmc.python.script" library="default.py"/>
+        
+  
+        <extension point="xbmc.python.pluginsource" library="default.py">
+            
+    
+            <provides>executable</provides>
+            
+  
+        </extension>
+        
+  
+        <extension point="xbmc.addon.metadata">
+            
+    
+            <summary lang="en_GB">Busqueda externa para Palantir 3</summary>
+            
+    
+            <description lang="en_GB">Permite a las skins buscar en Palantir 3</description>
+            
+    
+            <platform>all</platform>
+            
+  
         </extension>
         
 
