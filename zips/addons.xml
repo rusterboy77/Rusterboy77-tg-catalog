@@ -229,7 +229,7 @@
         
 
     </addon>
-    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.0" provider-name="Rusterboy77">
+    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.1" provider-name="Rusterboy77">
         
   
         <requires>
