@@ -229,7 +229,7 @@
         
 
     </addon>
-    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.1" provider-name="Rusterboy77">
+    <addon id="script.palantir.bridge" name="Palantir Bridge" version="1.0.2" provider-name="Rusterboy77">
         
   
         <requires>
@@ -238,7 +238,7 @@
             <import addon="xbmc.python" version="3.0.0"/>
             
     
-            <import addon="plugin.video.palantir3"/>
+            <import addon="plugin.video.palantir3" optional="true"/>
             
     
             <import addon="script.module.requests"/>
@@ -247,7 +247,7 @@
         </requires>
         
   
-        <extension point="xbmc.python.library" library="default.py"/>
+        <extension point="xbmc.python.script" library="default.py"/>
         
   
         <extension point="xbmc.python.pluginsource" library="default.py">
