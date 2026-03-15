@@ -40346,6 +40346,21 @@
               "magnet": "magnet:?xt=urn:btih:12495d43d800c79fc8e6068e58b040bae6f454d6"
             }
           ]
+        },
+        {
+          "season": 15,
+          "episode": 6,
+          "overview": "La historia se centra en el personaje de Richard Poole, un policía inglés con muy poco sentido del humor y de carácter huraño que llega la ficticia isla caribeña de Saint-Marie para resolver el asesinato de un compañero. Tras resolver el crimen, recibirá una recompensa inesperada y no deseada: un puesto de trabajo como Inspector Jefe de la policía local. Al principio de la temporada, esta premisa se repite con el detective Humphrey Goodman sustituyendo a su antecesor en el cargo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:af65467e32ba9f4e7e0c42a1b3066b10d3cb42dc"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:359ca341a58dc0fecebb66db4d4bd897fb35eb9c"
+            }
+          ]
         }
       ]
     },
@@ -160384,7 +160399,24 @@
           "infohash": "5eaeff3a8e25200ddde33332e09c991b026c7689"
         }
       ],
-      "overview": "Una archivista autista con talento, se adentra en un mundo impredecible cuando la detective Bea descubre sus singulares habilidades para resolver crímenes."
+      "overview": "Una archivista autista con talento, se adentra en un mundo impredecible cuando la detective Bea descubre sus singulares habilidades para resolver crímenes.",
+      "episodes": [
+        {
+          "season": 2,
+          "episode": 1,
+          "overview": "Una archivista autista con talento, se adentra en un mundo impredecible cuando la detective Bea descubre sus singulares habilidades para resolver crímenes.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:60774866e95b6daaf642e621891d8f82e25e30bf"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:47fdb65a217f8f3a9816e8f060b9671308c5de45"
+            }
+          ]
+        }
+      ]
     },
     {
       "file": "Patience [HDTV 1080p][Cap (1).106].torrent",
@@ -210141,6 +210173,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:5d22f7fd852178f438f40df6bfc8c7a6f05d0532"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:7b9400f1ec936180891c9d985e149fd340a52d77"
             }
           ]
         }
@@ -239479,6 +239515,21 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4d85bbac22a74330fed2a0ea257e430fb38b80ea"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ad5b3f1936bc0e97a7d95fab62330aa0a56800ea"
+            }
+          ]
+        },
+        {
+          "season": 8,
+          "episode": 7,
+          "overview": "El detective Charlie Hudson se une a lo que él llama su \"animal de aplicación de la ley altamente entrenado\", el perro pastor alemán llamado Rex, con quien prefiere formar equipo porque no habla demasiado.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2e6cfda371998a4486e90a4350647bf62562a05c"
             }
           ]
         }
@@ -242656,6 +242707,10 @@
             {
               "quality": "4k",
               "magnet": "magnet:?xt=urn:btih:9ff9e2dbf2b5811d2ed3b3912a0307de91a39753"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:09b8d899fa25dfc8099b3b9edc396b47084512a9"
             }
           ]
         }
@@ -243232,6 +243287,17 @@
             {
               "quality": "1080p",
               "magnet": "magnet:?xt=urn:btih:9ceb71cfb2a6697765f7200ef300615f88902c1e"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 21,
+          "overview": "El espacio presentado por Iker Jiménez y Carmen Porter abordará los temas más candentes de la actualidad tanto de lunes a miércoles en el access prime time de Cuatro como los jueves en prime time",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:43dfc94fc8b78228df82d420b24c895ba4ec62d6"
             }
           ]
         }
@@ -244069,6 +244135,21 @@
               "magnet": "magnet:?xt=urn:btih:f61881bbdd4a60c7b214a1bb754f22a4933d13a4"
             }
           ]
+        },
+        {
+          "season": 2,
+          "episode": 13,
+          "overview": "La doctora Amy Elias, que pierde la memoria durante un accidente de coche. Debe volver a ser interna y reconstruir de algún modo su vida a partir de los pedazos que le quedan.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5863d069029b63e5de746a3221be725c07f82a4a"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:f8e9109a56bd0f14f79986dea1e31e4218853e94"
+            }
+          ]
         }
       ]
     },
@@ -244836,6 +244917,21 @@
             {
               "quality": "hdtv",
               "magnet": "magnet:?xt=urn:btih:96e56f4220487e88559aeeea4c40abc1f5bde417"
+            }
+          ]
+        },
+        {
+          "season": 3,
+          "episode": 7,
+          "overview": "Jimmy trata de asimilar la muerte de su esposa mientras ejerce de padre, amigo y terapeuta. Decide cambiar su forma de ser con la gente y volverse una persona completamente honesta, sin ningún tipo de filtro. ¿Conseguirá que las cosas mejoren o desatará el caos?",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4b05f4edfdf8a5a9a223d2abfa16dbb09df2403b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:45d8b2a9304a5e9c5db7cc5c15aec06020eeb6e3"
             }
           ]
         }
@@ -245762,6 +245858,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:9c93951994a29e1d32ace6ba7e11e74812b3da6e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:ef16a7bab3c58408c8779ac00047b5e30e439289"
             }
           ]
         }
@@ -249864,6 +249964,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:7480ea8c570dba1648ffce8c77488ca5dc80b118"
+            },
+            {
+              "quality": "4k",
+              "magnet": "magnet:?xt=urn:btih:7d1999f019bd9dc88df5601656002bf86425c270"
             }
           ]
         }
@@ -250975,6 +251079,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d0631eb9dc42da234119f44e020ed08f2e03f02e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:a7aac36cac374a998367860e3684650568d13975"
             }
           ]
         },
@@ -250990,6 +251098,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:d7c6cd0c9256c3d72d1c5404aa44d86bf9fe0949"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:f91d348dbccc6cd2b9af2ef6d3778246defb4880"
             }
           ]
         },
@@ -252638,6 +252750,66 @@
               "magnet": "magnet:?xt=urn:btih:3c5cd87206beca22688a6dbd518b11f51a6344cf"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:651980279489a71c5c91c827100adaa2734b6836"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e12b1a784aa99a18995eaa2665cc4ee47af51b43"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1e327d0c676acf5759373e407aeb2b2a548a9ee0"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a26bde47e3f2b4f42c9896fa48bd4417b4bc3134"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:ce66d0531f02fcfa2f324480cf11b633626dca6f"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:4172a8746b9139d6c94fb7b4b6b4af640105225d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 11,
+          "overview": "Armorsaurs sigue a un equipo de pilotos adolescentes y sus dinosaurios blindados, que son la última línea de defensa de la humanidad contra una sofisticada raza alienígena que intenta regresar a la Tierra para reponer su ejército de dinosaurios combatientes prehistóricos.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:26b6f179c752524c36bf6b9b6524e46e4a3cd255"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:50a3c2e92e9cdedf00288ffa7e640ef46e1f08f7"
+            }
+          ]
         }
       ]
     },
@@ -253792,6 +253964,21 @@
               "magnet": "magnet:?xt=urn:btih:be3fae47e3f6d1ee98cbe79b0aa43a482c201f77"
             }
           ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "El canónigo Daniel Clement es el rector del aparentemente idílico pueblo de Champton. La tranquila vida de la comunidad se ve alterada cuando un hombre aparece asesinado en el templo, apuñalado con unas tijeras de podar. A partir de ese momento, la calma del pueblo se resquebraja y los secretos mejor guardados comienzan a salir a la luz. Daniel Clement se ve obligado a colaborar con el detective Neil Vanloo para descubrir al asesino, que podría encontrarse entre los propios miembros de su congregación.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:aab57aec98ab190a22995a9fd7bc44476b278ba2"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:5c9b34a7b8c6cc8ba8d193634b4304021e57175c"
+            }
+          ]
         }
       ]
     },
@@ -253942,6 +254129,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:1425783ab7958742ad6097cbc78dbf618d857bb5"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:86fd7df18533bea63dad2b7425198f3a65369d9f"
             }
           ]
         }
@@ -256390,6 +256581,21 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:23f6d849af6afce0b3ec7c64e29f4d351a8b1f04"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:1ff3deafce3d2693dc7f6b3495ef2de46343b1ea"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Un grupo de mujeres de mediana edad forman una banda de punk-rock para participar en un concurso de talentos.",
+          "torrents": [
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:cbd75f8ffe7f585e9eaeada71e7718ad271efb07"
             }
           ]
         }
@@ -256526,6 +256732,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:bc0f66d74c78f985e5ef12177e1b50333a085216"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:1b891187bd850a2e51ed1967193b5cf3445610af"
             }
           ]
         },
@@ -256537,6 +256747,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:4939cbca85b11155cec11c27a815b65dab2375e6"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:84526d97289897d1a24665a960460d9afdb9db0b"
             }
           ]
         }
@@ -257001,6 +257215,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:27fb0aeac4d2d0e23b474fd7b1cce80961d93d2b"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:2d2f663130a5a31a43a1d2bdf68456f217191b65"
             }
           ]
         },
@@ -257265,6 +257483,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e6726acb303dbf9d407f61a8234b5148e3d563d0"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:e9fd8e6123fa9214698017cfe8a349c775368b1b"
             }
           ]
         },
@@ -258597,6 +258819,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:0cd3ff2b66bc10ba7c2121e4eca4f58f35f3403e"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:dadc60aa60bfb360f0a428ba32751fd1a8b8a7de"
             }
           ]
         }
@@ -258818,6 +259044,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:a2e5809c611bacd73c92d7a292435b44d571502d"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:17ae63e9d405d44406d434f80e5f05a2924f812a"
             }
           ]
         },
@@ -259080,6 +259310,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:ad37e14d7f675a800cfcc98da499c85d97625c52"
+            },
+            {
+              "quality": "hdtv",
+              "magnet": "magnet:?xt=urn:btih:869b82678c4efcf4654c1b12af598b28ce927877"
             }
           ]
         },
@@ -259690,6 +259924,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:e92c20f723d882587f6a6a0cbd1b83a05f2a0a28"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5f199ee473ec68b30106d83759ce6a2790dcb139"
             }
           ]
         },
@@ -259701,6 +259939,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:49ef1552a5434d161dcd4e57b395c1b50db6d591"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:4e81efc8f9b03095eff1860e070492486e16dba7"
             }
           ]
         }
@@ -260038,6 +260280,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:778bc6c2bde9207d58a69e7dddd9c5f6e7c3d526"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:c3d03e11839ae2e6d7430da715ef12841820bbc4"
             }
           ]
         },
@@ -260049,6 +260295,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:99cc42172c40e97a6c984e9d6d43acf385082027"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:2151ac26678c029dab21346f2919a22c33bc39bb"
             }
           ]
         },
@@ -260060,6 +260310,10 @@
             {
               "quality": "720p",
               "magnet": "magnet:?xt=urn:btih:dfb3dcf9fec3f0c8cf648abdc1582a3ba239455e"
+            },
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:9348e052638ff268a555b60441f9593d61f91826"
             }
           ]
         },
@@ -260152,6 +260406,345 @@
         "Elvira Cuadrupani",
         "Lucía de la Puerta",
         "Gerardo de Pablos"
+      ]
+    },
+    {
+      "file": "Emily la criminal (2026) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Emily la criminal",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 862965,
+        "title": "Emily la estafadora",
+        "original_title": "Emily the Criminal",
+        "overview": "Emily, que tiene una deuda estudiantil y está excluida del mercado laboral debido a antecedentes penales menores, se ve involucrada en una estafa con tarjeta de crédito que la lleva al inframundo criminal de Los Ángeles, lo que finalmente la lleva a consecuencias mortales.",
+        "poster_path": "/omgF37fXTGoWl4Jg4gQNqOgBCrU.jpg",
+        "backdrop_path": "/rIgVB9OyryTxFnqjPU9ULMbQvR4.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/omgF37fXTGoWl4Jg4gQNqOgBCrU.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/rIgVB9OyryTxFnqjPU9ULMbQvR4.jpg",
+        "genres": [
+          "Crimen",
+          "Drama",
+          "Suspense"
+        ],
+        "cast": [
+          "Aubrey Plaza",
+          "Theo Rossi",
+          "Megalyn Echikunwoke",
+          "Gina Gershon",
+          "Jonathan Avigdori",
+          "Bernardo Badillo",
+          "Craig Stark",
+          "John Billingsley",
+          "Kim Yarbrough",
+          "Kara Luiz"
+        ],
+        "clearlogo": "https://image.tmdb.org/t/p/original/56UusbxxTIIDaKTWgaYYZVQ89lj.png",
+        "banner": "https://image.tmdb.org/t/p/original/rIgVB9OyryTxFnqjPU9ULMbQvR4.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/omgF37fXTGoWl4Jg4gQNqOgBCrU.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:8dc398214d2ef31a779c7c77c3856911d51bd54b"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:466b61522023aea4a9940dcbc4db934c6152b24a"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/omgF37fXTGoWl4Jg4gQNqOgBCrU.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/rIgVB9OyryTxFnqjPU9ULMbQvR4.jpg",
+      "overview": "Emily, que tiene una deuda estudiantil y está excluida del mercado laboral debido a antecedentes penales menores, se ve involucrada en una estafa con tarjeta de crédito que la lleva al inframundo criminal de Los Ángeles, lo que finalmente la lleva a consecuencias mortales.",
+      "genres": [
+        "Crimen",
+        "Drama",
+        "Suspense"
+      ],
+      "cast": [
+        "Aubrey Plaza",
+        "Theo Rossi",
+        "Megalyn Echikunwoke",
+        "Gina Gershon",
+        "Jonathan Avigdori",
+        "Bernardo Badillo",
+        "Craig Stark",
+        "John Billingsley",
+        "Kim Yarbrough",
+        "Kara Luiz"
+      ]
+    },
+    {
+      "file": "Empatia",
+      "parsed": {
+        "type": "series",
+        "series": "Empatia"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 284656,
+        "title": "Empatía",
+        "original_title": "Empathie",
+        "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+        "poster_path": "/6HGhzruSv399nvZmLJ3Sns9ntRP.jpg",
+        "backdrop_path": "/jHvLDXDutnkclolMDQKq6LmdkPp.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/6HGhzruSv399nvZmLJ3Sns9ntRP.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/jHvLDXDutnkclolMDQKq6LmdkPp.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Florence Longpré",
+          "Thomas Ngijol",
+          "Adrien Bletton",
+          "Benoît Brière"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/jHvLDXDutnkclolMDQKq6LmdkPp.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/6HGhzruSv399nvZmLJ3Sns9ntRP.jpg",
+        "episode_title": "Episodio 1",
+        "still_path": "https://image.tmdb.org/t/p/original/ajSDHbLwenuklGckPVUbClEvJXp.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 1,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0cc4c4c177fdf97a5c750e3c0e401067a3421847"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:0a32ac4f26b3527dabb2b567ddaf1a42cecb6af3"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 2,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:452160b7a186dc3b6dffb7da72873515a0651a68"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:246c2c7fae764e280d8e278eaaf262e87bf32168"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 3,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:942aaec046cca6cfae7ab2c06f98bafc8aed0f65"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:21e47a0e92c1ad6a86c8bd3e87cfe6194b4cb42d"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 4,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:0bc8d5aab0869420671c5b146056bc73aa060e0b"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:2e4d14b92dfb2a0438fefbdf19c4f42f77fc0912"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 5,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:a136108d6288f8611434a6b9f56a9b3b562a4061"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 6,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:fc1f95857a4f5ada977369c2915d361753a0d7d1"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e7fb8e33ab57857c4b80bacf10854377f60a7684"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 8,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:3d3f63a9177fe2a208d6633e7ad0f3e72ed1320b"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 9,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:e42894b969c4f598dcb085ed15552e24bbeb9ad6"
+            }
+          ]
+        },
+        {
+          "season": 1,
+          "episode": 10,
+          "overview": "Tras dos años alejada de su profesión por una tragedia personal, Suzanne Bien-Aimé, antigua criminóloga reconvertida en psiquiatra, regresa al trabajo en el Hospital Psiquiátrico Mont-Royal. Allí se enfrenta a pacientes de larga duración cuyas historias resuenan peligrosamente con su propio duelo. Mientras intenta recomponer su vida y su identidad profesional, Suzanne descubrirá que escuchar, comprender y acompañar puede ser tan sanador como devastador. En ese territorio ambiguo, la empatía se convierte en un arma de doble filo.",
+          "torrents": [
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:d318cfe3f1462be591844c8a04f3ca57ad41fc41"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Star trek",
+      "parsed": {
+        "type": "series",
+        "series": "Star trek"
+      },
+      "matched": false,
+      "tmdb_top": {
+        "id": 1855,
+        "title": "Star Trek: Voyager",
+        "original_title": "Star Trek: Voyager",
+        "overview": "Star Trek: Voyager (algunas veces abreviada ST:VOY, ST:VGR, ST:V) es una serie de televisión de ciencia ficción estadounidense, dentro del universo de Star Trek. Esta serie fue creada por Rick Berman, Michael Piller y Jeri Taylor, y es la cuarta serie televisiva de Star Trek, que comenzó en los años 1960 con Star Trek: La Serie Original, creada por Gene Roddenberry. Star Trek Voyager fue producida durante siete temporadas, entre 1995 y 2001, y es la única serie de T.V. de Star Trek en tener una mujer como capitán (Kathryn Janeway).\n\nEsta serie sigue las aventuras de la nave estelar USS Voyager, atrapada en el Cuadrante Delta a 75 mil años luz de la Tierra, mientras perseguía una nave de renegados Maquis. Ambas tripulaciones se unirán para emprender el camino de regreso a casa.",
+        "poster_path": "/gNS5tRSG3UlXodCxznKKOKweqxh.jpg",
+        "backdrop_path": "/7YFranrnnIcCrgsLYQsoq8aE3Ir.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/gNS5tRSG3UlXodCxznKKOKweqxh.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/7YFranrnnIcCrgsLYQsoq8aE3Ir.jpg",
+        "genres": [
+          "Sci-Fi & Fantasy",
+          "Drama",
+          "Action & Adventure"
+        ],
+        "cast": [
+          "Kate Mulgrew",
+          "Robert Beltran",
+          "Roxann Dawson",
+          "Robert Duncan McNeill",
+          "Ethan Phillips",
+          "Robert Picardo",
+          "Tim Russ",
+          "Jeri Ryan",
+          "Garrett Wang"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/7YFranrnnIcCrgsLYQsoq8aE3Ir.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/gNS5tRSG3UlXodCxznKKOKweqxh.jpg",
+        "episode_title": "El juicio de Paris",
+        "episode_overview": "Tom Paris es acusado de un asesinato en un planeta desconocido. La condena impuesta es que tendrá que revivir el momento del asesinato cada 14 horas. Janeway está convencida de la inocencia de Paris y no parará hasta demostrarla.",
+        "still_path": "https://image.tmdb.org/t/p/original/d6UuOw5RbEvtFbivWaABiTZErwz.jpg"
+      },
+      "episodes": [
+        {
+          "season": 1,
+          "episode": 7,
+          "overview": "Star Trek: Voyager (algunas veces abreviada ST:VOY, ST:VGR, ST:V) es una serie de televisión de ciencia ficción estadounidense, dentro del universo de Star Trek. Esta serie fue creada por Rick Berman, Michael Piller y Jeri Taylor, y es la cuarta serie televisiva de Star Trek, que comenzó en los años 1960 con Star Trek: La Serie Original, creada por Gene Roddenberry. Star Trek Voyager fue producida durante siete temporadas, entre 1995 y 2001, y es la única serie de T.V. de Star Trek en tener una mujer como capitán (Kathryn Janeway).\n\nEsta serie sigue las aventuras de la nave estelar USS Voyager, atrapada en el Cuadrante Delta a 75 mil años luz de la Tierra, mientras perseguía una nave de renegados Maquis. Ambas tripulaciones se unirán para emprender el camino de regreso a casa.",
+          "torrents": [
+            {
+              "quality": "1080p",
+              "magnet": "magnet:?xt=urn:btih:5040683c7a263aff400c29a6b449bbd345fa1b81"
+            },
+            {
+              "quality": "720p",
+              "magnet": "magnet:?xt=urn:btih:b389ca5fd381936fca624c78f7f5611320bb9800"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "file": "Un destino en Corea (2026) [Bluray 720p][Esp].torrent",
+      "parsed": {
+        "type": "movie",
+        "title": "Un destino en Corea",
+        "year": "2026",
+        "quality": "720p"
+      },
+      "tmdb_top": {
+        "id": 1561687,
+        "title": "Un destino en Corea",
+        "original_title": "மேட் இன் கொரியா",
+        "overview": "Una mujer de un pequeño pueblo de Tamil Nadu, en India, se muda a Corea del Sur, el país de sus sueños, pero le cuesta abrirse camino en una tierra extranjera.",
+        "poster_path": "/8bIkhMcRg2lFKV7J5ZtbTEwU3UH.jpg",
+        "backdrop_path": "/aOZlZ5ceIpUVjJaFBl0vQjGTieI.jpg",
+        "poster_url": "https://image.tmdb.org/t/p/w500/foEObhyAMM3dxYeBEr242EdQDB7.jpg",
+        "backdrop_url": "https://image.tmdb.org/t/p/original/aOZlZ5ceIpUVjJaFBl0vQjGTieI.jpg",
+        "genres": [
+          "Drama"
+        ],
+        "cast": [
+          "Priyanka Arul Mohan",
+          "Park Hye-jin",
+          "Rishikanth",
+          "Thirunavukkarasu"
+        ],
+        "clearlogo": "",
+        "banner": "https://image.tmdb.org/t/p/original/aOZlZ5ceIpUVjJaFBl0vQjGTieI.jpg",
+        "clearart": "https://image.tmdb.org/t/p/w500/foEObhyAMM3dxYeBEr242EdQDB7.jpg"
+      },
+      "torrents": [
+        {
+          "quality": "720p",
+          "magnet": "magnet:?xt=urn:btih:50b84e47b523cf3304e3abba5919bda673bde86b"
+        },
+        {
+          "quality": "bluray",
+          "magnet": "magnet:?xt=urn:btih:476fd22d8176c293dca163a7e6ee7d645aa16393"
+        }
+      ],
+      "poster_url": "https://image.tmdb.org/t/p/w500/foEObhyAMM3dxYeBEr242EdQDB7.jpg",
+      "backdrop_url": "https://image.tmdb.org/t/p/original/aOZlZ5ceIpUVjJaFBl0vQjGTieI.jpg",
+      "overview": "Una mujer de un pequeño pueblo de Tamil Nadu, en India, se muda a Corea del Sur, el país de sus sueños, pero le cuesta abrirse camino en una tierra extranjera.",
+      "genres": [
+        "Drama"
+      ],
+      "cast": [
+        "Priyanka Arul Mohan",
+        "Park Hye-jin",
+        "Rishikanth",
+        "Thirunavukkarasu"
       ]
     }
   ]
