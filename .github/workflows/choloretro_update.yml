@@ -38,8 +38,8 @@ jobs:
       # Este paso utiliza el AWS CLI, que es compatible con la API S3 de Cloudflare R2.
       env:
         # Estas credenciales deben estar configuradas en los Secretos de tu repositorio
-        AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # El endpoint URL apunta a tu cuenta de Cloudflare R2
         CLOUDFLARE_ENDPOINT: https://${{ secrets.CLOUDFLARE_ENDPOINT }}.r2.cloudflarestorage.com
         # El nombre de tu bucket en R2
