@@ -37,8 +37,10 @@ jobs:
     - name: Encriptar Base de Datos a .bin
       run: |
         python -c "
+        import zlib
         with open('cache_choloretro.db', 'rb') as f:
-            data = bytearray(f.read())
+            raw_data = f.read()
+        data = bytearray(zlib.compress(raw_data))
         key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')
         for i in range(len(data)):
             data[i] ^= key[i % len(key)]
