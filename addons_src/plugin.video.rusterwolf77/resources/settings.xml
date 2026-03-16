@@ -1,9 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
     <category label="General">
-        <setting id="background_workers" type="number" label="Background workers (max)" default="6" minimum="1" maximum="20" />
-        <setting id="unenriched_batch" type="number" label="Batch size para enriquecer" default="200" minimum="10" maximum="2000" />
-    <!-- prioritize_visible removed: prioritization features disabled -->
-    <setting id="items_per_page" type="number" label="Items por página (paginación)" default="24" minimum="6" maximum="200" />
-    <setting id="debug_logging" type="bool" label="Activar logs debug (muestra logs detallados)" default="false" />
+        <setting id="items_per_page" type="number" label="Items por página" default="24" minimum="10" maximum="100" />
+        <setting id="debug_logging" type="bool" label="Activar logs debug" default="false" />
+    </category>
+    <category label="Reproductor y Cuentas">
+        <setting id="debrid_provider" type="enum" label="Método de Reproducción" values="Elementum (Gratis P2P)|AllDebrid (Premium)|Real-Debrid (Premium)" default="0" />
+        <setting id="debrid_cloud_fallback" type="bool" label="Añadir a la nube de Debrid si no está en caché" default="true" />
+        
+        <setting type="lsep" label="AllDebrid (Desbloqueador de Enlaces)" />
+        <setting type="action" label="Autenticar AllDebrid con PIN ►" action="RunPlugin(plugin://plugin.video.rusterwolf77/?action=auth_alldebrid)" option="close" />
+        <setting id="alldebrid_api_key" type="text" label="API Key" default="" option="hidden" />
+        
+        <setting type="lsep" label="Real-Debrid (Desbloqueador de Enlaces)" />
+        <setting type="action" label="Autenticar Real-Debrid con PIN ►" action="RunPlugin(plugin://plugin.video.rusterwolf77/?action=auth_realdebrid)" option="close" />
+        <setting id="realdebrid_api_key" type="text" label="Token" default="" option="hidden" />
     </category>
 </settings>

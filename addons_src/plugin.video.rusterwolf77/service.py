@@ -238,8 +238,8 @@ if __name__ == '__main__':
     while not monitor.abortRequested():
         # Bucle de vigilancia
         if player.isPlayingVideo() and not player.upnext_sent:
-             # Comprobar cada 5 segundos si ya tenemos duración y metadatos
-             if monitor.waitForAbort(5): break
-             player.check_and_send_upnext()
+            # Comprobar cada 5 segundos si ya tenemos duración y metadatos
+            if monitor.waitForAbort(5): break
+            player.check_and_send_upnext()
         else:
-             if monitor.waitForAbort(5): break
+            if monitor.waitForAbort(5): break

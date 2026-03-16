@@ -1,15 +1,9 @@
 name: Catalog Auto-Update
 
 on:
-  # Añadimos trigger 'push' para asegurar que se registra y para debug
-  push:
-    branches:
-      - main
-  schedule:
-    # Ejecutar cada hora en el minuto 15 (para evitar colas y asegurar arranque)
-    - cron: '30 4 * * *' # Ejecutar a las 4:30 AM
-  # Permitir ejecución manual desde la web de GitHub
-  workflow_dispatch:
+  # WORKFLOW DESACTIVADO: La actualización ahora se hace de forma segura 
+  # y privada desde el NAS Synology hacia Cloudflare R2.
+  # workflow_dispatch:
 
 # Evitar que se acumulen ejecuciones si una tarda mucho
 concurrency:

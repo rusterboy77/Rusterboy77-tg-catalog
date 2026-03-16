@@ -13,7 +13,7 @@ ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
 DB_FILE = os.path.join(PROFILE_DIR, 'cache.db')
-REMOTE_DB_URL = "https://raw.githubusercontent.com/rusterboy77/Rusterboy77-tg-catalog/main/cache_choloretro.db"
+REMOTE_DB_URL = "https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/cache_choloretro.db"
 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (

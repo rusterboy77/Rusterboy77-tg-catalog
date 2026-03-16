@@ -2,7 +2,6 @@
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
 import unicodedata, re, os, threading, time
-from resources.lib.catalog import fetch_catalogs, sort_by_newest, enrich_items_by_keys, enqueue_enrich
 from resources.lib.player import is_elementum_installed, play_with_elementum
 from resources.lib.db import load_all_items, load_items_by_keys
 
@@ -280,6 +279,11 @@ def _apply_info_tag(li, info):
                 tag.setRating(float(info.get('rating')))
             except Exception:
                 pass
+            if info.get('mediatype'):
+                try:
+                    tag.setMediaType(info.get('mediatype'))
+                except Exception:
+                    pass
     except Exception as e:
         xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
 
@@ -447,10 +451,7 @@ def continue_watching():
         from resources.lib.db import load_all_items, load_items_by_keys
         catalog = load_all_items() or []
     except Exception:
-        try:
-            catalog = fetch_catalogs()
-        except Exception:
-            catalog = []
+        catalog = []
 
     # 1. Cargar Watchlist manual
     wl = load_watchlist()
@@ -474,7 +475,7 @@ def continue_watching():
                         rep = sorted(series_items, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
                         li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
                         _apply_art(li, rep, addon_fanart)
-                        _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tv'})
+                    _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tvshow'})
                     url = build_url({'action': 'list_seasons', 'series': val})
                 
                 elif wtype == 'movie':
@@ -809,7 +810,7 @@ def list_genres(filter_type=None):
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     genres = {}
     for it in catalog:
         t = _get_item_type(it)
@@ -860,7 +861,7 @@ def list_years(filter_type=None):
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     years = {}
     for it in catalog:
         t = _get_item_type(it)
@@ -908,7 +909,7 @@ def list_qualities(filter_type=None, genre_filter=None):
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     
     qualities = set()
     gf = (genre_filter or '').strip().lower()
@@ -933,6 +934,8 @@ def list_qualities(filter_type=None, genre_filter=None):
             q = tor.get('quality')
             if q:
                 s = str(q).strip()
+                if s.lower() == 'dvdrip':
+                    continue
                 # Unificar 2160p y 4k en '4K'
                 if s.lower() in ('2160p', '4k'):
                     s = '4K'
@@ -942,7 +945,16 @@ def list_qualities(filter_type=None, genre_filter=None):
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     
     # Usar icono por defecto o mapeado
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    icon_map = {
+        'movie': 'peliculas.png',
+        'tv': 'series_tv.png',
+        'documentary': 'documentales.png',
+        'series_documentary': 'series_documental.png'
+    }
+    use_icon = icon_map.get(filter_type, 'icon.png')
+    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
+    if not os.path.exists(icon_path):
+        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
     xbmcplugin.setContent(HANDLE, 'files')
     for qname in sorted(list(qualities)):
@@ -971,7 +983,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     xbmc.log(f"RusterWolf DEBUG: loaded catalog size={len(catalog)}", xbmc.LOGWARNING)
@@ -1191,6 +1203,11 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                     tag.setRating(float(info.get('rating')))
                 except Exception:
                     pass
+            if info.get('mediatype'):
+                try:
+                    tag.setMediaType(info.get('mediatype'))
+                except Exception:
+                    pass
         except Exception as e:
             xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
 
@@ -1288,11 +1305,12 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             poster = rep.get('poster') or ''
             fanart = rep.get('fanart') or ''
             overview = rep.get('overview') or ''
-            info = {'title': display_title, 'plot': overview, 'mediatype': 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
+            info = {'title': display_title, 'plot': overview, 'mediatype': 'tvshow', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
             _apply_info_tag(li, info)
             # Also set full video info so Kodi UI can show genres/cast where supported
             try:
-                li.setInfo('video', info)
+                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+                li.setInfo('video', safe_info)
             except Exception:
                 pass
             try:
@@ -1310,27 +1328,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             li.addContextMenuItems(cm)
             
             xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-
-        # Enriquecer en background solo los items visibles (no bloquear UI)
-        try:
-            visible_keys = []
-            for key, items_group in paged_series:
-                items_sorted = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)
-                rep = items_sorted[0]
-                k = rep.get('key') or rep.get('tmdb_id')
-                if k:
-                    visible_keys.append(k)
-            if visible_keys:
-                try:
-                    # evitar encolar si no hay API key de TMDB (evita actividad innecesaria)
-                    try:
-                        xbmc.log('RusterWolf: enqueue_enrich skipped; enriquecimiento gestionado externamente (no hay encolado).', xbmc.LOGDEBUG)
-                    except Exception:
-                        pass
-                except Exception:
-                    pass
-        except Exception:
-            pass
 
         # añadir control de paginación: 'Anterior' y 'Siguiente' cuando proceda
         # usar número de series agrupadas para calcular páginas
@@ -1438,7 +1435,8 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             li = xbmcgui.ListItem(label=title)
             _apply_info_tag(li, info)
             try:
-                li.setInfo('video', info)
+                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+                li.setInfo('video', safe_info)
             except Exception:
                 pass
             try:
@@ -1466,25 +1464,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                 li.addContextMenuItems(cm)
                 
             xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-
-        # Enriquecer en background solo los items visibles (MOVIE)
-        try:
-            visible_keys = []
-            for k, group in paged_movies:
-                rep = sorted(group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-                kk = rep.get('key') or rep.get('tmdb_id')
-                if kk:
-                    visible_keys.append(kk)
-            if visible_keys:
-                try:
-                    try:
-                        xbmc.log('RusterWolf: enqueue_enrich skipped; enriquecimiento gestionado externamente (no hay encolado).', xbmc.LOGDEBUG)
-                    except Exception:
-                        pass
-                except Exception:
-                    pass
-        except Exception:
-            pass
 
         # usar número de películas agrupadas para calcular páginas
         movie_keys = sorted(movie_map.items(), key=lambda x: x[0])
@@ -1538,6 +1517,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         cast = it.get('cast') or []
         # Determinar mediatype por cada elemento (antes se usaba la variable del bucle anterior)
         mediatype_item = _get_item_type(it)
+        m_type = 'tvshow' if mediatype_item == 'tv' else ('movie' if mediatype_item == 'movie' else None)
         info = {
             'title': title,
             'plot': overview,
@@ -1545,18 +1525,19 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in genres]),
             'rating': float(rating) if rating else None,
             'cast': cast,
-            'mediatype': mediatype_item if mediatype_item in ('movie', 'tv') else None
+            'mediatype': m_type
         }
-        xbmc.log(f"RusterWolf: creando ListItem -> title={title!r}, mediatype={mediatype_item}", xbmc.LOGDEBUG)
+        xbmc.log(f"RusterWolf: creando ListItem -> title={title!r}, mediatype={m_type}", xbmc.LOGDEBUG)
         li = xbmcgui.ListItem(label=title)
         _apply_info_tag(li, info)
         try:
-            li.setInfo('video', info)
+            safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+            li.setInfo('video', safe_info)
         except Exception:
             pass
-        if mediatype_item in ('movie', 'tv'):
+        if m_type:
             try:
-                li.setProperty('mediatype', mediatype_item)
+                li.setProperty('mediatype', m_type)
             except Exception:
                 pass
         try:
@@ -1580,16 +1561,6 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             li.addContextMenuItems(cm)
             
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-    # Enriquecer en background solo los items visibles (GENERIC)
-    try:
-        visible_keys = [ (it.get('key') or it.get('tmdb_id')) for it in page_items if (it.get('key') or it.get('tmdb_id')) ]
-        if visible_keys:
-            try:
-                xbmc.log('RusterWolf: enqueue_enrich skipped; enriquecimiento gestionado externamente (no hay encolado).', xbmc.LOGDEBUG)
-            except Exception:
-                pass
-    except Exception:
-        pass
     xbmcplugin.endOfDirectory(HANDLE)
 
 def novedades(page=1, sub=None):
@@ -1601,14 +1572,10 @@ def novedades(page=1, sub=None):
         from resources.lib.db import load_all_items
         catalog = load_all_items()
     except Exception:
-        pass
-    
-    # Si la carga directa falló o devolvió vacío, usar el fallback completo (que descarga si es necesario)
-    if not catalog:
-        catalog = fetch_catalogs()
+        catalog = []
 
-    # Asegurar ordenación por fecha
-    catalog = sort_by_newest(catalog)
+    # Asegurar ordenación por fecha (Sustituye sort_by_newest)
+    catalog = sorted(catalog, key=lambda x: x.get("date_added",""), reverse=True)
 
     # el router pasa 'sub' como parámetro GET (movies o series)
     # paginar novedades (page se pasa desde router)
@@ -1689,9 +1656,18 @@ def novedades(page=1, sub=None):
             rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
             display_title = rep.get('title')
             li = xbmcgui.ListItem(label=display_title)
-            info = {'title': display_title, 'plot': rep.get('overview') or '', 'mediatype': 'tv', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
+            info = {'title': display_title, 'plot': rep.get('overview') or '', 'mediatype': 'tvshow', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
             try:
-                li.setInfo('video', info)
+                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+                li.setInfo('video', safe_info)
+            except Exception:
+                pass
+            # Aplicar InfoTagVideo explícitamente para Kodi 20+
+            try:
+                tag = li.getVideoInfoTag()
+                tag.setTitle(info['title'])
+                if info['plot']: tag.setPlot(info['plot'])
+                tag.setMediaType('tvshow')
             except Exception:
                 pass
             # aplicar clearlogo/banner si existen
@@ -1731,6 +1707,8 @@ def novedades(page=1, sub=None):
         rating = it.get('rating')
         genres = it.get('genres') or []
         cast = it.get('cast') or []
+        t_type = it.get('type', '').lower()
+        m_type = 'tvshow' if t_type == 'tv' else ('movie' if t_type == 'movie' else None)
         info = {
             'title': title,
             'plot': overview,
@@ -1738,7 +1716,7 @@ def novedades(page=1, sub=None):
             'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in genres]),
             'rating': float(rating) if rating else None,
             'cast': cast,
-            'mediatype': it.get('type', '').lower() if it.get('type', '').lower() in ('movie', 'tv') else None
+            'mediatype': m_type
         }
         li = xbmcgui.ListItem(label=title)
         try:
@@ -1768,13 +1746,13 @@ def novedades(page=1, sub=None):
             xbmc.log(f"RusterWolf: error aplicando InfoTagVideo en novedades: {e}", xbmc.LOGERROR)
         # Also set full info (including cast) so Kodi UI elements that read setInfo get the values
         try:
-            li.setInfo('video', info)
+            safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+            li.setInfo('video', safe_info)
         except Exception:
             pass
-        mediatype_item = it.get('type', '').lower()
-        if mediatype_item in ('movie', 'tv'):
+        if m_type:
             try:
-                li.setProperty('mediatype', mediatype_item)
+                li.setProperty('mediatype', m_type)
             except Exception:
                 pass
         try:
@@ -1791,30 +1769,13 @@ def novedades(page=1, sub=None):
         else:
             url = build_url({'action': 'select', 'index': str(catalog.index(it))})
         
-        if mediatype_item == 'movie' and item_key:
+        if t_type == 'movie' and item_key:
             cm = []
             add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
             cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
             li.addContextMenuItems(cm)
             
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-    # Prioritización eliminada: no se realizará ningún enriquecimiento en background (Novedades)
-    try:
-        xbmc.log("RusterWolf: intentaremos enriquecer en background solo los items visibles (Novedades)", xbmc.LOGDEBUG)
-        # Enriquecer en background solo los items visibles (Novedades)
-        try:
-            # visible debe respetar el filtrado aplicado (usamos 'filtered' no todo el catalog)
-            visible = filtered[start:end]
-            visible_keys = [(it.get('key') or it.get('tmdb_id')) for it in visible if (it.get('key') or it.get('tmdb_id'))]
-            if visible_keys:
-                try:
-                    enqueue_enrich(visible_keys)
-                except Exception:
-                    pass
-        except Exception:
-            pass
-    except Exception:
-        pass
     # paginación en novedades: usar conteo sobre 'filtered' y preservar sub (movies/series) en las urls
     total_pages = (len(filtered) + per_page - 1) // per_page
     base_q = {'action': 'novedades'}
@@ -1842,7 +1803,7 @@ def list_seasons(series):
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     seasons = {}
     for it in catalog:
         if _get_item_type(it) != 'tv':
@@ -1865,9 +1826,15 @@ def list_seasons(series):
                 'tvshowtitle': series,
                 'title': series,
                 'season': int(season) if str(season).isdigit() else None,
-                'mediatype': 'tv'
+                'mediatype': 'season'
             }
             li.setInfo('video', info)
+            tag = li.getVideoInfoTag()
+            tag.setTitle(f"Temporada {season}")
+            tag.setTvShowTitle(series)
+            tag.setMediaType('season')
+            if info['season'] is not None:
+                tag.setSeason(info['season'])
         except Exception:
             pass
         # Intentar poner una imagen representativa si existe en alguno de los items
@@ -1898,7 +1865,7 @@ def list_episodes(series, season):
         from resources.lib.db import load_all_items
         catalog = load_all_items() or []
     except Exception:
-        catalog = fetch_catalogs()
+        catalog = []
     episodes = []
     for it in catalog:
         if _get_item_type(it) != 'tv':
@@ -1938,25 +1905,23 @@ def list_episodes(series, season):
         try:
             li.setInfo('video', info)
         except Exception:
-            # Fallback a VideoInfoTag si setInfo falla
-            try:
-                tag = li.getVideoInfoTag()
-                if info.get('title'):
-                    tag.setTitle(info.get('title'))
-                if info.get('plot'):
-                    tag.setPlot(info.get('plot'))
-                if info.get('season') is not None:
-                    try:
-                        tag.setSeason(int(info.get('season')))
-                    except Exception:
-                        pass
-                if info.get('episode') is not None:
-                    try:
-                        tag.setEpisode(int(info.get('episode')))
-                    except Exception:
-                        pass
-            except Exception:
-                pass
+            pass
+            
+        # Siempre aplicar InfoTagVideo para Kodi 20+ y skins como Arctic Fuse
+        try:
+            tag = li.getVideoInfoTag()
+            tag.setTitle(info.get('title', ''))
+            if info.get('plot'): tag.setPlot(info.get('plot'))
+            if info.get('tvshowtitle'): tag.setTvShowTitle(info.get('tvshowtitle'))
+            tag.setMediaType('episode')
+            if info.get('season') is not None:
+                tag.setSeason(int(info.get('season')))
+            if info.get('episode') is not None:
+                tag.setEpisode(int(info.get('episode')))
+            if info.get('premiered'):
+                tag.setFirstAired(info.get('premiered'))
+        except Exception:
+            pass
         # Arte si está disponible
         try:
             # Preferir imagen fija del episodio (still) si está disponible
@@ -2160,7 +2125,7 @@ def show_select(index=None, key=None):
             from resources.lib.db import load_all_items
             catalog = load_all_items() or []
         except Exception:
-            catalog = fetch_catalogs()
+            catalog = []
         try:
             it = catalog[int(index)]
             try:
@@ -2200,46 +2165,73 @@ def show_select(index=None, key=None):
         xbmcgui.Dialog().notification('RusterWolf 77', 'Magnet no válido o no encontrado', xbmcgui.NOTIFICATION_ERROR)
         return
         
-    # INYECCIÓN DE TRACKERS: Lista de trackers públicos estables para mejorar conectividad
-    # Esto ayuda a encontrar 'peers' incluso si los trackers originales del magnet están caídos.
-    public_trackers = [
-        "udp://tracker.opentrackr.org:1337/announce",
-        "udp://open.demonii.com:1337/announce",
-        "udp://tracker.openbittorrent.com:80/announce",
-        "udp://tracker.coppersurfer.tk:6969/announce",
-        "udp://glotorrents.pw:6969/announce",
-        "udp://tracker.leechers-paradise.org:6969/announce",
-        "udp://p4p.arenabg.com:1337/announce",
-        "udp://tracker.internetwarriors.net:1337/announce"
-    ]
-    for tr in public_trackers:
-        if tr not in torrent_url:
-            torrent_url += f"&tr={urllib.parse.quote(tr)}"
             
-    if not is_elementum_installed():
-        xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:', 'https://elementumorg.github.io/')
-        return
+    debrid_provider = ADDON.getSetting('debrid_provider') or "0"
+    debrid_cloud_fallback = ADDON.getSettingBool('debrid_cloud_fallback')
+    
+    play_path = ''
+    
+    # INYECCIÓN DE TRACKERS: SOLO PARA ELEMENTUM.
+    # Si lo pasamos a Debrid, el link se vuelve demasiado largo y su API lo rechaza.
+    if debrid_provider == "0":
+        public_trackers = [
+            "udp://tracker.opentrackr.org:1337/announce",
+            "udp://open.demonii.com:1337/announce",
+            "udp://tracker.openbittorrent.com:80/announce",
+            "udp://tracker.coppersurfer.tk:6969/announce",
+            "udp://tracker.internetwarriors.net:1337/announce"
+        ]
+        for tr in public_trackers:
+            if tr not in torrent_url:
+                torrent_url += f"&tr={urllib.parse.quote(tr)}"
 
-    # 1. Lanzar el guardado de historial en un hilo (thread)
-    #    Usamos un hilo 'daemon' para que no bloquee a Kodi si tarda.
+    if debrid_provider == "1":
+        alldebrid_api_key = ADDON.getSetting('alldebrid_api_key')
+        if not alldebrid_api_key:
+            xbmcgui.Dialog().ok('AllDebrid', 'Falta la API Key en los ajustes.')
+            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+            return
+        xbmc.log("RusterWolf: RUTA PREMIUM AllDebrid", xbmc.LOGINFO)
+        from resources.lib.player import play_with_alldebrid
+        play_path = play_with_alldebrid(torrent_url, alldebrid_api_key, debrid_cloud_fallback)
+        
+    elif debrid_provider == "2":
+        realdebrid_api_key = ADDON.getSetting('realdebrid_api_key')
+        if not realdebrid_api_key:
+            xbmcgui.Dialog().ok('Real-Debrid', 'Falta la API Key en los ajustes.')
+            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+            return
+        xbmc.log("RusterWolf: RUTA PREMIUM Real-Debrid", xbmc.LOGINFO)
+        from resources.lib.player import play_with_realdebrid
+        play_path = play_with_realdebrid(torrent_url, realdebrid_api_key, debrid_cloud_fallback)
+        
+    else:
+        # RUTA GRATUITA: Usar Elementum
+        if not is_elementum_installed():
+            xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:', 'https://elementumorg.github.io/')
+            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+            return
+
+        play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
+
+    # Si Debrid no encontró enlace en caché, cancelamos la reproducción para que no se quede colgado.
+    if not play_path:
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
+        
+    # Independiente de P2P o Debrid, guardar historial para el sistema Up Next
     try:
         from resources.lib.player import play_with_elementum
-        
-        # (Asegúrate de tener 'import threading' al principio de default.py)
-        # (Ya lo tienes, importas 'threading' como '_threading_early' y 'threading')
-        
         history_thread = threading.Thread(
-            target=play_with_elementum,  # La función a ejecutar
-            args=(torrent_url, it),      # Los argumentos para esa función
+            target=play_with_elementum,
+            args=(torrent_url, it),
             daemon=True
         )
-        history_thread.start()  # Iniciar el hilo en segundo plano
-
+        history_thread.start()
     except Exception as e:
         xbmc.log(f"RusterWolf: No se pudo iniciar el hilo de historial: {e}", xbmc.LOGERROR)
 
-    # 2. Reproducir usando setResolvedUrl (ESTA DEBE SER LA ÚLTIMA LLAMADA)
-    play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
+    # Reproducir usando setResolvedUrl
     li = xbmcgui.ListItem(path=play_path)
     
     # CRUCIAL: Transferir metadatos al ListItem final para que el servicio Next Up los lea
@@ -2461,6 +2453,12 @@ def router(params):
         list_seasons(params.get('series'))
     elif action == 'list_episodes':
         list_episodes(params.get('series'), params.get('season'))
+    elif action == 'auth_alldebrid':
+        from resources.lib.alldebrid import auth
+        auth()
+    elif action == 'auth_realdebrid':
+        from resources.lib.realdebrid import auth
+        auth()
     elif action == 'settings':
         open_settings()
     else:
@@ -2477,107 +2475,17 @@ if __name__ == '__main__':
     import xbmc
     xbmc.log(f"RusterWolf: __main__ params={params}", xbmc.LOGWARNING)
     # Si se abre el addon sin parámetros (entrada principal), actualizar DB desde remote
-    try:
-        # Importar funciones DB (init_db para asegurar DB en primer arranque, maybe_update_db_from_remote para actualizaciones)
+    is_entry = not params or not params.get('action')
+    if is_entry:
         try:
             from resources.lib.db import maybe_update_db_from_remote, init_db
-        except Exception:
-            maybe_update_db_from_remote = None
-            init_db = None
-        # Determinar entrada principal: params vacío o sin 'action'
-        is_entry = not params or not params.get('action')
-        if is_entry:
-            # Intentar asegurar DB local de forma síncrona en primer arranque
-            try:
-                if init_db:
-                    try:
-                        # Notificar inicio de sincronización
-                        try:
-                            # Only notify once per session
-                            try:
-                                from resources.lib import db as dbmod
-                            except Exception:
-                                dbmod = None
-                            if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                xbmcgui.Dialog().notification(ADDON.getAddonInfo('name') or 'RusterWolf', 'Actualizando base de datos...', ADDON_ICON, 2000)
-                        except Exception:
-                            xbmc.executebuiltin("Notification(RusterWolf,Actualizando base de datos...,2000)")
-                    except Exception:
-                        pass
-                    try:
-                        init_db()
-                        try:
-                            if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                xbmcgui.Dialog().notification(ADDON.getAddonInfo('name') or 'RusterWolf', 'Base de datos lista', ADDON_ICON, 2000)
-                                if dbmod and getattr(dbmod, 'mark_db_update_notified', None):
-                                    try:
-                                        dbmod.mark_db_update_notified()
-                                    except Exception:
-                                        pass
-                        except Exception:
-                            try:
-                                if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                    xbmc.executebuiltin("Notification(RusterWolf,Base de datos lista,2000)")
-                                    if dbmod and getattr(dbmod, 'mark_db_update_notified', None):
-                                        try:
-                                            dbmod.mark_db_update_notified()
-                                        except Exception:
-                                            pass
-                            except Exception:
-                                pass
-                    except Exception as e:
-                        xbmc.log(f'RusterWolf: init_db fallo sincrónico: {e}', xbmc.LOGERROR)
-                # Lanzar la comprobación/actualización en background si está disponible
-                if maybe_update_db_from_remote:
-                    try:
-                        try:
-                            if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                xbmcgui.Dialog().notification(ADDON.getAddonInfo('name') or 'RusterWolf', 'Iniciando actualización en segundo plano...', ADDON_ICON, 2000)
-                        except Exception:
-                            try:
-                                if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                    xbmc.executebuiltin("Notification(RusterWolf,Iniciando actualización en segundo plano...,2000)")
-                            except Exception:
-                                pass
-                    except Exception:
-                        xbmc.log('RusterWolf: no se pudo mostrar notificación UI', xbmc.LOGDEBUG)
-                    xbmc.log('RusterWolf: arrancando worker demonio para maybe_update_db_from_remote', xbmc.LOGWARNING)
-                    import threading as _threading
-                    def _maybe_update_worker():
-                        try:
-                            xbmc.log('RusterWolf: maybe_update_db_from_remote worker started', xbmc.LOGDEBUG)
-                            updated_inner = maybe_update_db_from_remote()
-                            if updated_inner:
-                                try:
-                                    try:
-                                        # Only notify once per session
-                                        if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                            xbmcgui.Dialog().notification(ADDON.getAddonInfo('name') or 'RusterWolf', 'Base de Datos actualizada', ADDON_ICON, 3000)
-                                        if dbmod and getattr(dbmod, 'mark_db_update_notified', None):
-                                            try:
-                                                dbmod.mark_db_update_notified()
-                                            except Exception:
-                                                pass
-                                    except Exception:
-                                        if not dbmod or not getattr(dbmod, 'is_db_update_notified', lambda: False)():
-                                            xbmc.executebuiltin("Notification(RusterWolf,Base de Datos actualizada,3000)")
-                                            if dbmod and getattr(dbmod, 'mark_db_update_notified', None):
-                                                try:
-                                                    dbmod.mark_db_update_notified()
-                                                except Exception:
-                                                    pass
-                                except Exception:
-                                    pass
-                                xbmc.log('RusterWolf: cache.db remota descargada y aplicada (worker)', xbmc.LOGWARNING)
-                            else:
-                                xbmc.log('RusterWolf: cache.db remota no actualizó nada (worker)', xbmc.LOGDEBUG)
-                        except Exception as e:
-                            xbmc.log(f'RusterWolf: Error en worker maybe_update_db_from_remote: {e}', xbmc.LOGERROR)
-                    t_upd = _threading.Thread(target=_maybe_update_worker, daemon=True)
-                    t_upd.start()
-            except Exception:
-                xbmc.log('RusterWolf: no se pudo arrancar worker de actualización remota', xbmc.LOGERROR)
-        # Continuar con el router normalmente
-    except Exception:
-        pass
+            if init_db:
+                init_db()
+                
+            if maybe_update_db_from_remote:
+                # Ejecución síncrona. No usamos hilos porque Kodi los mata al dibujar el menú.
+                maybe_update_db_from_remote(force=False)
+        except Exception as e:
+            xbmc.log(f'RusterWolf: Error en inicio de addon: {e}', xbmc.LOGERROR)
+            
     router(params)
