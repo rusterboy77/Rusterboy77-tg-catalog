@@ -34,6 +34,18 @@ jobs:
     - name: Empaquetar Repositorio (Zips y XML)
       run: python tools/create_repository.py
 
+    - name: Encriptar Base de Datos a .bin
+      run: |
+        python -c "
+        with open('cache_choloretro.db', 'rb') as f:
+            data = bytearray(f.read())
+        key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')
+        for i in range(len(data)):
+            data[i] ^= key[i % len(key)]
+        with open('cache_choloretro.bin', 'wb') as f:
+            f.write(data)
+        "
+
     - name: Subir artefactos a Cloudflare R2
       # Este paso utiliza el AWS CLI, que es compatible con la API S3 de Cloudflare R2.
       env:
@@ -46,7 +58,6 @@ jobs:
         R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
       run: |
         # Subir los archivos generados al bucket de R2
-        aws s3 cp catalog_choloretro.json s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
-        aws s3 cp cache_choloretro.db s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
+        aws s3 cp cache_choloretro.bin s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         
         echo "Archivos subidos a Cloudflare R2 exitosamente."

@@ -13,7 +13,7 @@ ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
 DB_FILE = os.path.join(PROFILE_DIR, 'cache.db')
-REMOTE_DB_URL = "https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/cache_choloretro.db"
+REMOTE_DB_URL = "https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/cache_choloretro.bin"
 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
@@ -284,13 +284,29 @@ def update_db_from_remote():
     
     log(f"Database: Iniciando descarga de DB desde {url}")
     tmp_db = DB_FILE + ".tmp"
+    tmp_bin = DB_FILE + ".bin.tmp"
     
     try:
-        # Usar un User-Agent para evitar bloqueos de GitHub
+        # Usar un User-Agent para evitar bloqueos
         req = urllib.request.Request(url, headers={'User-Agent': 'Kodi-Choloretro'})
-        with urllib.request.urlopen(req, timeout=60) as response, open(tmp_db, 'wb') as out_file:
+        with urllib.request.urlopen(req, timeout=60) as response, open(tmp_bin, 'wb') as out_file:
             shutil.copyfileobj(response, out_file)
             
+        # Desencriptar el archivo .bin descargado
+        with open(tmp_bin, 'rb') as f:
+            data = bytearray(f.read())
+            
+        key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')
+        key_len = len(key)
+        for i in range(len(data)):
+            data[i] ^= key[i % key_len]
+            
+        with open(tmp_db, 'wb') as f:
+            f.write(data)
+            
+        try: os.remove(tmp_bin)
+        except: pass
+        
         # Verificar integridad básica (abrir y contar items)
         conn = sqlite3.connect(tmp_db)
         c = conn.cursor()
@@ -316,5 +332,8 @@ def update_db_from_remote():
         log(f"Database: Error actualizando DB remota: {e}")
         if os.path.exists(tmp_db):
             try: os.remove(tmp_db)
+            except: pass
+        if os.path.exists(tmp_bin):
+            try: os.remove(tmp_bin)
             except: pass
         return False
