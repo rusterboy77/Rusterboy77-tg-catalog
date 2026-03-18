@@ -111,20 +111,38 @@ def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
         # Buscar el archivo más grande (normalmente el vídeo principal)
         target_link = None
         max_size = 0
+        valid_exts = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
+        
         for l in links:
             if isinstance(l, dict):
                 filename = l.get('filename', '').lower()
                 size = l.get('size', 0)
-                if filename.endswith(('.mp4', '.mkv', '.avi', '.m2ts')) and size > max_size:
+                if filename.endswith(valid_exts) and size > max_size:
                     max_size = size
                     target_link = l.get('link')
             elif isinstance(l, str):
                 # Por si la API devuelve directamente las URLs
-                target_link = l
-                break
+                if any(l.lower().endswith(ext) for ext in valid_exts):
+                    target_link = l
+                    break
         
         if not target_link:
-            target_link = links[0].get('link') if isinstance(links[0], dict) else links[0]
+            # Fallback: intentar coger el más grande que no sea un archivo comprimido ni de texto
+            for l in links:
+                if isinstance(l, dict):
+                    filename = l.get('filename', '').lower()
+                    size = l.get('size', 0)
+                    if not filename.endswith(('.rar', '.zip', '.iso', '.tar', '.7z', '.txt', '.nfo')) and size > max_size:
+                        max_size = size
+                        target_link = l.get('link')
+            
+            if not target_link:
+                # Si llegamos aquí, es muy probable que el torrent solo contenga RARs
+                fallback_link = links[0].get('link') if isinstance(links[0], dict) else links[0]
+                if fallback_link and any(ext in fallback_link.lower() for ext in ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')):
+                    xbmcgui.Dialog().ok('AllDebrid - Error', 'Este torrent contiene archivos comprimidos (.rar / .zip) y no se puede reproducir en streaming.\n\nPor favor, selecciona otra calidad en la lista.')
+                    return None
+                target_link = fallback_link
         
         # 4. Desbloquear para obtener enlace de descarga final (.mkv/.mp4)
         url_unlock = f"{base_url}/link/unlock?agent={agent}&apikey={api_key}&link={urllib.parse.quote(target_link)}"
@@ -183,7 +201,18 @@ def play_with_realdebrid(magnet, api_key, add_to_cloud=True):
         # 3. Seleccionar archivos
         if info.get('status') == 'waiting_files_selection':
             files = info.get('files', [])
-            video_files = [str(f['id']) for f in files if f['path'].lower().endswith(('.mp4', '.mkv', '.avi'))]
+            valid_exts = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
+            video_files = [str(f['id']) for f in files if f['path'].lower().endswith(valid_exts)]
+            
+            if not video_files:
+                # Comprobar si en su lugar son archivos comprimidos
+                rar_files = [str(f['id']) for f in files if f['path'].lower().endswith(('.rar', '.zip', '.iso'))]
+                if rar_files:
+                    req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
+                    urllib.request.urlopen(req_del)
+                    xbmcgui.Dialog().ok('Real-Debrid - Error', 'Este torrent contiene archivos comprimidos (.rar / .zip) y no se puede reproducir en streaming.\n\nPor favor, selecciona otra calidad en la lista.')
+                    return None
+                    
             file_selection = ','.join(video_files) if video_files else 'all'
             
             req_sel = urllib.request.Request(f"{base_url}/torrents/selectFiles/{torrent_id}", data=urllib.parse.urlencode({'files': file_selection}).encode('utf-8'), headers=headers)

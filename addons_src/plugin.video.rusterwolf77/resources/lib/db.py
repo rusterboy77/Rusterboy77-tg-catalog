@@ -213,14 +213,30 @@ def search_items_sql(query_str, limit=100):
     conn = _connect()
     try:
         c = conn.cursor()
-        like_str = f"%{query_str}%"
+        
+        # 1. Búsqueda Exacta
+        exact_like = f"%{query_str}%"
+        # 2. Búsqueda por Palabras Sueltas (Ignora dobles espacios)
+        words_like = "%" + "%".join(query_str.split()) + "%"
+        # 3. Búsqueda Difusa Extrema (Faltan letras, ej. "plp fiction" -> "%p%l%p%f%i%c%t%i%o%n%")
+        chars = [ch for ch in query_str if ch.isalnum()]
+        fuzzy_like = "%" + "%".join(chars) + "%" if len(chars) >= 3 else words_like
+        
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
                    genres, "cast", torrents, date_added, enriched 
             FROM items 
-            WHERE title LIKE ? OR episode_title LIKE ? LIMIT ?
-        ''', (like_str, like_str, limit))
+            WHERE title LIKE ? OR episode_title LIKE ? 
+               OR title LIKE ? OR episode_title LIKE ?
+               OR title LIKE ? OR episode_title LIKE ?
+            ORDER BY 
+               CASE WHEN title LIKE ? OR episode_title LIKE ? THEN 0 
+                    WHEN title LIKE ? OR episode_title LIKE ? THEN 1
+                    ELSE 2 END
+            LIMIT ?
+        ''', (exact_like, exact_like, words_like, words_like, fuzzy_like, fuzzy_like, 
+              exact_like, exact_like, words_like, words_like, limit))
         rows = c.fetchall()
         items = []
         for r in rows:
