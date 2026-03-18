@@ -2315,10 +2315,14 @@ def show_select(index=None, key=None):
         return 0
     torrents = sorted(torrents, key=_q_rank, reverse=True)
 
-    choices = [t.get('quality') or 'default' for t in torrents]
-    sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
-    if sel < 0:
-        return
+    # Si solo hay una calidad disponible, nos saltamos la pantalla de selección
+    if len(torrents) == 1:
+        sel = 0
+    else:
+        choices = [t.get('quality') or 'default' for t in torrents]
+        sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
+        if sel < 0:
+            return
     torrent_url = torrents[sel].get('magnet')
     if not torrent_url or not torrent_url.startswith('magnet:?xt=urn:btih:'):
         xbmcgui.Dialog().notification('RusterWolf 77', 'Magnet no válido o no encontrado', xbmcgui.NOTIFICATION_ERROR)
