@@ -784,7 +784,6 @@ def movie_menu():
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     entries = [
-        ('Películas Premium', {'action': 'premium_movie_menu'}),
         ('Título', {'action': 'list', 'filter': 'movie', 'origin': 'movie'}),
         ('Género', {'action': 'list', 'filter': 'movie', 'group': 'genre', 'origin': 'movie'}),
         ('Calidad', {'action': 'list', 'filter': 'movie', 'group': 'quality', 'origin': 'movie'}),
@@ -817,7 +816,6 @@ def tv_menu():
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     entries = [
-        ('Series Premium', {'action': 'premium_tv_menu'}),
         ('Título', {'action': 'list', 'filter': 'tv', 'origin': 'tv'}),
         ('Género', {'action': 'list', 'filter': 'tv', 'group': 'genre', 'origin': 'tv'}),
         ('Calidad', {'action': 'list', 'filter': 'tv', 'group': 'quality', 'origin': 'tv'}),
@@ -1056,9 +1054,9 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
             if q:
                 s = str(q).strip()
                 if s.lower() == 'dvdrip':
-                    continue
+                    s = '1080p'
                 # Unificar 2160p y 4k en '4K'
-                if s.lower() in ('2160p', '4k'):
+                elif s.lower() in ('2160p', '4k'):
                     s = '4K'
                 qualities.add(s)
 
@@ -1302,7 +1300,9 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             # Comprobar si alguno de los torrents tiene la calidad exacta solicitada
             has_quality = False
             for tor in (it.get('torrents') or []):
-                if str(tor.get('quality') or '').strip().lower() in target_qualities:
+                tq = str(tor.get('quality') or '').strip().lower()
+                if tq == 'dvdrip': tq = '1080p'
+                if tq in target_qualities:
                     has_quality = True
                     break
             if has_quality:
@@ -2299,6 +2299,11 @@ def show_select(index=None, key=None):
         xbmcgui.Dialog().notification('RusterWolf 77', 'No hay torrents disponibles', xbmcgui.NOTIFICATION_INFO)
         return
         
+    # Convertir DVDRip a 1080p visual y lógicamente antes de mostrar
+    for t in torrents:
+        if str(t.get('quality') or '').strip().lower() == 'dvdrip':
+            t['quality'] = '1080p'
+
     # Ordenar por calidad según preferencia: 4K > 1080p > 720p > Bluray > HDTV
     def _q_rank(t):
         q = str(t.get('quality') or '').lower()
@@ -2368,10 +2373,37 @@ def show_select(index=None, key=None):
 
         play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
 
-    # Si Debrid no encontró enlace en caché, cancelamos la reproducción para que no se quede colgado.
+    # Si Debrid no encontró enlace en caché o falló, preguntamos si usar Elementum como alternativa
     if not play_path:
-        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-        return
+        if debrid_provider in ("1", "2"):
+            if is_elementum_installed():
+                resp = xbmcgui.Dialog().yesno(
+                    'No en caché',
+                    'Este archivo no está en la caché de tu Debrid.\n¿Desea comprobar la disponibilidad torrent de este archivo con Elementum?'
+                )
+                if resp:
+                    # Inyectar trackers públicos para Elementum
+                    public_trackers = [
+                        "udp://tracker.opentrackr.org:1337/announce",
+                        "udp://open.demonii.com:1337/announce",
+                        "udp://tracker.openbittorrent.com:80/announce",
+                        "udp://tracker.coppersurfer.tk:6969/announce",
+                        "udp://tracker.internetwarriors.net:1337/announce"
+                    ]
+                    for tr in public_trackers:
+                        if tr not in torrent_url:
+                            torrent_url += f"&tr={urllib.parse.quote(tr)}"
+                    play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
+                else:
+                    xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                    return
+            else:
+                xbmcgui.Dialog().notification('RusterWolf', 'Elementum no instalado. No se pudo hacer fallback P2P.', xbmcgui.NOTIFICATION_INFO)
+                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                return
+        else:
+            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+            return
         
     # Independiente de P2P o Debrid, guardar historial para el sistema Up Next
     try:

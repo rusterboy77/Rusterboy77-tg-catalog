@@ -42,8 +42,8 @@ def get_last_played_from_history():
         items = sorted(history.values(), key=lambda x: x.get('last_played', 0), reverse=True)
         last_item = items[0]
         
-        # Verificar si es reciente (menos de 120 segundos)
-        if time.time() - last_item.get('last_played', 0) < 120:
+        # Verificar si es reciente (menos de 1200 segundos = 20 min) para dar margen a Elementum
+        if time.time() - last_item.get('last_played', 0) < 1200:
             return last_item
             
     except Exception as e:
@@ -61,74 +61,7 @@ def on_upnext_play_action(data):
     
     if play_url:
         log(f"Botón pulsado. Play URL: {play_url}")
-        
-        try:
-            parsed = urllib.parse.urlparse(play_url)
-            params = dict(urllib.parse.parse_qsl(parsed.query))
-            key = params.get('key')
-            
-            if key:
-                # 1. Cargar info del item desde DB
-                items = load_items_by_keys([key])
-                if items:
-                    it = items[0]
-                    # 2. Elegir el primer torrent disponible (Autoplay)
-                    torrents = it.get('torrents', [])
-                    magnet = None
-                    if torrents:
-                        magnet = torrents[0].get('magnet')
-                    
-                    if magnet:
-                        # Inyectar trackers también en Autoplay (Next Up)
-                        public_trackers = [
-                            "udp://tracker.opentrackr.org:1337/announce",
-                            "udp://open.demonii.com:1337/announce",
-                            "udp://tracker.openbittorrent.com:80/announce",
-                            "udp://tracker.coppersurfer.tk:6969/announce",
-                            "udp://glotorrents.pw:6969/announce",
-                            "udp://tracker.leechers-paradise.org:6969/announce",
-                            "udp://p4p.arenabg.com:1337/announce",
-                            "udp://tracker.internetwarriors.net:1337/announce"
-                        ]
-                        for tr in public_trackers:
-                            if tr not in magnet:
-                                magnet += f"&tr={urllib.parse.quote(tr)}"
-
-                        # 3. Construir URL directa de Elementum
-                        elementum_url = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(magnet)
-                        
-                        # 4. Crear ListItem con metadata
-                        li = xbmcgui.ListItem(path=elementum_url)
-                        
-                        tag = li.getVideoInfoTag()
-                        tag.setTitle(it.get('episode_title') or f"Episodio {it.get('episode')}")
-                        tag.setTvShowTitle(it.get('title'))
-                        if it.get('season'): tag.setSeason(int(it['season']))
-                        if it.get('episode'): tag.setEpisode(int(it['episode']))
-                        tag.setMediaType('episode')
-                        tag.setPlot(it.get('episode_overview') or it.get('overview'))
-                        
-                        art = {}
-                        if it.get('poster'): art['poster'] = it['poster']
-                        if it.get('fanart'): art['fanart'] = it['fanart']
-                        if it.get('still_path'): art['thumb'] = it['still_path']
-                        li.setArt(art)
-                        
-                        # 5. IMPORTANTE: Guardar en historial antes de reproducir para que el siguiente ciclo funcione
-                        try:
-                            from resources.lib.player import play_with_elementum
-                            play_with_elementum(magnet, it)
-                        except: pass
-
-                        log(f"Reproduciendo siguiente: {it.get('title')} S{it.get('season')}E{it.get('episode')}")
-                        xbmc.Player().play(elementum_url, li)
-                        return
-
-            xbmc.executebuiltin(f'PlayMedia("{play_url}")')
-            
-        except Exception as e:
-            log(f"Error en playback action: {e}")
-            xbmc.executebuiltin(f'PlayMedia("{play_url}")')
+        xbmc.executebuiltin(f'PlayMedia("{play_url}")')
 
 class RusterWolfUpNextPlayer(xbmc.Player):
     def __init__(self):
@@ -184,7 +117,7 @@ class RusterWolfUpNextPlayer(xbmc.Player):
             if next_ep:
                 next_title = next_ep.get('episode_title') or f"Episodio {next_ep['episode']}"
                 next_key = next_ep.get('key')
-                play_url = f"plugin://plugin.video.rusterwolf77/?action=play_next&key={urllib.parse.quote(next_key)}"
+                play_url = f"plugin://plugin.video.rusterwolf77/?action=select&key={urllib.parse.quote(next_key)}"
                 
                 # Crear ID numérico único para la serie basado en el nombre
                 show_id = abs(hash(tvshowtitle)) % 100000
