@@ -47,6 +47,9 @@ def resolve_for_playback(params):
         if episode:
             tag.setEpisode(int(episode))
         
+        # Marcador para que el servicio Up Next sepa que es una reproducción nuestra
+        xbmcgui.Window(10000).setProperty('Choloretro_Playing', 'true')
+        
         return stream_url, li
     
     return None, None

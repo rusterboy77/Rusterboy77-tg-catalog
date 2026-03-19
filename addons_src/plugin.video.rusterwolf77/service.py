@@ -68,6 +68,12 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         super(RusterWolfUpNextPlayer, self).__init__()
         self.upnext_sent = False
 
+    def onPlayBackStopped(self):
+        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing')
+
+    def onPlayBackEnded(self):
+        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing')
+
     def onAVStarted(self):
         self.upnext_sent = False
         # Esperamos un poco más para dar tiempo a Elementum a establecerse
@@ -78,6 +84,18 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         if self.upnext_sent: return
         if not self.isPlayingVideo(): return
         
+        # 1. Comprobar que es rusterwolf77 quien está reproduciendo
+        if xbmcgui.Window(10000).getProperty('Rusterwolf_Playing') != 'true':
+            return
+            
+        # 2. Descartar archivos locales (Aceptamos http/https por debrid y plugin por Elementum)
+        try:
+            playing_file = self.getPlayingFile()
+            if not (playing_file.startswith('http') or playing_file.startswith('plugin')):
+                return
+        except:
+            pass
+
         # Esperar a que haya duración válida (esencial para que NextUp calcule el tiempo)
         if self.getTotalTime() <= 0:
             # log("Esperando duración válida...") # Demasiado ruido, mejor no loguear esto constantemente

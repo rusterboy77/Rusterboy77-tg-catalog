@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import xbmc
+import xbmcgui
 import json
 from urllib.parse import urlencode, urlparse, parse_qs
 from resources.lib.database import get_episodes
@@ -111,11 +112,28 @@ class CholoretroUpNextPlayer(xbmc.Player):
         super(CholoretroUpNextPlayer, self).__init__()
         self.upnext_sent = False
 
+    def onPlayBackStopped(self):
+        xbmcgui.Window(10000).clearProperty('Choloretro_Playing')
+
+    def onPlayBackEnded(self):
+        xbmcgui.Window(10000).clearProperty('Choloretro_Playing')
+
     def onAVStarted(self):
         self.upnext_sent = False
         self.check_and_send_upnext()
 
     def check_and_send_upnext(self):
+        # 1. Comprobar que la reproducción la inició nuestro addon
+        if xbmcgui.Window(10000).getProperty('Choloretro_Playing') != 'true':
+            return
+            
+        # 2. Doble validación: descartar archivos locales de biblioteca (nuestro addon usa HTTP/HTTPS por el debrid)
+        try:
+            if not self.getPlayingFile().startswith('http'):
+                return
+        except:
+            pass
+
         # Bucle de espera
         for _ in range(30):
             if not self.isPlayingVideo():

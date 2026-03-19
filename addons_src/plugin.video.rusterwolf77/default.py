@@ -2449,6 +2449,9 @@ def show_select(index=None, key=None):
         except Exception as e:
             xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
             
+    # Marcador exclusivo para rusterwolf77
+    xbmcgui.Window(10000).setProperty('Rusterwolf_Playing', 'true')
+
     xbmcplugin.setResolvedUrl(HANDLE, True, li)
 
 def open_settings():
