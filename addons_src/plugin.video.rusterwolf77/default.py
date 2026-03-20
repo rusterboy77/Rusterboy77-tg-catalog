@@ -1537,7 +1537,10 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             except Exception:
                 pass
             _set_unique_ids(li, rep)
-            url = build_url({'action': 'list_seasons', 'series': display_title})
+            url_params = {'action': 'list_seasons', 'series': display_title}
+            if quality_filter:
+                url_params['target_quality'] = quality_filter
+            url = build_url(url_params)
             xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
             
             # CM: Añadir a Seguir Viendo
@@ -1681,10 +1684,14 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             # Fall back to the numeric index only if no key is available.
             rep_key = group[0].get('key') if isinstance(group[0], dict) else None
             if rep_key:
-                url = build_url({'action': 'select', 'key': rep_key})
+                q_params = {'action': 'select', 'key': rep_key}
+                if quality_filter: q_params['target_quality'] = quality_filter
+                url = build_url(q_params)
             else:
                 first_index = str(catalog.index(group[0]))
-                url = build_url({'action': 'select', 'index': first_index})
+                q_params = {'action': 'select', 'index': first_index}
+                if quality_filter: q_params['target_quality'] = quality_filter
+                url = build_url(q_params)
             
             if rep_key:
                 cm = []
@@ -1786,10 +1793,14 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         li.setMimeType('application/x-bittorrent')
         # Prefer a stable key to identify the item rather than a list index
         item_key = it.get('key') if isinstance(it, dict) else None
+        q_params = {'action': 'select'}
         if item_key:
-            url = build_url({'action': 'select', 'key': item_key})
+            q_params['key'] = item_key
         else:
-            url = build_url({'action': 'select', 'index': str(catalog.index(it))})
+            q_params['index'] = str(catalog.index(it))
+        if quality_filter:
+            q_params['target_quality'] = quality_filter
+        url = build_url(q_params)
         
         if mediatype_item == 'movie' and item_key:
             cm = []
@@ -2042,7 +2053,7 @@ def novedades(page=1, sub=None, original_params=None):
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.endOfDirectory(HANDLE)
 
-def list_seasons(series):
+def list_seasons(series, target_quality=None):
     """Lista las temporadas disponibles para una serie (por título de serie)."""
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
@@ -2101,11 +2112,14 @@ def list_seasons(series):
             pass
         if 'rep' in locals() and rep:
             _set_unique_ids(li, rep)
-        url = build_url({'action':'list_episodes', 'series': series, 'season': season})
+        q_params = {'action': 'list_episodes', 'series': series, 'season': season}
+        if target_quality:
+            q_params['target_quality'] = target_quality
+        url = build_url(q_params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.endOfDirectory(HANDLE)
 
-def list_episodes(series, season):
+def list_episodes(series, season, target_quality=None):
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     try:
@@ -2186,10 +2200,14 @@ def list_episodes(series, season):
         _set_unique_ids(li, it)
         li.setProperty('IsPlayable', 'true')
         item_key = it.get('key') if isinstance(it, dict) else None
+        q_params = {'action': 'select'}
         if item_key:
-            url = build_url({'action': 'select', 'key': item_key})
+            q_params['key'] = item_key
         else:
-            url = build_url({'action': 'select', 'index': str(catalog.index(it))})
+            q_params['index'] = str(catalog.index(it))
+        if target_quality:
+            q_params['target_quality'] = target_quality
+        url = build_url(q_params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     xbmcplugin.endOfDirectory(HANDLE)
 
@@ -2205,10 +2223,18 @@ def do_search(q=None, original_params=None):
         kb = xbmc.Keyboard('', 'Buscar...')
         kb.doModal()
         if not kb.isConfirmed():
+            xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
             return
         q = kb.getText().strip()
         if not q:
+            xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
             return
+            
+        # Evitar doble teclado redirigiendo a la ruta con el parámetro
+        url = build_url({'action': 'search', 'q': q})
+        xbmc.executebuiltin(f'Container.Update({url})')
+        xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
+        return
     else:
         try:
             q = str(q).strip()
@@ -2353,7 +2379,7 @@ def do_search(q=None, original_params=None):
     
     xbmcplugin.endOfDirectory(HANDLE)
 
-def show_select(index=None, key=None):
+def show_select(index=None, key=None, target_quality=None):
     # Prefer resolving by stable key when provided (avoids list ordering/index mismatches).
     it = None
     if key:
@@ -2408,14 +2434,26 @@ def show_select(index=None, key=None):
         return 0
     torrents = sorted(torrents, key=_q_rank, reverse=True)
 
-    # Si solo hay una calidad disponible, nos saltamos la pantalla de selección
-    if len(torrents) == 1:
-        sel = 0
-    else:
-        choices = [t.get('quality') or 'default' for t in torrents]
-        sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
-        if sel < 0:
-            return
+    sel = -1
+    if target_quality:
+        tq = target_quality.strip().lower()
+        target_qualities = {tq}
+        if tq == '4k': target_qualities.add('2160p')
+        
+        for i, t in enumerate(torrents):
+            if str(t.get('quality') or '').strip().lower() in target_qualities:
+                sel = i
+                break
+
+    if sel == -1:
+        # Si solo hay una calidad disponible, nos saltamos la pantalla de selección
+        if len(torrents) == 1:
+            sel = 0
+        else:
+            choices = [t.get('quality') or 'default' for t in torrents]
+            sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
+            if sel < 0:
+                return
     torrent_url = torrents[sel].get('magnet')
     if not torrent_url or not torrent_url.startswith('magnet:?xt=urn:btih:'):
         xbmcgui.Dialog().notification('RusterWolf 77', 'Magnet no válido o no encontrado', xbmcgui.NOTIFICATION_ERROR)
@@ -2743,11 +2781,11 @@ def router(params):
         do_search(original_params=params)
     elif action == 'select':
         # Pass both index and key so show_select can resolve by stable key when available
-        show_select(index=params.get('index'), key=params.get('key'))
+        show_select(index=params.get('index'), key=params.get('key'), target_quality=params.get('target_quality'))
     elif action == 'list_seasons':
-        list_seasons(params.get('series'))
+        list_seasons(params.get('series'), params.get('target_quality'))
     elif action == 'list_episodes':
-        list_episodes(params.get('series'), params.get('season'))
+        list_episodes(params.get('series'), params.get('season'), params.get('target_quality'))
     elif action == 'auth_alldebrid':
         from resources.lib.alldebrid import auth
         auth()

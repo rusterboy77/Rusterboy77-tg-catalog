@@ -1035,8 +1035,17 @@ def show_search(base_url, handle, params):
         dialog = xbmcgui.Dialog()
         search_term = dialog.input('Buscar contenido')
         if not search_term:
-            xbmcplugin.endOfDirectory(handle)
+            xbmcplugin.endOfDirectory(handle, succeeded=False)
             return
+            
+        # Redirigir para que Kodi recuerde el término si refresca la vista
+        import xbmc
+        new_params = params.copy()
+        new_params['q'] = search_term
+        search_url = build_url(base_url, new_params)
+        xbmc.executebuiltin(f'Container.Update({search_url})')
+        xbmcplugin.endOfDirectory(handle, succeeded=False)
+        return
     
     xbmcplugin.setContent(handle, 'movies')  # Mostrar como contenido de video para ver posters
     
