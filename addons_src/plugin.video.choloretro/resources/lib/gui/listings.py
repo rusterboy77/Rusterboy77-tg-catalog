@@ -628,7 +628,7 @@ def show_animated_tvshows(base_url, handle, params):
     
     xbmcplugin.setContent(handle, 'tvshows')
     items = get_tv_shows()
-    items = [i for i in items if _is_animated_tvshow(i)]
+    items = [i for i in items if _is_animated_tvshow(i) and not _is_anime(i)]
 
     page = int(params.get('page', 1))
     total_items = len(items)
