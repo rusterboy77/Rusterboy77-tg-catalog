@@ -110,6 +110,18 @@ def _read_items_per_page():
     except Exception:
         return 24
 
+def _get_section_logo(section_key):
+    """Retorna el path del clearlogo para una sección si existe."""
+    if not section_key:
+        return None
+    try:
+        logo_path = os.path.join(ADDON.getAddonInfo('path'), 'resources', 'media', f"{section_key}_logo.png")
+        if os.path.exists(logo_path):
+            return logo_path
+    except Exception:
+        pass
+    return None
+
 def _is_valid_art_url(url):
     """Valida que la URL de imagen no sea solo la base de TMDB (evita error 404 en logs)."""
     if not url: return False
@@ -117,7 +129,7 @@ def _is_valid_art_url(url):
         return False
     return True
 
-def _apply_art(li, item_dict, addon_fanart=None):
+def _apply_art(li, item_dict, addon_fanart=None, section_logo=None):
     """Helper mínimo para añadir arte extra si está disponible en el item.
     Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
     """
@@ -125,12 +137,13 @@ def _apply_art(li, item_dict, addon_fanart=None):
         art = {}
         if not isinstance(item_dict, dict):
             # Si no hay item_dict válido, al menos aplicar el fanart del addon
-            if addon_fanart:
-                art['fanart'] = addon_fanart
-                try:
-                    li.setArt(art)
-                except Exception:
-                    pass
+            if addon_fanart: art['fanart'] = addon_fanart
+            if section_logo:
+                art['clearlogo'] = section_logo
+                art['logo'] = section_logo
+            if art:
+                try: li.setArt(art)
+                except Exception: pass
             return
         poster = item_dict.get('poster') or item_dict.get('poster_path') or ''
         if _is_valid_art_url(poster):
@@ -153,6 +166,9 @@ def _apply_art(li, item_dict, addon_fanart=None):
         # CAMBIO IMPORTANTE: Solo aplicar addon_fanart si NO hay fanart del item
         if 'fanart' not in art and addon_fanart:
             art['fanart'] = addon_fanart
+        if 'clearlogo' not in art and section_logo:
+            art['clearlogo'] = section_logo
+            art['logo'] = section_logo
         # CAMBIO: Asegurar que siempre se aplique el arte si hay algo que mostrar
         if art:
             try:
@@ -161,11 +177,15 @@ def _apply_art(li, item_dict, addon_fanart=None):
                 pass
     except Exception:
         # En caso de error, intentar al menos aplicar el fanart del addon
+        art_fallback = {}
         if addon_fanart:
-            try:
-                li.setArt({'fanart': addon_fanart})
-            except Exception:
-                pass
+            art_fallback['fanart'] = addon_fanart
+        if section_logo:
+            art_fallback['clearlogo'] = section_logo
+            art_fallback['logo'] = section_logo
+        if art_fallback:
+            try: li.setArt(art_fallback)
+            except Exception: pass
         pass
 
 def _set_unique_ids(li, item_dict):
@@ -378,8 +398,14 @@ def list_root():
         custom_icon_path = os.path.join(addon_path, 'resources', 'media', icon_name)
         icon_to_use = custom_icon_path if os.path.exists(custom_icon_path) else default_icon
 
+        art_dict = {'fanart': addon_fanart, 'icon': icon_to_use, 'thumb': icon_to_use}
+        section_logo = _get_section_logo(safe_label)
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_to_use, 'thumb': icon_to_use})
+            li.setArt(art_dict)
         except Exception:
             pass
         
@@ -402,6 +428,7 @@ def premium_menu():
     ]
     
     xbmcplugin.setContent(HANDLE, 'files')
+    section_logo = _get_section_logo('zona_premium')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
@@ -417,7 +444,11 @@ def premium_menu():
         if not os.path.exists(icon_path):
             icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
             
-        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        li.setArt(art_dict)
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
         
@@ -439,11 +470,16 @@ def premium_movie_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('peliculas')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try: info_tag = li.getVideoInfoTag(); info_tag.setTitle(label)
         except Exception: pass
-        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        li.setArt(art_dict)
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
@@ -464,11 +500,16 @@ def premium_tv_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('series_tv')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try: info_tag = li.getVideoInfoTag(); info_tag.setTitle(label)
         except Exception: pass
-        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        li.setArt(art_dict)
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
@@ -497,6 +538,7 @@ def novedades_menu():
     ]
     
     xbmcplugin.setContent(HANDLE, 'files')
+    section_logo = _get_section_logo('novedades')
     
     for label, params in entries:
         li = xbmcgui.ListItem(label)
@@ -505,8 +547,12 @@ def novedades_menu():
             info_tag.setTitle(label)
         except Exception:
             pass
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt(art_dict)
         except Exception:
             pass
         url = build_url(params)
@@ -543,6 +589,7 @@ def continue_watching():
     except Exception:
         catalog = []
 
+    section_logo = _get_section_logo('seguir_viendo')
     # 1. Cargar Watchlist manual
     wl = load_watchlist()
     if wl:
@@ -564,7 +611,7 @@ def continue_watching():
                     else:
                         rep = sorted(series_items, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
                         li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
-                        _apply_art(li, rep, addon_fanart)
+                        _apply_art(li, rep, addon_fanart, section_logo)
                     _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tvshow'})
                     url = build_url({'action': 'list_seasons', 'series': val})
                 
@@ -573,7 +620,7 @@ def continue_watching():
                     if found:
                         it = found[0]
                         li = xbmcgui.ListItem(label=it.get('title'))
-                        _apply_art(li, it, addon_fanart)
+                        _apply_art(li, it, addon_fanart, section_logo)
                         _apply_info_tag(li, {'title': it.get('title'), 'plot': it.get('overview'), 'mediatype': 'movie'})
                         url = build_url({'action': 'select', 'key': val})
                         isFolder = False
@@ -636,8 +683,12 @@ def continue_watching():
             info_tag = li.getVideoInfoTag(); info_tag.setTitle('No hay contenido en progreso')
         except Exception:
             pass
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt(art_dict)
         except Exception:
             pass
         xbmcplugin.addDirectoryItem(HANDLE, '', li, isFolder=False)
@@ -724,15 +775,21 @@ def continue_watching():
                     fanart = catalog_item.get('fanart') or catalog_item.get('backdrop_path') or ''
                     if fanart:
                         art['fanart'] = fanart
+                    clearlogo = catalog_item.get('clearlogo') or catalog_item.get('logo') or ''
+                    if clearlogo:
+                        art['clearlogo'] = clearlogo
+                        art['logo'] = clearlogo
+                if 'clearlogo' not in art and section_logo:
+                    art['clearlogo'] = section_logo
+                    art['logo'] = section_logo
                 try:
                     li.setArt(art)
                 except Exception:
                     pass
             except Exception:
-                try:
-                    li.setArt({'fanart': addon_fanart})
-                except Exception:
-                    pass
+                if section_logo: art['clearlogo'] = section_logo
+                try: li.setArt(art)
+                except Exception: pass
 
             # aplicar info tag enriquecido si hay item
             try:
@@ -794,6 +851,7 @@ def movie_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('peliculas')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
@@ -801,8 +859,12 @@ def movie_menu():
             info_tag.setTitle(label)
         except Exception:
             pass
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt(art_dict)
         except Exception:
             pass
         url = build_url(params)
@@ -826,6 +888,7 @@ def tv_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('series_tv')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
@@ -833,8 +896,12 @@ def tv_menu():
             info_tag.setTitle(label)
         except Exception:
             pass
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+            li.setArt(art_dict)
         except Exception:
             pass
         url = build_url(params)
@@ -855,13 +922,18 @@ def documentary_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'documentales.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('documentales')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
             info_tag = li.getVideoInfoTag()
             info_tag.setTitle(label)
         except Exception: pass
-        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        li.setArt(art_dict)
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
@@ -880,13 +952,18 @@ def series_documentary_menu():
     icon_path = os.path.join(addon_path, 'resources', 'media', 'series_documental.png')
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    section_logo = _get_section_logo('series_documental')
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
             info_tag = li.getVideoInfoTag()
             info_tag.setTitle(label)
         except Exception: pass
-        li.setArt({'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path})
+        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        li.setArt(art_dict)
         url = build_url(params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
     xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
@@ -934,6 +1011,12 @@ def list_genres(filter_type=None, original_params=None):
     icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    logo_map = {
+        'movie': 'peliculas', 'tv': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+
     xbmcplugin.setContent(HANDLE, 'files')
     for gname in sorted(genres.keys()):
         li = xbmcgui.ListItem(label=gname)
@@ -943,8 +1026,12 @@ def list_genres(filter_type=None, original_params=None):
         except Exception:
             pass
         # use addon icon so skins render this list as square/icon like the main menu
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart})
+            li.setArt(art_dict)
         except Exception:
             pass
         # pass the real genre name so matching can be done by substring on the DB side
@@ -994,6 +1081,12 @@ def list_years(filter_type=None, original_params=None):
     icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    logo_map = {
+        'movie': 'peliculas', 'tv': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+
     xbmcplugin.setContent(HANDLE, 'files')
     for y in sorted([k for k in years.keys() if k], reverse=True):
         li = xbmcgui.ListItem(label=f'Año {y}')
@@ -1003,8 +1096,12 @@ def list_years(filter_type=None, original_params=None):
         except Exception:
             pass
         # use addon icon so skins render this list as square/icon like the main menu
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart})
+            li.setArt(art_dict)
         except Exception:
             pass
         url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'year': y}
@@ -1075,6 +1172,12 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
+    logo_map = {
+        'movie': 'peliculas', 'tv': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+
     xbmcplugin.setContent(HANDLE, 'files')
     for qname in sorted(list(qualities)):
         li = xbmcgui.ListItem(label=qname)
@@ -1083,8 +1186,12 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
             info_tag.setTitle(qname)
         except Exception:
             pass
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
         try:
-            li.setArt({'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart})
+            li.setArt(art_dict)
         except Exception:
             pass
         # Construir URL con el filtro de calidad
@@ -1151,12 +1258,22 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
     if not os.path.exists(icon_path):
         icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
     
+    logo_map = {
+        'movie': 'peliculas', 'tv': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+
     xbmcplugin.setContent(HANDLE, 'files')
     for letter in sorted(list(letters)):
         li = xbmcgui.ListItem(label=letter)
         try: li.getVideoInfoTag().setTitle(letter)
         except Exception: pass
-        try: li.setArt({'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart})
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        if section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
+        try: li.setArt(art_dict)
         except Exception: pass
         
         q_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'letter': letter}
@@ -1213,11 +1330,22 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         try:
             # show two folders: Películas and Series that link back with explicit filter
             li_movie = xbmcgui.ListItem('Películas')
-            li_movie.setArt({'fanart': addon_fanart})
+            art_m = {'fanart': addon_fanart}
+            logo_m = _get_section_logo('peliculas')
+            if logo_m:
+                art_m['clearlogo'] = logo_m
+                art_m['logo'] = logo_m
+            li_movie.setArt(art_m)
             url_movie = build_url({'action': 'list', 'filter': 'movie', 'group': group_by})
             xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
+
             li_tv = xbmcgui.ListItem('Series')
-            li_tv.setArt({'fanart': addon_fanart})
+            art_t = {'fanart': addon_fanart}
+            logo_t = _get_section_logo('series_tv')
+            if logo_t:
+                art_t['clearlogo'] = logo_t
+                art_t['logo'] = logo_t
+            li_tv.setArt(art_t)
             url_tv = build_url({'action': 'list', 'filter': 'tv', 'group': group_by})
             xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
@@ -1230,11 +1358,22 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     if filter_type is None and (genre_filter or year_filter or quality_filter or letter_filter):
         try:
             li_movie = xbmcgui.ListItem('Películas')
-            li_movie.setArt({'fanart': addon_fanart})
+            art_m = {'fanart': addon_fanart}
+            logo_m = _get_section_logo('peliculas')
+            if logo_m:
+                art_m['clearlogo'] = logo_m
+                art_m['logo'] = logo_m
+            li_movie.setArt(art_m)
             url_movie = build_url({'action': 'list', 'filter': 'movie', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
+
             li_tv = xbmcgui.ListItem('Series')
-            li_tv.setArt({'fanart': addon_fanart})
+            art_t = {'fanart': addon_fanart}
+            logo_t = _get_section_logo('series_tv')
+            if logo_t:
+                art_t['clearlogo'] = logo_t
+                art_t['logo'] = logo_t
+            li_tv.setArt(art_t)
             url_tv = build_url({'action': 'list', 'filter': 'tv', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
@@ -1390,6 +1529,12 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                     _l.append(it)
         results = _l
 
+    logo_map = {
+        'movie': 'peliculas', 'tv': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(used_filter, ''))
+
     # asegurar filtrado por tipo si filter_type está presente (evita mezclar tipos en vistas agrupadas)
     if filter_type:
         results = [it for it in results if _get_item_type(it) == filter_type]
@@ -1428,7 +1573,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         except Exception as e:
             xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
 
-    def _apply_art(li, item_dict, addon_fanart=None):
+    def _apply_art(li, item_dict, addon_fanart=None, s_logo=None):
         """Helper mínimo para añadir arte extra si está disponible en el item.
         Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
         """
@@ -1454,6 +1599,9 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
                         art['icon'] = v
                     if k == 'clearart' and 'icon' not in art:
                         art['icon'] = v
+            if 'clearlogo' not in art and s_logo:
+                art['clearlogo'] = s_logo
+                art['logo'] = s_logo
             # fallback to addon fanart
             if 'fanart' not in art and addon_fanart:
                 art['fanart'] = addon_fanart
@@ -1533,7 +1681,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             except Exception:
                 pass
             try:
-                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
+                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart, section_logo)
             except Exception:
                 pass
             _set_unique_ids(li, rep)
@@ -1672,7 +1820,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             except Exception:
                 pass
             try:
-                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
+                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart, section_logo)
             except Exception:
                 pass
             _set_unique_ids(li, rep)
@@ -1785,7 +1933,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             except Exception:
                 pass
         try:
-            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
+            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart, section_logo)
         except Exception:
             pass
         _set_unique_ids(li, it)
@@ -1863,6 +2011,12 @@ def novedades(page=1, sub=None, original_params=None):
             return True
         return False
 
+    logo_map = {
+        'movies': 'peliculas', 'series': 'series_tv',
+        'documentary': 'documentales', 'series_documentary': 'series_documental'
+    }
+    section_logo = _get_section_logo(logo_map.get(sub_param, 'novedades'))
+
     filtered = [it for it in catalog if _accept_by_sub(it)]
     # Forzar tipo de contenido para que los skins muestren la vista adecuada
     try:
@@ -1928,7 +2082,7 @@ def novedades(page=1, sub=None, original_params=None):
                 pass
             # aplicar clearlogo/banner si existen
             try:
-                _apply_art(li, rep, addon_fanart)
+                _apply_art(li, rep, addon_fanart, section_logo)
             except Exception:
                 pass
             _set_unique_ids(li, rep)
@@ -2013,7 +2167,7 @@ def novedades(page=1, sub=None, original_params=None):
                 pass
         try:
             # Pasar el item completo para que _apply_art pueda leer clearlogo, banner, clearart, etc.
-            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
+            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart, section_logo)
         except Exception:
             pass
         _set_unique_ids(li, it)
@@ -2099,7 +2253,7 @@ def list_seasons(series, target_quality=None):
         try:
             rep = sorted(seasons.get(season, []), key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
             try:
-                _apply_art(li, rep, addon_fanart)
+                _apply_art(li, rep, addon_fanart, section_logo)
             except Exception:
                 # fallback setArt on poster only
                 poster = rep.get('poster') or rep.get('fanart') or ''
@@ -2136,6 +2290,8 @@ def list_episodes(series, season, target_quality=None):
         if str(it.get('season') or (it.get('parsed') or {}).get('season') or '') != str(season):
             continue
         episodes.append(it)
+        
+    section_logo = _get_section_logo('series_tv')
     # Ordenar por número de episodio y establecer metadata completa para Kodi
     try:
         xbmcplugin.setContent(HANDLE, 'episodes')
@@ -2188,7 +2344,7 @@ def list_episodes(series, season, target_quality=None):
             # Preferir imagen fija del episodio (still) si está disponible
             poster = it.get('still_path') or it.get('poster') or it.get('fanart') or ''
             try:
-                _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, addon_fanart)
+                _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, addon_fanart, section_logo)
             except Exception:
                 if poster:
                     try:
@@ -2262,6 +2418,9 @@ def do_search(q=None, original_params=None):
     movies = []
     series_map = {}
     
+    section_logo_tv = _get_section_logo('series_tv')
+    section_logo_movie = _get_section_logo('peliculas')
+    
     for it in results:
         item_type = _get_item_type(it)
         if item_type == 'movie':
@@ -2313,7 +2472,7 @@ def do_search(q=None, original_params=None):
         
         # Aplicar arte (poster, fanart, clearlogo, etc.)
         try:
-            _apply_art(li, rep, addon_fanart)
+            _apply_art(li, rep, addon_fanart, section_logo_tv)
         except Exception:
             pass
         _set_unique_ids(li, rep)
@@ -2357,7 +2516,7 @@ def do_search(q=None, original_params=None):
         
         # Aplicar arte
         try:
-            _apply_art(li, it, addon_fanart)
+            _apply_art(li, it, addon_fanart, section_logo_movie)
         except Exception:
             pass
         _set_unique_ids(li, it)

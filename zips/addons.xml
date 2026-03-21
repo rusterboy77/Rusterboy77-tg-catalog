@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="1.0.15" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="1.0.16" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
