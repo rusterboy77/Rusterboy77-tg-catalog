@@ -100,12 +100,27 @@ def maybe_update_db_from_remote(force=False):
             with open(tmp_db, 'wb') as f:
                 f.write(decrypted_data)
                 
-            if os.path.exists(DB_FILE):
+            # Bucle de reintentos para sortear el WinError 5 (archivo en uso por otro proceso de Kodi)
+            replaced = False
+            for _ in range(10):
                 try:
-                    os.remove(DB_FILE)
-                except:
-                    pass
-            os.rename(tmp_db, DB_FILE)
+                    os.replace(tmp_db, DB_FILE)
+                    replaced = True
+                    break
+                except Exception:
+                    xbmc.sleep(500) # Esperamos medio segundo si Kodi lo está leyendo
+            
+            if not replaced:
+                # Fallback extremo: Sobrescribir los bytes directamente si el OS no nos deja renombrar
+                try:
+                    with open(DB_FILE, 'wb') as f:
+                        f.write(decrypted_data)
+                    if os.path.exists(tmp_db):
+                        os.remove(tmp_db)
+                except Exception as e:
+                    xbmc.log(f"RusterWolf: Imposible aplicar actualización DB: {e}", xbmc.LOGERROR)
+                    if dp: dp.close()
+                    return False
                 
             # Guardar el ETag para futuras comprobaciones ultrarrápidas
             if new_etag:
@@ -207,6 +222,101 @@ def load_items_by_keys(keys):
         return items
     finally:
         conn.close()
+        
+
+def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=None, quality=None, letter=None, sort_by='title', limit=None, offset=None):
+    if not os.path.exists(DB_FILE): return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items WHERE 1=1'
+        args = []
+
+        if filter_type == 'movie': query += " AND type='movie'"
+        elif filter_type == 'tv': query += " AND type='tv'"
+        elif filter_type == 'documentary':
+            query += " AND type='movie' AND genres LIKE '%Documental%'"
+        elif filter_type == 'series_documentary':
+            query += " AND type='tv' AND genres LIKE '%Documental%'"
+
+        if is_premium_req: query += " AND genres LIKE '%Premium%'"
+        else: query += " AND genres NOT LIKE '%Premium%'"
+
+        if genre and genre.lower() != 'premium':
+            query += " AND genres LIKE ?"
+            args.append(f'%"{genre}"%')
+
+        if year:
+            query += " AND year = ?"
+            args.append(str(year))
+
+        if quality:
+            qf = quality.strip().lower()
+            if qf == '4k': query += " AND (torrents LIKE '%4k%' OR torrents LIKE '%2160p%')"
+            else:
+                query += " AND torrents LIKE ?"
+                args.append(f'%{quality}%')
+
+        if letter:
+            query += " AND title LIKE ?"
+            args.append(f"{letter}%")
+
+        if filter_type in ('tv', 'series_documentary', 'movie', 'documentary'):
+            query += " GROUP BY title"
+
+        if sort_by == 'date_added':
+            if filter_type in ('tv', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
+            else: query += " ORDER BY date_added DESC"
+        else:
+            query += " ORDER BY title ASC"
+
+        if limit:
+            query += f" LIMIT {int(limit)}"
+            if offset: query += f" OFFSET {int(offset)}"
+
+        c.execute(query, args)
+        rows = c.fetchall()
+        items = []
+        for r in rows:
+            try: season_val = int(r[4]) if r[4] else None
+            except: season_val = None
+            try: episode_val = int(r[5]) if r[5] else None
+            except: episode_val = None
+            items.append({
+                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': season_val, 'episode': episode_val, 
+                'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
+                'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
+                'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
+                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20])
+            })
+        return items
+    finally:
+        conn.close()
+
+def get_series_episodes(series_title):
+    if not os.path.exists(DB_FILE) or not series_title: return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
+        rows = c.fetchall()
+        items = []
+        for r in rows:
+            try: season_val = int(r[4]) if r[4] else None
+            except: season_val = None
+            try: episode_val = int(r[5]) if r[5] else None
+            except: episode_val = None
+            items.append({
+                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': season_val, 'episode': episode_val, 
+                'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
+                'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
+                'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
+                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20])
+            })
+        return items
+    finally:
+        conn.close()
+  
 
 def search_items_sql(query_str, limit=100):
     if not os.path.exists(DB_FILE) or not query_str: return []

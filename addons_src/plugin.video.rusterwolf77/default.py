@@ -297,13 +297,64 @@ def _apply_info_tag(li, info):
                 tag.setRating(float(info.get('rating')))
             except Exception:
                 pass
-            if info.get('mediatype'):
-                try:
-                    tag.setMediaType(info.get('mediatype'))
-                except Exception:
-                    pass
+        if info.get('mediatype'):
+            try:
+                tag.setMediaType(info.get('mediatype'))
+            except Exception:
+                pass
     except Exception as e:
         xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
+
+def _create_item_and_url(it, addon_fanart, quality_filter=None):
+    """Helper unificado para construir el ListItem, su metadata, su arte y su URL."""
+    title = _get_item_title(it)
+    mediatype_item = _get_item_type(it)
+    m_type = 'tvshow' if mediatype_item in ('tv', 'series_documentary') else ('movie' if mediatype_item in ('movie', 'documentary') else None)
+
+    info = {
+        'title': title,
+        'plot': it.get('overview') or '',
+        'year': int(it.get('year')) if it.get('year') and str(it.get('year')).isdigit() else None,
+        'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (_get_item_genres(it) or [])]),
+        'rating': float(it.get('rating')) if it.get('rating') else None,
+        'cast': it.get('cast') or [],
+        'mediatype': m_type
+    }
+
+    li = xbmcgui.ListItem(label=title)
+    _apply_info_tag(li, info)
+    try:
+        safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+        li.setInfo('video', safe_info)
+    except Exception: pass
+
+    try: _apply_art(li, it, addon_fanart)
+    except Exception: pass
+    
+    _set_unique_ids(li, it)
+    cm = []
+
+    if mediatype_item in ('tv', 'series_documentary'):
+        url_params = {'action': 'list_seasons', 'series': title}
+        if quality_filter: url_params['target_quality'] = quality_filter
+        url = build_url(url_params)
+        is_folder = True
+        add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': title, 'title': title})
+        cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+    else:
+        li.setProperty('IsPlayable', 'true')
+        li.setMimeType('application/x-bittorrent')
+        item_key = it.get('key')
+        q_params = {'action': 'select', 'key': item_key}
+        if quality_filter: q_params['target_quality'] = quality_filter
+        url = build_url(q_params)
+        is_folder = False
+        if item_key:
+            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
+            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
+            
+    if cm: li.addContextMenuItems(cm)
+    return li, url, is_folder
 
 # --- Funciones para Watchlist (Seguir Viendo Manual) ---
 def get_watchlist_file():
@@ -1272,14 +1323,8 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
 
 def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, quality_filter=None, letter_filter=None, original_params=None):
     xbmc.log(f"RusterWolf DEBUG: === list_items CALL === filter={filter_type} page={page}", xbmc.LOGWARNING)
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    xbmc.log(f"RusterWolf DEBUG: loaded catalog size={len(catalog)}", xbmc.LOGWARNING)
     
     is_premium_req = False
     if genre_filter and genre_filter.lower() == 'premium':
@@ -1289,39 +1334,12 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             is_premium_req = True
     except Exception: pass
     
-    results = []
-    for it in catalog:
-        if _is_item_premium(it) and not is_premium_req: continue
-        if not _is_item_premium(it) and is_premium_req: continue
-        
-        mediatype = _get_item_type(it)
-        genres = _get_item_genres(it) or []
-        if filter_type == 'movie' and mediatype == 'movie':
-            results.append(it)
-        elif filter_type == 'tv' and mediatype == 'tv':
-            # Para TV no añadimos episodios individuales aquí; agruparemos por serie en la UI
-            results.append(it)
-        elif filter_type == 'documentary':
-            genre_names = [g['name'].lower() if isinstance(g, dict) and 'name' in g else str(g).lower() for g in genres] if isinstance(genres, list) else [str(genres).lower()]
-            if mediatype == 'movie' and any('documental' in g or 'documentary' in g for g in genre_names):
-                results.append(it)
-        elif filter_type == 'series_documentary':
-            genre_names = [g['name'].lower() if isinstance(g, dict) and 'name' in g else str(g).lower() for g in genres] if isinstance(genres, list) else [str(genres).lower()]
-            if mediatype == 'tv' and any('documental' in g or 'documentary' in g for g in genre_names):
-                results.append(it)
-        elif filter_type is None:
-            results.append(it)
-
-    # If caller asked to group (genre/year) but didn't specify movie/tv, present a small chooser
     if not filter_type and group_by in ('genre', 'year', 'quality', 'letter'):
         try:
-            # show two folders: Películas and Series that link back with explicit filter
             li_movie = xbmcgui.ListItem('Películas')
             art_m = {'fanart': addon_fanart}
             logo_m = _get_section_logo('peliculas')
-            if logo_m:
-                art_m['clearlogo'] = logo_m
-                art_m['logo'] = logo_m
+            if logo_m: art_m['clearlogo'] = logo_m; art_m['logo'] = logo_m
             li_movie.setArt(art_m)
             url_movie = build_url({'action': 'list', 'filter': 'movie', 'group': group_by})
             xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
@@ -1329,27 +1347,20 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             li_tv = xbmcgui.ListItem('Series')
             art_t = {'fanart': addon_fanart}
             logo_t = _get_section_logo('series_tv')
-            if logo_t:
-                art_t['clearlogo'] = logo_t
-                art_t['logo'] = logo_t
+            if logo_t: art_t['clearlogo'] = logo_t; art_t['logo'] = logo_t
             li_tv.setArt(art_t)
             url_tv = build_url({'action': 'list', 'filter': 'tv', 'group': group_by})
             xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
             return
-        except Exception:
-            pass
+        except Exception: pass
 
-    # If caller passed a genre/year filter but didn't provide filter_type (movie/tv),
-    # require explicit choice to avoid ambiguous inference between movie/tv.
     if filter_type is None and (genre_filter or year_filter or quality_filter or letter_filter):
         try:
             li_movie = xbmcgui.ListItem('Películas')
             art_m = {'fanart': addon_fanart}
             logo_m = _get_section_logo('peliculas')
-            if logo_m:
-                art_m['clearlogo'] = logo_m
-                art_m['logo'] = logo_m
+            if logo_m: art_m['clearlogo'] = logo_m; art_m['logo'] = logo_m
             li_movie.setArt(art_m)
             url_movie = build_url({'action': 'list', 'filter': 'movie', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
@@ -1357,826 +1368,137 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             li_tv = xbmcgui.ListItem('Series')
             art_t = {'fanart': addon_fanart}
             logo_t = _get_section_logo('series_tv')
-            if logo_t:
-                art_t['clearlogo'] = logo_t
-                art_t['logo'] = logo_t
+            if logo_t: art_t['clearlogo'] = logo_t; art_t['logo'] = logo_t
             li_tv.setArt(art_t)
             url_tv = build_url({'action': 'list', 'filter': 'tv', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
             xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
             return
-        except Exception:
-            pass
-    # Compute a fallback filter from original_params (router query) when filter_type is None.
+        except Exception: pass
+
     used_filter = filter_type
     try:
         if not used_filter and isinstance(original_params, dict):
             used_filter = original_params.get('filter') or original_params.get('origin')
-    except Exception:
-        pass
+    except Exception: pass
 
-    # ... cache write will be realizado más abajo después de inferir used_filter
+    if group_by == 'genre': return list_genres(filter_type=used_filter, original_params=original_params)
+    if group_by == 'year': return list_years(filter_type=used_filter, original_params=original_params)
+    if group_by == 'quality': return list_qualities(filter_type=used_filter, genre_filter=genre_filter, original_params=original_params)
+    if group_by == 'letter': return list_letters(filter_type=used_filter, genre_filter=genre_filter, original_params=original_params)
 
-    # Si aún no hay used_filter, intentar inferirlo a partir de los resultados (si son homogéneos)
-    try:
-        if not used_filter and isinstance(results, list) and results:
-            tcounts = {'movie': 0, 'tv': 0}
-            for it in results:
-                tt = _get_item_type(it)
-                if tt in tcounts:
-                    tcounts[tt] += 1
-            # si todos son TV o todas son películas, usamos ese filtro
-            if tcounts['tv'] > 0 and tcounts['movie'] == 0:
-                used_filter = 'tv'
-            elif tcounts['movie'] > 0 and tcounts['tv'] == 0:
-                used_filter = 'movie'
-    except Exception:
-        pass
-
-    # Guardar la consulta actual en un cache local para recuperación posterior
-    try:
-        current_q = {'action': action_name or 'list', 'page': page}
-        if used_filter:
-            current_q['filter'] = used_filter
-        if group_by:
-            current_q['group'] = group_by
-        if genre_filter:
-            current_q['genre'] = genre_filter
-        if year_filter:
-            current_q['year'] = year_filter
-        if quality_filter:
-            current_q['quality'] = quality_filter
-        if letter_filter:
-            current_q['letter'] = letter_filter
-        try:
-            current_url = build_url(current_q)
-        except Exception:
-            current_url = None
-        if current_url:
-            try:
-                try:
-                    profile_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON.getAddonInfo('id')}")
-                except Exception:
-                    profile_dir = os.path.join(ADDON.getAddonInfo('path'), 'cache')
-                os.makedirs(profile_dir, exist_ok=True)
-                cache_file = os.path.join(profile_dir, 'pagination_cache.json')
-                data = {'entries': {}, '__last_filters': {}}
-                if os.path.exists(cache_file):
-                    try:
-                        with open(cache_file, 'r', encoding='utf-8') as cf:
-                            data = json.load(cf) or data
-                    except Exception:
-                        data = {'entries': {}, '__last_filters': {}}
-                entries = data.get('entries') or {}
-                last_filters = data.get('__last_filters') or {}
-                # Mantener un tamaño limitado (últimas 200 entradas)
-                entries[current_url] = current_q
-                if len(entries) > 200:
-                    keys = list(entries.keys())[-200:]
-                    entries = {k: entries[k] for k in keys}
-                # Update last_filters for action
-                try:
-                    act = current_q.get('action')
-                    if act and current_q.get('filter'):
-                        last_filters[act] = current_q.get('filter')
-                except Exception:
-                    pass
-                data = {'entries': entries, '__last_filters': last_filters}
-                try:
-                    with open(cache_file, 'w', encoding='utf-8') as cf:
-                        json.dump(data, cf)
-                except Exception:
-                    pass
-            except Exception:
-                pass
-    except Exception:
-        pass
-
-    # aplicar filtrado adicional por género/año si se solicitó (utilizado por los menús "por género"/"por año")
-    if genre_filter:
-        gf = (genre_filter or '').strip().lower()
-        if gf != 'premium':
-            _f = []
-            for it in results:
-                matched = False
-                for g in (_get_item_genres(it) or []):
-                    gname = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).strip()
-                    if not gname:
-                        continue
-                    gn = gname.lower()
-                    # match if the requested genre is a substring of the genre name or viceversa
-                    if gf and (gf in gn or gn in gf):
-                        matched = True
-                        break
-                if matched:
-                    _f.append(it)
-            results = _f
-        try:
-            xbmc.log(f"RusterWolf: after genre_filter={genre_filter} normalized={gf} remaining={len(results)}", xbmc.LOGDEBUG)
-        except Exception:
-            pass
-    if year_filter:
-        yf = str(year_filter)
-        results = [it for it in results if str(_get_item_year(it) or '') == yf]
-        try:
-            xbmc.log(f"RusterWolf: after year_filter={year_filter} remaining={len(results)}", xbmc.LOGDEBUG)
-        except Exception:
-            pass
-
-    # Filtrar por calidad si se solicita
-    if quality_filter:
-        qf = quality_filter.strip().lower()
-        # Soporte para alias (ej: 4K incluye 2160p)
-        target_qualities = {qf}
-        if qf == '4k':
-            target_qualities.add('2160p')
-
-        _q = []
-        for it in results:
-            # Comprobar si alguno de los torrents tiene la calidad exacta solicitada
-            has_quality = False
-            for tor in (it.get('torrents') or []):
-                tq = str(tor.get('quality') or '').strip().lower()
-                if tq == 'dvdrip': tq = '1080p'
-                if tq in target_qualities:
-                    has_quality = True
-                    break
-            if has_quality:
-                _q.append(it)
-        results = _q
-
-    if letter_filter:
-        lf = letter_filter.upper()
-        _l = []
-        for it in results:
-            t = _get_item_title(it)
-            if t:
-                t = t.strip()
-                if t and t[0].upper() == lf:
-                    _l.append(it)
-        results = _l
-
-    # asegurar filtrado por tipo si filter_type está presente (evita mezclar tipos en vistas agrupadas)
-    if filter_type:
-        results = [it for it in results if _get_item_type(it) == filter_type]
-    # paginación (page se pasa desde router)
+    from resources.lib.db import get_filtered_items
     per_page = _read_items_per_page()
-    start = (page - 1) * per_page
-    end = start + per_page
-    page_items = results[start:end]
-    try:
-        xbmc.log(f"RusterWolf: pagination DEBUG filter={filter_type} total_results={len(results)} page={page} per_page={per_page} start={start} end={end}", xbmc.LOGDEBUG)
-    except Exception:
-        pass
-    def _apply_info_tag(li, info):
-        try:
-            tag = li.getVideoInfoTag()
-            if info.get('title'):
-                tag.setTitle(info.get('title'))
-            if info.get('plot'):
-                tag.setPlot(info.get('plot'))
-            if info.get('year'):
-                try:
-                    tag.setYear(int(info.get('year')))
-                except Exception:
-                    pass
-            # Some Kodi builds don't expose setGenre on InfoTagVideo; avoid calling it to prevent errors
-            if info.get('rating'):
-                try:
-                    tag.setRating(float(info.get('rating')))
-                except Exception:
-                    pass
-            if info.get('mediatype'):
-                try:
-                    tag.setMediaType(info.get('mediatype'))
-                except Exception:
-                    pass
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
+    offset = (page - 1) * per_page
+    limit = per_page + 1 # +1 para saber si hay página siguiente
 
-    def _apply_art(li, item_dict, addon_fanart=None):
-        """Helper mínimo para añadir arte extra si está disponible en el item.
-        Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
-        """
-        try:
-            art = {}
-            if not isinstance(item_dict, dict):
-                return
-            poster = item_dict.get('poster') or item_dict.get('poster_path') or ''
-            if poster:
-                art['poster'] = poster
-                art['thumb'] = poster
-            fanart = item_dict.get('fanart') or item_dict.get('backdrop_path') or ''
-            if fanart:
-                art['fanart'] = fanart
-            # extra art metadata commonly used
-            for k in ('clearlogo', 'banner', 'clearart'):
-                v = item_dict.get(k)
-                if v:
-                    art[k] = v
-                    # also expose common alias keys so skins that check 'logo' or 'icon' find them
-                    if k == 'clearlogo':
-                        art['logo'] = v
-                        art['icon'] = v
-                    if k == 'clearart' and 'icon' not in art:
-                        art['icon'] = v
-            # fallback to addon fanart
-            if 'fanart' not in art and addon_fanart:
-                art['fanart'] = addon_fanart
-            if art:
-                try:
-                    li.setArt(art)
-                except Exception:
-                    pass
-        except Exception:
-            pass
+    results = get_filtered_items(
+        filter_type=used_filter,
+        is_premium_req=is_premium_req,
+        genre=genre_filter,
+        year=year_filter,
+        quality=quality_filter,
+        letter=letter_filter,
+        sort_by='title',
+        limit=limit,
+        offset=offset
+    )
 
-    # quitar acentos
-    def normalize_title(s):
-        if not s:
-            return ''
-        s2 = unicodedata.normalize('NFKD', s).encode('ASCII', 'ignore').decode('ASCII')
-        s2 = s2.lower()
-        # quitar artículos comunes al inicio
-        s2 = re.sub(r"^(the |la |el |los |las |un |una |el\s)", '', s2)
-        # quitar puntuación y múltiples espacios
-        s2 = re.sub(r"[^a-z0-9 ]+", ' ', s2)
-        s2 = re.sub(r"\s+", ' ', s2).strip()
-        return s2
+    has_next_page = len(results) > per_page
+    page_items = results[:per_page]
 
-    # tratar 'series_documentary' igual que 'tv' (misma estructura por series y temporadas)
-    if filter_type in ('tv', 'series_documentary'):
-        # Forzar vista 'tvshows' para listados de series (incluyendo filtros por género/año)
-        # pero NO forzar cuando se está pidiendo una agrupación (group_by)
-        try:
-            if not group_by:
-                try:
-                    xbmcplugin.setContent(HANDLE, 'tvshows')
-                except Exception:
-                    pass
-        except Exception:
-            pass
-        series_map = {}
-        for it in results:
-            title = _get_item_title(it)
-            if not title:
-                continue
-            key = normalize_title(title)
-            series_map.setdefault(key, []).append(it)
-
-        # aplicar paginación en el listado de series normalizadas
-        # si se pidió agrupar por año o por género en la vista de series, construir grupos distintos
-        if group_by == 'genre':
-            # si viene group_by sin genre_filter, mostrar carpeta con géneros
-            return list_genres(filter_type='tv', original_params=original_params)
-        if group_by == 'year':
-            return list_years(filter_type='tv', original_params=original_params)
-        if group_by == 'quality':
-            return list_qualities(filter_type='tv', genre_filter=genre_filter, original_params=original_params)
-        if group_by == 'letter':
-            return list_letters(filter_type='tv', genre_filter=genre_filter, original_params=original_params)
-        series_keys = sorted(series_map.items(), key=lambda x: x[0])
-        total_pages = (len(series_keys) + per_page - 1) // per_page
-        start = (page - 1) * per_page
-        end = start + per_page
-        paged_series = series_keys[start:end]
-        for key, items_group in paged_series:
-            # Elegir representante: preferir item con poster, luego con overview, si no el primero
-            items_sorted = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)
-            rep = items_sorted[0]
-            display_title = rep.get('title') or (items_group[0].get('title') if items_group else key)
-            li = xbmcgui.ListItem(label=display_title)
-            # aplicar poster/overview si existen
-            poster = rep.get('poster') or ''
-            fanart = rep.get('fanart') or ''
-            overview = rep.get('overview') or ''
-            info = {'title': display_title, 'plot': overview, 'mediatype': 'tvshow', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
-            _apply_info_tag(li, info)
-            # Also set full video info so Kodi UI can show genres/cast where supported
-            try:
-                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
-                li.setInfo('video', safe_info)
-            except Exception:
-                pass
-            try:
-                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
-            except Exception:
-                pass
-            _set_unique_ids(li, rep)
-            url_params = {'action': 'list_seasons', 'series': display_title}
-            if quality_filter:
-                url_params['target_quality'] = quality_filter
-            url = build_url(url_params)
-            xbmc.log(f"RusterWolf: add series item {display_title} -> {url}", xbmc.LOGDEBUG)
-            
-            # CM: Añadir a Seguir Viendo
-            cm = []
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
-            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-            li.addContextMenuItems(cm)
-            
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-
-        # añadir control de paginación: 'Anterior' y 'Siguiente' cuando proceda
-        # usar número de series agrupadas para calcular páginas
-        series_keys = sorted(series_map.items(), key=lambda x: x[0])
-        total_pages = (len(series_keys) + per_page - 1) // per_page
-        # construir base de query respetando action_name si fue provisto
-        base_action = action_name or 'list'
-        if page > 1:
-            li_prev = xbmcgui.ListItem(label='Página anterior')
-            q = {'action': base_action, 'page': page - 1}
-            if used_filter:
-                q['filter'] = used_filter
-            if group_by:
-                q['group'] = group_by
-            if genre_filter:
-                q['genre'] = genre_filter
-            if year_filter:
-                q['year'] = year_filter
-            if quality_filter:
-                q['quality'] = quality_filter
-            if is_premium_req:
-                q['base_genre'] = 'Premium'
-            if letter_filter:
-                q['letter'] = letter_filter
-            try:
-                xbmc.log(f"RusterWolf: pagination link q={q}", xbmc.LOGDEBUG)
-            except Exception:
-                pass
-            url_prev = build_url(q)
-            xbmcplugin.addDirectoryItem(HANDLE, url_prev, li_prev, True)
-        if page < total_pages or len(series_keys) > end:
-            try:
-                xbmc.log(f"RusterWolf: TV paginación: page={page} total_pages={total_pages} mostrará Siguiente página", xbmc.LOGDEBUG)
-            except Exception:
-                pass
-            li = xbmcgui.ListItem(label='Siguiente página')
-            q = {'action': base_action, 'page': page + 1}
-            if used_filter:
-                q['filter'] = used_filter
-            if group_by:
-                q['group'] = group_by
-            if genre_filter:
-                q['genre'] = genre_filter
-            if year_filter:
-                q['year'] = year_filter
-            if quality_filter:
-                q['quality'] = quality_filter
-            if is_premium_req:
-                q['base_genre'] = 'Premium'
-            if letter_filter:
-                q['letter'] = letter_filter
-            try:
-                xbmc.log(f"RusterWolf: pagination link q={q}", xbmc.LOGDEBUG)
-            except Exception:
-                pass
-            url = build_url(q)
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-        xbmcplugin.endOfDirectory(HANDLE)
-        return
-
-    # Si pedimos 'movie', deduplicar por título normalizado y mostrar representante
-    if filter_type == 'movie':
-        # Forzar vista 'movies' para listados de películas (incluyendo filtros por género/año)
-        # pero NO forzar cuando se está pidiendo una agrupación (group_by)
-        try:
-            if not group_by:
-                xbmc.log("RusterWolf DEBUG: Setting content to 'movies'", xbmc.LOGWARNING)
-                try:
-                    xbmcplugin.setContent(HANDLE, 'movies')
-                except Exception:
-                    pass
-        except Exception:
-            pass
-        movie_map = {}
-        for it in results:
-            title = _get_item_title(it)
-            if not title:
-                continue
-            key = normalize_title(title)
-            movie_map.setdefault(key, []).append(it)
-
-        xbmc.log(f"RusterWolf DEBUG: Unique movie keys found={len(movie_map)}", xbmc.LOGWARNING)
-        # soporte para agrupación por género/año en películas
-        if group_by == 'genre':
-            return list_genres(filter_type='movie', original_params=original_params)
-        if group_by == 'year':
-            return list_years(filter_type='movie', original_params=original_params)
-        if group_by == 'quality':
-            return list_qualities(filter_type='movie', genre_filter=genre_filter, original_params=original_params)
-        if group_by == 'letter':
-            return list_letters(filter_type='movie', genre_filter=genre_filter, original_params=original_params)
-        movie_keys = sorted(movie_map.items(), key=lambda x: x[0])
-        total_pages = (len(movie_keys) + per_page - 1) // per_page
-        start = (page - 1) * per_page
-        end = start + per_page
-        xbmc.log(f"RusterWolf DEBUG: Pagination start={start} end={end}", xbmc.LOGWARNING)
-        paged_movies = movie_keys[start:end]
-        for key, group in paged_movies:
-            # elegir representante con poster/overview preferido
-            rep = sorted(group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-            title = rep.get('title')
-            poster = rep.get('poster') or ''
-            fanart = rep.get('fanart') or ''
-            overview = rep.get('overview') or ''
-            rating = rep.get('rating')
-            info = {
-                'title': title,
-                'plot': overview,
-                'year': int(rep.get('year')) if rep.get('year') and str(rep.get('year')).isdigit() else None,
-                'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]),
-                'rating': float(rating) if rating else None,
-                'mediatype': 'movie',
-                'cast': rep.get('cast') or []
-            }
-            li = xbmcgui.ListItem(label=title)
-            _apply_info_tag(li, info)
-            try:
-                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
-                li.setInfo('video', safe_info)
-            except Exception:
-                pass
-            try:
-                _apply_art(li, rep if 'rep' in locals() and isinstance(rep, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
-            except Exception:
-                pass
-            _set_unique_ids(li, rep)
-            li.setProperty('IsPlayable', 'true')
-            li.setMimeType('application/x-bittorrent')
-            # linkear al primer item del grupo
-            # Prefer using a stable 'key' when linking to the select action so
-            # that the target item can be resolved regardless of list ordering.
-            # Fall back to the numeric index only if no key is available.
-            rep_key = group[0].get('key') if isinstance(group[0], dict) else None
-            if rep_key:
-                q_params = {'action': 'select', 'key': rep_key}
-                if quality_filter: q_params['target_quality'] = quality_filter
-                url = build_url(q_params)
-            else:
-                first_index = str(catalog.index(group[0]))
-                q_params = {'action': 'select', 'index': first_index}
-                if quality_filter: q_params['target_quality'] = quality_filter
-                url = build_url(q_params)
-            
-            if rep_key:
-                cm = []
-                add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': rep_key, 'title': title})
-                cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-                li.addContextMenuItems(cm)
-                
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-
-        # usar número de películas agrupadas para calcular páginas
-        movie_keys = sorted(movie_map.items(), key=lambda x: x[0])
-        total_pages = (len(movie_keys) + per_page - 1) // per_page
-        if page > 1:
-            li_prev = xbmcgui.ListItem(label='Página anterior')
-            q = {'action': action_name or 'list', 'page': page - 1}
-            if used_filter:
-                q['filter'] = used_filter
-            if group_by:
-                q['group'] = group_by
-            if genre_filter:
-                q['genre'] = genre_filter
-            if year_filter:
-                q['year'] = year_filter
-            if quality_filter:
-                q['quality'] = quality_filter
-            if is_premium_req:
-                q['base_genre'] = 'Premium'
-            if letter_filter:
-                q['letter'] = letter_filter
-            url_prev = build_url(q)
-            xbmcplugin.addDirectoryItem(HANDLE, url_prev, li_prev, True)
-        if page < total_pages or len(movie_keys) > end:
-            try:
-                xbmc.log(f"RusterWolf: MOVIE paginación: page={page} total_pages={total_pages} mostrará Siguiente página", xbmc.LOGDEBUG)
-            except Exception:
-                pass
-            li = xbmcgui.ListItem(label='Siguiente página')
-            q = {'action': action_name or 'list', 'page': page + 1}
-            if used_filter:
-                q['filter'] = used_filter
-            if group_by:
-                q['group'] = group_by
-            if genre_filter:
-                q['genre'] = genre_filter
-            if year_filter:
-                q['year'] = year_filter
-            if quality_filter:
-                q['quality'] = quality_filter
-            if is_premium_req:
-                q['base_genre'] = 'Premium'
-            if letter_filter:
-                q['letter'] = letter_filter
-            url = build_url(q)
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-        xbmc.log("RusterWolf DEBUG: endOfDirectory(movies)", xbmc.LOGWARNING)
-        xbmcplugin.endOfDirectory(HANDLE)
-        return
+    if used_filter in ('tv', 'series_documentary'):
+        try: xbmcplugin.setContent(HANDLE, 'tvshows')
+        except: pass
+    elif used_filter in ('movie', 'documentary'):
+        try: xbmcplugin.setContent(HANDLE, 'movies')
+        except: pass
 
     for it in page_items:
-        title = _get_item_title(it)
-        year = _get_item_year(it)
-        overview = it.get('overview') or ''
-        poster = it.get('poster') or ''
-        fanart = it.get('fanart') or ''
-        rating = it.get('rating')
-        genres = _get_item_genres(it) or []
-        cast = it.get('cast') or []
-        # Determinar mediatype por cada elemento (antes se usaba la variable del bucle anterior)
-        mediatype_item = _get_item_type(it)
-        m_type = 'tvshow' if mediatype_item == 'tv' else ('movie' if mediatype_item == 'movie' else None)
-        info = {
-            'title': title,
-            'plot': overview,
-            'year': int(year) if year and str(year).isdigit() else None,
-            'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in genres]),
-            'rating': float(rating) if rating else None,
-            'cast': cast,
-            'mediatype': m_type
-        }
-        xbmc.log(f"RusterWolf: creando ListItem -> title={title!r}, mediatype={m_type}", xbmc.LOGDEBUG)
-        li = xbmcgui.ListItem(label=title)
-        _apply_info_tag(li, info)
-        try:
-            safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
-            li.setInfo('video', safe_info)
-        except Exception:
-            pass
-        if m_type:
-            try:
-                li.setProperty('mediatype', m_type)
-            except Exception:
-                pass
-        try:
-            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
-        except Exception:
-            pass
-        _set_unique_ids(li, it)
-        li.setProperty('IsPlayable', 'true')
-        li.setMimeType('application/x-bittorrent')
-        # Prefer a stable key to identify the item rather than a list index
-        item_key = it.get('key') if isinstance(it, dict) else None
-        q_params = {'action': 'select'}
-        if item_key:
-            q_params['key'] = item_key
-        else:
-            q_params['index'] = str(catalog.index(it))
-        if quality_filter:
-            q_params['target_quality'] = quality_filter
-        url = build_url(q_params)
-        
-        if mediatype_item == 'movie' and item_key:
-            cm = []
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
-            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-            li.addContextMenuItems(cm)
-            
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
+        li, url, is_folder = _create_item_and_url(it, addon_fanart, quality_filter)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
+
+    base_action = action_name or 'list'
+    q_base = {'action': base_action}
+    if used_filter: q_base['filter'] = used_filter
+    if group_by: q_base['group'] = group_by
+    if genre_filter: q_base['genre'] = genre_filter
+    if year_filter: q_base['year'] = year_filter
+    if quality_filter: q_base['quality'] = quality_filter
+    if is_premium_req: q_base['base_genre'] = 'Premium'
+    if letter_filter: q_base['letter'] = letter_filter
+
+    if page > 1:
+        li_prev = xbmcgui.ListItem(label='Página anterior')
+        q_prev = q_base.copy()
+        q_prev['page'] = page - 1
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_prev), li_prev, True)
+
+    if has_next_page:
+        li_next = xbmcgui.ListItem(label='Siguiente página')
+        q_next = q_base.copy()
+        q_next['page'] = page + 1
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
+
     xbmcplugin.endOfDirectory(HANDLE)
 
 def novedades(page=1, sub=None, original_params=None):
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    # Preferir items desde DB (date_added) cuando esté disponible
-    catalog = []
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items()
-    except Exception:
-        catalog = []
 
-    # Asegurar ordenación por fecha (Sustituye sort_by_newest)
-    catalog = sorted(catalog, key=lambda x: x.get("date_added",""), reverse=True)
+    used_filter = None
+    if sub == 'movies': used_filter = 'movie'
+    elif sub == 'series': used_filter = 'tv'
+    elif sub == 'documentary': used_filter = 'documentary'
+    elif sub == 'series_documentary': used_filter = 'series_documentary'
 
-    # el router pasa 'sub' como parámetro GET (movies o series)
-    # paginar novedades (page se pasa desde router)
-    per_page = _read_items_per_page()
-    start = (page - 1) * per_page
-    end = start + per_page
-    # filtrar según sub-sección (movies o series) si fue solicitado vía query
-    sub_param = sub
-    
     is_premium_req = False
     if original_params and original_params.get('base_genre', '').lower() == 'premium':
         is_premium_req = True
-        
-    def _accept_by_sub(it):
-        if _is_item_premium(it) and not is_premium_req: return False
-        if not _is_item_premium(it) and is_premium_req: return False
-        
-        if not sub_param:
-            return True
-        t = _get_item_type(it)
-        if sub_param == 'movies' and t == 'movie':
-            return True
-        if sub_param == 'series' and t == 'tv':
-            return True
-        
-        # Lógica para documentales
-        genres = _get_item_genres(it) or []
-        genre_names = []
-        for g in genres:
-            name = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).lower()
-            genre_names.append(name)
-        is_doc = any('documental' in gn or 'documentary' in gn for gn in genre_names)
 
-        if sub_param == 'documentary' and t == 'movie' and is_doc:
-            return True
-        if sub_param == 'series_documentary' and t == 'tv' and is_doc:
-            return True
-        return False
+    from resources.lib.db import get_filtered_items
+    per_page = _read_items_per_page()
+    offset = (page - 1) * per_page
+    limit = per_page + 1
 
-    filtered = [it for it in catalog if _accept_by_sub(it)]
-    # Forzar tipo de contenido para que los skins muestren la vista adecuada
-    try:
-        if sub_param in ('series', 'series_documentary'):
-            try:
-                xbmcplugin.setContent(HANDLE, 'tvshows')
-            except Exception:
-                pass
-        elif sub_param in ('movies', 'documentary'):
-            try:
-                xbmcplugin.setContent(HANDLE, 'movies')
-            except Exception:
-                pass
-    except Exception:
-        pass
-    # Para novedades de series: mostrar por serie (título) en lugar de mostrar episodios con 1x01
-    if sub_param in ('series', 'series_documentary'):
-        # agrupamos por serie y mostramos la serie como entrada; la navegación llevará a listar temporadas
-        series_map = {}
-        for it in filtered:
-            if _get_item_type(it) != 'tv':
-                continue
-            title = _get_item_title(it)
-            if not title:
-                continue
-            key = normalize_title(title)
-            series_map.setdefault(key, []).append(it)
-        # Ordenar series por la fecha más reciente (`date_added`) de sus episodios
-        # para que las series recién añadidas aparezcan primero.
-        def _max_date(items_group):
-            dates = []
-            for it in items_group:
-                try:
-                    d = it.get('date_added') or ''
-                except Exception:
-                    d = ''
-                if d:
-                    dates.append(d)
-            if not dates:
-                return ''
-            # ISO-like string comparison funciona para formato YYYY-MM-DDTHH:MM:SS
-            return max(dates)
+    results = get_filtered_items(
+        filter_type=used_filter,
+        is_premium_req=is_premium_req,
+        sort_by='date_added',
+        limit=limit,
+        offset=offset
+    )
 
-        series_keys = sorted(series_map.items(), key=lambda x: _max_date(x[1]), reverse=True)
-        paged = series_keys[start:end]
-        for key, items_group in paged:
-            rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-            display_title = rep.get('title')
-            li = xbmcgui.ListItem(label=display_title)
-            info = {'title': display_title, 'plot': rep.get('overview') or '', 'mediatype': 'tvshow', 'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]), 'cast': rep.get('cast') or []}
-            try:
-                safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
-                li.setInfo('video', safe_info)
-            except Exception:
-                pass
-            # Aplicar InfoTagVideo explícitamente para Kodi 20+
-            try:
-                tag = li.getVideoInfoTag()
-                tag.setTitle(info['title'])
-                if info['plot']: tag.setPlot(info['plot'])
-                tag.setMediaType('tvshow')
-            except Exception:
-                pass
-            # aplicar clearlogo/banner si existen
-            try:
-                _apply_art(li, rep, addon_fanart)
-            except Exception:
-                pass
-            _set_unique_ids(li, rep)
-            url = build_url({'action': 'list_seasons', 'series': display_title})
-            
-            cm = []
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
-            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-            li.addContextMenuItems(cm)
-            
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-        # paginación
-        total_pages = (len(series_keys) + per_page - 1) // per_page
-        if page > 1:
-            li_prev = xbmcgui.ListItem(label='Página anterior')
-            url_prev = build_url({'action': 'novedades', 'page': page - 1, 'sub': sub_param})
-            xbmcplugin.addDirectoryItem(HANDLE, url_prev, li_prev, True)
-        if page < total_pages:
-            li = xbmcgui.ListItem(label='Siguiente página')
-            url = build_url({'action': 'novedades', 'page': page + 1, 'sub': sub_param})
-            xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-        xbmcplugin.endOfDirectory(HANDLE)
-        return
+    has_next_page = len(results) > per_page
+    page_items = results[:per_page]
 
-    # default: mostrar items (películas u otros)
-    for it in filtered[start:end]:
-        title = it.get('title')
-        year = it.get('year')
-        overview = it.get('overview') or ''
-        poster = it.get('poster') or ''
-        fanart = it.get('fanart') or ''
-        rating = it.get('rating')
-        genres = it.get('genres') or []
-        cast = it.get('cast') or []
-        t_type = it.get('type', '').lower()
-        m_type = 'tvshow' if t_type == 'tv' else ('movie' if t_type == 'movie' else None)
-        info = {
-            'title': title,
-            'plot': overview,
-            'year': int(year) if year and str(year).isdigit() else None,
-            'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in genres]),
-            'rating': float(rating) if rating else None,
-            'cast': cast,
-            'mediatype': m_type
-        }
-        li = xbmcgui.ListItem(label=title)
-        try:
-            tag = li.getVideoInfoTag()
-            if info.get('title'):
-                tag.setTitle(info.get('title'))
-            if info.get('plot'):
-                tag.setPlot(info.get('plot'))
-            if info.get('year'):
-                try:
-                    tag.setYear(int(info.get('year')))
-                except Exception:
-                    pass
-            # proteger setGenre: algunos builds no exponen ese setter
-            if info.get('genre'):
-                try:
-                    if hasattr(tag, 'setGenre'):
-                        tag.setGenre(info.get('genre'))
-                except Exception:
-                    pass
-            if info.get('rating'):
-                try:
-                    tag.setRating(float(info.get('rating')))
-                except Exception:
-                    pass
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error aplicando InfoTagVideo en novedades: {e}", xbmc.LOGERROR)
-        # Also set full info (including cast) so Kodi UI elements that read setInfo get the values
-        try:
-            safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
-            li.setInfo('video', safe_info)
-        except Exception:
-            pass
-        if m_type:
-            try:
-                li.setProperty('mediatype', m_type)
-            except Exception:
-                pass
-        try:
-            # Pasar el item completo para que _apply_art pueda leer clearlogo, banner, clearart, etc.
-            _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': fanart}, addon_fanart)
-        except Exception:
-            pass
-        _set_unique_ids(li, it)
-        li.setProperty('IsPlayable', 'true')
-        li.setMimeType('application/x-bittorrent')
-        item_key = it.get('key') if isinstance(it, dict) else None
-        if item_key:
-            url = build_url({'action': 'select', 'key': item_key})
-        else:
-            url = build_url({'action': 'select', 'index': str(catalog.index(it))})
-        
-        if t_type == 'movie' and item_key:
-            cm = []
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
-            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-            li.addContextMenuItems(cm)
-            
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
-    # paginación en novedades: usar conteo sobre 'filtered' y preservar sub (movies/series) en las urls
-    total_pages = (len(filtered) + per_page - 1) // per_page
+    if used_filter in ('tv', 'series_documentary'):
+        try: xbmcplugin.setContent(HANDLE, 'tvshows')
+        except: pass
+    elif used_filter in ('movie', 'documentary'):
+        try: xbmcplugin.setContent(HANDLE, 'movies')
+        except: pass
+
+    for it in page_items:
+        li, url, is_folder = _create_item_and_url(it, addon_fanart)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
+
     base_q = {'action': 'novedades'}
-    if sub_param:
-        base_q['sub'] = sub_param
-    if is_premium_req:
-        base_q['base_genre'] = 'Premium'
+    if sub: base_q['sub'] = sub
+    if is_premium_req: base_q['base_genre'] = 'Premium'
+
     if page > 1:
         li_prev = xbmcgui.ListItem(label='Página anterior')
         q_prev = base_q.copy()
         q_prev['page'] = page - 1
-        url_prev = build_url(q_prev)
-        xbmcplugin.addDirectoryItem(HANDLE, url_prev, li_prev, True)
-    if page < total_pages:
-        li = xbmcgui.ListItem(label='Siguiente página')
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_prev), li_prev, True)
+
+    if has_next_page:
+        li_next = xbmcgui.ListItem(label='Siguiente página')
         q_next = base_q.copy()
         q_next['page'] = page + 1
-        url = build_url(q_next)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
+
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_seasons(series, target_quality=None):
@@ -2184,19 +1506,14 @@ def list_seasons(series, target_quality=None):
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
+        from resources.lib.db import get_series_episodes
+        catalog = get_series_episodes(series)
     except Exception:
         catalog = []
     seasons = {}
     for it in catalog:
-        if _get_item_type(it) != 'tv':
-            continue
-        if normalize_title(_get_item_title(it)) != normalize_title(series):
-            continue
         season = str(it.get('season') or '')
         seasons.setdefault(season, []).append(it)
-    # Ordenar temporadas y presentar metadatos compatibles con Kodi
     try:
         xbmcplugin.setContent(HANDLE, 'seasons')
     except Exception:
@@ -2249,21 +1566,16 @@ def list_episodes(series, season, target_quality=None):
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
+        from resources.lib.db import get_series_episodes
+        catalog = get_series_episodes(series)
     except Exception:
         catalog = []
     episodes = []
     for it in catalog:
-        if _get_item_type(it) != 'tv':
-            continue
-        if normalize_title(_get_item_title(it)) != normalize_title(series):
-            continue
         if str(it.get('season') or (it.get('parsed') or {}).get('season') or '') != str(season):
             continue
         episodes.append(it)
         
-    # Ordenar por número de episodio y establecer metadata completa para Kodi
     try:
         xbmcplugin.setContent(HANDLE, 'episodes')
     except Exception:
@@ -2274,7 +1586,6 @@ def list_episodes(series, season, target_quality=None):
         except Exception:
             ep_num = 0
 
-        # Preferir título específico del episodio si existe
         ep_title = it.get('episode_title') or it.get('title') or f"Episodio {ep_num}"
         label = f"S{str(int(season)).zfill(2)}E{str(ep_num).zfill(2)} - {ep_title}"
         li = xbmcgui.ListItem(label=label)
@@ -2413,95 +1724,12 @@ def do_search(q=None, original_params=None):
     for key, items_group in sorted(series_map.items(), key=lambda x: x[0]):
         # Elegir representante con mejor metadata
         rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-        display_title = rep.get('title') or items_group[0].get('title')
-        
-        li = xbmcgui.ListItem(label=display_title)
-        
-        # Aplicar metadata completa
-        info = {
-            'title': display_title,
-            'plot': rep.get('overview') or '',
-            'year': int(rep.get('year')) if rep.get('year') and str(rep.get('year')).isdigit() else None,
-            'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (rep.get('genres') or [])]),
-            'rating': float(rep.get('rating')) if rep.get('rating') else None,
-            'cast': rep.get('cast') or [],
-            'mediatype': 'tvshow'
-        }
-        
-        try:
-            li.setInfo('video', info)
-        except Exception:
-            pass
-        
-        try:
-            _apply_info_tag(li, info)
-        except Exception:
-            pass
-        
-        # Aplicar arte (poster, fanart, clearlogo, etc.)
-        try:
-            _apply_art(li, rep, addon_fanart)
-        except Exception:
-            pass
-        _set_unique_ids(li, rep)
-        
-        # Enlazar a la lista de temporadas
-        url = build_url({'action': 'list_seasons', 'series': display_title})
-        
-        cm = []
-        add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': display_title, 'title': display_title})
-        cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-        li.addContextMenuItems(cm)
-        
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+        li, url, is_folder = _create_item_and_url(rep, addon_fanart)
+        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
     
     # Mostrar películas
     for it in movies:
-        title = _get_item_title(it)
-        
-        li = xbmcgui.ListItem(label=title)
-        
-        # Aplicar metadata completa
-        info = {
-            'title': title,
-            'plot': it.get('overview') or '',
-            'year': int(it.get('year')) if it.get('year') and str(it.get('year')).isdigit() else None,
-            'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (it.get('genres') or [])]),
-            'rating': float(it.get('rating')) if it.get('rating') else None,
-            'cast': it.get('cast') or [],
-            'mediatype': 'movie'
-        }
-        
-        try:
-            li.setInfo('video', info)
-        except Exception:
-            pass
-        
-        try:
-            _apply_info_tag(li, info)
-        except Exception:
-            pass
-        
-        # Aplicar arte
-        try:
-            _apply_art(li, it, addon_fanart)
-        except Exception:
-            pass
-        _set_unique_ids(li, it)
-        
-        li.setProperty('IsPlayable', 'true')
-        li.setMimeType('application/x-bittorrent')
-        
-        item_key = it.get('key')
-        # Siempre usar KEY en búsqueda SQL (el índice no es fiable aquí)
-        url = build_url({'action': 'select', 'key': item_key})
-        
-        if item_key:
-            cm = []
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
-            cm.append(('Añadir a Seguir Viendo', f'RunPlugin({add_url})'))
-            li.addContextMenuItems(cm)
-            
+        li, url, is_folder = _create_item_and_url(it, addon_fanart)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     
     xbmcplugin.endOfDirectory(HANDLE)
