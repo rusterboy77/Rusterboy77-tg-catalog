@@ -26,6 +26,7 @@ if os.environ.get('ONEFICHIER_API_KEY_2') and os.environ.get('ONEFICHIER_FOLDER_
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CATALOG_PATH = os.path.join(BASE_DIR, "catalog_choloretro.json")
 CACHE_DB_PATH = os.path.join(BASE_DIR, "cache_choloretro.db")
+OVERRIDES_PATH = os.path.join(BASE_DIR, "overrides_choloretro.json")
 
 def parse_filename_with_rename(filename):
     """Usa la lógica de rename.py para extraer metadatos."""
@@ -392,6 +393,15 @@ def generate():
                 if "results" not in catalog: catalog = {"results": []}
         except: pass
 
+    # Cargar metadatos manuales (overrides)
+    overrides = {}
+    if os.path.exists(OVERRIDES_PATH):
+        try:
+            with open(OVERRIDES_PATH, 'r', encoding='utf-8') as f:
+                overrides = json.load(f)
+        except Exception as e:
+            print(f"Error leyendo overrides: {e}")
+
     # Obtener archivos de 1fichier
     files = []
     for i, acc in enumerate(ONEFICHIER_ACCOUNTS, 1):
@@ -468,11 +478,13 @@ def generate():
             norm_name = rename.normalize_title(series_name)
             if not norm_name: continue
 
+            override_data = overrides.get(series_name) or overrides.get(norm_name) or {}
+
             if norm_name not in series_map:
                 # Intentar recuperar de caché, si no buscar en TMDB
                 cached_item = meta_cache.get(f"tv_{norm_name}")
                 tmdb_data = cached_item.get('tmdb_top') if cached_item else None
-                manual_id = cached_item.get('manual_id') if cached_item else None
+                manual_id = override_data.get('manual_id') or (cached_item.get('manual_id') if cached_item else None)
                 
                 # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
                 need_refresh = not tmdb_data or 'collection' not in tmdb_data
@@ -489,6 +501,12 @@ def generate():
                     # print(f"Refrescando metadatos para serie: {series_name}")
                     tmdb_data = get_tmdb_meta(series_name, is_tv=True, year=year, manual_id=manual_id)
                 
+                if override_data:
+                    if not tmdb_data: tmdb_data = {}
+                    for k, v in override_data.items():
+                        if k != 'manual_id':
+                            tmdb_data[k] = v
+                            
                 series_map[norm_name] = {
                     "file": series_name,
                     "parsed": {"type": "series", "series": series_name, "year": year},
@@ -539,7 +557,9 @@ def generate():
             cache_key = f"movie_{norm_title}_{meta['year'] or ''}"
             cached_item = meta_cache.get(cache_key)
             tmdb_data = cached_item.get('tmdb_top') if cached_item else None
-            manual_id = cached_item.get('manual_id') if cached_item else None
+            
+            override_data = overrides.get(title) or overrides.get(norm_title) or {}
+            manual_id = override_data.get('manual_id') or (cached_item.get('manual_id') if cached_item else None)
             
             # Verificar si necesitamos refrescar (datos faltantes o colección incompleta)
             need_refresh = not tmdb_data or 'collection' not in tmdb_data
@@ -562,6 +582,12 @@ def generate():
                 # print(f"Refrescando metadatos para película: {title}")
                 tmdb_data = get_tmdb_meta(title, is_tv=False, year=meta["year"], manual_id=manual_id)
 
+            if override_data:
+                if not tmdb_data: tmdb_data = {}
+                for k, v in override_data.items():
+                    if k != 'manual_id':
+                        tmdb_data[k] = v
+                        
             item = {
                 "file": filename,
                 "parsed": meta,
