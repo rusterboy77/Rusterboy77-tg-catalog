@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS items (
   tmdb_id TEXT, poster TEXT, fanart TEXT, overview TEXT,
   episode_title TEXT, episode_overview TEXT, still_path TEXT,
   clearlogo TEXT, banner TEXT, clearart TEXT, genres TEXT,
-  "cast" TEXT, torrents TEXT, date_added TEXT, enriched INTEGER DEFAULT 0
+  "cast" TEXT, torrents TEXT, date_added TEXT, enriched INTEGER DEFAULT 0,
+  collection_name TEXT, collection_poster TEXT, collection_fanart TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
 CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
@@ -32,6 +33,20 @@ def _connect():
     except Exception:
         pass
     return conn
+
+def _add_collection_columns_safe(db_path):
+    """Se asegura de que las columnas de colecciones existan aunque el NAS suba un DB antiguo."""
+    try:
+        conn = sqlite3.connect(db_path, timeout=5)
+        try: conn.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
+        except Exception: pass
+        try: conn.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
+        except Exception: pass
+        try: conn.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
+        except Exception: pass
+        conn.commit()
+        conn.close()
+    except Exception: pass
 
 def maybe_update_db_from_remote(force=False):
     """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
@@ -121,6 +136,8 @@ def maybe_update_db_from_remote(force=False):
                     xbmc.log(f"RusterWolf: Imposible aplicar actualización DB: {e}", xbmc.LOGERROR)
                     if dp: dp.close()
                     return False
+                    
+            _add_collection_columns_safe(DB_FILE)
                 
             # Guardar el ETag para futuras comprobaciones ultrarrápidas
             if new_etag:
@@ -168,13 +185,14 @@ def init_db():
         conn.commit()
     finally:
         conn.close()
+    _add_collection_columns_safe(DB_FILE)
 
 def load_all_items():
     if not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
-        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items')
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items')
         rows = c.fetchall()
         items = []
         for r in rows:
@@ -192,7 +210,10 @@ def load_all_items():
                 'genres': json.loads(r[16]) if r[16] else [],
                 'cast': json.loads(r[17]) if r[17] else [],
                 'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20])
+                'date_added': r[19], 'enriched': bool(r[20]),
+                'collection_name': r[21] if len(r)>21 else None,
+                'collection_poster': r[22] if len(r)>22 else None,
+                'collection_fanart': r[23] if len(r)>23 else None
             })
         return items
     finally:
@@ -204,7 +225,7 @@ def load_items_by_keys(keys):
     try:
         c = conn.cursor()
         placeholders = ','.join('?' for _ in keys)
-        c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items WHERE "key" IN ({placeholders})', keys)
+        c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE "key" IN ({placeholders})', keys)
         rows = c.fetchall()
         items = []
         for r in rows:
@@ -217,19 +238,22 @@ def load_items_by_keys(keys):
                 'genres': json.loads(r[16]) if r[16] else [],
                 'cast': json.loads(r[17]) if r[17] else [],
                 'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20])
+                'date_added': r[19], 'enriched': bool(r[20]),
+                'collection_name': r[21] if len(r)>21 else None,
+                'collection_poster': r[22] if len(r)>22 else None,
+                'collection_fanart': r[23] if len(r)>23 else None
             })
         return items
     finally:
         conn.close()
         
 
-def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=None, quality=None, letter=None, sort_by='title', limit=None, offset=None):
+def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=None, quality=None, letter=None, collection=None, sort_by='title', limit=None, offset=None):
     if not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
-        query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items WHERE 1=1'
+        query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE 1=1'
         args = []
 
         if filter_type == 'movie': query += " AND type='movie'"
@@ -239,8 +263,9 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         elif filter_type == 'series_documentary':
             query += " AND type='tv' AND genres LIKE '%Documental%'"
 
-        if is_premium_req: query += " AND genres LIKE '%Premium%'"
-        else: query += " AND genres NOT LIKE '%Premium%'"
+        if not collection:
+            if is_premium_req: query += " AND genres LIKE '%Premium%'"
+            else: query += " AND genres NOT LIKE '%Premium%'"
 
         if genre and genre.lower() != 'premium':
             query += " AND genres LIKE ?"
@@ -260,6 +285,10 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         if letter:
             query += " AND title LIKE ?"
             args.append(f"{letter}%")
+            
+        if collection:
+            query += " AND collection_name = ?"
+            args.append(collection)
 
         if filter_type in ('tv', 'series_documentary', 'movie', 'documentary'):
             query += " GROUP BY title"
@@ -287,7 +316,10 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
                 'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
                 'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
                 'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20])
+                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
+                'collection_name': r[21] if len(r)>21 else None,
+                'collection_poster': r[22] if len(r)>22 else None,
+                'collection_fanart': r[23] if len(r)>23 else None
             })
         return items
     finally:
@@ -298,7 +330,7 @@ def get_series_episodes(series_title):
     conn = _connect()
     try:
         c = conn.cursor()
-        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
         rows = c.fetchall()
         items = []
         for r in rows:
@@ -311,7 +343,10 @@ def get_series_episodes(series_title):
                 'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
                 'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
                 'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20])
+                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
+                'collection_name': r[21] if len(r)>21 else None,
+                'collection_poster': r[22] if len(r)>22 else None,
+                'collection_fanart': r[23] if len(r)>23 else None
             })
         return items
     finally:
@@ -335,7 +370,7 @@ def search_items_sql(query_str, limit=100):
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                   genres, "cast", torrents, date_added, enriched 
+                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
             FROM items 
             WHERE title LIKE ? OR episode_title LIKE ? 
                OR title LIKE ? OR episode_title LIKE ?
@@ -359,7 +394,10 @@ def search_items_sql(query_str, limit=100):
                 'genres': json.loads(r[16]) if r[16] else [],
                 'cast': json.loads(r[17]) if r[17] else [],
                 'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20])
+                'date_added': r[19], 'enriched': bool(r[20]),
+                'collection_name': r[21] if len(r)>21 else None,
+                'collection_poster': r[22] if len(r)>22 else None,
+                'collection_fanart': r[23] if len(r)>23 else None
             })
         return items
     finally:
@@ -375,7 +413,7 @@ def get_next_episode(tvshowtitle, season, episode):
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                   genres, "cast", torrents, date_added, enriched 
+                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
             FROM items 
             WHERE type='tv' AND title LIKE ? AND season=? AND CAST(episode AS INTEGER) = ?
         ''', (tvshowtitle, str(season), int(episode) + 1))
@@ -386,7 +424,7 @@ def get_next_episode(tvshowtitle, season, episode):
             c.execute('''
                 SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                        episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                       genres, "cast", torrents, date_added, enriched 
+                       genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
                 FROM items 
                 WHERE type='tv' AND title LIKE ? AND CAST(season AS INTEGER)=? AND CAST(episode AS INTEGER) = 1
             ''', (tvshowtitle, int(season) + 1))
@@ -398,7 +436,8 @@ def get_next_episode(tvshowtitle, season, episode):
                 'episode': int(r[5]) if r[5] else None, 'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 
                 'overview': r[9], 'episode_title': r[10], 'episode_overview': r[11], 'still_path': r[12], 
                 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15], 'genres': json.loads(r[16]) if r[16] else [], 
-                'cast': json.loads(r[17]) if r[17] else [], 'torrents': json.loads(r[18]) if r[18] else []
+                'cast': json.loads(r[17]) if r[17] else [], 'torrents': json.loads(r[18]) if r[18] else [],
+                'collection_name': r[21] if len(r)>21 else None, 'collection_poster': r[22] if len(r)>22 else None, 'collection_fanart': r[23] if len(r)>23 else None
             }
     except Exception:
         pass

@@ -27,6 +27,157 @@ def _normalize_title_for_match(s):
     except Exception:
         return str(s).lower()
 
+_PLAYED_KEYS = None
+
+def _get_played_keys():
+    global _PLAYED_KEYS
+    if _PLAYED_KEYS is not None:
+        return _PLAYED_KEYS
+    
+    _PLAYED_KEYS = {}
+    import xbmc, xbmcvfs, os, glob, sqlite3
+    from urllib.parse import urlparse, parse_qs
+    try:
+        profile = xbmcvfs.translatePath('special://profile/')
+        db_dir = os.path.join(profile, 'Database')
+        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
+        if db_candidates:
+            db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            try:
+                cur.execute("SELECT strFilename, lastPlayed FROM files WHERE strFilename LIKE 'plugin://plugin.video.choloretro/%' AND playCount > 0")
+            except Exception:
+                cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.choloretro/%' AND playCount > 0")
+            for row in cur.fetchall():
+                try:
+                    qs = parse_qs(urlparse(row[0]).query)
+                    action = qs.get('action', [''])[0]
+                    if action == 'play':
+                        tvshow = qs.get('tvshowtitle', [''])[0]
+                        if tvshow:
+                            s = qs.get('season', [''])[0]
+                            e = qs.get('episode', [''])[0]
+                            ident = f"tv_{_normalize_title_for_match(tvshow)}_{s}_{e}"
+                        else:
+                            t = qs.get('title', [''])[0]
+                            ident = f"movie_{_normalize_title_for_match(t)}"
+                        _PLAYED_KEYS[ident] = row[1] if len(row) > 1 and row[1] else ""
+                except Exception:
+                    pass
+            conn.close()
+    except Exception:
+        pass
+    return _PLAYED_KEYS
+
+_RESUME_POINTS = None
+
+def _get_resume_points():
+    global _RESUME_POINTS
+    if _RESUME_POINTS is not None:
+        return _RESUME_POINTS
+    
+    _RESUME_POINTS = {}
+    import xbmc, xbmcvfs, os, glob, sqlite3
+    from urllib.parse import urlparse, parse_qs
+    try:
+        profile = xbmcvfs.translatePath('special://profile/')
+        db_dir = os.path.join(profile, 'Database')
+        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
+        if db_candidates:
+            db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
+            conn = sqlite3.connect(db_path)
+            cur = conn.cursor()
+            cur.execute("SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.choloretro/%' AND b.type = 1")
+            for row in cur.fetchall():
+                try:
+                    qs = parse_qs(urlparse(row[0]).query)
+                    action = qs.get('action', [''])[0]
+                    if action == 'play':
+                        tvshow = qs.get('tvshowtitle', [''])[0]
+                        if tvshow:
+                            s = qs.get('season', [''])[0]
+                            e = qs.get('episode', [''])[0]
+                            ident = f"tv_{_normalize_title_for_match(tvshow)}_{s}_{e}"
+                        else:
+                            t = qs.get('title', [''])[0]
+                            ident = f"movie_{_normalize_title_for_match(t)}"
+                        _RESUME_POINTS[ident] = {'time': float(row[1]), 'total': float(row[2])}
+                except Exception:
+                    pass
+            conn.close()
+    except Exception:
+        pass
+    return _RESUME_POINTS
+
+def _get_series_progress(series_title):
+    from resources.lib.database import get_connection
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT season, episode FROM items WHERE type="tv" AND title=?', (series_title,))
+        rows = c.fetchall()
+        played = _get_played_keys()
+        total_eps, watched_eps = len(rows), 0
+        series_norm = _normalize_title_for_match(series_title)
+        for r in rows:
+            if f"tv_{series_norm}_{r['season']}_{r['episode']}" in played: watched_eps += 1
+        return total_eps, watched_eps
+    except Exception: return 0, 0
+    finally: conn.close()
+
+def _get_season_progress(series_title, season):
+    from resources.lib.database import get_connection
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT season, episode FROM items WHERE type="tv" AND title=? AND season=?', (series_title, str(season)))
+        rows = c.fetchall()
+        played = _get_played_keys()
+        total_eps, watched_eps = len(rows), 0
+        series_norm = _normalize_title_for_match(series_title)
+        for r in rows:
+            if f"tv_{series_norm}_{r['season']}_{r['episode']}" in played: watched_eps += 1
+        return total_eps, watched_eps
+    except Exception: return 0, 0
+    finally: conn.close()
+
+def _inject_playback_state(info, li):
+    played, resumes = _get_played_keys(), _get_resume_points()
+    itype = info.get('mediatype')
+    
+    if itype == 'movie':
+        ident = f"movie_{_normalize_title_for_match(info.get('title', ''))}"
+        if ident in played: info['playcount'] = 1
+        if ident in resumes:
+            info['resume_time'], info['resume_total'] = resumes[ident]['time'], resumes[ident]['total']
+            li.setProperty('ResumeTime', str(info['resume_time']))
+            li.setProperty('TotalTime', str(info['resume_total']))
+            
+    elif itype == 'tvshow':
+        total_eps, watched_eps = _get_series_progress(info.get('title', ''))
+        if total_eps > 0:
+            li.setProperty('TotalEpisodes', str(total_eps))
+            li.setProperty('WatchedEpisodes', str(watched_eps))
+            li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
+            if watched_eps == total_eps: info['playcount'] = 1
+            
+    elif itype == 'season':
+        total_eps, watched_eps = _get_season_progress(info.get('tvshowtitle', ''), info.get('season'))
+        if total_eps > 0:
+            li.setProperty('TotalEpisodes', str(total_eps))
+            li.setProperty('WatchedEpisodes', str(watched_eps))
+            li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
+            if watched_eps == total_eps: info['playcount'] = 1
+            
+    elif itype == 'episode':
+        ident = f"tv_{_normalize_title_for_match(info.get('tvshowtitle', ''))}_{info.get('season', '')}_{info.get('episode', '')}"
+        if ident in played: info['playcount'] = 1
+        if ident in resumes:
+            info['resume_time'], info['resume_total'] = resumes[ident]['time'], resumes[ident]['total']
+            li.setProperty('ResumeTime', str(info['resume_time']))
+            li.setProperty('TotalTime', str(info['resume_total']))
+
 def _apply_meta(li, info):
     """Aplica metadata válida al ListItem de forma segura para Kodi 19+.
     Soporta tanto setInfo() antiguo como InfoTagVideo (Kodi 20+).
@@ -83,6 +234,12 @@ def _apply_meta(li, info):
         # IMPORTANTE: Establecer TMDB ID para que el skin pueda enriquecer metadata
         if 'tmdb_id' in info and info['tmdb_id']:
             try: tag.setUniqueIDs({'tmdb': str(info['tmdb_id'])})
+            except: pass
+        if 'playcount' in info: 
+            try: tag.setPlaycount(int(info['playcount']))
+            except: pass
+        if 'resume_time' in info and 'resume_total' in info: 
+            try: tag.setResumePoint(float(info['resume_time']), float(info['resume_total']))
             except: pass
     except Exception as e:
         pass
@@ -184,6 +341,7 @@ def list_all_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         # Aplicar arte DESPUÉS de _apply_meta (importante para actualizar)
@@ -306,6 +464,7 @@ def list_all_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -352,8 +511,10 @@ def show_seasons(base_url, handle, params):
         info = {
             'title': f"Temporada {season}", 
             'mediatype': 'season', 
-            'season': int(season)
+            'season': int(season),
+            'tvshowtitle': title
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         # Propagate series logo/fanart to season items
@@ -421,6 +582,7 @@ def show_episodes(base_url, handle, params):
             'aired': ep.get('aired'),
             'tvshowtitle': title
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         # Merge episode data with series data for art (similar to rusterwolf77)
@@ -597,6 +759,7 @@ def show_animated_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -666,6 +829,7 @@ def show_animated_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -751,6 +915,7 @@ def list_anime_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {'poster': movie.get('poster'), 'fanart': movie.get('fanart'), 'clearlogo': movie.get('clearlogo')}
@@ -810,6 +975,7 @@ def list_anime_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {'poster': item.get('poster'), 'fanart': item.get('fanart'), 'clearlogo': item.get('clearlogo')}
@@ -891,10 +1057,11 @@ def list_saga_items(base_url, handle, params):
             'title': item.get('title'),
             'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
             'plot': item.get('overview'),
-            'mediatype': item.get('type', 'movie'),
+            'mediatype': 'tvshow' if item.get('type') == 'tv' else 'movie',
             'rating': item.get('rating'),
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -983,12 +1150,13 @@ def list_collection_items(base_url, handle, params):
             'title': item.get('title'),
             'year': int(item['year']) if item.get('year') and str(item['year']).isdigit() else 0,
             'plot': item.get('overview'),
-            'mediatype': item.get('type', 'movie'),
+            'mediatype': 'tvshow' if item.get('type') == 'tv' else 'movie',
             'genre': genres,
             'rating': item.get('rating'),
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -1116,6 +1284,7 @@ def show_search(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {
@@ -1196,12 +1365,9 @@ def show_continue_watching(base_url, handle, params):
     """Muestra 'Seguir viendo' - items en reproducción desde bookmarks de Kodi.
     
     Lee la tabla de bookmarks de la DB de Kodi (MyVideos*.db) para obtener
-    items a medio reproducir y los enriquece con metadatos del catálogo.
+    items a medio reproducir y mostrar series en curso.
     """
-    import sqlite3
-    import glob
-    import xbmcvfs
-    from urllib.parse import urlparse, parse_qs
+    import sqlite3, glob, xbmcvfs
     
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
@@ -1211,452 +1377,148 @@ def show_continue_watching(base_url, handle, params):
     xbmcplugin.setContent(handle, 'movies')
     xbmcplugin.setPluginFanart(handle, FANART)
     
-    # Cargar catálogo local para enriquecer items
+    # 1. SERIES EN CURSO (In-progress TV shows)
+    played = _get_played_keys()
+    from resources.lib.database import get_connection
+    
+    in_progress_series = []
+    bookmarks = []
+    
     try:
-        catalog = get_all_items('movie') + get_tv_shows()
-    except:
-        catalog = []
-    
-    # Índice por título para búsqueda rápida
-    catalog_by_title = {}
-    for item in catalog:
-        try:
-            title = item.get('title', '').lower()
-            if title:
-                catalog_by_title[title] = item
-        except:
-            continue
-    
-    # Localizar MyVideos*.db en special://profile/Database
+        conn = get_connection()
+        c = conn.cursor()
+        c.execute('SELECT title, season, episode, poster, fanart, clearlogo, overview FROM items WHERE type="tv"')
+        tv_rows = c.fetchall()
+        
+        series_progress = {}
+        for r in tv_rows:
+            t = r['title']
+            if not t: continue
+            tn = _normalize_title_for_match(t)
+            
+            if tn not in series_progress:
+                series_progress[tn] = {
+                    'total': 0, 'watched': 0, 'title': t, 
+                    'poster': r['poster'], 'fanart': r['fanart'], 
+                    'clearlogo': r['clearlogo'], 'overview': r['overview'], 
+                    'last_played': ''
+                }
+                
+            series_progress[tn]['total'] += 1
+            ident = f"tv_{tn}_{r['season']}_{r['episode']}"
+            if ident in played:
+                series_progress[tn]['watched'] += 1
+                lp = played[ident]
+                if lp and lp > series_progress[tn]['last_played']:
+                    series_progress[tn]['last_played'] = lp
+        
+        in_progress_series = [d for d in series_progress.values() if 0 < d['watched'] < d['total']]
+        in_progress_series.sort(key=lambda x: x['title'])
+        in_progress_series.sort(key=lambda x: x['last_played'] or '', reverse=True)
+        
+        # Cargar películas a la memoria para resolución rápida de bookmarks
+        c.execute('SELECT title, year, poster, fanart, clearlogo, overview FROM items WHERE type="movie"')
+        movies_dict = {_normalize_title_for_match(r['title']): dict(r) for r in c.fetchall()}
+        
+        conn.close()
+    except Exception as e:
+        log(f"Choloretro: Error calculando series en curso: {e}")
+        movies_dict = {}
+
+    for data in in_progress_series:
+        li = xbmcgui.ListItem(label=data['title'])
+        info = {'title': data['title'], 'plot': data['overview'], 'mediatype': 'tvshow'}
+        li.setProperty('TotalEpisodes', str(data['total']))
+        li.setProperty('WatchedEpisodes', str(data['watched']))
+        li.setProperty('UnWatchedEpisodes', str(data['total'] - data['watched']))
+        _apply_meta(li, info)
+        
+        art = {'icon': ADDON_ICON, 'fanart': FANART}
+        if data['poster']: art['poster'] = data['poster']; art['thumb'] = data['poster']
+        if data['fanart']: art['fanart'] = data['fanart']
+        if data['clearlogo']: art['clearlogo'] = data['clearlogo']; art['logo'] = data['clearlogo']
+        li.setArt(art)
+        
+        url = build_url(base_url, {'action': 'list_seasons', 'title': data['title']})
+        xbmcplugin.addDirectoryItem(handle, url, li, True)
+
+    # 2. BOOKMARKS (Películas o episodios a medias)
     db_path = None
     try:
-        try:
-            profile = xbmcvfs.translatePath('special://profile/')
-        except:
-            profile = ''
-        
+        profile = xbmcvfs.translatePath('special://profile/')
         db_dir = os.path.join(profile, 'Database')
         db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
-        
         if db_candidates:
-            # Usar la más reciente
             db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
-        # Log no sensible para ayudar al diagnóstico
-        try:
-            from resources.lib.utils.tools import log
-            log(f"Choloretro: MyVideos.db candidates={len(db_candidates)} found={bool(db_path)}")
-        except Exception:
-            pass
-    except Exception as e:
-        log(f"Choloretro: Error localizando DB de Kodi - {str(e)}")
-        db_path = None
-    
-    # Leer bookmarks
-    bookmarks = []
+    except: pass
+
     if db_path and os.path.exists(db_path):
         try:
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
-            
-            # Obtener bookmarks con info del archivo
             cur.execute("""
-                SELECT b.idBookmark, b.idFile, b.timeInSeconds, b.totalTimeInSeconds, f.strFilename 
-                FROM bookmark b 
-                JOIN files f ON b.idFile = f.idFile 
-                ORDER BY b.idBookmark DESC 
-                LIMIT 100
+                SELECT b.timeInSeconds, b.totalTimeInSeconds, f.strFilename 
+                FROM bookmark b JOIN files f ON b.idFile = f.idFile 
+                WHERE f.strFilename LIKE 'plugin://plugin.video.choloretro/%' AND b.type = 1
+                ORDER BY b.idBookmark DESC LIMIT 50
             """)
-            rows = cur.fetchall()
-            
-            for row in rows:
-                try:
-                    idBookmark, idFile, timeInSeconds, totalTimeInSeconds, strFilename = row
-                    
-                    # FILTRO: Solo items de plugin.video.choloretro
-                    # (Ignorar archivos locales y otros addons)
-                    if not strFilename:
-                        continue
-                    
-                    filename_lower = strFilename.lower()
-                    
-                    # Aceptar solo URLs de nuestro addon o archivos que reconozcamos
-                    # Rechazar otros addons
-                    if 'plugin://' in filename_lower:
-                        # Es una URL de plugin, verificar que sea la nuestra
-                        if 'plugin.video.choloretro' not in filename_lower:
-                            continue  # Es de otro addon, saltar
-                    
-                    bookmarks.append({
-                        'filename': strFilename,
-                        'time': timeInSeconds or 0,
-                        'total': totalTimeInSeconds or 0
-                    })
-                except:
-                    continue
-            
+            bookmarks = cur.fetchall()
             conn.close()
         except Exception as e:
-            log(f"Choloretro: Error leyendo bookmarks - {str(e)}")
+            log(f"Choloretro: Error leyendo bookmarks: {e}")
     
-    # Mostrar bookmarks
-    if not bookmarks:
+    if not in_progress_series and not bookmarks:
         li = xbmcgui.ListItem(label='No hay contenido en progreso')
         li.setProperty('IsPlayable', 'false')
-        try:
-            li.setArt({'icon': ADDON_ICON, 'fanart': FANART})
-        except:
-            pass
+        li.setArt({'icon': ADDON_ICON, 'fanart': FANART})
         xbmcplugin.addDirectoryItem(handle, '', li, False)
         xbmcplugin.endOfDirectory(handle)
         return
-    
-    # Procesar cada bookmark
-    shown = 0
-    for bm in bookmarks[:25]:  # Limitar a 25 items
+
+    for bm in bookmarks:
         try:
-            filename = bm.get('filename', '')
-            display_title = filename
-            catalog_item = None
-            play_url = filename
-            decoded = filename
-            parsed = None
-            qs = {}
+            timeInSeconds, totalTimeInSeconds, strFilename = bm
+            qs = parse_qs(urlparse(strFilename).query)
+            title = qs.get('title', [''])[0]
+            tvshow = qs.get('tvshowtitle', [''])[0]
             
-            # Intentar extraer info del catálogo con heurísticas más robustas
-            if filename:
-                # Decodificar la URL para buscar parámetros 'title' o 'season/episode'
-                try:
-                    decoded = unquote_plus(filename)
-                except:
-                    decoded = filename
-
-                try:
-                    parsed = urlparse(decoded)
-                    qs = parse_qs(parsed.query)
-                except:
-                    parsed = None
-                    qs = {}
-
-                # Si hay título explícito en los parámetros, usarlo
-                if 'title' in qs and qs.get('title'):
-                    display_title = qs.get('title')[0]
-
-                # Normalizar texto para matching
-                search_text = _normalize_title_for_match(decoded)
-
-                # Buscar coincidencias en catálogo usando títulos normalizados
-                best_match = None
-                best_score = 0
-                for cat_item in catalog:
-                    try:
-                        cat_title_raw = cat_item.get('title', '')
-                        if not cat_title_raw:
-                            continue
-                        cat_title = _normalize_title_for_match(cat_title_raw)
-
-                        if not cat_title:
-                            continue
-
-                        # Coincidencia directa de substring normalizado
-                        if cat_title in search_text:
-                            score = len(cat_title)
-                        else:
-                            # puntuar por intersección de tokens
-                            t1 = set(cat_title.split())
-                            t2 = set(search_text.split())
-                            inter = len(t1 & t2)
-                            score = inter
-
-                        if score > best_score:
-                            best_score = score
-                            best_match = cat_item
-                            # Si la coincidencia es razonable, adoptar su título
-                            if score >= max(3, int(len(cat_title) * 0.5)):
-                                display_title = cat_item.get('title')
-                    except:
-                        continue
-
-                if best_match:
-                    catalog_item = best_match
+            if not title: continue
             
-            # Crear ListItem
+            display_title = title
+            art_dict = {'icon': ADDON_ICON, 'fanart': FANART}
+            info = {'title': title, 'resume_time': timeInSeconds, 'resume_total': totalTimeInSeconds}
+            
+            if tvshow:
+                s, e = qs.get('season', [''])[0], qs.get('episode', [''])[0]
+                display_title = f"{tvshow} S{str(s).zfill(2)}E{str(e).zfill(2)}"
+                info['mediatype'], info['tvshowtitle'] = 'episode', tvshow
+                info['season'], info['episode'] = (int(s) if str(s).isdigit() else None), (int(e) if str(e).isdigit() else None)
+                tn = _normalize_title_for_match(tvshow)
+                if tn in series_progress:
+                    s_data = series_progress[tn]
+                    if s_data.get('poster'): art_dict['poster'] = s_data['poster']; art_dict['thumb'] = s_data['poster']
+                    if s_data.get('fanart'): art_dict['fanart'] = s_data['fanart']
+                    if s_data.get('clearlogo'): art_dict['clearlogo'] = s_data['clearlogo']; art_dict['logo'] = s_data['clearlogo']
+            else:
+                info['mediatype'] = 'movie'
+                tn = _normalize_title_for_match(title)
+                if tn in movies_dict:
+                    m_data = movies_dict[tn]
+                    info['plot'], info['year'] = m_data.get('overview'), m_data.get('year')
+                    if m_data.get('poster'): art_dict['poster'] = m_data['poster']; art_dict['thumb'] = m_data['poster']
+                    if m_data.get('fanart'): art_dict['fanart'] = m_data['fanart']
+                    if m_data.get('clearlogo'): art_dict['clearlogo'] = m_data['clearlogo']; art_dict['logo'] = m_data['clearlogo']
+
             li = xbmcgui.ListItem(label=display_title)
             li.setProperty('IsPlayable', 'true')
+            li.setProperty('ResumeTime', str(timeInSeconds))
+            li.setProperty('TotalTime', str(totalTimeInSeconds))
             
-            # Aplicar arte con POSTERS
-            art_dict = {'icon': ADDON_ICON, 'fanart': FANART}
-            is_episode_item = False
-            episode_obj = None
-            series_obj = None
-
-            if isinstance(catalog_item, dict):
-                # If catalog_item is a TV series, prefer episode-level art when possible
-                ctype = (catalog_item.get('type') or '').lower()
-                if ctype == 'tv':
-                    series_obj = catalog_item
-                    # Try to determine season/episode from parsed query or filename (SxxExx)
-                    season_num = None
-                    ep_num = None
-                    try:
-                        if parsed and qs:
-                            if 'season' in qs and qs.get('season'):
-                                season_num = int(qs.get('season')[0])
-                            if 'episode' in qs and qs.get('episode'):
-                                ep_num = int(qs.get('episode')[0])
-                    except Exception:
-                        pass
-
-                    # fallback: detect SxxExx pattern in decoded filename
-                    if not season_num or not ep_num:
-                        try:
-                            import re as _re
-                            m = _re.search(r'[sS](\d{1,2})[eE](\d{1,3})', decoded if 'decoded' in locals() else filename)
-                            if m:
-                                season_num = int(m.group(1))
-                                ep_num = int(m.group(2))
-                        except Exception:
-                            pass
-
-                    if season_num and ep_num is not None:
-                        try:
-                            eps = get_episodes(series_obj.get('title'), season_num)
-                            for ep in eps:
-                                try:
-                                    if int(ep.get('episode') or 0) == int(ep_num):
-                                        episode_obj = ep
-                                        is_episode_item = True
-                                        break
-                                except Exception:
-                                    continue
-                        except Exception:
-                            pass
-
-                # Build art using episode if available, otherwise series/movie art
-                if is_episode_item and episode_obj:
-                    poster = episode_obj.get('poster') or episode_obj.get('still_path') or series_obj.get('poster') or ''
-                    thumb = episode_obj.get('still_path') or poster
-                    fanart = episode_obj.get('fanart') or series_obj.get('fanart') or ''
-                    clearlogo = (series_obj.get('clearlogo') or series_obj.get('logo') or '') if series_obj else ''
-
-                    if poster:
-                        art_dict['poster'] = poster
-                        art_dict['thumb'] = thumb
-                    if fanart:
-                        art_dict['fanart'] = fanart
-                    if clearlogo:
-                        art_dict['clearlogo'] = clearlogo
-                        art_dict['logo'] = clearlogo
-                        art_dict['icon'] = clearlogo
-                else:
-                    poster = catalog_item.get('poster') or catalog_item.get('poster_path') or catalog_item.get('thumb') or catalog_item.get('thumbnail') or catalog_item.get('poster_url') or ''
-                    fanart = catalog_item.get('fanart') or catalog_item.get('backdrop_path') or catalog_item.get('backdrop') or catalog_item.get('fanart_url') or ''
-                    clearlogo = catalog_item.get('clearlogo') or catalog_item.get('logo') or ''
-
-                    if poster:
-                        art_dict['poster'] = poster
-                        art_dict['thumb'] = poster
-                    if fanart:
-                        art_dict['fanart'] = fanart
-                    if clearlogo:
-                        art_dict['clearlogo'] = clearlogo
-                        art_dict['logo'] = clearlogo
-                        art_dict['icon'] = clearlogo
-            
-            try:
-                li.setArt(art_dict)
-            except:
-                pass
-            
-            # Aplicar metadatos si hay item del catálogo
-            if isinstance(catalog_item, dict):
-                try:
-                    tag = li.getVideoInfoTag()
-                    
-                    if catalog_item.get('title'):
-                        tag.setTitle(catalog_item.get('title'))
-                    
-                    if catalog_item.get('overview'):
-                        tag.setPlot(catalog_item.get('overview'))
-                    
-                    try:
-                        year = catalog_item.get('year')
-                        if year:
-                            tag.setYear(int(year))
-                    except:
-                        pass
-                    
-                    try:
-                        rating = catalog_item.get('rating')
-                        if rating:
-                            tag.setRating(float(rating))
-                    except:
-                        pass
-                except:
-                    pass
-
-            # Marcar si ya está visto en la librería (si hay TMDB id o existe en la librería)
-            try:
-                def _is_marked_watched(tmdb_id=None, mediatype='movie', series_title=None, season=None, episode=None):
-                    try:
-                        import xbmc, json as _json
-                        if mediatype == 'movie':
-                            if not tmdb_id:
-                                return False
-                            method = 'VideoLibrary.GetMovies'
-                            params = {'filter': {'field': 'tmdbid', 'operator': 'is', 'value': str(tmdb_id)}, 'properties': ['playcount'], 'limits': {'start': 0, 'end': 1}}
-                            req = {'jsonrpc': '2.0', 'method': method, 'params': params, 'id': 1}
-                            res = xbmc.executeJSONRPC(_json.dumps(req))
-                            parsed = _json.loads(res or '{}')
-                            if 'result' in parsed:
-                                arr = parsed['result'].get('movies', [])
-                                if arr and arr[0].get('playcount', 0) > 0:
-                                    return True
-                            return False
-                        else:
-                            # Try by tmdb id first
-                            if tmdb_id:
-                                method = 'VideoLibrary.GetEpisodes'
-                                params = {'filter': {'field': 'tmdbid', 'operator': 'is', 'value': str(tmdb_id)}, 'properties': ['playcount'], 'limits': {'start': 0, 'end': 1}}
-                                req = {'jsonrpc': '2.0', 'method': method, 'params': params, 'id': 1}
-                                res = xbmc.executeJSONRPC(_json.dumps(req))
-                                parsed = _json.loads(res or '{}')
-                                if 'result' in parsed:
-                                    arr = parsed['result'].get('episodes', [])
-                                    if arr and arr[0].get('playcount', 0) > 0:
-                                        return True
-                            # Fallback: search episodes by season + episode + showtitle
-                            if series_title and season is not None and episode is not None:
-                                try:
-                                    method = 'VideoLibrary.GetEpisodes'
-                                    params = {'filter': {'field': 'season', 'operator': 'is', 'value': str(season)}, 'properties': ['season', 'episode', 'playcount', 'showtitle'], 'limits': {'start': 0, 'end': 500}}
-                                    req = {'jsonrpc': '2.0', 'method': method, 'params': params, 'id': 1}
-                                    res = xbmc.executeJSONRPC(_json.dumps(req))
-                                    parsed = _json.loads(res or '{}')
-                                    if 'result' in parsed:
-                                        eps = parsed['result'].get('episodes', [])
-                                        for e in eps:
-                                            try:
-                                                if int(e.get('episode') or 0) == int(episode):
-                                                    # normalize showtitle
-                                                    st = e.get('showtitle') or ''
-                                                    if _normalize_title_for_match(st) == _normalize_title_for_match(series_title):
-                                                        if e.get('playcount', 0) > 0:
-                                                            return True
-                                            except Exception:
-                                                continue
-                                except Exception:
-                                    pass
-                            return False
-                    except Exception:
-                        return False
-
-                if isinstance(catalog_item, dict):
-                    tmdb = catalog_item.get('tmdb_id') or catalog_item.get('tmdb')
-                    ctype = (catalog_item.get('type') or '').lower()
-                    # If episode_obj exists, prefer checking episode watched state
-                    if 'is_episode_item' in locals() and is_episode_item and episode_obj:
-                        st = catalog_item.get('title')
-                        sn = int(episode_obj.get('season') or 0)
-                        en = int(episode_obj.get('episode') or 0)
-                        if _is_marked_watched(tmdb_id=None, mediatype='tv', series_title=st, season=sn, episode=en):
-                            try:
-                                li.setProperty('playcount', '1')
-                            except:
-                                pass
-                    else:
-                        if tmdb:
-                            if _is_marked_watched(tmdb, 'movie' if ctype == 'movie' else 'tv'):
-                                try:
-                                    li.setProperty('playcount', '1')
-                                except:
-                                    pass
-            except Exception:
-                pass
-            
-            # Agregar al listado
-            if play_url:
-                xbmcplugin.addDirectoryItem(handle, play_url, li, False)
-                shown += 1
-                
-                # Si es una serie, intentar añadir el siguiente episodio (si existe)
-                try:
-                    series_title = None
-                    season_num = None
-                    ep_num = None
-                    
-                    # Prefer catalog_item title como título de la serie
-                    if isinstance(catalog_item, dict) and (catalog_item.get('type') or '').lower() == 'tv':
-                        series_title = catalog_item.get('title')
-
-                    # Intentar extraer season/episode desde parámetros si están presentes
-                    # (parsed y qs ya están disponibles desde arriba)
-                    if qs:
-                        if 'season' in qs and qs.get('season'):
-                            try:
-                                season_num = int(qs.get('season')[0])
-                            except:
-                                season_num = None
-                        if 'episode' in qs and qs.get('episode'):
-                            try:
-                                ep_num = int(qs.get('episode')[0])
-                            except:
-                                ep_num = None
-                    
-                    # fallback: detect SxxExx pattern en decoded filename
-                    if not season_num or ep_num is None:
-                        try:
-                            import re as _re
-                            m = _re.search(r'[sS](\d{1,2})[eE](\d{1,3})', decoded)
-                            if m:
-                                season_num = int(m.group(1))
-                                ep_num = int(m.group(2))
-                        except Exception:
-                            pass
-
-                    # Si tenemos suficiente info, buscar siguiente episodio
-                    if series_title and season_num is not None and ep_num is not None:
-                        try:
-                            episodes = get_episodes(series_title, season_num)
-                            # Buscar episodio con numero = ep_num + 1
-                            for ep in episodes:
-                                try:
-                                    if int(ep.get('episode') or 0) == int(ep_num) + 1:
-                                        # Construir ListItem similar a show_episodes
-                                        li2 = xbmcgui.ListItem(label=f"Próximo: {series_title} S{season_num}E{ep['episode']}")
-                                        info2 = {
-                                            'title': ep.get('title'),
-                                            'plot': ep.get('overview'),
-                                            'mediatype': 'episode',
-                                            'season': int(ep['season']),
-                                            'episode': int(ep['episode']),
-                                            'rating': ep.get('rating'),
-                                            'duration': ep.get('duration'),
-                                            'aired': ep.get('aired')
-                                        }
-                                        _apply_meta(li2, info2)
-                                        li2.setArt({'poster': ep.get('poster'), 'fanart': ep.get('fanart'), 'thumb': ep.get('still_path') or ep.get('poster')})
-                                        li2.setProperty('IsPlayable', 'true')
-                                        links2 = json.loads(ep['links']) if ep.get('links') else []
-                                        url_link2 = links2[0]['url'] if links2 else ''
-                                        url_params2 = {'action': 'play', 'title': f"{series_title} S{season_num}E{ep['episode']}", 'url': url_link2}
-                                        url2 = build_url(base_url, url_params2)
-                                        xbmcplugin.addDirectoryItem(handle, url2, li2, False)
-                                        shown += 1
-                                        break
-                                except Exception:
-                                    continue
-                        except Exception:
-                            pass
-                except Exception:
-                    pass
+            _apply_meta(li, info)
+            li.setArt(art_dict)
+            xbmcplugin.addDirectoryItem(handle, strFilename, li, False)
         except Exception as e:
-            log(f"Choloretro: Error procesando bookmark - {str(e)}")
-            continue
-    
-    if shown == 0:
-        li = xbmcgui.ListItem(label='No hay contenido en progreso')
-        li.setProperty('IsPlayable', 'false')
-        xbmcplugin.addDirectoryItem(handle, '', li, False)
+            log(f"Choloretro: Error procesando bookmark item: {e}")
     
     xbmcplugin.endOfDirectory(handle)
 
@@ -1743,6 +1605,7 @@ def list_movies_by_letter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
@@ -1851,6 +1714,7 @@ def list_movies_by_genre_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
@@ -1946,6 +1810,7 @@ def list_movies_by_year_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
@@ -2046,6 +1911,7 @@ def list_tvshows_by_letter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
@@ -2150,6 +2016,7 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
@@ -2241,6 +2108,7 @@ def list_tvshows_by_year_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
+        _inject_playback_state(info, li)
         _apply_meta(li, info)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
