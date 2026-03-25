@@ -62,6 +62,10 @@ def init_db():
         c.executescript(_SCHEMA)
         # Migraciones o indices adicionales si fueran necesarios
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_type ON items(type)')
+        c.execute('CREATE INDEX IF NOT EXISTS idx_items_title ON items(title)')
+        c.execute('CREATE INDEX IF NOT EXISTS idx_items_folder_id ON items(folder_id)')
+        c.execute('CREATE INDEX IF NOT EXISTS idx_items_collection_id ON items(collection_id)')
+        c.execute('CREATE INDEX IF NOT EXISTS idx_items_date_added ON items(date_added)')
         
         # Migración: Añadir columnas si no existen (en bloques separados para evitar fallos en cadena)
         try:
@@ -145,17 +149,30 @@ def upsert_items(items):
     finally:
         conn.close()
 
-def get_all_items(item_type=None):
+def get_all_items(item_type=None, limit=None, offset=None, exclude_folder_id=None, exclude_genre=None):
     conn = get_connection()
     try:
         c = conn.cursor()
-        query = 'SELECT * FROM items'
+        query = 'SELECT * FROM items WHERE 1=1'
         args = []
         if item_type:
-            query += ' WHERE type = ?'
+            query += ' AND type = ?'
             args.append(item_type)
+        if exclude_folder_id:
+            query += ' AND folder_id != ?'
+            args.append(exclude_folder_id)
+        if exclude_genre:
+            query += ' AND genres NOT LIKE ?'
+            args.append(f'%{exclude_genre}%')
         
         query += ' ORDER BY date_added DESC'
+        
+        if limit is not None:
+            query += ' LIMIT ?'
+            args.append(int(limit))
+            if offset is not None:
+                query += ' OFFSET ?'
+                args.append(int(offset))
         
         c.execute(query, args)
         rows = c.fetchall()
@@ -243,21 +260,37 @@ def get_collections(genre=None, exclude_genre=None, folder_id=None):
     finally:
         conn.close()
 
-def get_items_by_collection(collection_id):
+def get_items_by_collection(collection_id, limit=None, offset=None):
     conn = get_connection()
     try:
         c = conn.cursor()
-        c.execute('SELECT * FROM items WHERE collection_id = ? ORDER BY year', (collection_id,))
+        query = 'SELECT * FROM items WHERE collection_id = ? ORDER BY year'
+        args = [collection_id]
+        if limit is not None:
+            query += ' LIMIT ?'
+            args.append(int(limit))
+            if offset is not None:
+                query += ' OFFSET ?'
+                args.append(int(offset))
+        c.execute(query, args)
         return [dict(row) for row in c.fetchall()]
     finally:
         conn.close()
 
-def get_items_by_folder(folder_id):
+def get_items_by_folder(folder_id, limit=None, offset=None):
     conn = get_connection()
     try:
         c = conn.cursor()
         try:
-            c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
+            query = 'SELECT * FROM items WHERE folder_id = ? ORDER BY title'
+            args = [folder_id]
+            if limit is not None:
+                query += ' LIMIT ?'
+                args.append(int(limit))
+                if offset is not None:
+                    query += ' OFFSET ?'
+                    args.append(int(offset))
+            c.execute(query, args)
         except sqlite3.OperationalError as e:
             if 'no such column' in str(e):
                 log("Database: Columna folder_id faltante detectada. Aplicando migración automática.")
@@ -281,17 +314,55 @@ def get_items_by_folder(folder_id):
 
 def update_db_from_remote():
     """Descarga la base de datos pre-generada desde GitHub."""
-    url = REMOTE_DB_URL
+    # Añadir timestamp a la URL para evitar una respuesta de caché en Cloudflare
+    url = f"{REMOTE_DB_URL}?t={int(time.time())}"
+    # Deducir la URL del version.txt basado en el REMOTE_DB_URL
+    version_url = f"{REMOTE_DB_URL.rsplit('/', 1)[0]}/version_choloretro.txt?t={int(time.time())}"
     
-    log(f"Database: Iniciando descarga de DB desde {url}")
+    last_update_file = os.path.join(PROFILE_DIR, 'last_update.txt')
+    local_version_file = os.path.join(PROFILE_DIR, 'version_choloretro.txt')
+    
+    # Cooldown de 5 minutos (300s) para no saturar la red al navegar por los menús
+    if os.path.exists(last_update_file):
+        try:
+            with open(last_update_file, 'r') as f:
+                if time.time() - float(f.read().strip()) < 300:
+                    return False
+        except:
+            pass
+            
     tmp_db = DB_FILE + ".tmp"
     tmp_bin = DB_FILE + ".bin.tmp"
     
+    headers = {'User-Agent': 'Kodi-Choloretro'}
+    
+    # 1. Comprobar version.txt primero
     try:
-        # Usar un User-Agent para evitar bloqueos
-        req = urllib.request.Request(url, headers={'User-Agent': 'Kodi-Choloretro'})
-        with urllib.request.urlopen(req, timeout=60) as response, open(tmp_bin, 'wb') as out_file:
-            shutil.copyfileobj(response, out_file)
+        req_v = urllib.request.Request(version_url, headers=headers)
+        with urllib.request.urlopen(req_v, timeout=10) as response:
+            remote_version = response.read().decode('utf-8').strip()
+    except Exception as e:
+        log(f"Database: No se pudo verificar version_choloretro.txt remoto: {e}")
+        remote_version = None
+        
+    if remote_version and os.path.exists(DB_FILE) and os.path.exists(local_version_file):
+        try:
+            with open(local_version_file, 'r') as f:
+                local_version = f.read().strip()
+            if local_version == remote_version:
+                log(f"Database: El catálogo ya está en la última versión ({local_version}).")
+                with open(last_update_file, 'w') as f:
+                    f.write(str(time.time()))
+                return False
+        except:
+            pass
+            
+    log(f"Database: Descargando nueva versión del catálogo...")
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=60) as response:
+            with open(tmp_bin, 'wb') as out_file:
+                shutil.copyfileobj(response, out_file)
             
         # Desencriptar el archivo .bin descargado
         with open(tmp_bin, 'rb') as f:
@@ -329,6 +400,15 @@ def update_db_from_remote():
         # Asegurar que la nueva DB tiene el esquema correcto (migraciones)
         init_db()
         
+        # Guardar la nueva versión localmente
+        if remote_version:
+            with open(local_version_file, 'w') as f:
+                f.write(remote_version)
+                
+        # Registrar el momento exacto de la actualización exitosa
+        with open(last_update_file, 'w') as f:
+            f.write(str(time.time()))
+            
         return True
         
     except Exception as e:
@@ -340,3 +420,23 @@ def update_db_from_remote():
             try: os.remove(tmp_bin)
             except: pass
         return False
+
+def search_items_sql(query_str, limit=100, offset=0):
+    """Busca en el catálogo delegando el trabajo pesado a SQLite."""
+    if not query_str: return []
+    conn = get_connection()
+    try:
+        c = conn.cursor()
+        exact_like = f"%{query_str}%"
+        words_like = "%" + "%".join(query_str.split()) + "%"
+        
+        # Busca coincidencias exactas o por palabras
+        c.execute('''
+            SELECT * FROM items 
+            WHERE title LIKE ? OR title LIKE ?
+            ORDER BY CASE WHEN title LIKE ? THEN 0 ELSE 1 END, date_added DESC
+            LIMIT ? OFFSET ?
+        ''', (exact_like, words_like, exact_like, limit, offset))
+        return [dict(row) for row in c.fetchall()]
+    finally:
+        conn.close()

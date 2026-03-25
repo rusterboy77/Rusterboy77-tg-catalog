@@ -286,6 +286,9 @@ def update_cache_db(catalog_results):
         );
         CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
         CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
+        CREATE INDEX IF NOT EXISTS idx_items_folder_id ON items(folder_id);
+        CREATE INDEX IF NOT EXISTS idx_items_collection_id ON items(collection_id);
+        CREATE INDEX IF NOT EXISTS idx_items_date_added ON items(date_added);
     ''')
     
     # Migración por si la tabla ya existe sin la columna
@@ -611,6 +614,13 @@ def generate():
     
     # Generar DB
     update_cache_db(final_results)
+
+    # Generar archivo de versión específico para Choloretro
+    version_str = datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S')
+    version_file_path = os.path.join(BASE_DIR, "version_choloretro.txt")
+    with open(version_file_path, 'w') as f:
+        f.write(version_str)
+    print(f"Archivo de versión generado: {version_file_path} con contenido: {version_str}")
 
 if __name__ == "__main__":
     # Iniciar proceso

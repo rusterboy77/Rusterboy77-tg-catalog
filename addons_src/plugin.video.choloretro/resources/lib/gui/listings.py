@@ -6,7 +6,7 @@ import json
 import os
 from urllib.parse import urlencode, urlparse, parse_qs, unquote_plus
 import unicodedata, re
-from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder, get_collections, get_items_by_collection
+from resources.lib.database import get_all_items, get_tv_shows, get_seasons, get_episodes, get_items_by_folder, get_collections, get_items_by_collection, search_items_sql
 from resources.lib.utils.tools import log
 
 ITEMS_PER_PAGE = 40
@@ -985,7 +985,7 @@ def list_anime_tvshows(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
-    if end < total_items:
+    if has_next:
         _add_next_page(handle, base_url, params, page)
 
     xbmcplugin.setPluginFanart(handle, FANART)
@@ -1229,31 +1229,16 @@ def show_search(base_url, handle, params):
         xbmcplugin.endOfDirectory(handle)
         return
 
-    # Recolectar películas
-    movies = get_all_items('movie')
-    for movie in movies:
-        # Buscar si TODAS las palabras de la búsqueda están en el título normalizado
-        title_norm = _normalize_title_for_match(movie.get('title', ''))
-        if title_norm and all(word in title_norm for word in search_words):
-            all_results.append({'type': 'movie', 'data': movie})
-    
-    # Recolectar series
-    items = get_tv_shows()
-    for item in items:
-        title_norm = _normalize_title_for_match(item.get('title', ''))
-        if title_norm and all(word in title_norm for word in search_words):
-            all_results.append({'type': 'tvshow', 'data': item})
-    
     # Paginación
     page = int(params.get('page', 1))
-    total_items = len(all_results)
-    start = (page - 1) * ITEMS_PER_PAGE
-    end = start + ITEMS_PER_PAGE
     
-    for res in all_results[start:end]:
+    all_results = search_items_sql(search_term, limit=ITEMS_PER_PAGE + 1, offset=(page - 1) * ITEMS_PER_PAGE)
+    has_next = len(all_results) > ITEMS_PER_PAGE
+    all_results = all_results[:ITEMS_PER_PAGE]
+    
+    for item in all_results:
         found_total += 1
-        item = res['data']
-        itype = res['type']
+        itype = 'tvshow' if item.get('type') == 'tv' else 'movie'
         
         li = xbmcgui.ListItem(label=item['title'])
         
@@ -1311,7 +1296,7 @@ def show_search(base_url, handle, params):
         no_results.setProperty('IsPlayable', 'false')
         xbmcplugin.addDirectoryItem(handle, '', no_results, False)
     
-    if end < total_items:
+    if has_next:
         _add_next_page(handle, base_url, params, page)
 
     xbmcplugin.setPluginFanart(handle, FANART)

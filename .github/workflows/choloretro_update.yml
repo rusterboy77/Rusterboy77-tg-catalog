@@ -61,5 +61,6 @@ jobs:
       run: |
         # Subir los archivos generados al bucket de R2
         aws s3 cp cache_choloretro.bin s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
+        aws s3 cp version_choloretro.txt s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         
         echo "Archivos subidos a Cloudflare R2 exitosamente."
