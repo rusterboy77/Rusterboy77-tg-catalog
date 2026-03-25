@@ -985,7 +985,7 @@ def list_anime_tvshows(base_url, handle, params):
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, True)
     
-    if has_next:
+    if end < total_items:
         _add_next_page(handle, base_url, params, page)
 
     xbmcplugin.setPluginFanart(handle, FANART)
