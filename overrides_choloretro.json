@@ -1,6 +1,12 @@
 {
   "El Gallo Claudio": {
-    "manual_id": "100364"
+    "manual_id": "custom_galloclaudio_01",
+    "title": "El Gallo Claudio",
+    "overview": "El Gallo Claudio (Foghorn Leghorn) es un simpático y enorme gallo de los Looney Tunes de Warner Bros. Conocido por su fuerte acento sureño y por ser un bromista empedernido, pasa sus días metiéndose en enredos y gastándole bromas pesadas al Perro George (Barnyard Dawg) y esquivando al pequeño Gavilán Pollero.",
+    "poster_url": "https://image.tmdb.org/t/p/original/fApj1NjDj3kn5YQpUBQpsL6XmHt.jpg",
+    "backdrop_url": "https://image.tmdb.org/t/p/original/8egE0LWPJYrNuqq72VvbctMeGEY.jpg",
+    "year": "1946",
+    "genres": ["Animación", "Comedia", "Familiar"]
   },
   "El Coyote y el Correcaminos": {
     "manual_id": "custom_coyote_01",
