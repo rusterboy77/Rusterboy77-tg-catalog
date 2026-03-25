@@ -515,13 +515,19 @@ def generate():
                     "parsed": {"type": "series", "series": series_name, "year": year},
                     "tmdb_top": tmdb_data,
                     "episodes": [],
-                    "date_added": datetime.datetime.utcnow().isoformat(),
+                    "date_added": file.get('date', '').replace(' ', 'T') if file.get('date') else datetime.datetime.utcnow().isoformat(),
                     "folder_id": str(file.get('folder_id', '')),
                     "manual_id": manual_id
                 }
             
             # Buscar/Crear episodio
             entry = series_map[norm_name]
+            
+            # Si leemos varios capítulos, nos aseguramos de quedarnos con la fecha más reciente de la subida
+            file_date = file.get('date', '').replace(' ', 'T') if file.get('date') else ""
+            if file_date and file_date > entry.get("date_added", ""):
+                entry["date_added"] = file_date
+
             
             # FIX: Si encontramos cualquier archivo de esta serie en la carpeta Anime, forzamos el ID de la serie
             if str(file.get('folder_id', '')) == '19385669' and entry.get('folder_id') != '19385669':
@@ -596,7 +602,7 @@ def generate():
                 "parsed": meta,
                 "tmdb_top": tmdb_data,
                 "links": [{"quality": quality, "url": link}],
-                "date_added": datetime.datetime.utcnow().isoformat(),
+                "date_added": file.get('date', '').replace(' ', 'T') if file.get('date') else datetime.datetime.utcnow().isoformat(),
                 "folder_id": str(file.get('folder_id', '')),
                 "manual_id": manual_id
             }

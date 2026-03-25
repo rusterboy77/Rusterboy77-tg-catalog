@@ -295,8 +295,9 @@ def list_all_movies(base_url, handle, params):
     # Filtrar películas de animación usando ID de carpeta
     movies = [m for m in movies if not _is_animated_movie(m) and not _is_anime(m)]
 
-    # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
-    movies.sort(key=lambda x: x.get('date_added') or '', reverse=False)
+    # Ordenar alfabéticamente primero y luego por fecha (sólo por día) para evitar orden Z-A
+    movies.sort(key=lambda x: x.get('title') or '')
+    movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -421,8 +422,9 @@ def list_all_tvshows(base_url, handle, params):
     # Filtrar series de animación usando ID de carpeta
     items = [i for i in items if not _is_animated_tvshow(i) and not _is_anime(i)]
 
-    # Invertir orden a petición (reverse=False para corregir posible formato de fecha no ISO)
-    items.sort(key=lambda x: x.get('date_added') or '', reverse=False)
+    # Ordenar alfabéticamente primero y luego por fecha (sólo por día) para evitar orden Z-A
+    items.sort(key=lambda x: x.get('title') or '')
+    items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(items)
@@ -722,6 +724,8 @@ def show_animated_movies(base_url, handle, params):
     xbmcplugin.setContent(handle, 'movies')
     movies = get_all_items('movie')
     movies = [m for m in movies if _is_animated_movie(m) and not _is_anime(m)]
+    movies.sort(key=lambda x: x.get('title') or '')
+    movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -792,6 +796,8 @@ def show_animated_tvshows(base_url, handle, params):
     xbmcplugin.setContent(handle, 'tvshows')
     items = get_tv_shows()
     items = [i for i in items if _is_animated_tvshow(i) and not _is_anime(i)]
+    items.sort(key=lambda x: x.get('title') or '')
+    items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(items)
@@ -884,6 +890,8 @@ def list_anime_movies(base_url, handle, params):
     xbmcplugin.setContent(handle, 'movies')
     movies = get_all_items('movie')
     movies = [m for m in movies if _is_anime(m)]
+    movies.sort(key=lambda x: x.get('title') or '')
+    movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -944,6 +952,8 @@ def list_anime_tvshows(base_url, handle, params):
     xbmcplugin.setContent(handle, 'tvshows')
     items = get_tv_shows()
     items = [i for i in items if _is_anime(i)]
+    items.sort(key=lambda x: x.get('title') or '')
+    items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(items)
