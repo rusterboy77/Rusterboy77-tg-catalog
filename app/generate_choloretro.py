@@ -17,8 +17,8 @@ import rename
 TMDB_API_KEY = os.environ.get('TMDB_API_KEY')
 # Cuentas 1fichier (Soporte multi-cuenta)
 ONEFICHIER_ACCOUNTS = []
-if os.environ.get('ONEFICHIER_API_KEY') and os.environ.get('ONEFICHIER_FOLDER_ID'):
-    ONEFICHIER_ACCOUNTS.append({'key': os.environ.get('ONEFICHIER_API_KEY'), 'folder': os.environ.get('ONEFICHIER_FOLDER_ID')})
+# if os.environ.get('ONEFICHIER_API_KEY') and os.environ.get('ONEFICHIER_FOLDER_ID'):
+#     ONEFICHIER_ACCOUNTS.append({'key': os.environ.get('ONEFICHIER_API_KEY'), 'folder': os.environ.get('ONEFICHIER_FOLDER_ID')})
 if os.environ.get('ONEFICHIER_API_KEY_2') and os.environ.get('ONEFICHIER_FOLDER_ID_2'):
     ONEFICHIER_ACCOUNTS.append({'key': os.environ.get('ONEFICHIER_API_KEY_2'), 'folder': os.environ.get('ONEFICHIER_FOLDER_ID_2')})
 
