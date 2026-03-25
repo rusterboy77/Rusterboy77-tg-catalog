@@ -611,6 +611,34 @@ def generate():
 
     # Reconstruir lista final
     final_results = new_results + list(series_map.values())
+
+    # --- INICIO MODIFICACIÓN: Fusionar con items no escaneados del catálogo antiguo ---
+    newly_scanned_keys = set()
+    for item in final_results:
+        p = item.get('parsed', {})
+        if not p: continue
+        if p.get('type') == 'series':
+            key = f"tv_{rename.normalize_title(p.get('series', ''))}"
+            newly_scanned_keys.add(key)
+        elif p.get('type') == 'movie':
+            key = f"movie_{rename.normalize_title(p.get('title', ''))}_{p.get('year') or ''}"
+            newly_scanned_keys.add(key)
+
+    if catalog.get("results"):
+        for old_item in catalog["results"]:
+            p = old_item.get('parsed', {})
+            if not p: continue
+            
+            key = None
+            if p.get('type') == 'series':
+                key = f"tv_{rename.normalize_title(p.get('series', ''))}"
+            elif p.get('type') == 'movie':
+                key = f"movie_{rename.normalize_title(p.get('title', ''))}_{p.get('year') or ''}"
+
+            if key and key not in newly_scanned_keys:
+                final_results.append(old_item)
+    # --- FIN MODIFICACIÓN ---
+
     catalog["results"] = final_results
 
     # Guardar JSON

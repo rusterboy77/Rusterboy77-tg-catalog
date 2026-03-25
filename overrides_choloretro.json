@@ -16,6 +16,15 @@
     "backdrop_url": "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgD6V_G302xaa2xR-Erkk0vFOBIivFrdX5DjPq2hl8FP0PMhHA6hH1l6Ma2NJVfifyCgGRjjOEJnSs3HWuwwJGSJeRnD2vYcJmiGJwPE2Vrza1hyphenhyphenRNeAzn4mr0kWDBlb-Nha-TCjNtSyp4/s1600/Coyote+y+Correcaminos+persecuci%25C3%25B3n.JPG",
     "year": "1949",
     "genres": ["Animación", "Comedia", "Familiar"]
+  },
+  "Merrie Melodies": {
+    "manual_id": "custom_merriemelodies_01",
+    "title": "Merrie Melodies",
+    "overview": "Merrie Melodies (Fantasías animadas de ayer y hoy) es la colección clásica de cortos animados de Warner Bros. que incluye a personajes icónicos de los Looney Tunes. Se trata de una serie de dibujos animados histórica y emblemática, tratada aquí como serie de animación completa.",
+    "poster_url": "https://m.media-amazon.com/images/M/MV5BNWVkZjRmMzgtNGZmYy00YjkzLWIxZWEtMWYyYzBlMDI0NzUyXkEyXkFqcGc@._V1_.jpg",
+    "backdrop_url": "https://static.wikia.nocookie.net/looneytunes/images/f/f5/Merrie_Melodies_Title_Card_1963.png",
+    "year": "1931",
+    "genres": ["Animación", "Clásico", "Comedia"]
   }
 }
   

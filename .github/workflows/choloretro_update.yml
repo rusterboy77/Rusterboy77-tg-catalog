@@ -22,6 +22,16 @@ jobs:
       # Es una buena práctica usar un archivo requirements.txt
       run: pip install -r requirements.txt
 
+    - name: Descargar Catalogo Anterior de R2
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        CLOUDFLARE_ENDPOINT: https://${{ secrets.CLOUDFLARE_ENDPOINT }}.r2.cloudflarestorage.com
+        R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
+      run: |
+        # Intentamos descargar el JSON anterior. El "|| true" evita que el workflow falle si es la primera vez y el archivo no existe aún.
+        aws s3 cp s3://$R2_BUCKET_NAME/catalog_choloretro.json catalog_choloretro.json --endpoint-url $CLOUDFLARE_ENDPOINT || true
+
     - name: Generar Catalogo Choloretro
       env:
         TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
@@ -62,5 +72,6 @@ jobs:
         # Subir los archivos generados al bucket de R2
         aws s3 cp cache_choloretro.bin s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         aws s3 cp version_choloretro.txt s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
+        aws s3 cp catalog_choloretro.json s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         
         echo "Archivos subidos a Cloudflare R2 exitosamente."
