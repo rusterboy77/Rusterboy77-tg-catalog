@@ -33,14 +33,13 @@ jobs:
         aws s3 cp s3://$R2_BUCKET_NAME/catalog_choloretro.enc catalog_choloretro.enc --endpoint-url $CLOUDFLARE_ENDPOINT || true
         # Si el archivo existe, lo desencriptamos. Si no, creamos un JSON vacío para que el script no falle.
         if [ -f "catalog_choloretro.enc" ]; then
-          python -c '
-with open("catalog_choloretro.enc", "rb") as f: data = bytearray(f.read())
-key = bytearray("CholoRetro_JSON_Key_!@#$", "utf-8")
-for i in range(len(data)): data[i] ^= key[i % len(key)]
-with open("catalog_choloretro.json", "wb") as f: f.write(data)
-'
+          echo "with open('catalog_choloretro.enc', 'rb') as f: data = bytearray(f.read())" > dec.py
+          echo "key = bytearray('CholoRetro_JSON_Key_!@#$', 'utf-8')" >> dec.py
+          echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> dec.py
+          echo "with open('catalog_choloretro.json', 'wb') as f: f.write(data)" >> dec.py
+          python dec.py
         else
-          echo '{\"results\": []}' > catalog_choloretro.json
+          echo '{"results": []}' > catalog_choloretro.json
         fi
 
     - name: Generar Catalogo Choloretro
@@ -57,26 +56,21 @@ with open("catalog_choloretro.json", "wb") as f: f.write(data)
 
     - name: Encriptar Base de Datos a .bin
       run: |
-        python -c '
-import zlib
-with open("cache_choloretro.db", "rb") as f:
-    raw_data = f.read()
-data = bytearray(zlib.compress(raw_data))
-key = bytearray("CholoRetro_XOR_Key_2024", "utf-8")
-for i in range(len(data)):
-    data[i] ^= key[i % len(key)]
-with open("cache_choloretro.bin", "wb") as f:
-    f.write(data)
-'
+        echo "import zlib" > enc_db.py
+        echo "with open('cache_choloretro.db', 'rb') as f: raw_data = f.read()" >> enc_db.py
+        echo "data = bytearray(zlib.compress(raw_data))" >> enc_db.py
+        echo "key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')" >> enc_db.py
+        echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> enc_db.py
+        echo "with open('cache_choloretro.bin', 'wb') as f: f.write(data)" >> enc_db.py
+        python enc_db.py
 
     - name: Encriptar Catalogo JSON
       run: |
-        python -c '
-with open("catalog_choloretro.json", "rb") as f: data = bytearray(f.read())
-key = bytearray("CholoRetro_JSON_Key_!@#$", "utf-8")
-for i in range(len(data)): data[i] ^= key[i % len(key)]
-with open("catalog_choloretro.enc", "wb") as f: f.write(data)
-'
+        echo "with open('catalog_choloretro.json', 'rb') as f: data = bytearray(f.read())" > enc_json.py
+        echo "key = bytearray('CholoRetro_JSON_Key_!@#$', 'utf-8')" >> enc_json.py
+        echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> enc_json.py
+        echo "with open('catalog_choloretro.enc', 'wb') as f: f.write(data)" >> enc_json.py
+        python enc_json.py
 
     - name: Subir artefactos a Cloudflare R2
       # Este paso utiliza el AWS CLI, que es compatible con la API S3 de Cloudflare R2.
