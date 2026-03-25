@@ -717,15 +717,81 @@ def show_animated(base_url, handle, params):
 
 def show_animated_movies(base_url, handle, params):
     """Muestra solo películas con género Animación."""
+    mode = params.get('mode')
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
     
-    xbmcplugin.setContent(handle, 'movies')
+    if not mode:
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        categories = [
+            ('Todas', {'action': params.get('action', 'list_animated_movies'), 'mode': 'all'}),
+            ('Por Título', {'action': params.get('action', 'list_animated_movies'), 'mode': 'title'}),
+            ('Por Año', {'action': params.get('action', 'list_animated_movies'), 'mode': 'year'}),
+        ]
+        for title, query_params in categories:
+            li = xbmcgui.ListItem(label=title)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url = build_url(base_url, query_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
     movies = get_all_items('movie')
     movies = [m for m in movies if _is_animated_movie(m) and not _is_anime(m)]
-    movies.sort(key=lambda x: x.get('title') or '')
-    movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+    
+    if mode == 'title':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        groups = {}
+        for movie in movies:
+            title = movie.get('title', '')
+            if not title: continue
+            first_letter = title[0].upper()
+            if first_letter not in groups: groups[first_letter] = []
+            groups[first_letter].append(movie)
+        for letter in sorted(groups.keys()):
+            li = xbmcgui.ListItem(label=f"{letter}")
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_animated_movies'), 'mode': 'title_filter', 'letter': letter}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+        
+    elif mode == 'year':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        years_set = set()
+        for movie in movies:
+            year = movie.get('year')
+            if year: years_set.add(str(year))
+        for year in sorted(years_set, reverse=True):
+            li = xbmcgui.ListItem(label=year)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_animated_movies'), 'mode': 'year_filter', 'year': year}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
+    if mode == 'title_filter':
+        letter = params.get('letter', 'A')
+        movies = [m for m in movies if m.get('title', '').upper().startswith(letter)]
+        movies = sorted(movies, key=lambda x: x.get('title', ''))
+    elif mode == 'year_filter':
+        year = params.get('year', '')
+        movies = [m for m in movies if str(m.get('year', '')) == year]
+        movies = sorted(movies, key=lambda x: x.get('title', ''))
+    else:
+        movies.sort(key=lambda x: x.get('title') or '')
+        movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+
+    xbmcplugin.setContent(handle, 'movies')
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -789,15 +855,81 @@ def show_animated_movies(base_url, handle, params):
 
 def show_animated_tvshows(base_url, handle, params):
     """Muestra solo series con género Animación."""
+    mode = params.get('mode')
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
     
-    xbmcplugin.setContent(handle, 'tvshows')
+    if not mode:
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        categories = [
+            ('Todas', {'action': params.get('action', 'list_animated_tvshows'), 'mode': 'all'}),
+            ('Por Título', {'action': params.get('action', 'list_animated_tvshows'), 'mode': 'title'}),
+            ('Por Año', {'action': params.get('action', 'list_animated_tvshows'), 'mode': 'year'}),
+        ]
+        for title, query_params in categories:
+            li = xbmcgui.ListItem(label=title)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url = build_url(base_url, query_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
     items = get_tv_shows()
     items = [i for i in items if _is_animated_tvshow(i) and not _is_anime(i)]
-    items.sort(key=lambda x: x.get('title') or '')
-    items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+    
+    if mode == 'title':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        groups = {}
+        for item in items:
+            title = item.get('title', '')
+            if not title: continue
+            first_letter = title[0].upper()
+            if first_letter not in groups: groups[first_letter] = []
+            groups[first_letter].append(item)
+        for letter in sorted(groups.keys()):
+            li = xbmcgui.ListItem(label=f"{letter}")
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_animated_tvshows'), 'mode': 'title_filter', 'letter': letter}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+        
+    elif mode == 'year':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'dibujos.png')
+        xbmcplugin.setContent(handle, 'files')
+        years_set = set()
+        for item in items:
+            year = item.get('year')
+            if year: years_set.add(str(year))
+        for year in sorted(years_set, reverse=True):
+            li = xbmcgui.ListItem(label=year)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_animated_tvshows'), 'mode': 'year_filter', 'year': year}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
+    if mode == 'title_filter':
+        letter = params.get('letter', 'A')
+        items = [i for i in items if i.get('title', '').upper().startswith(letter)]
+        items = sorted(items, key=lambda x: x.get('title', ''))
+    elif mode == 'year_filter':
+        year = params.get('year', '')
+        items = [i for i in items if str(i.get('year', '')) == year]
+        items = sorted(items, key=lambda x: x.get('title', ''))
+    else:
+        items.sort(key=lambda x: x.get('title') or '')
+        items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+
+    xbmcplugin.setContent(handle, 'tvshows')
 
     page = int(params.get('page', 1))
     total_items = len(items)
@@ -883,15 +1015,81 @@ def show_anime(base_url, handle, params):
 
 def list_anime_movies(base_url, handle, params):
     """Muestra solo películas de la carpeta Anime."""
+    mode = params.get('mode')
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
     
-    xbmcplugin.setContent(handle, 'movies')
+    if not mode:
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        categories = [
+            ('Todas', {'action': params.get('action', 'list_anime_movies'), 'mode': 'all'}),
+            ('Por Título', {'action': params.get('action', 'list_anime_movies'), 'mode': 'title'}),
+            ('Por Año', {'action': params.get('action', 'list_anime_movies'), 'mode': 'year'}),
+        ]
+        for title, query_params in categories:
+            li = xbmcgui.ListItem(label=title)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url = build_url(base_url, query_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
     movies = get_all_items('movie')
     movies = [m for m in movies if _is_anime(m)]
-    movies.sort(key=lambda x: x.get('title') or '')
-    movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+    
+    if mode == 'title':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        groups = {}
+        for movie in movies:
+            title = movie.get('title', '')
+            if not title: continue
+            first_letter = title[0].upper()
+            if first_letter not in groups: groups[first_letter] = []
+            groups[first_letter].append(movie)
+        for letter in sorted(groups.keys()):
+            li = xbmcgui.ListItem(label=f"{letter}")
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_anime_movies'), 'mode': 'title_filter', 'letter': letter}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+        
+    elif mode == 'year':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        years_set = set()
+        for movie in movies:
+            year = movie.get('year')
+            if year: years_set.add(str(year))
+        for year in sorted(years_set, reverse=True):
+            li = xbmcgui.ListItem(label=year)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_anime_movies'), 'mode': 'year_filter', 'year': year}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
+    xbmcplugin.setContent(handle, 'movies')
+    
+    if mode == 'title_filter':
+        letter = params.get('letter', 'A')
+        movies = [m for m in movies if m.get('title', '').upper().startswith(letter)]
+        movies = sorted(movies, key=lambda x: x.get('title', ''))
+    elif mode == 'year_filter':
+        year = params.get('year', '')
+        movies = [m for m in movies if str(m.get('year', '')) == year]
+        movies = sorted(movies, key=lambda x: x.get('title', ''))
+    else:
+        movies.sort(key=lambda x: x.get('title') or '')
+        movies.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
 
     page = int(params.get('page', 1))
     total_items = len(movies)
@@ -945,15 +1143,81 @@ def list_anime_movies(base_url, handle, params):
 
 def list_anime_tvshows(base_url, handle, params):
     """Muestra solo series de la carpeta Anime."""
+    mode = params.get('mode')
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
     FANART = os.path.join(ADDON_PATH, 'fanart.jpg')
     
-    xbmcplugin.setContent(handle, 'tvshows')
+    if not mode:
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        categories = [
+            ('Todas', {'action': params.get('action', 'list_anime_tvshows'), 'mode': 'all'}),
+            ('Por Título', {'action': params.get('action', 'list_anime_tvshows'), 'mode': 'title'}),
+            ('Por Año', {'action': params.get('action', 'list_anime_tvshows'), 'mode': 'year'}),
+        ]
+        for title, query_params in categories:
+            li = xbmcgui.ListItem(label=title)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url = build_url(base_url, query_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
     items = get_tv_shows()
     items = [i for i in items if _is_anime(i)]
-    items.sort(key=lambda x: x.get('title') or '')
-    items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+    
+    if mode == 'title':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        groups = {}
+        for item in items:
+            title = item.get('title', '')
+            if not title: continue
+            first_letter = title[0].upper()
+            if first_letter not in groups: groups[first_letter] = []
+            groups[first_letter].append(item)
+        for letter in sorted(groups.keys()):
+            li = xbmcgui.ListItem(label=f"{letter}")
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_anime_tvshows'), 'mode': 'title_filter', 'letter': letter}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+        
+    elif mode == 'year':
+        icon_path = os.path.join(ADDON_PATH, 'resources', 'media', 'anime.png')
+        xbmcplugin.setContent(handle, 'files')
+        years_set = set()
+        for item in items:
+            year = item.get('year')
+            if year: years_set.add(str(year))
+        for year in sorted(years_set, reverse=True):
+            li = xbmcgui.ListItem(label=year)
+            li.setArt({'icon': icon_path, 'fanart': FANART})
+            url_params = {'action': params.get('action', 'list_anime_tvshows'), 'mode': 'year_filter', 'year': year}
+            url = build_url(base_url, url_params)
+            xbmcplugin.addDirectoryItem(handle, url, li, True)
+        xbmcplugin.setPluginFanart(handle, FANART)
+        xbmcplugin.endOfDirectory(handle)
+        return
+
+    if mode == 'title_filter':
+        letter = params.get('letter', 'A')
+        items = [i for i in items if i.get('title', '').upper().startswith(letter)]
+        items = sorted(items, key=lambda x: x.get('title', ''))
+    elif mode == 'year_filter':
+        year = params.get('year', '')
+        items = [i for i in items if str(i.get('year', '')) == year]
+        items = sorted(items, key=lambda x: x.get('title', ''))
+    else:
+        items.sort(key=lambda x: x.get('title') or '')
+        items.sort(key=lambda x: (x.get('date_added') or '')[:10], reverse=True)
+
+    xbmcplugin.setContent(handle, 'tvshows')
 
     page = int(params.get('page', 1))
     total_items = len(items)
