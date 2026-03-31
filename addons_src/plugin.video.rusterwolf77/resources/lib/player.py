@@ -1,8 +1,26 @@
 
-import xbmc, xbmcgui, xbmcaddon, xbmcvfs, urllib.request, urllib.error, urllib.parse, os, time, json
+import xbmc, xbmcgui, xbmcaddon, xbmcvfs, urllib.request, urllib.error, urllib.parse, os, time, json, base64
+try:
+    from Cryptodome.Cipher import AES
+except ImportError:
+    from Crypto.Cipher import AES
 
 ADDON = xbmcaddon.Addon()
 ADDON_ICON = ADDON.getAddonInfo('icon')
+
+def decrypt_url(encrypted_url):
+    _s = [104, 84, 104, 56, 117, 82, 110, 76, 53, 98, 88, 56, 80, 90, 67, 54, 84, 99, 51, 116, 52, 54, 110, 86, 68, 70, 102, 66, 112, 66, 54, 84, 106, 119, 51, 113, 97, 122, 81, 84, 104, 112, 101, 120, 112, 103, 56, 98, 76, 100, 105, 109, 101, 118, 78, 72, 106, 53, 118, 74, 82, 48, 110, 80]
+    seed = bytes(_s)
+    decoded_seed = base64.b64decode(seed)
+    iv = decoded_seed[:16]
+    key = decoded_seed[16:]
+    padding_needed = 4 - (len(encrypted_url) % 4)
+    if padding_needed and padding_needed != 4:
+        encrypted_url += "=" * padding_needed
+    cipher = AES.new(key, AES.MODE_OFB, iv)
+    encrypted_bytes = base64.urlsafe_b64decode(encrypted_url)
+    return cipher.decrypt(encrypted_bytes).decode('utf-8')
+
 
 def is_elementum_installed():
     try:
@@ -10,6 +28,36 @@ def is_elementum_installed():
         return True
     except Exception:
         return False
+
+def play_1fichier_with_alldebrid(encrypted_url, api_key):
+    """Desbloquea un enlace de 1fichier (previamente cifrado) usando AllDebrid."""
+    agent = "RusterWolf77"
+    base_url = "https://api.alldebrid.com/v4.1"
+    
+    try:
+        xbmcgui.Dialog().notification('AllDebrid', 'Resolviendo enlace...', ADDON_ICON)
+        
+        # 1. Descifrar la URL
+        plain_url = decrypt_url(encrypted_url)
+        if not plain_url.startswith('http'):
+            raise ValueError("La URL descifrada no es válida")
+
+        # 2. Desbloquear con AllDebrid
+        url_unlock = f"{base_url}/link/unlock?agent={agent}&apikey={api_key}&link={urllib.parse.quote(plain_url)}"
+        with urllib.request.urlopen(urllib.request.Request(url_unlock)) as response:
+            res_unlock = json.loads(response.read())
+            
+        if res_unlock.get('status') != 'success':
+            err_msg = res_unlock.get('error', {}).get('message', 'Error al desbloquear el enlace de AllDebrid')
+            xbmcgui.Dialog().ok('AllDebrid - Error', err_msg)
+            return None
+            
+        xbmcgui.Dialog().notification('AllDebrid', '¡Enlace listo!', ADDON_ICON)
+        return res_unlock.get('data', {}).get('link')
+    except Exception as e:
+        xbmcgui.Dialog().ok('AllDebrid', f'Fallo al procesar enlace: {str(e)}')
+        xbmc.log(f"RusterWolf AllDebrid Error: {e}", xbmc.LOGERROR)
+        return None
 
 def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
     """Desbloquea el torrent usando AllDebrid."""

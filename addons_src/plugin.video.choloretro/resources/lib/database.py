@@ -364,11 +364,11 @@ def update_db_from_remote():
             with open(tmp_bin, 'wb') as out_file:
                 shutil.copyfileobj(response, out_file)
             
-        # Desencriptar el archivo .bin descargado
         with open(tmp_bin, 'rb') as f:
             data = bytearray(f.read())
             
-        key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')
+        _k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 88, 79, 82, 95, 75, 101, 121, 95, 50, 48, 50, 52]
+        key = bytearray(_k)
         key_len = len(key)
         for i in range(len(data)):
             data[i] ^= key[i % key_len]
@@ -422,7 +422,6 @@ def update_db_from_remote():
         return False
 
 def search_items_sql(query_str, limit=100, offset=0):
-    """Busca en el catálogo delegando el trabajo pesado a SQLite."""
     if not query_str: return []
     conn = get_connection()
     try:

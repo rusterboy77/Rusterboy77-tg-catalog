@@ -36,7 +36,7 @@ jobs:
         # Si el archivo existe, lo desencriptamos. Si no, creamos un JSON vacío para que el script no falle.
         if [ -f "catalog_choloretro.enc" ]; then
           echo "with open('catalog_choloretro.enc', 'rb') as f: data = bytearray(f.read())" > dec.py
-          echo "key = bytearray('CholoRetro_JSON_Key_!@#$', 'utf-8')" >> dec.py
+          echo "key = bytearray('${{ secrets.CHOLORETRO_JSON_KEY }}', 'utf-8')" >> dec.py
           echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> dec.py
           echo "with open('catalog_choloretro.json', 'wb') as f: f.write(data)" >> dec.py
           python dec.py
@@ -61,7 +61,7 @@ jobs:
         echo "import zlib" > enc_db.py
         echo "with open('cache_choloretro.db', 'rb') as f: raw_data = f.read()" >> enc_db.py
         echo "data = bytearray(zlib.compress(raw_data))" >> enc_db.py
-        echo "key = bytearray('CholoRetro_XOR_Key_2024', 'utf-8')" >> enc_db.py
+        echo "key = bytearray('${{ secrets.CHOLORETRO_XOR_KEY }}', 'utf-8')" >> enc_db.py
         echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> enc_db.py
         echo "with open('cache_choloretro.bin', 'wb') as f: f.write(data)" >> enc_db.py
         python enc_db.py
@@ -69,7 +69,7 @@ jobs:
     - name: Encriptar Catalogo JSON
       run: |
         echo "with open('catalog_choloretro.json', 'rb') as f: data = bytearray(f.read())" > enc_json.py
-        echo "key = bytearray('CholoRetro_JSON_Key_!@#$', 'utf-8')" >> enc_json.py
+        echo "key = bytearray('${{ secrets.CHOLORETRO_JSON_KEY }}', 'utf-8')" >> enc_json.py
         echo "for i in range(len(data)): data[i] ^= key[i % len(key)]" >> enc_json.py
         echo "with open('catalog_choloretro.enc', 'wb') as f: f.write(data)" >> enc_json.py
         python enc_json.py

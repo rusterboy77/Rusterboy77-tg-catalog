@@ -194,3 +194,15 @@ if __name__ == '__main__':
             player.check_and_send_upnext()
         else:
             if monitor.waitForAbort(5): break
+
+    # --- LIMPIEZA AL SALIR DE KODI ---
+    # El bucle ha terminado, lo que significa que Kodi se está cerrando.
+    # Borramos la base de datos temporal para no dejar rastros.
+    try:
+        addon_id_svc = ADDON.getAddonInfo('id')
+        temp_db_path = os.path.join(xbmcvfs.translatePath(f"special://temp/{addon_id_svc}"), 'session.db')
+        if xbmcvfs.exists(temp_db_path):
+            xbmcvfs.delete(temp_db_path)
+            log(f"Base de datos temporal eliminada con éxito: {temp_db_path}")
+    except Exception as e:
+        log(f"Error al eliminar la base de datos temporal en la salida: {e}")

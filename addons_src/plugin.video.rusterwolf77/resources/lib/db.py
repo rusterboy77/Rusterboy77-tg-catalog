@@ -9,8 +9,13 @@ import xbmcvfs
 ADDON = xbmcaddon.Addon()
 addon_id = ADDON.getAddonInfo('id')
 ADDON_ICON = ADDON.getAddonInfo('icon')
+
+# Directorio persistente para archivos de configuración pequeños (estado de actualización)
 USERDATA = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
-DB_FILE = os.path.join(USERDATA, 'cache.db')
+# Directorio temporal para la base de datos descifrada, que se borrará al salir.
+TEMP_DIR = xbmcvfs.translatePath(f"special://temp/{addon_id}")
+DB_FILE = os.path.join(TEMP_DIR, 'session.db') # Usamos un nombre genérico
+BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp') # Archivo encriptado, oculto y en carpeta temporal
 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
@@ -24,6 +29,11 @@ CREATE TABLE IF NOT EXISTS items (
 );
 CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
 CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
+CREATE INDEX IF NOT EXISTS idx_items_year ON items(year);
+CREATE INDEX IF NOT EXISTS idx_items_collection ON items(collection_name);
+CREATE INDEX IF NOT EXISTS idx_items_date ON items(date_added);
+CREATE INDEX IF NOT EXISTS idx_type_date ON items(type, date_added DESC);
+CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC);
 '''
 
 def _connect():
@@ -34,8 +44,8 @@ def _connect():
         pass
     return conn
 
-def _add_collection_columns_safe(db_path):
-    """Se asegura de que las columnas de colecciones existan aunque el NAS suba un DB antiguo."""
+def _upgrade_db_schema(db_path):
+    """Se asegura de que las columnas e índices de alto rendimiento existan."""
     try:
         conn = sqlite3.connect(db_path, timeout=5)
         try: conn.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
@@ -44,9 +54,73 @@ def _add_collection_columns_safe(db_path):
         except Exception: pass
         try: conn.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
         except Exception: pass
+        
+        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_items_date ON items(date_added)")
+        except Exception: pass
+        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_type_date ON items(type, date_added DESC)")
+        except Exception: pass
+        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC)")
+        except Exception: pass
         conn.commit()
         conn.close()
     except Exception: pass
+
+def _row_to_item(r):
+    """Helper unificado para parsear filas SQLite a diccionarios."""
+    try: season_val = int(r[4]) if r[4] else None
+    except: season_val = None
+    try: episode_val = int(r[5]) if r[5] else None
+    except: episode_val = None
+    return {
+        'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': season_val, 'episode': episode_val, 
+        'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
+        'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
+        'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
+        'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
+        'collection_name': r[21] if len(r)>21 else None,
+        'collection_poster': r[22] if len(r)>22 else None,
+        'collection_fanart': r[23] if len(r)>23 else None
+    }
+
+def _decrypt_local_bin():
+    """Desencripta el archivo BIN guardado localmente hacia la memoria temporal."""
+    import zlib, itertools
+    encryption_key = b'E1y_kG9K1v2L_zNqQOqR4g9Z-2xX8jT1k_O7yD2mPqw='
+    try:
+        with open(BIN_FILE_LOCAL, 'rb') as f:
+            encrypted_data = f.read()
+        decrypted_compressed = bytes(a ^ b for a, b in zip(encrypted_data, itertools.cycle(encryption_key)))
+        decrypted_data = zlib.decompress(decrypted_compressed)
+        
+        tmp_db = DB_FILE + ".tmp"
+        with open(tmp_db, 'wb') as f:
+            f.write(decrypted_data)
+            
+        replaced = False
+        for _ in range(10):
+            try:
+                os.replace(tmp_db, DB_FILE)
+                replaced = True
+                break
+            except Exception:
+                xbmc.sleep(500)
+                
+        if not replaced:
+            with open(DB_FILE, 'wb') as f:
+                f.write(decrypted_data)
+            if os.path.exists(tmp_db): os.remove(tmp_db)
+        return True
+    except Exception as e:
+        xbmc.log(f"RusterWolf: Error decrypting local bin: {e}", xbmc.LOGERROR)
+        return False
+
+def ensure_session_db():
+    """Asegura que la DB en memoria temporal exista, vital para la carga de Widgets al arrancar."""
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    session_size = os.path.getsize(DB_FILE) if os.path.exists(DB_FILE) else 0
+    if session_size < 100 * 1024 and os.path.exists(BIN_FILE_LOCAL):
+        _decrypt_local_bin()
+        _upgrade_db_schema(DB_FILE)
 
 def maybe_update_db_from_remote(force=False):
     """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
@@ -60,6 +134,12 @@ def maybe_update_db_from_remote(force=False):
     last_update_file = os.path.join(USERDATA, 'last_update.txt')
     etag_file = os.path.join(USERDATA, 'etag.txt')
     
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    os.makedirs(USERDATA, exist_ok=True)
+    
+    # 1. Recuperar la BD a la memoria temporal si no existe
+    ensure_session_db()
+    
     # Cooldown de 5 minutos (300s) para no saturar al navegar rápido entre menús
     if not force and os.path.exists(last_update_file):
         try:
@@ -69,8 +149,6 @@ def maybe_update_db_from_remote(force=False):
         except Exception:
             pass
             
-        
-    os.makedirs(USERDATA, exist_ok=True)
     # Añadir timestamp para evitar la agresiva caché de Cloudflare R2
     url_r2 = f"https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/archivos.bin?t={int(time.time())}"
     encryption_key = b'E1y_kG9K1v2L_zNqQOqR4g9Z-2xX8jT1k_O7yD2mPqw='
@@ -78,7 +156,7 @@ def maybe_update_db_from_remote(force=False):
     headers = {'User-Agent': 'Mozilla/5.0'}
     
     # Si tenemos ETag, usar If-None-Match para ahorrar datos si la nube no ha cambiado
-    if os.path.exists(DB_FILE) and os.path.exists(etag_file) and not force:
+    if os.path.exists(BIN_FILE_LOCAL) and os.path.exists(etag_file) and not force:
         try:
             with open(etag_file, 'r') as f:
                 etag = f.read().strip()
@@ -101,43 +179,19 @@ def maybe_update_db_from_remote(force=False):
             new_etag = response.headers.get('ETag')
             
         if len(encrypted_data) > 1024:
-            if dp: dp.update(50, "Desencriptando base de datos...")
-            try:
-                decrypted_compressed = bytes(a ^ b for a, b in zip(encrypted_data, itertools.cycle(encryption_key)))
-                decrypted_data = zlib.decompress(decrypted_compressed)
-            except zlib.error:
-                if dp: dp.close()
-                xbmcgui.Dialog().ok("RusterWolf - Error", "El archivo en la nube tiene un formato antiguo.\n\nPor favor, ejecuta la tarea programada en tu NAS para subir la nueva base de datos y vuelve a intentarlo.")
-                return False
+            if dp: dp.update(50, "Guardando actualización...")
             
-            if dp: dp.update(80, "Aplicando cambios...")
-            tmp_db = DB_FILE + ".tmp"
-            with open(tmp_db, 'wb') as f:
-                f.write(decrypted_data)
+            # 1. Guardar el archivo encriptado persistente en USERDATA
+            with open(BIN_FILE_LOCAL, 'wb') as f:
+                f.write(encrypted_data)
                 
-            # Bucle de reintentos para sortear el WinError 5 (archivo en uso por otro proceso de Kodi)
-            replaced = False
-            for _ in range(10):
-                try:
-                    os.replace(tmp_db, DB_FILE)
-                    replaced = True
-                    break
-                except Exception:
-                    xbmc.sleep(500) # Esperamos medio segundo si Kodi lo está leyendo
-            
-            if not replaced:
-                # Fallback extremo: Sobrescribir los bytes directamente si el OS no nos deja renombrar
-                try:
-                    with open(DB_FILE, 'wb') as f:
-                        f.write(decrypted_data)
-                    if os.path.exists(tmp_db):
-                        os.remove(tmp_db)
-                except Exception as e:
-                    xbmc.log(f"RusterWolf: Imposible aplicar actualización DB: {e}", xbmc.LOGERROR)
-                    if dp: dp.close()
-                    return False
+            # 2. Desencriptarlo hacia la memoria temporal para esta sesión
+            if not _decrypt_local_bin():
+                if dp: dp.close()
+                xbmcgui.Dialog().ok("RusterWolf - Error", "El archivo descargado tiene un formato corrupto.")
+                return False
                     
-            _add_collection_columns_safe(DB_FILE)
+            _upgrade_db_schema(DB_FILE)
                 
             # Guardar el ETag para futuras comprobaciones ultrarrápidas
             if new_etag:
@@ -178,6 +232,7 @@ def maybe_update_db_from_remote(force=False):
 
 def init_db():
     os.makedirs(USERDATA, exist_ok=True)
+    os.makedirs(TEMP_DIR, exist_ok=True)
     conn = _connect()
     try:
         c = conn.cursor()
@@ -185,7 +240,7 @@ def init_db():
         conn.commit()
     finally:
         conn.close()
-    _add_collection_columns_safe(DB_FILE)
+    _upgrade_db_schema(DB_FILE)
 
 def load_all_items():
     if not os.path.exists(DB_FILE): return []
@@ -194,55 +249,24 @@ def load_all_items():
         c = conn.cursor()
         c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items')
         rows = c.fetchall()
-        items = []
-        for r in rows:
-            try: season_val = int(r[4]) if r[4] else None
-            except: season_val = None
-            try: episode_val = int(r[5]) if r[5] else None
-            except: episode_val = None
-            
-            items.append({
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3],
-                'season': season_val, 'episode': episode_val, 'tmdb_id': r[6],
-                'poster': r[7], 'fanart': r[8], 'overview': r[9],
-                'episode_title': r[10], 'episode_overview': r[11], 'still_path': r[12],
-                'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
-                'genres': json.loads(r[16]) if r[16] else [],
-                'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20]),
-                'collection_name': r[21] if len(r)>21 else None,
-                'collection_poster': r[22] if len(r)>22 else None,
-                'collection_fanart': r[23] if len(r)>23 else None
-            })
-        return items
+        return [_row_to_item(r) for r in rows]
     finally:
         conn.close()
 
 def load_items_by_keys(keys):
+    """Carga items específicos por su ID de manera óptima (soporta miles de items)."""
     if not keys or not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
-        placeholders = ','.join('?' for _ in keys)
-        c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE "key" IN ({placeholders})', keys)
-        rows = c.fetchall()
         items = []
-        for r in rows:
-            items.append({
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3],
-                'season': r[4], 'episode': r[5], 'tmdb_id': r[6],
-                'poster': r[7], 'fanart': r[8], 'overview': r[9],
-                'episode_title': r[10], 'episode_overview': r[11], 'still_path': r[12],
-                'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
-                'genres': json.loads(r[16]) if r[16] else [],
-                'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20]),
-                'collection_name': r[21] if len(r)>21 else None,
-                'collection_poster': r[22] if len(r)>22 else None,
-                'collection_fanart': r[23] if len(r)>23 else None
-            })
+        # SQLite limita a 999 parámetros en IN(), procesamos en lotes de 900
+        for i in range(0, len(keys), 900):
+            batch = keys[i:i+900]
+            placeholders = ','.join('?' for _ in batch)
+            c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE "key" IN ({placeholders})', batch)
+            for r in c.fetchall():
+                items.append(_row_to_item(r))
         return items
     finally:
         conn.close()
@@ -290,7 +314,8 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
             query += " AND collection_name = ?"
             args.append(collection)
 
-        if filter_type in ('tv', 'series_documentary', 'movie', 'documentary'):
+        # CORRECCIÓN DE VELOCIDAD EXTREMA: Agrupar solo las series, NO las películas.
+        if filter_type in ('tv', 'series_documentary'):
             query += " GROUP BY title"
 
         if sort_by == 'date_added':
@@ -305,23 +330,68 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
 
         c.execute(query, args)
         rows = c.fetchall()
-        items = []
-        for r in rows:
-            try: season_val = int(r[4]) if r[4] else None
-            except: season_val = None
-            try: episode_val = int(r[5]) if r[5] else None
-            except: episode_val = None
-            items.append({
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': season_val, 'episode': episode_val, 
-                'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
-                'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
-                'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
-                'collection_name': r[21] if len(r)>21 else None,
-                'collection_poster': r[22] if len(r)>22 else None,
-                'collection_fanart': r[23] if len(r)>23 else None
-            })
-        return items
+        return [_row_to_item(r) for r in rows]
+    finally:
+        conn.close()
+
+def get_years(filter_type=None):
+    if not os.path.exists(DB_FILE): return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        query = "SELECT DISTINCT year FROM items WHERE year IS NOT NULL AND year != ''"
+        if filter_type: query += f" AND type='{filter_type}'"
+        query += " ORDER BY year DESC"
+        c.execute(query)
+        return [r[0] for r in c.fetchall() if r[0]]
+    finally:
+        conn.close()
+
+def get_letters(filter_type=None):
+    if not os.path.exists(DB_FILE): return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        query = "SELECT DISTINCT UPPER(SUBSTR(title, 1, 1)) FROM items WHERE title IS NOT NULL AND title != ''"
+        if filter_type: query += f" AND type='{filter_type}'"
+        query += " ORDER BY 1"
+        c.execute(query)
+        return [r[0] for r in c.fetchall() if r[0].isalpha()]
+    finally:
+        conn.close()
+
+def get_collections_paginated(filter_type=None, limit=25, offset=0):
+    if not os.path.exists(DB_FILE): return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        query = "SELECT collection_name, MAX(collection_poster), MAX(collection_fanart), MAX(clearlogo) FROM items WHERE collection_name IS NOT NULL AND collection_name != ''"
+        if filter_type: query += f" AND type='{filter_type}'"
+        query += " GROUP BY collection_name ORDER BY collection_name ASC LIMIT ? OFFSET ?"
+        c.execute(query, (limit, offset))
+        return [{"name": r[0], "poster": r[1], "fanart": r[2], "clearlogo": r[3]} for r in c.fetchall()]
+    finally:
+        conn.close()
+
+def get_series_representative(title):
+    if not os.path.exists(DB_FILE) or not title: return None
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=? ORDER BY (poster IS NOT NULL AND poster != "") DESC, date_added DESC LIMIT 1', (title,))
+        r = c.fetchone()
+        if r: return _row_to_item(r)
+    finally:
+        conn.close()
+    return None
+
+def count_episodes_for_series(title):
+    if not os.path.exists(DB_FILE) or not title: return 0
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT COUNT(*) FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (title,))
+        return c.fetchone()[0]
     finally:
         conn.close()
 
@@ -332,23 +402,7 @@ def get_series_episodes(series_title):
         c = conn.cursor()
         c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
         rows = c.fetchall()
-        items = []
-        for r in rows:
-            try: season_val = int(r[4]) if r[4] else None
-            except: season_val = None
-            try: episode_val = int(r[5]) if r[5] else None
-            except: episode_val = None
-            items.append({
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': season_val, 'episode': episode_val, 
-                'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 'overview': r[9], 'episode_title': r[10], 
-                'episode_overview': r[11], 'still_path': r[12], 'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
-                'genres': json.loads(r[16]) if r[16] else [], 'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
-                'collection_name': r[21] if len(r)>21 else None,
-                'collection_poster': r[22] if len(r)>22 else None,
-                'collection_fanart': r[23] if len(r)>23 else None
-            })
-        return items
+        return [_row_to_item(r) for r in rows]
     finally:
         conn.close()
   
@@ -383,23 +437,7 @@ def search_items_sql(query_str, limit=100):
         ''', (exact_like, exact_like, words_like, words_like, fuzzy_like, fuzzy_like, 
               exact_like, exact_like, words_like, words_like, limit))
         rows = c.fetchall()
-        items = []
-        for r in rows:
-            items.append({
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3],
-                'season': r[4], 'episode': r[5], 'tmdb_id': r[6],
-                'poster': r[7], 'fanart': r[8], 'overview': r[9],
-                'episode_title': r[10], 'episode_overview': r[11], 'still_path': r[12],
-                'clearlogo': r[13], 'banner': r[14], 'clearart': r[15],
-                'genres': json.loads(r[16]) if r[16] else [],
-                'cast': json.loads(r[17]) if r[17] else [],
-                'torrents': json.loads(r[18]) if r[18] else [],
-                'date_added': r[19], 'enriched': bool(r[20]),
-                'collection_name': r[21] if len(r)>21 else None,
-                'collection_poster': r[22] if len(r)>22 else None,
-                'collection_fanart': r[23] if len(r)>23 else None
-            })
-        return items
+        return [_row_to_item(r) for r in rows]
     finally:
         conn.close()
 
@@ -431,14 +469,7 @@ def get_next_episode(tvshowtitle, season, episode):
             r = c.fetchone()
             
         if r:
-            return {
-                'key': r[0], 'title': r[1], 'type': r[2], 'year': r[3], 'season': int(r[4]) if r[4] else None, 
-                'episode': int(r[5]) if r[5] else None, 'tmdb_id': r[6], 'poster': r[7], 'fanart': r[8], 
-                'overview': r[9], 'episode_title': r[10], 'episode_overview': r[11], 'still_path': r[12], 
-                'clearlogo': r[13], 'banner': r[14], 'clearart': r[15], 'genres': json.loads(r[16]) if r[16] else [], 
-                'cast': json.loads(r[17]) if r[17] else [], 'torrents': json.loads(r[18]) if r[18] else [],
-                'collection_name': r[21] if len(r)>21 else None, 'collection_poster': r[22] if len(r)>22 else None, 'collection_fanart': r[23] if len(r)>23 else None
-            }
+            return _row_to_item(r)
     except Exception:
         pass
     finally:

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
-import unicodedata, re, os, threading, time
-from resources.lib.player import is_elementum_installed, play_with_elementum
-from resources.lib.db import load_all_items, load_items_by_keys
+import unicodedata, re, os, threading, time, base64
+from resources.lib.player import is_elementum_installed, play_with_elementum, play_with_alldebrid, play_1fichier_with_alldebrid, play_with_realdebrid
+from resources.lib.db import load_items_by_keys
 
 ADDON = xbmcaddon.Addon()
 HANDLE = int(sys.argv[1])
@@ -456,7 +456,7 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
     else:
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
-        item_key = it.get('key')
+        item_key = it.get('key') # La clave del item, no de la fuente
         q_params = {'action': 'select', 'key': item_key}
         if quality_filter: q_params['target_quality'] = quality_filter
         url = build_url(q_params)
@@ -517,7 +517,6 @@ def action_remove_watchlist(params):
 
 def list_root():
     items = [
-        ('Zona Premium', {'action':'premium_menu'}),
         ('Novedades', {'action':'novedades_menu'}),
         ('Favoritos', {'action':'favorites'}),
         ('Seguir Viendo...', {'action':'continue_watching'}), 
@@ -740,19 +739,18 @@ def continue_watching():
 
     xbmcplugin.setContent(HANDLE, 'movies')
 
-    # Cargar catálogo local para poder enriquecer items si es posible
-    try:
-        from resources.lib.db import load_all_items, load_items_by_keys
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-
     section_logo = _get_section_logo('seguir_viendo')
 
     # 1.5. Series en progreso (vistas parcialmente pero no completadas)
     played_keys = _get_played_keys()
+    
+    try:
+        played_items = load_items_by_keys(list(played_keys.keys()))
+    except Exception:
+        played_items = []
+
     series_progress = {}
-    for it in catalog:
+    for it in played_items:
         if _get_item_type(it) in ('tv', 'series_documentary'):
             raw_title = _get_item_title(it)
             title_norm = normalize_title(raw_title)
@@ -772,7 +770,13 @@ def continue_watching():
             if bool(it.get('poster')) and not bool(series_progress[title_norm]['rep'].get('poster')):
                 series_progress[title_norm]['rep'] = it
 
-    in_progress_series = [d for d in series_progress.values() if 0 < d['watched'] < d['total']]
+    from resources.lib.db import count_episodes_for_series
+    in_progress_series = []
+    for data in series_progress.values():
+        total_eps = count_episodes_for_series(data['raw_title'])
+        if 0 < data['watched'] < total_eps:
+            data['total'] = total_eps
+            in_progress_series.append(data)
     
     in_progress_series.sort(key=lambda x: x['raw_title'])
     in_progress_series.sort(key=lambda x: x['last_played'] or '', reverse=True)
@@ -791,16 +795,6 @@ def continue_watching():
         
         url = build_url({'action': 'list_seasons', 'series': raw_title})
         xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
-
-    # índice simple por key para acceso rápido
-    catalog_by_key = {}
-    for it in catalog:
-        try:
-            k = it.get('key')
-            if k:
-                catalog_by_key[str(k)] = it
-        except Exception:
-            continue
 
     # localizar la DB de Kodi (MyVideos*.db) dentro de special://profile/Database
     try:
@@ -822,7 +816,7 @@ def continue_watching():
         try:
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
-            cur.execute("SELECT b.idBookmark, b.idFile, b.timeInSeconds, b.totalTimeInSeconds, f.strFilename FROM bookmark b JOIN files f ON b.idFile = f.idFile ORDER BY b.idBookmark DESC LIMIT 200")
+            cur.execute("SELECT b.idBookmark, b.idFile, b.timeInSeconds, b.totalTimeInSeconds, f.strFilename FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND b.type = 1 ORDER BY b.idBookmark DESC LIMIT 200")
             rows = cur.fetchall()
             for row in rows:
                 try:
@@ -873,14 +867,7 @@ def continue_watching():
                             # intentar carga rápida por key
                             try:
                                 items = load_items_by_keys([k]) or []
-                                catalog_item = items[0] if items else catalog_by_key.get(k)
-                            except Exception:
-                                catalog_item = catalog_by_key.get(k)
-                        elif 'index' in qs:
-                            try:
-                                idx = int(qs.get('index')[0])
-                                if 0 <= idx < len(catalog):
-                                    catalog_item = catalog[idx]
+                                catalog_item = items[0] if items else None
                             except Exception:
                                 catalog_item = None
                     except Exception:
@@ -888,38 +875,14 @@ def continue_watching():
             except Exception:
                 catalog_item = None
 
-            # si no hay catalog_item, intentar heurística por nombre de fichero
-            if catalog_item is None and filename:
-                nf = filename.lower()
-                for it in catalog:
-                    try:
-                        t = (it.get('title') or '').lower()
-                        pt = str(it.get('parsed', {}).get('title') or '').lower()
-                        if t and t in nf:
-                            catalog_item = it
-                            break
-                        if pt and pt in nf:
-                            catalog_item = it
-                            break
-                    except Exception:
-                        continue
-
             if catalog_item:
                 display_title = catalog_item.get('title') or display_title
                 try:
                     xbmc.log(f"RusterWolf: continue_watching matched catalog item key={catalog_item.get('key')} title={catalog_item.get('title')}", xbmc.LOGDEBUG)
                 except Exception:
                     pass
-
-            # si la filename es una URL a nuestro plugin, intentar extraer index/key
-            try:
-                parsed = urllib.parse.urlparse(filename)
-                if parsed.scheme == 'plugin' or (parsed.scheme in ('http', 'https') and 'plugin.video.rusterwolf77' in filename):
-                    qs = urllib.parse.parse_qs(parsed.query)
-                    # mostrar la URL tal cual; el router resolverá 'select'
-                    display_title = filename
-            except Exception:
-                pass
+            else:
+                continue # Omitir si el archivo ya no existe en nuestra BD local
 
             li = xbmcgui.ListItem(label=display_title)
             try:
@@ -1000,12 +963,6 @@ def favorites_menu():
     xbmcplugin.setContent(HANDLE, 'movies')
     section_logo = _get_section_logo('favoritos')
 
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-
     wl = load_watchlist()
     if not wl:
         li = xbmcgui.ListItem(label='No hay elementos en Favoritos')
@@ -1031,19 +988,19 @@ def favorites_menu():
             isFolder = True
             
             if wtype == 'tv':
-                series_items = [i for i in catalog if _get_item_type(i) == 'tv' and normalize_title(_get_item_title(i)) == normalize_title(val)]
-                if not series_items: 
+                from resources.lib.db import get_series_representative
+                rep = get_series_representative(val)
+                if not rep: 
                     li = xbmcgui.ListItem(label=wtitle)
                     _apply_info_tag(li, {'title': wtitle, 'mediatype': 'tvshow'})
                 else:
-                    rep = sorted(series_items, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
                     li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
                     _apply_art(li, rep, addon_fanart)
                     _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tvshow'})
                 url = build_url({'action': 'list_seasons', 'series': val})
             
             elif wtype == 'movie':
-                found = [i for i in catalog if i.get('key') == val]
+                found = load_items_by_keys([val])
                 if found:
                     it = found[0]
                     li = xbmcgui.ListItem(label=it.get('title'))
@@ -1237,31 +1194,14 @@ def series_documentary_menu():
 
 
 def list_genres(filter_type=None, original_params=None):
-    """Listar géneros presentes en la base (filtrando por tipo si se indica)."""
-    # Prefer DB-backed items when possible (reflects cache.db used by Kodi)
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-        
+    """Lista géneros usando una lista estática para no saturar memoria RAM."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
         
-    genres = {}
-    for it in catalog:
-        if _is_item_premium(it) and not is_premium_req: continue
-        if not _is_item_premium(it) and is_premium_req: continue
-        
-        t = _get_item_type(it)
-        if filter_type and t != (filter_type or ''):
-            continue
-        for g in (_get_item_genres(it) or []):
-            gname = g['name'] if isinstance(g, dict) and 'name' in g else str(g)
-            if gname.strip().lower() == 'premium': continue
-            genres.setdefault(gname, []).append(it)
-    # default to movies when caller doesn't specify
+    # Usar géneros de TMDB fijos para carga instantánea
+    genres_list = ['Acción', 'Animación', 'Aventura', 'Bélica', 'Ciencia ficción', 'Comedia', 'Crimen', 'Documental', 'Drama', 'Familia', 'Fantasía', 'Historia', 'Misterio', 'Música', 'Romance', 'Suspense', 'Terror', 'Western']
+
     if not filter_type:
         filter_type = 'movie'
     addon_path = ADDON.getAddonInfo('path')
@@ -1284,7 +1224,7 @@ def list_genres(filter_type=None, original_params=None):
     section_logo = _get_section_logo(logo_map.get(filter_type, ''))
 
     xbmcplugin.setContent(HANDLE, 'files')
-    for gname in sorted(genres.keys()):
+    for gname in sorted(genres_list):
         li = xbmcgui.ListItem(label=gname)
         try:
             info_tag = li.getVideoInfoTag()
@@ -1310,30 +1250,17 @@ def list_genres(filter_type=None, original_params=None):
 
 
 def list_years(filter_type=None, original_params=None):
-    """Listar años presentes en la base (filtrando por tipo si se indica)."""
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-        
+    """Listar años consultando eficientemente la DB."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
         
-    years = {}
-    for it in catalog:
-        if _is_item_premium(it) and not is_premium_req: continue
-        if not _is_item_premium(it) and is_premium_req: continue
-        
-        t = _get_item_type(it)
-        if filter_type and t != (filter_type or ''):
-            continue
-        y = str(_get_item_year(it) or '')
-        years.setdefault(y, []).append(it)
-    # default to movies when caller doesn't specify
     if not filter_type:
         filter_type = 'movie'
+        
+    from resources.lib.db import get_years
+    years = get_years(filter_type)
+    
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
 
@@ -1354,7 +1281,7 @@ def list_years(filter_type=None, original_params=None):
     section_logo = _get_section_logo(logo_map.get(filter_type, ''))
 
     xbmcplugin.setContent(HANDLE, 'files')
-    for y in sorted([k for k in years.keys() if k], reverse=True):
+    for y in years:
         li = xbmcgui.ListItem(label=f'Año {y}')
         try:
             info_tag = li.getVideoInfoTag()
@@ -1378,50 +1305,12 @@ def list_years(filter_type=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_qualities(filter_type=None, genre_filter=None, original_params=None):
-    """Listar calidades presentes en la base (filtrando por tipo y opcionalmente género)."""
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-    
+    """Lista estática de calidades para no saturar memoria RAM."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
         
-    qualities = set()
-    gf = (genre_filter or '').strip().lower()
-    if gf == 'premium': gf = ''
-
-    for it in catalog:
-        if _is_item_premium(it) and not is_premium_req: continue
-        if not _is_item_premium(it) and is_premium_req: continue
-        
-        t = _get_item_type(it)
-        if filter_type and t != (filter_type or ''):
-            continue
-        
-        # Filtrado previo por género si es necesario (ej: Documentales)
-        if gf:
-            matched = False
-            for g in (_get_item_genres(it) or []):
-                gname = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).strip()
-                if gname and (gf in gname.lower() or gname.lower() in gf):
-                    matched = True
-                    break
-            if not matched:
-                continue
-
-        for tor in (it.get('torrents') or []):
-            q = tor.get('quality')
-            if q:
-                s = str(q).strip()
-                if s.lower() == 'dvdrip':
-                    s = '1080p'
-                # Unificar 2160p y 4k en '4K'
-                elif s.lower() in ('2160p', '4k'):
-                    s = '4K'
-                qualities.add(s)
+    qualities = ['4K', '1080p', '720p', 'MicroHD', 'BluRay', 'HDTV']
 
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
@@ -1445,7 +1334,7 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
     section_logo = _get_section_logo(logo_map.get(filter_type, ''))
 
     xbmcplugin.setContent(HANDLE, 'files')
-    for qname in sorted(list(qualities)):
+    for qname in qualities:
         li = xbmcgui.ListItem(label=qname)
         try:
             info_tag = li.getVideoInfoTag()
@@ -1472,43 +1361,13 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_letters(filter_type=None, genre_filter=None, original_params=None):
-    """Listar letras iniciales presentes en la base (filtrando por tipo y opcionalmente género)."""
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-    
+    """Lista letras iniciales consultando la DB eficientemente."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
         
-    letters = set()
-    gf = (genre_filter or '').strip().lower()
-    if gf == 'premium': gf = ''
-
-    for it in catalog:
-        if _is_item_premium(it) and not is_premium_req: continue
-        if not _is_item_premium(it) and is_premium_req: continue
-        
-        t = _get_item_type(it)
-        if filter_type and t != (filter_type or ''):
-            continue
-        
-        if gf:
-            matched = False
-            for g in (_get_item_genres(it) or []):
-                gname = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).strip()
-                if gname and (gf in gname.lower() or gname.lower() in gf):
-                    matched = True
-                    break
-            if not matched:
-                continue
-
-        title = _get_item_title(it)
-        if title and title.strip():
-            first_letter = title.strip()[0].upper()
-            letters.add(first_letter)
+    from resources.lib.db import get_letters
+    letters = get_letters(filter_type)
 
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
@@ -1531,7 +1390,7 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
     section_logo = _get_section_logo(logo_map.get(filter_type, ''))
 
     xbmcplugin.setContent(HANDLE, 'files')
-    for letter in sorted(list(letters)):
+    for letter in letters:
         li = xbmcgui.ListItem(label=letter)
         try: li.getVideoInfoTag().setTitle(letter)
         except Exception: pass
@@ -1550,36 +1409,15 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_collections(filter_type=None, original_params=None, page=1):
-    """Agrupa películas por colección leyendo los datos suministrados por el NAS."""
-    try:
-        from resources.lib.db import load_all_items
-        catalog = load_all_items() or []
-    except Exception:
-        catalog = []
-        
+    """Lista colecciones usando consulta SQL paginada."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
         
-    collections = {}
-    for it in catalog:
-        t = _get_item_type(it)
-        if filter_type and t != (filter_type or ''): continue
-        
-        c_name = it.get('collection_name')
-        if c_name:
-            if c_name not in collections:
-                collections[c_name] = {
-                    'poster': it.get('collection_poster') or it.get('poster') or '',
-                    'fanart': it.get('collection_fanart') or it.get('fanart') or '',
-                    'clearlogo': it.get('clearlogo') or ''
-                }
-            else:
-                # Rellenar huecos si la colección base de TMDB venía vacía
-                if not collections[c_name]['poster']: collections[c_name]['poster'] = it.get('poster') or ''
-                if not collections[c_name]['fanart']: collections[c_name]['fanart'] = it.get('fanart') or ''
-                if not collections[c_name]['clearlogo']: collections[c_name]['clearlogo'] = it.get('clearlogo') or ''
-                
+    from resources.lib.db import get_collections_paginated
+    per_page = _read_items_per_page()
+    offset = (page - 1) * per_page
+    
     addon_path = ADDON.getAddonInfo('path')
     addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas_v2.png')
@@ -1587,15 +1425,12 @@ def list_collections(filter_type=None, original_params=None, page=1):
 
     xbmcplugin.setContent(HANDLE, 'movies')
     
-    sorted_c_names = sorted(collections.keys())
-    per_page = _read_items_per_page()
-    offset = (page - 1) * per_page
-    limit = per_page
-    page_keys = sorted_c_names[offset:offset+limit]
-    has_next_page = len(sorted_c_names) > offset + limit
+    collections = get_collections_paginated(filter_type, limit=per_page + 1, offset=offset)
+    has_next_page = len(collections) > per_page
+    page_cols = collections[:per_page]
     
-    for c_name in page_keys:
-        col_data = collections[c_name]
+    for col_data in page_cols:
+        c_name = col_data['name']
         li = xbmcgui.ListItem(label=c_name)
         try: li.getVideoInfoTag().setTitle(c_name)
         except Exception: pass
@@ -2086,214 +1921,201 @@ def do_search(q=None, original_params=None):
     
     xbmcplugin.endOfDirectory(HANDLE)
 
-def show_select(index=None, key=None, target_quality=None):
-    # Prefer resolving by stable key when provided (avoids list ordering/index mismatches).
+def select_source(key=None, target_quality=None):
+    """Muestra un diálogo con las fuentes disponibles y reproduce la seleccionada."""
     it = None
     if key:
         try:
             from resources.lib.db import load_items_by_keys
             items = load_items_by_keys([key]) or []
             it = items[0] if items else None
-        except Exception:
-            it = None
-        try:
-            xbmc.log(f"RusterWolf: show_select attempted resolve by key={key} -> found={bool(it)}", xbmc.LOGWARNING)
-        except Exception:
-            pass
-    if it is None:
-        try:
-            from resources.lib.db import load_all_items
-            catalog = load_all_items() or []
-        except Exception:
-            catalog = []
-        try:
-            it = catalog[int(index)]
-            try:
-                xbmc.log(f"RusterWolf: show_select resolved by index={index} -> key={it.get('key')}", xbmc.LOGWARNING)
-            except Exception:
-                pass
-        except Exception:
-            xbmcgui.Dialog().notification('RusterWolf 77', 'Elemento no encontrado', xbmcgui.NOTIFICATION_ERROR)
-            return
-    title = it.get('title')
-    torrents = it.get('torrents') or []
-    try:
-        xbmc.log(f"RusterWolf: show_select item key={it.get('key')} title={title} torrents_count={len(torrents)}", xbmc.LOGWARNING)
-    except Exception:
-        pass
-    if not torrents:
-        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay torrents disponibles', xbmcgui.NOTIFICATION_INFO)
-        return
-        
-    # Convertir DVDRip a 1080p visual y lógicamente antes de mostrar
-    for t in torrents:
-        if str(t.get('quality') or '').strip().lower() == 'dvdrip':
-            t['quality'] = '1080p'
+        except Exception: it = None
 
-    # Ordenar por calidad según preferencia: 4K > 1080p > 720p > Bluray > HDTV
+    if not it:
+        xbmcgui.Dialog().notification('RusterWolf 77', 'Elemento no encontrado', xbmcgui.NOTIFICATION_ERROR)
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
+
+    title = it.get('title')
+    sources = it.get('torrents') or [] # La columna 'torrents' ahora contiene todas las fuentes
+    
+    if not sources:
+        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes disponibles', xbmcgui.NOTIFICATION_INFO)
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
+
+    # Ordenar por calidad: 4K > 1080p > 720p > etc.
     def _q_rank(t):
         q = str(t.get('quality') or '').lower()
         if '4k' in q or '2160' in q: return 10
         if '1080' in q: return 9
         if '720' in q: return 8
-        if 'bluray' in q: return 7
-        if 'hdtv' in q: return 6
         return 0
-    torrents = sorted(torrents, key=_q_rank, reverse=True)
+    sources = sorted(sources, key=_q_rank, reverse=True)
 
     sel = -1
     if target_quality:
         tq = target_quality.strip().lower()
         target_qualities = {tq}
         if tq == '4k': target_qualities.add('2160p')
-        
-        for i, t in enumerate(torrents):
-            if str(t.get('quality') or '').strip().lower() in target_qualities:
+        for i, s in enumerate(sources):
+            if str(s.get('quality') or '').strip().lower() in target_qualities:
                 sel = i
                 break
 
     if sel == -1:
-        # Si solo hay una calidad disponible, nos saltamos la pantalla de selección
-        if len(torrents) == 1:
+        if len(sources) == 1:
             sel = 0
         else:
-            choices = [t.get('quality') or 'default' for t in torrents]
-            sel = xbmcgui.Dialog().select('Selecciona calidad para: %s' % title, choices)
-            if sel < 0:
-                return
-    torrent_url = torrents[sel].get('magnet')
-    if not torrent_url or not torrent_url.startswith('magnet:?xt=urn:btih:'):
-        xbmcgui.Dialog().notification('RusterWolf 77', 'Magnet no válido o no encontrado', xbmcgui.NOTIFICATION_ERROR)
-        return
-        
-            
-    debrid_provider = ADDON.getSetting('debrid_provider') or "0"
-    debrid_cloud_fallback = ADDON.getSettingBool('debrid_cloud_fallback')
-    
-    play_path = ''
-    
-    # INYECCIÓN DE TRACKERS: SOLO PARA ELEMENTUM.
-    # Si lo pasamos a Debrid, el link se vuelve demasiado largo y su API lo rechaza.
-    if debrid_provider == "0":
-        public_trackers = [
-            "udp://tracker.opentrackr.org:1337/announce",
-            "udp://open.demonii.com:1337/announce",
-            "udp://tracker.openbittorrent.com:80/announce",
-            "udp://tracker.coppersurfer.tk:6969/announce",
-            "udp://tracker.internetwarriors.net:1337/announce"
-        ]
-        for tr in public_trackers:
-            if tr not in torrent_url:
-                torrent_url += f"&tr={urllib.parse.quote(tr)}"
-
-    if debrid_provider == "1":
-        alldebrid_api_key = ADDON.getSetting('alldebrid_api_key')
-        if not alldebrid_api_key:
-            xbmcgui.Dialog().ok('AllDebrid', 'Falta la API Key en los ajustes.')
-            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-            return
-        xbmc.log("RusterWolf: RUTA PREMIUM AllDebrid", xbmc.LOGINFO)
-        from resources.lib.player import play_with_alldebrid
-        play_path = play_with_alldebrid(torrent_url, alldebrid_api_key, debrid_cloud_fallback)
-        
-    elif debrid_provider == "2":
-        realdebrid_api_key = ADDON.getSetting('realdebrid_api_key')
-        if not realdebrid_api_key:
-            xbmcgui.Dialog().ok('Real-Debrid', 'Falta la API Key en los ajustes.')
-            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-            return
-        xbmc.log("RusterWolf: RUTA PREMIUM Real-Debrid", xbmc.LOGINFO)
-        from resources.lib.player import play_with_realdebrid
-        play_path = play_with_realdebrid(torrent_url, realdebrid_api_key, debrid_cloud_fallback)
-        
-    else:
-        # RUTA GRATUITA: Usar Elementum
-        if not is_elementum_installed():
-            xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:', 'https://elementumorg.github.io/')
-            xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-            return
-
-        play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
-
-    # Si Debrid no encontró enlace en caché o falló, preguntamos si usar Elementum como alternativa
-    if not play_path:
-        if debrid_provider in ("1", "2"):
-            if is_elementum_installed():
-                resp = xbmcgui.Dialog().yesno(
-                    'No en caché',
-                    'Este archivo no está en la caché de tu Debrid.\n¿Desea comprobar la disponibilidad torrent de este archivo con Elementum?'
-                )
-                if resp:
-                    # Inyectar trackers públicos para Elementum
-                    public_trackers = [
-                        "udp://tracker.opentrackr.org:1337/announce",
-                        "udp://open.demonii.com:1337/announce",
-                        "udp://tracker.openbittorrent.com:80/announce",
-                        "udp://tracker.coppersurfer.tk:6969/announce",
-                        "udp://tracker.internetwarriors.net:1337/announce"
-                    ]
-                    for tr in public_trackers:
-                        if tr not in torrent_url:
-                            torrent_url += f"&tr={urllib.parse.quote(tr)}"
-                    play_path = 'plugin://plugin.video.elementum/play?uri=%s' % urllib.parse.quote_plus(torrent_url)
+            choices = []
+            for s in sources:
+                source_type = s.get('source', 'magnet')
+                if source_type == "1fichier_palantir":
+                    choices.append(f"[ALLDEBRID] {s.get('quality', '')} | {s.get('audio', '')} | {s.get('info', '')}")
                 else:
-                    xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-                    return
-            else:
-                xbmcgui.Dialog().notification('RusterWolf', 'Elementum no instalado. No se pudo hacer fallback P2P.', xbmcgui.NOTIFICATION_INFO)
+                    choices.append(f"[TORRENT] {s.get('quality', 'SD')}")
+
+            sel = xbmcgui.Dialog().select(f'Selecciona fuente: {title}', choices)
+            if sel < 0:
                 xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
                 return
-        else:
+
+    selected_source = sources[sel]
+    source_type = selected_source.get('source', 'magnet')
+    url = selected_source.get('url') or selected_source.get('magnet')
+
+    if not url:
+        xbmcgui.Dialog().notification('RusterWolf 77', 'Enlace no válido', xbmcgui.NOTIFICATION_ERROR)
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
+
+    play_item(url, source_type, key)
+
+def play_item(url, source_type, item_key):
+    """Función 'router' que decide qué reproductor usar y resuelve el enlace para Kodi."""
+    final_url = None
+    
+    # 1. Cargar la metadata completa del item para pasársela al reproductor
+    it = None
+    if item_key:
+        try:
+            from resources.lib.db import load_items_by_keys
+            items = load_items_by_keys([item_key]) or []
+            it = items[0] if items else None
+        except Exception: pass
+
+    # 2. Obtener las API keys de los ajustes
+    alldebrid_api_key = ADDON.getSetting('alldebrid_api_key')
+    realdebrid_api_key = ADDON.getSetting('realdebrid_api_key')
+    debrid_provider = ADDON.getSetting('debrid_provider') or "0"
+    debrid_cloud_fallback = ADDON.getSettingBool('debrid_cloud_fallback')
+
+    # 3. Decidir qué reproductor usar
+    if source_type == '1fichier_palantir':
+        if not alldebrid_api_key:
+            xbmcgui.Dialog().ok("Acceso Requerido", "Esta fuente requiere una cuenta de AllDebrid.\nPor favor, introduce tu API Key en los ajustes del addon.")
             xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
             return
-        
-    # Independiente de P2P o Debrid, guardar historial para el sistema Up Next
-    try:
-        from resources.lib.player import play_with_elementum
-        history_thread = threading.Thread(
-            target=play_with_elementum,
-            args=(torrent_url, it),
-            daemon=True
-        )
-        history_thread.start()
-    except Exception as e:
-        xbmc.log(f"RusterWolf: No se pudo iniciar el hilo de historial: {e}", xbmc.LOGERROR)
-
-    # Reproducir usando setResolvedUrl
-    li = xbmcgui.ListItem(path=play_path)
+        final_url = play_1fichier_with_alldebrid(url, alldebrid_api_key)
     
-    # CRUCIAL: Transferir metadatos al ListItem final para que el servicio Next Up los lea
-    if it:
-        try:
-            # InfoTag (Kodi 20+)
-            tag = li.getVideoInfoTag()
-            title = it.get('title')
-            if title:
-                tag.setTitle(it.get('episode_title') or title) # Para series, preferir titulo episodio
-                tag.setTvShowTitle(title) # Importante para Next Up
-            
-            if it.get('season'): tag.setSeason(int(it['season']))
-            if it.get('episode'): tag.setEpisode(int(it['episode']))
-            
-            plot = it.get('episode_overview') or it.get('overview') or it.get('plot')
-            if plot: tag.setPlot(plot)
-            
-            media_type = it.get('type')
-            if media_type == 'tv': tag.setMediaType('episode')
-            elif media_type == 'movie': tag.setMediaType('movie')
-            
-            # Arte
-            _apply_art(li, it)
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
-            
-    # Marcador exclusivo para rusterwolf77
-    xbmcgui.Window(10000).setProperty('Rusterwolf_Playing', 'true')
+    elif source_type == 'magnet':
+        magnet_url = url
+        if debrid_provider == "1": # AllDebrid
+            if not alldebrid_api_key:
+                xbmcgui.Dialog().ok('AllDebrid', 'Falta la API Key en los ajustes.')
+                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                return
+            final_url = play_with_alldebrid(magnet_url, alldebrid_api_key, debrid_cloud_fallback)
+        elif debrid_provider == "2": # RealDebrid
+            if not realdebrid_api_key:
+                xbmcgui.Dialog().ok('Real-Debrid', 'Falta la API Key en los ajustes.')
+                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                return
+            final_url = play_with_realdebrid(magnet_url, realdebrid_api_key, debrid_cloud_fallback)
+        else: # Elementum
+            if not is_elementum_installed():
+                xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:\nhttps://elementumorg.github.io/')
+                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                return
+            # Inyectar trackers para Elementum
+            public_trackers = ["udp://tracker.opentrackr.org:1337/announce", "udp://open.demonii.com:1337/announce"]
+            for tr in public_trackers:
+                if tr not in magnet_url: magnet_url += f"&tr={urllib.parse.quote(tr)}"
+            final_url = f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet_url)}'
 
-    xbmcplugin.setResolvedUrl(HANDLE, True, li)
+        # Fallback a Elementum si Debrid falla
+        if not final_url and debrid_provider in ("1", "2"):
+            if is_elementum_installed():
+                if xbmcgui.Dialog().yesno('No en caché', 'Este archivo no está en la caché de tu Debrid.\n¿Desea comprobar la disponibilidad con Elementum?'):
+                    public_trackers = ["udp://tracker.opentrackr.org:1337/announce", "udp://open.demonii.com:1337/announce"]
+                    for tr in public_trackers:
+                        if tr not in magnet_url: magnet_url += f"&tr={urllib.parse.quote(tr)}"
+                    final_url = f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet_url)}'
+
+    # 4. Guardar historial y resolver la URL para Kodi
+    if final_url:
+        # Guardar historial para el sistema Up Next
+        try:
+            history_thread = threading.Thread(target=play_with_elementum, args=(url, it), daemon=True)
+            history_thread.start()
+        except Exception as e:
+            xbmc.log(f"RusterWolf: No se pudo iniciar el hilo de historial: {e}", xbmc.LOGERROR)
+
+        li = xbmcgui.ListItem(path=final_url)
+        if it:
+            try:
+                tag = li.getVideoInfoTag()
+                title = it.get('title')
+                if title:
+                    tag.setTitle(it.get('episode_title') or title)
+                    tag.setTvShowTitle(title)
+                if it.get('season'): tag.setSeason(int(it['season']))
+                if it.get('episode'): tag.setEpisode(int(it['episode']))
+                plot = it.get('episode_overview') or it.get('overview') or it.get('plot')
+                if plot: tag.setPlot(plot)
+                media_type = it.get('type')
+                if media_type == 'tv': tag.setMediaType('episode')
+                elif media_type == 'movie': tag.setMediaType('movie')
+                _apply_art(li, it)
+            except Exception as e:
+                xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
+        
+        xbmcgui.Window(10000).setProperty('Rusterwolf_Playing', 'true')
+        xbmcplugin.setResolvedUrl(HANDLE, True, li)
+    else:
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
 
 def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
+
+def run_one_time_cleanup():
+    """
+    Borra la antigua base de datos 'cache.db' del directorio de userdata
+    para liberar espacio tras la actualización al sistema de DB temporal.
+    Solo se ejecuta una vez.
+    """
+    try:
+        addon_id = ADDON.getAddonInfo('id')
+        userdata_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
+        flag_file = os.path.join(userdata_dir, 'v2_db_cleanup.flag') # Nombre de flag específico
+        
+        if not xbmcvfs.exists(flag_file):
+            xbmc.log("RusterWolf: Ejecutando limpieza única post-actualización...", xbmc.LOGINFO)
+            
+            old_db_path = os.path.join(userdata_dir, 'cache.db')
+            if xbmcvfs.exists(old_db_path):
+                if xbmcvfs.delete(old_db_path):
+                    xbmc.log("RusterWolf: Antigua 'cache.db' eliminada con éxito.", xbmc.LOGINFO)
+                    
+            old_bin_path = os.path.join(userdata_dir, 'archivos.bin')
+            if xbmcvfs.exists(old_bin_path):
+                xbmcvfs.delete(old_bin_path)
+                xbmc.log("RusterWolf: Antiguo 'archivos.bin' eliminado del userdata con éxito.", xbmc.LOGINFO)
+            
+            with xbmcvfs.File(flag_file, 'w') as f: f.write('done')
+            xbmc.log("RusterWolf: Flag de limpieza creado. No se volverá a ejecutar.", xbmc.LOGINFO)
+    except Exception as e:
+        xbmc.log(f"RusterWolf: Error durante la limpieza única: {e}", xbmc.LOGERROR)
 
 def router(params):
     import xbmc
@@ -2493,8 +2315,9 @@ def router(params):
     elif action == 'search':
         do_search(original_params=params)
     elif action == 'select':
-        # Pass both index and key so show_select can resolve by stable key when available
-        show_select(index=params.get('index'), key=params.get('key'), target_quality=params.get('target_quality'))
+        select_source(key=params.get('key'), target_quality=params.get('target_quality'))
+    elif action == 'play':
+        play_item(urllib.parse.unquote(params.get('url')), params.get('source_type'), params.get('item_key'))
     elif action == 'list_seasons':
         list_seasons(params.get('series'), params.get('target_quality'))
     elif action == 'list_episodes':
@@ -2520,6 +2343,11 @@ if __name__ == '__main__':
     params = dict(urllib.parse.parse_qsl(raw_params)) if raw_params else {}
     import xbmc
     xbmc.log(f"RusterWolf: __main__ params={params}", xbmc.LOGWARNING)
+
+    # --- LIMPIEZA ÚNICA POST-ACTUALIZACIÓN ---
+    # Borra la antigua cache.db del userdata para liberar espacio.
+    run_one_time_cleanup()
+
     # Si se abre el addon sin parámetros (entrada principal), actualizar DB desde remote
     is_entry = not params or not params.get('action')
     if is_entry:
@@ -2533,5 +2361,9 @@ if __name__ == '__main__':
                 maybe_update_db_from_remote(force=False)
         except Exception as e:
             xbmc.log(f'RusterWolf: Error en inicio de addon: {e}', xbmc.LOGERROR)
-            
+    else:
+        try:
+            from resources.lib.db import ensure_session_db
+            ensure_session_db()
+        except Exception: pass
     router(params)
