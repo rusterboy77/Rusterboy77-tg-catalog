@@ -114,13 +114,36 @@ def _decrypt_local_bin():
         xbmc.log(f"RusterWolf: Error decrypting local bin: {e}", xbmc.LOGERROR)
         return False
 
+def _is_db_valid():
+    """Comprueba de forma ultra-rápida si la DB existe y no está corrupta."""
+    if not os.path.exists(DB_FILE) or os.path.getsize(DB_FILE) < 100 * 1024:
+        return False
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        conn.execute("SELECT 1 FROM items LIMIT 1")
+        conn.close()
+        return True
+    except Exception:
+        return False
+
 def ensure_session_db():
-    """Asegura que la DB en memoria temporal exista, vital para la carga de Widgets al arrancar."""
+    """Asegura que la DB en memoria temporal exista y sea VÁLIDA."""
     os.makedirs(TEMP_DIR, exist_ok=True)
-    session_size = os.path.getsize(DB_FILE) if os.path.exists(DB_FILE) else 0
-    if session_size < 100 * 1024 and os.path.exists(BIN_FILE_LOCAL):
-        _decrypt_local_bin()
-        _upgrade_db_schema(DB_FILE)
+    
+    if not _is_db_valid():
+        if os.path.exists(BIN_FILE_LOCAL):
+            _decrypt_local_bin()
+            
+            # Si tras la extracción sigue corrupta, el .bin original está dañado
+            if not _is_db_valid():
+                try: os.remove(BIN_FILE_LOCAL)
+                except: pass
+                try: os.remove(os.path.join(USERDATA, 'last_update.txt'))
+                except: pass
+                try: os.remove(os.path.join(USERDATA, 'etag.txt'))
+                except: pass
+            else:
+                _upgrade_db_schema(DB_FILE)
 
 def maybe_update_db_from_remote(force=False):
     """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
@@ -186,9 +209,12 @@ def maybe_update_db_from_remote(force=False):
                 f.write(encrypted_data)
                 
             # 2. Desencriptarlo hacia la memoria temporal para esta sesión
-            if not _decrypt_local_bin():
+            if not _decrypt_local_bin() or not _is_db_valid():
                 if dp: dp.close()
-                xbmcgui.Dialog().ok("RusterWolf - Error", "El archivo descargado tiene un formato corrupto.")
+                # Borrar el binario corrupto que acabamos de descargar para forzar intento nuevo después
+                try: os.remove(BIN_FILE_LOCAL)
+                except: pass
+                if force: xbmcgui.Dialog().ok("RusterWolf - Error", "El catálogo descargado está corrupto. Inténtalo de nuevo.")
                 return False
                     
             _upgrade_db_schema(DB_FILE)

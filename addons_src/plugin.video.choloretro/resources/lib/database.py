@@ -367,8 +367,9 @@ def update_db_from_remote():
         with open(tmp_bin, 'rb') as f:
             data = bytearray(f.read())
             
-        _k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 88, 79, 82, 95, 75, 101, 121, 95, 50, 48, 50, 52]
-        key = bytearray(_k)
+        # Nueva clave XOR: 'CholoRetro_Secure_2025!'
+        _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
+        key = bytearray(_new_k)
         key_len = len(key)
         for i in range(len(data)):
             data[i] ^= key[i % key_len]
