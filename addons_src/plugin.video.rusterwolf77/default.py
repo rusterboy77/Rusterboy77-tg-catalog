@@ -10,16 +10,31 @@ HANDLE = int(sys.argv[1])
 BASE_URL = sys.argv[0]
 # Resolver icono del addon (usar icon.png en la raíz o resources/media/icon.png si existe)
 try:
-    _addon_path = ADDON.getAddonInfo('path')
-    if os.path.exists(os.path.join(_addon_path, 'icon.png')):
-        ADDON_ICON = os.path.join(_addon_path, 'icon.png')
-    elif os.path.exists(os.path.join(_addon_path, 'resources', 'media', 'icon.png')):
-        ADDON_ICON = os.path.join(_addon_path, 'resources', 'media', 'icon.png')
+    ADDON_PATH = ADDON.getAddonInfo('path')
+    ADDON_FANART = os.path.join(ADDON_PATH, 'resources', 'media', 'fanart.jpeg')
+    ADDON_ICON_DEFAULT = os.path.join(ADDON_PATH, 'resources', 'media', 'icon.png')
+    if os.path.exists(os.path.join(ADDON_PATH, 'icon.png')):
+        ADDON_ICON = os.path.join(ADDON_PATH, 'icon.png')
+    elif os.path.exists(ADDON_ICON_DEFAULT):
+        ADDON_ICON = ADDON_ICON_DEFAULT
     else:
         ADDON_ICON = ''
 except Exception:
     ADDON_ICON = ''
 # Prioritization features removed: addon will only load from cache.db
+
+SECTION_PLOTS = {
+    'peliculas': 'Prepara las palomitas. Descubre desde los últimos taquillazos de Hollywood hasta clásicos inolvidables para una sesión de cine perfecta.',
+    'series_tv': 'Maratones que atrapan. Sumérgete en temporadas repletas de intriga, comedia y acción con las series más aclamadas del momento.',
+    'documentales': 'La realidad supera a la ficción. Explora los misterios de la naturaleza, crímenes reales y los secretos más profundos de nuestra historia.',
+    'series_documental': 'La realidad supera a la ficción. Explora los misterios de la naturaleza, crímenes reales y los secretos más profundos de nuestra historia.',
+    'anime': '¡Kame Hame Ha! Viaja a universos épicos y llenos de poder con nuestra brutal selección de animación japonesa.',
+    'dibujos': 'Risas y aventuras para los peques (y no tan peques). Un espacio mágico repleto de color y animación para toda la familia.',
+    'retro': '¡Directo a la nostalgia! Saca a pasear tu espíritu ochentero y noventero y revive esas joyas míticas.',
+    'novedades': 'Lo último de lo último. Mantente al día con los estrenos más frescos que acaban de aterrizar en el catálogo.',
+    'seguir_viendo': '¿Por dónde íbamos? Retoma tus capítulos y películas exactamente en el segundo que las dejaste.',
+    'favoritos': 'Tu cámara acorazada personal. Todo el contenido que te ha robado el corazón, guardado a buen recaudo.'
+}
 
 _PLAYED_KEYS = None
 
@@ -180,11 +195,41 @@ def _get_section_logo(section_key):
     if not section_key:
         return None
     try:
-        logo_path = os.path.join(ADDON.getAddonInfo('path'), 'resources', 'media', f"{section_key}_logo_v2.png")
-        if os.path.exists(logo_path):
-            return logo_path
+        base_path = os.path.join(ADDON_PATH, 'resources', 'media')
+        for suffix in ['_logo_v2.png', '_logo.png', 'logo.png']:
+            logo_path = os.path.join(base_path, f"{section_key}{suffix}")
+            if os.path.exists(logo_path):
+                return logo_path
     except Exception:
         pass
+    return None
+
+def _get_section_icon(section_key):
+    """Retorna el path del icono para una sección si existe."""
+    if not section_key:
+        return None
+    try:
+        base_path = os.path.join(ADDON_PATH, 'resources', 'media')
+        for suffix in ['_v2.png', '.png']:
+            icon_path = os.path.join(base_path, f"{section_key}{suffix}")
+            if os.path.exists(icon_path):
+                return icon_path
+    except Exception:
+        pass
+    return None
+
+def _get_current_section_safe_id(filter_type, genre_filter):
+    """Determina la ID segura de la sección en función del género y filtro actual."""
+    if genre_filter:
+        g_lower = genre_filter.lower()
+        if 'dibujo' in g_lower: return 'dibujos'
+        if 'anime' in g_lower: return 'anime'
+        if 'retro' in g_lower: return 'retro'
+        if 'documental' in g_lower: return 'series_documental' if filter_type in ('tv', 'series_documentary') else 'documentales'
+    if filter_type == 'series_documentary': return 'series_documental'
+    if filter_type == 'documentary': return 'documentales'
+    if filter_type == 'tv': return 'series_tv'
+    if filter_type in ('movie', 'pelicula'): return 'peliculas'
     return None
 
 def _is_valid_art_url(url):
@@ -275,9 +320,11 @@ def _get_item_type(it):
         t = (it.get('type') or (it.get('parsed') or {}).get('type') or '')
     except Exception:
         t = ''
-    t = str(t).lower() if t else ''
-    if t == 'series':
+    t = str(t).lower().strip() if t else ''
+    if t in ('series', 'serie', 'tvshow', 'tv'):
         return 'tv'
+    elif t in ('movie', 'pelicula', 'película'):
+        return 'movie'
     return t
 
 
@@ -419,13 +466,15 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
         li.setProperty('ResumeTime', str(info['resume_time']))
         li.setProperty('TotalTime', str(info['resume_total']))
 
+    total_eps = 0
+    watched_eps = 0
     if m_type == 'tvshow':
         try:
-            from resources.lib.db import get_series_episodes
-            eps = get_series_episodes(title)
-            total_eps = len(eps)
+            from resources.lib.db import get_series_episode_keys
+            ep_keys = get_series_episode_keys(title)
+            total_eps = len(ep_keys)
             if total_eps > 0:
-                watched_eps = sum(1 for e in eps if e.get('key') in played_keys)
+                watched_eps = sum(1 for k in ep_keys if k in played_keys)
                 li.setProperty('TotalEpisodes', str(total_eps))
                 li.setProperty('WatchedEpisodes', str(watched_eps))
                 li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
@@ -444,15 +493,14 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
     except Exception: pass
     
     _set_unique_ids(li, it)
-    cm = []
-
     if mediatype_item in ('tv', 'series_documentary'):
         url_params = {'action': 'list_seasons', 'series': title}
         if quality_filter: url_params['target_quality'] = quality_filter
         url = build_url(url_params)
         is_folder = True
-        add_url = build_url({'action': 'add_watchlist', 'wtype': 'tv', 'val': title, 'title': title})
-        cm.append(('Añadir a Favoritos', f'RunPlugin({add_url})'))
+        
+        is_watched = info.get('playcount', 0) > 0
+        cm = generate_context_menu('tv', title, title, is_watched, watched_eps=watched_eps, total_eps=total_eps, item_key=it.get('key'))
     else:
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
@@ -461,14 +509,73 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
         if quality_filter: q_params['target_quality'] = quality_filter
         url = build_url(q_params)
         is_folder = False
-        if item_key:
-            add_url = build_url({'action': 'add_watchlist', 'wtype': 'movie', 'val': item_key, 'title': title})
-            cm.append(('Añadir a Favoritos', f'RunPlugin({add_url})'))
+        
+        is_watched = info.get('playcount', 0) > 0
+        cm = generate_context_menu('movie', item_key, title, is_watched, item_key=item_key)
             
     if cm: li.addContextMenuItems(cm)
     return li, url, is_folder
 
+def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None):
+    """
+    Genera dinámicamente los botones del menú contextual dependiendo del estado del ítem.
+    item_type: 'movie', 'tv', 'season', 'episode'
+    val: El ID del elemento (item_key para pelis, título para series)
+    """
+    cm = []
+    if item_type in ('movie', 'tv'):
+        wl = get_cached_watchlist()
+        po = get_cached_progress()
+        
+        is_fav = f"{item_type}_{val}" in wl
+        is_manual = val in po.get('manual', {})
+        is_hidden = val in po.get('hidden', [])
+        
+        has_progress = False
+        if item_type == 'tv' and 0 < watched_eps < total_eps:
+            has_progress = True
+        elif item_type == 'movie' and item_key and item_key in _get_resume_points():
+            has_progress = True
+            
+        is_in_seguir_viendo = (is_manual or has_progress) and not is_hidden
+        
+        if is_fav:
+            rm_url = build_url({'action': 'remove_watchlist', 'uid': f"{item_type}_{val}"})
+            cm.append(('Quitar de Favoritos R77', f'RunPlugin({rm_url})'))
+        else:
+            add_url = build_url({'action': 'add_watchlist', 'wtype': item_type, 'val': val, 'title': title})
+            cm.append(('Añadir a Favoritos R77', f'RunPlugin({add_url})'))
+            
+        if is_in_seguir_viendo:
+            rm_prog = build_url({'action': 'remove_progress', 'wtype': item_type, 'val': val, 'title': title})
+            cm.append(('Quitar de Seguir Viendo R77', f'RunPlugin({rm_prog})'))
+        else:
+            add_prog = build_url({'action': 'add_progress', 'wtype': item_type, 'val': val, 'title': title, 'key': item_key})
+            cm.append(('Añadir a Seguir Viendo R77', f'RunPlugin({add_prog})'))
+            
+    if is_watched:
+        cm.append(('Marcar como no visto', 'Action(ToggleWatched)'))
+    else:
+        cm.append(('Marcar como visto', 'Action(ToggleWatched)'))
+        
+    return cm
+
 # --- Funciones para Watchlist (Seguir Viendo Manual) ---
+_WATCHLIST_CACHE = None
+_PROGRESS_CACHE = None
+
+def get_cached_watchlist():
+    global _WATCHLIST_CACHE
+    if _WATCHLIST_CACHE is None:
+        _WATCHLIST_CACHE = load_watchlist()
+    return _WATCHLIST_CACHE
+
+def get_cached_progress():
+    global _PROGRESS_CACHE
+    if _PROGRESS_CACHE is None:
+        _PROGRESS_CACHE = load_progress_override()
+    return _PROGRESS_CACHE
+
 def get_watchlist_file():
     try:
         profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
@@ -494,6 +601,8 @@ def save_watchlist(data):
         except: pass
 
 def action_add_watchlist(params):
+    global _WATCHLIST_CACHE
+    _WATCHLIST_CACHE = None
     wtype = params.get('wtype')
     val = params.get('val')
     title = params.get('title')
@@ -502,701 +611,167 @@ def action_add_watchlist(params):
     uid = f"{wtype}_{val}"
     wl[uid] = {'wtype': wtype, 'val': val, 'title': title, 'added': time.time()}
     save_watchlist(wl)
-    xbmcgui.Dialog().notification('RusterWolf', f'{title} añadido a Favoritos')
+    xbmcgui.Dialog().notification('RusterWolf', f'{title} añadido a Favoritos R77', ADDON_ICON)
 
 def action_remove_watchlist(params):
+    global _WATCHLIST_CACHE
+    _WATCHLIST_CACHE = None
     uid = params.get('uid')
     wl = load_watchlist()
     if uid in wl:
         del wl[uid]
         save_watchlist(wl)
-        xbmcgui.Dialog().notification('RusterWolf', 'Eliminado de Favoritos')
+        xbmcgui.Dialog().notification('RusterWolf', 'Eliminado de Favoritos R77', ADDON_ICON)
         xbmc.executebuiltin('Container.Refresh')
+
+# --- Funciones para Seguir Viendo Manual ---
+def get_progress_file():
+    try:
+        profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
+        if not os.path.exists(profile_dir): os.makedirs(profile_dir)
+        return os.path.join(profile_dir, 'progress_override.json')
+    except: return ''
+
+def load_progress_override():
+    pf = get_progress_file()
+    if os.path.exists(pf):
+        try:
+            with open(pf, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except: pass
+    return {'hidden': [], 'manual': {}}
+
+def save_progress_override(data):
+    pf = get_progress_file()
+    if pf:
+        try:
+            with open(pf, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except: pass
+
+def action_add_progress(params):
+    global _PROGRESS_CACHE
+    _PROGRESS_CACHE = None
+    po = load_progress_override()
+    val = params.get('val')
+    if not val: return
+    if val in po['hidden']: po['hidden'].remove(val)
+    po['manual'][val] = {'wtype': params.get('wtype'), 'title': params.get('title'), 'key': params.get('key'), 'added': time.time()}
+    save_progress_override(po)
+    xbmcgui.Dialog().notification('RusterWolf', f'{params.get("title", "")} añadido a Seguir Viendo', ADDON_ICON)
+
+def action_remove_progress(params):
+    global _PROGRESS_CACHE
+    _PROGRESS_CACHE = None
+    po = load_progress_override()
+    val = params.get('val')
+    if not val: return
+    if val in po['manual']: del po['manual'][val]
+    if val not in po['hidden']: po['hidden'].append(val)
+    save_progress_override(po)
+    xbmcgui.Dialog().notification('RusterWolf', f'{params.get("title", "Elemento")} quitado de Seguir Viendo', ADDON_ICON)
+    xbmc.executebuiltin('Container.Refresh')
 # --------------------------------------------------------
 
 
 def list_root():
-    items = [
-        ('Novedades', {'action':'novedades_menu'}),
-        ('Favoritos', {'action':'favorites'}),
-        ('Seguir Viendo...', {'action':'continue_watching'}), 
-        ('Películas', {'action':'movie_menu'}),
-        ('Series TV', {'action':'tv_menu'}),
-        ('Documentales', {'action':'documentary_main_menu'}),
-        ('Buscar', {'action':'search'}),
-        ('Ajustes', {'action':'settings'}),
-    ]
-    import xbmc
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    default_icon = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    
-    # CAMBIO: Establecer el tipo de contenido para que Kodi muestre el fanart
-    xbmcplugin.setContent(HANDLE, 'files')
-    
-    for label, params in items:
-        li = xbmcgui.ListItem(label)
-        # CAMBIO: Usar InfoTagVideo para establecer metadata completa
-        try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception:
-            pass
-        
-        # Lógica de iconos personalizados
-        # Normalizar etiqueta: minúsculas, sin acentos, espacios a guiones bajos
-        safe_label = ''.join(c for c in unicodedata.normalize('NFD', label) if unicodedata.category(c) != 'Mn')
-        safe_label = safe_label.lower().replace('...', '').strip().replace(' ', '_')
-        if safe_label == 'zona_premium':
-            icon_name = "zona_premium_v3.png"
-        else:
-            icon_name = f"{safe_label}_v2.png"
-        custom_icon_path = os.path.join(addon_path, 'resources', 'media', icon_name)
-        icon_to_use = custom_icon_path if os.path.exists(custom_icon_path) else default_icon
+    from resources.lib.menus import build_root_menu
+    build_root_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url)
 
-        art_dict = {'fanart': addon_fanart, 'icon': icon_to_use, 'thumb': icon_to_use}
-        section_logo = _get_section_logo(safe_label)
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
+def _generic_main_menu(title, genre_name, safe_id):
+    from resources.lib.menus import build_generic_main_menu
+    build_generic_main_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, title, genre_name, safe_id)
 
-        try:
-            li.setArt(art_dict)
-        except Exception:
-            pass
-        
-        url = build_url(params)
-        xbmc.log(f"RusterWolf: list_root label={label} params={params} url={url}", xbmc.LOGWARNING)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    
-    # CAMBIO: Establecer el fanart del plugin también
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
-
-def premium_menu():
-    """Submenú para la Zona Premium."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-        
-    entries = [
-        ('Películas Premium', {'action': 'premium_movie_menu'}),
-        ('Series Premium', {'action': 'premium_tv_menu'})
-    ]
-    
-    xbmcplugin.setContent(HANDLE, 'files')
-    section_logo = _get_section_logo('zona_premium')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception: pass
-        
-        if 'Películas' in label:
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas_v2.png')
-        else:
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv_v2.png')
-            
-        if not os.path.exists(icon_path):
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-            
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-        
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
-
-def premium_movie_menu():
-    """Submenú para Películas Premium."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Novedades (Premium)', {'action': 'novedades', 'sub': 'movies', 'base_genre': 'Premium', 'origin': 'movie'}),
-        ('Título', {'action': 'list', 'filter': 'movie', 'group': 'letter', 'base_genre': 'Premium', 'origin': 'movie'}),
-        ('Colecciones', {'action': 'list', 'filter': 'movie', 'group': 'collection', 'base_genre': 'Premium', 'origin': 'movie'}),
-        ('Género', {'action': 'list', 'filter': 'movie', 'group': 'genre', 'base_genre': 'Premium', 'origin': 'movie'}),
-        ('Calidad', {'action': 'list', 'filter': 'movie', 'group': 'quality', 'base_genre': 'Premium', 'origin': 'movie'}),
-        ('Año', {'action': 'list', 'filter': 'movie', 'group': 'year', 'base_genre': 'Premium', 'origin': 'movie'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('peliculas')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try: info_tag = li.getVideoInfoTag(); info_tag.setTitle(label)
-        except Exception: pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
-
-def premium_tv_menu():
-    """Submenú para Series Premium."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Novedades (Premium)', {'action': 'novedades', 'sub': 'series', 'base_genre': 'Premium', 'origin': 'tv'}),
-        ('Título', {'action': 'list', 'filter': 'tv', 'group': 'letter', 'base_genre': 'Premium', 'origin': 'tv'}),
-        ('Género', {'action': 'list', 'filter': 'tv', 'group': 'genre', 'base_genre': 'Premium', 'origin': 'tv'}),
-        ('Calidad', {'action': 'list', 'filter': 'tv', 'group': 'quality', 'base_genre': 'Premium', 'origin': 'tv'}),
-        ('Año', {'action': 'list', 'filter': 'tv', 'group': 'year', 'base_genre': 'Premium', 'origin': 'tv'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('series_tv')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try: info_tag = li.getVideoInfoTag(); info_tag.setTitle(label)
-        except Exception: pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
+def genre_sub_menu(filter_type, genre_name, safe_id):
+    from resources.lib.menus import build_genre_sub_menu
+    build_genre_sub_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, filter_type, genre_name, safe_id)
 
 def novedades_menu():
-    """Submenú para Novedades: accesos directos a películas y series recientes."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'novedades_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    
-    # Usar 'action': 'novedades' con el parámetro 'sub' correcto
-    entries = [
-        ('Novedades (Películas)', {
-            'action': 'novedades',  # ← Usar la acción que ya existe
-            'sub': 'movies',        # ← Parámetro que espera la función novedades()
-            'page': 1
-        }),
-        ('Novedades (Series)', {
-            'action': 'novedades',
-            'sub': 'series',        # ← Parámetro que espera la función novedades()
-            'page': 1
-        })
-    ]
-    
+    from resources.lib.menus import build_standard_menu
+    icon = _get_section_icon('novedades') or ADDON_ICON_DEFAULT
+    logo = _get_section_logo('novedades')
+    entries = [('Novedades (Películas)', {'action': 'novedades', 'sub': 'movies', 'sort_by': 'novedades'}), ('Novedades (Series)', {'action': 'novedades', 'sub': 'series', 'sort_by': 'novedades'})]
     xbmcplugin.setContent(HANDLE, 'files')
-    section_logo = _get_section_logo('novedades')
-    
     for label, params in entries:
         li = xbmcgui.ListItem(label)
         try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception:
-            pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        try:
-            li.setArt(art_dict)
-        except Exception:
-            pass
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+            info = li.getVideoInfoTag()
+            info.setTitle(label)
+            info.setPlot(SECTION_PLOTS.get('novedades', ''))
+        except: pass
+        art = {'fanart': ADDON_FANART, 'icon': icon, 'thumb': icon}
+        if logo: art.update({'clearlogo': logo, 'logo': logo})
+        try: li.setArt(art)
+        except: pass
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(params), li, True)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
-    
 
 
 def continue_watching():
-    """Lista items a medio reproducir usando bookmarks de Kodi (MyVideos*.db).
-
-    Implementación mínima y segura:
-    - Lee la tabla `bookmark` y `files.strFilename` de la DB de Kodi más reciente.
-    - Si `strFilename` es una URL del plugin (plugin://...), la usa como objetivo de reproducción.
-    - Presenta hasta 50 entradas. Manejo conservador de errores.
-    """
-    import xbmc, xbmcgui
-    import sqlite3, glob, urllib.parse
-
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'seguir_viendo_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-
-    xbmcplugin.setContent(HANDLE, 'movies')
-
+    icon_path = _get_section_icon('seguir_viendo') or ADDON_ICON_DEFAULT
     section_logo = _get_section_logo('seguir_viendo')
-
-    # 1.5. Series en progreso (vistas parcialmente pero no completadas)
-    played_keys = _get_played_keys()
     
-    try:
-        played_items = load_items_by_keys(list(played_keys.keys()))
-    except Exception:
-        played_items = []
-
-    series_progress = {}
-    for it in played_items:
-        if _get_item_type(it) in ('tv', 'series_documentary'):
-            raw_title = _get_item_title(it)
-            title_norm = normalize_title(raw_title)
-            if not title_norm: continue
-            
-            if title_norm not in series_progress:
-                series_progress[title_norm] = {'total': 0, 'watched': 0, 'raw_title': raw_title, 'rep': it, 'last_played': ''}
-            
-            series_progress[title_norm]['total'] += 1
-            item_key = it.get('key')
-            if item_key and item_key in played_keys:
-                series_progress[title_norm]['watched'] += 1
-                lp = played_keys[item_key]
-                if lp and lp > series_progress[title_norm]['last_played']:
-                    series_progress[title_norm]['last_played'] = lp
-                
-            if bool(it.get('poster')) and not bool(series_progress[title_norm]['rep'].get('poster')):
-                series_progress[title_norm]['rep'] = it
-
-    from resources.lib.db import count_episodes_for_series
-    in_progress_series = []
-    for data in series_progress.values():
-        total_eps = count_episodes_for_series(data['raw_title'])
-        if 0 < data['watched'] < total_eps:
-            data['total'] = total_eps
-            in_progress_series.append(data)
-    
-    in_progress_series.sort(key=lambda x: x['raw_title'])
-    in_progress_series.sort(key=lambda x: x['last_played'] or '', reverse=True)
-    for data in in_progress_series:
-        rep = data['rep']
-        raw_title = data['raw_title']
-        
-        li = xbmcgui.ListItem(label=raw_title)
-        _apply_art(li, rep, addon_fanart)
-        
-        info = {'title': raw_title, 'plot': rep.get('overview'), 'mediatype': 'tvshow'}
-        li.setProperty('TotalEpisodes', str(data['total']))
-        li.setProperty('WatchedEpisodes', str(data['watched']))
-        li.setProperty('UnWatchedEpisodes', str(data['total'] - data['watched']))
-        _apply_info_tag(li, info)
-        
-        url = build_url({'action': 'list_seasons', 'series': raw_title})
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder=True)
-
-    # localizar la DB de Kodi (MyVideos*.db) dentro de special://profile/Database
-    try:
-        try:
-            profile = xbmcvfs.translatePath('special://profile/')
-        except Exception:
-            profile = ''
-        db_dir = os.path.join(profile, 'Database')
-        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
-        if not db_candidates:
-            db_candidates = glob.glob(os.path.join(db_dir, '*.db'))
-        db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0] if db_candidates else None
-    except Exception as e:
-        xbmc.log(f"RusterWolf: error localizando Database de Kodi: {e}", xbmc.LOGERROR)
-        db_path = None
-
-    bookmarks = []
-    if db_path and os.path.exists(db_path):
-        try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-            cur.execute("SELECT b.idBookmark, b.idFile, b.timeInSeconds, b.totalTimeInSeconds, f.strFilename FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND b.type = 1 ORDER BY b.idBookmark DESC LIMIT 200")
-            rows = cur.fetchall()
-            for row in rows:
-                try:
-                    idBookmark, idFile, timeInSeconds, totalTimeInSeconds, strFilename = row
-                    bookmarks.append({'idBookmark': idBookmark, 'idFile': idFile, 'time': timeInSeconds, 'total': totalTimeInSeconds, 'filename': strFilename})
-                except Exception:
-                    continue
-            conn.close()
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error leyendo bookmarks de {db_path}: {e}", xbmc.LOGERROR)
-
-    # Si no hay bookmarks ni series en progreso, informar y cerrar el contenedor
-    if not bookmarks and not in_progress_series:
-        li = xbmcgui.ListItem(label='No hay contenido en progreso')
-        try:
-            info_tag = li.getVideoInfoTag(); info_tag.setTitle('No hay contenido en progreso')
-        except Exception:
-            pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        try:
-            li.setArt(art_dict)
-        except Exception:
-            pass
-        xbmcplugin.addDirectoryItem(HANDLE, '', li, isFolder=False)
-        xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-        xbmcplugin.endOfDirectory(HANDLE, succeeded=True, updateListing=False, cacheToDisc=False)
-        return
-
-    shown = 0
-    for bm in bookmarks[:50]:
-        try:
-            filename = bm.get('filename') or ''
-            display_title = filename
-            catalog_item = None
-
-            # intentar resolver item desde URL plugin (key o index)
-            try:
-                parsed = urllib.parse.urlparse(filename)
-                if parsed.scheme == 'plugin' or (parsed.scheme in ('http', 'https') and 'plugin.video.rusterwolf77' in filename):
-                    qs = urllib.parse.parse_qs(parsed.query)
-                    # priorizar key
-                    try:
-                        if 'key' in qs:
-                            k = qs.get('key')[0]
-                            # intentar carga rápida por key
-                            try:
-                                items = load_items_by_keys([k]) or []
-                                catalog_item = items[0] if items else None
-                            except Exception:
-                                catalog_item = None
-                    except Exception:
-                        catalog_item = None
-            except Exception:
-                catalog_item = None
-
-            if catalog_item:
-                display_title = catalog_item.get('title') or display_title
-                try:
-                    xbmc.log(f"RusterWolf: continue_watching matched catalog item key={catalog_item.get('key')} title={catalog_item.get('title')}", xbmc.LOGDEBUG)
-                except Exception:
-                    pass
-            else:
-                continue # Omitir si el archivo ya no existe en nuestra BD local
-
-            li = xbmcgui.ListItem(label=display_title)
-            try:
-                # aplicar arte directamente
-                art = {'fanart': addon_fanart}
-                if isinstance(catalog_item, dict):
-                    poster = catalog_item.get('poster') or catalog_item.get('poster_path') or ''
-                    if poster:
-                        art['poster'] = poster
-                        art['thumb'] = poster
-                    fanart = catalog_item.get('fanart') or catalog_item.get('backdrop_path') or ''
-                    if fanart:
-                        art['fanart'] = fanart
-                    clearlogo = catalog_item.get('clearlogo') or catalog_item.get('logo') or ''
-                    if clearlogo:
-                        art['clearlogo'] = clearlogo
-                        art['logo'] = clearlogo
-                try:
-                    li.setArt(art)
-                except Exception:
-                    pass
-            except Exception:
-                try: li.setArt(art)
-                except Exception: pass
-
-            # aplicar info tag enriquecido si hay item
-            try:
-                if isinstance(catalog_item, dict):
-                    tag = li.getVideoInfoTag()
-                    if catalog_item.get('title'):
-                        tag.setTitle(catalog_item.get('title'))
-                    plot = catalog_item.get('overview') or catalog_item.get('episode_overview')
-                    if plot:
-                        tag.setPlot(plot)
-                    try:
-                        year = catalog_item.get('year')
-                        if year:
-                            tag.setYear(int(year))
-                    except Exception:
-                        pass
-                    try:
-                        if catalog_item.get('rating'):
-                            tag.setRating(float(catalog_item.get('rating')))
-                    except Exception:
-                        pass
-                    try:
-                        xbmc.log(f"RusterWolf: continue_watching applied info for key={catalog_item.get('key')}", xbmc.LOGDEBUG)
-                    except Exception:
-                        pass
-            except Exception:
-                pass
-            li.setProperty('IsPlayable', 'true')
-
-            play_url = filename or ''
-            if play_url:
-                xbmcplugin.addDirectoryItem(HANDLE, play_url, li, False)
-            else:
-                xbmcplugin.addDirectoryItem(HANDLE, '', li, False)
-
-            shown += 1
-            if shown >= 50:
-                break
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error mostrando bookmark: {e}", xbmc.LOGERROR)
-
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE, succeeded=True, updateListing=False, cacheToDisc=True)
-    return
+    from resources.lib.user_lists import render_continue_watching
+    render_continue_watching(
+        HANDLE, ADDON_FANART, icon_path, section_logo,
+        get_cached_progress(), _get_played_keys(), _get_resume_points(),
+        build_url, _apply_info_tag, _apply_art, generate_context_menu,
+        _get_item_type, _get_item_title, normalize_title
+    )
 
 def favorites_menu():
-    """Muestra los ítems añadidos a Favoritos manualmente."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'favoritos_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-
-    xbmcplugin.setContent(HANDLE, 'movies')
+    icon_path = _get_section_icon('favoritos') or ADDON_ICON_DEFAULT
     section_logo = _get_section_logo('favoritos')
-
-    wl = load_watchlist()
-    if not wl:
-        li = xbmcgui.ListItem(label='No hay elementos en Favoritos')
-        try: info_tag = li.getVideoInfoTag(); info_tag.setTitle('No hay elementos en Favoritos')
-        except Exception: pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo: art_dict['clearlogo'] = section_logo; art_dict['logo'] = section_logo
-        try: li.setArt(art_dict)
-        except Exception: pass
-        xbmcplugin.addDirectoryItem(HANDLE, '', li, isFolder=False)
-        xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-        xbmcplugin.endOfDirectory(HANDLE, succeeded=True, updateListing=False, cacheToDisc=False)
-        return
-
-    for uid, witem in sorted(wl.items(), key=lambda x: x[1].get('added', 0), reverse=True):
-        try:
-            wtype = witem.get('wtype')
-            val = witem.get('val')
-            wtitle = witem.get('title')
-            
-            li = None
-            url = None
-            isFolder = True
-            
-            if wtype == 'tv':
-                from resources.lib.db import get_series_representative
-                rep = get_series_representative(val)
-                if not rep: 
-                    li = xbmcgui.ListItem(label=wtitle)
-                    _apply_info_tag(li, {'title': wtitle, 'mediatype': 'tvshow'})
-                else:
-                    li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
-                    _apply_art(li, rep, addon_fanart)
-                    _apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tvshow'})
-                url = build_url({'action': 'list_seasons', 'series': val})
-            
-            elif wtype == 'movie':
-                found = load_items_by_keys([val])
-                if found:
-                    it = found[0]
-                    li = xbmcgui.ListItem(label=it.get('title'))
-                    _apply_art(li, it, addon_fanart)
-                    _apply_info_tag(li, {'title': it.get('title'), 'plot': it.get('overview'), 'mediatype': 'movie'})
-                    url = build_url({'action': 'select', 'key': val})
-                    isFolder = False
-                else:
-                    li = xbmcgui.ListItem(label=wtitle)
-                    url = build_url({'action': 'select', 'key': val})
-                    isFolder = False
-            
-            if li and url:
-                cm = []
-                rm_url = build_url({'action': 'remove_watchlist', 'uid': uid})
-                cm.append(('Quitar de Favoritos', f'RunPlugin({rm_url})'))
-                li.addContextMenuItems(cm)
-                xbmcplugin.addDirectoryItem(HANDLE, url, li, isFolder)
-        except Exception as e:
-            xbmc.log(f"RusterWolf: error en favoritos item: {e}", xbmc.LOGERROR)
-            
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
     
-
+    from resources.lib.user_lists import render_favorites
+    render_favorites(
+        HANDLE, ADDON_FANART, icon_path, section_logo,
+        get_cached_watchlist(), _get_played_keys(), 
+        build_url, _apply_info_tag, _apply_art, generate_context_menu
+    )
+    
 def movie_menu():
-    """Submenú para Películas: por título, por género, por año, novedades."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Título', {'action': 'list', 'filter': 'movie', 'group': 'letter', 'origin': 'movie'}),
-        ('Colecciones', {'action': 'list', 'filter': 'movie', 'group': 'collection', 'origin': 'movie'}),
-        ('Género', {'action': 'list', 'filter': 'movie', 'group': 'genre', 'origin': 'movie'}),
-        ('Calidad', {'action': 'list', 'filter': 'movie', 'group': 'quality', 'origin': 'movie'}),
-        ('Año', {'action': 'list', 'filter': 'movie', 'group': 'year', 'origin': 'movie'}),
-        ('Novedades (Películas)', {'action': 'novedades', 'sub': 'movies', 'origin': 'movie'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('peliculas')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception:
-            pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        try:
-            li.setArt(art_dict)
-        except Exception:
-            pass
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
-
+    from resources.lib.menus import build_standard_menu
+    build_standard_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, 'movie', '(Películas)', 'peliculas', show_collections=True)
 
 def tv_menu():
-    """Submenú para Series: por título, por género, por año, novedades."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Título', {'action': 'list', 'filter': 'tv', 'group': 'letter', 'origin': 'tv'}),
-        ('Género', {'action': 'list', 'filter': 'tv', 'group': 'genre', 'origin': 'tv'}),
-        ('Calidad', {'action': 'list', 'filter': 'tv', 'group': 'quality', 'origin': 'tv'}),
-        ('Año', {'action': 'list', 'filter': 'tv', 'group': 'year', 'origin': 'tv'}),
-        ('Novedades (Series)', {'action': 'novedades', 'sub': 'series', 'origin': 'tv'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'series_tv_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('series_tv')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception:
-            pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        try:
-            li.setArt(art_dict)
-        except Exception:
-            pass
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
-
-def documentary_main_menu():
-    """Submenú principal para Documentales (agrupa Películas Documentales y Series Documentales)."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Documentales', {'action':'documentary_menu'}),
-        ('Series Documental', {'action':'series_documentary_menu'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try: info_tag = li.getVideoInfoTag(); info_tag.setTitle(label)
-        except Exception: pass
-        
-        if label == 'Series Documental':
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'series_documental_v2.png')
-            section_logo = _get_section_logo('series_documental')
-        else:
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'documentales_v2.png')
-            section_logo = _get_section_logo('documentales')
-            
-        if not os.path.exists(icon_path):
-            icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-            
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo: art_dict['clearlogo'] = section_logo; art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
+    from resources.lib.menus import build_standard_menu
+    build_standard_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, 'tv', '(Series)', 'series_tv', show_collections=False)
 
 def documentary_menu():
-    """Submenú para Documentales."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Título', {'action': 'list', 'filter': 'movie', 'genre': 'Documental', 'group': 'letter', 'origin': 'movie'}),
-        ('Calidad', {'action': 'list', 'filter': 'movie', 'genre': 'Documental', 'group': 'quality', 'origin': 'movie'}),
-        ('Novedades', {'action': 'novedades', 'sub': 'documentary', 'origin': 'movie'})
-    ]
-    xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'documentales_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('documentales')
-    for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception: pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
-    xbmcplugin.endOfDirectory(HANDLE)
+    from resources.lib.menus import build_standard_menu
+    build_standard_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, 'documentary', '', 'documentales', show_collections=False, show_genres=False, show_years=True)
 
 def series_documentary_menu():
-    """Submenú para Series Documental."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    entries = [
-        ('Título', {'action': 'list', 'filter': 'tv', 'genre': 'Documental', 'group': 'letter', 'origin': 'tv'}),
-        ('Calidad', {'action': 'list', 'filter': 'tv', 'genre': 'Documental', 'group': 'quality', 'origin': 'tv'}),
-        ('Novedades', {'action': 'novedades', 'sub': 'series_documentary', 'origin': 'tv'})
-    ]
+    from resources.lib.menus import build_standard_menu
+    build_standard_menu(HANDLE, ADDON, ADDON_FANART, _get_section_icon, _get_section_logo, build_url, 'series_documentary', '', 'series_documental', show_collections=False, show_genres=False, show_years=True)
+
+def documentary_main_menu():
+    entries = [('Documentales', {'action':'documentary_menu'}, 'documentales'), ('Series Documental', {'action':'series_documentary_menu'}, 'series_documental')]
     xbmcplugin.setContent(HANDLE, 'files')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'series_documental_v2.png')
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    section_logo = _get_section_logo('series_documental')
-    for label, params in entries:
+    for label, params, safe_id in entries:
         li = xbmcgui.ListItem(label)
         try:
-            info_tag = li.getVideoInfoTag()
-            info_tag.setTitle(label)
-        except Exception: pass
-        art_dict = {'fanart': addon_fanart, 'icon': icon_path, 'thumb': icon_path}
-        if section_logo:
-            art_dict['clearlogo'] = section_logo
-            art_dict['logo'] = section_logo
-        li.setArt(art_dict)
-        url = build_url(params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+            info = li.getVideoInfoTag()
+            info.setTitle(label)
+            info.setPlot(SECTION_PLOTS.get(safe_id, ''))
+        except: pass
+        icon = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+        logo = _get_section_logo(safe_id)
+        art = {'fanart': ADDON_FANART, 'icon': icon, 'thumb': icon}
+        if logo: art.update({'clearlogo': logo, 'logo': logo})
+        li.setArt(art)
+        xbmcplugin.addDirectoryItem(HANDLE, build_url(params), li, True)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 
 def list_genres(filter_type=None, original_params=None):
     """Lista géneros usando una lista estática para no saturar memoria RAM."""
     is_premium_req = False
-    if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
+    genre_filter = original_params.get('genre', '') if original_params else ''
+    if original_params and (original_params.get('base_genre', '').lower() == 'premium' or genre_filter.lower() == 'premium'):
         is_premium_req = True
         
     # Usar géneros de TMDB fijos para carga instantánea
@@ -1204,24 +779,10 @@ def list_genres(filter_type=None, original_params=None):
 
     if not filter_type:
         filter_type = 'movie'
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     
-    icon_map = {
-        'movie': 'peliculas_v2.png',
-        'tv': 'series_tv_v2.png',
-        'documentary': 'documentales_v2.png',
-        'series_documentary': 'series_documental_v2.png'
-    }
-    use_icon = icon_map.get(filter_type, 'icon.png')
-    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    logo_map = {
-        'movie': 'peliculas', 'tv': 'series_tv',
-        'documentary': 'documentales', 'series_documentary': 'series_documental'
-    }
-    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+    safe_id = _get_current_section_safe_id(filter_type, genre_filter)
+    icon_path = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+    section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'files')
     for gname in sorted(genres_list):
@@ -1229,10 +790,11 @@ def list_genres(filter_type=None, original_params=None):
         try:
             info_tag = li.getVideoInfoTag()
             info_tag.setTitle(gname)
+            info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception:
             pass
         # use addon icon so skins render this list as square/icon like the main menu
-        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
             art_dict['logo'] = section_logo
@@ -1241,15 +803,19 @@ def list_genres(filter_type=None, original_params=None):
         except Exception:
             pass
         # pass the real genre name so matching can be done by substring on the DB side
-        url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'genre': gname}
+        combined_genre = gname
+        if genre_filter in ('Retro', 'Dibujo', 'Anime'):
+            combined_genre = f"{genre_filter}|{gname}"
+            
+        url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'genre': combined_genre}
         if is_premium_req: url_params['base_genre'] = 'Premium'
         url = build_url(url_params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 
-def list_years(filter_type=None, original_params=None):
+def list_years(filter_type=None, genre_filter=None, original_params=None):
     """Listar años consultando eficientemente la DB."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
@@ -1259,26 +825,11 @@ def list_years(filter_type=None, original_params=None):
         filter_type = 'movie'
         
     from resources.lib.db import get_years
-    years = get_years(filter_type)
-    
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
+    years = get_years(filter_type, genre=genre_filter)
 
-    icon_map = {
-        'movie': 'peliculas_v2.png',
-        'tv': 'series_tv_v2.png',
-        'documentary': 'documentales_v2.png',
-        'series_documentary': 'series_documental_v2.png'
-    }
-    use_icon = icon_map.get(filter_type, 'icon.png')
-    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    logo_map = {
-        'movie': 'peliculas', 'tv': 'series_tv',
-        'documentary': 'documentales', 'series_documentary': 'series_documental'
-    }
-    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+    safe_id = _get_current_section_safe_id(filter_type, genre_filter)
+    icon_path = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+    section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'files')
     for y in years:
@@ -1286,10 +837,11 @@ def list_years(filter_type=None, original_params=None):
         try:
             info_tag = li.getVideoInfoTag()
             info_tag.setTitle(f'Año {y}')
+            info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception:
             pass
         # use addon icon so skins render this list as square/icon like the main menu
-        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
             art_dict['logo'] = section_logo
@@ -1298,10 +850,11 @@ def list_years(filter_type=None, original_params=None):
         except Exception:
             pass
         url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'year': y}
+        if genre_filter and genre_filter.lower() != 'premium': url_params['genre'] = genre_filter
         if is_premium_req: url_params['base_genre'] = 'Premium'
         url = build_url(url_params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_qualities(filter_type=None, genre_filter=None, original_params=None):
@@ -1312,26 +865,9 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
         
     qualities = ['4K', '1080p', '720p', 'MicroHD', 'BluRay', 'HDTV']
 
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    
-    # Usar icono por defecto o mapeado
-    icon_map = {
-        'movie': 'peliculas_v2.png',
-        'tv': 'series_tv_v2.png',
-        'documentary': 'documentales_v2.png',
-        'series_documentary': 'series_documental_v2.png'
-    }
-    use_icon = icon_map.get(filter_type, 'icon.png')
-    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    
-    logo_map = {
-        'movie': 'peliculas', 'tv': 'series_tv',
-        'documentary': 'documentales', 'series_documentary': 'series_documental'
-    }
-    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+    safe_id = _get_current_section_safe_id(filter_type, genre_filter)
+    icon_path = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+    section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'files')
     for qname in qualities:
@@ -1339,9 +875,10 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
         try:
             info_tag = li.getVideoInfoTag()
             info_tag.setTitle(qname)
+            info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception:
             pass
-        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
             art_dict['logo'] = section_logo
@@ -1357,7 +894,7 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
             q_params['base_genre'] = 'Premium'
         url = build_url(q_params)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_letters(filter_type=None, genre_filter=None, original_params=None):
@@ -1367,34 +904,21 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
         is_premium_req = True
         
     from resources.lib.db import get_letters
-    letters = get_letters(filter_type)
+    letters = get_letters(filter_type, genre=genre_filter)
 
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    
-    icon_map = {
-        'movie': 'peliculas_v2.png',
-        'tv': 'series_tv_v2.png',
-        'documentary': 'documentales_v2.png',
-        'series_documentary': 'series_documental_v2.png'
-    }
-    use_icon = icon_map.get(filter_type, 'icon.png')
-    icon_path = os.path.join(addon_path, 'resources', 'media', use_icon)
-    if not os.path.exists(icon_path):
-        icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
-    
-    logo_map = {
-        'movie': 'peliculas', 'tv': 'series_tv',
-        'documentary': 'documentales', 'series_documentary': 'series_documental'
-    }
-    section_logo = _get_section_logo(logo_map.get(filter_type, ''))
+    safe_id = _get_current_section_safe_id(filter_type, genre_filter)
+    icon_path = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+    section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'files')
     for letter in letters:
         li = xbmcgui.ListItem(label=letter)
-        try: li.getVideoInfoTag().setTitle(letter)
+        try:
+            info_tag = li.getVideoInfoTag()
+            info_tag.setTitle(letter)
+            info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception: pass
-        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': addon_fanart}
+        art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
             art_dict['logo'] = section_logo
@@ -1405,37 +929,42 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
         if genre_filter and genre_filter.lower() != 'premium': q_params['genre'] = genre_filter
         if is_premium_req: q_params['base_genre'] = 'Premium'
         xbmcplugin.addDirectoryItem(HANDLE, build_url(q_params), li, True)
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_collections(filter_type=None, original_params=None, page=1):
     """Lista colecciones usando consulta SQL paginada."""
     is_premium_req = False
-    if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
-        is_premium_req = True
+    genre_filter = None
+    if original_params:
+        genre_filter = original_params.get('genre')
+        if original_params.get('base_genre', '').lower() == 'premium' or str(genre_filter).lower() == 'premium':
+            is_premium_req = True
         
     from resources.lib.db import get_collections_paginated
     per_page = _read_items_per_page()
     offset = (page - 1) * per_page
     
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    icon_path = os.path.join(addon_path, 'resources', 'media', 'peliculas_v2.png')
-    if not os.path.exists(icon_path): icon_path = os.path.join(addon_path, 'resources', 'media', 'icon.png')
+    safe_id = _get_current_section_safe_id(filter_type, genre_filter)
+    icon_path = _get_section_icon(safe_id) or ADDON_ICON_DEFAULT
+    section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'movies')
     
-    collections = get_collections_paginated(filter_type, limit=per_page + 1, offset=offset)
+    collections = get_collections_paginated(filter_type, limit=per_page + 1, offset=offset, genre=genre_filter, is_premium_req=is_premium_req)
     has_next_page = len(collections) > per_page
     page_cols = collections[:per_page]
     
     for col_data in page_cols:
         c_name = col_data['name']
         li = xbmcgui.ListItem(label=c_name)
-        try: li.getVideoInfoTag().setTitle(c_name)
+        try:
+            info_tag = li.getVideoInfoTag()
+            info_tag.setTitle(c_name)
+            info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception: pass
         
-        art_dict = {'fanart': col_data['fanart'] or addon_fanart, 'icon': icon_path}
+        art_dict = {'fanart': col_data['fanart'] or ADDON_FANART, 'icon': icon_path}
         if col_data['poster']:
             art_dict['thumb'] = col_data['poster']
             art_dict['poster'] = col_data['poster']
@@ -1444,16 +973,21 @@ def list_collections(filter_type=None, original_params=None, page=1):
         if col_data['clearlogo']:
             art_dict['clearlogo'] = col_data['clearlogo']
             art_dict['logo'] = col_data['clearlogo']
+        elif section_logo:
+            art_dict['clearlogo'] = section_logo
+            art_dict['logo'] = section_logo
             
         try: li.setArt(art_dict)
         except Exception: pass
         
         url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'collection': c_name}
         if is_premium_req: url_params['base_genre'] = 'Premium'
+        if genre_filter and str(genre_filter).lower() != 'premium': url_params['genre'] = genre_filter
         xbmcplugin.addDirectoryItem(HANDLE, build_url(url_params), li, True)
         
     q_base = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'group': 'collection'}
     if is_premium_req: q_base['base_genre'] = 'Premium'
+    if genre_filter and str(genre_filter).lower() != 'premium': q_base['genre'] = genre_filter
 
     if page > 1:
         li_prev = xbmcgui.ListItem(label='Página anterior')
@@ -1467,13 +1001,11 @@ def list_collections(filter_type=None, original_params=None, page=1):
         q_next['page'] = page + 1
         xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
         
-    xbmcplugin.setPluginFanart(HANDLE, addon_fanart)
+    xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, quality_filter=None, letter_filter=None, collection_filter=None, original_params=None):
     xbmc.log(f"RusterWolf DEBUG: === list_items CALL === filter={filter_type} page={page}", xbmc.LOGWARNING)
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     
     is_premium_req = False
     if genre_filter and genre_filter.lower() == 'premium':
@@ -1483,44 +1015,41 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
             is_premium_req = True
     except Exception: pass
     
-    if not filter_type and group_by in ('genre', 'year', 'quality', 'letter', 'collection'):
+    if not filter_type and (group_by in ('genre', 'year', 'quality', 'letter', 'collection') or genre_filter or year_filter or quality_filter or letter_filter):
         try:
             li_movie = xbmcgui.ListItem('Películas')
-            art_m = {'fanart': addon_fanart}
+            art_m = {'fanart': ADDON_FANART}
             logo_m = _get_section_logo('peliculas')
             if logo_m: art_m['clearlogo'] = logo_m; art_m['logo'] = logo_m
             li_movie.setArt(art_m)
-            url_movie = build_url({'action': 'list', 'filter': 'movie', 'group': group_by})
-            xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
+            try:
+                li_movie.getVideoInfoTag().setPlot(SECTION_PLOTS.get('peliculas', ''))
+            except Exception:
+                pass
+            
+            base_params_m = {'action': 'list', 'filter': 'movie'}
+            if group_by: base_params_m['group'] = group_by
+            if genre_filter: base_params_m['genre'] = genre_filter
+            if year_filter: base_params_m['year'] = year_filter
+            if quality_filter: base_params_m['quality'] = quality_filter
+            if letter_filter: base_params_m['letter'] = letter_filter
+            
+            xbmcplugin.addDirectoryItem(HANDLE, build_url(base_params_m), li_movie, True)
 
             li_tv = xbmcgui.ListItem('Series')
-            art_t = {'fanart': addon_fanart}
+            art_t = {'fanart': ADDON_FANART}
             logo_t = _get_section_logo('series_tv')
             if logo_t: art_t['clearlogo'] = logo_t; art_t['logo'] = logo_t
             li_tv.setArt(art_t)
-            url_tv = build_url({'action': 'list', 'filter': 'tv', 'group': group_by})
-            xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
-            xbmcplugin.endOfDirectory(HANDLE)
-            return
-        except Exception: pass
-
-    if filter_type is None and (genre_filter or year_filter or quality_filter or letter_filter):
-        try:
-            li_movie = xbmcgui.ListItem('Películas')
-            art_m = {'fanart': addon_fanart}
-            logo_m = _get_section_logo('peliculas')
-            if logo_m: art_m['clearlogo'] = logo_m; art_m['logo'] = logo_m
-            li_movie.setArt(art_m)
-            url_movie = build_url({'action': 'list', 'filter': 'movie', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
-            xbmcplugin.addDirectoryItem(HANDLE, url_movie, li_movie, True)
-
-            li_tv = xbmcgui.ListItem('Series')
-            art_t = {'fanart': addon_fanart}
-            logo_t = _get_section_logo('series_tv')
-            if logo_t: art_t['clearlogo'] = logo_t; art_t['logo'] = logo_t
-            li_tv.setArt(art_t)
-            url_tv = build_url({'action': 'list', 'filter': 'tv', 'genre': genre_filter, 'year': year_filter, 'quality': quality_filter, 'letter': letter_filter})
-            xbmcplugin.addDirectoryItem(HANDLE, url_tv, li_tv, True)
+            try:
+                li_tv.getVideoInfoTag().setPlot(SECTION_PLOTS.get('series_tv', ''))
+            except Exception:
+                pass
+            
+            base_params_t = base_params_m.copy()
+            base_params_t['filter'] = 'tv'
+            
+            xbmcplugin.addDirectoryItem(HANDLE, build_url(base_params_t), li_tv, True)
             xbmcplugin.endOfDirectory(HANDLE)
             return
         except Exception: pass
@@ -1532,7 +1061,7 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     except Exception: pass
 
     if group_by == 'genre': return list_genres(filter_type=used_filter, original_params=original_params)
-    if group_by == 'year': return list_years(filter_type=used_filter, original_params=original_params)
+    if group_by == 'year': return list_years(filter_type=used_filter, genre_filter=genre_filter, original_params=original_params)
     if group_by == 'quality': return list_qualities(filter_type=used_filter, genre_filter=genre_filter, original_params=original_params)
     if group_by == 'letter': return list_letters(filter_type=used_filter, genre_filter=genre_filter, original_params=original_params)
     if group_by == 'collection': return list_collections(filter_type=used_filter, original_params=original_params, page=page)
@@ -1558,15 +1087,16 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     has_next_page = len(results) > per_page
     page_items = results[:per_page]
 
-    if used_filter in ('tv', 'series_documentary'):
+    ft = used_filter.strip().lower() if used_filter else ''
+    if ft in ('tv', 'series', 'serie', 'series_documentary'):
         try: xbmcplugin.setContent(HANDLE, 'tvshows')
         except: pass
-    elif used_filter in ('movie', 'documentary'):
+    elif ft in ('movie', 'pelicula', 'documentary'):
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
 
     for it in page_items:
-        li, url, is_folder = _create_item_and_url(it, addon_fanart, quality_filter)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART, quality_filter)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
 
     base_action = action_name or 'list'
@@ -1594,19 +1124,22 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
 
     xbmcplugin.endOfDirectory(HANDLE)
 
-def novedades(page=1, sub=None, original_params=None):
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-
+def novedades(page=1, sub=None, genre_filter=None, original_params=None):
     used_filter = None
-    if sub == 'movies': used_filter = 'movie'
-    elif sub == 'series': used_filter = 'tv'
+    if sub in ('movies', 'movie', 'pelicula'): used_filter = 'movie'
+    elif sub in ('series', 'tv', 'serie'): used_filter = 'tv'
     elif sub == 'documentary': used_filter = 'documentary'
     elif sub == 'series_documentary': used_filter = 'series_documentary'
+
+    # Red de seguridad extrema por si 'sub' no llega pero 'filter' sí
+    if not used_filter and isinstance(original_params, dict):
+        used_filter = original_params.get('filter') or original_params.get('origin')
 
     is_premium_req = False
     if original_params and original_params.get('base_genre', '').lower() == 'premium':
         is_premium_req = True
+        
+    sort_by = original_params.get('sort_by', 'date_added') if original_params else 'date_added'
 
     from resources.lib.db import get_filtered_items
     per_page = _read_items_per_page()
@@ -1616,7 +1149,8 @@ def novedades(page=1, sub=None, original_params=None):
     results = get_filtered_items(
         filter_type=used_filter,
         is_premium_req=is_premium_req,
-        sort_by='date_added',
+        genre=genre_filter,
+        sort_by=sort_by,
         limit=limit,
         offset=offset
     )
@@ -1624,20 +1158,23 @@ def novedades(page=1, sub=None, original_params=None):
     has_next_page = len(results) > per_page
     page_items = results[:per_page]
 
-    if used_filter in ('tv', 'series_documentary'):
+    ft = used_filter.strip().lower() if used_filter else ''
+    if ft in ('tv', 'series', 'serie', 'series_documentary'):
         try: xbmcplugin.setContent(HANDLE, 'tvshows')
         except: pass
-    elif used_filter in ('movie', 'documentary'):
+    elif ft in ('movie', 'pelicula', 'documentary'):
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
 
     for it in page_items:
-        li, url, is_folder = _create_item_and_url(it, addon_fanart)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
 
     base_q = {'action': 'novedades'}
     if sub: base_q['sub'] = sub
+    if genre_filter: base_q['genre'] = genre_filter
     if is_premium_req: base_q['base_genre'] = 'Premium'
+    if sort_by != 'date_added': base_q['sort_by'] = sort_by
 
     if page > 1:
         li_prev = xbmcgui.ListItem(label='Página anterior')
@@ -1655,8 +1192,6 @@ def novedades(page=1, sub=None, original_params=None):
 
 def list_seasons(series, target_quality=None):
     """Lista las temporadas disponibles para una serie (por título de serie)."""
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     try:
         from resources.lib.db import get_series_episodes
         catalog = get_series_episodes(series)
@@ -1710,7 +1245,7 @@ def list_seasons(series, target_quality=None):
         try:
             rep = sorted(seasons.get(season, []), key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
             try:
-                _apply_art(li, rep, addon_fanart)
+                _apply_art(li, rep, ADDON_FANART)
             except Exception:
                 # fallback setArt on poster only
                 poster = rep.get('poster') or rep.get('fanart') or ''
@@ -1723,6 +1258,11 @@ def list_seasons(series, target_quality=None):
             pass
         if 'rep' in locals() and rep:
             _set_unique_ids(li, rep)
+            
+        is_watched = info.get('playcount', 0) > 0
+        cm = generate_context_menu('season', None, None, is_watched)
+        if cm: li.addContextMenuItems(cm)
+        
         q_params = {'action': 'list_episodes', 'series': series, 'season': season}
         if target_quality:
             q_params['target_quality'] = target_quality
@@ -1731,8 +1271,6 @@ def list_seasons(series, target_quality=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_episodes(series, season, target_quality=None):
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
     try:
         from resources.lib.db import get_series_episodes
         catalog = get_series_episodes(series)
@@ -1813,7 +1351,7 @@ def list_episodes(series, season, target_quality=None):
             # Preferir imagen fija del episodio (still) si está disponible
             poster = it.get('still_path') or it.get('poster') or it.get('fanart') or ''
             try:
-                _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, addon_fanart)
+                _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, ADDON_FANART)
             except Exception:
                 if poster:
                     try:
@@ -1825,6 +1363,11 @@ def list_episodes(series, season, target_quality=None):
         _set_unique_ids(li, it)
         li.setProperty('IsPlayable', 'true')
         item_key = it.get('key') if isinstance(it, dict) else None
+        
+        is_watched = info.get('playcount', 0) > 0
+        cm = generate_context_menu('episode', None, None, is_watched)
+        if cm: li.addContextMenuItems(cm)
+        
         q_params = {'action': 'select'}
         if item_key:
             q_params['key'] = item_key
@@ -1868,13 +1411,10 @@ def do_search(q=None, original_params=None):
         if not q:
             return
     
-    addon_path = ADDON.getAddonInfo('path')
-    addon_fanart = os.path.join(addon_path, 'resources', 'media', 'fanart.jpeg')
-    
     try:
         # MEJORA DE RENDIMIENTO: Usar búsqueda SQL directa en lugar de cargar todo
         from resources.lib.db import search_items_sql
-        results = search_items_sql(q, limit=100) # Límite para no saturar UI
+        results = search_items_sql(q, limit=150) # Límite ampliado, rendimiento mejorado
     except Exception:
         results = []
 
@@ -1911,12 +1451,12 @@ def do_search(q=None, original_params=None):
     for key, items_group in sorted(series_map.items(), key=lambda x: x[0]):
         # Elegir representante con mejor metadata
         rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-        li, url, is_folder = _create_item_and_url(rep, addon_fanart)
+        li, url, is_folder = _create_item_and_url(rep, ADDON_FANART)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
     
     # Mostrar películas
     for it in movies:
-        li, url, is_folder = _create_item_and_url(it, addon_fanart)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
         xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
     
     xbmcplugin.endOfDirectory(HANDLE)
@@ -2140,6 +1680,12 @@ def router(params):
     if action == 'remove_watchlist':
         action_remove_watchlist(params)
         return
+    if action == 'add_progress':
+        action_add_progress(params)
+        return
+    if action == 'remove_progress':
+        action_remove_progress(params)
+        return
     try:
         q_param = None
         if isinstance(params, dict):
@@ -2161,6 +1707,18 @@ def router(params):
             return
     except Exception:
         pass
+        
+    if action == 'force_sync':
+        try:
+            import xbmcvfs, os
+            os.remove(os.path.join(xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON.getAddonInfo('id')}"), 'last_update.txt'))
+        except Exception: pass
+        from resources.lib.db import maybe_update_db_from_remote
+        xbmcgui.Dialog().notification('RusterWolf', 'Descargando nueva BD...', xbmcgui.NOTIFICATION_INFO)
+        maybe_update_db_from_remote(force=True)
+        xbmc.executebuiltin('Container.Refresh')
+        return
+
     # Soportar acciones explícitas para evitar depender de parámetros 'filter' que no siempre llegan
     if action in ('movie_menu', 'tv_menu', 'novedades_menu', 'continue_watching', 'favorites', 'documentary_main_menu', 'documentary_menu', 'series_documentary_menu', 'premium_menu', 'premium_movie_menu', 'premium_tv_menu'):
         # acciones que muestran submenús para Películas/Series o pantallas especiales
@@ -2307,11 +1865,22 @@ def router(params):
             except Exception:
                 pass
         xbmc.log(f"RusterWolf: router llama a list_items con filter_type={flt} page={page}", xbmc.LOGWARNING)
-        list_items(filter_type=flt, page=page, action_name='list',
-                   group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), quality_filter=params.get('quality'), letter_filter=params.get('letter'), collection_filter=params.get('collection'), original_params=params)
+        
+        def cln(v): return None if str(v) == 'None' else v
+        
+        list_items(filter_type=cln(flt), page=page, action_name='list',
+                   group_by=cln(params.get('group')), genre_filter=cln(params.get('genre')), 
+                   year_filter=cln(params.get('year')), quality_filter=cln(params.get('quality')), 
+                   letter_filter=cln(params.get('letter')), collection_filter=cln(params.get('collection')), 
+                   original_params=params)
         return
+    elif action == 'dibujos_main_menu': _generic_main_menu('Dibujos', 'Dibujo', 'dibujos')
+    elif action == 'anime_main_menu': _generic_main_menu('Anime', 'Anime', 'anime')
+    elif action == 'retro_main_menu': _generic_main_menu('Retro', 'Retro', 'retro')
+    elif action == 'genre_movie_menu': genre_sub_menu('movie', params.get('genre'), params.get('safe_id'))
+    elif action == 'genre_tv_menu': genre_sub_menu('tv', params.get('genre'), params.get('safe_id'))
     elif action == 'novedades':
-        novedades(page=page, sub=params.get('sub'), original_params=params)
+        novedades(page=page, sub=params.get('sub'), genre_filter=params.get('genre'), original_params=params)
     elif action == 'search':
         do_search(original_params=params)
     elif action == 'select':

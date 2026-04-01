@@ -34,6 +34,7 @@ CREATE INDEX IF NOT EXISTS idx_items_collection ON items(collection_name);
 CREATE INDEX IF NOT EXISTS idx_items_date ON items(date_added);
 CREATE INDEX IF NOT EXISTS idx_type_date ON items(type, date_added DESC);
 CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC);
+CREATE INDEX IF NOT EXISTS idx_items_title_nocase ON items(title COLLATE NOCASE);
 '''
 
 def _connect():
@@ -61,6 +62,15 @@ def _upgrade_db_schema(db_path):
         except Exception: pass
         try: conn.execute("CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC)")
         except Exception: pass
+        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_items_title_nocase ON items(title COLLATE NOCASE)")
+        except Exception: pass
+        
+        # Auto-reparador de Colecciones (Fusiona el estilo Moria con el estilo TMDB)
+        try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' (Colección)', ' - Colección') WHERE collection_name LIKE '% (Colección)'")
+        except Exception: pass
+        try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' Colección', ' - Colección') WHERE collection_name LIKE '% Colección' AND collection_name NOT LIKE '% - Colección'")
+        except Exception: pass
+
         conn.commit()
         conn.close()
     except Exception: pass
@@ -194,6 +204,8 @@ def maybe_update_db_from_remote(force=False):
     if force:
         dp = xbmcgui.DialogProgress()
         dp.create("RusterWolf", "Descargando catálogo desde la nube...")
+    else:
+        xbmcgui.Dialog().notification("RusterWolf", "Buscando actualizaciones...", ADDON_ICON, 2000)
         
     try:
         req = urllib.request.Request(url_r2, headers=headers)
@@ -297,6 +309,35 @@ def load_items_by_keys(keys):
     finally:
         conn.close()
         
+def _apply_genre_filters(query, args, filter_type, genre, is_premium_req=False, check_premium=True):
+    """Helper centralizado para aplicar los filtros complejos de género (Anime, Dibujos, Retro) de forma unificada."""
+    if check_premium:
+        if is_premium_req: query += " AND genres LIKE '%Premium%'"
+        else: query += " AND genres NOT LIKE '%Premium%'"
+        
+    RETRO_COND = "(genres LIKE '%Retro%' OR (length(year) = 4 AND CAST(year AS INTEGER) <= 1999 AND genres NOT LIKE '%Dibujo%' AND genres NOT LIKE '%Anime%' AND genres NOT LIKE '%Animaci%' AND genres NOT LIKE '%Documental%'))"
+
+    if genre and genre.lower() != 'premium':
+        for g in genre.split('|'):
+            if g == 'Retro': query += f" AND {RETRO_COND}"
+            elif g == 'Dibujo': query += " AND (genres LIKE '%Dibujo%' OR genres LIKE '%Animaci%') AND genres NOT LIKE '%Anime%'"
+            elif g == 'Anime': query += " AND (genres LIKE '%Anime%' OR genres LIKE '%Japonesa%')"
+            else:
+                query += " AND genres LIKE ?"
+                args.append(f'%{g}%')
+        
+    ISOLATED_GENRES = ['Documental', 'Dibujo', 'Anime', 'Retro']
+    is_special = False
+    if filter_type in ('documentary', 'series_documentary'): is_special = True
+    if genre and any(ig.lower() in genre.lower() for ig in ISOLATED_GENRES): is_special = True
+        
+    if not is_special:
+        query += f" AND NOT {RETRO_COND}"
+        query += " AND genres NOT LIKE '%Dibujo%' AND genres NOT LIKE '%Animaci%'"
+        query += " AND genres NOT LIKE '%Anime%' AND genres NOT LIKE '%Japonesa%'"
+        query += " AND genres NOT LIKE '%Documental%'"
+        
+    return query, args
 
 def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=None, quality=None, letter=None, collection=None, sort_by='title', limit=None, offset=None):
     if not os.path.exists(DB_FILE): return []
@@ -306,20 +347,17 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE 1=1'
         args = []
 
-        if filter_type == 'movie': query += " AND type='movie'"
-        elif filter_type == 'tv': query += " AND type='tv'"
-        elif filter_type == 'documentary':
+        ft = filter_type.strip().lower() if filter_type else None
+
+        if ft in ('movie', 'pelicula'): query += " AND type='movie'"
+        elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
+        elif ft == 'documentary':
             query += " AND type='movie' AND genres LIKE '%Documental%'"
-        elif filter_type == 'series_documentary':
+        elif ft == 'series_documentary':
             query += " AND type='tv' AND genres LIKE '%Documental%'"
 
-        if not collection:
-            if is_premium_req: query += " AND genres LIKE '%Premium%'"
-            else: query += " AND genres NOT LIKE '%Premium%'"
+        query, args = _apply_genre_filters(query, args, ft, genre, is_premium_req=is_premium_req, check_premium=not collection)
 
-        if genre and genre.lower() != 'premium':
-            query += " AND genres LIKE ?"
-            args.append(f'%"{genre}"%')
 
         if year:
             query += " AND year = ?"
@@ -340,12 +378,26 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
             query += " AND collection_name = ?"
             args.append(collection)
 
-        # CORRECCIÓN DE VELOCIDAD EXTREMA: Agrupar solo las series, NO las películas.
-        if filter_type in ('tv', 'series_documentary'):
+        import datetime
+        current_year = datetime.datetime.now().year
+        RECENT_YEAR_THRESHOLD = current_year - 1
+        RECENT_TV_YEAR_THRESHOLD = current_year - 5
+
+        if sort_by == 'novedades':
+            if ft in ('tv', 'series', 'serie', 'series_documentary'):
+                query += f" AND CAST(year AS INTEGER) >= {RECENT_TV_YEAR_THRESHOLD}"
+            else:
+                query += f" AND CAST(year AS INTEGER) >= {RECENT_YEAR_THRESHOLD}"
+            
+        # EL GROUP BY DEBE IR SIEMPRE DESPUÉS DE LOS FILTROS 'WHERE/AND'
+        if ft in ('tv', 'series', 'serie', 'series_documentary'):
             query += " GROUP BY title"
 
-        if sort_by == 'date_added':
-            if filter_type in ('tv', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
+        if sort_by == 'novedades':
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
+            else: query += " ORDER BY date_added DESC"
+        elif sort_by == 'date_added':
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
             else: query += " ORDER BY date_added DESC"
         else:
             query += " ORDER BY title ASC"
@@ -360,41 +412,69 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
     finally:
         conn.close()
 
-def get_years(filter_type=None):
+def get_years(filter_type=None, genre=None):
     if not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
         query = "SELECT DISTINCT year FROM items WHERE year IS NOT NULL AND year != ''"
-        if filter_type: query += f" AND type='{filter_type}'"
+        args = []
+        if filter_type: 
+            ft = filter_type.strip().lower()
+            if ft in ('movie', 'pelicula'): query += " AND type='movie'"
+            elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
+            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
+            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            
+        query, args = _apply_genre_filters(query, args, filter_type, genre, check_premium=False)
+        
         query += " ORDER BY year DESC"
-        c.execute(query)
-        return [r[0] for r in c.fetchall() if r[0]]
+        c.execute(query, args)
+        return [r[0] for r in c.fetchall() if r[0] and str(r[0]).isdigit()]
     finally:
         conn.close()
 
-def get_letters(filter_type=None):
+def get_letters(filter_type=None, genre=None):
     if not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
         query = "SELECT DISTINCT UPPER(SUBSTR(title, 1, 1)) FROM items WHERE title IS NOT NULL AND title != ''"
-        if filter_type: query += f" AND type='{filter_type}'"
+        args = []
+        if filter_type: 
+            ft = filter_type.strip().lower()
+            if ft in ('movie', 'pelicula'): query += " AND type='movie'"
+            elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
+            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
+            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            
+        query, args = _apply_genre_filters(query, args, filter_type, genre, check_premium=False)
+        
         query += " ORDER BY 1"
-        c.execute(query)
+        c.execute(query, args)
         return [r[0] for r in c.fetchall() if r[0].isalpha()]
     finally:
         conn.close()
 
-def get_collections_paginated(filter_type=None, limit=25, offset=0):
+def get_collections_paginated(filter_type=None, limit=25, offset=0, genre=None, is_premium_req=False):
     if not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
         c = conn.cursor()
-        query = "SELECT collection_name, MAX(collection_poster), MAX(collection_fanart), MAX(clearlogo) FROM items WHERE collection_name IS NOT NULL AND collection_name != ''"
-        if filter_type: query += f" AND type='{filter_type}'"
-        query += " GROUP BY collection_name ORDER BY collection_name ASC LIMIT ? OFFSET ?"
-        c.execute(query, (limit, offset))
+        query = "SELECT collection_name, MAX(collection_poster), MAX(collection_fanart), MAX(clearlogo) FROM items WHERE collection_name IS NOT NULL AND collection_name != '' AND UPPER(collection_name) != 'NONE'"
+        args = []
+        if filter_type: 
+            ft = filter_type.strip().lower()
+            if ft in ('movie', 'pelicula'): query += " AND type='movie'"
+            elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
+            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
+            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            
+        query, args = _apply_genre_filters(query, args, filter_type, genre, is_premium_req=is_premium_req, check_premium=True)
+                
+        query += " GROUP BY collection_name COLLATE NOCASE ORDER BY collection_name ASC LIMIT ? OFFSET ?"
+        args.extend([limit, offset])
+        c.execute(query, args)
         return [{"name": r[0], "poster": r[1], "fanart": r[2], "clearlogo": r[3]} for r in c.fetchall()]
     finally:
         conn.close()
@@ -421,6 +501,16 @@ def count_episodes_for_series(title):
     finally:
         conn.close()
 
+def get_series_episode_keys(series_title):
+    if not os.path.exists(DB_FILE) or not series_title: return []
+    conn = _connect()
+    try:
+        c = conn.cursor()
+        c.execute('SELECT "key" FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
+        return [r[0] for r in c.fetchall()]
+    finally:
+        conn.close()
+
 def get_series_episodes(series_title):
     if not os.path.exists(DB_FILE) or not series_title: return []
     conn = _connect()
@@ -439,14 +529,31 @@ def search_items_sql(query_str, limit=100):
     try:
         c = conn.cursor()
         
-        # 1. Búsqueda Exacta
-        exact_like = f"%{query_str}%"
-        # 2. Búsqueda por Palabras Sueltas (Ignora dobles espacios)
-        words_like = "%" + "%".join(query_str.split()) + "%"
-        # 3. Búsqueda Difusa Extrema (Faltan letras, ej. "plp fiction" -> "%p%l%p%f%i%c%t%i%o%n%")
-        chars = [ch for ch in query_str if ch.isalnum()]
-        fuzzy_like = "%" + "%".join(chars) + "%" if len(chars) >= 3 else words_like
+        query_str = query_str.strip()
         
+        # 1. Búsqueda Exacta
+        exact_match = query_str
+        exact_like = f"%{query_str}%"
+        exact_start = f"{query_str}%"
+        
+        # 2. Búsqueda Limpia (sin guiones ni espacios, para unir "spider-man" y "spiderman")
+        query_clean = query_str.replace('-', '').replace(' ', '')
+        clean_match = query_clean
+        clean_like = f"%{query_clean}%"
+        clean_start = f"{query_clean}%"
+        
+        # 3. Búsqueda por Palabras (Ignora dobles espacios)
+        words = query_str.replace('-', ' ').split()
+        if len(words) > 1:
+            words_like = "%" + "%".join(words) + "%"
+        else:
+            words_like = exact_like
+            
+        # 4. Artículos (Ignorar "El", "La", "The", etc. para priorizar bien)
+        articles = ['El ', 'La ', 'Los ', 'Las ', 'Un ', 'Una ', 'The ', 'A ', 'An ']
+        art_exacts = [f"{art}{query_str}" for art in articles]
+        art_starts = [f"{art}{query_str}%" for art in articles]
+            
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
@@ -454,14 +561,48 @@ def search_items_sql(query_str, limit=100):
             FROM items 
             WHERE title LIKE ? OR episode_title LIKE ? 
                OR title LIKE ? OR episode_title LIKE ?
-               OR title LIKE ? OR episode_title LIKE ?
+               OR REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ?
             ORDER BY 
-               CASE WHEN title LIKE ? OR episode_title LIKE ? THEN 0 
-                    WHEN title LIKE ? OR episode_title LIKE ? THEN 1
-                    ELSE 2 END
+               CASE 
+                    -- Prioridad -1: Coincidencia EXACTA del título (con o sin artículos/guiones)
+                    WHEN title LIKE ? THEN -1
+                    WHEN title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? THEN -1
+                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN -1
+                    
+                    -- Prioridad 0: Empieza por la búsqueda (con o sin artículos/guiones)
+                    WHEN title LIKE ? THEN 0
+                    WHEN title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? THEN 0
+                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN 0
+                    
+                    -- Prioridad 1: Contiene la búsqueda
+                    WHEN title LIKE ? THEN 1
+                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN 1
+                    
+                    -- Prioridad 2: Coincide en el título del episodio
+                    WHEN episode_title LIKE ? THEN 2
+                    ELSE 3 
+               END,
+               year DESC
             LIMIT ?
-        ''', (exact_like, exact_like, words_like, words_like, fuzzy_like, fuzzy_like, 
-              exact_like, exact_like, words_like, words_like, limit))
+        ''', (
+            # WHERE
+            exact_like, exact_like, words_like, words_like, clean_like,
+            
+            # ORDER BY -1 (Exacta)
+            exact_match, *art_exacts, clean_match,
+            
+            # ORDER BY 0 (Empieza por)
+            exact_start, *art_starts, clean_start,
+            
+            # ORDER BY 1 (Contiene)
+            exact_like, clean_like,
+            
+            # ORDER BY 2 (Episodio)
+            exact_like,
+            
+            # LIMIT
+            limit
+        ))
         rows = c.fetchall()
         return [_row_to_item(r) for r in rows]
     finally:

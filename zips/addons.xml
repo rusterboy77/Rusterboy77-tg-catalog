@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="2.0.0" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="2.0.1" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
@@ -155,10 +155,10 @@
         <extension point="xbmc.addon.metadata">
             
         
-            <summary lang="es">Catálogo de torrents con soporte premium Debrid y P2P</summary>
+            <summary lang="es">Catálogo de torrents con soporte Debrid y P2P</summary>
             
         
-            <description lang="es">Addon de video que lista torrents y organiza por películas, series y documentales. Ofrece reproducción instantánea mediante cuentas premium (Real-Debrid, AllDebrid) comprobando su caché, y mantiene la opción de reproducción P2P gratuita mediante Elementum.</description>
+            <description lang="es">Addon de video que ofrece reproducción instantánea mediante cuentas premium (Real-Debrid, AllDebrid) y mantiene la opción de reproducción P2P gratuita mediante Elementum.</description>
             
         
             <platform>all</platform>
