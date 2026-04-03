@@ -7,7 +7,7 @@ import json
 import urllib.parse
 import time
 import os
-from resources.lib.db import get_next_episode, load_items_by_keys
+from resources.lib.db import get_next_episode
 
 # Intentar importar AddonSignals de forma segura
 try:
@@ -105,7 +105,6 @@ class RusterWolfUpNextPlayer(xbmc.Player):
             # 1. Intentar obtener datos del player (Tags)
             tag = self.getVideoInfoTag()
             
-            # CORRECCIÓN: El método correcto es getTVShowTitle (TV en mayúsculas)
             try:
                 tvshowtitle = tag.getTVShowTitle()
             except AttributeError:
@@ -177,13 +176,21 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         except Exception as e:
             log(f"Error checking UpNext: {e}")
 
+class RusterWolfMonitor(xbmc.Monitor):
+    def onSettingsChanged(self):
+        # Evento nativo de Kodi: se dispara al cerrar la ventana de Ajustes tras guardar.
+        # Comprobamos si el usuario está actualmente navegando por el addon
+        if xbmc.getInfoLabel('Container.PluginName') == 'plugin.video.rusterwolf77':
+            xbmc.sleep(200) # Pequeña pausa para que Kodi termine de escribir el archivo XML
+            xbmc.executebuiltin('Container.Refresh')
+
 if __name__ == '__main__':
     log("Service iniciado")
     if AddonSignals:
         AddonSignals.registerSlot('upnextprovider', 'plugin.video.rusterwolf77_play_action', on_upnext_play_action)
         AddonSignals.registerSlot('service.upnext', 'plugin.video.rusterwolf77_play_action', on_upnext_play_action)
     
-    monitor = xbmc.Monitor()
+    monitor = RusterWolfMonitor()
     player = RusterWolfUpNextPlayer()
     
     while not monitor.abortRequested():

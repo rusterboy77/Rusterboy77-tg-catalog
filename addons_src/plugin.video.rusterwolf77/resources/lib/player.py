@@ -8,6 +8,9 @@ except ImportError:
 ADDON = xbmcaddon.Addon()
 ADDON_ICON = ADDON.getAddonInfo('icon')
 
+VALID_VIDEO_EXTS = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
+VALID_ARCHIVE_EXTS = ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')
+
 def decrypt_url(encrypted_url):
     _s = [104, 84, 104, 56, 117, 82, 110, 76, 53, 98, 88, 56, 80, 90, 67, 54, 84, 99, 51, 116, 52, 54, 110, 86, 68, 70, 102, 66, 112, 66, 54, 84, 106, 119, 51, 113, 97, 122, 81, 84, 104, 112, 101, 120, 112, 103, 56, 98, 76, 100, 105, 109, 101, 118, 78, 72, 106, 53, 118, 74, 82, 48, 110, 80]
     seed = bytes(_s)
@@ -59,7 +62,7 @@ def play_1fichier_with_alldebrid(encrypted_url, api_key):
         xbmc.log(f"RusterWolf AllDebrid Error: {e}", xbmc.LOGERROR)
         return None
 
-def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
+def play_with_alldebrid(magnet, api_key):
     """Desbloquea el torrent usando AllDebrid."""
     agent = "RusterWolf77"
     base_url = "https://api.alldebrid.com/v4.1"
@@ -90,13 +93,10 @@ def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
         
         # 2. Si no está listo al instante
         if not magnet_data.get('ready'):
-            if add_to_cloud:
-                xbmcgui.Dialog().notification('AllDebrid', 'Añadido a tu nube. Estará disponible luego.', ADDON_ICON)
-            else:
-                # Borrarlo para no ensuciar la nube
-                url_del = f"{base_url}/magnet/delete?agent={agent}&apikey={api_key}&id={magnet_id}"
-                urllib.request.urlopen(urllib.request.Request(url_del))
-                xbmcgui.Dialog().notification('AllDebrid', 'Torrent no está en caché.', ADDON_ICON)
+            # Borrarlo para no ensuciar la nube
+            url_del = f"{base_url}/magnet/delete?agent={agent}&apikey={api_key}&id={magnet_id}"
+            urllib.request.urlopen(urllib.request.Request(url_del))
+            xbmcgui.Dialog().notification('AllDebrid', 'Torrent no está en caché.', ADDON_ICON)
             return None
             
         # 3. Obtener estado para sacar enlace original
@@ -165,12 +165,12 @@ def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
             if isinstance(l, dict):
                 filename = l.get('filename', '').lower()
                 size = l.get('size', 0)
-                if filename.endswith(valid_exts) and size > max_size:
+                if filename.endswith(VALID_VIDEO_EXTS) and size > max_size:
                     max_size = size
                     target_link = l.get('link')
             elif isinstance(l, str):
                 # Por si la API devuelve directamente las URLs
-                if any(l.lower().endswith(ext) for ext in valid_exts):
+                if any(l.lower().endswith(ext) for ext in VALID_VIDEO_EXTS):
                     target_link = l
                     break
         
@@ -180,14 +180,14 @@ def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
                 if isinstance(l, dict):
                     filename = l.get('filename', '').lower()
                     size = l.get('size', 0)
-                    if not filename.endswith(('.rar', '.zip', '.iso', '.tar', '.7z', '.txt', '.nfo')) and size > max_size:
+                    if not filename.endswith(VALID_ARCHIVE_EXTS + ('.txt', '.nfo')) and size > max_size:
                         max_size = size
                         target_link = l.get('link')
             
             if not target_link:
                 # Si llegamos aquí, es muy probable que el torrent solo contenga RARs
                 fallback_link = links[0].get('link') if isinstance(links[0], dict) else links[0]
-                if fallback_link and any(ext in fallback_link.lower() for ext in ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')):
+                if fallback_link and any(ext in fallback_link.lower() for ext in VALID_ARCHIVE_EXTS):
                     xbmcgui.Dialog().ok('AllDebrid - Error', 'Este torrent contiene archivos comprimidos (.rar / .zip) y no se puede reproducir en streaming.\n\nPor favor, selecciona otra calidad en la lista.')
                     return None
                 target_link = fallback_link
@@ -220,7 +220,7 @@ def play_with_alldebrid(magnet, api_key, add_to_cloud=True):
         xbmc.log(f"RusterWolf AD Error: {e}", xbmc.LOGERROR)
         return None
 
-def play_with_realdebrid(magnet, api_key, add_to_cloud=True):
+def play_with_realdebrid(magnet, api_key):
     """Desbloquea el torrent usando Real-Debrid."""
     headers = {'Authorization': f'Bearer {api_key}'}
     base_url = "https://api.real-debrid.com/rest/1.0"
@@ -249,12 +249,11 @@ def play_with_realdebrid(magnet, api_key, add_to_cloud=True):
         # 3. Seleccionar archivos
         if info.get('status') == 'waiting_files_selection':
             files = info.get('files', [])
-            valid_exts = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
-            video_files = [str(f['id']) for f in files if f['path'].lower().endswith(valid_exts)]
+            video_files = [str(f['id']) for f in files if f['path'].lower().endswith(VALID_VIDEO_EXTS)]
             
             if not video_files:
                 # Comprobar si en su lugar son archivos comprimidos
-                rar_files = [str(f['id']) for f in files if f['path'].lower().endswith(('.rar', '.zip', '.iso'))]
+                rar_files = [str(f['id']) for f in files if f['path'].lower().endswith(VALID_ARCHIVE_EXTS)]
                 if rar_files:
                     req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
                     urllib.request.urlopen(req_del)
@@ -271,12 +270,9 @@ def play_with_realdebrid(magnet, api_key, add_to_cloud=True):
 
         # 4. Comprobar caché
         if info.get('status') != 'downloaded':
-            if add_to_cloud:
-                xbmcgui.Dialog().notification('Real-Debrid', 'Añadido a tu nube. Estará disponible luego.', ADDON_ICON)
-            else:
-                req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
-                urllib.request.urlopen(req_del)
-                xbmcgui.Dialog().notification('Real-Debrid', 'Torrent no está en caché.', ADDON_ICON)
+            req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
+            urllib.request.urlopen(req_del)
+            xbmcgui.Dialog().notification('Real-Debrid', 'Torrent no está en caché.', ADDON_ICON)
             return None
             
         # 5. Desbloquear link

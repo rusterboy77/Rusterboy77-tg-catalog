@@ -18,6 +18,23 @@ SECTION_PLOTS = {
     'ajustes': 'Configura RusterWolf a tu gusto. Opciones de reproducción, cuentas premium, interfaz y mucho más.'
 }
 
+def _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id, is_folder=True):
+    """Helper interno para renderizar los elementos del menú evitando código repetido."""
+    li = xbmcgui.ListItem(label)
+    try:
+        info = li.getVideoInfoTag()
+        info.setTitle(label)
+        info.setPlot(SECTION_PLOTS.get(safe_id, ''))
+    except Exception: pass
+    
+    icon = get_icon(safe_id) or os.path.join(addon.getAddonInfo('path'), 'resources', 'media', 'icon.png')
+    logo = get_logo(safe_id)
+    art = {'fanart': addon_fanart, 'icon': icon, 'thumb': icon}
+    if logo: art.update({'clearlogo': logo, 'logo': logo})
+    try: li.setArt(art)
+    except Exception: pass
+    xbmcplugin.addDirectoryItem(handle, build_url(params), li, is_folder)
+
 def build_root_menu(handle, addon, addon_fanart, get_icon, get_logo, build_url):
     items = [
         ('Novedades', {'action':'novedades_menu'}, 'novedades'),
@@ -25,35 +42,31 @@ def build_root_menu(handle, addon, addon_fanart, get_icon, get_logo, build_url):
         ('Seguir Viendo...', {'action':'continue_watching'}, 'seguir_viendo'), 
         ('Películas', {'action':'movie_menu'}, 'peliculas'),
         ('Series TV', {'action':'tv_menu'}, 'series_tv'),
-        ('Documentales', {'action':'documentary_main_menu'}, 'documentales'),
-        ('Dibujos', {'action':'dibujos_main_menu'}, 'dibujos'),
-        ('Anime', {'action':'anime_main_menu'}, 'anime'),
-        ('Retro', {'action':'retro_main_menu'}, 'retro'),
+    ]
+    
+    try:
+        if addon.getSettingBool('show_documentaries'):
+            items.append(('Documentales', {'action':'documentary_main_menu'}, 'documentales'))
+        if addon.getSettingBool('show_dibujos'):
+            items.append(('Dibujos', {'action':'dibujos_main_menu'}, 'dibujos'))
+        if addon.getSettingBool('show_anime'):
+            items.append(('Anime', {'action':'anime_main_menu'}, 'anime'))
+        if addon.getSettingBool('show_retro'):
+            items.append(('Retro', {'action':'retro_main_menu'}, 'retro'))
+    except Exception: pass
+    
+    items.extend([
         ('Buscar', {'action':'search'}, 'buscar'),
         ('Ajustes', {'action':'settings'}, 'ajustes'),
-    ]
+    ])
+    
     xbmcplugin.setContent(handle, 'files')
     for label, params, safe_id in items:
-        li = xbmcgui.ListItem(label)
-        try:
-            info = li.getVideoInfoTag()
-            info.setTitle(label)
-            info.setPlot(SECTION_PLOTS.get(safe_id, ''))
-        except Exception: pass
-        
-        icon = get_icon(safe_id) or os.path.join(addon.getAddonInfo('path'), 'resources', 'media', 'icon.png')
-        logo = get_logo(safe_id)
-        art = {'fanart': addon_fanart, 'icon': icon, 'thumb': icon}
-        if logo: art.update({'clearlogo': logo, 'logo': logo})
-        li.setArt(art)
-        xbmcplugin.addDirectoryItem(handle, build_url(params), li, True)
+        _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle)
 
 def build_standard_menu(handle, addon, addon_fanart, get_icon, get_logo, build_url, filter_type, label_novedades, safe_id, show_collections=True, show_genres=True, show_years=True):
-    icon = get_icon(safe_id) or os.path.join(addon.getAddonInfo('path'), 'resources', 'media', 'icon.png')
-    logo = get_logo(safe_id)
-    
     entries = []
     sub = filter_type
     if filter_type == 'movie': sub = 'movies'
@@ -69,17 +82,7 @@ def build_standard_menu(handle, addon, addon_fanart, get_icon, get_logo, build_u
 
     xbmcplugin.setContent(handle, 'files')
     for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info = li.getVideoInfoTag()
-            info.setTitle(label)
-            info.setPlot(SECTION_PLOTS.get(safe_id, ''))
-        except Exception: pass
-        art = {'fanart': addon_fanart, 'icon': icon, 'thumb': icon}
-        if logo: art.update({'clearlogo': logo, 'logo': logo})
-        try: li.setArt(art)
-        except Exception: pass
-        xbmcplugin.addDirectoryItem(handle, build_url(params), li, True)
+        _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle)
 
@@ -102,19 +105,8 @@ def build_genre_sub_menu(handle, addon, addon_fanart, get_icon, get_logo, build_
     entries.append(('Año', {'action': 'list', 'filter': filter_type, 'genre': genre_name, 'group': 'year', 'origin': filter_type}))
     
     xbmcplugin.setContent(handle, 'files')
-    icon = get_icon(safe_id) or os.path.join(addon.getAddonInfo('path'), 'resources', 'media', 'icon.png')
-    logo = get_logo(safe_id)
     for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info = li.getVideoInfoTag()
-            info.setTitle(label)
-            info.setPlot(SECTION_PLOTS.get(safe_id, ''))
-        except Exception: pass
-        art = {'fanart': addon_fanart, 'icon': icon, 'thumb': icon}
-        if logo: art.update({'clearlogo': logo, 'logo': logo})
-        li.setArt(art)
-        xbmcplugin.addDirectoryItem(handle, build_url(params), li, True)
+        _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle)
 
@@ -124,18 +116,8 @@ def build_generic_main_menu(handle, addon, addon_fanart, get_icon, get_logo, bui
         (f'Series {title}', {'action':'genre_tv_menu', 'genre': genre_name, 'safe_id': safe_id})
     ]
     xbmcplugin.setContent(handle, 'files')
-    icon = get_icon(safe_id) or os.path.join(addon.getAddonInfo('path'), 'resources', 'media', 'icon.png')
-    logo = get_logo(safe_id)
     for label, params in entries:
-        li = xbmcgui.ListItem(label)
-        try:
-            info = li.getVideoInfoTag()
-            info.setTitle(label)
-            info.setPlot(SECTION_PLOTS.get(safe_id, ''))
-        except Exception: pass
-        art = {'fanart': addon_fanart, 'icon': icon, 'thumb': icon}
-        if logo: art.update({'clearlogo': logo, 'logo': logo})
-        li.setArt(art)
-        xbmcplugin.addDirectoryItem(handle, build_url(params), li, True)
+        is_folder = False if safe_id == 'ajustes' else True
+        _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id, is_folder)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<addon id="plugin.video.choloretro" version="1.0.27" name="CholoRetro" provider-name="Rusterboy77">
+<addon id="plugin.video.choloretro" version="1.0.28" name="CholoRetro" provider-name="Rusterboy77">
     <requires>
         <import addon="xbmc.python" version="3.0.0"/>
         <import addon="script.module.requests" />
@@ -11,8 +11,8 @@
     </extension>
     <extension point="xbmc.service" library="service.py" start="login" />
     <extension point="xbmc.addon.metadata">
-        <summary lang="es">Contenido Retro</summary>
-        <description lang="es">Addon de contenido retro alojado en 1fichier, potenciado por AllDebrid.</description>
+        <summary lang="es">Películas, series y dibujos animados retro</summary>
+        <description lang="es">Revive la nostalgia con este addon dedicado al mejor contenido retro. Disfruta de una extensa colección de dibujos animados, películas y series de los años 80, 90 y épocas más antiguas, además de los grandes clásicos de todos los tiempos.</description>
         <platform>all</platform>
         <assets>
             <icon>icon.png</icon>

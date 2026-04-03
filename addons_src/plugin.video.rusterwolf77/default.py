@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
-import unicodedata, re, os, threading, time, base64
+import unicodedata, re, os, threading, time
 from resources.lib.player import is_elementum_installed, play_with_elementum, play_with_alldebrid, play_1fichier_with_alldebrid, play_with_realdebrid
 from resources.lib.db import load_items_by_keys
 
@@ -21,7 +21,6 @@ try:
         ADDON_ICON = ''
 except Exception:
     ADDON_ICON = ''
-# Prioritization features removed: addon will only load from cache.db
 
 SECTION_PLOTS = {
     'peliculas': 'Prepara las palomitas. Descubre desde los últimos taquillazos de Hollywood hasta clásicos inolvidables para una sesión de cine perfecta.',
@@ -54,15 +53,16 @@ def _get_played_keys():
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
             try:
-                cur.execute("SELECT strFilename, lastPlayed FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND playCount > 0")
+                cur.execute("SELECT strFilename, lastPlayed FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
             except Exception:
-                cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND playCount > 0")
+                cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
             for row in cur.fetchall():
                 try:
                     parsed = urllib.parse.urlparse(row[0])
                     qs = dict(urllib.parse.parse_qsl(parsed.query))
                     if 'key' in qs:
-                        _PLAYED_KEYS[qs['key']] = row[1] if len(row) > 1 and row[1] else ""
+                        val = row[1] if len(row) > 1 and row[1] else ""
+                        if val: _PLAYED_KEYS[qs['key']] = val
                 except Exception:
                     pass
             conn.close()
@@ -90,10 +90,14 @@ def _get_resume_points():
             cur.execute("SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND b.type = 1")
             for row in cur.fetchall():
                 try:
+                    time_sec = float(row[1])
+                    total_sec = float(row[2])
+                    if total_sec > 0 and (time_sec / total_sec) >= 0.90:
+                        continue
                     parsed = urllib.parse.urlparse(row[0])
                     qs = dict(urllib.parse.parse_qsl(parsed.query))
                     if 'key' in qs:
-                        _RESUME_POINTS[qs['key']] = {'time': float(row[1]), 'total': float(row[2])}
+                        _RESUME_POINTS[qs['key']] = {'time': time_sec, 'total': total_sec}
                 except Exception:
                     pass
             conn.close()
@@ -104,14 +108,7 @@ def _get_resume_points():
 def build_url(query):
     import xbmc
     url = BASE_URL + '?' + urllib.parse.urlencode(query)
-    try:
-        debug = ADDON.getSettingBool('debug_logging')
-    except Exception:
-        debug = False
-    if debug:
-        xbmc.log(f"RusterWolf: build_url query={query} url={url}", xbmc.LOGWARNING)
-    else:
-        xbmc.log(f"RusterWolf: build_url query={query} url={url}", xbmc.LOGDEBUG)
+    xbmc.log(f"RusterWolf: build_url query={query} url={url}", xbmc.LOGDEBUG)
     # Si es una URL de paginación (lista) intentar guardarla en el cache para
     # que router pueda recuperar los parámetros si Kodi luego invoca la
     # subcarpeta pasando sólo 'page'. Guardamos también '__last_filters' por acción.
@@ -270,10 +267,10 @@ def _apply_art(li, item_dict, addon_fanart=None):
                     art['icon'] = v
                 if k == 'clearart' and 'icon' not in art:
                     art['icon'] = v
-        # CAMBIO IMPORTANTE: Solo aplicar addon_fanart si NO hay fanart del item
+        # Aplicar addon_fanart como fallback si el item no tiene fanart
         if 'fanart' not in art and addon_fanart:
             art['fanart'] = addon_fanart
-        # CAMBIO: Asegurar que siempre se aplique el arte si hay algo que mostrar
+        # Aplicar arte al ListItem si existe
         if art:
             try:
                 li.setArt(art)
@@ -463,8 +460,6 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
     if item_key and item_key in resume_points:
         info['resume_time'] = resume_points[item_key]['time']
         info['resume_total'] = resume_points[item_key]['total']
-        li.setProperty('ResumeTime', str(info['resume_time']))
-        li.setProperty('TotalTime', str(info['resume_total']))
 
     total_eps = 0
     watched_eps = 0
@@ -485,7 +480,7 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
 
     _apply_info_tag(li, info)
     try:
-        safe_info = {k: v for k, v in info.items() if k != 'cast' and v is not None}
+        safe_info = {k: v for k, v in info.items() if k not in ('cast', 'resume_time', 'resume_total') and v is not None}
         li.setInfo('video', safe_info)
     except Exception: pass
 
@@ -500,7 +495,8 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
         is_folder = True
         
         is_watched = info.get('playcount', 0) > 0
-        cm = generate_context_menu('tv', title, title, is_watched, watched_eps=watched_eps, total_eps=total_eps, item_key=it.get('key'))
+        tn = normalize_title(title)
+        cm = generate_context_menu('tv', tn, title, is_watched, watched_eps=watched_eps, total_eps=total_eps, item_key=it.get('key'))
     else:
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
@@ -553,10 +549,13 @@ def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, tota
             add_prog = build_url({'action': 'add_progress', 'wtype': item_type, 'val': val, 'title': title, 'key': item_key})
             cm.append(('Añadir a Seguir Viendo R77', f'RunPlugin({add_prog})'))
             
-    if is_watched:
-        cm.append(('Marcar como no visto', 'Action(ToggleWatched)'))
-    else:
-        cm.append(('Marcar como visto', 'Action(ToggleWatched)'))
+    # Dejamos que Kodi gestione "Marcar como visto" de forma nativa para episodios y películas.
+    # Solo lo añadimos manualmente para TV y Seasons, ya que Kodi a veces no lo pone en carpetas de plugins.
+    if item_type in ('tv', 'season'):
+        if is_watched:
+            cm.append(('Marcar como no visto', 'Action(ToggleWatched)'))
+        else:
+            cm.append(('Marcar como visto', 'Action(ToggleWatched)'))
         
     return cm
 
@@ -1005,7 +1004,7 @@ def list_collections(filter_type=None, original_params=None, page=1):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_filter=None, year_filter=None, quality_filter=None, letter_filter=None, collection_filter=None, original_params=None):
-    xbmc.log(f"RusterWolf DEBUG: === list_items CALL === filter={filter_type} page={page}", xbmc.LOGWARNING)
+    xbmc.log(f"RusterWolf: list_items call (filter={filter_type}, page={page})", xbmc.LOGDEBUG)
     
     is_premium_req = False
     if genre_filter and genre_filter.lower() == 'premium':
@@ -1297,8 +1296,8 @@ def list_episodes(series, season, target_quality=None):
             ep_num = 0
 
         ep_title = it.get('episode_title') or it.get('title') or f"Episodio {ep_num}"
-        label = f"S{str(int(season)).zfill(2)}E{str(ep_num).zfill(2)} - {ep_title}"
-        li = xbmcgui.ListItem(label=label)
+
+        li = xbmcgui.ListItem(label=ep_title)
         # Metadata para que Kodi lo trate como episodio perteneciente a la serie
         # Preferir overview del episodio si existe, sino overview general
         ep_plot = it.get('episode_overview') or it.get('overview') or it.get('plot') or ''
@@ -1412,7 +1411,7 @@ def do_search(q=None, original_params=None):
             return
     
     try:
-        # MEJORA DE RENDIMIENTO: Usar búsqueda SQL directa en lugar de cargar todo
+        # Búsqueda optimizada por SQL
         from resources.lib.db import search_items_sql
         results = search_items_sql(q, limit=150) # Límite ampliado, rendimiento mejorado
     except Exception:
@@ -1493,6 +1492,22 @@ def select_source(key=None, target_quality=None):
         return 0
     sources = sorted(sources, key=_q_rank, reverse=True)
 
+    # Filtro de calidad máxima según ajustes
+    try:
+        max_q_setting = ADDON.getSetting('max_quality')
+        if max_q_setting == '1': # 1080p
+            sources = [s for s in sources if _q_rank(s) <= 9]
+        elif max_q_setting == '2': # 720p
+            sources = [s for s in sources if _q_rank(s) <= 8]
+        elif max_q_setting == '3': # SD
+            sources = [s for s in sources if _q_rank(s) < 8]
+    except Exception: pass
+
+    if not sources:
+        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes para la calidad elegida en Ajustes', xbmcgui.NOTIFICATION_INFO)
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        return
+
     sel = -1
     if target_quality:
         tq = target_quality.strip().lower()
@@ -1504,16 +1519,30 @@ def select_source(key=None, target_quality=None):
                 break
 
     if sel == -1:
-        if len(sources) == 1:
+        try:
+            auto_play = ADDON.getSettingBool('auto_play')
+        except Exception:
+            auto_play = False
+            
+        if len(sources) == 1 or auto_play:
             sel = 0
         else:
             choices = []
             for s in sources:
                 source_type = s.get('source', 'magnet')
+                q_str = str(s.get('quality', 'SD')).upper()
+                
+                # Colores identificativos por calidad
+                if '4K' in q_str or '2160' in q_str: color = 'gold'
+                elif '1080' in q_str: color = 'lawngreen'
+                elif '720' in q_str: color = 'deepskyblue'
+                elif 'MICROHD' in q_str: color = 'orchid'
+                else: color = 'tomato'
+                        
                 if source_type == "1fichier_palantir":
-                    choices.append(f"[ALLDEBRID] {s.get('quality', '')} | {s.get('audio', '')} | {s.get('info', '')}")
+                            choices.append(f"[ALLDEBRID] [COLOR {color}][B]{q_str}[/B][/COLOR] | {s.get('audio', '')} | {s.get('info', '')}")
                 else:
-                    choices.append(f"[TORRENT] {s.get('quality', 'SD')}")
+                            choices.append(f"[TORRENT] [COLOR {color}][B]{q_str}[/B][/COLOR]")
 
             sel = xbmcgui.Dialog().select(f'Selecciona fuente: {title}', choices)
             if sel < 0:
@@ -1547,8 +1576,6 @@ def play_item(url, source_type, item_key):
     # 2. Obtener las API keys de los ajustes
     alldebrid_api_key = ADDON.getSetting('alldebrid_api_key')
     realdebrid_api_key = ADDON.getSetting('realdebrid_api_key')
-    debrid_provider = ADDON.getSetting('debrid_provider') or "0"
-    debrid_cloud_fallback = ADDON.getSettingBool('debrid_cloud_fallback')
 
     # 3. Decidir qué reproductor usar
     if source_type == '1fichier_palantir':
@@ -1560,37 +1587,37 @@ def play_item(url, source_type, item_key):
     
     elif source_type == 'magnet':
         magnet_url = url
-        if debrid_provider == "1": # AllDebrid
-            if not alldebrid_api_key:
-                xbmcgui.Dialog().ok('AllDebrid', 'Falta la API Key en los ajustes.')
-                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-                return
-            final_url = play_with_alldebrid(magnet_url, alldebrid_api_key, debrid_cloud_fallback)
-        elif debrid_provider == "2": # RealDebrid
-            if not realdebrid_api_key:
-                xbmcgui.Dialog().ok('Real-Debrid', 'Falta la API Key en los ajustes.')
-                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
-                return
-            final_url = play_with_realdebrid(magnet_url, realdebrid_api_key, debrid_cloud_fallback)
+        used_debrid = False
+        
+        def _get_elementum_url(magnet):
+            trackers = ["udp://tracker.opentrackr.org:1337/announce", "udp://open.demonii.com:1337/announce"]
+            for tr in trackers:
+                if tr not in magnet: magnet += f"&tr={urllib.parse.quote(tr)}"
+            return f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet)}'
+        
+        # Prioridad Automática: AllDebrid -> Real-Debrid -> Elementum
+        if alldebrid_api_key:
+            used_debrid = True
+            final_url = play_with_alldebrid(magnet_url, alldebrid_api_key)
+        elif realdebrid_api_key:
+            used_debrid = True
+            final_url = play_with_realdebrid(magnet_url, realdebrid_api_key)
         else: # Elementum
             if not is_elementum_installed():
-                xbmcgui.Dialog().ok('Elementum no instalado', 'Instala Elementum desde:\nhttps://elementumorg.github.io/')
+                xbmcgui.Dialog().ok('Instalar Elementum', 'Para ver contenido gratuito (P2P) necesitas tener instalado el motor torrent "Elementum" en tu Kodi.\n\nPuedes descargarlo desde:\n[COLOR yellow]https://elementumorg.github.io[/COLOR]\n\nO si lo prefieres, configura una cuenta Premium (Debrid) en Ajustes.')
                 xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
                 return
-            # Inyectar trackers para Elementum
-            public_trackers = ["udp://tracker.opentrackr.org:1337/announce", "udp://open.demonii.com:1337/announce"]
-            for tr in public_trackers:
-                if tr not in magnet_url: magnet_url += f"&tr={urllib.parse.quote(tr)}"
-            final_url = f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet_url)}'
+            final_url = _get_elementum_url(magnet_url)
 
-        # Fallback a Elementum si Debrid falla
-        if not final_url and debrid_provider in ("1", "2"):
+        # Fallback a Elementum si usamos Debrid pero el enlace no está cacheado
+        if not final_url and used_debrid:
             if is_elementum_installed():
-                if xbmcgui.Dialog().yesno('No en caché', 'Este archivo no está en la caché de tu Debrid.\n¿Desea comprobar la disponibilidad con Elementum?'):
-                    public_trackers = ["udp://tracker.opentrackr.org:1337/announce", "udp://open.demonii.com:1337/announce"]
-                    for tr in public_trackers:
-                        if tr not in magnet_url: magnet_url += f"&tr={urllib.parse.quote(tr)}"
-                    final_url = f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet_url)}'
+                if xbmcgui.Dialog().yesno('No en caché', 'Este archivo no está en la caché de tu Debrid.\n\n¿Deseas descargarlo y reproducirlo en tiempo real usando el motor gratuito Elementum?'):
+                    final_url = _get_elementum_url(magnet_url)
+            else:
+                xbmcgui.Dialog().ok('Enlace no cacheado', 'El archivo no está en caché de tu Debrid.\n\nPara reproducir este tipo de enlaces en tiempo real de forma gratuita, instala el motor torrent Elementum:\n[COLOR yellow]https://elementumorg.github.io[/COLOR]')
+                xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+                return
 
     # 4. Guardar historial y resolver la URL para Kodi
     if final_url:
@@ -1637,10 +1664,10 @@ def run_one_time_cleanup():
     try:
         addon_id = ADDON.getAddonInfo('id')
         userdata_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
-        flag_file = os.path.join(userdata_dir, 'v2_db_cleanup.flag') # Nombre de flag específico
+        flag_file = os.path.join(userdata_dir, 'v3_db_migration.flag') # Nombre de flag específico
         
         if not xbmcvfs.exists(flag_file):
-            xbmc.log("RusterWolf: Ejecutando limpieza única post-actualización...", xbmc.LOGINFO)
+            xbmc.log("RusterWolf: Ejecutando limpieza/migración única post-actualización...", xbmc.LOGINFO)
             
             old_db_path = os.path.join(userdata_dir, 'cache.db')
             if xbmcvfs.exists(old_db_path):
@@ -1652,25 +1679,55 @@ def run_one_time_cleanup():
                 xbmcvfs.delete(old_bin_path)
                 xbmc.log("RusterWolf: Antiguo 'archivos.bin' eliminado del userdata con éxito.", xbmc.LOGINFO)
             
+            # Migración de historial antiguo a JSON
+            try:
+                import glob, sqlite3, time
+                from urllib.parse import urlparse, parse_qsl
+                
+                po = load_progress_override()
+                kodi_db_dir = os.path.join(xbmcvfs.translatePath('special://profile/'), 'Database')
+                kodi_dbs = glob.glob(os.path.join(kodi_db_dir, 'MyVideos*.db'))
+                if kodi_dbs:
+                    kodi_db = sorted(kodi_dbs, key=lambda p: os.path.getmtime(p), reverse=True)[0]
+                    conn = sqlite3.connect(kodi_db)
+                    cur = conn.cursor()
+                    cur.execute("SELECT strFilename FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
+                    changed = False
+                    for row in cur.fetchall():
+                        qs = dict(parse_qsl(urlparse(row[0]).query))
+                        if 'key' in qs:
+                            key_val = qs['key']
+                            wtype = 'tv' if key_val.startswith('tv_') else 'movie'
+                            
+                            if wtype == 'tv':
+                                parts = key_val.split('_')
+                                if len(parts) >= 4:
+                                    val = "_".join(parts[1:-2])
+                                else: continue
+                            else:
+                                val = key_val
+                                
+                            if val not in po['manual'] and val not in po['hidden']:
+                                po['manual'][val] = {'wtype': wtype, 'title': val.replace('_', ' ').title(), 'added': time.time()}
+                                changed = True
+                    conn.close()
+                    if changed: save_progress_override(po)
+            except Exception as e:
+                xbmc.log(f"RusterWolf: Error migrando bookmarks a JSON: {e}", xbmc.LOGERROR)
+            
             with xbmcvfs.File(flag_file, 'w') as f: f.write('done')
-            xbmc.log("RusterWolf: Flag de limpieza creado. No se volverá a ejecutar.", xbmc.LOGINFO)
+            xbmc.log("RusterWolf: Flag de migración creado.", xbmc.LOGINFO)
     except Exception as e:
         xbmc.log(f"RusterWolf: Error durante la limpieza única: {e}", xbmc.LOGERROR)
 
 def router(params):
     import xbmc
-    import threading as _threading
-    try:
-        ths = [(t.name, getattr(t, 'ident', None), t.daemon) for t in _threading.enumerate()]
-        xbmc.log(f"RusterWolf: router threads active={ths}", xbmc.LOGDEBUG)
-    except Exception:
-        pass
     action = params.get('action')
     try:
         page = int(params.get('page') or 1)
     except Exception:
         page = 1
-    xbmc.log(f"RusterWolf: router params={params}", xbmc.LOGWARNING)
+    xbmc.log(f"RusterWolf: router params={params}", xbmc.LOGDEBUG)
     # Detectar si la petición incluye una búsqueda por URL (query/name/q) o
     # el caso malformado action='search=texto' y, en ese caso, invocar
     # do_search(prefill) para evitar abrir el teclado.
@@ -1690,19 +1747,16 @@ def router(params):
         q_param = None
         if isinstance(params, dict):
             q_param = params.get('query') or params.get('name') or params.get('q')
-        # manejar acción malformada: action='search=algo'
+        # Manejar acción malformada (ej. action='search=texto')
         if not q_param and isinstance(action, str) and action.startswith('search='):
             try:
                 q_param = action.split('=', 1)[1]
-                # normalizar action para no romper el flujo si se revisa más abajo
+                # Normalizar action para no romper el flujo
                 action = 'search'
             except Exception:
                 q_param = None
         if q_param:
-            try:
-                xbmc.log(f"RusterWolf: router detected query param in URL -> '{q_param}'", xbmc.LOGDEBUG)
-            except Exception:
-                pass
+            xbmc.log(f"RusterWolf: router detected query param in URL -> '{q_param}'", xbmc.LOGDEBUG)
             do_search(q_param, original_params=params)
             return
     except Exception:
@@ -1764,7 +1818,7 @@ def router(params):
             'list_series_documentary': 'series_documentary'
         }
         filter_type = map_action.get(action)
-        xbmc.log(f"RusterWolf: router mapped action={action} to filter_type={filter_type}", xbmc.LOGWARNING)
+        xbmc.log(f"RusterWolf: router mapped action={action} to filter_type={filter_type}", xbmc.LOGDEBUG)
         list_items(filter_type=filter_type, page=page, action_name=action,
                    group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), quality_filter=params.get('quality'), letter_filter=params.get('letter'), collection_filter=params.get('collection'), original_params=params)
         return
@@ -1864,7 +1918,7 @@ def router(params):
                             pass
             except Exception:
                 pass
-        xbmc.log(f"RusterWolf: router llama a list_items con filter_type={flt} page={page}", xbmc.LOGWARNING)
+        xbmc.log(f"RusterWolf: router llama a list_items con filter_type={flt} page={page}", xbmc.LOGDEBUG)
         
         def cln(v): return None if str(v) == 'None' else v
         
@@ -1911,10 +1965,9 @@ if __name__ == '__main__':
         raw_params = raw_params[1:]
     params = dict(urllib.parse.parse_qsl(raw_params)) if raw_params else {}
     import xbmc
-    xbmc.log(f"RusterWolf: __main__ params={params}", xbmc.LOGWARNING)
+    xbmc.log(f"RusterWolf: __main__ params={params}", xbmc.LOGDEBUG)
 
-    # --- LIMPIEZA ÚNICA POST-ACTUALIZACIÓN ---
-    # Borra la antigua cache.db del userdata para liberar espacio.
+    # Limpieza única post-actualización (borrado de caché antigua)
     run_one_time_cleanup()
 
     # Si se abre el addon sin parámetros (entrada principal), actualizar DB desde remote
@@ -1932,7 +1985,10 @@ if __name__ == '__main__':
             xbmc.log(f'RusterWolf: Error en inicio de addon: {e}', xbmc.LOGERROR)
     else:
         try:
-            from resources.lib.db import ensure_session_db
+            from resources.lib.db import ensure_session_db, _is_db_valid, maybe_update_db_from_remote
             ensure_session_db()
+            # Si la BD no existe en Temp (ej. Android TV limpió la caché al reiniciar), la descargamos para los widgets
+            if not _is_db_valid():
+                maybe_update_db_from_remote(force=False)
         except Exception: pass
     router(params)

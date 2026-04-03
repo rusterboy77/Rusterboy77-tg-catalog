@@ -2,6 +2,7 @@
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
+import time
 import json
 import os
 from urllib.parse import urlencode, urlparse, parse_qs, unquote_plus
@@ -26,6 +27,79 @@ def _normalize_title_for_match(s):
         return s2
     except Exception:
         return str(s).lower()
+
+_PROGRESS_CACHE = None
+
+def get_cached_progress():
+    global _PROGRESS_CACHE
+    if _PROGRESS_CACHE is None:
+        _PROGRESS_CACHE = load_progress_override()
+    return _PROGRESS_CACHE
+
+def get_progress_file():
+    import xbmcvfs
+    ADDON = xbmcaddon.Addon()
+    profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
+    if not os.path.exists(profile_dir): os.makedirs(profile_dir)
+    return os.path.join(profile_dir, 'progress_override.json')
+
+def load_progress_override():
+    pf = get_progress_file()
+    if os.path.exists(pf):
+        try:
+            with open(pf, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except: pass
+    return {'hidden': [], 'manual': {}}
+
+def save_progress_override(data):
+    pf = get_progress_file()
+    if pf:
+        try:
+            with open(pf, 'w', encoding='utf-8') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+        except: pass
+
+def action_add_progress(params):
+    global _PROGRESS_CACHE
+    _PROGRESS_CACHE = None
+    po = load_progress_override()
+    val = params.get('val')
+    if not val: return
+    if val in po['hidden']: po['hidden'].remove(val)
+    po['manual'][val] = {'wtype': params.get('wtype'), 'title': params.get('title'), 'key': params.get('key'), 'added': time.time()}
+    save_progress_override(po)
+    xbmcgui.Dialog().notification('Choloretro', f'{params.get("title", "")} añadido a Seguir Viendo', xbmcaddon.Addon().getAddonInfo('icon'))
+
+def action_remove_progress(params):
+    global _PROGRESS_CACHE
+    _PROGRESS_CACHE = None
+    po = load_progress_override()
+    val = params.get('val')
+    if not val: return
+    if val in po['manual']: del po['manual'][val]
+    if val not in po['hidden']: po['hidden'].append(val)
+    save_progress_override(po)
+    xbmcgui.Dialog().notification('Choloretro', f'{params.get("title", "Elemento")} quitado de Seguir Viendo', xbmcaddon.Addon().getAddonInfo('icon'))
+    import xbmc
+    xbmc.executebuiltin('Container.Refresh')
+
+def generate_context_menu(base_url, item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None):
+    cm = []
+    if item_type in ('movie', 'tv'):
+        po = get_cached_progress()
+        is_manual = val in po.get('manual', {})
+        is_hidden = val in po.get('hidden', [])
+        has_progress = False
+        if item_type == 'tv' and 0 < watched_eps < total_eps: has_progress = True
+        elif item_type == 'movie' and item_key and item_key in _get_resume_points(): has_progress = True
+        is_in_seguir_viendo = (is_manual or has_progress) and not is_hidden
+        if is_in_seguir_viendo: cm.append(('Quitar de Seguir Viendo', f'RunPlugin({build_url(base_url, {"action": "remove_progress", "val": val, "title": title})})'))
+        else: cm.append(('Añadir a Seguir Viendo', f'RunPlugin({build_url(base_url, {"action": "add_progress", "wtype": item_type, "val": val, "title": title, "key": item_key})})'))
+    if item_type in ('tv', 'season'):
+        if is_watched: cm.append(('Marcar como no visto', 'Action(ToggleWatched)'))
+        else: cm.append(('Marcar como visto', 'Action(ToggleWatched)'))
+    return cm
 
 _PLAYED_KEYS = None
 
@@ -110,7 +184,12 @@ def _get_resume_points():
         pass
     return _RESUME_POINTS
 
+_SERIES_PROGRESS_CACHE = {}
 def _get_series_progress(series_title):
+    global _SERIES_PROGRESS_CACHE
+    if series_title in _SERIES_PROGRESS_CACHE:
+        return _SERIES_PROGRESS_CACHE[series_title]
+        
     from resources.lib.database import get_connection
     conn = get_connection()
     try:
@@ -122,11 +201,18 @@ def _get_series_progress(series_title):
         series_norm = _normalize_title_for_match(series_title)
         for r in rows:
             if f"tv_{series_norm}_{r['season']}_{r['episode']}" in played: watched_eps += 1
+        _SERIES_PROGRESS_CACHE[series_title] = (total_eps, watched_eps)
         return total_eps, watched_eps
     except Exception: return 0, 0
     finally: conn.close()
 
+_SEASON_PROGRESS_CACHE = {}
 def _get_season_progress(series_title, season):
+    global _SEASON_PROGRESS_CACHE
+    cache_key = f"{series_title}_{season}"
+    if cache_key in _SEASON_PROGRESS_CACHE:
+        return _SEASON_PROGRESS_CACHE[cache_key]
+        
     from resources.lib.database import get_connection
     conn = get_connection()
     try:
@@ -138,21 +224,34 @@ def _get_season_progress(series_title, season):
         series_norm = _normalize_title_for_match(series_title)
         for r in rows:
             if f"tv_{series_norm}_{r['season']}_{r['episode']}" in played: watched_eps += 1
+        _SEASON_PROGRESS_CACHE[cache_key] = (total_eps, watched_eps)
         return total_eps, watched_eps
     except Exception: return 0, 0
     finally: conn.close()
 
 def _inject_playback_state(info, li):
+    import xbmc
+    try:
+        kodi_version = int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0])
+    except:
+        kodi_version = 20
+
     played, resumes = _get_played_keys(), _get_resume_points()
     itype = info.get('mediatype')
+    is_watched = False
+    total_eps = 0
+    watched_eps = 0
     
     if itype == 'movie':
         ident = f"movie_{_normalize_title_for_match(info.get('title', ''))}"
-        if ident in played: info['playcount'] = 1
+        if ident in played: 
+            info['playcount'] = 1
+            is_watched = True
         if ident in resumes:
             info['resume_time'], info['resume_total'] = resumes[ident]['time'], resumes[ident]['total']
-            li.setProperty('ResumeTime', str(info['resume_time']))
-            li.setProperty('TotalTime', str(info['resume_total']))
+            if kodi_version < 20:
+                li.setProperty('ResumeTime', str(info['resume_time']))
+                li.setProperty('TotalTime', str(info['resume_total']))
             
     elif itype == 'tvshow':
         total_eps, watched_eps = _get_series_progress(info.get('title', ''))
@@ -160,7 +259,9 @@ def _inject_playback_state(info, li):
             li.setProperty('TotalEpisodes', str(total_eps))
             li.setProperty('WatchedEpisodes', str(watched_eps))
             li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
-            if watched_eps == total_eps: info['playcount'] = 1
+            if watched_eps == total_eps: 
+                info['playcount'] = 1
+                is_watched = True
             
     elif itype == 'season':
         total_eps, watched_eps = _get_season_progress(info.get('tvshowtitle', ''), info.get('season'))
@@ -168,36 +269,51 @@ def _inject_playback_state(info, li):
             li.setProperty('TotalEpisodes', str(total_eps))
             li.setProperty('WatchedEpisodes', str(watched_eps))
             li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
-            if watched_eps == total_eps: info['playcount'] = 1
+            if watched_eps == total_eps: 
+                info['playcount'] = 1
+                is_watched = True
             
     elif itype == 'episode':
         ident = f"tv_{_normalize_title_for_match(info.get('tvshowtitle', ''))}_{info.get('season', '')}_{info.get('episode', '')}"
-        if ident in played: info['playcount'] = 1
+        if ident in played: 
+            info['playcount'] = 1
+            is_watched = True
         if ident in resumes:
             info['resume_time'], info['resume_total'] = resumes[ident]['time'], resumes[ident]['total']
-            li.setProperty('ResumeTime', str(info['resume_time']))
-            li.setProperty('TotalTime', str(info['resume_total']))
+            if kodi_version < 20:
+                li.setProperty('ResumeTime', str(info['resume_time']))
+                li.setProperty('TotalTime', str(info['resume_total']))
+            
+    return is_watched, watched_eps, total_eps
+
+def _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps):
+    itype = info.get('mediatype')
+    cm = []
+    if itype == 'movie':
+        ident = f"movie_{_normalize_title_for_match(info.get('title', ''))}"
+        cm = generate_context_menu(base_url, 'movie', ident, info.get('title', ''), is_watched, item_key=ident)
+    elif itype == 'tvshow':
+        title = info.get('title', '')
+        ident = _normalize_title_for_match(title)
+        cm = generate_context_menu(base_url, 'tv', ident, title, is_watched, watched_eps=watched_eps, total_eps=total_eps)
+    elif itype == 'season':
+        cm = generate_context_menu(base_url, 'season', None, None, is_watched)
+    elif itype == 'episode':
+        cm = generate_context_menu(base_url, 'episode', None, None, is_watched)
+    if cm: li.addContextMenuItems(cm)
 
 def _apply_meta(li, info):
     """Aplica metadata válida al ListItem de forma segura para Kodi 19+.
     Soporta tanto setInfo() antiguo como InfoTagVideo (Kodi 20+).
     """
+    import xbmc
+    try:
+        kodi_version = int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0])
+    except:
+        kodi_version = 20
+
     # Limpiar valores nulos
     info = {k: v for k, v in info.items() if v is not None}
-    
-    # setInfo básico (Kodi < 20 y compatibilidad)
-    # Filtramos datos complejos que setInfo no soporta (como cast lista de dicts)
-    legacy_info = {}
-    for k, v in info.items():
-        if k == 'cast': continue
-        if k == 'tmdb_id': continue
-        if isinstance(v, (int, float)):
-            legacy_info[k] = str(v)
-        else:
-            legacy_info[k] = v
-            
-    try: li.setInfo('video', legacy_info)
-    except: pass
     
     # InfoTagVideo (Kodi 20+) - ESTO ES CRUCIAL PARA KODI 21
     try:
@@ -243,6 +359,19 @@ def _apply_meta(li, info):
             except: pass
     except Exception as e:
         pass
+
+    # setInfo básico (Kodi < 20 y compatibilidad)
+    if kodi_version < 20:
+        legacy_info = {}
+        for k, v in info.items():
+            if k in ('cast', 'tmdb_id', 'resume_time', 'resume_total'): continue
+            if isinstance(v, (int, float)):
+                legacy_info[k] = str(v)
+            else:
+                legacy_info[k] = v
+                
+        try: li.setInfo('video', legacy_info)
+        except: pass
 
 def _add_next_page(handle, base_url, params, page):
     next_page = page + 1
@@ -342,8 +471,9 @@ def list_all_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         # Aplicar arte DESPUÉS de _apply_meta (importante para actualizar)
         art = {
@@ -365,15 +495,11 @@ def list_all_movies(base_url, handle, params):
 
         li.setProperty('IsPlayable', 'true')
 
-        # Extraer el enlace del JSON almacenado en la DB
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-
-        # Construir URL para la acción 'play'
+        # Construir URL para la acción 'play' usando el ID (key) por seguridad y eficiencia
         url_params = {
             'action': 'play',
             'title': movie['title'],
-            'url': url_link
+            'key': movie.get('key')
         }
         url = build_url(base_url, url_params)
 
@@ -466,8 +592,9 @@ def list_all_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': item.get('poster'), 
@@ -516,8 +643,9 @@ def show_seasons(base_url, handle, params):
             'season': int(season),
             'tvshowtitle': title
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         # Propagate series logo/fanart to season items
         season_art = {}
@@ -584,8 +712,9 @@ def show_episodes(base_url, handle, params):
             'aired': ep.get('aired'),
             'tvshowtitle': title
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         # Merge episode data with series data for art (similar to rusterwolf77)
         # If episode doesn't have clearlogo, use series' clearlogo
@@ -629,13 +758,10 @@ def show_episodes(base_url, handle, params):
         
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(ep['links']) if ep.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
         url_params = {
             'action': 'play',
             'title': f"{title} S{season}E{ep['episode']}",
-            'url': url_link,
+            'key': ep.get('key'),
             'tvshowtitle': title,
             'season': season,
             'episode': ep['episode'],
@@ -667,13 +793,14 @@ def _has_genre(item, genre_name):
     return any(genre_name.lower() in (g.lower() if isinstance(g, str) else g.get('name', '').lower()) for g in genres)
 
 def _is_anime(item):
-    """Determina si un item es anime por carpeta (ID 19385669)."""
-    return str(item.get('folder_id') or '').strip() == '19385669'
+    """Determina si un item es anime por carpeta."""
+    folder_id = str(item.get('folder_id') or '').strip()
+    return folder_id in ['19385669', '19410546', '19740846', '19740847', '19841488']
 
 def _is_animated_movie(item):
     """Determina si una película es de animación por carpeta (ID 19168455) o por género."""
     folder_id = str(item.get('folder_id') or '').strip()
-    if folder_id in ['19168455', '19207971', '19208195', '19207967']:
+    if folder_id in ['19168455', '19207971', '19208195', '19207967', '19740832']:
         return True
     return _has_genre(item, 'Animación')
 
@@ -683,7 +810,8 @@ def _is_animated_tvshow(item):
     
     # Añade aquí las IDs de las subcarpetas rebeldes
     animated_tv_folders = [
-        '19161644', '19207971', '19208195', '19207967', '19207956', '19545621'
+        '19161644', '19207971', '19208195', '19207967', '19207956', '19545621',
+        '19410563', '19839530', '19841491', '19820148', '19852607', '19738901', '19839541', '19852608'
    ]
     
     if folder_id in animated_tv_folders:
@@ -703,7 +831,7 @@ def show_animated(base_url, handle, params):
     categories = [
         ('Películas Animadas', {'action': 'list_animated_movies'}),
         ('Series Animadas', {'action': 'list_animated_tvshows'}),
-        ('Sagas Animadas', {'action': 'list_sagas', 'folder_id': '19168455'}),
+        ('Sagas Animadas', {'action': 'list_sagas', 'folder_id': '19168455,19740832'}),
     ]
     
     for title, query_params in categories:
@@ -829,8 +957,9 @@ def show_animated_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': movie.get('poster'), 
@@ -840,10 +969,7 @@ def show_animated_movies(base_url, handle, params):
         li.setArt({k: v for k, v in art.items() if v})
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url_params = {'action': 'play', 'title': movie['title'], 'key': movie.get('key')}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
@@ -967,8 +1093,9 @@ def show_animated_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': item.get('poster'), 
@@ -1000,7 +1127,7 @@ def show_anime(base_url, handle, params):
     categories = [
         ('Películas Anime', {'action': 'list_anime_movies'}),
         ('Series Anime', {'action': 'list_anime_tvshows'}),
-        ('Sagas Anime', {'action': 'list_sagas', 'folder_id': '19385669'}),
+        ('Sagas Anime', {'action': 'list_sagas', 'folder_id': '19385669,19410546,19740846,19740847'}),
     ]
     
     for title, query_params in categories:
@@ -1121,17 +1248,15 @@ def list_anime_movies(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {'poster': movie.get('poster'), 'fanart': movie.get('fanart'), 'clearlogo': movie.get('clearlogo')}
         li.setArt({k: v for k, v in art.items() if v})
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url_params = {'action': 'play', 'title': movie['title'], 'key': movie.get('key')}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
@@ -1249,8 +1374,9 @@ def list_anime_tvshows(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {'poster': item.get('poster'), 'fanart': item.get('fanart'), 'clearlogo': item.get('clearlogo')}
         li.setArt({k: v for k, v in art.items() if v})
@@ -1335,8 +1461,9 @@ def list_saga_items(base_url, handle, params):
             'rating': item.get('rating'),
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': item.get('poster'), 
@@ -1346,9 +1473,7 @@ def list_saga_items(base_url, handle, params):
         li.setArt({k: v for k, v in art.items() if v})
 
         li.setProperty('IsPlayable', 'true')
-        links = json.loads(item['links']) if item.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        url = build_url(base_url, {'action': 'play', 'title': item['title'], 'url': url_link})
+        url = build_url(base_url, {'action': 'play', 'title': item['title'], 'key': item.get('key')})
         xbmcplugin.addDirectoryItem(handle, url, li, False)
 
     xbmcplugin.endOfDirectory(handle)
@@ -1364,11 +1489,11 @@ def show_collections(base_url, handle, params):
     
     # Definición de colecciones y sus IDs de carpeta
     collections = [
-        ('Cine Quinqui', '19205939'),
-        ('Clásicas Español', '19205942'),
-        ('Lina Morgan', '19205937'),
-        ('Pajares y Esteso', '19205934'),
-        ('Grandes Clásicos del Cine', '19235310')
+        ('Cine Quinqui', '19205939,19740845'),
+        ('Clásicas Español', '19205942,19740842'),
+        ('Lina Morgan', '19205937,19740843'),
+        ('Pajares y Esteso', '19205934,19740844'),
+        ('Grandes Clásicos del Cine', '19235310,19740839')
     ]
     
     for title, folder_id in collections:
@@ -1430,8 +1555,9 @@ def list_collection_items(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': item.get('poster'), 
@@ -1447,12 +1573,10 @@ def list_collection_items(base_url, handle, params):
              is_folder = True
         else:
              li.setProperty('IsPlayable', 'true')
-             links = json.loads(item['links']) if item.get('links') else []
-             url_link = links[0]['url'] if links else ''
              url_params = {
                 'action': 'play',
                 'title': item['title'],
-                'url': url_link
+                'key': item.get('key')
              }
              is_folder = False
 
@@ -1543,8 +1667,9 @@ def show_search(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {
             'poster': item.get('poster'), 
@@ -1554,9 +1679,7 @@ def show_search(base_url, handle, params):
         
         if itype == 'movie':
             li.setProperty('IsPlayable', 'true')
-            links = json.loads(item['links']) if item.get('links') else []
-            url_link = links[0]['url'] if links else ''
-            url_params = {'action': 'play', 'title': item['title'], 'url': url_link}
+            url_params = {'action': 'play', 'title': item['title'], 'key': item.get('key')}
             is_folder = False
         else:
             url_params = {'action': 'list_seasons', 'title': item['title']}
@@ -1621,12 +1744,8 @@ def show_tvshows_menu(base_url, handle, params):
     xbmcplugin.endOfDirectory(handle)
 
 def show_continue_watching(base_url, handle, params):
-    """Muestra 'Seguir viendo' - items en reproducción desde bookmarks de Kodi.
-    
-    Lee la tabla de bookmarks de la DB de Kodi (MyVideos*.db) para obtener
-    items a medio reproducir y mostrar series en curso.
-    """
-    import sqlite3, glob, xbmcvfs
+    """Muestra 'Seguir viendo' con lógica Up Next (siguiente capítulo directo)."""
+    import sqlite3, xbmcvfs
     
     ADDON = xbmcaddon.Addon()
     ADDON_PATH = ADDON.getAddonInfo('path')
@@ -1636,148 +1755,236 @@ def show_continue_watching(base_url, handle, params):
     xbmcplugin.setContent(handle, 'movies')
     xbmcplugin.setPluginFanart(handle, FANART)
     
-    # 1. SERIES EN CURSO (In-progress TV shows)
-    played = _get_played_keys()
-    from resources.lib.database import get_connection
+    po = get_cached_progress()
+    hidden_items = po.get('hidden', [])
+    manual_items = po.get('manual', {})
     
-    in_progress_series = []
-    bookmarks = []
+    played_keys = _get_played_keys()
+    resume_points = _get_resume_points()
+    
+    from resources.lib.database import get_connection
+    conn = get_connection()
+    c = conn.cursor()
+    
+    display_items = []
+    json_changed = False
+    
+    def _parse_sort_time(t_str):
+        if not t_str: return 0.0
+        try: return float(t_str)
+        except: pass
+        try:
+            import time
+            return time.mktime(time.strptime(str(t_str), "%Y-%m-%d %H:%M:%S"))
+        except: return 0.0
     
     try:
-        conn = get_connection()
-        c = conn.cursor()
-        c.execute('SELECT title, season, episode, poster, fanart, clearlogo, overview FROM items WHERE type="tv"')
+        # --- 1. SERIES EN CURSO (Lógica Next Up) ---
+        c.execute('SELECT "key", title, season, episode, tmdb_id, poster, fanart, clearlogo, overview, episode_title, episode_overview, still_path, links FROM items WHERE type="tv"')
         tv_rows = c.fetchall()
         
-        series_progress = {}
+        series_data = {}
         for r in tv_rows:
             t = r['title']
             if not t: continue
             tn = _normalize_title_for_match(t)
+            if tn in hidden_items: continue
+            if tn not in series_data:
+                series_data[tn] = {'title': t, 'episodes': [], 'poster': r['poster'], 'fanart': r['fanart'], 'clearlogo': r['clearlogo'], 'overview': r['overview']}
+            series_data[tn]['episodes'].append(dict(r))
             
-            if tn not in series_progress:
-                series_progress[tn] = {
-                    'total': 0, 'watched': 0, 'title': t, 
-                    'poster': r['poster'], 'fanart': r['fanart'], 
-                    'clearlogo': r['clearlogo'], 'overview': r['overview'], 
-                    'last_played': ''
-                }
+        for tn, s_data in series_data.items():
+            eps = sorted(s_data['episodes'], key=lambda x: (int(x['season'] or 0), int(x['episode'] or 0)))
+            bookmarked = []
+            watched = []
+            for ep in eps:
+                ident = f"tv_{tn}_{ep['season']}_{ep['episode']}"
+                if ident in resume_points: 
+                    bookmarked.append(ep)
+                elif ident in played_keys: 
+                    watched.append(ep)
+            
+            target_ep = None
+            if bookmarked:
+                target_ep = bookmarked[-1]
+            elif watched:
+                last_watched = watched[-1]
+                try:
+                    idx = eps.index(last_watched)
+                    if idx + 1 < len(eps): target_ep = eps[idx + 1]
+                except: pass
+            elif tn in manual_items:
+                target_ep = eps[0] if eps else None
                 
-            series_progress[tn]['total'] += 1
-            ident = f"tv_{tn}_{r['season']}_{r['episode']}"
-            if ident in played:
-                series_progress[tn]['watched'] += 1
-                lp = played[ident]
-                if lp and lp > series_progress[tn]['last_played']:
-                    series_progress[tn]['last_played'] = lp
-        
-        in_progress_series = [d for d in series_progress.values() if 0 < d['watched'] < d['total']]
-        in_progress_series.sort(key=lambda x: x['title'])
-        in_progress_series.sort(key=lambda x: x['last_played'] or '', reverse=True)
-        
-        # Cargar películas a la memoria para resolución rápida de bookmarks
-        c.execute('SELECT title, year, poster, fanart, clearlogo, overview FROM items WHERE type="movie"')
-        movies_dict = {_normalize_title_for_match(r['title']): dict(r) for r in c.fetchall()}
-        
-        conn.close()
+            if target_ep is None and tn in manual_items and watched:
+                del po['manual'][tn]
+                json_changed = True
+                
+            if target_ep:
+                ident = f"tv_{tn}_{target_ep['season']}_{target_ep['episode']}"
+                sort_time = "0.0"
+                if ident in resume_points: sort_time = played_keys.get(ident, str(time.time()))
+                elif watched:
+                    last_ident = f"tv_{tn}_{watched[-1]['season']}_{watched[-1]['episode']}"
+                    sort_time = played_keys.get(last_ident, str(time.time()))
+                elif tn in manual_items: sort_time = str(manual_items[tn].get('added', 0))
+                    
+                display_items.append({
+                    'type': 'episode',
+                    'item': target_ep,
+                    'series_info': s_data,
+                    'tn': tn,
+                    'sort_time': sort_time
+                })
     except Exception as e:
-        log(f"Choloretro: Error calculando series en curso: {e}")
-        movies_dict = {}
+        log(f"Choloretro: Error procesando Up Next series: {e}")
 
-    for data in in_progress_series:
-        li = xbmcgui.ListItem(label=data['title'])
-        info = {'title': data['title'], 'plot': data['overview'], 'mediatype': 'tvshow'}
-        li.setProperty('TotalEpisodes', str(data['total']))
-        li.setProperty('WatchedEpisodes', str(data['watched']))
-        li.setProperty('UnWatchedEpisodes', str(data['total'] - data['watched']))
-        _apply_meta(li, info)
-        
-        art = {'icon': ADDON_ICON, 'fanart': FANART}
-        if data['poster']: art['poster'] = data['poster']; art['thumb'] = data['poster']
-        if data['fanart']: art['fanart'] = data['fanart']
-        if data['clearlogo']: art['clearlogo'] = data['clearlogo']; art['logo'] = data['clearlogo']
-        li.setArt(art)
-        
-        url = build_url(base_url, {'action': 'list_seasons', 'title': data['title']})
-        xbmcplugin.addDirectoryItem(handle, url, li, True)
-
-    # 2. BOOKMARKS (Películas o episodios a medias)
-    db_path = None
     try:
-        profile = xbmcvfs.translatePath('special://profile/')
-        db_dir = os.path.join(profile, 'Database')
-        db_candidates = glob.glob(os.path.join(db_dir, 'MyVideos*.db'))
-        if db_candidates:
-            db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
-    except: pass
-
-    if db_path and os.path.exists(db_path):
-        try:
-            conn = sqlite3.connect(db_path)
-            cur = conn.cursor()
-            cur.execute("""
-                SELECT b.timeInSeconds, b.totalTimeInSeconds, f.strFilename 
-                FROM bookmark b JOIN files f ON b.idFile = f.idFile 
-                WHERE f.strFilename LIKE 'plugin://plugin.video.choloretro/%' AND b.type = 1
-                ORDER BY b.idBookmark DESC LIMIT 50
-            """)
-            bookmarks = cur.fetchall()
-            conn.close()
-        except Exception as e:
-            log(f"Choloretro: Error leyendo bookmarks: {e}")
+        # --- 2. PELÍCULAS ---
+        c.execute('SELECT "key", title, year, poster, fanart, clearlogo, overview, links FROM items WHERE type="movie"')
+        for r in c.fetchall():
+            t = r['title']
+            if not t: continue
+            tn = _normalize_title_for_match(t)
+            ident = f"movie_{tn}"
+            
+            if ident in hidden_items: continue
+            is_manual = ident in manual_items
+            is_resumed = ident in resume_points
+            
+            # FIX DEFINITIVO: Si está vista y no está a medias, se oculta ignorando el JSON corrupto.
+            if ident in played_keys and not is_resumed: continue
+            # Auto-limpieza del JSON: si está vista y no a medias, la eliminamos de Seguir Viendo.
+            if ident in played_keys and not is_resumed:
+                if is_manual:
+                    del po['manual'][ident]
+                    json_changed = True
+                continue
+            
+            if is_manual or is_resumed:
+                sort_time = played_keys.get(ident, str(time.time())) if is_resumed else str(manual_items[ident].get('added', 0))
+                display_items.append({
+                    'type': 'movie',
+                    'item': dict(r),
+                    'tn': tn,
+                    'ident': ident,
+                    'sort_time': sort_time
+                })
+    except Exception as e:
+        log(f"Choloretro: Error procesando Up Next movies: {e}")
+        
+    conn.close()
     
-    if not in_progress_series and not bookmarks:
+    if json_changed:
+        save_progress_override(po)
+    
+    display_items.sort(key=lambda x: _parse_sort_time(x['sort_time']), reverse=True)
+    
+    if not display_items:
         li = xbmcgui.ListItem(label='No hay contenido en progreso')
         li.setProperty('IsPlayable', 'false')
         li.setArt({'icon': ADDON_ICON, 'fanart': FANART})
         xbmcplugin.addDirectoryItem(handle, '', li, False)
         xbmcplugin.endOfDirectory(handle)
         return
-
-    for bm in bookmarks:
-        try:
-            timeInSeconds, totalTimeInSeconds, strFilename = bm
-            qs = parse_qs(urlparse(strFilename).query)
-            title = qs.get('title', [''])[0]
-            tvshow = qs.get('tvshowtitle', [''])[0]
+        
+    for di in display_items:
+        if di['type'] == 'episode':
+            ep = di['item']
+            series = di['series_info']
+            tn = di['tn']
+            season = ep['season']
+            episode = ep['episode']
             
-            if not title: continue
+            ep_title = ep.get('episode_title') or ep.get('title') or f"Episodio {episode}"
+            display_title = f"{series['title']} S{str(season).zfill(2)}E{str(episode).zfill(2)}"
             
-            display_title = title
-            art_dict = {'icon': ADDON_ICON, 'fanart': FANART}
-            info = {'title': title, 'resume_time': timeInSeconds, 'resume_total': totalTimeInSeconds}
-            
-            if tvshow:
-                s, e = qs.get('season', [''])[0], qs.get('episode', [''])[0]
-                display_title = f"{tvshow} S{str(s).zfill(2)}E{str(e).zfill(2)}"
-                info['mediatype'], info['tvshowtitle'] = 'episode', tvshow
-                info['season'], info['episode'] = (int(s) if str(s).isdigit() else None), (int(e) if str(e).isdigit() else None)
-                tn = _normalize_title_for_match(tvshow)
-                if tn in series_progress:
-                    s_data = series_progress[tn]
-                    if s_data.get('poster'): art_dict['poster'] = s_data['poster']; art_dict['thumb'] = s_data['poster']
-                    if s_data.get('fanart'): art_dict['fanart'] = s_data['fanart']
-                    if s_data.get('clearlogo'): art_dict['clearlogo'] = s_data['clearlogo']; art_dict['logo'] = s_data['clearlogo']
-            else:
-                info['mediatype'] = 'movie'
-                tn = _normalize_title_for_match(title)
-                if tn in movies_dict:
-                    m_data = movies_dict[tn]
-                    info['plot'], info['year'] = m_data.get('overview'), m_data.get('year')
-                    if m_data.get('poster'): art_dict['poster'] = m_data['poster']; art_dict['thumb'] = m_data['poster']
-                    if m_data.get('fanart'): art_dict['fanart'] = m_data['fanart']
-                    if m_data.get('clearlogo'): art_dict['clearlogo'] = m_data['clearlogo']; art_dict['logo'] = m_data['clearlogo']
-
             li = xbmcgui.ListItem(label=display_title)
-            li.setProperty('IsPlayable', 'true')
-            li.setProperty('ResumeTime', str(timeInSeconds))
-            li.setProperty('TotalTime', str(totalTimeInSeconds))
+            info = {
+                'title': ep_title,
+                'tvshowtitle': series['title'],
+                'season': int(season) if str(season).isdigit() else None,
+                'episode': int(episode) if str(episode).isdigit() else None,
+                'plot': ep.get('episode_overview') or ep.get('overview') or series.get('overview', ''),
+                'mediatype': 'episode'
+            }
             
+            ident = f"tv_{tn}_{season}_{episode}"
+            is_watched = False
+            if ident in played_keys:
+                info['playcount'] = 1
+                is_watched = True
+            if ident in resume_points:
+                info['resume_time'] = resume_points[ident]['time']
+                info['resume_total'] = resume_points[ident]['total']
+                try:
+                    import xbmc
+                    if int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0]) < 20:
+                        li.setProperty('ResumeTime', str(info['resume_time']))
+                        li.setProperty('TotalTime', str(info['resume_total']))
+                except: pass
+                
             _apply_meta(li, info)
-            li.setArt(art_dict)
-            xbmcplugin.addDirectoryItem(handle, strFilename, li, False)
-        except Exception as e:
-            log(f"Choloretro: Error procesando bookmark item: {e}")
+            
+            art = {'icon': ADDON_ICON, 'fanart': FANART}
+            poster = ep.get('still_path') or ep.get('poster') or series.get('poster')
+            if poster: art['poster'] = poster; art['thumb'] = poster
+            fanart = ep.get('fanart') or series.get('fanart')
+            if fanart: art['fanart'] = fanart
+            clearlogo = ep.get('clearlogo') or series.get('clearlogo')
+            if clearlogo: art['clearlogo'] = clearlogo; art['logo'] = clearlogo
+            li.setArt(art)
+            li.setProperty('IsPlayable', 'true')
+            
+            cm = generate_context_menu(base_url, 'tv', tn, series['title'], is_watched, watched_eps=1, total_eps=2)
+            if cm: li.addContextMenuItems(cm)
+            
+            url = build_url(base_url, {'action': 'play', 'title': display_title, 'key': ep.get('key'), 'tvshowtitle': series['title'], 'season': season, 'episode': episode, 'tmdb': ep.get('tmdb_id')})
+            
+            xbmcplugin.addDirectoryItem(handle, url, li, False)
+            
+        else:
+            m = di['item']
+            tn = di['tn']
+            ident = di['ident']
+            
+            li = xbmcgui.ListItem(label=m['title'])
+            info = {
+                'title': m['title'],
+                'year': int(m['year']) if str(m.get('year', '')).isdigit() else 0,
+                'plot': m['overview'],
+                'mediatype': 'movie'
+            }
+            
+            is_watched = False
+            if ident in played_keys:
+                info['playcount'] = 1
+                is_watched = True
+            if ident in resume_points:
+                info['resume_time'] = resume_points[ident]['time']
+                info['resume_total'] = resume_points[ident]['total']
+                try:
+                    import xbmc
+                    if int(xbmc.getInfoLabel('System.BuildVersion').split('.')[0]) < 20:
+                        li.setProperty('ResumeTime', str(info['resume_time']))
+                        li.setProperty('TotalTime', str(info['resume_total']))
+                except: pass
+                
+            _apply_meta(li, info)
+            
+            art = {'icon': ADDON_ICON, 'fanart': FANART}
+            if m.get('poster'): art['poster'] = m['poster']; art['thumb'] = m['poster']
+            if m.get('fanart'): art['fanart'] = m['fanart']
+            if m.get('clearlogo'): art['clearlogo'] = m['clearlogo']; art['logo'] = m['clearlogo']
+            li.setArt(art)
+            li.setProperty('IsPlayable', 'true')
+            
+            cm = generate_context_menu(base_url, 'movie', ident, m['title'], is_watched, item_key=ident)
+            if cm: li.addContextMenuItems(cm)
+            
+            url = build_url(base_url, {'action': 'play', 'title': m['title'], 'key': m.get('key')})
+            
+            xbmcplugin.addDirectoryItem(handle, url, li, False)
     
     xbmcplugin.endOfDirectory(handle)
 
@@ -1864,17 +2071,15 @@ def list_movies_by_letter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
         li.setArt(art)
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url_params = {'action': 'play', 'title': movie['title'], 'key': movie.get('key')}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
@@ -1973,17 +2178,15 @@ def list_movies_by_genre_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
         li.setArt(art)
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url_params = {'action': 'play', 'title': movie['title'], 'key': movie.get('key')}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
@@ -2069,17 +2272,15 @@ def list_movies_by_year_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': movie.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': movie.get('poster'), 'fanart': movie.get('fanart')}.items() if v}
         li.setArt(art)
         li.setProperty('IsPlayable', 'true')
         
-        links = json.loads(movie['links']) if movie.get('links') else []
-        url_link = links[0]['url'] if links else ''
-        
-        url_params = {'action': 'play', 'title': movie['title'], 'url': url_link}
+        url_params = {'action': 'play', 'title': movie['title'], 'key': movie.get('key')}
         url = build_url(base_url, url_params)
         xbmcplugin.addDirectoryItem(handle, url, li, False)
     
@@ -2170,8 +2371,9 @@ def list_tvshows_by_letter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
         li.setArt(art)
@@ -2275,8 +2477,9 @@ def list_tvshows_by_genre_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
         li.setArt(art)
@@ -2367,8 +2570,9 @@ def list_tvshows_by_year_filter(base_url, handle, params):
             'cast': cast,
             'tmdb_id': item.get('tmdb_id')
         }
-        _inject_playback_state(info, li)
+        is_watched, watched_eps, total_eps = _inject_playback_state(info, li)
         _apply_meta(li, info)
+        _apply_context_menu(base_url, li, info, is_watched, watched_eps, total_eps)
         
         art = {k: v for k, v in {'poster': item.get('poster'), 'fanart': item.get('fanart')}.items() if v}
         li.setArt(art)

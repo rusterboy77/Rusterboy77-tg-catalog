@@ -25,7 +25,8 @@ CREATE TABLE IF NOT EXISTS items (
   episode_title TEXT, episode_overview TEXT, still_path TEXT,
   clearlogo TEXT, banner TEXT, clearart TEXT, genres TEXT,
   "cast" TEXT, torrents TEXT, date_added TEXT, enriched INTEGER DEFAULT 0,
-  collection_name TEXT, collection_poster TEXT, collection_fanart TEXT
+  collection_name TEXT, collection_poster TEXT, collection_fanart TEXT,
+  is_anime INTEGER DEFAULT 0, is_cartoon INTEGER DEFAULT 0, is_documentary INTEGER DEFAULT 0, is_retro INTEGER DEFAULT 0, is_premium INTEGER DEFAULT 0, last_year TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
 CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
@@ -35,6 +36,7 @@ CREATE INDEX IF NOT EXISTS idx_items_date ON items(date_added);
 CREATE INDEX IF NOT EXISTS idx_type_date ON items(type, date_added DESC);
 CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC);
 CREATE INDEX IF NOT EXISTS idx_items_title_nocase ON items(title COLLATE NOCASE);
+CREATE INDEX IF NOT EXISTS idx_items_flags ON items(is_anime, is_cartoon, is_documentary, is_retro, is_premium);
 '''
 
 def _connect():
@@ -71,6 +73,30 @@ def _upgrade_db_schema(db_path):
         try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' Colección', ' - Colección') WHERE collection_name LIKE '% Colección' AND collection_name NOT LIKE '% - Colección'")
         except Exception: pass
 
+        # Migración Ligera: Solo creamos las columnas si no existen para evitar que las queries fallen.
+        # Los datos reales (1 y 0) ya vendrán procesados desde el NAS para no saturar Kodi.
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN is_anime INTEGER DEFAULT 0")
+        except Exception: pass
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN is_cartoon INTEGER DEFAULT 0")
+        except Exception: pass
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN is_documentary INTEGER DEFAULT 0")
+        except Exception: pass
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN is_premium INTEGER DEFAULT 0")
+        except Exception: pass
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN is_retro INTEGER DEFAULT 0")
+        except Exception: pass
+        try: 
+            conn.execute("ALTER TABLE items ADD COLUMN last_year TEXT")
+        except Exception: pass
+        try: 
+            conn.execute("UPDATE items SET last_year = year WHERE last_year IS NULL OR last_year = ''")
+        except Exception: pass
+
         conn.commit()
         conn.close()
     except Exception: pass
@@ -93,13 +119,14 @@ def _row_to_item(r):
     }
 
 def _decrypt_local_bin():
-    """Desencripta el archivo BIN guardado localmente hacia la memoria temporal."""
-    import zlib, itertools
-    encryption_key = b'E1y_kG9K1v2L_zNqQOqR4g9Z-2xX8jT1k_O7yD2mPqw='
+    import zlib, sys
+    _new_k = [69, 49, 121, 95, 107, 71, 57, 75, 49, 118, 50, 76, 95, 122, 78, 113, 81, 79, 113, 82, 52, 103, 57, 90, 45, 50, 120, 88, 56, 106, 84, 49, 107, 95, 79, 55, 121, 68, 50, 109, 80, 113, 119, 61]
+    encryption_key = bytes(_new_k)
     try:
         with open(BIN_FILE_LOCAL, 'rb') as f:
             encrypted_data = f.read()
-        decrypted_compressed = bytes(a ^ b for a, b in zip(encrypted_data, itertools.cycle(encryption_key)))
+        k = (encryption_key * (len(encrypted_data) // len(encryption_key) + 1))[:len(encrypted_data)]
+        decrypted_compressed = (int.from_bytes(encrypted_data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(encrypted_data), sys.byteorder)
         decrypted_data = zlib.decompress(decrypted_compressed)
         
         tmp_db = DB_FILE + ".tmp"
@@ -116,10 +143,19 @@ def _decrypt_local_bin():
                 xbmc.sleep(500)
                 
         if not replaced:
-            with open(DB_FILE, 'wb') as f:
-                f.write(decrypted_data)
-            if os.path.exists(tmp_db): os.remove(tmp_db)
-        return True
+            if not _is_db_valid():
+                try:
+                    os.remove(DB_FILE)
+                    os.replace(tmp_db, DB_FILE)
+                    replaced = True
+                except Exception: pass
+        if os.path.exists(tmp_db): 
+            try: os.remove(tmp_db)
+            except: pass
+            
+        # Asegurar que el esquema local está al día tras extraerlo de .bin
+        _upgrade_db_schema(DB_FILE)
+        return replaced or _is_db_valid()
     except Exception as e:
         xbmc.log(f"RusterWolf: Error decrypting local bin: {e}", xbmc.LOGERROR)
         return False
@@ -130,9 +166,13 @@ def _is_db_valid():
         return False
     try:
         conn = sqlite3.connect(DB_FILE)
-        conn.execute("SELECT 1 FROM items LIMIT 1")
+        cur = conn.cursor()
+        cur.execute("SELECT is_premium FROM items LIMIT 1")
+        cur.execute("SELECT count(*) FROM items")
+        cur.execute("PRAGMA quick_check(1)")
+        res = cur.fetchone()
         conn.close()
-        return True
+        return res and res[0] == "ok"
     except Exception:
         return False
 
@@ -152,8 +192,17 @@ def ensure_session_db():
                 except: pass
                 try: os.remove(os.path.join(USERDATA, 'etag.txt'))
                 except: pass
+                try: os.remove(DB_FILE)
+                except: pass
             else:
                 _upgrade_db_schema(DB_FILE)
+        else:
+            try: os.remove(os.path.join(USERDATA, 'last_update.txt'))
+            except: pass
+            try: os.remove(os.path.join(USERDATA, 'etag.txt'))
+            except: pass
+            try: os.remove(DB_FILE)
+            except: pass
 
 def maybe_update_db_from_remote(force=False):
     """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
@@ -161,20 +210,30 @@ def maybe_update_db_from_remote(force=False):
     import xbmcgui
     import urllib.request
     import urllib.error
-    import zlib
-    import itertools
     
     last_update_file = os.path.join(USERDATA, 'last_update.txt')
     etag_file = os.path.join(USERDATA, 'etag.txt')
+    lock_file = os.path.join(TEMP_DIR, '.download.lock')
     
     os.makedirs(TEMP_DIR, exist_ok=True)
     os.makedirs(USERDATA, exist_ok=True)
     
+    # Bloqueo anti-colisiones: Si cargan múltiples widgets a la vez y la DB no existe,
+    # evitamos que todos intenten descargarla al mismo tiempo.
+    if not force and os.path.exists(lock_file):
+        for _ in range(40): # Esperar hasta 20 segundos
+            if not os.path.exists(lock_file):
+                break
+            xbmc.sleep(500)
+        ensure_session_db()
+        return _is_db_valid()
+
     # 1. Recuperar la BD a la memoria temporal si no existe
     ensure_session_db()
     
-    # Cooldown de 5 minutos (300s) para no saturar al navegar rápido entre menús
-    if not force and os.path.exists(last_update_file):
+    # Cooldown de 5 minutos SOLAMENTE si la BD ya existe y está funcional en RAM
+    db_is_ready = _is_db_valid()
+    if not force and db_is_ready and os.path.exists(last_update_file):
         try:
             with open(last_update_file, 'r') as f:
                 if time.time() - float(f.read().strip()) < 300:
@@ -184,7 +243,6 @@ def maybe_update_db_from_remote(force=False):
             
     # Añadir timestamp para evitar la agresiva caché de Cloudflare R2
     url_r2 = f"https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/archivos.bin?t={int(time.time())}"
-    encryption_key = b'E1y_kG9K1v2L_zNqQOqR4g9Z-2xX8jT1k_O7yD2mPqw='
     
     headers = {'User-Agent': 'Mozilla/5.0'}
     
@@ -208,6 +266,9 @@ def maybe_update_db_from_remote(force=False):
         xbmcgui.Dialog().notification("RusterWolf", "Buscando actualizaciones...", ADDON_ICON, 2000)
         
     try:
+        # Activar bloqueo de hilo para widgets concurrentes
+        with open(lock_file, 'w') as f: f.write('1')
+
         req = urllib.request.Request(url_r2, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as response:
             encrypted_data = response.read()
@@ -266,6 +327,11 @@ def maybe_update_db_from_remote(force=False):
         xbmc.log(f"RusterWolf: Error actualizando DB desde R2: {e}", xbmc.LOGERROR)
         if force:
             xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
+    finally:
+        # Liberar siempre el archivo de bloqueo aunque haya un error
+        if os.path.exists(lock_file):
+            try: os.remove(lock_file)
+            except: pass
     return False
 
 def init_db():
@@ -312,16 +378,14 @@ def load_items_by_keys(keys):
 def _apply_genre_filters(query, args, filter_type, genre, is_premium_req=False, check_premium=True):
     """Helper centralizado para aplicar los filtros complejos de género (Anime, Dibujos, Retro) de forma unificada."""
     if check_premium:
-        if is_premium_req: query += " AND genres LIKE '%Premium%'"
-        else: query += " AND genres NOT LIKE '%Premium%'"
-        
-    RETRO_COND = "(genres LIKE '%Retro%' OR (length(year) = 4 AND CAST(year AS INTEGER) <= 1999 AND genres NOT LIKE '%Dibujo%' AND genres NOT LIKE '%Anime%' AND genres NOT LIKE '%Animaci%' AND genres NOT LIKE '%Documental%'))"
+        if is_premium_req: query += " AND is_premium = 1"
+        else: query += " AND is_premium = 0"
 
     if genre and genre.lower() != 'premium':
         for g in genre.split('|'):
-            if g == 'Retro': query += f" AND {RETRO_COND}"
-            elif g == 'Dibujo': query += " AND (genres LIKE '%Dibujo%' OR genres LIKE '%Animaci%') AND genres NOT LIKE '%Anime%'"
-            elif g == 'Anime': query += " AND (genres LIKE '%Anime%' OR genres LIKE '%Japonesa%')"
+            if g == 'Retro': query += " AND is_retro = 1"
+            elif g == 'Dibujo': query += " AND is_cartoon = 1"
+            elif g == 'Anime': query += " AND is_anime = 1"
             else:
                 query += " AND genres LIKE ?"
                 args.append(f'%{g}%')
@@ -332,10 +396,7 @@ def _apply_genre_filters(query, args, filter_type, genre, is_premium_req=False, 
     if genre and any(ig.lower() in genre.lower() for ig in ISOLATED_GENRES): is_special = True
         
     if not is_special:
-        query += f" AND NOT {RETRO_COND}"
-        query += " AND genres NOT LIKE '%Dibujo%' AND genres NOT LIKE '%Animaci%'"
-        query += " AND genres NOT LIKE '%Anime%' AND genres NOT LIKE '%Japonesa%'"
-        query += " AND genres NOT LIKE '%Documental%'"
+        query += " AND is_retro = 0 AND is_cartoon = 0 AND is_anime = 0 AND is_documentary = 0"
         
     return query, args
 
@@ -352,9 +413,9 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         if ft in ('movie', 'pelicula'): query += " AND type='movie'"
         elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
         elif ft == 'documentary':
-            query += " AND type='movie' AND genres LIKE '%Documental%'"
+            query += " AND type='movie' AND is_documentary = 1"
         elif ft == 'series_documentary':
-            query += " AND type='tv' AND genres LIKE '%Documental%'"
+            query += " AND type='tv' AND is_documentary = 1"
 
         query, args = _apply_genre_filters(query, args, ft, genre, is_premium_req=is_premium_req, check_premium=not collection)
 
@@ -381,24 +442,22 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         import datetime
         current_year = datetime.datetime.now().year
         RECENT_YEAR_THRESHOLD = current_year - 1
-        RECENT_TV_YEAR_THRESHOLD = current_year - 5
 
         if sort_by == 'novedades':
-            if ft in ('tv', 'series', 'serie', 'series_documentary'):
-                query += f" AND CAST(year AS INTEGER) >= {RECENT_TV_YEAR_THRESHOLD}"
-            else:
-                query += f" AND CAST(year AS INTEGER) >= {RECENT_YEAR_THRESHOLD}"
+            query += f" AND CAST(SUBSTR(last_year, 1, 4) AS INTEGER) >= {RECENT_YEAR_THRESHOLD}"
+        elif sort_by == 'date_added':
+            query += f" AND (last_year IS NULL OR last_year = '' OR CAST(SUBSTR(last_year, 1, 4) AS INTEGER) < {RECENT_YEAR_THRESHOLD})"
             
         # EL GROUP BY DEBE IR SIEMPRE DESPUÉS DE LOS FILTROS 'WHERE/AND'
         if ft in ('tv', 'series', 'serie', 'series_documentary'):
             query += " GROUP BY title"
 
         if sort_by == 'novedades':
-            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
-            else: query += " ORDER BY date_added DESC"
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(REPLACE(date_added, 'T', ' ')) DESC"
+            else: query += " ORDER BY REPLACE(date_added, 'T', ' ') DESC"
         elif sort_by == 'date_added':
-            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
-            else: query += " ORDER BY date_added DESC"
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(REPLACE(date_added, 'T', ' ')) DESC"
+            else: query += " ORDER BY REPLACE(date_added, 'T', ' ') DESC"
         else:
             query += " ORDER BY title ASC"
 
@@ -423,8 +482,8 @@ def get_years(filter_type=None, genre=None):
             ft = filter_type.strip().lower()
             if ft in ('movie', 'pelicula'): query += " AND type='movie'"
             elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
-            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
-            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            elif ft == 'documentary': query += " AND type='movie' AND is_documentary = 1"
+            elif ft == 'series_documentary': query += " AND type='tv' AND is_documentary = 1"
             
         query, args = _apply_genre_filters(query, args, filter_type, genre, check_premium=False)
         
@@ -445,8 +504,8 @@ def get_letters(filter_type=None, genre=None):
             ft = filter_type.strip().lower()
             if ft in ('movie', 'pelicula'): query += " AND type='movie'"
             elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
-            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
-            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            elif ft == 'documentary': query += " AND type='movie' AND is_documentary = 1"
+            elif ft == 'series_documentary': query += " AND type='tv' AND is_documentary = 1"
             
         query, args = _apply_genre_filters(query, args, filter_type, genre, check_premium=False)
         
@@ -467,8 +526,8 @@ def get_collections_paginated(filter_type=None, limit=25, offset=0, genre=None, 
             ft = filter_type.strip().lower()
             if ft in ('movie', 'pelicula'): query += " AND type='movie'"
             elif ft in ('tv', 'series', 'serie'): query += " AND type='tv'"
-            elif ft == 'documentary': query += " AND type='movie' AND genres LIKE '%Documental%'"
-            elif ft == 'series_documentary': query += " AND type='tv' AND genres LIKE '%Documental%'"
+            elif ft == 'documentary': query += " AND type='movie' AND is_documentary = 1"
+            elif ft == 'series_documentary': query += " AND type='tv' AND is_documentary = 1"
             
         query, args = _apply_genre_filters(query, args, filter_type, genre, is_premium_req=is_premium_req, check_premium=True)
                 

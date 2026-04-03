@@ -18,10 +18,9 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.9'
-        cache: 'pip' # Añade caché para acelerar instalaciones futuras
+        cache: 'pip' 
 
     - name: Install dependencies
-      # Es una buena práctica usar un archivo requirements.txt
       run: pip install -r requirements.txt
 
     - name: Descargar y Desencriptar Catalogo Anterior de R2
@@ -75,17 +74,12 @@ jobs:
         python enc_json.py
 
     - name: Subir artefactos a Cloudflare R2
-      # Este paso utiliza el AWS CLI, que es compatible con la API S3 de Cloudflare R2.
       env:
-        # Estas credenciales deben estar configuradas en los Secretos de tu repositorio
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        # El endpoint URL apunta a tu cuenta de Cloudflare R2
         CLOUDFLARE_ENDPOINT: https://${{ secrets.CLOUDFLARE_ENDPOINT }}.r2.cloudflarestorage.com
-        # El nombre de tu bucket en R2
         R2_BUCKET_NAME: ${{ secrets.R2_BUCKET_NAME }}
       run: |
-        # Subir los archivos generados al bucket de R2
         aws s3 cp cache_choloretro.bin s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         aws s3 cp version_choloretro.txt s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT
         aws s3 cp catalog_choloretro.enc s3://$R2_BUCKET_NAME/ --endpoint-url $CLOUDFLARE_ENDPOINT

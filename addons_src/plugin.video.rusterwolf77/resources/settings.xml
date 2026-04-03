@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <settings>
-    <category label="General">
-        <setting id="items_per_page" type="number" label="Items por página" default="24" minimum="10" maximum="100" />
-        <setting id="debug_logging" type="bool" label="Activar logs debug" default="false" />
-    </category>
-    <category label="Reproductor y Cuentas">
-        <setting id="debrid_provider" type="enum" label="Método de Reproducción" values="Elementum (Gratis P2P)|AllDebrid (Premium)|Real-Debrid (Premium)" default="0" />
-        <setting id="debrid_cloud_fallback" type="bool" label="Añadir a la nube de Debrid si no está en caché" default="true" />
+    <!-- CATEGORIA: INTERFAZ Y NAVEGACION -->
+    <category label="Interfaz y Navegación">
+        <setting type="lsep" label="Vistas y Paginación" />
+        <setting id="items_per_page" type="number" label="Elementos por página" default="24" minimum="10" maximum="100" />
         
-        <setting type="lsep" label="AllDebrid (Desbloqueador de Enlaces)" />
+        <setting type="lsep" label="Personalizar Menú Principal" />
+        <setting id="show_documentaries" type="bool" label="Mostrar sección Documentales" default="true" />
+        <setting id="show_dibujos" type="bool" label="Mostrar sección Dibujos" default="true" />
+        <setting id="show_anime" type="bool" label="Mostrar sección Anime" default="true" />
+        <setting id="show_retro" type="bool" label="Mostrar sección Retro" default="true" />
+        
+        <setting type="lsep" label="Mantenimiento" />
+        <setting type="action" label="Forzar actualización del Catálogo ►" action="RunPlugin(plugin://plugin.video.rusterwolf77/?action=force_sync)" option="close" />
+    </category>
+
+    <!-- CATEGORIA: REPRODUCCION -->
+    <category label="Reproducción">
+        <setting type="lsep" label="Comportamiento" />
+        <setting id="auto_play" type="bool" label="Reproducción automática (Auto-Play)" default="false" />
+        
+        <setting type="lsep" label="Filtros de Calidad" />
+        <setting id="max_quality" type="enum" label="Calidad Máxima Permitida" values="Sin límite (4K)|1080p|720p|SD" default="0" />
+    </category>
+
+    <!-- CATEGORIA: CUENTAS Y PROVEEDORES -->
+    <category label="Cuentas y Proveedores">
+        <setting type="lsep" label="AllDebrid" />
         <setting type="action" label="Autenticar AllDebrid con PIN ►" action="RunPlugin(plugin://plugin.video.rusterwolf77/?action=auth_alldebrid)" option="close" />
         <setting id="alldebrid_api_key" type="text" label="API Key" default="" option="hidden" />
         
-        <setting type="lsep" label="Real-Debrid (Desbloqueador de Enlaces)" />
+        <setting type="lsep" label="Real-Debrid" />
         <setting type="action" label="Autenticar Real-Debrid con PIN ►" action="RunPlugin(plugin://plugin.video.rusterwolf77/?action=auth_realdebrid)" option="close" />
         <setting id="realdebrid_api_key" type="text" label="Token" default="" option="hidden" />
     </category>

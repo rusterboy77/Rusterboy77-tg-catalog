@@ -13,7 +13,10 @@ from resources.lib.utils.tools import log
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
-DB_FILE = os.path.join(PROFILE_DIR, 'cache.db')
+TEMP_DIR = xbmcvfs.translatePath(f"special://temp/{ADDON_ID}")
+
+DB_FILE = os.path.join(TEMP_DIR, 'session.db')
+BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp')
 REMOTE_DB_URL = "https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/cache_choloretro.bin"
 
 _SCHEMA = '''
@@ -48,14 +51,75 @@ CREATE TABLE IF NOT EXISTS items (
 )
 '''
 
+def _decrypt_local_bin():
+    try:
+        import sys
+        if not os.path.exists(BIN_FILE_LOCAL): return False
+        with open(BIN_FILE_LOCAL, 'rb') as f:
+            data = f.read()
+            
+        _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
+        key = bytes(_new_k)
+            
+        # XOR de alto rendimiento
+        k = (key * (len(data) // len(key) + 1))[:len(data)]
+        decrypted_compressed = (int.from_bytes(data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(data), sys.byteorder)
+
+        decrypted_data = zlib.decompress(data)
+        
+        import uuid
+        tmp_db = DB_FILE + f".{uuid.uuid4().hex[:8]}.tmp"
+        with open(tmp_db, 'wb') as f:
+            f.write(decrypted_data)
+            
+        replaced = False
+        for _ in range(10):
+            try:
+                os.replace(tmp_db, DB_FILE)
+                replaced = True
+                break
+            except Exception:
+                time.sleep(0.5)
+                
+        if not replaced:
+            # Protección contra corrupción en Windows: No sobrescribir a lo bruto un archivo en uso
+            if not _is_db_valid():
+                try:
+                    os.remove(DB_FILE)
+                    os.replace(tmp_db, DB_FILE)
+                    replaced = True
+                except Exception: pass
+        if os.path.exists(tmp_db):
+            try: os.remove(tmp_db)
+            except: pass
+        return replaced or _is_db_valid()
+    except Exception as e:
+        log(f"Database Error decrypting: {e}")
+        return False
+
+def _is_db_valid():
+    if not os.path.exists(DB_FILE) or os.path.getsize(DB_FILE) < 50 * 1024:
+        return False
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        conn.execute("SELECT 1 FROM items LIMIT 1")
+        # Asegurar que el esquema tiene las últimas columnas (carpetas y colecciones)
+        conn.execute("SELECT folder_id, collection_id FROM items LIMIT 1")
+        conn.close()
+        return True
+    except Exception:
+        return False
+
 def get_connection():
-    if not os.path.exists(PROFILE_DIR):
-        os.makedirs(PROFILE_DIR)
+    if not os.path.exists(TEMP_DIR):
+        os.makedirs(TEMP_DIR, exist_ok=True)
     conn = sqlite3.connect(DB_FILE, timeout=10)
     conn.row_factory = sqlite3.Row
     return conn
 
 def init_db():
+    os.makedirs(PROFILE_DIR, exist_ok=True)
+    os.makedirs(TEMP_DIR, exist_ok=True)
     conn = get_connection()
     try:
         c = conn.cursor()
@@ -98,6 +162,26 @@ def init_db():
         log(f"Database Error Init: {e}")
     finally:
         conn.close()
+
+def ensure_session_db():
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    if not _is_db_valid():
+        if os.path.exists(BIN_FILE_LOCAL):
+            _decrypt_local_bin()
+            if not _is_db_valid():
+                try: os.remove(BIN_FILE_LOCAL)
+                except: pass
+                try: os.remove(os.path.join(PROFILE_DIR, 'version_choloretro.txt'))
+                except: pass
+                try: os.remove(os.path.join(PROFILE_DIR, 'last_update.txt'))
+                except: pass
+                init_db()
+            else:
+                init_db()
+        else:
+            try: os.remove(os.path.join(PROFILE_DIR, 'last_update.txt'))
+            except: pass
+            init_db()
 
 def upsert_items(items):
     if not items:
@@ -232,8 +316,13 @@ def get_collections(genre=None, exclude_genre=None, folder_id=None):
             query += ' AND genres NOT LIKE ?'
             args.append(f'%{exclude_genre}%')
         if folder_id:
-            query += ' AND folder_id = ?'
-            args.append(folder_id)
+            if ',' in folder_id:
+                folders = [f.strip() for f in folder_id.split(',')]
+                query += ' AND folder_id IN ({})'.format(','.join(['?'] * len(folders)))
+                args.extend(folders)
+            else:
+                query += ' AND folder_id = ?'
+                args.append(folder_id)
         query += ' ORDER BY collection_name'
         
         try:
@@ -282,8 +371,14 @@ def get_items_by_folder(folder_id, limit=None, offset=None):
     try:
         c = conn.cursor()
         try:
-            query = 'SELECT * FROM items WHERE folder_id = ? ORDER BY title'
-            args = [folder_id]
+            if ',' in folder_id:
+                folders = [f.strip() for f in folder_id.split(',')]
+                query = 'SELECT * FROM items WHERE folder_id IN ({}) ORDER BY title'.format(','.join(['?'] * len(folders)))
+                args = folders
+            else:
+                query = 'SELECT * FROM items WHERE folder_id = ? ORDER BY title'
+                args = [folder_id]
+                
             if limit is not None:
                 query += ' LIMIT ?'
                 args.append(int(limit))
@@ -302,7 +397,10 @@ def get_items_by_folder(folder_id, limit=None, offset=None):
                     c.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
                     c.execute("ALTER TABLE items ADD COLUMN collection_clearlogo TEXT")
                     conn.commit()
-                    c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
+                    if ',' in folder_id:
+                        c.execute('SELECT * FROM items WHERE folder_id IN ({}) ORDER BY title'.format(','.join(['?'] * len(folders))), folders)
+                    else:
+                        c.execute('SELECT * FROM items WHERE folder_id = ? ORDER BY title', (folder_id,))
                 except Exception as e2:
                     log(f"Database Error recovering column: {e2}")
                     return []
@@ -331,9 +429,6 @@ def update_db_from_remote():
         except:
             pass
             
-    tmp_db = DB_FILE + ".tmp"
-    tmp_bin = DB_FILE + ".bin.tmp"
-    
     headers = {'User-Agent': 'Kodi-Choloretro'}
     
     # 1. Comprobar version.txt primero
@@ -345,7 +440,7 @@ def update_db_from_remote():
         log(f"Database: No se pudo verificar version_choloretro.txt remoto: {e}")
         remote_version = None
         
-    if remote_version and os.path.exists(DB_FILE) and os.path.exists(local_version_file):
+    if remote_version and os.path.exists(DB_FILE) and os.path.exists(BIN_FILE_LOCAL) and _is_db_valid() and os.path.exists(local_version_file):
         try:
             with open(local_version_file, 'r') as f:
                 local_version = f.read().strip()
@@ -361,46 +456,19 @@ def update_db_from_remote():
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=60) as response:
-            with open(tmp_bin, 'wb') as out_file:
+            os.makedirs(TEMP_DIR, exist_ok=True)
+            with open(BIN_FILE_LOCAL, 'wb') as out_file:
                 shutil.copyfileobj(response, out_file)
             
-        with open(tmp_bin, 'rb') as f:
-            data = bytearray(f.read())
+        if not _decrypt_local_bin() or not _is_db_valid():
+            try: os.remove(BIN_FILE_LOCAL)
+            except: pass
+            log("Database: Error desencriptando DB remota descargada.")
+            return False
             
-        # Nueva clave XOR: 'CholoRetro_Secure_2025!'
-        _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
-        key = bytearray(_new_k)
-        key_len = len(key)
-        for i in range(len(data)):
-            data[i] ^= key[i % key_len]
-            
-        decrypted_data = zlib.decompress(data)
-            
-        with open(tmp_db, 'wb') as f:
-            f.write(decrypted_data)
-            
-        try: os.remove(tmp_bin)
-        except: pass
-        
-        # Verificar integridad básica (abrir y contar items)
-        conn = sqlite3.connect(tmp_db)
-        c = conn.cursor()
-        c.execute("SELECT count(*) FROM items")
-        count = c.fetchone()[0]
-        conn.close()
-        
-        log(f"Database: Descarga exitosa. Items en DB remota: {count}")
-        
-        # Reemplazar la DB local (Windows requiere cerrar conexiones antes, init_db ya lo hace)
-        if os.path.exists(DB_FILE):
-            try: os.remove(DB_FILE)
-            except: pass # Si falla el borrado, rename podría fallar en Windows, pero intentamos
-        
-        os.rename(tmp_db, DB_FILE)
-        
-        # Asegurar que la nueva DB tiene el esquema correcto (migraciones)
         init_db()
-        
+        log("Database: Descarga y desencriptación exitosa en memoria temporal.")
+
         # Guardar la nueva versión localmente
         if remote_version:
             with open(local_version_file, 'w') as f:
@@ -414,12 +482,6 @@ def update_db_from_remote():
         
     except Exception as e:
         log(f"Database: Error actualizando DB remota: {e}")
-        if os.path.exists(tmp_db):
-            try: os.remove(tmp_db)
-            except: pass
-        if os.path.exists(tmp_bin):
-            try: os.remove(tmp_bin)
-            except: pass
         return False
 
 def search_items_sql(query_str, limit=100, offset=0):

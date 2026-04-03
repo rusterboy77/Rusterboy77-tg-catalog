@@ -25,7 +25,10 @@
     "backdrop_url": "https://static.wikia.nocookie.net/looneytunes/images/f/f5/Merrie_Melodies_Title_Card_1963.png",
     "year": "1931",
     "genres": ["Animación", "Clásico", "Comedia"]
+  },
+  "Frankenstein Jr.": {
+    "manual_id": "282199",
+    "title": "Frankenstein Jr.",
+    "year": "1966"
   }
 }
-  
-    

@@ -72,17 +72,14 @@ def get_next_episode_info(tvshowtitle, season, episode):
                 continue
         
         if next_ep:
-            links = json.loads(next_ep['links']) if next_ep.get('links') else []
-            if not links:
+            if not next_ep.get('key'):
                 return None
-                
-            url_link = links[0]['url']
             
             base_url = "plugin://plugin.video.choloretro/"
             params = {
                 'action': 'play',
                 'title': f"{tvshowtitle} S{next_ep['season']}E{next_ep['episode']}",
-                'url': url_link,
+                'key': next_ep.get('key'),
                 'tvshowtitle': tvshowtitle,
                 'season': next_ep['season'],
                 'episode': next_ep['episode'],

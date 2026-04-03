@@ -58,7 +58,7 @@
         
 
     </addon>
-    <addon id="plugin.video.choloretro" version="1.0.27" name="CholoRetro" provider-name="Rusterboy77">
+    <addon id="plugin.video.choloretro" version="1.0.28" name="CholoRetro" provider-name="Rusterboy77">
         
     
         <requires>
@@ -94,10 +94,10 @@
         <extension point="xbmc.addon.metadata">
             
         
-            <summary lang="es">Contenido Retro</summary>
+            <summary lang="es">Películas, series y dibujos animados retro</summary>
             
         
-            <description lang="es">Addon de contenido retro alojado en 1fichier, potenciado por AllDebrid.</description>
+            <description lang="es">Revive la nostalgia con este addon dedicado al mejor contenido retro. Disfruta de una extensa colección de dibujos animados, películas y series de los años 80, 90 y épocas más antiguas, además de los grandes clásicos de todos los tiempos.</description>
             
         
             <platform>all</platform>
@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="2.0.1" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="2.0.2" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
