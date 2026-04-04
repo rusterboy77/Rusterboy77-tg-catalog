@@ -537,7 +537,7 @@ def get_collections_paginated(filter_type=None, limit=25, offset=0, genre=None, 
             
         query, args = _apply_genre_filters(query, args, filter_type, genre, is_premium_req=is_premium_req, check_premium=True)
                 
-        query += " GROUP BY collection_name COLLATE NOCASE ORDER BY collection_name ASC LIMIT ? OFFSET ?"
+        query += " GROUP BY collection_name ORDER BY collection_name ASC LIMIT ? OFFSET ?"
         args.extend([limit, offset])
         c.execute(query, args)
         return [{"name": r[0], "poster": r[1], "fanart": r[2], "clearlogo": r[3]} for r in c.fetchall()]
@@ -601,69 +601,34 @@ def search_items_sql(query_str, limit=100):
         exact_like = f"%{query_str}%"
         exact_start = f"{query_str}%"
         
-        # 2. Búsqueda Limpia (sin guiones ni espacios, para unir "spider-man" y "spiderman")
-        query_clean = query_str.replace('-', '').replace(' ', '')
-        clean_match = query_clean
-        clean_like = f"%{query_clean}%"
-        clean_start = f"{query_clean}%"
-        
-        # 3. Búsqueda por Palabras (Ignora dobles espacios)
+        # 2. Búsqueda por Palabras
         words = query_str.replace('-', ' ').split()
         if len(words) > 1:
             words_like = "%" + "%".join(words) + "%"
         else:
             words_like = exact_like
             
-        # 4. Artículos (Ignorar "El", "La", "The", etc. para priorizar bien)
-        articles = ['El ', 'La ', 'Los ', 'Las ', 'Un ', 'Una ', 'The ', 'A ', 'An ']
-        art_exacts = [f"{art}{query_str}" for art in articles]
-        art_starts = [f"{art}{query_str}%" for art in articles]
-            
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
                    genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
             FROM items 
-            WHERE title LIKE ? OR episode_title LIKE ? 
-               OR title LIKE ? OR episode_title LIKE ?
-               OR REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ?
+            WHERE title LIKE ? OR episode_title LIKE ? OR title LIKE ?
             ORDER BY 
                CASE 
-                    -- Prioridad -1: Coincidencia EXACTA del título (con o sin artículos/guiones)
                     WHEN title LIKE ? THEN -1
-                    WHEN title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? THEN -1
-                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN -1
-                    
-                    -- Prioridad 0: Empieza por la búsqueda (con o sin artículos/guiones)
                     WHEN title LIKE ? THEN 0
-                    WHEN title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? OR title LIKE ? THEN 0
-                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN 0
-                    
-                    -- Prioridad 1: Contiene la búsqueda
                     WHEN title LIKE ? THEN 1
-                    WHEN REPLACE(REPLACE(title, '-', ''), ' ', '') LIKE ? THEN 1
-                    
-                    -- Prioridad 2: Coincide en el título del episodio
-                    WHEN episode_title LIKE ? THEN 2
-                    ELSE 3 
+                    ELSE 2 
                END,
-               year DESC
+               date_added DESC
             LIMIT ?
         ''', (
             # WHERE
-            exact_like, exact_like, words_like, words_like, clean_like,
+            exact_like, exact_like, words_like,
             
-            # ORDER BY -1 (Exacta)
-            exact_match, *art_exacts, clean_match,
-            
-            # ORDER BY 0 (Empieza por)
-            exact_start, *art_starts, clean_start,
-            
-            # ORDER BY 1 (Contiene)
-            exact_like, clean_like,
-            
-            # ORDER BY 2 (Episodio)
-            exact_like,
+            # ORDER BY
+            exact_match, exact_start, exact_like,
             
             # LIMIT
             limit
