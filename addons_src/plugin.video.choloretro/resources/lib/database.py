@@ -56,15 +56,16 @@ def _decrypt_local_bin():
         import sys
         if not os.path.exists(BIN_FILE_LOCAL): return False
         with open(BIN_FILE_LOCAL, 'rb') as f:
-            data = f.read()
+            data = bytearray(f.read())
             
         _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
         key = bytes(_new_k)
             
-        # XOR de alto rendimiento
-        k = (key * (len(data) // len(key) + 1))[:len(data)]
-        decrypted_compressed = (int.from_bytes(data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(data), sys.byteorder)
-
+        # Desencriptación segura en memoria para evitar cuelgues (Out of Memory) en Android/Shield
+        key_len = len(key)
+        for i in range(len(data)):
+            data[i] ^= key[i % key_len]
+            
         decrypted_data = zlib.decompress(data)
         
         import uuid

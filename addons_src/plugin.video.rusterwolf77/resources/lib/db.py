@@ -124,10 +124,13 @@ def _decrypt_local_bin():
     encryption_key = bytes(_new_k)
     try:
         with open(BIN_FILE_LOCAL, 'rb') as f:
-            encrypted_data = f.read()
-        k = (encryption_key * (len(encrypted_data) // len(encryption_key) + 1))[:len(encrypted_data)]
-        decrypted_compressed = (int.from_bytes(encrypted_data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(encrypted_data), sys.byteorder)
-        decrypted_data = zlib.decompress(decrypted_compressed)
+            encrypted_data = bytearray(f.read())
+            
+        key_len = len(encryption_key)
+        for i in range(len(encrypted_data)):
+            encrypted_data[i] ^= encryption_key[i % key_len]
+            
+        decrypted_data = zlib.decompress(encrypted_data)
         
         tmp_db = DB_FILE + ".tmp"
         with open(tmp_db, 'wb') as f:
