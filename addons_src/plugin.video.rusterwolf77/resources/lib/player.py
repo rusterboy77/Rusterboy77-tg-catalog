@@ -12,16 +12,6 @@ import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
 import socket
 
-# 1. Fuerza IPv4 puro en Requests
-urllib3_cn.allowed_gai_family = lambda: socket.AF_INET
-# 2. Parche profundo de Socket (ÚNICA forma real de obligar a Android TV a ignorar IPv6)
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
-
 VALID_VIDEO_EXTS = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
 VALID_ARCHIVE_EXTS = ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')
 
@@ -47,7 +37,6 @@ def is_elementum_installed():
         return False
 
 def play_1fichier_with_alldebrid(encrypted_url, api_key):
-    """Desbloquea un enlace de 1fichier (previamente cifrado) usando AllDebrid."""
     agent = "RusterWolf77"
     base_url = "https://api.alldebrid.com/v4.1"
     

@@ -5,33 +5,18 @@ import json
 import xbmc
 import xbmcaddon
 import xbmcvfs
-
-# Usar requests en lugar de urllib soluciona los problemas de red y timeouts en Android TV
 import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
 import socket
-
-# 1. Fuerza IPv4 puro en Requests
-urllib3_cn.allowed_gai_family = lambda: socket.AF_INET
-# 2. Parche profundo de Socket (ÚNICA forma real de obligar a Android TV a ignorar IPv6)
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
 
 ADDON = xbmcaddon.Addon()
 addon_id = ADDON.getAddonInfo('id')
 ADDON_ICON = ADDON.getAddonInfo('icon')
 
-# Directorio persistente para archivos de configuración pequeños (estado de actualización)
 USERDATA = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
-# Directorio temporal para la base de datos descifrada, que se borrará al salir.
 TEMP_DIR = xbmcvfs.translatePath(f"special://temp/{addon_id}")
-DB_FILE = os.path.join(TEMP_DIR, 'session.db') # Usamos un nombre genérico
-BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp') # Archivo encriptado, oculto y en carpeta temporal
-
+DB_FILE = os.path.join(TEMP_DIR, 'session.db')
+BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp') 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
   "key" TEXT PRIMARY KEY,
@@ -87,14 +72,11 @@ def _upgrade_db_schema(db_path):
         try: conn.execute("CREATE INDEX IF NOT EXISTS idx_items_title_nocase ON items(title COLLATE NOCASE)")
         except Exception: pass
         
-        # Auto-reparador de Colecciones (Fusiona el estilo Moria con el estilo TMDB)
         try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' (Colección)', ' - Colección') WHERE collection_name LIKE '% (Colección)'")
         except Exception: pass
         try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' Colección', ' - Colección') WHERE collection_name LIKE '% Colección' AND collection_name NOT LIKE '% - Colección'")
         except Exception: pass
 
-        # Migración Ligera: Solo creamos las columnas si no existen para evitar que las queries fallen.
-        # Los datos reales (1 y 0) ya vendrán procesados desde el NAS para no saturar Kodi.
         try: 
             conn.execute("ALTER TABLE items ADD COLUMN is_anime INTEGER DEFAULT 0")
         except Exception: pass
@@ -122,7 +104,6 @@ def _upgrade_db_schema(db_path):
     except Exception: pass
 
 def _row_to_item(r):
-    """Helper unificado para parsear filas SQLite a diccionarios."""
     try: season_val = int(r[4]) if r[4] else None
     except: season_val = None
     try: episode_val = int(r[5]) if r[5] else None
@@ -165,7 +146,6 @@ def _decrypt_local_bin():
             if remaining:
                 f_out.write(remaining)
                 
-        # Forzar al Garbage Collector de Python a liberar toda la RAM usada por Zlib inmediatamente
         del decompressor
         import gc
         gc.collect()
@@ -190,7 +170,6 @@ def _decrypt_local_bin():
             try: os.remove(tmp_db)
             except: pass
             
-        # Asegurar que el esquema local está al día tras extraerlo de .bin
         _upgrade_db_schema(DB_FILE)
         return replaced or _is_db_valid()
     except Exception as e:
@@ -198,7 +177,6 @@ def _decrypt_local_bin():
         return False
 
 def _is_db_valid():
-    """Comprueba de forma ultra-rápida si la DB existe y no está corrupta."""
     if not os.path.exists(DB_FILE) or os.path.getsize(DB_FILE) < 100 * 1024:
         return False
     try:
@@ -214,14 +192,12 @@ def _is_db_valid():
         return False
 
 def ensure_session_db():
-    """Asegura que la DB en memoria temporal exista y sea VÁLIDA."""
     os.makedirs(TEMP_DIR, exist_ok=True)
     
     if not _is_db_valid():
         if os.path.exists(BIN_FILE_LOCAL):
             _decrypt_local_bin()
             
-            # Si tras la extracción sigue corrupta, el .bin original está dañado
             if not _is_db_valid():
                 try: os.remove(BIN_FILE_LOCAL)
                 except: pass
@@ -238,7 +214,6 @@ def ensure_session_db():
             except: pass
 
 def maybe_update_db_from_remote(force=False):
-    """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
     import time
     import xbmcgui
     
@@ -249,8 +224,6 @@ def maybe_update_db_from_remote(force=False):
     os.makedirs(TEMP_DIR, exist_ok=True)
     os.makedirs(USERDATA, exist_ok=True)
     
-    # Bloqueo anti-colisiones: Si cargan múltiples widgets a la vez y la DB no existe,
-    # evitamos que todos intenten descargarla al mismo tiempo.
     if not force and os.path.exists(lock_file):
         for _ in range(40): # Esperar hasta 20 segundos
             if not os.path.exists(lock_file):
@@ -259,10 +232,8 @@ def maybe_update_db_from_remote(force=False):
         ensure_session_db()
         return _is_db_valid()
 
-    # 1. Recuperar la BD a la memoria temporal si no existe
     ensure_session_db()
     
-    # Cooldown: 5 mins si la DB está bien, o 1 minuto si está rota (evita congelar Kodi repetidamente si no hay internet)
     db_is_ready = _is_db_valid()
     if not force and os.path.exists(last_update_file):
         try:
@@ -275,13 +246,10 @@ def maybe_update_db_from_remote(force=False):
         except Exception:
             pass
             
-    # Añadir timestamp para evitar la agresiva caché de Cloudflare R2
     url_r2 = f"https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/archivos.bin?t={int(time.time())}"
     
-    # User-Agent de Chrome real para evitar el firewall silencioso (Timeout) de Cloudflare R2
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
+    headers = {'User-Agent': 'Mozilla/5.0'}
     
-    # Si tenemos ETag, usar If-None-Match para ahorrar datos si la nube no ha cambiado
     if os.path.exists(BIN_FILE_LOCAL) and os.path.exists(etag_file) and not force:
         try:
             with open(etag_file, 'r') as f:
@@ -301,27 +269,37 @@ def maybe_update_db_from_remote(force=False):
         xbmcgui.Dialog().notification("RusterWolf", "Buscando actualizaciones...", ADDON_ICON, 2000)
         
     try:
-        # Activar bloqueo de hilo para widgets concurrentes
         with open(lock_file, 'w') as f: f.write('1')
 
+        new_etag = None
         try:
-            response = requests.get(url_r2, headers=headers, timeout=20, stream=True)
-        except requests.exceptions.RequestException as e:
-            raise Exception(f"Error de conexión: {e}")
+            res = requests.head(url_r2, headers=headers, timeout=5)
+            if res.status_code == 304:
+                xbmc.log("RusterWolf: Catálogo en R2 no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
+                with open(last_update_file, 'w') as f: f.write(str(time.time()))
+                if dp: dp.close()
+                return False
+            new_etag = res.headers.get('ETag')
+        except Exception:
+            pass
             
-        if response.status_code == 304:
-            xbmc.log("RusterWolf: Catálogo en R2 no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
-            with open(last_update_file, 'w') as f:
-                f.write(str(time.time()))
-            if dp: dp.close()
-            return False
+        vfs_url = f"{url_r2}|User-Agent=Mozilla/5.0"
+        f_in = xbmcvfs.File(vfs_url)
+        if f_in.size() <= 0:
+            f_in.close()
+            raise Exception("Kodi VFS C++ falló al conectar con Cloudflare R2.")
             
-        response.raise_for_status()
-        new_etag = response.headers.get('ETag')
-        
-        with open(BIN_FILE_LOCAL, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=1024*1024):
-                if chunk: f.write(chunk)
+        size = f_in.size()
+        downloaded = 0
+        with open(BIN_FILE_LOCAL, 'wb') as f_out:
+            while True:
+                chunk = f_in.readBytes(1024 * 1024)
+                if not chunk: break
+                f_out.write(chunk)
+                downloaded += len(chunk)
+                if dp and size > 0:
+                    dp.update(int((downloaded / size) * 100), "Guardando catálogo...")
+        f_in.close()
             
         if os.path.exists(BIN_FILE_LOCAL) and os.path.getsize(BIN_FILE_LOCAL) > 1024:
             if dp: dp.update(50, "Guardando actualización...")
@@ -329,7 +307,6 @@ def maybe_update_db_from_remote(force=False):
             # 2. Desencriptarlo hacia la memoria temporal para esta sesión
             if not _decrypt_local_bin() or not _is_db_valid():
                 if dp: dp.close()
-                # Borrar el binario corrupto que acabamos de descargar para forzar intento nuevo después
                 try: os.remove(BIN_FILE_LOCAL)
                 except: pass
                 if force: xbmcgui.Dialog().ok("RusterWolf - Error", "El catálogo descargado está corrupto. Inténtalo de nuevo.")
@@ -337,12 +314,10 @@ def maybe_update_db_from_remote(force=False):
                     
             _upgrade_db_schema(DB_FILE)
                 
-            # Guardar el ETag para futuras comprobaciones ultrarrápidas
             if new_etag:
                 with open(etag_file, 'w') as f:
                     f.write(new_etag)
 
-            # Registrar el momento exacto de la actualización exitosa
             with open(last_update_file, 'w') as f:
                 f.write(str(time.time()))
                 
@@ -362,7 +337,6 @@ def maybe_update_db_from_remote(force=False):
         if force:
             xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
     finally:
-        # Liberar siempre el archivo de bloqueo aunque haya un error
         if os.path.exists(lock_file):
             try: os.remove(lock_file)
             except: pass
@@ -398,7 +372,6 @@ def load_items_by_keys(keys):
     try:
         c = conn.cursor()
         items = []
-        # SQLite limita a 999 parámetros en IN(), procesamos en lotes de 900
         for i in range(0, len(keys), 900):
             batch = keys[i:i+900]
             placeholders = ','.join('?' for _ in batch)
@@ -482,7 +455,6 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
         elif sort_by == 'date_added':
             query += f" AND (last_year IS NULL OR last_year = '' OR CAST(SUBSTR(last_year, 1, 4) AS INTEGER) < {RECENT_YEAR_THRESHOLD})"
             
-        # EL GROUP BY DEBE IR SIEMPRE DESPUÉS DE LOS FILTROS 'WHERE/AND'
         if ft in ('tv', 'series', 'serie', 'series_documentary'):
             query += " GROUP BY title"
 

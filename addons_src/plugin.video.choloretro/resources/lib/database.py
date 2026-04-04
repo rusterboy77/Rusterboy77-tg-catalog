@@ -13,16 +13,6 @@ import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
 import socket
 
-# 1. Fuerza IPv4 puro en Requests
-urllib3_cn.allowed_gai_family = lambda: socket.AF_INET
-# 2. Parche profundo de Socket (ÚNICA forma real de obligar a Android TV a ignorar IPv6)
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
-
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
@@ -90,7 +80,6 @@ def _decrypt_local_bin():
             rem = decompressor.flush()
             if rem: f_out.write(rem)
          
-        # Forzar al Garbage Collector de Python a liberar toda la RAM usada por Zlib inmediatamente
         del decompressor
         import gc
         gc.collect()
@@ -105,7 +94,6 @@ def _decrypt_local_bin():
                 time.sleep(0.5)
                 
         if not replaced:
-            # Protección contra corrupción en Windows: No sobrescribir a lo bruto un archivo en uso
             if not _is_db_valid():
                 try:
                     os.remove(DB_FILE)
@@ -126,7 +114,6 @@ def _is_db_valid():
     try:
         conn = sqlite3.connect(DB_FILE)
         conn.execute("SELECT 1 FROM items LIMIT 1")
-        # Asegurar que el esquema tiene las últimas columnas (carpetas y colecciones)
         conn.execute("SELECT folder_id, collection_id FROM items LIMIT 1")
         conn.close()
         return True
@@ -155,14 +142,12 @@ def init_db():
     try:
         c = conn.cursor()
         c.executescript(_SCHEMA)
-        # Migraciones o indices adicionales si fueran necesarios
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_type ON items(type)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_title ON items(title)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_folder_id ON items(folder_id)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_collection_id ON items(collection_id)')
         c.execute('CREATE INDEX IF NOT EXISTS idx_items_date_added ON items(date_added)')
         
-        # Migración: Añadir columnas si no existen (en bloques separados para evitar fallos en cadena)
         try:
             c.execute("ALTER TABLE items ADD COLUMN folder_id TEXT")
         except:
@@ -305,7 +290,6 @@ def get_seasons(series_title):
     conn = get_connection()
     try:
         c = conn.cursor()
-        # Normalizamos titulo para busqueda si es necesario, aqui asumo exactitud o uso LIKE
         c.execute('SELECT DISTINCT season FROM items WHERE type="tv" AND title=? ORDER BY CAST(season AS INTEGER)', (series_title,))
         return [row['season'] for row in c.fetchall() if row['season']]
     finally:
@@ -324,7 +308,6 @@ def get_tv_shows():
     conn = get_connection()
     try:
         c = conn.cursor()
-        # Agrupamos por título pero seleccionamos TODOS los campos para tener metadata completa
         c.execute('SELECT * FROM items WHERE type="tv" GROUP BY title ORDER BY MAX(date_added) DESC')
         return [dict(row) for row in c.fetchall()]
     finally:
@@ -356,7 +339,6 @@ def get_collections(genre=None, exclude_genre=None, folder_id=None):
             c.execute(query, args)
         except sqlite3.OperationalError as e:
             if 'no such column' in str(e):
-                # Auto-recuperación: Intentar crear las columnas si faltan
                 try: c.execute("ALTER TABLE items ADD COLUMN collection_id TEXT")
                 except: pass
                 try: c.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
@@ -438,16 +420,12 @@ def get_items_by_folder(folder_id, limit=None, offset=None):
         conn.close()
 
 def update_db_from_remote():
-    """Descarga la base de datos pre-generada desde GitHub."""
-    # Añadir timestamp a la URL para evitar una respuesta de caché en Cloudflare
     url = f"{REMOTE_DB_URL}?t={int(time.time())}"
-    # Deducir la URL del version.txt basado en el REMOTE_DB_URL
     version_url = f"{REMOTE_DB_URL.rsplit('/', 1)[0]}/version_choloretro.txt?t={int(time.time())}"
     
     last_update_file = os.path.join(PROFILE_DIR, 'last_update.txt')
     local_version_file = os.path.join(PROFILE_DIR, 'version_choloretro.txt')
     
-    # Cooldown: 5 min si DB lista, 1 min si rota (evita congelar si no hay red)
     if os.path.exists(last_update_file):
         try:
             with open(last_update_file, 'r') as f:
@@ -459,13 +437,10 @@ def update_db_from_remote():
         except:
             pass
             
-    # User-Agent de Chrome real para evitar el firewall silencioso (Timeout) de Cloudflare R2
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
-    
-    # 1. Comprobar version.txt primero
     try:
-        response = requests.get(version_url, headers=headers, timeout=10)
-        remote_version = response.text.strip()
+        v_file = xbmcvfs.File(f"{version_url}|User-Agent=Mozilla/5.0")
+        remote_version = v_file.readBytes(1024).decode('utf-8').strip()
+        v_file.close()
     except Exception as e:
         log(f"Database: No se pudo verificar version_choloretro.txt remoto: {e}")
         remote_version = None
@@ -484,12 +459,19 @@ def update_db_from_remote():
             
     log(f"Database: Descargando nueva versión del catálogo...")
     try:
-        response = requests.get(url, headers=headers, timeout=30, stream=True)
-        response.raise_for_status()
+        vfs_url = f"{url}|User-Agent=Mozilla/5.0"
+        f_in = xbmcvfs.File(vfs_url)
+        if f_in.size() <= 0:
+            f_in.close()
+            raise Exception("Kodi VFS C++ falló al conectar con Cloudflare R2.")
+            
         os.makedirs(TEMP_DIR, exist_ok=True)
         with open(BIN_FILE_LOCAL, 'wb') as out_file:
-            for chunk in response.iter_content(chunk_size=1024*1024):
-                if chunk: out_file.write(chunk)
+            while True:
+                chunk = f_in.readBytes(1024 * 1024)
+                if not chunk: break
+                out_file.write(chunk)
+        f_in.close()
             
         if not _decrypt_local_bin() or not _is_db_valid():
             try: os.remove(BIN_FILE_LOCAL)
@@ -500,12 +482,10 @@ def update_db_from_remote():
         init_db()
         log("Database: Descarga y desencriptación exitosa en memoria temporal.")
 
-        # Guardar la nueva versión localmente
         if remote_version:
             with open(local_version_file, 'w') as f:
                 f.write(remote_version)
                 
-        # Registrar el momento exacto de la actualización exitosa
         with open(last_update_file, 'w') as f:
             f.write(str(time.time()))
             
@@ -525,7 +505,6 @@ def search_items_sql(query_str, limit=100, offset=0):
         exact_like = f"%{query_str}%"
         words_like = "%" + "%".join(query_str.split()) + "%"
         
-        # Busca coincidencias exactas o por palabras
         c.execute('''
             SELECT * FROM items 
             WHERE title LIKE ? OR title LIKE ?
