@@ -58,7 +58,7 @@
         
 
     </addon>
-    <addon id="plugin.video.choloretro" version="1.0.31" name="CholoRetro" provider-name="Rusterboy77">
+    <addon id="plugin.video.choloretro" version="1.0.32" name="CholoRetro" provider-name="Rusterboy77">
         
     
         <requires>
@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="2.0.5" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="2.0.6" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
@@ -135,6 +135,9 @@
             
         
             <import addon="script.module.pycryptodome"/>
+            
+        
+            <import addon="script.module.requests"/>
             
     
         </requires>

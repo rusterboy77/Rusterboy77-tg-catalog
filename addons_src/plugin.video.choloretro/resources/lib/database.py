@@ -5,20 +5,13 @@ import json
 import xbmcaddon
 import xbmcvfs
 import time
-import urllib.request
 import shutil
 import zlib
 from resources.lib.utils.tools import log
 
-# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
-# Evita que la descarga desde Cloudflare R2 falle con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
-import socket
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
+import requests
+import requests.packages.urllib3.util.connection as urllib3_cn
+urllib3_cn.HAS_IPV6 = False
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
@@ -460,9 +453,8 @@ def update_db_from_remote():
     
     # 1. Comprobar version.txt primero
     try:
-        req_v = urllib.request.Request(version_url, headers=headers)
-        with urllib.request.urlopen(req_v, timeout=10) as response:
-            remote_version = response.read().decode('utf-8').strip()
+        response = requests.get(version_url, headers=headers, timeout=10)
+        remote_version = response.text.strip()
     except Exception as e:
         log(f"Database: No se pudo verificar version_choloretro.txt remoto: {e}")
         remote_version = None
@@ -481,11 +473,12 @@ def update_db_from_remote():
             
     log(f"Database: Descargando nueva versión del catálogo...")
     try:
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=60) as response:
-            os.makedirs(TEMP_DIR, exist_ok=True)
-            with open(BIN_FILE_LOCAL, 'wb') as out_file:
-                shutil.copyfileobj(response, out_file)
+        response = requests.get(url, headers=headers, timeout=30, stream=True)
+        response.raise_for_status()
+        os.makedirs(TEMP_DIR, exist_ok=True)
+        with open(BIN_FILE_LOCAL, 'wb') as out_file:
+            for chunk in response.iter_content(chunk_size=1024*1024):
+                if chunk: out_file.write(chunk)
             
         if not _decrypt_local_bin() or not _is_db_valid():
             try: os.remove(BIN_FILE_LOCAL)

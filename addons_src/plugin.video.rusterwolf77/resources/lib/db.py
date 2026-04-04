@@ -6,15 +6,10 @@ import xbmc
 import xbmcaddon
 import xbmcvfs
 
-# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
-# Evita que la descarga desde Cloudflare R2 falle con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
-import socket
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
+# Usar requests en lugar de urllib soluciona los problemas de red y timeouts en Android TV
+import requests
+import requests.packages.urllib3.util.connection as urllib3_cn
+urllib3_cn.HAS_IPV6 = False
 
 ADDON = xbmcaddon.Addon()
 addon_id = ADDON.getAddonInfo('id')
@@ -236,8 +231,6 @@ def maybe_update_db_from_remote(force=False):
     """Descarga el archivo .bin encriptado de Cloudflare R2 y actualiza la BD local."""
     import time
     import xbmcgui
-    import urllib.request
-    import urllib.error
     
     last_update_file = os.path.join(USERDATA, 'last_update.txt')
     etag_file = os.path.join(USERDATA, 'etag.txt')
@@ -300,15 +293,25 @@ def maybe_update_db_from_remote(force=False):
         # Activar bloqueo de hilo para widgets concurrentes
         with open(lock_file, 'w') as f: f.write('1')
 
-        req = urllib.request.Request(url_r2, headers=headers)
-        with urllib.request.urlopen(req, timeout=30) as response:
-            new_etag = response.headers.get('ETag')
+        try:
+            response = requests.get(url_r2, headers=headers, timeout=20, stream=True)
+        except requests.exceptions.RequestException as e:
+            raise Exception(f"Error de conexión: {e}")
             
-            import shutil
-            # Descarga en streaming directa a disco para evitar cuelgues (OOM) en Android
-            with open(BIN_FILE_LOCAL, 'wb') as f:
-                shutil.copyfileobj(response, f, length=1024*1024)
-                
+        if response.status_code == 304:
+            xbmc.log("RusterWolf: Catálogo en R2 no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
+            with open(last_update_file, 'w') as f:
+                f.write(str(time.time()))
+            if dp: dp.close()
+            return False
+            
+        response.raise_for_status()
+        new_etag = response.headers.get('ETag')
+        
+        with open(BIN_FILE_LOCAL, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=1024*1024):
+                if chunk: f.write(chunk)
+            
         if os.path.exists(BIN_FILE_LOCAL) and os.path.getsize(BIN_FILE_LOCAL) > 1024:
             if dp: dp.update(50, "Guardando actualización...")
             
@@ -340,21 +343,6 @@ def maybe_update_db_from_remote(force=False):
             if dp: dp.close()
             if force:
                 xbmcgui.Dialog().ok("RusterWolf", "El archivo descargado está vacío o corrupto.")
-    except urllib.error.HTTPError as e:
-        if e.code == 304:
-            xbmc.log("RusterWolf: Catálogo en R2 no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
-            # Renovamos el tiempo de espera a 5 minutos en silencio
-            with open(last_update_file, 'w') as f:
-                f.write(str(time.time()))
-            if dp: dp.close()
-            return False
-        else:
-            if dp: dp.close()
-            xbmc.log(f"RusterWolf: Error HTTP actualizando DB desde R2: {e}", xbmc.LOGERROR)
-            with open(last_update_file, 'w') as f:
-                f.write(str(time.time()))
-            if force:
-                xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
     except Exception as e:
         if dp: dp.close()
         xbmc.log(f"RusterWolf: Error actualizando DB desde R2: {e}", xbmc.LOGERROR)

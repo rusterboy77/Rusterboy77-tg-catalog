@@ -1,5 +1,5 @@
 
-import xbmc, xbmcgui, xbmcaddon, xbmcvfs, urllib.request, urllib.error, urllib.parse, os, time, json, base64
+import xbmc, xbmcgui, xbmcaddon, xbmcvfs, urllib.parse, os, time, json, base64
 try:
     from Cryptodome.Cipher import AES
 except ImportError:
@@ -8,15 +8,9 @@ except ImportError:
 ADDON = xbmcaddon.Addon()
 ADDON_ICON = ADDON.getAddonInfo('icon')
 
-# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
-# Evita que las conexiones a Debrid fallen con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
-import socket
-_orig_getaddrinfo = socket.getaddrinfo
-def _ipv4_getaddrinfo(*args, **kwargs):
-    res = _orig_getaddrinfo(*args, **kwargs)
-    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
-    return ipv4_res if ipv4_res else res
-socket.getaddrinfo = _ipv4_getaddrinfo
+import requests
+import requests.packages.urllib3.util.connection as urllib3_cn
+urllib3_cn.HAS_IPV6 = False
 
 VALID_VIDEO_EXTS = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
 VALID_ARCHIVE_EXTS = ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')
@@ -57,8 +51,7 @@ def play_1fichier_with_alldebrid(encrypted_url, api_key):
 
         # 2. Desbloquear con AllDebrid
         url_unlock = f"{base_url}/link/unlock?agent={agent}&apikey={api_key}&link={urllib.parse.quote(plain_url)}"
-        with urllib.request.urlopen(urllib.request.Request(url_unlock)) as response:
-            res_unlock = json.loads(response.read())
+        res_unlock = requests.get(url_unlock, timeout=15).json()
             
         if res_unlock.get('status') != 'success':
             err_msg = res_unlock.get('error', {}).get('message', 'Error al desbloquear el enlace de AllDebrid')
@@ -81,9 +74,7 @@ def play_with_alldebrid(magnet, api_key):
         xbmcgui.Dialog().notification('AllDebrid', 'Comprobando caché instantánea...', ADDON_ICON)
         # 1. Subir magnet (Usando POST para evitar errores con enlaces muy largos)
         url_upload = f"{base_url}/magnet/upload?agent={agent}&apikey={api_key}"
-        data = urllib.parse.urlencode({'magnets[]': magnet}).encode('utf-8')
-        with urllib.request.urlopen(urllib.request.Request(url_upload, data=data)) as response:
-            res = json.loads(response.read())
+        res = requests.post(url_upload, data={'magnets[]': magnet}, timeout=15).json()
             
         if res.get('status') != 'success':
             err_msg = res.get('error', {}).get('message', 'Error subiendo enlace Magnet')
@@ -105,7 +96,7 @@ def play_with_alldebrid(magnet, api_key):
         if not magnet_data.get('ready'):
             # Borrarlo para no ensuciar la nube
             url_del = f"{base_url}/magnet/delete?agent={agent}&apikey={api_key}&id={magnet_id}"
-            urllib.request.urlopen(urllib.request.Request(url_del))
+            requests.get(url_del, timeout=10)
             xbmcgui.Dialog().notification('AllDebrid', 'Torrent no está en caché.', ADDON_ICON)
             return None
             
@@ -127,8 +118,7 @@ def play_with_alldebrid(magnet, api_key):
             return ext
         
         for _ in range(5): # Bucle de espera (hasta 10 segundos)
-            with urllib.request.urlopen(urllib.request.Request(url_status)) as response:
-                res_status = json.loads(response.read())
+            res_status = requests.get(url_status, timeout=15).json()
                 
             if res_status.get('status') != 'success':
                 err_msg = res_status.get('error', {}).get('message', 'Error obteniendo estado')
@@ -204,8 +194,7 @@ def play_with_alldebrid(magnet, api_key):
         
         # 4. Desbloquear para obtener enlace de descarga final (.mkv/.mp4)
         url_unlock = f"{base_url}/link/unlock?agent={agent}&apikey={api_key}&link={urllib.parse.quote(target_link)}"
-        with urllib.request.urlopen(urllib.request.Request(url_unlock)) as response:
-            res_unlock = json.loads(response.read())
+        res_unlock = requests.get(url_unlock, timeout=15).json()
             
         if res_unlock.get('status') != 'success':
             err_msg = res_unlock.get('error', {}).get('message', 'Error al desbloquear el enlace')
@@ -215,15 +204,14 @@ def play_with_alldebrid(magnet, api_key):
         xbmcgui.Dialog().notification('AllDebrid', '¡Reproducción instantánea lista!', ADDON_ICON)
         return res_unlock.get('data', {}).get('link')
         
-    except urllib.error.HTTPError as e:
+    except requests.exceptions.HTTPError as e:
         try:
-            err_res = json.loads(e.read())
+            err_res = e.response.json()
             err_msg = err_res.get('error', {}).get('message', f'HTTP Error {e.code}')
             xbmcgui.Dialog().ok('AllDebrid - Error HTTP', err_msg)
             xbmc.log(f"RusterWolf AD HTTP Error: {err_res}", xbmc.LOGERROR)
         except Exception:
-            xbmcgui.Dialog().ok('AllDebrid', f'Fallo de API: {e.code}')
-            xbmc.log(f"RusterWolf AD HTTP Error: {e.code}", xbmc.LOGERROR)
+            xbmcgui.Dialog().ok('AllDebrid', f'Fallo de API HTTP')
         return None
     except Exception as e:
         xbmcgui.Dialog().ok('AllDebrid', f'Fallo de conexión: {str(e)}')
@@ -238,23 +226,17 @@ def play_with_realdebrid(magnet, api_key):
     try:
         xbmcgui.Dialog().notification('Real-Debrid', 'Comprobando caché instantánea...', ADDON_ICON)
         # 1. Agregar magnet
-        data_add = urllib.parse.urlencode({'magnet': magnet}).encode('utf-8')
-        req = urllib.request.Request(f"{base_url}/torrents/addMagnet", data=data_add, headers=headers)
-        with urllib.request.urlopen(req) as response:
-            res = json.loads(response.read())
+        res = requests.post(f"{base_url}/torrents/addMagnet", data={'magnet': magnet}, headers=headers, timeout=15).json()
         
         torrent_id = res.get('id')
         if not torrent_id: return None
 
         # 2. Comprobar info e iniciar conversión si RD lo requiere
-        req_info = urllib.request.Request(f"{base_url}/torrents/info/{torrent_id}", headers=headers)
-        with urllib.request.urlopen(req_info) as response:
-            info = json.loads(response.read())
+        info = requests.get(f"{base_url}/torrents/info/{torrent_id}", headers=headers, timeout=15).json()
             
         if info.get('status') == 'magnet_conversion':
             time.sleep(3) # Pausa básica para conversión
-            with urllib.request.urlopen(req_info) as response:
-                info = json.loads(response.read())
+            info = requests.get(f"{base_url}/torrents/info/{torrent_id}", headers=headers, timeout=15).json()
         
         # 3. Seleccionar archivos
         if info.get('status') == 'waiting_files_selection':
@@ -265,23 +247,19 @@ def play_with_realdebrid(magnet, api_key):
                 # Comprobar si en su lugar son archivos comprimidos
                 rar_files = [str(f['id']) for f in files if f['path'].lower().endswith(VALID_ARCHIVE_EXTS)]
                 if rar_files:
-                    req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
-                    urllib.request.urlopen(req_del)
+                    requests.delete(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, timeout=10)
                     xbmcgui.Dialog().ok('Real-Debrid - Error', 'Este torrent contiene archivos comprimidos (.rar / .zip) y no se puede reproducir en streaming.\n\nPor favor, selecciona otra calidad en la lista.')
                     return None
                     
             file_selection = ','.join(video_files) if video_files else 'all'
             
-            req_sel = urllib.request.Request(f"{base_url}/torrents/selectFiles/{torrent_id}", data=urllib.parse.urlencode({'files': file_selection}).encode('utf-8'), headers=headers)
-            urllib.request.urlopen(req_sel)
+            requests.post(f"{base_url}/torrents/selectFiles/{torrent_id}", data={'files': file_selection}, headers=headers, timeout=15)
             
-            with urllib.request.urlopen(req_info) as response:
-                info = json.loads(response.read())
+            info = requests.get(f"{base_url}/torrents/info/{torrent_id}", headers=headers, timeout=15).json()
 
         # 4. Comprobar caché
         if info.get('status') != 'downloaded':
-            req_del = urllib.request.Request(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, method='DELETE')
-            urllib.request.urlopen(req_del)
+            requests.delete(f"{base_url}/torrents/delete/{torrent_id}", headers=headers, timeout=10)
             xbmcgui.Dialog().notification('Real-Debrid', 'Torrent no está en caché.', ADDON_ICON)
             return None
             
@@ -289,15 +267,13 @@ def play_with_realdebrid(magnet, api_key):
         links = info.get('links', [])
         if not links: return None
             
-        req_unr = urllib.request.Request(f"{base_url}/unrestrict/link", data=urllib.parse.urlencode({'link': links[0]}).encode('utf-8'), headers=headers)
-        with urllib.request.urlopen(req_unr) as response:
-            unr_info = json.loads(response.read())
+        unr_info = requests.post(f"{base_url}/unrestrict/link", data={'link': links[0]}, headers=headers, timeout=15).json()
             
         xbmcgui.Dialog().notification('Real-Debrid', '¡Reproducción instantánea lista!', ADDON_ICON)
         return unr_info.get('download')
         
-    except urllib.error.HTTPError as e:
-        xbmcgui.Dialog().notification('Real-Debrid', f'Error de API: {e.code}', ADDON_ICON)
+    except requests.exceptions.RequestException as e:
+        xbmcgui.Dialog().notification('Real-Debrid', f'Error de API', ADDON_ICON)
         return None
     except Exception as e:
         xbmcgui.Dialog().notification('Real-Debrid', 'Error desconocido', ADDON_ICON)
