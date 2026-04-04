@@ -11,7 +11,17 @@ from resources.lib.utils.tools import log
 
 import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
-urllib3_cn.HAS_IPV6 = False
+import socket
+
+# 1. Fuerza IPv4 puro en Requests
+urllib3_cn.allowed_gai_family = lambda: socket.AF_INET
+# 2. Parche profundo de Socket (ÚNICA forma real de obligar a Android TV a ignorar IPv6)
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_getaddrinfo(*args, **kwargs):
+    res = _orig_getaddrinfo(*args, **kwargs)
+    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
+    return ipv4_res if ipv4_res else res
+socket.getaddrinfo = _ipv4_getaddrinfo
 
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
@@ -449,7 +459,8 @@ def update_db_from_remote():
         except:
             pass
             
-    headers = {'User-Agent': 'Kodi-Choloretro'}
+    # User-Agent de Chrome real para evitar el firewall silencioso (Timeout) de Cloudflare R2
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
     
     # 1. Comprobar version.txt primero
     try:

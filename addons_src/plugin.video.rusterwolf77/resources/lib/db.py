@@ -9,7 +9,17 @@ import xbmcvfs
 # Usar requests en lugar de urllib soluciona los problemas de red y timeouts en Android TV
 import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
-urllib3_cn.HAS_IPV6 = False
+import socket
+
+# 1. Fuerza IPv4 puro en Requests
+urllib3_cn.allowed_gai_family = lambda: socket.AF_INET
+# 2. Parche profundo de Socket (ÚNICA forma real de obligar a Android TV a ignorar IPv6)
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_getaddrinfo(*args, **kwargs):
+    res = _orig_getaddrinfo(*args, **kwargs)
+    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
+    return ipv4_res if ipv4_res else res
+socket.getaddrinfo = _ipv4_getaddrinfo
 
 ADDON = xbmcaddon.Addon()
 addon_id = ADDON.getAddonInfo('id')
@@ -268,7 +278,8 @@ def maybe_update_db_from_remote(force=False):
     # Añadir timestamp para evitar la agresiva caché de Cloudflare R2
     url_r2 = f"https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/archivos.bin?t={int(time.time())}"
     
-    headers = {'User-Agent': 'Mozilla/5.0'}
+    # User-Agent de Chrome real para evitar el firewall silencioso (Timeout) de Cloudflare R2
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'}
     
     # Si tenemos ETag, usar If-None-Match para ahorrar datos si la nube no ha cambiado
     if os.path.exists(BIN_FILE_LOCAL) and os.path.exists(etag_file) and not force:
