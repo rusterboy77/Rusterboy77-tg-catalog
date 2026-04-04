@@ -10,6 +10,16 @@ import shutil
 import zlib
 from resources.lib.utils.tools import log
 
+# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
+# Evita que la descarga desde Cloudflare R2 falle con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
+import socket
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_getaddrinfo(*args, **kwargs):
+    res = _orig_getaddrinfo(*args, **kwargs)
+    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
+    return ipv4_res if ipv4_res else res
+socket.getaddrinfo = _ipv4_getaddrinfo
+
 ADDON = xbmcaddon.Addon()
 ADDON_ID = ADDON.getAddonInfo('id')
 PROFILE_DIR = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON_ID}")
@@ -191,14 +201,10 @@ def ensure_session_db():
                 except: pass
                 try: os.remove(os.path.join(PROFILE_DIR, 'version_choloretro.txt'))
                 except: pass
-                try: os.remove(os.path.join(PROFILE_DIR, 'last_update.txt'))
-                except: pass
                 init_db()
             else:
                 init_db()
         else:
-            try: os.remove(os.path.join(PROFILE_DIR, 'last_update.txt'))
-            except: pass
             init_db()
 
 def upsert_items(items):
@@ -438,11 +444,14 @@ def update_db_from_remote():
     last_update_file = os.path.join(PROFILE_DIR, 'last_update.txt')
     local_version_file = os.path.join(PROFILE_DIR, 'version_choloretro.txt')
     
-    # Cooldown de 5 minutos (300s) para no saturar la red al navegar por los menús
+    # Cooldown: 5 min si DB lista, 1 min si rota (evita congelar si no hay red)
     if os.path.exists(last_update_file):
         try:
             with open(last_update_file, 'r') as f:
-                if time.time() - float(f.read().strip()) < 300:
+                elapsed = time.time() - float(f.read().strip())
+                if _is_db_valid() and elapsed < 300:
+                    return False
+                elif not _is_db_valid() and elapsed < 60:
                     return False
         except:
             pass
@@ -500,6 +509,8 @@ def update_db_from_remote():
         
     except Exception as e:
         log(f"Database: Error actualizando DB remota: {e}")
+        with open(last_update_file, 'w') as f:
+            f.write(str(time.time()))
         return False
 
 def search_items_sql(query_str, limit=100, offset=0):

@@ -8,6 +8,16 @@ except ImportError:
 ADDON = xbmcaddon.Addon()
 ADDON_ICON = ADDON.getAddonInfo('icon')
 
+# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
+# Evita que las conexiones a Debrid fallen con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
+import socket
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_getaddrinfo(*args, **kwargs):
+    res = _orig_getaddrinfo(*args, **kwargs)
+    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
+    return ipv4_res if ipv4_res else res
+socket.getaddrinfo = _ipv4_getaddrinfo
+
 VALID_VIDEO_EXTS = ('.mp4', '.mkv', '.avi', '.m2ts', '.ts', '.mov', '.flv', '.wmv')
 VALID_ARCHIVE_EXTS = ('.rar', '.zip', '.iso', '.tar', '.7z', 'part01.rar', 'part1.rar')
 

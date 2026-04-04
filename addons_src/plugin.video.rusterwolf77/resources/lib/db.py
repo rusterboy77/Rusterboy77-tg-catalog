@@ -6,6 +6,16 @@ import xbmc
 import xbmcaddon
 import xbmcvfs
 
+# Parche Global para Android TV: Forzar IPv4 en las peticiones HTTP de Python
+# Evita que la descarga desde Cloudflare R2 falle con "Errno 101 Network is unreachable" por mal enrutamiento IPv6
+import socket
+_orig_getaddrinfo = socket.getaddrinfo
+def _ipv4_getaddrinfo(*args, **kwargs):
+    res = _orig_getaddrinfo(*args, **kwargs)
+    ipv4_res = [r for r in res if r[0] == socket.AF_INET]
+    return ipv4_res if ipv4_res else res
+socket.getaddrinfo = _ipv4_getaddrinfo
+
 ADDON = xbmcaddon.Addon()
 addon_id = ADDON.getAddonInfo('id')
 ADDON_ICON = ADDON.getAddonInfo('icon')
@@ -210,8 +220,6 @@ def ensure_session_db():
             if not _is_db_valid():
                 try: os.remove(BIN_FILE_LOCAL)
                 except: pass
-                try: os.remove(os.path.join(USERDATA, 'last_update.txt'))
-                except: pass
                 try: os.remove(os.path.join(USERDATA, 'etag.txt'))
                 except: pass
                 try: os.remove(DB_FILE)
@@ -219,8 +227,6 @@ def ensure_session_db():
             else:
                 _upgrade_db_schema(DB_FILE)
         else:
-            try: os.remove(os.path.join(USERDATA, 'last_update.txt'))
-            except: pass
             try: os.remove(os.path.join(USERDATA, 'etag.txt'))
             except: pass
             try: os.remove(DB_FILE)
@@ -253,12 +259,15 @@ def maybe_update_db_from_remote(force=False):
     # 1. Recuperar la BD a la memoria temporal si no existe
     ensure_session_db()
     
-    # Cooldown de 5 minutos SOLAMENTE si la BD ya existe y está funcional en RAM
+    # Cooldown: 5 mins si la DB está bien, o 1 minuto si está rota (evita congelar Kodi repetidamente si no hay internet)
     db_is_ready = _is_db_valid()
-    if not force and db_is_ready and os.path.exists(last_update_file):
+    if not force and os.path.exists(last_update_file):
         try:
             with open(last_update_file, 'r') as f:
-                if time.time() - float(f.read().strip()) < 300:
+                elapsed = time.time() - float(f.read().strip())
+                if db_is_ready and elapsed < 300:
+                    return False
+                elif not db_is_ready and elapsed < 60:
                     return False
         except Exception:
             pass
@@ -342,11 +351,15 @@ def maybe_update_db_from_remote(force=False):
         else:
             if dp: dp.close()
             xbmc.log(f"RusterWolf: Error HTTP actualizando DB desde R2: {e}", xbmc.LOGERROR)
+            with open(last_update_file, 'w') as f:
+                f.write(str(time.time()))
             if force:
                 xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
     except Exception as e:
         if dp: dp.close()
         xbmc.log(f"RusterWolf: Error actualizando DB desde R2: {e}", xbmc.LOGERROR)
+        with open(last_update_file, 'w') as f:
+            f.write(str(time.time()))
         if force:
             xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
     finally:
