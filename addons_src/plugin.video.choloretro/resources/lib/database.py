@@ -55,23 +55,32 @@ def _decrypt_local_bin():
     try:
         import sys
         if not os.path.exists(BIN_FILE_LOCAL): return False
-        with open(BIN_FILE_LOCAL, 'rb') as f:
-            data = bytearray(f.read())
             
         _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
         key = bytes(_new_k)
             
-        # Desencriptación segura en memoria para evitar cuelgues (Out of Memory) en Android/Shield
         key_len = len(key)
-        for i in range(len(data)):
-            data[i] ^= key[i % key_len]
-            
-        decrypted_data = zlib.decompress(data)
+        CHUNK_SIZE = 1035000
         
         import uuid
         tmp_db = DB_FILE + f".{uuid.uuid4().hex[:8]}.tmp"
-        with open(tmp_db, 'wb') as f:
-            f.write(decrypted_data)
+        decompressor = zlib.decompressobj()
+        
+        with open(BIN_FILE_LOCAL, 'rb') as f_in, open(tmp_db, 'wb') as f_out:
+            while True:
+                chunk = bytearray(f_in.read(CHUNK_SIZE))
+                if not chunk: break
+                for i in range(len(chunk)):
+                    chunk[i] ^= key[i % key_len]
+                dc = decompressor.decompress(chunk)
+                if dc: f_out.write(dc)
+            rem = decompressor.flush()
+            if rem: f_out.write(rem)
+         
+        # Forzar al Garbage Collector de Python a liberar toda la RAM usada por Zlib inmediatamente
+        del decompressor
+        import gc
+        gc.collect()
             
         replaced = False
         for _ in range(10):
@@ -116,6 +125,14 @@ def get_connection():
         os.makedirs(TEMP_DIR, exist_ok=True)
     conn = sqlite3.connect(DB_FILE, timeout=10)
     conn.row_factory = sqlite3.Row
+    try:
+        conn.execute("PRAGMA read_uncommitted = 1;")
+        conn.execute("PRAGMA journal_mode = OFF;")
+        conn.execute("PRAGMA synchronous = 0;")
+        conn.execute("PRAGMA cache_size = -2000;")
+        conn.execute("PRAGMA mmap_size = 0;")
+    except Exception:
+        pass
     return conn
 
 def init_db():

@@ -43,6 +43,11 @@ def _connect():
     conn = sqlite3.connect(DB_FILE, timeout=5, isolation_level=None)
     try:
         conn.execute("PRAGMA read_uncommitted = 1;")
+        # Optimizaciones extremas para Android TV / Fire Stick
+        conn.execute("PRAGMA journal_mode = OFF;") # Apaga escrituras temporales en disco
+        conn.execute("PRAGMA synchronous = 0;")    # Evita esperar a que el disco responda
+        conn.execute("PRAGMA cache_size = -2000;") # Limita la caché en RAM estricto a 2MB
+        conn.execute("PRAGMA mmap_size = 0;")      # Ahorra RAM desactivando mapeo de memoria
     except Exception:
         pass
     return conn
@@ -122,19 +127,33 @@ def _decrypt_local_bin():
     import zlib, sys
     _new_k = [69, 49, 121, 95, 107, 71, 57, 75, 49, 118, 50, 76, 95, 122, 78, 113, 81, 79, 113, 82, 52, 103, 57, 90, 45, 50, 120, 88, 56, 106, 84, 49, 107, 95, 79, 55, 121, 68, 50, 109, 80, 113, 119, 61]
     encryption_key = bytes(_new_k)
+    key_len = len(encryption_key)
+    CHUNK_SIZE = 1056000
+
     try:
-        with open(BIN_FILE_LOCAL, 'rb') as f:
-            encrypted_data = bytearray(f.read())
-            
-        key_len = len(encryption_key)
-        for i in range(len(encrypted_data)):
-            encrypted_data[i] ^= encryption_key[i % key_len]
-            
-        decrypted_data = zlib.decompress(encrypted_data)
-        
         tmp_db = DB_FILE + ".tmp"
-        with open(tmp_db, 'wb') as f:
-            f.write(decrypted_data)
+        decompressor = zlib.decompressobj()
+        
+        with open(BIN_FILE_LOCAL, 'rb') as f_in, open(tmp_db, 'wb') as f_out:
+            while True:
+                chunk = bytearray(f_in.read(CHUNK_SIZE))
+                if not chunk:
+                    break
+                for i in range(len(chunk)):
+                    chunk[i] ^= encryption_key[i % key_len]
+                    
+                decompressed_chunk = decompressor.decompress(chunk)
+                if decompressed_chunk:
+                    f_out.write(decompressed_chunk)
+            
+            remaining = decompressor.flush()
+            if remaining:
+                f_out.write(remaining)
+                
+        # Forzar al Garbage Collector de Python a liberar toda la RAM usada por Zlib inmediatamente
+        del decompressor
+        import gc
+        gc.collect()
             
         replaced = False
         for _ in range(10):
@@ -274,16 +293,16 @@ def maybe_update_db_from_remote(force=False):
 
         req = urllib.request.Request(url_r2, headers=headers)
         with urllib.request.urlopen(req, timeout=30) as response:
-            encrypted_data = response.read()
             new_etag = response.headers.get('ETag')
             
-        if len(encrypted_data) > 1024:
+            import shutil
+            # Descarga en streaming directa a disco para evitar cuelgues (OOM) en Android
+            with open(BIN_FILE_LOCAL, 'wb') as f:
+                shutil.copyfileobj(response, f, length=1024*1024)
+                
+        if os.path.exists(BIN_FILE_LOCAL) and os.path.getsize(BIN_FILE_LOCAL) > 1024:
             if dp: dp.update(50, "Guardando actualización...")
             
-            # 1. Guardar el archivo encriptado persistente en USERDATA
-            with open(BIN_FILE_LOCAL, 'wb') as f:
-                f.write(encrypted_data)
-                
             # 2. Desencriptarlo hacia la memoria temporal para esta sesión
             if not _decrypt_local_bin() or not _is_db_valid():
                 if dp: dp.close()
