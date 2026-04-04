@@ -20,7 +20,7 @@ TEMP_DIR = xbmcvfs.translatePath(f"special://temp/{ADDON_ID}")
 
 DB_FILE = os.path.join(TEMP_DIR, 'session.db')
 BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp')
-REMOTE_DB_URL = "https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/cache_choloretro.bin"
+REMOTE_DB_URL = "https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/cache_choloretro.bin"
 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
@@ -463,7 +463,7 @@ def update_db_from_remote():
         f_in = xbmcvfs.File(vfs_url)
         if f_in.size() <= 0:
             f_in.close()
-            raise Exception("Kodi VFS C++ falló al conectar con Cloudflare R2.")
+            raise Exception("Kodi VFS C++ falló al conectar con GitHub.")
             
         os.makedirs(TEMP_DIR, exist_ok=True)
         with open(BIN_FILE_LOCAL, 'wb') as out_file:

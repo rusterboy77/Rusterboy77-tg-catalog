@@ -246,7 +246,7 @@ def maybe_update_db_from_remote(force=False):
         except Exception:
             pass
             
-    url_r2 = f"https://pub-80ab14db311c4254ade7bac002c3ef53.r2.dev/archivos.bin?t={int(time.time())}"
+    url_r2 = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/archivos.bin?t={int(time.time())}"
     
     headers = {'User-Agent': 'Mozilla/5.0'}
     
@@ -259,7 +259,7 @@ def maybe_update_db_from_remote(force=False):
         except Exception:
             pass
             
-    xbmc.log(f"RusterWolf: Buscando actualización en R2...", xbmc.LOGINFO)
+    xbmc.log(f"RusterWolf: Buscando actualización en GitHub...", xbmc.LOGINFO)
     
     dp = None
     if force:
@@ -275,7 +275,7 @@ def maybe_update_db_from_remote(force=False):
         try:
             res = requests.head(url_r2, headers=headers, timeout=5)
             if res.status_code == 304:
-                xbmc.log("RusterWolf: Catálogo en R2 no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
+                xbmc.log("RusterWolf: Catálogo en GitHub no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
                 with open(last_update_file, 'w') as f: f.write(str(time.time()))
                 if dp: dp.close()
                 return False
@@ -287,7 +287,7 @@ def maybe_update_db_from_remote(force=False):
         f_in = xbmcvfs.File(vfs_url)
         if f_in.size() <= 0:
             f_in.close()
-            raise Exception("Kodi VFS C++ falló al conectar con Cloudflare R2.")
+            raise Exception("Kodi VFS C++ falló al conectar con GitHub.")
             
         size = f_in.size()
         downloaded = 0
@@ -321,7 +321,7 @@ def maybe_update_db_from_remote(force=False):
             with open(last_update_file, 'w') as f:
                 f.write(str(time.time()))
                 
-            xbmc.log(f"RusterWolf: Base de datos actualizada con éxito desde R2.", xbmc.LOGINFO)
+            xbmc.log(f"RusterWolf: Base de datos actualizada con éxito desde GitHub.", xbmc.LOGINFO)
             xbmcgui.Dialog().notification("RusterWolf", "Catálogo actualizado", ADDON_ICON, 3000)
             if dp: dp.close()
             return True
@@ -331,7 +331,7 @@ def maybe_update_db_from_remote(force=False):
                 xbmcgui.Dialog().ok("RusterWolf", "El archivo descargado está vacío o corrupto.")
     except Exception as e:
         if dp: dp.close()
-        xbmc.log(f"RusterWolf: Error actualizando DB desde R2: {e}", xbmc.LOGERROR)
+        xbmc.log(f"RusterWolf: Error actualizando DB desde GitHub: {e}", xbmc.LOGERROR)
         with open(last_update_file, 'w') as f:
             f.write(str(time.time()))
         if force:
