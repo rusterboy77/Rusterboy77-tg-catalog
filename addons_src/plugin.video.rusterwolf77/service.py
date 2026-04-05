@@ -8,6 +8,7 @@ import urllib.parse
 import time
 import os
 from resources.lib.db import get_next_episode
+import zlib
 
 # Intentar importar AddonSignals de forma segura
 try:
@@ -29,11 +30,23 @@ def get_last_played_from_history():
     try:
         profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
         hist_file = os.path.join(profile_dir, 'watch_history.json')
-        if not os.path.exists(hist_file):
+        
+        if not xbmcvfs.exists(hist_file):
             return None
             
-        with open(hist_file, 'r', encoding='utf-8') as f:
-            history = json.load(f)
+        history = None
+        try:
+            with open(hist_file, 'r', encoding='utf-8') as f:
+                history = json.load(f)
+        except Exception:
+            # Fallback nativo VFS para Android TV (Scoped Storage)
+            try:
+                vf = xbmcvfs.File(hist_file, 'r')
+                data = vf.read()
+                vf.close()
+                history = json.loads(data)
+            except Exception:
+                pass
             
         # Buscar el item con el timestamp más reciente
         if not history: return None
@@ -69,10 +82,12 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         self.upnext_sent = False
 
     def onPlayBackStopped(self):
-        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing')
+        # No limpiamos la propiedad inmediatamente. Motores como Elementum provocan 
+        # paradas en falso (dummy stops) al inicializar que rompen UpNext en Android TV.
+        pass
 
     def onPlayBackEnded(self):
-        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing')
+        pass
 
     def onAVStarted(self):
         self.upnext_sent = False
@@ -136,8 +151,8 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                 next_key = next_ep.get('key')
                 play_url = f"plugin://plugin.video.rusterwolf77/?action=select&key={urllib.parse.quote(next_key)}"
                 
-                # Crear ID numérico único para la serie basado en el nombre
-                show_id = abs(hash(tvshowtitle)) % 100000
+                # Crear ID numérico estable para la serie basado en el nombre
+                show_id = abs(zlib.crc32(tvshowtitle.encode('utf-8'))) % 100000
                 
                 payload = {
                     "addon_id": "plugin.video.rusterwolf77",
@@ -171,7 +186,9 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                 log(f"Enviando señal UpNext: {tvshowtitle} -> {next_title}")
                 if AddonSignals:
                     AddonSignals.sendSignal('upnext_data', payload)
-                self.upnext_sent = True
+            
+            # Marcamos como procesado aunque no haya next_ep, para evitar saturar la base de datos cada 5 seg.
+            self.upnext_sent = True
                 
         except Exception as e:
             log(f"Error checking UpNext: {e}")

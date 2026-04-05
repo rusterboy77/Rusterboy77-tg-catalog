@@ -339,14 +339,21 @@ def play_with_elementum(torrent_url, item_info=None):
         try:
             with open(tmp_file, 'w', encoding='utf-8') as f:
                 json.dump(watch_history, f, ensure_ascii=False, indent=2)
-            os.replace(tmp_file, watch_history_file)
+            try:
+                os.replace(tmp_file, watch_history_file)
+            except Exception:
+                if os.path.exists(watch_history_file):
+                    os.remove(watch_history_file)
+                os.rename(tmp_file, watch_history_file)
         except Exception:
             # Fallback: intentar con xbmcvfs (algunas plataformas requieren VFS)
             try:
                 data = json.dumps(watch_history, ensure_ascii=False, indent=2)
                 vf = xbmcvfs.File(tmp_file, 'w')
-                vf.write(data.encode('utf-8'))
+                vf.write(data)
                 vf.close()
+                if xbmcvfs.exists(watch_history_file):
+                    xbmcvfs.delete(watch_history_file)
                 xbmcvfs.rename(tmp_file, watch_history_file)
             except Exception as e:
                 xbmc.log(f"RusterWolf: error guardando historial (write fallback): {e}", xbmc.LOGERROR)

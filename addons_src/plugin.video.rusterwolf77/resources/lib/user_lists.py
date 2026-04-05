@@ -163,7 +163,12 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
         try:
             with open(pf, 'w', encoding='utf-8') as f:
                 json.dump(po, f, ensure_ascii=False, indent=2)
-        except Exception: pass
+        except Exception:
+            try:
+                vf = xbmcvfs.File(pf, 'w')
+                vf.write(json.dumps(po, ensure_ascii=False, indent=2))
+                vf.close()
+            except Exception: pass
     
     display_items.sort(key=lambda x: _parse_sort_time(x['sort_time']), reverse=True)
     

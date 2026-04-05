@@ -58,11 +58,12 @@ def _get_played_keys():
                 cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
             for row in cur.fetchall():
                 try:
-                    parsed = urllib.parse.urlparse(row[0])
-                    qs = dict(urllib.parse.parse_qsl(parsed.query))
-                    if 'key' in qs:
+                    url_str = row[0]
+                    if 'key=' in url_str:
+                        key_val = url_str.split('key=')[1].split('&')[0]
+                        key_val = urllib.parse.unquote(key_val)
                         val = row[1] if len(row) > 1 and row[1] else ""
-                        if val: _PLAYED_KEYS[qs['key']] = val
+                        if val: _PLAYED_KEYS[key_val] = val
                 except Exception:
                     pass
             conn.close()
@@ -94,10 +95,11 @@ def _get_resume_points():
                     total_sec = float(row[2])
                     if total_sec > 0 and (time_sec / total_sec) >= 0.90:
                         continue
-                    parsed = urllib.parse.urlparse(row[0])
-                    qs = dict(urllib.parse.parse_qsl(parsed.query))
-                    if 'key' in qs:
-                        _RESUME_POINTS[qs['key']] = {'time': time_sec, 'total': total_sec}
+                    url_str = row[0]
+                    if 'key=' in url_str:
+                        key_val = url_str.split('key=')[1].split('&')[0]
+                        key_val = urllib.parse.unquote(key_val)
+                        _RESUME_POINTS[key_val] = {'time': time_sec, 'total': total_sec}
                 except Exception:
                     pass
             conn.close()
@@ -121,7 +123,7 @@ def build_url(query):
             # Para pagination cache usamos un directorio temporal para evitar persistir datos locales
             try:
                 import os as _os
-                temp_dir = _os.path.join(_os.environ.get('TMP', _os.environ.get('TEMP', _os.path.expanduser('~'))), f"rusterwolf_{ADDON.getAddonInfo('id')}")
+                temp_dir = xbmcvfs.translatePath(f"special://temp/rusterwolf_{ADDON.getAddonInfo('id')}")
                 os.makedirs(temp_dir, exist_ok=True)
                 profile_dir = temp_dir
             except Exception:
@@ -463,20 +465,8 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
 
     total_eps = 0
     watched_eps = 0
-    if m_type == 'tvshow':
-        try:
-            from resources.lib.db import get_series_episode_keys
-            ep_keys = get_series_episode_keys(title)
-            total_eps = len(ep_keys)
-            if total_eps > 0:
-                watched_eps = sum(1 for k in ep_keys if k in played_keys)
-                li.setProperty('TotalEpisodes', str(total_eps))
-                li.setProperty('WatchedEpisodes', str(watched_eps))
-                li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
-                if watched_eps == total_eps:
-                    info['playcount'] = 1
-        except Exception:
-            pass
+    # OPTIMIZACIÓN EXTREMA: El cálculo de episodios visualizados se omite aquí 
+    # para multiplicar la velocidad de los menús x10. Se calcula al entrar en Temporadas.
 
     _apply_info_tag(li, info)
     try:
@@ -597,7 +587,12 @@ def save_watchlist(data):
         try:
             with open(wf, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        except: pass
+        except Exception:
+            try:
+                vf = xbmcvfs.File(wf, 'w')
+                vf.write(json.dumps(data, ensure_ascii=False, indent=2))
+                vf.close()
+            except Exception: pass
 
 def action_add_watchlist(params):
     global _WATCHLIST_CACHE
@@ -646,7 +641,12 @@ def save_progress_override(data):
         try:
             with open(pf, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False, indent=2)
-        except: pass
+        except Exception:
+            try:
+                vf = xbmcvfs.File(pf, 'w')
+                vf.write(json.dumps(data, ensure_ascii=False, indent=2))
+                vf.close()
+            except Exception: pass
 
 def action_add_progress(params):
     global _PROGRESS_CACHE

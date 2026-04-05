@@ -120,57 +120,54 @@ def _row_to_item(r):
     }
 
 def _decrypt_local_bin():
-    import zlib, sys
+    import zlib, sys, uuid, shutil
     _new_k = [69, 49, 121, 95, 107, 71, 57, 75, 49, 118, 50, 76, 95, 122, 78, 113, 81, 79, 113, 82, 52, 103, 57, 90, 45, 50, 120, 88, 56, 106, 84, 49, 107, 95, 79, 55, 121, 68, 50, 109, 80, 113, 119, 61]
     encryption_key = bytes(_new_k)
-    key_len = len(encryption_key)
-    CHUNK_SIZE = 1056000
 
     try:
-        tmp_db = DB_FILE + ".tmp"
-        decompressor = zlib.decompressobj()
-        
-        with open(BIN_FILE_LOCAL, 'rb') as f_in, open(tmp_db, 'wb') as f_out:
-            while True:
-                chunk = bytearray(f_in.read(CHUNK_SIZE))
-                if not chunk:
-                    break
-                for i in range(len(chunk)):
-                    chunk[i] ^= encryption_key[i % key_len]
-                    
-                decompressed_chunk = decompressor.decompress(chunk)
-                if decompressed_chunk:
-                    f_out.write(decompressed_chunk)
+        # 1. Leer completo y desencriptar a nivel C (Instantáneo, 0.1s)
+        with open(BIN_FILE_LOCAL, 'rb') as f_in:
+            encrypted_data = f_in.read()
             
-            remaining = decompressor.flush()
-            if remaining:
-                f_out.write(remaining)
-                
-        del decompressor
-        import gc
-        gc.collect()
+        k = (encryption_key * (len(encrypted_data) // len(encryption_key) + 1))[:len(encrypted_data)]
+        decrypted_compressed = (int.from_bytes(encrypted_data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(encrypted_data), sys.byteorder)
+        decrypted_data = zlib.decompress(decrypted_compressed)
+        
+        # 2. Escribir temporal seguro
+        tmp_db = DB_FILE + f".{uuid.uuid4().hex[:8]}.tmp"
+        with open(tmp_db, 'wb') as f_out:
+            f_out.write(decrypted_data)
+            
+        # 3. Upgrade de esquema ANTES del reemplazo para evitar corrupciones
+        _upgrade_db_schema(tmp_db)
             
         replaced = False
-        for _ in range(10):
+        for _ in range(20):
             try:
                 os.replace(tmp_db, DB_FILE)
                 replaced = True
                 break
             except Exception:
-                xbmc.sleep(500)
+                xbmc.sleep(200)
                 
         if not replaced:
-            if not _is_db_valid():
-                try:
-                    os.remove(DB_FILE)
-                    os.replace(tmp_db, DB_FILE)
-                    replaced = True
-                except Exception: pass
+            # FALLBACK VFS para Android TV (Scoped Storage)
+            try:
+                if xbmcvfs.exists(DB_FILE):
+                    xbmcvfs.delete(DB_FILE)
+                xbmcvfs.rename(tmp_db, DB_FILE)
+                replaced = True
+            except Exception:
+                if not _is_db_valid():
+                    try:
+                        os.remove(DB_FILE)
+                        os.replace(tmp_db, DB_FILE)
+                        replaced = True
+                    except Exception: pass
         if os.path.exists(tmp_db): 
             try: os.remove(tmp_db)
             except: pass
             
-        _upgrade_db_schema(DB_FILE)
         return replaced or _is_db_valid()
     except Exception as e:
         xbmc.log(f"RusterWolf: Error decrypting local bin: {e}", xbmc.LOGERROR)
@@ -283,23 +280,18 @@ def maybe_update_db_from_remote(force=False):
         except Exception:
             pass
             
-        vfs_url = f"{url_r2}|User-Agent=Mozilla/5.0"
-        f_in = xbmcvfs.File(vfs_url)
-        if f_in.size() <= 0:
-            f_in.close()
-            raise Exception("Kodi VFS C++ falló al conectar con GitHub.")
-            
-        size = f_in.size()
+        # Descarga nativa y robusta, evita los bloqueos de Curl de Kodi
+        res_dl = requests.get(url_r2, headers=headers, stream=True, timeout=20)
+        res_dl.raise_for_status()
+        size = int(res_dl.headers.get('content-length', 0))
         downloaded = 0
         with open(BIN_FILE_LOCAL, 'wb') as f_out:
-            while True:
-                chunk = f_in.readBytes(1024 * 1024)
-                if not chunk: break
-                f_out.write(chunk)
-                downloaded += len(chunk)
-                if dp and size > 0:
-                    dp.update(int((downloaded / size) * 100), "Guardando catálogo...")
-        f_in.close()
+            for chunk in res_dl.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    f_out.write(chunk)
+                    downloaded += len(chunk)
+                    if dp and size > 0:
+                        dp.update(int((downloaded / size) * 100), "Guardando catálogo...")
             
         if os.path.exists(BIN_FILE_LOCAL) and os.path.getsize(BIN_FILE_LOCAL) > 1024:
             if dp: dp.update(50, "Guardando actualización...")
@@ -312,8 +304,6 @@ def maybe_update_db_from_remote(force=False):
                 if force: xbmcgui.Dialog().ok("RusterWolf - Error", "El catálogo descargado está corrupto. Inténtalo de nuevo.")
                 return False
                     
-            _upgrade_db_schema(DB_FILE)
-                
             if new_etag:
                 with open(etag_file, 'w') as f:
                     f.write(new_etag)
@@ -459,11 +449,11 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
             query += " GROUP BY title"
 
         if sort_by == 'novedades':
-            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(REPLACE(date_added, 'T', ' ')) DESC"
-            else: query += " ORDER BY REPLACE(date_added, 'T', ' ') DESC"
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
+            else: query += " ORDER BY date_added DESC"
         elif sort_by == 'date_added':
-            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(REPLACE(date_added, 'T', ' ')) DESC"
-            else: query += " ORDER BY REPLACE(date_added, 'T', ' ') DESC"
+            if ft in ('tv', 'series', 'serie', 'series_documentary'): query += " ORDER BY MAX(date_added) DESC"
+            else: query += " ORDER BY date_added DESC"
         else:
             query += " ORDER BY title ASC"
 

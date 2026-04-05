@@ -56,42 +56,31 @@ CREATE TABLE IF NOT EXISTS items (
 
 def _decrypt_local_bin():
     try:
-        import sys
+        import sys, uuid, shutil
         if not os.path.exists(BIN_FILE_LOCAL): return False
             
         _new_k = [67, 104, 111, 108, 111, 82, 101, 116, 114, 111, 95, 83, 101, 99, 117, 114, 101, 95, 50, 48, 50, 53, 33]
         key = bytes(_new_k)
+        
+        with open(BIN_FILE_LOCAL, 'rb') as f_in:
+            encrypted_data = f_in.read()
             
-        key_len = len(key)
-        CHUNK_SIZE = 1035000
+        k = (key * (len(encrypted_data) // len(key) + 1))[:len(encrypted_data)]
+        decrypted_compressed = (int.from_bytes(encrypted_data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(encrypted_data), sys.byteorder)
+        decrypted_data = zlib.decompress(decrypted_compressed)
         
-        import uuid
         tmp_db = DB_FILE + f".{uuid.uuid4().hex[:8]}.tmp"
-        decompressor = zlib.decompressobj()
-        
-        with open(BIN_FILE_LOCAL, 'rb') as f_in, open(tmp_db, 'wb') as f_out:
-            while True:
-                chunk = bytearray(f_in.read(CHUNK_SIZE))
-                if not chunk: break
-                for i in range(len(chunk)):
-                    chunk[i] ^= key[i % key_len]
-                dc = decompressor.decompress(chunk)
-                if dc: f_out.write(dc)
-            rem = decompressor.flush()
-            if rem: f_out.write(rem)
-         
-        del decompressor
-        import gc
-        gc.collect()
+        with open(tmp_db, 'wb') as f_out:
+            f_out.write(decrypted_data)
             
         replaced = False
-        for _ in range(10):
+        for _ in range(20):
             try:
                 os.replace(tmp_db, DB_FILE)
                 replaced = True
                 break
             except Exception:
-                time.sleep(0.5)
+                time.sleep(0.2)
                 
         if not replaced:
             if not _is_db_valid():
@@ -105,7 +94,7 @@ def _decrypt_local_bin():
             except: pass
         return replaced or _is_db_valid()
     except Exception as e:
-        log(f"Database Error decrypting: {e}")
+        log(f"Database: Error decrypting local bin: {e}")
         return False
 
 def _is_db_valid():
@@ -459,20 +448,15 @@ def update_db_from_remote():
             
     log(f"Database: Descargando nueva versión del catálogo...")
     try:
-        vfs_url = f"{url}|User-Agent=Mozilla/5.0"
-        f_in = xbmcvfs.File(vfs_url)
-        if f_in.size() <= 0:
-            f_in.close()
-            raise Exception("Kodi VFS C++ falló al conectar con GitHub.")
-            
         os.makedirs(TEMP_DIR, exist_ok=True)
-        with open(BIN_FILE_LOCAL, 'wb') as out_file:
-            while True:
-                chunk = f_in.readBytes(1024 * 1024)
-                if not chunk: break
-                out_file.write(chunk)
-        f_in.close()
-            
+        res_dl = requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, stream=True, timeout=20)
+        res_dl.raise_for_status()
+        
+        with open(BIN_FILE_LOCAL, 'wb') as f_out:
+            for chunk in res_dl.iter_content(chunk_size=1024 * 1024):
+                if chunk:
+                    f_out.write(chunk)
+        
         if not _decrypt_local_bin() or not _is_db_valid():
             try: os.remove(BIN_FILE_LOCAL)
             except: pass
@@ -482,22 +466,19 @@ def update_db_from_remote():
         init_db()
         log("Database: Descarga y desencriptación exitosa en memoria temporal.")
 
+
         if remote_version:
             with open(local_version_file, 'w') as f:
                 f.write(remote_version)
                 
         with open(last_update_file, 'w') as f:
             f.write(str(time.time()))
-            
         return True
-        
     except Exception as e:
-        log(f"Database: Error actualizando DB remota: {e}")
-        with open(last_update_file, 'w') as f:
-            f.write(str(time.time()))
+        log(f"Database: Error actualizando desde remoto: {e}")
         return False
 
-def search_items_sql(query_str, limit=100, offset=0):
+def search_items(query_str, limit=50, offset=0):
     if not query_str: return []
     conn = get_connection()
     try:
