@@ -111,59 +111,6 @@ def build_url(query):
     import xbmc
     url = BASE_URL + '?' + urllib.parse.urlencode(query)
     xbmc.log(f"RusterWolf: build_url query={query} url={url}", xbmc.LOGDEBUG)
-    # Si es una URL de paginación (lista) intentar guardarla en el cache para
-    # que router pueda recuperar los parámetros si Kodi luego invoca la
-    # subcarpeta pasando sólo 'page'. Guardamos también '__last_filters' por acción.
-    try:
-        if isinstance(query, dict) and query.get('action') == 'list' and 'page' in query:
-            try:
-                profile_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON.getAddonInfo('id')}")
-            except Exception:
-                profile_dir = os.path.join(ADDON.getAddonInfo('path'), 'cache')
-            # Para pagination cache usamos un directorio temporal para evitar persistir datos locales
-            try:
-                import os as _os
-                temp_dir = xbmcvfs.translatePath(f"special://temp/rusterwolf_{ADDON.getAddonInfo('id')}")
-                os.makedirs(temp_dir, exist_ok=True)
-                profile_dir = temp_dir
-            except Exception:
-                pass
-            try:
-                os.makedirs(profile_dir, exist_ok=True)
-            except Exception:
-                pass
-            cache_file = os.path.join(profile_dir, 'pagination_cache.json')
-            data = {'entries': {}, '__last_filters': {}}
-            if os.path.exists(cache_file):
-                try:
-                    with open(cache_file, 'r', encoding='utf-8') as cf:
-                        data = json.load(cf) or data
-                except Exception:
-                    data = {'entries': {}, '__last_filters': {}}
-            entries = data.get('entries') or {}
-            last_filters = data.get('__last_filters') or {}
-            # Guardar esta URL -> query
-            entries[url] = query
-            # Mantener tamaño limitado
-            if len(entries) > 200:
-                keys = list(entries.keys())[-200:]
-                entries = {k: entries[k] for k in keys}
-            # actualizar last_filters
-            try:
-                act = query.get('action')
-                flt = query.get('filter') or query.get('origin')
-                if act and flt:
-                    last_filters[act] = flt
-            except Exception:
-                pass
-            data = {'entries': entries, '__last_filters': last_filters}
-            try:
-                with open(cache_file, 'w', encoding='utf-8') as cf:
-                    json.dump(data, cf)
-            except Exception:
-                pass
-    except Exception:
-        pass
     return url
 
 
@@ -982,7 +929,7 @@ def list_collections(filter_type=None, original_params=None, page=1):
         url_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'collection': c_name}
         if is_premium_req: url_params['base_genre'] = 'Premium'
         if genre_filter and str(genre_filter).lower() != 'premium': url_params['genre'] = genre_filter
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(url_params), li, True)
+        dir_items.append((build_url(url_params), li, True))
         
     q_base = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'group': 'collection'}
     if is_premium_req: q_base['base_genre'] = 'Premium'
@@ -992,14 +939,15 @@ def list_collections(filter_type=None, original_params=None, page=1):
         li_prev = xbmcgui.ListItem(label='Página anterior')
         q_prev = q_base.copy()
         q_prev['page'] = page - 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_prev), li_prev, True)
+        dir_items.append((build_url(q_prev), li_prev, True))
 
     if has_next_page:
         li_next = xbmcgui.ListItem(label='Siguiente página')
         q_next = q_base.copy()
         q_next['page'] = page + 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
+        dir_items.append((build_url(q_next), li_next, True))
         
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.setPluginFanart(HANDLE, ADDON_FANART)
     xbmcplugin.endOfDirectory(HANDLE)
 
@@ -1094,9 +1042,10 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
 
+    dir_items = []
     for it in page_items:
         li, url, is_folder = _create_item_and_url(it, ADDON_FANART, quality_filter)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
+        dir_items.append((url, li, is_folder))
 
     base_action = action_name or 'list'
     q_base = {'action': base_action}
@@ -1113,14 +1062,15 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
         li_prev = xbmcgui.ListItem(label='Página anterior')
         q_prev = q_base.copy()
         q_prev['page'] = page - 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_prev), li_prev, True)
+        dir_items.append((build_url(q_prev), li_prev, True))
 
     if has_next_page:
         li_next = xbmcgui.ListItem(label='Siguiente página')
         q_next = q_base.copy()
         q_next['page'] = page + 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
+        dir_items.append((build_url(q_next), li_next, True))
 
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def novedades(page=1, sub=None, genre_filter=None, original_params=None):
@@ -1165,9 +1115,10 @@ def novedades(page=1, sub=None, genre_filter=None, original_params=None):
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
 
+    dir_items = []
     for it in page_items:
         li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
+        dir_items.append((url, li, is_folder))
 
     base_q = {'action': 'novedades'}
     if sub: base_q['sub'] = sub
@@ -1179,14 +1130,15 @@ def novedades(page=1, sub=None, genre_filter=None, original_params=None):
         li_prev = xbmcgui.ListItem(label='Página anterior')
         q_prev = base_q.copy()
         q_prev['page'] = page - 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_prev), li_prev, True)
+        dir_items.append((build_url(q_prev), li_prev, True))
 
     if has_next_page:
         li_next = xbmcgui.ListItem(label='Siguiente página')
         q_next = base_q.copy()
         q_next['page'] = page + 1
-        xbmcplugin.addDirectoryItem(HANDLE, build_url(q_next), li_next, True)
+        dir_items.append((build_url(q_next), li_next, True))
 
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_seasons(series, target_quality=None):
@@ -1207,6 +1159,7 @@ def list_seasons(series, target_quality=None):
         
     played_keys = _get_played_keys()
     
+    dir_items = []
     season_keys = sorted(k for k in seasons.keys() if k)
     for season in season_keys:
         li = xbmcgui.ListItem(label=f"Temporada {season}")
@@ -1266,7 +1219,8 @@ def list_seasons(series, target_quality=None):
         if target_quality:
             q_params['target_quality'] = target_quality
         url = build_url(q_params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, True)
+        dir_items.append((url, li, True))
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_episodes(series, season, target_quality=None):
@@ -1289,6 +1243,7 @@ def list_episodes(series, season, target_quality=None):
     played_keys = _get_played_keys()
     resume_points = _get_resume_points()
     
+    dir_items = []
     for it in sorted(episodes, key=lambda x: int(x.get('episode') or 0)):
         try:
             ep_num = int(it.get('episode') or 0)
@@ -1375,7 +1330,8 @@ def list_episodes(series, season, target_quality=None):
         if target_quality:
             q_params['target_quality'] = target_quality
         url = build_url(q_params)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
+        dir_items.append((url, li, False))
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 
@@ -1446,18 +1402,20 @@ def do_search(q=None, original_params=None):
     except Exception:
         pass
     
+    dir_items = []
     # Mostrar series agrupadas
     for key, items_group in sorted(series_map.items(), key=lambda x: x[0]):
         # Elegir representante con mejor metadata
         rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
         li, url, is_folder = _create_item_and_url(rep, ADDON_FANART)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, is_folder)
+        dir_items.append((url, li, is_folder))
     
     # Mostrar películas
     for it in movies:
         li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
-        xbmcplugin.addDirectoryItem(HANDLE, url, li, False)
+        dir_items.append((url, li, is_folder))
     
+    xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def select_source(key=None, target_quality=None):
@@ -1826,98 +1784,18 @@ def router(params):
         # Si se solicitó agrupación (por género/año) pero no se indicó filter (movie/tv),
         # intentar usar 'origin' como fallback cuando 'filter' no venga.
         flt = params.get('filter') or params.get('origin')
-        # if original query used 'origin' but not 'filter', copy it so pagination links include filter
-        if not params.get('filter') and params.get('origin'):
-            params['filter'] = params.get('origin')
-        # Additional fallback: sometimes Kodi will invoke the plugin for a child
-        # directory passing only the changed params (e.g. page=2) and omit the
-        # original filter/origin. In that case try to recover the parent container
-        # path (which Kodi logs as ParentPath) via Container.FolderPath and parse
-        # its querystring to extract filter/origin.
+        
+        # Fallback en RAM: si una Skin recarga el contenedor y pierde los parámetros,
+        # leemos la URL original directamente de la memoria activa de Kodi sin usar el disco.
         if not flt:
             try:
-                parent_path = xbmc.getInfoLabel('Container.FolderPath') or ''
-                xbmc.log(f"RusterWolf: router Container.FolderPath={parent_path}", xbmc.LOGDEBUG)
+                parent_path = xbmc.getInfoLabel('Container.FolderPath')
                 if parent_path:
-                    parsed = urllib.parse.urlparse(parent_path)
-                    parent_q = dict(urllib.parse.parse_qsl(parsed.query))
-                    recovered = parent_q.get('filter') or parent_q.get('origin')
-                    if recovered:
-                        flt = recovered
-                        # also ensure params contains filter so pagination building sees it
-                        if not params.get('filter'):
-                            params['filter'] = recovered
-                        xbmc.log(f"RusterWolf: router recovered filter from Container.FolderPath={recovered}", xbmc.LOGDEBUG)
-                    else:
-                        # Si la query del ParentPath no tiene filter/origin, intentar recuperar desde el cache local
-                        try:
-                            try:
-                                profile_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON.getAddonInfo('id')}")
-                            except Exception:
-                                profile_dir = os.path.join(ADDON.getAddonInfo('path'), 'cache')
-                            cache_file = os.path.join(profile_dir, 'pagination_cache.json')
-                            if os.path.exists(cache_file):
-                                with open(cache_file, 'r', encoding='utf-8') as cf:
-                                    cache = json.load(cf) or {}
-                                # Normalize parent_path key (strip trailing slash)
-                                parent_key = parent_path.rstrip('/')
-                                # probar clave exacta y también sin el query ordenado
-                                candidate = None
-                                if parent_key in cache:
-                                    candidate = cache[parent_key]
-                                else:
-                                    # tratar de coincidir por querystring ignorando el orden
-                                    parsed_parent = urllib.parse.urlparse(parent_key)
-                                    parent_q_sorted = dict(urllib.parse.parse_qsl(parsed_parent.query))
-                                    # First try exact query match (ignoring trailing slash)
-                                    for k, v in cache.items():
-                                        try:
-                                            pk = urllib.parse.urlparse(k)
-                                            kq = dict(urllib.parse.parse_qsl(pk.query))
-                                            if kq == parent_q_sorted:
-                                                candidate = v
-                                                break
-                                        except Exception:
-                                            continue
-                                    # If no exact match, try to find cached entry with same action+page that DOES include filter/origin
-                                    if not candidate:
-                                        for k, v in cache.items():
-                                            try:
-                                                pk = urllib.parse.urlparse(k)
-                                                kq = dict(urllib.parse.parse_qsl(pk.query))
-                                                if kq.get('action') == parent_q_sorted.get('action') and kq.get('page') == parent_q_sorted.get('page') and (kq.get('filter') or kq.get('origin')):
-                                                    candidate = v
-                                                    break
-                                            except Exception:
-                                                continue
-                                if candidate:
-                                    recovered = candidate.get('filter') or candidate.get('origin')
-                                    if recovered:
-                                        flt = recovered
-                                        if not params.get('filter'):
-                                            params['filter'] = recovered
-                                        xbmc.log(f"RusterWolf: router recovered filter from pagination_cache for ParentPath={parent_path} -> {recovered}", xbmc.LOGDEBUG)
-                                else:
-                                    # intentar usar '__last_filters' para la acción si existe
-                                    try:
-                                        cache_file = os.path.join(profile_dir, 'pagination_cache.json')
-                                        if os.path.exists(cache_file):
-                                            with open(cache_file, 'r', encoding='utf-8') as cf:
-                                                data = json.load(cf) or {}
-                                            last_filters = data.get('__last_filters') or {}
-                                            act = parent_q.get('action') or 'list'
-                                            recovered = last_filters.get(act)
-                                            if recovered:
-                                                flt = recovered
-                                                if not params.get('filter'):
-                                                    params['filter'] = recovered
-                                                xbmc.log(f"RusterWolf: router recovered filter from __last_filters for action={act} -> {recovered}", xbmc.LOGDEBUG)
-                                    except Exception:
-                                        pass
-                        except Exception:
-                            pass
+                    parent_q = dict(urllib.parse.parse_qsl(urllib.parse.urlparse(parent_path).query))
+                    flt = parent_q.get('filter') or parent_q.get('origin')
             except Exception:
                 pass
+                
         xbmc.log(f"RusterWolf: router llama a list_items con filter_type={flt} page={page}", xbmc.LOGDEBUG)
         
         def cln(v): return None if str(v) == 'None' else v

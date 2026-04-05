@@ -176,6 +176,7 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
         _render_empty_state(handle, addon_fanart, icon_path, section_logo, 'No hay contenido en progreso', 'seguir_viendo')
         return
         
+    dir_items = []
     for di in display_items:
         if di['type'] == 'episode':
             ep = di['item']
@@ -225,7 +226,7 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
             if cm: li.addContextMenuItems(cm)
             
             url = build_url({'action': 'select', 'key': ident})
-            xbmcplugin.addDirectoryItem(handle, url, li, False)
+            dir_items.append((url, li, False))
             
         else:
             m = di['item']
@@ -255,8 +256,9 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
             if cm: li.addContextMenuItems(cm)
             
             url = build_url({'action': 'select', 'key': ident})
-            xbmcplugin.addDirectoryItem(handle, url, li, False)
+            dir_items.append((url, li, False))
     
+    xbmcplugin.addDirectoryItems(handle, dir_items)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle, succeeded=True, updateListing=False, cacheToDisc=True)
 
@@ -271,6 +273,7 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
         _render_empty_state(handle, addon_fanart, icon_path, section_logo, 'No hay elementos en Favoritos', 'favoritos')
         return
 
+    dir_items = []
     for uid, witem in sorted(wl.items(), key=lambda x: x[1].get('added', 0), reverse=True):
         try:
             wtype = witem.get('wtype')
@@ -319,9 +322,10 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
                     
                 cm = generate_cm(wtype, val, wtitle, is_watched, item_key=val if wtype=='movie' else None)
                 if cm: li.addContextMenuItems(cm)
-                xbmcplugin.addDirectoryItem(handle, url, li, isFolder)
+                dir_items.append((url, li, isFolder))
         except Exception as e:
             xbmc.log(f"RusterWolf: error en favoritos item: {e}", xbmc.LOGERROR)
             
+    xbmcplugin.addDirectoryItems(handle, dir_items)
     xbmcplugin.setPluginFanart(handle, addon_fanart)
     xbmcplugin.endOfDirectory(handle)

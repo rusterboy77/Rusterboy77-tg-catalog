@@ -152,7 +152,7 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                 play_url = f"plugin://plugin.video.rusterwolf77/?action=select&key={urllib.parse.quote(next_key)}"
                 
                 # Crear ID numérico estable para la serie basado en el nombre
-                show_id = abs(zlib.crc32(tvshowtitle.encode('utf-8'))) % 100000
+                show_id = abs(zlib.crc32((tvshowtitle or '').encode('utf-8'))) % 100000
                 
                 payload = {
                     "addon_id": "plugin.video.rusterwolf77",
