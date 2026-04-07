@@ -10,7 +10,6 @@ import os
 from resources.lib.db import get_next_episode
 import zlib
 
-# Intentar importar AddonSignals de forma segura
 try:
     import AddonSignals
 except ImportError:
@@ -26,7 +25,6 @@ def log(msg):
     xbmc.log(f"RusterWolf Service: {msg}", xbmc.LOGDEBUG)
 
 def get_last_played_from_history():
-    """Recupera el último item reproducido del historial si es reciente (< 2 min)."""
     try:
         profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
         hist_file = os.path.join(profile_dir, 'watch_history.json')
@@ -39,7 +37,6 @@ def get_last_played_from_history():
             with open(hist_file, 'r', encoding='utf-8') as f:
                 history = json.load(f)
         except Exception:
-            # Fallback nativo VFS para Android TV (Scoped Storage)
             try:
                 vf = xbmcvfs.File(hist_file, 'r')
                 data = vf.read()
@@ -48,14 +45,11 @@ def get_last_played_from_history():
             except Exception:
                 pass
             
-        # Buscar el item con el timestamp más reciente
         if not history: return None
         
-        # Ordenar por last_played descendente
         items = sorted(history.values(), key=lambda x: x.get('last_played', 0), reverse=True)
         last_item = items[0]
         
-        # Verificar si es reciente (menos de 1200 segundos = 20 min) para dar margen a Elementum
         if time.time() - last_item.get('last_played', 0) < 1200:
             return last_item
             
@@ -64,7 +58,6 @@ def get_last_played_from_history():
     return None
 
 def on_upnext_play_action(data):
-    """Callback cuando el usuario pulsa el botón 'Ver ahora' en la notificación."""
     if not data: return
     if isinstance(data, str):
         try: data = json.loads(data)
@@ -82,16 +75,22 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         self.upnext_sent = False
 
     def onPlayBackStopped(self):
-        # No limpiamos la propiedad inmediatamente. Motores como Elementum provocan 
-        # paradas en falso (dummy stops) al inicializar que rompen UpNext en Android TV.
-        pass
+        self._handle_playback_end(stopped=True)
 
     def onPlayBackEnded(self):
-        pass
+        self._handle_playback_end(stopped=False)
+        
+    def _handle_playback_end(self, stopped):
+        if xbmcgui.Window(10000).getProperty('Rusterwolf_Playing') != 'true': return
+        
+        key = xbmcgui.Window(10000).getProperty('Rusterwolf_Playing_Key')
+        if not key: return
+        
+        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing')
+        xbmcgui.Window(10000).clearProperty('Rusterwolf_Playing_Key')
 
     def onAVStarted(self):
         self.upnext_sent = False
-        # Esperamos un poco más para dar tiempo a Elementum a establecerse
         xbmc.sleep(3000)
         self.check_and_send_upnext()
 
@@ -99,11 +98,9 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         if self.upnext_sent: return
         if not self.isPlayingVideo(): return
         
-        # 1. Comprobar que es rusterwolf77 quien está reproduciendo
         if xbmcgui.Window(10000).getProperty('Rusterwolf_Playing') != 'true':
             return
             
-        # 2. Descartar archivos locales (Aceptamos http/https por debrid y plugin por Elementum)
         try:
             playing_file = self.getPlayingFile()
             if not (playing_file.startswith('http') or playing_file.startswith('plugin')):
@@ -111,13 +108,12 @@ class RusterWolfUpNextPlayer(xbmc.Player):
         except:
             pass
 
-        # Esperar a que haya duración válida (esencial para que NextUp calcule el tiempo)
         if self.getTotalTime() <= 0:
-            # log("Esperando duración válida...") # Demasiado ruido, mejor no loguear esto constantemente
+            
             return
 
         try:
-            # 1. Intentar obtener datos del player (Tags)
+            
             tag = self.getVideoInfoTag()
             
             try:
@@ -131,7 +127,7 @@ class RusterWolfUpNextPlayer(xbmc.Player):
             try: episode = int(tag.getEpisode())
             except: episode = 0
             
-            # 2. Si falla (Elementum a veces limpia los tags), usar FALLBACK del historial
+            
             if not tvshowtitle or season <= 0:
                 hist_item = get_last_played_from_history()
                 if hist_item:
@@ -139,11 +135,11 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                     season = int(hist_item.get('season') or 0)
                     episode = int(hist_item.get('episode') or 0)
 
-            # Validar que tenemos lo mínimo necesario
+            
             if not tvshowtitle or season <= 0:
                 return
             
-            # Buscar siguiente en DB
+            
             next_ep = get_next_episode(tvshowtitle, season, episode)
             
             if next_ep:
@@ -151,7 +147,6 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                 next_key = next_ep.get('key')
                 play_url = f"plugin://plugin.video.rusterwolf77/?action=select&key={urllib.parse.quote(next_key)}"
                 
-                # Crear ID numérico estable para la serie basado en el nombre
                 show_id = abs(zlib.crc32((tvshowtitle or '').encode('utf-8'))) % 100000
                 
                 payload = {
@@ -187,7 +182,7 @@ class RusterWolfUpNextPlayer(xbmc.Player):
                 if AddonSignals:
                     AddonSignals.sendSignal('upnext_data', payload)
             
-            # Marcamos como procesado aunque no haya next_ep, para evitar saturar la base de datos cada 5 seg.
+            
             self.upnext_sent = True
                 
         except Exception as e:
@@ -195,10 +190,8 @@ class RusterWolfUpNextPlayer(xbmc.Player):
 
 class RusterWolfMonitor(xbmc.Monitor):
     def onSettingsChanged(self):
-        # Evento nativo de Kodi: se dispara al cerrar la ventana de Ajustes tras guardar.
-        # Comprobamos si el usuario está actualmente navegando por el addon
         if xbmc.getInfoLabel('Container.PluginName') == 'plugin.video.rusterwolf77':
-            xbmc.sleep(200) # Pequeña pausa para que Kodi termine de escribir el archivo XML
+            xbmc.sleep(200) 
             xbmc.executebuiltin('Container.Refresh')
 
 if __name__ == '__main__':
@@ -210,23 +203,22 @@ if __name__ == '__main__':
     monitor = RusterWolfMonitor()
     player = RusterWolfUpNextPlayer()
     
+    update_checked = False
+    tick_counter = 0
+    
     while not monitor.abortRequested():
-        # Bucle de vigilancia
+        if not update_checked:
+            try:
+                from resources.lib.db import maybe_update_db_from_remote
+                log("Iniciando comprobación de BD en segundo plano...")
+                maybe_update_db_from_remote(force=False, silent=True)
+                update_checked = True
+            except Exception as e:
+                log(f"Error actualizando DB en background: {e}")
+                
         if player.isPlayingVideo() and not player.upnext_sent:
-            # Comprobar cada 5 segundos si ya tenemos duración y metadatos
             if monitor.waitForAbort(5): break
             player.check_and_send_upnext()
         else:
             if monitor.waitForAbort(5): break
-
-    # --- LIMPIEZA AL SALIR DE KODI ---
-    # El bucle ha terminado, lo que significa que Kodi se está cerrando.
-    # Borramos la base de datos temporal para no dejar rastros.
-    try:
-        addon_id_svc = ADDON.getAddonInfo('id')
-        temp_db_path = os.path.join(xbmcvfs.translatePath(f"special://temp/{addon_id_svc}"), 'session.db')
-        if xbmcvfs.exists(temp_db_path):
-            xbmcvfs.delete(temp_db_path)
-            log(f"Base de datos temporal eliminada con éxito: {temp_db_path}")
-    except Exception as e:
-        log(f"Error al eliminar la base de datos temporal en la salida: {e}")
+    pass

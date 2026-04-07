@@ -8,7 +8,6 @@ SECTION_PLOTS = {
 }
 
 def _render_empty_state(handle, addon_fanart, icon_path, section_logo, label_text, plot_key):
-    """Renderiza visualmente un listado vacío reutilizando la lógica común."""
     li = xbmcgui.ListItem(label=label_text)
     try:
         info_tag = li.getVideoInfoTag()
@@ -49,19 +48,43 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
         except Exception: return 0.0
         
     try:
-        # --- 1. SERIES EN CURSO (Lógica Rápida) ---
-        c.execute('SELECT "key", title, season, episode FROM items WHERE type IN ("tv", "series_documentary")')
-        tv_rows = c.fetchall()
+        all_active_keys = list(played_keys.keys()) + list(resume_points.keys())
+        active_tv_titles = set()
+        active_movie_keys = set()
         
+        if all_active_keys:
+            for i in range(0, len(all_active_keys), 900):
+                batch = all_active_keys[i:i+900]
+                placeholders = ','.join('?' for _ in batch)
+                c.execute(f'SELECT "key", title, type FROM items WHERE "key" IN ({placeholders})', batch)
+                for r in c.fetchall():
+                    k, t, itype = r
+                    if itype in ('tv', 'series_documentary'):
+                        if t: active_tv_titles.add(t)
+                    else:
+                        active_movie_keys.add(k)
+                        
+        for k, v in manual_items.items():
+            if v.get('wtype') == 'tv': active_tv_titles.add(v.get('title'))
+            elif v.get('wtype') == 'movie' and k not in hidden_items: active_movie_keys.add(k)
+                    
+        active_tv_titles = {t for t in active_tv_titles if normalize_title(t) not in hidden_items}
+
         series_data = {}
-        for r in tv_rows:
-            key, t, season, episode = r
-            if not t: continue
-            tn = normalize_title(t)
-            if tn in hidden_items: continue
-            if tn not in series_data:
-                series_data[tn] = {'title': t, 'episodes': []}
-            series_data[tn]['episodes'].append({'key': key, 'season': int(season) if season and str(season).isdigit() else 0, 'episode': int(episode) if episode and str(episode).isdigit() else 0})
+        if active_tv_titles:
+            titles_list = list(active_tv_titles)
+            for i in range(0, len(titles_list), 900):
+                batch = titles_list[i:i+900]
+                placeholders = ','.join('?' for _ in batch)
+                c.execute(f'SELECT "key", title, season, episode FROM items WHERE title IN ({placeholders})', batch)
+                
+                for r in c.fetchall():
+                    key, t, season, episode = r
+                    if not t: continue
+                    tn = normalize_title(t)
+                    if tn not in series_data:
+                        series_data[tn] = {'title': t, 'episodes': []}
+                    series_data[tn]['episodes'].append({'key': key, 'season': int(season) if season and str(season).isdigit() else 0, 'episode': int(episode) if episode and str(episode).isdigit() else 0})
             
         target_keys = []
         display_episodes_meta = {}
@@ -96,10 +119,10 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
             if target_ep:
                 ident = target_ep.get('key')
                 sort_time = "0.0"
-                if ident in resume_points: sort_time = played_keys.get(ident, str(time.time()))
+                if ident in resume_points: sort_time = resume_points[ident].get('last_played') or "0.0"
                 elif watched:
                     last_ident = watched[-1].get('key')
-                    sort_time = played_keys.get(last_ident, str(time.time()))
+                    sort_time = played_keys.get(last_ident, "0.0")
                 elif tn in manual_items: sort_time = str(manual_items[tn].get('added', 0))
                     
                 target_keys.append(ident)
@@ -109,15 +132,7 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
         xbmc.log(f"RusterWolf: Error procesando Up Next series: {e}", xbmc.LOGERROR)
 
     try:
-        # --- 2. EXTRAER KEYS PELÍCULAS ---
-        needed_movie_keys = []
-        for ident in list(resume_points.keys()):
-            if ident.startswith('movie_') and ident not in hidden_items:
-                needed_movie_keys.append(ident)
-        for k, v in manual_items.items():
-            if v.get('wtype') == 'movie' and k not in hidden_items:
-                needed_movie_keys.append(k)
-        needed_movie_keys = list(set(needed_movie_keys))
+        needed_movie_keys = list(active_movie_keys)
     except Exception as e:
         import xbmc
         xbmc.log(f"RusterWolf: Error procesando Up Next movies: {e}", xbmc.LOGERROR)
@@ -150,7 +165,7 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
                     json_changed = True
                 continue
                 
-            sort_time = played_keys.get(ident, str(time.time())) if is_resumed else str(manual_items[ident].get('added', 0))
+            sort_time = str(resume_points[ident].get('last_played') or "0.0") if is_resumed else str(manual_items.get(ident, {}).get('added', 0))
             display_items.append({
                 'type': 'movie',
                 'item': item,
@@ -265,13 +280,35 @@ def render_continue_watching(handle, addon_fanart, icon_path, section_logo,
 def render_favorites(handle, addon_fanart, icon_path, section_logo,
                      wl, played_keys, build_url, apply_info_tag, apply_art, generate_cm):
                      
-    from resources.lib.db import get_series_representative, load_items_by_keys, get_series_episodes
+    from resources.lib.db import load_items_by_keys, get_series_episodes, _connect, _row_to_item
     
     xbmcplugin.setContent(handle, 'movies')
     
     if not wl:
         _render_empty_state(handle, addon_fanart, icon_path, section_logo, 'No hay elementos en Favoritos', 'favoritos')
         return
+
+    movie_keys = [witem.get('val') for uid, witem in wl.items() if witem.get('wtype') == 'movie']
+    tv_titles = [witem.get('title') for uid, witem in wl.items() if witem.get('wtype') == 'tv']
+    
+    movies_data = {m['key']: m for m in load_items_by_keys(movie_keys)} if movie_keys else {}
+    
+    tv_reps = {}
+    if tv_titles:
+        conn = _connect()
+        try:
+            c = conn.cursor()
+            for i in range(0, len(tv_titles), 900):
+                batch = tv_titles[i:i+900]
+                placeholders = ','.join('?' for _ in batch)
+                c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title IN ({placeholders})', batch)
+                for r in c.fetchall():
+                    it = _row_to_item(r)
+                    t = it.get('title')
+                    if t not in tv_reps or (not tv_reps[t].get('poster') and it.get('poster')):
+                        tv_reps[t] = it
+        finally:
+            conn.close()
 
     dir_items = []
     for uid, witem in sorted(wl.items(), key=lambda x: x[1].get('added', 0), reverse=True):
@@ -285,7 +322,7 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
             isFolder = True
             
             if wtype == 'tv':
-                rep = get_series_representative(val)
+                rep = tv_reps.get(wtitle)
                 if not rep: 
                     li = xbmcgui.ListItem(label=wtitle)
                     apply_info_tag(li, {'title': wtitle, 'mediatype': 'tvshow'})
@@ -293,12 +330,11 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
                     li = xbmcgui.ListItem(label=rep.get('title') or wtitle)
                     apply_art(li, rep, addon_fanart)
                     apply_info_tag(li, {'title': rep.get('title'), 'plot': rep.get('overview'), 'mediatype': 'tvshow'})
-                url = build_url({'action': 'list_seasons', 'series': val})
+                url = build_url({'action': 'list_seasons', 'series': wtitle})
             
             elif wtype == 'movie':
-                found = load_items_by_keys([val])
-                if found:
-                    it = found[0]
+                it = movies_data.get(val)
+                if it:
                     li = xbmcgui.ListItem(label=it.get('title'))
                     apply_art(li, it, addon_fanart)
                     apply_info_tag(li, {'title': it.get('title'), 'plot': it.get('overview'), 'mediatype': 'movie'})
@@ -313,13 +349,6 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
                 is_watched = False
                 if wtype == 'movie' and val in played_keys:
                     is_watched = True
-                elif wtype == 'tv':
-                    try:
-                        eps = get_series_episodes(val)
-                        if eps and all(e.get('key') in played_keys for e in eps):
-                            is_watched = True
-                    except Exception: pass
-                    
                 cm = generate_cm(wtype, val, wtitle, is_watched, item_key=val if wtype=='movie' else None)
                 if cm: li.addContextMenuItems(cm)
                 dir_items.append((url, li, isFolder))

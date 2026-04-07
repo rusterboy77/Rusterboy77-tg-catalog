@@ -3,7 +3,7 @@ import xbmc, xbmcgui, xbmcaddon
 import urllib.request, urllib.parse, urllib.error, json, time
 
 ADDON = xbmcaddon.Addon()
-CLIENT_ID = "X245A4XAIBGVM" # ID por defecto para integraciones de terceros en Real-Debrid
+CLIENT_ID = "X245A4XAIBGVM"
 
 def auth():
     url = f"https://api.real-debrid.com/oauth/v2/device/code?client_id={CLIENT_ID}&new_credentials=yes"
@@ -42,7 +42,7 @@ def auth():
                 authorized = True
                 break
         except urllib.error.HTTPError as e:
-            pass # Un error 403 simplemente significa que el usuario aún no ha puesto el código
+            pass
         except Exception:
             pass
         
@@ -55,7 +55,6 @@ def auth():
         xbmcgui.Dialog().ok("Real-Debrid", "Autenticación cancelada o tiempo agotado.")
         return
 
-    # Paso final: Intercambiar el código por el token de acceso
     token_url = "https://api.real-debrid.com/oauth/v2/token"
     data = urllib.parse.urlencode({
         "client_id": client_id_new,

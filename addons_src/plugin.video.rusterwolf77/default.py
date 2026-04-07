@@ -2,13 +2,13 @@
 import sys, xbmc, xbmcgui, xbmcplugin, xbmcaddon, urllib.parse, xbmcvfs
 import json
 import unicodedata, re, os, threading, time
+import glob, sqlite3
 from resources.lib.player import is_elementum_installed, play_with_elementum, play_with_alldebrid, play_1fichier_with_alldebrid, play_with_realdebrid
 from resources.lib.db import load_items_by_keys
 
 ADDON = xbmcaddon.Addon()
 HANDLE = int(sys.argv[1])
 BASE_URL = sys.argv[0]
-# Resolver icono del addon (usar icon.png en la raíz o resources/media/icon.png si existe)
 try:
     ADDON_PATH = ADDON.getAddonInfo('path')
     ADDON_FANART = os.path.join(ADDON_PATH, 'resources', 'media', 'fanart.jpeg')
@@ -41,9 +41,9 @@ def _get_played_keys():
     global _PLAYED_KEYS
     if _PLAYED_KEYS is not None:
         return _PLAYED_KEYS
-    
     _PLAYED_KEYS = {}
-    import xbmc, xbmcvfs, os, glob, sqlite3, urllib.parse
+    import xbmc, xbmcvfs, os, glob, sqlite3
+    from urllib.parse import urlparse, parse_qs
     try:
         profile = xbmcvfs.translatePath('special://profile/')
         db_dir = os.path.join(profile, 'Database')
@@ -53,22 +53,20 @@ def _get_played_keys():
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
             try:
-                cur.execute("SELECT strFilename, lastPlayed FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
+                cur.execute("SELECT strFilename, lastPlayed FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND playCount > 0")
             except Exception:
-                cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
+                cur.execute("SELECT strFilename, NULL FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND playCount > 0")
             for row in cur.fetchall():
                 try:
-                    url_str = row[0]
-                    if 'key=' in url_str:
-                        key_val = url_str.split('key=')[1].split('&')[0]
-                        key_val = urllib.parse.unquote(key_val)
-                        val = row[1] if len(row) > 1 and row[1] else ""
-                        if val: _PLAYED_KEYS[key_val] = val
-                except Exception:
-                    pass
+                    qs = parse_qs(urlparse(row[0]).query)
+                    action = qs.get('action', [''])[0]
+                    if action in ('select', 'play'):
+                        key = qs.get('key', [''])[0]
+                        if key:
+                            _PLAYED_KEYS[key] = row[1] if len(row) > 1 and row[1] else "1"
+                except Exception: pass
             conn.close()
-    except Exception as e:
-        xbmc.log(f"RusterWolf: Error _get_played_keys: {e}", xbmc.LOGWARNING)
+    except Exception: pass
     return _PLAYED_KEYS
 
 _RESUME_POINTS = None
@@ -77,9 +75,9 @@ def _get_resume_points():
     global _RESUME_POINTS
     if _RESUME_POINTS is not None:
         return _RESUME_POINTS
-    
     _RESUME_POINTS = {}
-    import xbmc, xbmcvfs, os, glob, sqlite3, urllib.parse
+    import xbmc, xbmcvfs, os, glob, sqlite3
+    from urllib.parse import urlparse, parse_qs
     try:
         profile = xbmcvfs.translatePath('special://profile/')
         db_dir = os.path.join(profile, 'Database')
@@ -88,23 +86,18 @@ def _get_resume_points():
             db_path = sorted(db_candidates, key=lambda p: os.path.getmtime(p), reverse=True)[0]
             conn = sqlite3.connect(db_path)
             cur = conn.cursor()
-            cur.execute("SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND b.type = 1")
+            cur.execute("SELECT f.strFilename, b.timeInSeconds, b.totalTimeInSeconds, f.lastPlayed FROM bookmark b JOIN files f ON b.idFile = f.idFile WHERE f.strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND b.type = 1")
             for row in cur.fetchall():
                 try:
-                    time_sec = float(row[1])
-                    total_sec = float(row[2])
-                    if total_sec > 0 and (time_sec / total_sec) >= 0.90:
-                        continue
-                    url_str = row[0]
-                    if 'key=' in url_str:
-                        key_val = url_str.split('key=')[1].split('&')[0]
-                        key_val = urllib.parse.unquote(key_val)
-                        _RESUME_POINTS[key_val] = {'time': time_sec, 'total': total_sec}
-                except Exception:
-                    pass
+                    qs = parse_qs(urlparse(row[0]).query)
+                    action = qs.get('action', [''])[0]
+                    if action in ('select', 'play'):
+                        key = qs.get('key', [''])[0]
+                        if key:
+                            _RESUME_POINTS[key] = {'time': float(row[1]), 'total': float(row[2]), 'last_played': row[3]}
+                except Exception: pass
             conn.close()
-    except Exception as e:
-        xbmc.log(f"RusterWolf: Error _get_resume_points: {e}", xbmc.LOGWARNING)
+    except Exception: pass
     return _RESUME_POINTS
 
 def build_url(query):
@@ -116,7 +109,6 @@ def build_url(query):
 
 
 def normalize_title(s):
-    """Normaliza títulos para comparación (sin acentos, minúsculas, sin puntuación)."""
     if not s:
         return ''
     s2 = unicodedata.normalize('NFKD', str(s)).encode('ASCII', 'ignore').decode('ASCII')
@@ -137,7 +129,6 @@ def _read_items_per_page():
         return 24
 
 def _get_section_logo(section_key):
-    """Retorna el path del clearlogo para una sección si existe."""
     if not section_key:
         return None
     try:
@@ -151,7 +142,6 @@ def _get_section_logo(section_key):
     return None
 
 def _get_section_icon(section_key):
-    """Retorna el path del icono para una sección si existe."""
     if not section_key:
         return None
     try:
@@ -165,7 +155,6 @@ def _get_section_icon(section_key):
     return None
 
 def _get_current_section_safe_id(filter_type, genre_filter):
-    """Determina la ID segura de la sección en función del género y filtro actual."""
     if genre_filter:
         g_lower = genre_filter.lower()
         if 'dibujo' in g_lower: return 'dibujos'
@@ -179,20 +168,15 @@ def _get_current_section_safe_id(filter_type, genre_filter):
     return None
 
 def _is_valid_art_url(url):
-    """Valida que la URL de imagen no sea solo la base de TMDB (evita error 404 en logs)."""
     if not url: return False
     if url.endswith('/original') or url.endswith('/w500') or url.endswith('/w185') or url.endswith('/w300'):
         return False
     return True
 
 def _apply_art(li, item_dict, addon_fanart=None):
-    """Helper mínimo para añadir arte extra si está disponible en el item.
-    Añade keys: poster/thumb, fanart, clearlogo, banner, clearart.
-    """
     try:
         art = {}
         if not isinstance(item_dict, dict):
-            # Si no hay item_dict válido, al menos aplicar el fanart del addon
             if addon_fanart: art['fanart'] = addon_fanart
             if art:
                 try: li.setArt(art)
@@ -205,28 +189,23 @@ def _apply_art(li, item_dict, addon_fanart=None):
         fanart = item_dict.get('fanart') or item_dict.get('backdrop_path') or ''
         if _is_valid_art_url(fanart):
             art['fanart'] = fanart
-        # extra art metadata commonly used
         for k in ('clearlogo', 'banner', 'clearart'):
             v = item_dict.get(k)
             if _is_valid_art_url(v):
                 art[k] = v
-                # also expose common alias keys so skins that check 'logo' or 'icon' find them
                 if k == 'clearlogo':
                     art['logo'] = v
                     art['icon'] = v
                 if k == 'clearart' and 'icon' not in art:
                     art['icon'] = v
-        # Aplicar addon_fanart como fallback si el item no tiene fanart
         if 'fanart' not in art and addon_fanart:
             art['fanart'] = addon_fanart
-        # Aplicar arte al ListItem si existe
         if art:
             try:
                 li.setArt(art)
             except Exception:
                 pass
     except Exception:
-        # En caso de error, intentar al menos aplicar el fanart del addon
         art_fallback = {}
         if addon_fanart:
             art_fallback['fanart'] = addon_fanart
@@ -236,17 +215,27 @@ def _apply_art(li, item_dict, addon_fanart=None):
         pass
 
 def _set_unique_ids(li, item_dict):
-    """Configura los IDs únicos (TMDB) en el ListItem para que skins/helpers los detecten."""
     if not isinstance(item_dict, dict):
         return
+        
+    uids = {}
+    item_key = item_dict.get('key')
+    if item_key:
+        uids['rusterwolf'] = str(item_key)
+        
     tmdb_id = item_dict.get('tmdb_id')
-    if tmdb_id:
-        sid = str(tmdb_id)
+    is_episode = bool(item_dict.get('season')) and bool(item_dict.get('episode'))
+    
+    if tmdb_id and not is_episode:
+        uids['tmdb'] = str(tmdb_id)
+        li.setProperty('tmdb_id', str(tmdb_id))
+        
+    if uids:
         try:
-            li.getVideoInfoTag().setUniqueIDs({'tmdb': sid})
+            default_id = 'rusterwolf' if 'rusterwolf' in uids else 'tmdb'
+            li.getVideoInfoTag().setUniqueIDs(uids, default_id)
         except Exception:
             pass
-        li.setProperty('tmdb_id', sid)
 
 def _normalize_str(s):
     import unicodedata, re
@@ -260,7 +249,6 @@ def _normalize_str(s):
 
 
 def _get_item_type(it):
-    # try top-level then parsed, normalize aliases (map 'series' -> 'tv')
     t = ''
     try:
         t = (it.get('type') or (it.get('parsed') or {}).get('type') or '')
@@ -284,13 +272,11 @@ def _get_item_title(it):
 def _get_item_genres(it):
     try:
         g = it.get('genres') or (it.get('tmdb_top') and it.get('tmdb_top').get('genre_ids')) or []
-        # Normalize: always return a list of dicts with 'id' and 'name' when possible
         out = []
         if not isinstance(g, list):
             return []
         for x in g:
             if isinstance(x, dict):
-                # keep as-is if it has a name
                 if 'name' in x:
                     out.append(x)
                 elif 'id' in x:
@@ -301,21 +287,18 @@ def _get_item_genres(it):
                 name = TMDB_GENRE_MAP.get(int(x), str(x))
                 out.append({'id': x, 'name': name})
             else:
-                # string name
                 out.append({'id': None, 'name': str(x)})
         return out
     except Exception:
         return []
 
 def _is_item_premium(it):
-    """Detecta si un item tiene la etiqueta de género 'Premium'."""
     for g in (_get_item_genres(it) or []):
         gname = (g.get('name') if isinstance(g, dict) and 'name' in g else str(g)).strip().lower()
         if gname == 'premium':
             return True
     return False
 
-# Minimal TMDB genre id -> Spanish name mapping for common genres.
 TMDB_GENRE_MAP = {
     28: 'Acción', 12: 'Aventura', 16: 'Animación', 35: 'Comedia', 80: 'Crimen',
     99: 'Documental', 18: 'Drama', 10751: 'Familiar', 14: 'Fantasía', 36: 'Histórico',
@@ -329,7 +312,6 @@ def _get_item_year(it):
     try:
         y = it.get('year') or (it.get('parsed') or {}).get('year') or ''
         if not y:
-            # try tmdb_top first_air_date or release_date
             tm = it.get('tmdb_top') or {}
             y = (tm.get('first_air_date') or tm.get('release_date') or '')
             if isinstance(y, str) and len(y) >= 4:
@@ -340,6 +322,21 @@ def _get_item_year(it):
 
 def _apply_info_tag(li, info):
     try:
+        try:
+            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
+            li.setInfo('video', clean_info)
+        except Exception:
+            pass
+            
+        if info.get('playcount', 0) > 0:
+            li.setProperty('IsPlayed', 'true')
+            
+        if 'resume_time' in info and 'resume_total' in info:
+            li.setProperty('ResumeTime', str(info['resume_time']))
+            li.setProperty('TotalTime', str(info['resume_total']))
+            li.setProperty('inProgress', 'true')
+            li.setProperty('IsResumable', 'true')
+            
         tag = li.getVideoInfoTag()
         if info.get('title'):
             tag.setTitle(info.get('title'))
@@ -365,6 +362,11 @@ def _apply_info_tag(li, info):
                 tag.setTvShowTitle(info.get('tvshowtitle'))
             except Exception:
                 pass
+        if 'episodes' in info:
+            try:
+                tag.setEpisodes(int(info.get('episodes')))
+            except Exception:
+                pass
         if 'playcount' in info:
             try:
                 tag.setPlaycount(int(info.get('playcount')))
@@ -375,12 +377,15 @@ def _apply_info_tag(li, info):
                 tag.setResumePoint(float(info['resume_time']), float(info['resume_total']))
             except Exception:
                 pass
+        if info.get('duration'):
+            try: tag.setDuration(int(info.get('duration')))
+            except: pass
     except Exception as e:
         xbmc.log(f"RusterWolf: error aplicando InfoTagVideo: {e}", xbmc.LOGERROR)
 
-def _create_item_and_url(it, addon_fanart, quality_filter=None):
-    """Helper unificado para construir el ListItem, su metadata, su arte y su URL."""
+def _create_item_and_url(it, addon_fanart, quality_filter=None, tv_stats=None):
     title = _get_item_title(it)
+    item_key = it.get('key')
     mediatype_item = _get_item_type(it)
     m_type = 'tvshow' if mediatype_item in ('tv', 'series_documentary') else ('movie' if mediatype_item in ('movie', 'documentary') else None)
 
@@ -393,15 +398,25 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
         'cast': it.get('cast') or [],
         'mediatype': m_type
     }
+    
+    li = xbmcgui.ListItem(label=title)
 
     if m_type == 'tvshow':
         info['tvshowtitle'] = title
+        if tv_stats and title in tv_stats:
+            total_eps = tv_stats[title]['total']
+            watched_eps = tv_stats[title]['watched']
+            info['episodes'] = total_eps
+            li.setProperty('TotalEpisodes', str(total_eps))
+            li.setProperty('WatchedEpisodes', str(watched_eps))
+            li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
+            if watched_eps >= total_eps and total_eps > 0:
+                info['playcount'] = 1
+            else:
+                info.pop('playcount', None)
 
     played_keys = _get_played_keys()
     resume_points = _get_resume_points()
-    item_key = it.get('key')
-
-    li = xbmcgui.ListItem(label=title)
 
     if m_type == 'movie' and item_key in played_keys:
         info['playcount'] = 1
@@ -412,14 +427,8 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
 
     total_eps = 0
     watched_eps = 0
-    # OPTIMIZACIÓN EXTREMA: El cálculo de episodios visualizados se omite aquí 
-    # para multiplicar la velocidad de los menús x10. Se calcula al entrar en Temporadas.
 
     _apply_info_tag(li, info)
-    try:
-        safe_info = {k: v for k, v in info.items() if k not in ('cast', 'resume_time', 'resume_total') and v is not None}
-        li.setInfo('video', safe_info)
-    except Exception: pass
 
     try: _apply_art(li, it, addon_fanart)
     except Exception: pass
@@ -437,7 +446,7 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
     else:
         li.setProperty('IsPlayable', 'true')
         li.setMimeType('application/x-bittorrent')
-        item_key = it.get('key') # La clave del item, no de la fuente
+        item_key = it.get('key')
         q_params = {'action': 'select', 'key': item_key}
         if quality_filter: q_params['target_quality'] = quality_filter
         url = build_url(q_params)
@@ -450,11 +459,6 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None):
     return li, url, is_folder
 
 def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None):
-    """
-    Genera dinámicamente los botones del menú contextual dependiendo del estado del ítem.
-    item_type: 'movie', 'tv', 'season', 'episode'
-    val: El ID del elemento (item_key para pelis, título para series)
-    """
     cm = []
     if item_type in ('movie', 'tv'):
         wl = get_cached_watchlist()
@@ -486,8 +490,6 @@ def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, tota
             add_prog = build_url({'action': 'add_progress', 'wtype': item_type, 'val': val, 'title': title, 'key': item_key})
             cm.append(('Añadir a Seguir Viendo R77', f'RunPlugin({add_prog})'))
             
-    # Dejamos que Kodi gestione "Marcar como visto" de forma nativa para episodios y películas.
-    # Solo lo añadimos manualmente para TV y Seasons, ya que Kodi a veces no lo pone en carpetas de plugins.
     if item_type in ('tv', 'season'):
         if is_watched:
             cm.append(('Marcar como no visto', 'Action(ToggleWatched)'))
@@ -496,7 +498,6 @@ def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, tota
         
     return cm
 
-# --- Funciones para Watchlist (Seguir Viendo Manual) ---
 _WATCHLIST_CACHE = None
 _PROGRESS_CACHE = None
 
@@ -565,7 +566,6 @@ def action_remove_watchlist(params):
         xbmcgui.Dialog().notification('RusterWolf', 'Eliminado de Favoritos R77', ADDON_ICON)
         xbmc.executebuiltin('Container.Refresh')
 
-# --- Funciones para Seguir Viendo Manual ---
 def get_progress_file():
     try:
         profile_dir = xbmcvfs.translatePath(ADDON.getAddonInfo('profile'))
@@ -617,7 +617,6 @@ def action_remove_progress(params):
     save_progress_override(po)
     xbmcgui.Dialog().notification('RusterWolf', f'{params.get("title", "Elemento")} quitado de Seguir Viendo', ADDON_ICON)
     xbmc.executebuiltin('Container.Refresh')
-# --------------------------------------------------------
 
 
 def list_root():
@@ -714,13 +713,11 @@ def documentary_main_menu():
 
 
 def list_genres(filter_type=None, original_params=None):
-    """Lista géneros usando una lista estática para no saturar memoria RAM."""
     is_premium_req = False
     genre_filter = original_params.get('genre', '') if original_params else ''
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or genre_filter.lower() == 'premium'):
         is_premium_req = True
         
-    # Usar géneros de TMDB fijos para carga instantánea
     genres_list = ['Acción', 'Animación', 'Aventura', 'Bélica', 'Ciencia ficción', 'Comedia', 'Crimen', 'Documental', 'Drama', 'Familia', 'Fantasía', 'Historia', 'Misterio', 'Música', 'Romance', 'Suspense', 'Terror', 'Western']
 
     if not filter_type:
@@ -739,7 +736,6 @@ def list_genres(filter_type=None, original_params=None):
             info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception:
             pass
-        # use addon icon so skins render this list as square/icon like the main menu
         art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
@@ -748,7 +744,6 @@ def list_genres(filter_type=None, original_params=None):
             li.setArt(art_dict)
         except Exception:
             pass
-        # pass the real genre name so matching can be done by substring on the DB side
         combined_genre = gname
         if genre_filter in ('Retro', 'Dibujo', 'Anime'):
             combined_genre = f"{genre_filter}|{gname}"
@@ -762,7 +757,6 @@ def list_genres(filter_type=None, original_params=None):
 
 
 def list_years(filter_type=None, genre_filter=None, original_params=None):
-    """Listar años consultando eficientemente la DB."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
@@ -786,7 +780,6 @@ def list_years(filter_type=None, genre_filter=None, original_params=None):
             info_tag.setPlot(SECTION_PLOTS.get(safe_id, ''))
         except Exception:
             pass
-        # use addon icon so skins render this list as square/icon like the main menu
         art_dict = {'icon': icon_path, 'thumb': icon_path, 'fanart': ADDON_FANART}
         if section_logo:
             art_dict['clearlogo'] = section_logo
@@ -804,7 +797,6 @@ def list_years(filter_type=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_qualities(filter_type=None, genre_filter=None, original_params=None):
-    """Lista estática de calidades para no saturar memoria RAM."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
@@ -832,7 +824,6 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
             li.setArt(art_dict)
         except Exception:
             pass
-        # Construir URL con el filtro de calidad
         q_params = {'action': 'list', 'filter': filter_type, 'origin': filter_type, 'quality': qname}
         if genre_filter and genre_filter.lower() != 'premium':
             q_params['genre'] = genre_filter
@@ -844,7 +835,6 @@ def list_qualities(filter_type=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_letters(filter_type=None, genre_filter=None, original_params=None):
-    """Lista letras iniciales consultando la DB eficientemente."""
     is_premium_req = False
     if original_params and (original_params.get('base_genre', '').lower() == 'premium' or original_params.get('genre', '').lower() == 'premium'):
         is_premium_req = True
@@ -879,7 +869,6 @@ def list_letters(filter_type=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_collections(filter_type=None, original_params=None, page=1):
-    """Lista colecciones usando consulta SQL paginada."""
     is_premium_req = False
     genre_filter = None
     if original_params:
@@ -896,6 +885,7 @@ def list_collections(filter_type=None, original_params=None, page=1):
     section_logo = _get_section_logo(safe_id)
 
     xbmcplugin.setContent(HANDLE, 'movies')
+    dir_items = []
     
     collections = get_collections_paginated(filter_type, limit=per_page + 1, offset=offset, genre=genre_filter, is_premium_req=is_premium_req)
     has_next_page = len(collections) > per_page
@@ -1041,10 +1031,16 @@ def list_items(filter_type=None, page=1, action_name=None, group_by=None, genre_
     elif ft in ('movie', 'pelicula', 'documentary'):
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
+        
+    tv_titles = [it.get('title') for it in page_items if _get_item_type(it) in ('tv', 'tvshow')]
+    tv_stats = {}
+    if tv_titles:
+        from resources.lib.db import get_tv_watched_stats
+        tv_stats = get_tv_watched_stats(tv_titles, _get_played_keys())
 
     dir_items = []
     for it in page_items:
-        li, url, is_folder = _create_item_and_url(it, ADDON_FANART, quality_filter)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART, quality_filter, tv_stats)
         dir_items.append((url, li, is_folder))
 
     base_action = action_name or 'list'
@@ -1080,7 +1076,6 @@ def novedades(page=1, sub=None, genre_filter=None, original_params=None):
     elif sub == 'documentary': used_filter = 'documentary'
     elif sub == 'series_documentary': used_filter = 'series_documentary'
 
-    # Red de seguridad extrema por si 'sub' no llega pero 'filter' sí
     if not used_filter and isinstance(original_params, dict):
         used_filter = original_params.get('filter') or original_params.get('origin')
 
@@ -1114,10 +1109,16 @@ def novedades(page=1, sub=None, genre_filter=None, original_params=None):
     elif ft in ('movie', 'pelicula', 'documentary'):
         try: xbmcplugin.setContent(HANDLE, 'movies')
         except: pass
+        
+    tv_titles = [it.get('title') for it in page_items if _get_item_type(it) in ('tv', 'tvshow')]
+    tv_stats = {}
+    if tv_titles:
+        from resources.lib.db import get_tv_watched_stats
+        tv_stats = get_tv_watched_stats(tv_titles, _get_played_keys())
 
     dir_items = []
     for it in page_items:
-        li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART, None, tv_stats)
         dir_items.append((url, li, is_folder))
 
     base_q = {'action': 'novedades'}
@@ -1142,7 +1143,6 @@ def novedades(page=1, sub=None, genre_filter=None, original_params=None):
     xbmcplugin.endOfDirectory(HANDLE)
 
 def list_seasons(series, target_quality=None):
-    """Lista las temporadas disponibles para una serie (por título de serie)."""
     try:
         from resources.lib.db import get_series_episodes
         catalog = get_series_episodes(series)
@@ -1163,7 +1163,6 @@ def list_seasons(series, target_quality=None):
     season_keys = sorted(k for k in seasons.keys() if k)
     for season in season_keys:
         li = xbmcgui.ListItem(label=f"Temporada {season}")
-        # Añadir metadata útil para que Kodi reconozca la relación con la serie
         try:
             info = {
                 'tvshowtitle': series,
@@ -1176,30 +1175,34 @@ def list_seasons(series, target_quality=None):
             total_eps = len(season_eps)
             if total_eps > 0:
                 watched_eps = sum(1 for e in season_eps if e.get('key') in played_keys)
+                info['episodes'] = total_eps
                 li.setProperty('TotalEpisodes', str(total_eps))
                 li.setProperty('WatchedEpisodes', str(watched_eps))
                 li.setProperty('UnWatchedEpisodes', str(total_eps - watched_eps))
-                if watched_eps == total_eps:
+                if watched_eps >= total_eps and total_eps > 0:
                     info['playcount'] = 1
+                else:
+                    info.pop('playcount', None)
                     
-            li.setInfo('video', info)
+            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
+            li.setInfo('video', clean_info)
             tag = li.getVideoInfoTag()
             tag.setTitle(f"Temporada {season}")
             tag.setTvShowTitle(series)
             tag.setMediaType('season')
             if info['season'] is not None:
                 tag.setSeason(info['season'])
+            if 'episodes' in info:
+                tag.setEpisodes(info['episodes'])
             if 'playcount' in info:
                 tag.setPlaycount(info['playcount'])
         except Exception:
             pass
-        # Intentar poner una imagen representativa si existe en alguno de los items
         try:
             rep = sorted(seasons.get(season, []), key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
             try:
                 _apply_art(li, rep, ADDON_FANART)
             except Exception:
-                # fallback setArt on poster only
                 poster = rep.get('poster') or rep.get('fanart') or ''
                 if poster:
                     try:
@@ -1253,8 +1256,6 @@ def list_episodes(series, season, target_quality=None):
         ep_title = it.get('episode_title') or it.get('title') or f"Episodio {ep_num}"
 
         li = xbmcgui.ListItem(label=ep_title)
-        # Metadata para que Kodi lo trate como episodio perteneciente a la serie
-        # Preferir overview del episodio si existe, sino overview general
         ep_plot = it.get('episode_overview') or it.get('overview') or it.get('plot') or ''
         info = {
             'title': ep_title,
@@ -1275,13 +1276,15 @@ def list_episodes(series, season, target_quality=None):
             info['resume_total'] = resume_points[item_key]['total']
             li.setProperty('ResumeTime', str(info['resume_time']))
             li.setProperty('TotalTime', str(info['resume_total']))
+            li.setProperty('inProgress', 'true')
+            li.setProperty('IsResumable', 'true')
             
         try:
-            li.setInfo('video', info)
+            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
+            li.setInfo('video', clean_info)
         except Exception:
             pass
             
-        # Siempre aplicar InfoTagVideo para Kodi 20+ y skins como Arctic Fuse
         try:
             tag = li.getVideoInfoTag()
             tag.setTitle(info.get('title', ''))
@@ -1300,9 +1303,7 @@ def list_episodes(series, season, target_quality=None):
                 tag.setResumePoint(float(info['resume_time']), float(info['resume_total']))
         except Exception:
             pass
-        # Arte si está disponible
         try:
-            # Preferir imagen fija del episodio (still) si está disponible
             poster = it.get('still_path') or it.get('poster') or it.get('fanart') or ''
             try:
                 _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, ADDON_FANART)
@@ -1336,12 +1337,6 @@ def list_episodes(series, season, target_quality=None):
 
 
 def do_search(q=None, original_params=None):
-    """Buscar contenido en el catálogo con resultados agrupados y vista mejorada.
-
-    Si se pasa `q` (string), la búsqueda se realiza sin abrir el teclado. Si
-    `q` es None, se muestra el teclado como hasta ahora.
-    """
-    # Si se nos pasó una query por URL, usarla; sino abrir teclado
     if q is None:
         kb = xbmc.Keyboard('', 'Buscar...')
         kb.doModal()
@@ -1353,7 +1348,6 @@ def do_search(q=None, original_params=None):
             xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
             return
             
-        # Evitar doble teclado redirigiendo a la ruta con el parámetro
         url = build_url({'action': 'search', 'q': q})
         xbmc.executebuiltin(f'Container.Update({url})')
         xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
@@ -1367,18 +1361,16 @@ def do_search(q=None, original_params=None):
             return
     
     try:
-        # Búsqueda optimizada por SQL
         from resources.lib.db import search_items_sql
-        results = search_items_sql(q, limit=150) # Límite ampliado, rendimiento mejorado
+        results = search_items_sql(q, limit=150)
     except Exception:
         results = []
 
     if not results:
-        xbmcgui.Dialog().notification('RusterWolf', 'Sin resultados', xbmcgui.NOTIFICATION_INFO)
+        xbmcgui.Dialog().notification('RusterWolf 77', 'Sin resultados', ADDON_ICON, 3000)
         xbmcplugin.endOfDirectory(HANDLE)
         return
     
-    # Separar películas y series
     movies = []
     series_map = {}
     
@@ -1387,13 +1379,11 @@ def do_search(q=None, original_params=None):
         if item_type == 'movie':
             movies.append(it)
         elif item_type in ('tv', 'series_documentary'):
-            # Agrupar series por título normalizado
             title = _get_item_title(it)
             if title:
                 key = normalize_title(title)
                 series_map.setdefault(key, []).append(it)
     
-    # Establecer tipo de contenido mixto (movies si hay más películas, tvshows si hay más series)
     try:
         if len(series_map) > len(movies):
             xbmcplugin.setContent(HANDLE, 'tvshows')
@@ -1402,24 +1392,26 @@ def do_search(q=None, original_params=None):
     except Exception:
         pass
     
+    tv_titles = [items_group[0].get('title') for items_group in series_map.values() if items_group and items_group[0].get('title')]
+    tv_stats = {}
+    if tv_titles:
+        from resources.lib.db import get_tv_watched_stats
+        tv_stats = get_tv_watched_stats(tv_titles, _get_played_keys())
+        
     dir_items = []
-    # Mostrar series agrupadas
     for key, items_group in sorted(series_map.items(), key=lambda x: x[0]):
-        # Elegir representante con mejor metadata
         rep = sorted(items_group, key=lambda x: (bool(x.get('poster')), bool(x.get('overview'))), reverse=True)[0]
-        li, url, is_folder = _create_item_and_url(rep, ADDON_FANART)
+        li, url, is_folder = _create_item_and_url(rep, ADDON_FANART, None, tv_stats)
         dir_items.append((url, li, is_folder))
     
-    # Mostrar películas
     for it in movies:
-        li, url, is_folder = _create_item_and_url(it, ADDON_FANART)
+        li, url, is_folder = _create_item_and_url(it, ADDON_FANART, None, tv_stats)
         dir_items.append((url, li, is_folder))
     
     xbmcplugin.addDirectoryItems(HANDLE, dir_items)
     xbmcplugin.endOfDirectory(HANDLE)
 
 def select_source(key=None, target_quality=None):
-    """Muestra un diálogo con las fuentes disponibles y reproduce la seleccionada."""
     it = None
     if key:
         try:
@@ -1429,19 +1421,18 @@ def select_source(key=None, target_quality=None):
         except Exception: it = None
 
     if not it:
-        xbmcgui.Dialog().notification('RusterWolf 77', 'Elemento no encontrado', xbmcgui.NOTIFICATION_ERROR)
+        xbmcgui.Dialog().notification('RusterWolf 77', 'Elemento no encontrado', ADDON_ICON, 3000)
         xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
         return
 
     title = it.get('title')
-    sources = it.get('torrents') or [] # La columna 'torrents' ahora contiene todas las fuentes
+    sources = it.get('torrents') or []
     
     if not sources:
-        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes disponibles', xbmcgui.NOTIFICATION_INFO)
+        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes disponibles', ADDON_ICON, 3000)
         xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
         return
 
-    # Ordenar por calidad: 4K > 1080p > 720p > etc.
     def _q_rank(t):
         q = str(t.get('quality') or '').lower()
         if '4k' in q or '2160' in q: return 10
@@ -1450,19 +1441,18 @@ def select_source(key=None, target_quality=None):
         return 0
     sources = sorted(sources, key=_q_rank, reverse=True)
 
-    # Filtro de calidad máxima según ajustes
     try:
         max_q_setting = ADDON.getSetting('max_quality')
-        if max_q_setting == '1': # 1080p
+        if max_q_setting == '1':
             sources = [s for s in sources if _q_rank(s) <= 9]
-        elif max_q_setting == '2': # 720p
+        elif max_q_setting == '2':
             sources = [s for s in sources if _q_rank(s) <= 8]
-        elif max_q_setting == '3': # SD
+        elif max_q_setting == '3':
             sources = [s for s in sources if _q_rank(s) < 8]
     except Exception: pass
 
     if not sources:
-        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes para la calidad elegida en Ajustes', xbmcgui.NOTIFICATION_INFO)
+        xbmcgui.Dialog().notification('RusterWolf 77', 'No hay fuentes para la calidad elegida en Ajustes', ADDON_ICON, 3000)
         xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
         return
 
@@ -1490,7 +1480,6 @@ def select_source(key=None, target_quality=None):
                 source_type = s.get('source', 'magnet')
                 q_str = str(s.get('quality', 'SD')).upper()
                 
-                # Colores identificativos por calidad
                 if '4K' in q_str or '2160' in q_str: color = 'gold'
                 elif '1080' in q_str: color = 'lawngreen'
                 elif '720' in q_str: color = 'deepskyblue'
@@ -1512,17 +1501,15 @@ def select_source(key=None, target_quality=None):
     url = selected_source.get('url') or selected_source.get('magnet')
 
     if not url:
-        xbmcgui.Dialog().notification('RusterWolf 77', 'Enlace no válido', xbmcgui.NOTIFICATION_ERROR)
+        xbmcgui.Dialog().notification('RusterWolf 77', 'Enlace no válido', ADDON_ICON, 3000)
         xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
         return
 
     play_item(url, source_type, key)
 
 def play_item(url, source_type, item_key):
-    """Función 'router' que decide qué reproductor usar y resuelve el enlace para Kodi."""
     final_url = None
     
-    # 1. Cargar la metadata completa del item para pasársela al reproductor
     it = None
     if item_key:
         try:
@@ -1531,11 +1518,9 @@ def play_item(url, source_type, item_key):
             it = items[0] if items else None
         except Exception: pass
 
-    # 2. Obtener las API keys de los ajustes
     alldebrid_api_key = ADDON.getSetting('alldebrid_api_key')
     realdebrid_api_key = ADDON.getSetting('realdebrid_api_key')
 
-    # 3. Decidir qué reproductor usar
     if source_type == '1fichier_palantir':
         if not alldebrid_api_key:
             xbmcgui.Dialog().ok("Acceso Requerido", "Esta fuente requiere una cuenta de AllDebrid.\nPor favor, introduce tu API Key en los ajustes del addon.")
@@ -1553,21 +1538,19 @@ def play_item(url, source_type, item_key):
                 if tr not in magnet: magnet += f"&tr={urllib.parse.quote(tr)}"
             return f'plugin://plugin.video.elementum/play?uri={urllib.parse.quote_plus(magnet)}'
         
-        # Prioridad Automática: AllDebrid -> Real-Debrid -> Elementum
         if alldebrid_api_key:
             used_debrid = True
             final_url = play_with_alldebrid(magnet_url, alldebrid_api_key)
         elif realdebrid_api_key:
             used_debrid = True
             final_url = play_with_realdebrid(magnet_url, realdebrid_api_key)
-        else: # Elementum
+        else:
             if not is_elementum_installed():
                 xbmcgui.Dialog().ok('Instalar Elementum', 'Para ver contenido gratuito (P2P) necesitas tener instalado el motor torrent "Elementum" en tu Kodi.\n\nPuedes descargarlo desde:\n[COLOR yellow]https://elementumorg.github.io[/COLOR]\n\nO si lo prefieres, configura una cuenta Premium (Debrid) en Ajustes.')
                 xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
                 return
             final_url = _get_elementum_url(magnet_url)
 
-        # Fallback a Elementum si usamos Debrid pero el enlace no está cacheado
         if not final_url and used_debrid:
             if is_elementum_installed():
                 if xbmcgui.Dialog().yesno('No en caché', 'Este archivo no está en la caché de tu Debrid.\n\n¿Deseas descargarlo y reproducirlo en tiempo real usando el motor gratuito Elementum?'):
@@ -1577,9 +1560,7 @@ def play_item(url, source_type, item_key):
                 xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
                 return
 
-    # 4. Guardar historial y resolver la URL para Kodi
     if final_url:
-        # Guardar historial para el sistema Up Next
         try:
             history_thread = threading.Thread(target=play_with_elementum, args=(url, it), daemon=True)
             history_thread.start()
@@ -1606,77 +1587,13 @@ def play_item(url, source_type, item_key):
                 xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
         
         xbmcgui.Window(10000).setProperty('Rusterwolf_Playing', 'true')
+        xbmcgui.Window(10000).setProperty('Rusterwolf_Playing_Key', item_key)
         xbmcplugin.setResolvedUrl(HANDLE, True, li)
     else:
         xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
 
 def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
-
-def run_one_time_cleanup():
-    """
-    Borra la antigua base de datos 'cache.db' del directorio de userdata
-    para liberar espacio tras la actualización al sistema de DB temporal.
-    Solo se ejecuta una vez.
-    """
-    try:
-        addon_id = ADDON.getAddonInfo('id')
-        userdata_dir = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
-        flag_file = os.path.join(userdata_dir, 'v3_db_migration.flag') # Nombre de flag específico
-        
-        if not xbmcvfs.exists(flag_file):
-            xbmc.log("RusterWolf: Ejecutando limpieza/migración única post-actualización...", xbmc.LOGINFO)
-            
-            old_db_path = os.path.join(userdata_dir, 'cache.db')
-            if xbmcvfs.exists(old_db_path):
-                if xbmcvfs.delete(old_db_path):
-                    xbmc.log("RusterWolf: Antigua 'cache.db' eliminada con éxito.", xbmc.LOGINFO)
-                    
-            old_bin_path = os.path.join(userdata_dir, 'archivos.bin')
-            if xbmcvfs.exists(old_bin_path):
-                xbmcvfs.delete(old_bin_path)
-                xbmc.log("RusterWolf: Antiguo 'archivos.bin' eliminado del userdata con éxito.", xbmc.LOGINFO)
-            
-            # Migración de historial antiguo a JSON
-            try:
-                import glob, sqlite3, time
-                from urllib.parse import urlparse, parse_qsl
-                
-                po = load_progress_override()
-                kodi_db_dir = os.path.join(xbmcvfs.translatePath('special://profile/'), 'Database')
-                kodi_dbs = glob.glob(os.path.join(kodi_db_dir, 'MyVideos*.db'))
-                if kodi_dbs:
-                    kodi_db = sorted(kodi_dbs, key=lambda p: os.path.getmtime(p), reverse=True)[0]
-                    conn = sqlite3.connect(kodi_db)
-                    cur = conn.cursor()
-                    cur.execute("SELECT strFilename FROM files WHERE strFilename LIKE 'plugin://plugin.video.rusterwolf77/%' AND (playCount > 0 OR idFile IN (SELECT idFile FROM bookmark WHERE type=1))")
-                    changed = False
-                    for row in cur.fetchall():
-                        qs = dict(parse_qsl(urlparse(row[0]).query))
-                        if 'key' in qs:
-                            key_val = qs['key']
-                            wtype = 'tv' if key_val.startswith('tv_') else 'movie'
-                            
-                            if wtype == 'tv':
-                                parts = key_val.split('_')
-                                if len(parts) >= 4:
-                                    val = "_".join(parts[1:-2])
-                                else: continue
-                            else:
-                                val = key_val
-                                
-                            if val not in po['manual'] and val not in po['hidden']:
-                                po['manual'][val] = {'wtype': wtype, 'title': val.replace('_', ' ').title(), 'added': time.time()}
-                                changed = True
-                    conn.close()
-                    if changed: save_progress_override(po)
-            except Exception as e:
-                xbmc.log(f"RusterWolf: Error migrando bookmarks a JSON: {e}", xbmc.LOGERROR)
-            
-            with xbmcvfs.File(flag_file, 'w') as f: f.write('done')
-            xbmc.log("RusterWolf: Flag de migración creado.", xbmc.LOGINFO)
-    except Exception as e:
-        xbmc.log(f"RusterWolf: Error durante la limpieza única: {e}", xbmc.LOGERROR)
 
 def router(params):
     import xbmc
@@ -1686,9 +1603,6 @@ def router(params):
     except Exception:
         page = 1
     xbmc.log(f"RusterWolf: router params={params}", xbmc.LOGDEBUG)
-    # Detectar si la petición incluye una búsqueda por URL (query/name/q) o
-    # el caso malformado action='search=texto' y, en ese caso, invocar
-    # do_search(prefill) para evitar abrir el teclado.
     if action == 'add_watchlist':
         action_add_watchlist(params)
         return
@@ -1705,11 +1619,9 @@ def router(params):
         q_param = None
         if isinstance(params, dict):
             q_param = params.get('query') or params.get('name') or params.get('q')
-        # Manejar acción malformada (ej. action='search=texto')
         if not q_param and isinstance(action, str) and action.startswith('search='):
             try:
                 q_param = action.split('=', 1)[1]
-                # Normalizar action para no romper el flujo
                 action = 'search'
             except Exception:
                 q_param = None
@@ -1720,20 +1632,7 @@ def router(params):
     except Exception:
         pass
         
-    if action == 'force_sync':
-        try:
-            import xbmcvfs, os
-            os.remove(os.path.join(xbmcvfs.translatePath(f"special://profile/addon_data/{ADDON.getAddonInfo('id')}"), 'last_update.txt'))
-        except Exception: pass
-        from resources.lib.db import maybe_update_db_from_remote
-        xbmcgui.Dialog().notification('RusterWolf', 'Descargando nueva BD...', xbmcgui.NOTIFICATION_INFO)
-        maybe_update_db_from_remote(force=True)
-        xbmc.executebuiltin('Container.Refresh')
-        return
-
-    # Soportar acciones explícitas para evitar depender de parámetros 'filter' que no siempre llegan
     if action in ('movie_menu', 'tv_menu', 'novedades_menu', 'continue_watching', 'favorites', 'documentary_main_menu', 'documentary_menu', 'series_documentary_menu', 'premium_menu', 'premium_movie_menu', 'premium_tv_menu'):
-        # acciones que muestran submenús para Películas/Series o pantallas especiales
         if action == 'movie_menu':
             movie_menu()
             return
@@ -1768,7 +1667,6 @@ def router(params):
             series_documentary_menu()
             return
     if action in ('list_movie', 'list_tv', 'list_documentary', 'list_series_documentary'):
-        # mapear acciones explícitas a un filter_type antes de llamar a list_items
         map_action = {
             'list_movie': 'movie',
             'list_tv': 'tv',
@@ -1781,12 +1679,8 @@ def router(params):
                    group_by=params.get('group'), genre_filter=params.get('genre'), year_filter=params.get('year'), quality_filter=params.get('quality'), letter_filter=params.get('letter'), collection_filter=params.get('collection'), original_params=params)
         return
     elif action == 'list':
-        # Si se solicitó agrupación (por género/año) pero no se indicó filter (movie/tv),
-        # intentar usar 'origin' como fallback cuando 'filter' no venga.
         flt = params.get('filter') or params.get('origin')
         
-        # Fallback en RAM: si una Skin recarga el contenedor y pierde los parámetros,
-        # leemos la URL original directamente de la memoria activa de Kodi sin usar el disco.
         if not flt:
             try:
                 parent_path = xbmc.getInfoLabel('Container.FolderPath')
@@ -1845,28 +1739,12 @@ if __name__ == '__main__':
     import xbmc
     xbmc.log(f"RusterWolf: __main__ params={params}", xbmc.LOGDEBUG)
 
-    # Limpieza única post-actualización (borrado de caché antigua)
-    run_one_time_cleanup()
+    try:
+        from resources.lib.db import ensure_session_db, _is_db_valid, maybe_update_db_from_remote
+        ensure_session_db()
+        if not _is_db_valid():
+            maybe_update_db_from_remote(force=False, silent=False)
+    except Exception as e:
+        xbmc.log(f'RusterWolf: Error validando DB inicial: {e}', xbmc.LOGERROR)
 
-    # Si se abre el addon sin parámetros (entrada principal), actualizar DB desde remote
-    is_entry = not params or not params.get('action')
-    if is_entry:
-        try:
-            from resources.lib.db import maybe_update_db_from_remote, init_db
-            if init_db:
-                init_db()
-                
-            if maybe_update_db_from_remote:
-                # Ejecución síncrona. No usamos hilos porque Kodi los mata al dibujar el menú.
-                maybe_update_db_from_remote(force=False)
-        except Exception as e:
-            xbmc.log(f'RusterWolf: Error en inicio de addon: {e}', xbmc.LOGERROR)
-    else:
-        try:
-            from resources.lib.db import ensure_session_db, _is_db_valid, maybe_update_db_from_remote
-            ensure_session_db()
-            # Si la BD no existe en Temp (ej. Android TV limpió la caché al reiniciar), la descargamos para los widgets
-            if not _is_db_valid():
-                maybe_update_db_from_remote(force=False)
-        except Exception: pass
     router(params)

@@ -25,7 +25,7 @@ def auth():
     progress = xbmcgui.DialogProgress()
     progress.create("Autenticación AllDebrid", f"Desde tu móvil o PC, visita:\n[B]{base_url}[/B]\nE ingresa el código: [B][COLOR yellow]{pin}[/COLOR][/B]\nEsperando autorización...")
 
-    expires_in = 600 # 10 minutos
+    expires_in = 600
     start_time = time.time()
     authorized = False
     apikey = ""

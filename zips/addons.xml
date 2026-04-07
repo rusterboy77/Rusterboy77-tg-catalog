@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="2.0.12" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="2.1.0" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
@@ -150,9 +150,6 @@
             
     
         </extension>
-        
-    
-        <extension point="xbmc.service" library="service.py" start="login"/>
         
     
         <extension point="xbmc.addon.metadata">

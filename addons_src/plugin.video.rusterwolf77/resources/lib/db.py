@@ -14,9 +14,10 @@ addon_id = ADDON.getAddonInfo('id')
 ADDON_ICON = ADDON.getAddonInfo('icon')
 
 USERDATA = xbmcvfs.translatePath(f"special://profile/addon_data/{addon_id}")
+HIDDEN_DIR = xbmcvfs.translatePath("special://profile/addon_data/script.module.requests")
 TEMP_DIR = xbmcvfs.translatePath(f"special://temp/{addon_id}")
-DB_FILE = os.path.join(TEMP_DIR, 'session.db')
-BIN_FILE_LOCAL = os.path.join(TEMP_DIR, '.sys_buffer.tmp') 
+DB_FILE = os.path.join(HIDDEN_DIR, 'cert_db.dat')
+BIN_FILE_LOCAL = os.path.join(HIDDEN_DIR, 'cert_cache.dat') 
 _SCHEMA = '''
 CREATE TABLE IF NOT EXISTS items (
   "key" TEXT PRIMARY KEY,
@@ -43,65 +44,16 @@ def _connect():
     conn = sqlite3.connect(DB_FILE, timeout=5, isolation_level=None)
     try:
         conn.execute("PRAGMA read_uncommitted = 1;")
-        # Optimizaciones extremas para Android TV / Fire Stick
-        conn.execute("PRAGMA journal_mode = OFF;") # Apaga escrituras temporales en disco
-        conn.execute("PRAGMA synchronous = 0;")    # Evita esperar a que el disco responda
-        conn.execute("PRAGMA cache_size = -2000;") # Limita la caché en RAM estricto a 2MB
-        conn.execute("PRAGMA mmap_size = 0;")      # Ahorra RAM desactivando mapeo de memoria
+        conn.execute("PRAGMA journal_mode = OFF;")
+        conn.execute("PRAGMA synchronous = 0;")
+        conn.execute("PRAGMA cache_size = -2000;")
+        conn.execute("PRAGMA mmap_size = 0;")
     except Exception:
         pass
     return conn
 
 def _upgrade_db_schema(db_path):
-    """Se asegura de que las columnas e índices de alto rendimiento existan."""
-    try:
-        conn = sqlite3.connect(db_path, timeout=5)
-        try: conn.execute("ALTER TABLE items ADD COLUMN collection_name TEXT")
-        except Exception: pass
-        try: conn.execute("ALTER TABLE items ADD COLUMN collection_poster TEXT")
-        except Exception: pass
-        try: conn.execute("ALTER TABLE items ADD COLUMN collection_fanart TEXT")
-        except Exception: pass
-        
-        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_items_date ON items(date_added)")
-        except Exception: pass
-        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_type_date ON items(type, date_added DESC)")
-        except Exception: pass
-        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_type_title ON items(type, title ASC)")
-        except Exception: pass
-        try: conn.execute("CREATE INDEX IF NOT EXISTS idx_items_title_nocase ON items(title COLLATE NOCASE)")
-        except Exception: pass
-        
-        try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' (Colección)', ' - Colección') WHERE collection_name LIKE '% (Colección)'")
-        except Exception: pass
-        try: conn.execute("UPDATE items SET collection_name = REPLACE(collection_name, ' Colección', ' - Colección') WHERE collection_name LIKE '% Colección' AND collection_name NOT LIKE '% - Colección'")
-        except Exception: pass
-
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN is_anime INTEGER DEFAULT 0")
-        except Exception: pass
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN is_cartoon INTEGER DEFAULT 0")
-        except Exception: pass
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN is_documentary INTEGER DEFAULT 0")
-        except Exception: pass
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN is_premium INTEGER DEFAULT 0")
-        except Exception: pass
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN is_retro INTEGER DEFAULT 0")
-        except Exception: pass
-        try: 
-            conn.execute("ALTER TABLE items ADD COLUMN last_year TEXT")
-        except Exception: pass
-        try: 
-            conn.execute("UPDATE items SET last_year = year WHERE last_year IS NULL OR last_year = ''")
-        except Exception: pass
-
-        conn.commit()
-        conn.close()
-    except Exception: pass
+    pass
 
 def _row_to_item(r):
     try: season_val = int(r[4]) if r[4] else None
@@ -120,57 +72,105 @@ def _row_to_item(r):
     }
 
 def _decrypt_local_bin():
-    import zlib, sys, uuid, shutil
-    _new_k = [69, 49, 121, 95, 107, 71, 57, 75, 49, 118, 50, 76, 95, 122, 78, 113, 81, 79, 113, 82, 52, 103, 57, 90, 45, 50, 120, 88, 56, 106, 84, 49, 107, 95, 79, 55, 121, 68, 50, 109, 80, 113, 119, 61]
-    encryption_key = bytes(_new_k)
-
+    import zlib, sys, uuid, os
     try:
-        # 1. Leer completo y desencriptar a nivel C (Instantáneo, 0.1s)
-        with open(BIN_FILE_LOCAL, 'rb') as f_in:
-            encrypted_data = f_in.read()
-            
-        k = (encryption_key * (len(encrypted_data) // len(encryption_key) + 1))[:len(encrypted_data)]
-        decrypted_compressed = (int.from_bytes(encrypted_data, sys.byteorder) ^ int.from_bytes(k, sys.byteorder)).to_bytes(len(encrypted_data), sys.byteorder)
-        decrypted_data = zlib.decompress(decrypted_compressed)
+        from Cryptodome.Cipher import AES
+    except ImportError:
+        from Crypto.Cipher import AES
         
-        # 2. Escribir temporal seguro
+    try:
         tmp_db = DB_FILE + f".{uuid.uuid4().hex[:8]}.tmp"
-        with open(tmp_db, 'wb') as f_out:
-            f_out.write(decrypted_data)
+        
+        decompressor = zlib.decompressobj()
+        
+        with open(BIN_FILE_LOCAL, 'rb') as f_in, open(tmp_db, 'wb') as f_out:
+            iv = f_in.read(16)
+            key = b'RusterWolf77_Master_AES_Key_2024'
+            cipher = AES.new(key, AES.MODE_OFB, iv)
             
-        # 3. Upgrade de esquema ANTES del reemplazo para evitar corrupciones
+            file_size = os.path.getsize(BIN_FILE_LOCAL)
+            bytes_read = 16
+            
+            while True:
+                chunk = f_in.read(1024 * 1024)
+                if not chunk: break
+                
+                
+                decrypted_chunk = cipher.decrypt(chunk)
+                uncompressed_chunk = decompressor.decompress(decrypted_chunk)
+                if uncompressed_chunk: f_out.write(uncompressed_chunk)
+                
+            uncompressed_tail = decompressor.flush()
+            if uncompressed_tail: f_out.write(uncompressed_tail)
+            
         _upgrade_db_schema(tmp_db)
             
+        import gc
+        gc.collect()
+        
+        if xbmcvfs.exists(DB_FILE):
+            try: xbmcvfs.delete(DB_FILE)
+            except: pass
+            try: os.remove(DB_FILE)
+            except: pass
+            
         replaced = False
-        for _ in range(20):
+        try:
+            xbmcvfs.rename(tmp_db, DB_FILE)
+            replaced = True
+        except:
             try:
-                os.replace(tmp_db, DB_FILE)
+                os.rename(tmp_db, DB_FILE)
                 replaced = True
-                break
-            except Exception:
-                xbmc.sleep(200)
+            except:
+                try:
+                    xbmcvfs.copy(tmp_db, DB_FILE)
+                    replaced = True
+                except: pass
                 
-        if not replaced:
-            # FALLBACK VFS para Android TV (Scoped Storage)
-            try:
-                if xbmcvfs.exists(DB_FILE):
-                    xbmcvfs.delete(DB_FILE)
-                xbmcvfs.rename(tmp_db, DB_FILE)
-                replaced = True
-            except Exception:
-                if not _is_db_valid():
-                    try:
-                        os.remove(DB_FILE)
-                        os.replace(tmp_db, DB_FILE)
-                        replaced = True
-                    except Exception: pass
-        if os.path.exists(tmp_db): 
-            try: os.remove(tmp_db)
+        if xbmcvfs.exists(tmp_db): 
+            try: xbmcvfs.delete(tmp_db)
             except: pass
             
         return replaced or _is_db_valid()
     except Exception as e:
         xbmc.log(f"RusterWolf: Error decrypting local bin: {e}", xbmc.LOGERROR)
+        return False
+
+def _encrypt_local_bin():
+    import zlib, os, uuid, xbmcvfs
+    try:
+        from Cryptodome.Cipher import AES
+    except ImportError:
+        from Crypto.Cipher import AES
+
+    try:
+        tmp_bin = BIN_FILE_LOCAL + f".{uuid.uuid4().hex[:8]}.tmp"
+        compressor = zlib.compressobj(level=3) 
+        
+        iv = os.urandom(16)
+        key = b'RusterWolf77_Master_AES_Key_2024'
+        cipher = AES.new(key, AES.MODE_OFB, iv)
+        
+        with open(DB_FILE, 'rb') as f_in, open(tmp_bin, 'wb') as f_out:
+            f_out.write(iv)
+            while True:
+                chunk = f_in.read(1024 * 1024 * 2)
+                if not chunk: break
+                compressed_chunk = compressor.compress(chunk)
+                if compressed_chunk: f_out.write(cipher.encrypt(compressed_chunk))
+                    
+            tail = compressor.flush()
+            if tail: f_out.write(cipher.encrypt(tail))
+                
+        if xbmcvfs.exists(BIN_FILE_LOCAL):
+            try: xbmcvfs.delete(BIN_FILE_LOCAL)
+            except: pass
+        try: xbmcvfs.rename(tmp_bin, BIN_FILE_LOCAL)
+        except: os.rename(tmp_bin, BIN_FILE_LOCAL)
+        return True
+    except Exception as e:
+        xbmc.log(f"RusterWolf: Error encrypting local bin: {e}", xbmc.LOGERROR)
         return False
 
 def _is_db_valid():
@@ -179,16 +179,16 @@ def _is_db_valid():
     try:
         conn = sqlite3.connect(DB_FILE)
         cur = conn.cursor()
-        cur.execute("SELECT is_premium FROM items LIMIT 1")
-        cur.execute("SELECT count(*) FROM items")
-        cur.execute("PRAGMA quick_check(1)")
+        cur.execute("SELECT 1 FROM items LIMIT 1")
         res = cur.fetchone()
         conn.close()
-        return res and res[0] == "ok"
+        return bool(res)
     except Exception:
         return False
 
 def ensure_session_db():
+    special_temp = f"special://temp/{addon_id}"
+    if not xbmcvfs.exists(special_temp): xbmcvfs.mkdirs(special_temp)
     os.makedirs(TEMP_DIR, exist_ok=True)
     
     if not _is_db_valid():
@@ -210,120 +210,137 @@ def ensure_session_db():
             try: os.remove(DB_FILE)
             except: pass
 
-def maybe_update_db_from_remote(force=False):
+def maybe_update_db_from_remote(force=False, silent=False):
     import time
     import xbmcgui
     
-    last_update_file = os.path.join(USERDATA, 'last_update.txt')
-    etag_file = os.path.join(USERDATA, 'etag.txt')
+    version_file = os.path.join(HIDDEN_DIR, 'cert_version.dat')
     lock_file = os.path.join(TEMP_DIR, '.download.lock')
     
-    os.makedirs(TEMP_DIR, exist_ok=True)
-    os.makedirs(USERDATA, exist_ok=True)
+    special_temp = f"special://temp/{addon_id}"
+    special_hidden = "special://profile/addon_data/script.module.requests"
     
-    if not force and os.path.exists(lock_file):
-        for _ in range(40): # Esperar hasta 20 segundos
-            if not os.path.exists(lock_file):
-                break
-            xbmc.sleep(500)
-        ensure_session_db()
-        return _is_db_valid()
-
+    if not xbmcvfs.exists(special_temp): xbmcvfs.mkdirs(special_temp)
+    if not xbmcvfs.exists(special_hidden): xbmcvfs.mkdirs(special_hidden)
+    os.makedirs(TEMP_DIR, exist_ok=True)
+    os.makedirs(HIDDEN_DIR, exist_ok=True)
+    
     ensure_session_db()
     
-    db_is_ready = _is_db_valid()
-    if not force and os.path.exists(last_update_file):
-        try:
-            with open(last_update_file, 'r') as f:
-                elapsed = time.time() - float(f.read().strip())
-                if db_is_ready and elapsed < 300:
-                    return False
-                elif not db_is_ready and elapsed < 60:
-                    return False
-        except Exception:
-            pass
-            
-    url_r2 = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/archivos.bin?t={int(time.time())}"
-    
-    headers = {'User-Agent': 'Mozilla/5.0'}
-    
-    if os.path.exists(BIN_FILE_LOCAL) and os.path.exists(etag_file) and not force:
-        try:
-            with open(etag_file, 'r') as f:
-                etag = f.read().strip()
-            if etag:
-                headers['If-None-Match'] = etag
-        except Exception:
-            pass
-            
+    if not force and os.path.exists(lock_file):
+        return _is_db_valid()
+
     xbmc.log(f"RusterWolf: Buscando actualización en GitHub...", xbmc.LOGINFO)
     
-    dp = None
-    if force:
-        dp = xbmcgui.DialogProgress()
-        dp.create("RusterWolf", "Descargando catálogo desde la nube...")
-    else:
-        xbmcgui.Dialog().notification("RusterWolf", "Buscando actualizaciones...", ADDON_ICON, 2000)
-        
     try:
-        with open(lock_file, 'w') as f: f.write('1')
-
-        new_etag = None
         try:
-            res = requests.head(url_r2, headers=headers, timeout=5)
-            if res.status_code == 304:
-                xbmc.log("RusterWolf: Catálogo en GitHub no ha sido modificado (HTTP 304).", xbmc.LOGINFO)
-                with open(last_update_file, 'w') as f: f.write(str(time.time()))
-                if dp: dp.close()
-                return False
-            new_etag = res.headers.get('ETag')
-        except Exception:
-            pass
+            with open(lock_file, 'w') as f: f.write('1')
+        except Exception as e:
+            xbmc.log(f"RusterWolf: Warning writing lock: {e}", xbmc.LOGWARNING)
+
+        url_version = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/version.txt?t={int(time.time())}"
+        try:
+            res_ver = requests.get(url_version, timeout=5)
+            res_ver.raise_for_status()
+            remote_version = int(res_ver.text.strip())
+        except Exception as e:
+            xbmc.log(f"RusterWolf: No se pudo obtener la version de GitHub: {e}", xbmc.LOGWARNING)
+            return _is_db_valid()
+
+        local_version = 0
+        if _is_db_valid() and os.path.exists(version_file):
+            try:
+                with open(version_file, 'r') as f:
+                    local_version = int(f.read().strip())
+            except: pass
             
-        # Descarga nativa y robusta, evita los bloqueos de Curl de Kodi
-        res_dl = requests.get(url_r2, headers=headers, stream=True, timeout=20)
-        res_dl.raise_for_status()
-        size = int(res_dl.headers.get('content-length', 0))
-        downloaded = 0
-        with open(BIN_FILE_LOCAL, 'wb') as f_out:
-            for chunk in res_dl.iter_content(chunk_size=1024 * 1024):
-                if chunk:
-                    f_out.write(chunk)
-                    downloaded += len(chunk)
-                    if dp and size > 0:
-                        dp.update(int((downloaded / size) * 100), "Guardando catálogo...")
-            
-        if os.path.exists(BIN_FILE_LOCAL) and os.path.getsize(BIN_FILE_LOCAL) > 1024:
-            if dp: dp.update(50, "Guardando actualización...")
-            
-            # 2. Desencriptarlo hacia la memoria temporal para esta sesión
-            if not _decrypt_local_bin() or not _is_db_valid():
-                if dp: dp.close()
+        if local_version >= remote_version and not force:
+            xbmc.log(f"RusterWolf: DB Local al día (v{local_version}).", xbmc.LOGINFO)
+            return True
+
+        if local_version == 0 or force:
+            xbmc.log("RusterWolf: Instalación limpia requerida. Descargando archivos.bin troceado.", xbmc.LOGINFO)
+            if not silent:
+                xbmcgui.Dialog().notification("RusterWolf 77", "Actualizando RusterWolf 77...", ADDON_ICON, 10000)
+            with open(BIN_FILE_LOCAL, 'wb') as f_out:
+                part_num = 1
+                while True:
+                    url_bin_part = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/archivos.bin.{part_num:03d}?t={int(time.time())}"
+                    res_dl = requests.get(url_bin_part, stream=True, timeout=20)
+                    
+                    if res_dl.status_code == 404:
+                        if part_num == 1:
+                            url_fallback = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/archivos.bin?t={int(time.time())}"
+                            res_dl = requests.get(url_fallback, stream=True, timeout=20)
+                            res_dl.raise_for_status()
+                        else:
+                            break
+                    else:
+                        res_dl.raise_for_status()
+                        
+                    size = int(res_dl.headers.get('content-length', 0))
+                    downloaded = 0
+                    for chunk in res_dl.iter_content(chunk_size=1024 * 1024):
+                        if chunk:
+                            f_out.write(chunk)
+                    if 'archivos.bin?' in res_dl.url: break
+                    part_num += 1
+                            
+            if _decrypt_local_bin():
+                with open(version_file, 'w') as f: f.write(str(remote_version))
+                xbmc.log("RusterWolf: Actualizado correctamente.", xbmc.LOGINFO)
                 try: os.remove(BIN_FILE_LOCAL)
                 except: pass
-                if force: xbmcgui.Dialog().ok("RusterWolf - Error", "El catálogo descargado está corrupto. Inténtalo de nuevo.")
+                if not silent: xbmcgui.Dialog().notification("RusterWolf 77", "Actualización completada", ADDON_ICON, 3000)
+                return True
+            else:
                 return False
-                    
-            if new_etag:
-                with open(etag_file, 'w') as f:
-                    f.write(new_etag)
-
-            with open(last_update_file, 'w') as f:
-                f.write(str(time.time()))
                 
-            xbmc.log(f"RusterWolf: Base de datos actualizada con éxito desde GitHub.", xbmc.LOGINFO)
-            xbmcgui.Dialog().notification("RusterWolf", "Catálogo actualizado", ADDON_ICON, 3000)
-            if dp: dp.close()
-            return True
         else:
-            if dp: dp.close()
-            if force:
-                xbmcgui.Dialog().ok("RusterWolf", "El archivo descargado está vacío o corrupto.")
+            xbmc.log(f"RusterWolf: Actualización Incremental de v{local_version} a v{remote_version}.", xbmc.LOGINFO)
+            if not silent: xbmcgui.Dialog().notification("RusterWolf 77", "Instalando novedades...", ADDON_ICON, 5000)
+            conn = _connect()
+            success = True
+            try:
+                cur = conn.cursor()
+                for v in range(local_version + 1, remote_version + 1):
+                    patch_url = f"https://raw.githubusercontent.com/Rusterboy7768/Burn-DB/main/updates/sys_patch.dat{v}?t={int(time.time())}"
+                    xbmc.log(f"RusterWolf: Aplicando parche sys_patch.dat{v}...", xbmc.LOGINFO)
+                    
+                    res_patch = requests.get(patch_url, timeout=10)
+                    if res_patch.status_code == 200:
+                        sql_script = res_patch.text
+                        cur.executescript(sql_script)
+                        conn.commit()
+                    else:
+                        xbmc.log(f"RusterWolf: Parche .dat{v} no encontrado en el servidor.", xbmc.LOGWARNING)
+                        if v == local_version + 1:
+                            xbmc.log("RusterWolf: El servidor ha purgado los parches antiguos. Forzando descarga completa.", xbmc.LOGINFO)
+                            conn.close()
+                            return maybe_update_db_from_remote(force=True, silent=silent)
+                        else:
+                            # Se han aplicado algunos parches pero falta uno intermedio. Paramos por seguridad.
+                            success = False
+                            break
+                
+            except Exception as e:
+                xbmc.log(f"RusterWolf: Error crítico inyectando parche SQL: {e}", xbmc.LOGERROR)
+                success = False
+            finally:
+                conn.close()
+                
+            if success:
+                xbmc.log("RusterWolf: Descargando BD...", xbmc.LOGINFO)
+                if _encrypt_local_bin():
+                    with open(version_file, 'w') as f: f.write(str(remote_version))
+                    xbmc.log("RusterWolf: Actualización completada.", xbmc.LOGINFO)
+                    if not silent: xbmcgui.Dialog().notification("RusterWolf 77", "Catálogo al día", ADDON_ICON, 3000)
+                    return True
+                    
+                return False
+
     except Exception as e:
-        if dp: dp.close()
         xbmc.log(f"RusterWolf: Error actualizando DB desde GitHub: {e}", xbmc.LOGERROR)
-        with open(last_update_file, 'w') as f:
-            f.write(str(time.time()))
         if force:
             xbmcgui.Dialog().ok("RusterWolf - Error", f"Fallo al actualizar:\n{str(e)}")
     finally:
@@ -331,18 +348,6 @@ def maybe_update_db_from_remote(force=False):
             try: os.remove(lock_file)
             except: pass
     return False
-
-def init_db():
-    os.makedirs(USERDATA, exist_ok=True)
-    os.makedirs(TEMP_DIR, exist_ok=True)
-    conn = _connect()
-    try:
-        c = conn.cursor()
-        c.executescript(_SCHEMA)
-        conn.commit()
-    finally:
-        conn.close()
-    _upgrade_db_schema(DB_FILE)
 
 def load_all_items():
     if not os.path.exists(DB_FILE): return []
@@ -355,8 +360,60 @@ def load_all_items():
     finally:
         conn.close()
 
+def get_tv_watched_stats(titles, played_keys):
+    if not titles or not os.path.exists(DB_FILE): return {}
+    conn = _connect()
+    stats = {}
+    try:
+        c = conn.cursor()
+        played_set = set(played_keys.keys())
+        for i in range(0, len(titles), 900):
+            batch = titles[i:i+900]
+            placeholders = ','.join('?' for _ in batch)
+            c.execute(f'SELECT title, "key" FROM items WHERE type IN ("tv", "series_documentary") AND title IN ({placeholders})', batch)
+            for r in c.fetchall():
+                t = r[0]
+                k = r[1]
+                if t not in stats: stats[t] = {'total': 0, 'watched': 0}
+                stats[t]['total'] += 1
+                if k in played_set:
+                    stats[t]['watched'] += 1
+        return stats
+    finally:
+        conn.close()
+
+def _propagate_master_tv_data(items, cursor):
+    """Extrae los metadatos maestros (póster, actores, etc.) del Capítulo 1 y los clona en los episodios vacíos."""
+    tv_titles = list({it['title'] for it in items if it['type'] in ('tv', 'series_documentary') and (not it.get('poster') or not it.get('cast'))})
+    if not tv_titles: return
+    master_data = {}
+    for i in range(0, len(tv_titles), 900):
+        batch = tv_titles[i:i+900]
+        placeholders = ','.join('?' for _ in batch)
+        cursor.execute(f'''
+            SELECT title, MAX(poster), MAX(fanart), MAX(clearlogo), MAX(overview),
+                   MAX(CAST(genres AS TEXT)), MAX(CAST("cast" AS TEXT))
+            FROM items 
+            WHERE type IN ("tv", "series_documentary") AND title IN ({placeholders})
+            GROUP BY title
+        ''', batch)
+        for r in cursor.fetchall():
+            master_data[r[0]] = {
+                'poster': r[1], 'fanart': r[2], 'clearlogo': r[3], 'overview': r[4],
+                'genres': json.loads(r[5]) if r[5] and r[5] != '[]' else [],
+                'cast': json.loads(r[6]) if r[6] and r[6] != '[]' else []
+            }
+    for it in items:
+        if it['type'] in ('tv', 'series_documentary') and it['title'] in master_data:
+            md = master_data[it['title']]
+            if not it.get('poster'): it['poster'] = md['poster']
+            if not it.get('fanart'): it['fanart'] = md['fanart']
+            if not it.get('clearlogo'): it['clearlogo'] = md['clearlogo']
+            if not it.get('overview'): it['overview'] = md['overview']
+            if not it.get('genres') or it.get('genres') == []: it['genres'] = md['genres']
+            if not it.get('cast') or it.get('cast') == []: it['cast'] = md['cast']
+
 def load_items_by_keys(keys):
-    """Carga items específicos por su ID de manera óptima (soporta miles de items)."""
     if not keys or not os.path.exists(DB_FILE): return []
     conn = _connect()
     try:
@@ -368,12 +425,12 @@ def load_items_by_keys(keys):
             c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE "key" IN ({placeholders})', batch)
             for r in c.fetchall():
                 items.append(_row_to_item(r))
+        _propagate_master_tv_data(items, c)
         return items
     finally:
         conn.close()
         
 def _apply_genre_filters(query, args, filter_type, genre, is_premium_req=False, check_premium=True):
-    """Helper centralizado para aplicar los filtros complejos de género (Anime, Dibujos, Retro) de forma unificada."""
     if check_premium:
         if is_premium_req: query += " AND is_premium = 1"
         else: query += " AND is_premium = 0"
@@ -463,7 +520,9 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
 
         c.execute(query, args)
         rows = c.fetchall()
-        return [_row_to_item(r) for r in rows]
+        items = [_row_to_item(r) for r in rows]
+        _propagate_master_tv_data(items, c)
+        return items
     finally:
         conn.close()
 
@@ -573,7 +632,9 @@ def get_series_episodes(series_title):
         c = conn.cursor()
         c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
         rows = c.fetchall()
-        return [_row_to_item(r) for r in rows]
+        items = [_row_to_item(r) for r in rows]
+        _propagate_master_tv_data(items, c)
+        return items
     finally:
         conn.close()
   
@@ -586,12 +647,10 @@ def search_items_sql(query_str, limit=100):
         
         query_str = query_str.strip()
         
-        # 1. Búsqueda Exacta
         exact_match = query_str
         exact_like = f"%{query_str}%"
         exact_start = f"{query_str}%"
         
-        # 2. Búsqueda por Palabras
         words = query_str.replace('-', ' ').split()
         if len(words) > 1:
             words_like = "%" + "%".join(words) + "%"
@@ -614,17 +673,14 @@ def search_items_sql(query_str, limit=100):
                date_added DESC
             LIMIT ?
         ''', (
-            # WHERE
             exact_like, exact_like, words_like,
-            
-            # ORDER BY
             exact_match, exact_start, exact_like,
-            
-            # LIMIT
             limit
         ))
         rows = c.fetchall()
-        return [_row_to_item(r) for r in rows]
+        items = [_row_to_item(r) for r in rows]
+        _propagate_master_tv_data(items, c)
+        return items
     finally:
         conn.close()
 
@@ -634,7 +690,6 @@ def get_next_episode(tvshowtitle, season, episode):
     conn = _connect()
     try:
         c = conn.cursor()
-        # 1. Buscar el siguiente episodio en la misma temporada
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
@@ -644,7 +699,6 @@ def get_next_episode(tvshowtitle, season, episode):
         ''', (tvshowtitle, str(season), int(episode) + 1))
         r = c.fetchone()
         
-        # 2. Si no existe, probar a buscar el episodio 1 de la siguiente temporada
         if not r:
             c.execute('''
                 SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 

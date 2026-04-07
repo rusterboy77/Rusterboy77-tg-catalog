@@ -19,7 +19,6 @@ SECTION_PLOTS = {
 }
 
 def _add_menu_item(handle, addon, addon_fanart, get_icon, get_logo, build_url, label, params, safe_id, is_folder=True):
-    """Helper interno para renderizar los elementos del menú evitando código repetido."""
     li = xbmcgui.ListItem(label)
     try:
         info = li.getVideoInfoTag()
@@ -94,7 +93,6 @@ def build_genre_sub_menu(handle, addon, addon_fanart, get_icon, get_logo, build_
     entries.append(('Añadidos Recientemente', {'action': 'novedades', 'sub': 'movies' if filter_type=='movie' else 'series', 'genre': genre_name, 'origin': filter_type, 'sort_by': 'date_added'}))
     entries.append(('Título', {'action': 'list', 'filter': filter_type, 'genre': genre_name, 'group': 'letter', 'origin': filter_type}))
     
-    # Excluimos las Colecciones de todas las Series
     if filter_type == 'movie':
         entries.append(('Colecciones', {'action': 'list', 'filter': filter_type, 'genre': genre_name, 'group': 'collection', 'origin': filter_type}))
         
