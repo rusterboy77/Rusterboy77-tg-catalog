@@ -450,9 +450,6 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None, tv_stats=None):
 
 def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None, tmdb_id=None):
     cm = []
-    if tmdb_id and item_type in ('movie', 'tv'):
-        cm.append(('Reparto y Tráiler', f'RunScript(plugin.video.themoviedb.helper, info=details, tmdb_id={tmdb_id}, type={item_type})'))
-        
     if item_type in ('movie', 'tv'):
         wl = get_cached_watchlist()
         po = get_cached_progress()
