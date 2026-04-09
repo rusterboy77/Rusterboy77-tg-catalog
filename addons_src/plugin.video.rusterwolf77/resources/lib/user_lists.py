@@ -284,6 +284,7 @@ def render_favorites(handle, addon_fanart, icon_path, section_logo,
     
     xbmcplugin.setContent(handle, 'movies')
     
+    
     if not wl:
         _render_empty_state(handle, addon_fanart, icon_path, section_logo, 'No hay elementos en Favoritos', 'favoritos')
         return

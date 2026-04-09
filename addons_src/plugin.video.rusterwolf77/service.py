@@ -143,6 +143,26 @@ class RusterWolfUpNextPlayer(xbmc.Player):
             next_ep = get_next_episode(tvshowtitle, season, episode)
             
             if next_ep:
+                # --- TMDB ON-THE-FLY FETCH PARA NEXT-UP ---
+                tmdb_id = next_ep.get('tmdb_id')
+                n_season = next_ep.get('season')
+                n_ep = next_ep.get('episode')
+                if tmdb_id and n_season is not None and n_ep is not None:
+                    try:
+                        import requests
+                        TMDB_API_KEY = "cf8575f10cca1a027a24435df5f7d12f"
+                        url = f"https://api.themoviedb.org/3/tv/{tmdb_id}/season/{n_season}/episode/{n_ep}?api_key={TMDB_API_KEY}&language=es-ES"
+                        res = requests.get(url, timeout=5).json()
+                        if res.get('name'):
+                            next_ep['episode_title'] = res.get('name')
+                        if res.get('overview'):
+                            next_ep['episode_overview'] = res.get('overview')
+                        if res.get('still_path'):
+                            next_ep['still_path'] = f"https://image.tmdb.org/t/p/w500{res['still_path']}"
+                    except Exception as e:
+                        log(f"Error al obtener datos del episodio desde TMDB: {e}")
+                # ------------------------------------------
+
                 next_title = next_ep.get('episode_title') or f"Episodio {next_ep['episode']}"
                 next_key = next_ep.get('key')
                 play_url = f"plugin://plugin.video.rusterwolf77/?action=select&key={urllib.parse.quote(next_key)}"

@@ -119,7 +119,7 @@
         
 
     </addon>
-    <addon id="plugin.video.rusterwolf77" version="2.1.0" name="RusterWolf 77" provider-name="Rusterboy77">
+    <addon id="plugin.video.rusterwolf77" version="2.1.1" name="RusterWolf 77" provider-name="Rusterboy77">
         
     
         <requires>
@@ -139,6 +139,9 @@
         
             <import addon="script.module.requests"/>
             
+        
+            <import addon="plugin.video.themoviedb.helper" version="5.0.0"/>
+            
     
         </requires>
         
@@ -155,10 +158,10 @@
         <extension point="xbmc.addon.metadata">
             
         
-            <summary lang="es">Catálogo de torrents con soporte Debrid y P2P</summary>
+            <summary lang="es">Catálogo de contenido con soporte Debrid y P2P</summary>
             
         
-            <description lang="es">Addon de video que ofrece reproducción instantánea mediante cuentas premium (Real-Debrid, AllDebrid) y mantiene la opción de reproducción P2P gratuita mediante Elementum.</description>
+            <description lang="es">¿Por qué elegir si puedes tenerlo todo? Disfruta de todo el contenido con cuenta Debrid o deja que Elementum haga su magia con el P2P gratuito. ¡Lo mejor de los dos mundos en un solo lugar!.</description>
             
         
             <platform>all</platform>
@@ -171,6 +174,9 @@
                 
             
                 <fanart>resources/media/fanart.jpeg</fanart>
+                
+            
+                <clearlogo>resources/media/clearlogo.png</clearlogo>
                 
         
             </assets>

@@ -133,7 +133,7 @@ def _get_section_logo(section_key):
         return None
     try:
         base_path = os.path.join(ADDON_PATH, 'resources', 'media')
-        for suffix in ['_logo_v2.png', '_logo.png', 'logo.png']:
+        for suffix in ['_logo_v3.png', '_logo_v2.png', '_logo.png', 'logo.png']:
             logo_path = os.path.join(base_path, f"{section_key}{suffix}")
             if os.path.exists(logo_path):
                 return logo_path
@@ -223,17 +223,9 @@ def _set_unique_ids(li, item_dict):
     if item_key:
         uids['rusterwolf'] = str(item_key)
         
-    tmdb_id = item_dict.get('tmdb_id')
-    is_episode = bool(item_dict.get('season')) and bool(item_dict.get('episode'))
-    
-    if tmdb_id and not is_episode:
-        uids['tmdb'] = str(tmdb_id)
-        li.setProperty('tmdb_id', str(tmdb_id))
-        
     if uids:
         try:
-            default_id = 'rusterwolf' if 'rusterwolf' in uids else 'tmdb'
-            li.getVideoInfoTag().setUniqueIDs(uids, default_id)
+            li.getVideoInfoTag().setUniqueIDs(uids, 'rusterwolf')
         except Exception:
             pass
 
@@ -322,12 +314,6 @@ def _get_item_year(it):
 
 def _apply_info_tag(li, info):
     try:
-        try:
-            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
-            li.setInfo('video', clean_info)
-        except Exception:
-            pass
-            
         if info.get('playcount', 0) > 0:
             li.setProperty('IsPlayed', 'true')
             
@@ -345,6 +331,11 @@ def _apply_info_tag(li, info):
         if info.get('year'):
             try:
                 tag.setYear(int(info.get('year')))
+            except Exception:
+                pass
+        if info.get('genre'):
+            try:
+                tag.setGenres([g.strip() for g in info.get('genre').split(',') if g.strip()])
             except Exception:
                 pass
         if info.get('rating'):
@@ -395,8 +386,8 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None, tv_stats=None):
         'year': int(it.get('year')) if it.get('year') and str(it.get('year')).isdigit() else None,
         'genre': ', '.join([g['name'] if isinstance(g, dict) and 'name' in g else str(g) for g in (_get_item_genres(it) or [])]),
         'rating': float(it.get('rating')) if it.get('rating') else None,
-        'cast': it.get('cast') or [],
-        'mediatype': m_type
+        'mediatype': m_type,
+        'duration': it.get('duration')
     }
     
     li = xbmcgui.ListItem(label=title)
@@ -442,10 +433,9 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None, tv_stats=None):
         
         is_watched = info.get('playcount', 0) > 0
         tn = normalize_title(title)
-        cm = generate_context_menu('tv', tn, title, is_watched, watched_eps=watched_eps, total_eps=total_eps, item_key=it.get('key'))
+        cm = generate_context_menu('tv', tn, title, is_watched, watched_eps=watched_eps, total_eps=total_eps, item_key=it.get('key'), tmdb_id=it.get('tmdb_id'))
     else:
         li.setProperty('IsPlayable', 'true')
-        li.setMimeType('application/x-bittorrent')
         item_key = it.get('key')
         q_params = {'action': 'select', 'key': item_key}
         if quality_filter: q_params['target_quality'] = quality_filter
@@ -453,13 +443,16 @@ def _create_item_and_url(it, addon_fanart, quality_filter=None, tv_stats=None):
         is_folder = False
         
         is_watched = info.get('playcount', 0) > 0
-        cm = generate_context_menu('movie', item_key, title, is_watched, item_key=item_key)
+        cm = generate_context_menu('movie', item_key, title, is_watched, item_key=item_key, tmdb_id=it.get('tmdb_id'))
             
     if cm: li.addContextMenuItems(cm)
     return li, url, is_folder
 
-def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None):
+def generate_context_menu(item_type, val, title, is_watched, watched_eps=0, total_eps=0, item_key=None, tmdb_id=None):
     cm = []
+    if tmdb_id and item_type in ('movie', 'tv'):
+        cm.append(('Reparto y Tráiler', f'RunScript(plugin.video.themoviedb.helper, info=details, tmdb_id={tmdb_id}, type={item_type})'))
+        
     if item_type in ('movie', 'tv'):
         wl = get_cached_watchlist()
         po = get_cached_progress()
@@ -1184,8 +1177,6 @@ def list_seasons(series, target_quality=None):
                 else:
                     info.pop('playcount', None)
                     
-            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
-            li.setInfo('video', clean_info)
             tag = li.getVideoInfoTag()
             tag.setTitle(f"Temporada {season}")
             tag.setTvShowTitle(series)
@@ -1233,10 +1224,49 @@ def list_episodes(series, season, target_quality=None):
     except Exception:
         catalog = []
     episodes = []
+    tmdb_id = None
     for it in catalog:
         if str(it.get('season') or (it.get('parsed') or {}).get('season') or '') != str(season):
             continue
         episodes.append(it)
+        if not tmdb_id and it.get('tmdb_id'):
+                tmdb_id = it.get('tmdb_id')
+                
+        tmdb_episodes = {}
+        if tmdb_id:
+            try:
+                import requests
+                import xbmcaddon, xbmcvfs, os, re
+                
+                tmdb_key = "f090bb54758cabf231fb605d3e3e0468"
+                try:
+                    user_key = xbmcaddon.Addon('plugin.video.themoviedb.helper').getSetting('tmdb_api_key')
+                    if user_key: tmdb_key = user_key
+                    else:
+                        helper_path = xbmcvfs.translatePath(xbmcaddon.Addon('plugin.video.themoviedb.helper').getAddonInfo('path'))
+                        const_file = os.path.join(helper_path, 'resources', 'lib', 'modules', 'constants.py')
+                        if os.path.exists(const_file):
+                            with open(const_file, 'r', encoding='utf-8') as f:
+                                match = re.search(r"TMDB_KEY\s*=\s*['\"]([^'\"]+)['\"]", f.read())
+                                if match: tmdb_key = match.group(1)
+                except Exception: pass
+                
+                url = f"https://api.themoviedb.org/3/tv/{tmdb_id}/season/{season}?api_key={tmdb_key}&language=es-ES"
+                res = requests.get(url, timeout=5).json()
+                
+                if 'episodes' in res:
+                    for ep in res['episodes']:
+                        ep_num = str(ep.get('episode_number'))
+                        tmdb_episodes[ep_num] = {
+                            'title': ep.get('name'),
+                            'overview': ep.get('overview'),
+                            'still_path': f"https://image.tmdb.org/t/p/w500{ep['still_path']}" if ep.get('still_path') else None,
+                            'air_date': ep.get('air_date'),
+                            'runtime': (ep.get('runtime') * 60) if ep.get('runtime') else 0
+                        }
+            except Exception as e:
+                import xbmc
+                xbmc.log(f"RusterWolf: Error al obtener datos de TMDB al vuelo: {e}", xbmc.LOGWARNING)
         
     try:
         xbmcplugin.setContent(HANDLE, 'episodes')
@@ -1252,6 +1282,16 @@ def list_episodes(series, season, target_quality=None):
             ep_num = int(it.get('episode') or 0)
         except Exception:
             ep_num = 0
+                
+        ep_str = str(ep_num)
+
+        if ep_str in tmdb_episodes:
+            on_the_fly = tmdb_episodes[ep_str]
+            if not it.get('episode_title'): it['episode_title'] = on_the_fly['title']
+            if not it.get('episode_overview'): it['episode_overview'] = on_the_fly['overview']
+            if not it.get('still_path'): it['still_path'] = on_the_fly['still_path']
+            if not it.get('air_date'): it['air_date'] = on_the_fly['air_date']
+            if not it.get('duration') and on_the_fly.get('runtime'): it['duration'] = on_the_fly['runtime']
 
         ep_title = it.get('episode_title') or it.get('title') or f"Episodio {ep_num}"
 
@@ -1264,7 +1304,8 @@ def list_episodes(series, season, target_quality=None):
             'episode': ep_num,
             'plot': ep_plot,
             'premiered': it.get('air_date') or it.get('date_added') or None,
-            'mediatype': 'episode'
+            'mediatype': 'episode',
+            'duration': it.get('duration')
         }
         
         item_key = it.get('key') if isinstance(it, dict) else None
@@ -1280,12 +1321,6 @@ def list_episodes(series, season, target_quality=None):
             li.setProperty('IsResumable', 'true')
             
         try:
-            clean_info = {k: v for k, v in info.items() if v is not None and k not in ('resume_time', 'resume_total', 'mediatype', 'episodes')}
-            li.setInfo('video', clean_info)
-        except Exception:
-            pass
-            
-        try:
             tag = li.getVideoInfoTag()
             tag.setTitle(info.get('title', ''))
             if info.get('plot'): tag.setPlot(info.get('plot'))
@@ -1297,6 +1332,8 @@ def list_episodes(series, season, target_quality=None):
                 tag.setEpisode(int(info.get('episode')))
             if info.get('premiered'):
                 tag.setFirstAired(info.get('premiered'))
+            if info.get('duration'):
+                tag.setDuration(info.get('duration'))
             if 'playcount' in info:
                 tag.setPlaycount(info['playcount'])
             if 'resume_time' in info and 'resume_total' in info:
@@ -1305,8 +1342,14 @@ def list_episodes(series, season, target_quality=None):
             pass
         try:
             poster = it.get('still_path') or it.get('poster') or it.get('fanart') or ''
+            if isinstance(it, dict):
+                it_art = it.copy()
+                it_art['poster'] = poster
+            else:
+                it_art = {'poster': poster, 'fanart': it.get('fanart') or ''}
+                
             try:
-                _apply_art(li, it if isinstance(it, dict) else {'poster': poster, 'fanart': it.get('fanart') or ''}, ADDON_FANART)
+                _apply_art(li, it_art, ADDON_FANART)
             except Exception:
                 if poster:
                     try:
@@ -1582,6 +1625,7 @@ def play_item(url, source_type, item_key):
                 media_type = it.get('type')
                 if media_type == 'tv': tag.setMediaType('episode')
                 elif media_type == 'movie': tag.setMediaType('movie')
+                if it.get('duration'): tag.setDuration(int(it.get('duration')))
                 _apply_art(li, it)
             except Exception as e:
                 xbmc.log(f"RusterWolf: error transfiriendo metadata al player: {e}", xbmc.LOGWARNING)
@@ -1742,8 +1786,16 @@ if __name__ == '__main__':
     try:
         from resources.lib.db import ensure_session_db, _is_db_valid, maybe_update_db_from_remote
         ensure_session_db()
+        
+        win = xbmcgui.Window(10000)
+        session_checked = win.getProperty('RusterWolf_Session_Updated')
+        
         if not _is_db_valid():
             maybe_update_db_from_remote(force=False, silent=False)
+            win.setProperty('RusterWolf_Session_Updated', 'true')
+        elif not session_checked:
+            maybe_update_db_from_remote(force=False, silent=False)
+            win.setProperty('RusterWolf_Session_Updated', 'true')
     except Exception as e:
         xbmc.log(f'RusterWolf: Error validando DB inicial: {e}', xbmc.LOGERROR)
 

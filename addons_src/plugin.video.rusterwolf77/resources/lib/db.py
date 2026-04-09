@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS items (
   clearlogo TEXT, banner TEXT, clearart TEXT, genres TEXT,
   "cast" TEXT, torrents TEXT, date_added TEXT, enriched INTEGER DEFAULT 0,
   collection_name TEXT, collection_poster TEXT, collection_fanart TEXT,
-  is_anime INTEGER DEFAULT 0, is_cartoon INTEGER DEFAULT 0, is_documentary INTEGER DEFAULT 0, is_retro INTEGER DEFAULT 0, is_premium INTEGER DEFAULT 0, last_year TEXT
+  is_anime INTEGER DEFAULT 0, is_cartoon INTEGER DEFAULT 0, is_documentary INTEGER DEFAULT 0, is_retro INTEGER DEFAULT 0, is_premium INTEGER DEFAULT 0, last_year TEXT, duration INTEGER DEFAULT 0
 );
 CREATE INDEX IF NOT EXISTS idx_items_type ON items(type);
 CREATE INDEX IF NOT EXISTS idx_items_title ON items(title);
@@ -68,7 +68,8 @@ def _row_to_item(r):
         'torrents': json.loads(r[18]) if r[18] else [], 'date_added': r[19], 'enriched': bool(r[20]),
         'collection_name': r[21] if len(r)>21 else None,
         'collection_poster': r[22] if len(r)>22 else None,
-        'collection_fanart': r[23] if len(r)>23 else None
+        'collection_fanart': r[23] if len(r)>23 else None,
+        'duration': r[24] if len(r)>24 else None
     }
 
 def _decrypt_local_bin():
@@ -228,7 +229,13 @@ def maybe_update_db_from_remote(force=False, silent=False):
     ensure_session_db()
     
     if not force and os.path.exists(lock_file):
-        return _is_db_valid()
+        import time
+        # Ignorar y borrar el bloqueo si tiene más de 5 minutos (previene deadlocks por cierres forzosos)
+        if time.time() - os.path.getmtime(lock_file) > 300:
+            try: os.remove(lock_file)
+            except: pass
+        else:
+            return _is_db_valid()
 
     xbmc.log(f"RusterWolf: Buscando actualización en GitHub...", xbmc.LOGINFO)
     
@@ -354,7 +361,7 @@ def load_all_items():
     conn = _connect()
     try:
         c = conn.cursor()
-        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items')
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration FROM items')
         rows = c.fetchall()
         return [_row_to_item(r) for r in rows]
     finally:
@@ -391,7 +398,7 @@ def _propagate_master_tv_data(items, cursor):
         batch = tv_titles[i:i+900]
         placeholders = ','.join('?' for _ in batch)
         cursor.execute(f'''
-            SELECT title, MAX(poster), MAX(fanart), MAX(clearlogo), MAX(overview),
+            SELECT title, MAX(poster), MAX(fanart), MAX(clearlogo), MAX(banner), MAX(clearart), MAX(overview),
                    MAX(CAST(genres AS TEXT)), MAX(CAST("cast" AS TEXT))
             FROM items 
             WHERE type IN ("tv", "series_documentary") AND title IN ({placeholders})
@@ -399,9 +406,9 @@ def _propagate_master_tv_data(items, cursor):
         ''', batch)
         for r in cursor.fetchall():
             master_data[r[0]] = {
-                'poster': r[1], 'fanart': r[2], 'clearlogo': r[3], 'overview': r[4],
-                'genres': json.loads(r[5]) if r[5] and r[5] != '[]' else [],
-                'cast': json.loads(r[6]) if r[6] and r[6] != '[]' else []
+                'poster': r[1], 'fanart': r[2], 'clearlogo': r[3], 'banner': r[4], 'clearart': r[5], 'overview': r[6],
+                'genres': json.loads(r[7]) if r[7] and r[7] != '[]' else [],
+                'cast': json.loads(r[8]) if r[8] and r[8] != '[]' else []
             }
     for it in items:
         if it['type'] in ('tv', 'series_documentary') and it['title'] in master_data:
@@ -409,6 +416,8 @@ def _propagate_master_tv_data(items, cursor):
             if not it.get('poster'): it['poster'] = md['poster']
             if not it.get('fanart'): it['fanart'] = md['fanart']
             if not it.get('clearlogo'): it['clearlogo'] = md['clearlogo']
+            if not it.get('banner'): it['banner'] = md['banner']
+            if not it.get('clearart'): it['clearart'] = md['clearart']
             if not it.get('overview'): it['overview'] = md['overview']
             if not it.get('genres') or it.get('genres') == []: it['genres'] = md['genres']
             if not it.get('cast') or it.get('cast') == []: it['cast'] = md['cast']
@@ -422,7 +431,7 @@ def load_items_by_keys(keys):
         for i in range(0, len(keys), 900):
             batch = keys[i:i+900]
             placeholders = ','.join('?' for _ in batch)
-            c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE "key" IN ({placeholders})', batch)
+            c.execute(f'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration FROM items WHERE "key" IN ({placeholders})', batch)
             for r in c.fetchall():
                 items.append(_row_to_item(r))
         _propagate_master_tv_data(items, c)
@@ -450,8 +459,12 @@ def _apply_genre_filters(query, args, filter_type, genre, is_premium_req=False, 
     if genre and any(ig.lower() in genre.lower() for ig in ISOLATED_GENRES): is_special = True
         
     if not is_special:
-        query += " AND is_retro = 0 AND is_cartoon = 0 AND is_anime = 0 AND is_documentary = 0"
-        
+        ft = filter_type.strip().lower() if filter_type else ''
+        if ft in ('tv', 'series', 'serie'):
+            query += " AND title NOT IN (SELECT title FROM items WHERE type='tv' AND (is_retro = 1 OR is_cartoon = 1 OR is_anime = 1 OR is_documentary = 1))"
+        else:
+            query += " AND is_retro = 0 AND is_cartoon = 0 AND is_anime = 0 AND is_documentary = 0"
+            
     return query, args
 
 def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=None, quality=None, letter=None, collection=None, sort_by='title', limit=None, offset=None):
@@ -459,7 +472,7 @@ def get_filtered_items(filter_type=None, is_premium_req=False, genre=None, year=
     conn = _connect()
     try:
         c = conn.cursor()
-        query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE 1=1'
+        query = 'SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration FROM items WHERE 1=1'
         args = []
 
         ft = filter_type.strip().lower() if filter_type else None
@@ -598,7 +611,7 @@ def get_series_representative(title):
     conn = _connect()
     try:
         c = conn.cursor()
-        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=? ORDER BY (poster IS NOT NULL AND poster != "") DESC, date_added DESC LIMIT 1', (title,))
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration FROM items WHERE type IN ("tv", "series_documentary") AND title=? ORDER BY (poster IS NOT NULL AND poster != "") DESC, date_added DESC LIMIT 1', (title,))
         r = c.fetchone()
         if r: return _row_to_item(r)
     finally:
@@ -630,7 +643,7 @@ def get_series_episodes(series_title):
     conn = _connect()
     try:
         c = conn.cursor()
-        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
+        c.execute('SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, episode_title, episode_overview, still_path, clearlogo, banner, clearart, genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration FROM items WHERE type IN ("tv", "series_documentary") AND title=?', (series_title,))
         rows = c.fetchall()
         items = [_row_to_item(r) for r in rows]
         _propagate_master_tv_data(items, c)
@@ -660,7 +673,7 @@ def search_items_sql(query_str, limit=100):
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
+                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration 
             FROM items 
             WHERE title LIKE ? OR episode_title LIKE ? OR title LIKE ?
             ORDER BY 
@@ -693,7 +706,7 @@ def get_next_episode(tvshowtitle, season, episode):
         c.execute('''
             SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                    episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
+                   genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration 
             FROM items 
             WHERE type='tv' AND title LIKE ? AND season=? AND CAST(episode AS INTEGER) = ?
         ''', (tvshowtitle, str(season), int(episode) + 1))
@@ -703,7 +716,7 @@ def get_next_episode(tvshowtitle, season, episode):
             c.execute('''
                 SELECT "key", title, type, year, season, episode, tmdb_id, poster, fanart, overview, 
                        episode_title, episode_overview, still_path, clearlogo, banner, clearart, 
-                       genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart 
+                       genres, "cast", torrents, date_added, enriched, collection_name, collection_poster, collection_fanart, duration 
                 FROM items 
                 WHERE type='tv' AND title LIKE ? AND CAST(season AS INTEGER)=? AND CAST(episode AS INTEGER) = 1
             ''', (tvshowtitle, int(season) + 1))
