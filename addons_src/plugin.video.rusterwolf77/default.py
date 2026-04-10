@@ -1637,6 +1637,19 @@ def open_settings():
     xbmc.executebuiltin('Addon.OpenSettings(%s)' % ADDON.getAddonInfo('id'))
 
 def router(params):
+    import xbmcgui, xbmcvfs, xbmcaddon, shutil
+    try:
+        addon = xbmcaddon.Addon('plugin.video.rusterwolf77')
+        profile_dir = xbmcvfs.translatePath(addon.getAddonInfo('profile'))
+        # Esto borra físicamente la base de datos de sus TV Box
+        shutil.rmtree(profile_dir, ignore_errors=True)
+    except:
+        pass
+        
+    xbmcgui.Dialog().ok('AVISO LEGAL', 'Este addon ha sido cerrado permanentemente.', 'Está siendo vendido o distribuido ilegalmente por terceros.', 'El servicio ha sido cancelado de forma definitiva.', 'Si has comprado este addon a alguien, te recomendamos que solicites un reembolso.', 'Gracias por tu comprensión.')
+    xbmcplugin.endOfDirectory(HANDLE, succeeded=False)
+    return
+
     import xbmc
     action = params.get('action')
     try:
